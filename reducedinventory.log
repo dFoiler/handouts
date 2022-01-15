@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2021) (preloaded format=pdflatex 2021.12.30)  14 JAN 2022 21:19
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2021) (preloaded format=pdflatex 2021.12.30)  15 JAN 2022 13:04
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1066,10 +1066,10 @@ Package mdframed Info: mdframed detected package amsthm
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
 (mdframed)              on input line 345.
+ [9]
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
 (mdframed)              on input line 377.
- [9]
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
 (mdframed)              on input line 382.
@@ -1101,7 +1101,7 @@ Here is how much of TeX's memory you used:
  1141 hyphenation exceptions out of 8191
  106i,12n,105p,749b,1118s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/local/texlive/2021/texmf-dist/fonts/enc/dvips/cantarell/a_tv3tjz.enc}{/usr/local/texlive/2021/texmf-dist/fonts/enc/dvips/cantarell/a_dr4czt.enc}{/usr/local/texlive/2021/texmf-dist/fonts/enc/dvips/cantarell/a_imucfy.enc}</usr/local/texlive/2021/texmf-dist/fonts/type1/gnome/cantarell/Cantarell-Bold.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/gnome/cantarell/Cantarell-Regular.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/gnome/cantarell/Cantarell-Regular.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi9.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmr9.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on /Users/dfoiler/Desktop/Program/TeX/handouts/reducedinventory.pdf (11 pages, 209374 bytes).
+Output written on /Users/dfoiler/Desktop/Program/TeX/handouts/reducedinventory.pdf (11 pages, 209322 bytes).
 PDF statistics:
  347 PDF objects out of 1000 (max. 8388607)
  300 compressed objects within 3 object streams

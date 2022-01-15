@@ -353,9 +353,9 @@ Note that it is possible for there to be no such map: take $R=\ZZ/6\ZZ$ and $R'=
 		\[\varphi(n+1)=\varphi(n)+1\]
 		is forced by hypothesis on $\varphi$, so $\varphi$ is forced entirely. In fact, the above discussion gives a construction of $\varphi$ which satisfies $\varphi(a+1)=\varphi(a)+1$ whenever $a,a+1\in R_n$, and then we get this also when $a,a+1\in R_{n+1}$ by noting the only extra condition to check is $a+1=n+1$, which is $\varphi(n+1)=\varphi(n)+1$.
 	\end{proof}
-	By the construction of the proof, we note that $\varphi_{n+1}|_{R_n}=\varphi_n$ for each $n\in N(R)$. One can also show this more directly by using the uniqueness of the lemma.
-
-	To finish, we let $\varphi_n:R_n\to R'$ be the functions promiseed by the lemma, and we define $\varphi:Z(R)\to R'$ by
+	To finish, we let $\varphi_n:R_n\to R'$ be the functions promiseed by the lemma; by the construction of the proof, we note that $\varphi_{n+1}|_{R_n}=\varphi_n$ for each $n\in N(R)$. One can also show this more directly by using the uniqueness of the lemma.
+	
+	Now, we define $\varphi:Z(R)\to R'$ by
 	\[\varphi(x):=\begin{cases}
 		\varphi_x(x) & x\in N(R), \\
 		0 & x=0, \\
