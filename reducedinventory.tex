@@ -322,7 +322,7 @@ Note that it is possible for there to be no such map: take $R=\ZZ/6\ZZ$ and $R'=
 	\begin{itemize}
 		\item Note that $\varphi_1(0)=0=\varphi_2(0)$.
 		\item We deal with the case $a\in N(R)$ by indution. Set
-		\[S:=\{a\in R:\varphi_1(a)-\varphi_2(a)\}.\]
+		\[S:=\{a\in R:\varphi_1(a)=\varphi_2(a)\}.\]
 		Note $1\in S$ because $\varphi_1(1)=1=\varphi_2(1).$ Further, if $a\in S,$ then
 		\[\varphi_1(a+1)=\varphi_1(a)+1=\varphi_2(a)+1=\varphi_2(a+1),\]
 		so $a+1\in S$. So it follows $N(R)\subseteq S$, as needed.
@@ -336,7 +336,7 @@ Note that it is possible for there to be no such map: take $R=\ZZ/6\ZZ$ and $R'=
 \begin{proof}
 	By \autoref{lem:atmostone}, it suffices to show that, for any ring $R',$ there exists a ring homomorphism $\varphi:Z(R)\to R'$. The main idea here is that sums of $1$s should go to sums of $1$s, which uniquely describes the morphism. Doing this formally requires some technical care.
 	
-	Fix our second ring $R'$, and note that $0\notin N(R)$ implies that $R$ satisfies trichotomy by \autoref{prop:easyinv1}, so we may give $R$ the ordering described in \autoref{lem:ordring}. Given $n\in N(R)$, we define
+	Fix our second ring $R'$, and note that $0\notin N(R)$ implies that $Z(R)$ satisfies trichotomy by \autoref{prop:easyinv1}, so we may give $R$ the ordering described in \autoref{lem:ordring}. Given $n\in N(R)$, we define
 	\[R_n:=\{a\in N(R):a\le n\}.\]
 	Observe that, by \autoref{prop:natind}, each $a\in N(R)$ has $a=1$ or $a-1\in N(R)$, so in either case $a\ge1$. In particular, if $a<n+1$, then $n+1-a\in N(R)$, so $n+1-a\ge1$, so $a\le n$. It follows that
 	\[R_{n+1}=\{a\in N(R):a<n+1\text{ or }a=n+1\}=R_n\cup\{n+1\}.\]
