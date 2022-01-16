@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2021) (preloaded format=pdflatex 2021.12.30)  15 JAN 2022 13:04
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2021) (preloaded format=pdflatex 2021.12.30)  15 JAN 2022 18:37
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -995,116 +995,123 @@ Package mdframed Info: mdframed detected package amsthm
  changed the theorem header of amsthm
 (mdframed)              on input line 98.
 Package hyperref Info: bookmark level for unknown proposition defaults to 0 on input line 98.
+Package mdframed Info: mdframed detected package amsthm 
+ changed the theorem header of amsthm
+(mdframed)              on input line 113.
  [3]
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
-(mdframed)              on input line 116.
+(mdframed)              on input line 126.
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
-(mdframed)              on input line 134.
-Package hyperref Info: bookmark level for unknown remark defaults to 0 on input line 134.
+(mdframed)              on input line 144.
+Package hyperref Info: bookmark level for unknown remark defaults to 0 on input line 144.
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
-(mdframed)              on input line 137.
+(mdframed)              on input line 147.
  [4]
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
-(mdframed)              on input line 167.
+(mdframed)              on input line 177.
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
-(mdframed)              on input line 172.
+(mdframed)              on input line 182.
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
-(mdframed)              on input line 175.
-Package hyperref Info: bookmark level for unknown nex defaults to 0 on input line 175.
+(mdframed)              on input line 185.
+Package hyperref Info: bookmark level for unknown nex defaults to 0 on input line 185.
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
-(mdframed)              on input line 178.
+(mdframed)              on input line 188.
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
-(mdframed)              on input line 183.
-Package mdframed Info: mdframed detected package amsthm 
- changed the theorem header of amsthm
-(mdframed)              on input line 202.
+(mdframed)              on input line 193.
  [5]
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
-(mdframed)              on input line 225.
+(mdframed)              on input line 212.
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
-(mdframed)              on input line 241.
-Package mdframed Info: mdframed detected package amsthm 
- changed the theorem header of amsthm
-(mdframed)              on input line 245.
-Package mdframed Info: mdframed detected package amsthm 
- changed the theorem header of amsthm
-(mdframed)              on input line 248.
-Package mdframed Info: mdframed detected package amsthm 
- changed the theorem header of amsthm
-(mdframed)              on input line 251.
+(mdframed)              on input line 234.
  [6]
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
-(mdframed)              on input line 281.
+(mdframed)              on input line 258.
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
-(mdframed)              on input line 287.
+(mdframed)              on input line 262.
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
-(mdframed)              on input line 292.
+(mdframed)              on input line 265.
+Package mdframed Info: mdframed detected package amsthm 
+ changed the theorem header of amsthm
+(mdframed)              on input line 268.
  [7]
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
-(mdframed)              on input line 300.
+(mdframed)              on input line 298.
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
-(mdframed)              on input line 316.
+(mdframed)              on input line 302.
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
-(mdframed)              on input line 333.
+(mdframed)              on input line 307.
+Package mdframed Info: mdframed detected package amsthm 
+ changed the theorem header of amsthm
+(mdframed)              on input line 312.
+Package mdframed Info: mdframed detected package amsthm 
+ changed the theorem header of amsthm
+(mdframed)              on input line 320.
  [8]
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
-(mdframed)              on input line 345.
+(mdframed)              on input line 336.
+Package mdframed Info: mdframed detected package amsthm 
+ changed the theorem header of amsthm
+(mdframed)              on input line 353.
+Package mdframed Info: mdframed detected package amsthm 
+ changed the theorem header of amsthm
+(mdframed)              on input line 365.
  [9]
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
-(mdframed)              on input line 377.
+(mdframed)              on input line 397.
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
-(mdframed)              on input line 382.
-Package hyperref Info: bookmark level for unknown theorem defaults to 0 on input line 382.
-Package mdframed Info: mdframed detected package amsthm 
- changed the theorem header of amsthm
-(mdframed)              on input line 390.
-Package mdframed Info: mdframed detected package amsthm 
- changed the theorem header of amsthm
-(mdframed)              on input line 406.
-Package mdframed Info: mdframed detected package amsthm 
- changed the theorem header of amsthm
-(mdframed)              on input line 413.
+(mdframed)              on input line 402.
+Package hyperref Info: bookmark level for unknown theorem defaults to 0 on input line 402.
  [10]
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
-(mdframed)              on input line 424.
-Package hyperref Info: bookmark level for unknown todo defaults to 0 on input line 430.
- [11] (/Users/dfoiler/Desktop/Program/TeX/handouts/reducedinventory.aux)
+(mdframed)              on input line 410.
+Package mdframed Info: mdframed detected package amsthm 
+ changed the theorem header of amsthm
+(mdframed)              on input line 426.
+Package mdframed Info: mdframed detected package amsthm 
+ changed the theorem header of amsthm
+(mdframed)              on input line 433.
+Package mdframed Info: mdframed detected package amsthm 
+ changed the theorem header of amsthm
+(mdframed)              on input line 444.
+ [11]
+Package hyperref Info: bookmark level for unknown todo defaults to 0 on input line 450.
+ [12] (/Users/dfoiler/Desktop/Program/TeX/handouts/reducedinventory.aux)
 Package rerunfilecheck Info: File `reducedinventory.out' has not changed.
 (rerunfilecheck)             Checksum: 44A289C0ED2E7745414B89A6269B9FA5;1072.
  ) 
 Here is how much of TeX's memory you used:
- 27613 strings out of 478994
- 516743 string characters out of 5858183
- 832171 words of memory out of 5000000
- 44402 multiletter control sequences out of 15000+600000
+ 27624 strings out of 478994
+ 516936 string characters out of 5858183
+ 832331 words of memory out of 5000000
+ 44408 multiletter control sequences out of 15000+600000
  418106 words of font info for 81 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  106i,12n,105p,749b,1118s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/local/texlive/2021/texmf-dist/fonts/enc/dvips/cantarell/a_tv3tjz.enc}{/usr/local/texlive/2021/texmf-dist/fonts/enc/dvips/cantarell/a_dr4czt.enc}{/usr/local/texlive/2021/texmf-dist/fonts/enc/dvips/cantarell/a_imucfy.enc}</usr/local/texlive/2021/texmf-dist/fonts/type1/gnome/cantarell/Cantarell-Bold.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/gnome/cantarell/Cantarell-Regular.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/gnome/cantarell/Cantarell-Regular.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi9.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmr9.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on /Users/dfoiler/Desktop/Program/TeX/handouts/reducedinventory.pdf (11 pages, 209322 bytes).
+Output written on /Users/dfoiler/Desktop/Program/TeX/handouts/reducedinventory.pdf (12 pages, 212629 bytes).
 PDF statistics:
- 347 PDF objects out of 1000 (max. 8388607)
- 300 compressed objects within 3 object streams
- 96 named destinations out of 1000 (max. 500000)
+ 362 PDF objects out of 1000 (max. 8388607)
+ 313 compressed objects within 4 object streams
+ 101 named destinations out of 1000 (max. 500000)
  165 words of extra memory for PDF output out of 10000 (max. 10000000)
 

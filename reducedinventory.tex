@@ -27,11 +27,11 @@
 \newpage
 
 \section{Review of the Reduced Inventory}
-In the discussion that follows, all rings are commutative with identity, as God intended.
+In the discussion that follows, all rings have identity, as God intended. We will not require that all rings be commutative.
 
 To review, in first-year number theory, one builds the following reduced inventory which suffices to characterize $\ZZ.$
 \begin{inv}[Reduced inventory, I] \label{inv:redinvent}
-	We have that $\ZZ$ is a ring with the following properties.
+	We have that $\ZZ$ is a commutative ring with the following properties.
 	\begin{enumerate}
 		\item There is a nonempty subset $\NN\subseteq\ZZ$ with the following properties.
 		\begin{itemize}
@@ -109,6 +109,16 @@ While we're here, we pick up some facts about $N(R).$
 		We apply induction. Observe that $a\in N(R)$ implies that $a\cdot1=a\in N(R),$ so $1\in S_\times.$ Additionally, $b\in S_+$ and $a\in N(R)$ implies that $ab\in N(R),$ so $ab+a\in N(R),$ so $a(b+1)\in N(R).$ Thus, $b+1\in S_\times$ follows.
 		\qedhere
 	\end{itemize}
+\end{proof}
+\begin{proposition} \label{prop:multcomm}
+	Fix $R$ a ring. Then multiplication commutes in $N(R)$.
+\end{proposition}
+\begin{proof}
+	This is another induction. Fixing some $a\in N(R)$, we have to show that $ab=ba$ for each $b\in N(R)$. (In fact, we will be able to take $a\in R$, but we will not need this generality.) So we set
+	\[C(a):=\{b\in R:ab=ba\}.\]
+	Observe that $1\in C(a)$ because $a\cdot1=a=1\cdot a$. Additionally, if $b\in C(a)$, then
+	\[a(b+1)=ab+a=ba+a=(b+1)a,\]
+	so $b+1\in C(a)$ as well. This completes the induction.
 \end{proof}
 At this point, we may say that $N(R)$ is more or less the minimal subset of $R$ which contains $1$ and is closed under addition. Namely, the definition asserts minimality under $+1,$ but this implies closure under addition as shown above anyways.
 
@@ -221,7 +231,7 @@ And now we prove well-ordering.
 	Now, $S'\subseteq N(R)$ has a strict upper bound (e.g., $n+1$) and is nonempty because $n\in S'$, so by the discussion above, $S'$ has a minimal element. Beacuse $S$ will only add larger elements to $S',$ we see that $S$ and $S'$ share a minimal element, so $S$ has a minimal element. This finishes.
 \end{proof}
 Thus, having more or less verified well-ordering, we have reduced checking that \autoref{inv:zinit} implies \autoref{inv:redinvent} to merely showing that our initial ring $\ZZ$ satisfies trichotomy. We can codify this thinking into the following result.
-\begin{proposition}
+\begin{proposition} \label{prop:inv1istrich}
 	Fix $\ZZ$ a ring. Then $\ZZ$ satisfies \autoref{inv:redinvent} if and only if $\ZZ$ satisfies trichotomy.
 \end{proposition}
 \begin{proof}
@@ -229,6 +239,13 @@ Thus, having more or less verified well-ordering, we have reduced checking that 
 
 	In the other direction, suppose that $\ZZ$ satisfies trichotomy. Then, setting $\NN:=N(\ZZ)$, we can check through the conditions of \autoref{inv:redinvent} to see that a ring $\ZZ$ satisfying trichotomy will satisfy each condition of \autoref{inv:redinvent}.
 	\begin{itemize}
+		\item Technically we must check that $\ZZ$ is a commutative ring. Fixing some $a,b\in\ZZ$, we have the following checks, by trichotomy.
+		\begin{itemize}
+			\item If $a=0$ or $b=0$, then $ab=ba=0$.
+			\item If $a,b\in N(R)$, then $ab=ba$ by \autoref{prop:multcomm}.
+			\item If $a,b\in-N(R)$, then $ab=(-a)(-b)=(-b)(-a)=ab$ by \autoref{prop:multcomm} again.
+			\item If one of $\{a,b\}$ is in $N(R)$ while the other is in $-N(R)$, then without loss of generality, $a\in N(R)$ while $b\in-N(R)$. Then $ab=-a(-b)=-(-b)a=ba$ by \autoref{prop:multcomm} once more.
+		\end{itemize}
 		\item We see $\NN$ is closed under $+$ and $\times$ by \autoref{prop:natclosed}.
 		\item We see that $\ZZ$ has the needed trichotomy directly from satisfying trichotomy.
 		\item We see $\NN$ satisfies well-ordering by \autoref{lem:provewellorder}.
@@ -281,6 +298,9 @@ The point of introducing $Z(R)$ is to hope that we can reduce our study of trich
 	In fact, $Z(R)$ can be shown to be the smallest subring of $R.$ Indeed, we already know that $Z(R)$ is a subring. On the other hand, fix $R'$ a subring. Note $0\in R'.$ Additionally, we need $1\in R',$ and closure under addition forces $a\in R'$ to imply $a+1\in R',$ so $N(R)\subseteq R'.$ Lastly, closure under negation forces each $n\in N(R)$ to have $-n\in R'.$ So indeed, $Z(R)\subseteq R'.$
 \end{remark}
 In fact, given the addition on $N(R),$ there is exactly one multiplication we can supply for $Z(R)$ which satisfies the distributive law, provided that the generator of $N(R)$ is the multiplicative identity. We will not show this here, but it follows from an induction.
+\begin{remark}
+	In fact, $Z(R)$ is also a commutative ring. The check is identical to the one we did in \autoref{prop:inv1istrich}.
+\end{remark}
 
 \section{Removing Trichotomy}
 Anyways, as promised trichotomy for $Z(R)$ is easier than for general rings.
@@ -407,7 +427,7 @@ The main point of this result is that we can carry around the $0\in N(R)$ condit
 	Suppose $\ZZ$ is a ring satisfying \autoref{inv:zinit}; i.e., $\ZZ$ is initial in $\mathrm{Ring}$. Then $0\in N(\ZZ)$ if and only if $0\in N(R)$ for all rings $R$.
 \end{corollary}
 \begin{proof}
-	Fix $R$ a ring. By hypothesis on $\ZZ$, there is a ring homomorphism $\varphi:\ZZ\to R$, and by \autoref{prop:homonnat}, we see that $0=\varphi(0)\in\varphi(N(\ZZ))=\varphi(N(R))$.
+	Fix $R$ a ring. By hypothesis on $\ZZ$, there is a ring homomorphism $\varphi:\ZZ\to R$, and by \autoref{prop:homonnat}, we see that $0=\varphi(0)\in\varphi(N(\ZZ))=N(R)$.
 \end{proof}
 This gives the following test.
 \begin{proposition} \label{prop:thetest}
@@ -429,7 +449,8 @@ This gives the following test.
 \section{Construction of a Ring}
 By \autoref{prop:thetest}, we see that showing \autoref{inv:zinit} implies that \autoref{inv:redinvent} comes down to construcing a ring $R$ such that $0\notin N(R)$. I am not aware of any clean way to do this.\todo{}
 
-% I feel like I can show Z(R) = Z(R') for any rings R and R'
-% This provides a morphism Z(R) -> Z(R') -> R' for any ring R'
+At a high level, the chief annoyance with constructing such a ring $R$ is that $R$ is going to have to be an infinite set; in particular, if $N(R)$ were finite, then $(Z(R),+)$ would be a finite group, so the element $1$ would have finite additive order, forcing $0\in N(R)$.
+
+However, it is no easy task to construct an infinite set.
 
 \end{document}
