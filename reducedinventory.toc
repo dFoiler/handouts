@@ -1,7 +1,1 @@
 \contentsline {section}{\numberline {0}Review of the Reduced Inventory}{2}{section.0}%
-\contentsline {section}{\numberline {1}Constructing Naturals}{2}{section.1}%
-\contentsline {section}{\numberline {2}Achieving Well-Ordering}{5}{section.2}%
-\contentsline {section}{\numberline {3}Constructing Integers}{7}{section.3}%
-\contentsline {section}{\numberline {4}Removing Trichotomy}{8}{section.4}%
-\contentsline {section}{\numberline {5}Setting Up}{11}{section.5}%
-\contentsline {section}{\numberline {6}Construction of a Ring}{12}{section.6}%
