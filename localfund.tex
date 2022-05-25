@@ -52,11 +52,11 @@ To help us a little later, we will assume that the extension $\QQ_p(\zeta_N)/\QQ
 	In light of these isomorphisms, we will upgrade $\overline\sigma_K$ to the automorphism of $\QQ_p(\zeta_N)/\QQ_p$ sending $\zeta_m\mapsto\zeta_m^p$ and fixing $\QQ_p(\zeta_{p^\nu})$; we do analogously for $\sigma_x$. We also acknowledge that our degree is
 	\[n\coloneqq[\QQ_p(\zeta_N):\QQ_p]=[\QQ_p(\zeta_m):\QQ_p]\cdot[\QQ_p(\zeta_{p^\nu}):\QQ_p]=f\varphi\left(p^\nu\right).\]
 \end{itemize}
-For brevity, we will also set $K_1\coloneqq\QQ_p(\zeta_{p^\nu})$ and $K_2\coloneqq\QQ_p(\zeta_m)$, which makes the fields under $L$ look like the following.
+For brevity, we will also set $L_1\coloneqq\QQ_p(\zeta_{p^\nu})$ and $L_2\coloneqq\QQ_p(\zeta_m)$, which makes the fields under $L$ look like the following.
 % https://q.uiver.app/?q=WzAsNCxbMSwyLCJLIl0sWzAsMSwiS18xIl0sWzIsMSwiS18yIl0sWzEsMCwiTCJdLFswLDEsIiIsMCx7InN0eWxlIjp7ImhlYWQiOnsibmFtZSI6Im5vbmUifX19XSxbMSwzLCIiLDAseyJzdHlsZSI6eyJoZWFkIjp7Im5hbWUiOiJub25lIn19fV0sWzAsMiwiIiwyLHsic3R5bGUiOnsiaGVhZCI6eyJuYW1lIjoibm9uZSJ9fX1dLFsyLDMsIiIsMix7InN0eWxlIjp7ImhlYWQiOnsibmFtZSI6Im5vbmUifX19XV0=&macro_url=https%3A%2F%2Fraw.githubusercontent.com%2FdFoiler%2Fnotes%2Fmaster%2Fnir.tex
 \[\begin{tikzcd}
 	& L \\
-	{K_1} && {K_2} \\
+	{L_1} && {L_2} \\
 	& K
 	\arrow[no head, from=3-2, to=2-1]
 	\arrow[no head, from=2-1, to=1-2]
@@ -526,9 +526,102 @@ We summarize the results above in the following theorem.
 	\[(\alpha_1,\alpha_2,\beta)\coloneqq\left(\sigma_K^f(\alpha)\cdot\prod_{i=0}^{f-1}\sigma_K^i\left(I_{c(\sigma_K)}\right),\quad\prod_{i=0}^{\varphi\left(p^\nu\right)-1}\sigma_x^i\left(I_{c(\sigma_x)}\right),\quad\frac{\sigma_K\left(I_{c(\sigma_x)}\right)}{I_{c(\sigma_x)}}\cdot\frac{I_{c(\sigma_K)}}{\sigma_x\left(I_{c(\sigma_K)}\right)}\right)\]
 	corresponds to the fundamental class $u_{L/K}\in H^2(\op{Gal}(L/K),L^\times)$.
 \end{theorem}
+We remark that we can replace $\alpha$ with $\sigma_K^f(\alpha)$ (which still has norm $p$) while keeping all other variables the same; this gives us the following slightly prettier presentation. Note that we have multiplied the equations for $I_\bullet$ by $\sigma_K^f$ on both sides.
+\begin{corollary} \label{cor:fundtriple}
+	Fix everything as in the set-up. Then there exists some $\alpha\in ML^\times$ such that $\op N_{ML/L}(\alpha)=p$ and elements in $I_{c(\sigma_K)},I_{c(\sigma_x)}\in ML^\times$ such that
+	\[\frac{I_{c(\sigma_K)}}{\sigma_K^f\left(I_{c(\sigma_K)}\right)}=\frac{\sigma_K(\alpha)}{\alpha}\qquad\text{and}\qquad\frac{I_{c(\sigma_x)}}{\sigma_K^f\left(I_{c(\sigma_x)}\right)}=\frac{\sigma_x(\alpha)}{\alpha}.\]
+	Then the triple
+	\[(\alpha_1,\alpha_2,\beta)\coloneqq\left(\alpha\cdot\prod_{i=0}^{f-1}\sigma_K^i\left(I_{c(\sigma_K)}\right),\quad\prod_{i=0}^{\varphi\left(p^\nu\right)-1}\sigma_x^i\left(I_{c(\sigma_x)}\right),\quad\frac{\sigma_K\left(I_{c(\sigma_x)}\right)}{I_{c(\sigma_x)}}\cdot\frac{I_{c(\sigma_K)}}{\sigma_x\left(I_{c(\sigma_K)}\right)}\right)\]
+	corresponds to the fundamental class $u_{L/K}\in H^2(\op{Gal}(L/K),L^\times)$.
+\end{corollary}
 
 \subsection{Checks and Consequences}
-In this section we run some checks and discuss some consequences of \autoref{thm:fundtriple}.
+In this section we run some checks and discuss some consequences of \autoref{thm:fundtriple}, in the form of \autoref{cor:fundtriple}. For these results, we recall that we set $L\coloneqq\QQ_p(\zeta_N)$ and $L_1\coloneqq\QQ_p(\zeta_{p^\nu})$ and $L_2\coloneqq\QQ_p(\zeta_m)$ so that $\overline\sigma_K=\sigma_K|_{L_1}$ generates $\op{Gal}(L/L_1)$ and $\sigma_x$ generates $\op{Gal}(L/L_2)$.
 
+In the discussion which follows, we will make repeated use of the fact that (using notation of \autoref{cor:fundtriple})
+\[\sigma_K^f\left(I_{c(\sigma_K)}\right)=\frac{\alpha}{\sigma_K(\alpha)}\cdot I_{c(\sigma_K)}\qquad\text{and}\qquad\sigma_K^f\left(I_{c(\sigma_x)}\right)=\frac\alpha{\sigma_x(\alpha)}\cdot I_{c(\sigma_x)}.\]
+And here are our checks; we start by showing that our elements are in the right field.
+\begin{lemma}
+	Fix a triple $(\alpha_1,\alpha_2,\beta)$ as in \autoref{cor:fundtriple}. Then the following are true.
+	\begin{listalph}
+		\item $\alpha_1\in L_1^\times$.
+		\item $\alpha_2\in L_2^\times$.
+		\item $\beta\in L^\times$.
+	\end{listalph}
+\end{lemma}
+\begin{proof}
+	We run the checks one at a time.
+	\begin{listalph}
+		\item It suffices to show that $\alpha_1$ is fixed by $\op{Gal}(M/L_1)=\langle\sigma_K\rangle$. As such, we simply compute
+		\begin{align*}
+			\sigma_K(\alpha_1) &= \sigma_K\left(\alpha\cdot\prod_{i=0}^{f-1}\sigma_K^i\left(I_{c(\sigma_K)}\right)\right) \\
+			&= \sigma_K(\alpha)\cdot\prod_{i=0}^{f-1}\sigma_K^{i+1}\left(I_{c(\sigma_K)}\right) \\
+			&= \sigma_K(\alpha)\cdot\sigma_K^f\left(I_{c(\sigma_K)}\right)\prod_{i=1}^{f-1}\sigma_K^{i+1}\left(I_{c(\sigma_K)}\right) \\
+			&= \alpha\cdot I_{c(\sigma_K)}\prod_{i=1}^{f-1}\sigma_K^{i+1}\left(I_{c(\sigma_K)}\right) \\
+			&= \prod_{i=0}^{f-1}\sigma_K^{i+1}\left(I_{c(\sigma_K)}\right) \\
+			&= \alpha_1.
+		\end{align*}
+		\item It suffices to show that $\alpha_2$ is fixed by $\op{Gal}(M/L_2)=\langle\sigma_K^f,\sigma_x\rangle$. On one hand,
+		\begin{align*}
+			\sigma_K^f(\alpha_2) &= \sigma_K^f\left(\prod_{i=0}^{\varphi\left(p^\nu\right)-1}\sigma_x^i\left(I_{c(\sigma_x)}\right)\right) \\
+			&= \prod_{i=0}^{\varphi\left(p^\nu\right)-1}\sigma_x^i\left(\sigma_K^fI_{c(\sigma_x)}\right) \\
+			&= \left(\prod_{i=0}^{\varphi\left(p^\nu\right)-1}\sigma_x^i\left(\frac{\alpha}{\sigma_x(\alpha)}\right)\right)\cdot\left(\prod_{i=0}^{\varphi\left(p^\nu\right)-1}\sigma_x^i\left(I_{c(\sigma_x)}\right)\right) \\
+			&= \left(\prod_{i=0}^{\varphi\left(p^\nu\right)-1}\frac{\sigma_x^i(\alpha)}{\sigma_x^{i+1}(\alpha)}\right)\cdot\alpha_2 \\
+			&= \alpha_2,
+		\end{align*}
+		where the product telescopes because $\sigma_x$ has order $\varphi\left(p^\nu\right)$.
+
+		On the other hand,
+		\begin{align*}
+			\sigma_x(\alpha_2) &= \sigma_x\left(\prod_{i=0}^{\varphi\left(p^\nu\right)-1}\sigma_x^i\left(I_{c(\sigma_x)}\right)\right) \\
+			&= \prod_{i=0}^{\varphi\left(p^\nu\right)-1}\sigma_x^{i+1}\left(I_{c(\sigma_x)}\right) \\
+			&= \prod_{i=0}^{\varphi\left(p^\nu\right)-1}\sigma_x^i\left(I_{c(\sigma_x)}\right),
+		\end{align*}
+		where we have again used the fact that $\sigma_x$ has order $\varphi\left(p^\nu\right)$. This last product is $\alpha_2$, so we are done.
+		\item It suffices to show that $\beta$ is fixed by $\op{Gal}(M/L)=\langle\sigma_K^f\rangle$. Applying force, we see
+		\begin{align*}
+			\sigma_K^f(\beta) &= \sigma_K^f\left(\frac{\sigma_K\left(I_{c(\sigma_x)}\right)}{I_{c(\sigma_x)}}\cdot\frac{I_{c(\sigma_K)}}{\sigma_x\left(I_{c(\sigma_K)}\right)}\right) \\
+			&= \frac{\sigma_K\left(\sigma_K^fI_{c(\sigma_x)}\right)}{\sigma_K^fI_{c(\sigma_x)}}\cdot\frac{\sigma_K^fI_{c(\sigma_K)}}{\sigma_x\left(\sigma_K^fI_{c(\sigma_K)}\right)} \\
+			&= \frac{\sigma_K\left(\alpha/\sigma_x\alpha\right)\cdot\sigma_K\left(I_{c(\sigma_x)}\right)}{(\alpha/\sigma_x\alpha)\cdot I_{c(\sigma_x)}}\cdot\frac{(\alpha/\sigma_K\alpha)\cdot I_{c(\sigma_K)}}{\sigma_x(\alpha/\sigma_K\alpha)\cdot\sigma_x\left(I_{c(\sigma_K)}\right)} \\
+			&= \frac{\sigma_K\alpha}{\sigma_K\sigma_x\alpha}\cdot\frac{\sigma_x\alpha}{\alpha}\cdot\frac{\alpha}{\sigma_K\alpha}\cdot\frac{\sigma_x\sigma_K\alpha}{\sigma_x\alpha}\cdot\frac{\sigma_K\left(I_{c(\sigma_x)}\right)}{I_{c(\sigma_x)}}\cdot\frac{I_{c(\sigma_K)}}{\sigma_x\left(I_{c(\sigma_K)}\right)} \\
+			&= \beta.
+		\end{align*}
+	\end{listalph}
+	The above checks complete the proof.
+\end{proof}
+Next we show the relations.
+\begin{lemma}
+	Fix a triple $(\alpha_1,\alpha_2,\beta)$ as in \autoref{cor:fundtriple}. Then the following are true.
+	\begin{listalph}
+		\item $\op N_{L/L_1}(\beta)=\alpha_1/\sigma_x\alpha_1$.
+		\item $\op N_{L/L_2}(\beta^{-1})=\alpha_2/\overline\sigma_K\alpha_2$.
+	\end{listalph}
+\end{lemma}
+\begin{proof}
+	We go one at a time.
+	\begin{listalph}
+		\item Note $\op{Gal}(L/L_1)=\langle\overline\sigma_K\rangle$. In particular, $\overline\sigma_K$ has order $f$, so we can just compute out
+		\begin{align*}
+			\op N_{L/L_1}(\beta) &= \prod_{i=0}^{f-1}\sigma_K^i(\beta) \\
+			&= \prod_{i=0}^{f-1}\sigma_K^i\left(\frac{\sigma_K\left(I_{c(\sigma_x)}\right)}{I_{c(\sigma_x)}}\cdot\frac{I_{c(\sigma_K)}}{\sigma_x\left(I_{c(\sigma_K)}\right)}\right) \\
+			&= \prod_{i=0}^{f-1}\frac{\sigma_K^{i+1}\left(I_{c(\sigma_x)}\right)}{\sigma_K^i\left(I_{c(\sigma_x)}\right)}\cdot\prod_{i=0}^{f-1}\sigma_K^i\left(I_{c(\sigma_K)}\right)\bigg/\sigma_x\left(\prod_{i=0}^{f-1}\sigma_K^i\left(I_{c(\sigma_K)}\right)\right) \\
+			&= \frac{\sigma_K^f\left(I_{c(\sigma_x)}\right)}{I_{c(\sigma_x)}}\cdot\prod_{i=0}^{f-1}\sigma_K^i\left(I_{c(\sigma_K)}\right)\bigg/\sigma_x\left(\prod_{i=0}^{f-1}\sigma_K^i\left(I_{c(\sigma_K)}\right)\right) \\
+			&= \frac{\alpha}{\sigma_x\alpha}\cdot\prod_{i=0}^{f-1}\sigma_K^i\left(I_{c(\sigma_K)}\right)\bigg/\sigma_x\left(\prod_{i=0}^{f-1}\sigma_K^i\left(I_{c(\sigma_K)}\right)\right) \\
+			&= \alpha_1/\sigma_x\alpha.
+		\end{align*}
+		\item Note $\op{Gal}(L/L_2)=\langle\sigma_x\rangle$, so we compute
+		\begin{align*}
+			\op N_{L/L_2}(\beta) &= \prod_{i=0}^{\varphi\left(p^\nu\right)-1}
+			\sigma_x^i(\beta) \\
+			&= \prod_{i=0}^{\varphi\left(p^\nu\right)-1}
+			\sigma_x^i\left(\frac{\sigma_K\left(I_{c(\sigma_x)}\right)}{I_{c(\sigma_x)}}\cdot\frac{I_{c(\sigma_K)}}{\sigma_x\left(I_{c(\sigma_K)}\right)}\right) \\
+			&= \prod_{i=0}^{\varphi\left(p^\nu\right)-1}\frac{\sigma_x^i\left(I_{c(\sigma_K)}\right)}{\sigma_x^{i+1}\left(I_{c(\sigma_K)}\right)}\cdot\prod_{i=0}^{\varphi\left(p^\nu\right)-1}\sigma_K\left(I_{c(\sigma_x)}\right)\bigg/\prod_{i=0}^{\varphi\left(p^\nu\right)-1}I_{c(\sigma_x)} \\
+			&= \sigma_K\left(\prod_{i=0}^{\varphi\left(p^\nu\right)-1}I_{c(\sigma_x)}\right)\bigg/\prod_{i=0}^{\varphi\left(p^\nu\right)-1}I_{c(\sigma_x)} \\
+			&= \sigma_K\alpha_2/\alpha_2.
+		\end{align*}
+		Taking the reciprocal finishes; in particular, $\overline\sigma_K\alpha_2=\sigma_K\alpha_2$ is a legal expression because $\alpha_2\in L^\times$.
+	\end{listalph}
+	The above checks complete the proof.
+\end{proof}
 
 \end{document}
