@@ -1,0 +1,10 @@
+{"rule":"MORFOLOGIK_RULE_EN_US","sentence":"^\\Q../../notes nir\\E$"}
+{"rule":"DOUBLE_PUNCTUATION","sentence":"^\\Q../../notes nir\\E$"}
+{"rule":"MORFOLOGIK_RULE_EN_US","sentence":"^\\QAn Explicit Artin Map Nir Elber EXPLICIT ARTIN MAP\\E$"}
+{"rule":"MORFOLOGIK_RULE_EN_US","sentence":"^\\QThe Artin map is the long string of isomorphisms \\E(?:Dummy|Ina|Jimmy-)[0-9]+$"}
+{"rule":"DOUBLE_PUNCTUATION","sentence":"^\\Q../notes nir\\E$"}
+{"rule":"MORFOLOGIK_RULE_EN_US","sentence":"^\\Q../notes nir\\E$"}
+{"rule":"MORFOLOGIK_RULE_EN_US","sentence":"^\\QAgain, we will upgrade \\E(?:Dummy|Ina|Jimmy-)[0-9]+\\Q and \\E(?:Dummy|Ina|Jimmy-)[0-9]+\\Q to their corresponding automorphisms on any subfield of \\E(?:Dummy|Ina|Jimmy-)[0-9]+\\Q These comments complete the Galois-theoretic portion of the analysis.\\E$"}
+{"rule":"MORFOLOGIK_RULE_EN_US","sentence":"^\\QAgain, we will upgrade \\E(?:Dummy|Ina|Jimmy-)[0-9]+\\Q and \\E(?:Dummy|Ina|Jimmy-)[0-9]+\\Q to their corresponding automorphisms on any subfield of \\E(?:Dummy|Ina|Jimmy-)[0-9]+\\Q.\\E$"}
+{"rule":"CD_NN","sentence":"^\\QBuild and use a Hilbert theorem 90 machine here\\E$"}
+{"rule":"EN_A_VS_AN","sentence":"^\\QWith this in mind, we note that \\E(?:Dummy|Ina|Jimmy-)[0-9]+\\Q is a uniformizer because \\E(?:Dummy|Ina|Jimmy-)[0-9]+\\Q is an unramified extension.\\E$"}
