@@ -15,3 +15,5 @@ coinduced
 surjective
 homomorphisms
 uniformizer
+uniformizers
+subextension
