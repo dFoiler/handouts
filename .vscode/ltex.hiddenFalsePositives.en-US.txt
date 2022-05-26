@@ -1,3 +1,4 @@
+{"rule":"CAPITALIZATION_NNP_DERIVED","sentence":"abelian"}
 {"rule":"MORFOLOGIK_RULE_EN_US","sentence":"^\\Q../../notes nir\\E$"}
 {"rule":"DOUBLE_PUNCTUATION","sentence":"^\\Q../../notes nir\\E$"}
 {"rule":"MORFOLOGIK_RULE_EN_US","sentence":"^\\QAn Explicit Artin Map Nir Elber EXPLICIT ARTIN MAP\\E$"}
@@ -13,3 +14,5 @@
 {"rule":"CAPITALIZATION_NNP_DERIVED","sentence":"^\\QWe take a moment to say that there is an alternate derivation of \\E(?:Dummy|Ina|Jimmy-)[0-9]+\\Q using the Artin map: one can show that, if \\E(?:Dummy|Ina|Jimmy-)[0-9]+\\Q is a representative of the fundamental class of an abelian extension \\E(?:Dummy|Ina|Jimmy-)[0-9]+\\Q, then \\E(?:Dummy|Ina|Jimmy-)[0-9]+\\Q is the inverse Artin map.\\E$"}
 {"rule":"EN_A_VS_AN","sentence":"^\\QFurther, because \\E(?:Dummy|Ina|Jimmy-)[0-9]+\\Q is also only defined up to an element \\E(?:Dummy|Ina|Jimmy-)[0-9]+\\Q, to show that the classes in \\E(?:Dummy|Ina|Jimmy-)[0-9]+\\Q coincide, it thus suffices to exhibit a single triple \\E(?:Dummy|Ina|Jimmy-)[0-9]+\\Q such that \\E(?:Dummy|Ina|Jimmy-)[0-9]+\\Q is a uniformizer.\\E$"}
 {"rule":"EN_A_VS_AN","sentence":"^\\QThus, we have computed that \\E(?:Dummy|Ina|Jimmy-)[0-9]+\\Q has the correct valuation and hence is a uniformizer.\\E$"}
+{"rule":"EN_A_VS_AN","sentence":"^\\QFurther, because \\E(?:Dummy|Ina|Jimmy-)[0-9]+\\Q is also only defined up to a multiple in \\E(?:Dummy|Ina|Jimmy-)[0-9]+\\Q, to show that the classes in \\E(?:Dummy|Ina|Jimmy-)[0-9]+\\Q coincide, it thus suffices to exhibit a single triple \\E(?:Dummy|Ina|Jimmy-)[0-9]+\\Q such that \\E(?:Dummy|Ina|Jimmy-)[0-9]+\\Q is a uniformizer.\\E$"}
+{"rule":"MORFOLOGIK_RULE_EN_US","sentence":"^\\QClassifying \\E(?:Dummy|Ina|Jimmy-)[0-9]+\\Q-cyclic Gerbs Nir Elber FUNDAMENTAL CLASS\\E$"}
