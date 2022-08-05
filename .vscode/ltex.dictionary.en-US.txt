@@ -27,3 +27,9 @@ Dwork
 Serre
 Lubin
 automorphisms on
+Weil
+rigorize
+monic
+multiplicativity
+Hecke
+Betti

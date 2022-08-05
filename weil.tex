@@ -1,0 +1,251 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+
+\newcommand{\nirpdftitle}{\texorpdfstring{$L$}{ L}-Functions and The Weil Conjectures}
+\usepackage{import}
+\inputfrom{../notes}{nir}
+% \usepackage[backend=biber,
+%     style=alphabetic,
+%     sorting=ynt
+% ]{biblatex}
+% \addbibresource{bib.bib}
+\setcounter{tocdepth}{2}
+
+\pagestyle{contentpage}
+
+\title{\texorpdfstring{$L$}{ L}-Functions and The Weil Conjectures}
+\author{Nir Elber}
+\date{8 August 2022}
+\usepackage{graphicx}
+\lhead{}
+\rhead{\textit{$L$-FUNCTIONS AND WEIL CONJECTURES}}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+	\noindent In this talk, we introduce two major problems in modern number theory: understanding $L$-functions and counting points on varieties. The end goal is to motivate and state a subset of the Weil conjectures.
+\end{abstract}
+
+\tableofcontents
+
+\section{Introduction}
+This talk will be incredibly high-level. With this in mind, the goal will be to lay the groundwork for certain objects in number theory that seem to pervade the entire field. We will not prove anything here.
+
+\section{\texorpdfstring{$L$}{L}-Functions} \label{sec:lfunc}
+We will introduce $L$-funtions by example. Roughly speaking, these are certain infinite series/products which seem to encode certain desired number-theoretic information.
+
+\subsection{The Riemann \texorpdfstring{$\zeta$}{ Z}-Function}
+The most famous example is the \textit{Riemann $\zeta$-function}, defined by the infinite series
+\begin{equation}
+	\zeta(s)\coloneqq\sum_{n=1}^\infty\frac1{n^s}, \label{eq:zetaseries}
+\end{equation}
+for $s\in\CC$ with $\op{Re}s>1$. This function has the following magical properties.
+\begin{enumerate}
+	\item By unique prime factorization, one can write
+	\[\zeta(s)=\prod_{p\text{ prime}}\Bigg(\sum_{k=0}^\infty\frac1{p^{ks}}\Bigg)=\prod_{p\text{ prime}}\frac1{1-p^{-s}}\]
+	for $\op{Re}s>1$. This infinite product is called an \textit{Euler product}.
+	\item There is a unique way to define $\zeta(s)$ for all $s\in\CC$ which agrees with \autoref{eq:zetaseries} for $\op{Re}s>1$ while being differentiable everywhere. This is called the \textit{analytic continuation}.
+	\item There is a functional equation, as follows: define
+	\[\xi(s)\coloneqq\frac12\pi^{-s/2}s(s-1)\Gamma(s/2)\zeta(s)\]
+	for all $s\in\CC$, using the analytic continuation of $\zeta$; here $\Gamma$ is the Gamma function. Yes, this is a very complicated definition, but do not worry about the details: the main point is that there is some function $\xi$ defined in terms of some relatively understood functions (an exponential, polynomials, and $\Gamma$) and the function of interest $\zeta$.
+
+	Then, magic happens: we have
+	\[\xi(s)=\xi(1-s)\]
+	for all $s\in\CC$. This is called the \textit{functional equation}.
+	\item It is conjectured that, if $\zeta(s)=0$ for $0<\op{Re}s<1$, then $\op{Re}s=1/2$. This is called the \textit{Riemann hypothesis}.
+\end{enumerate}
+It might not be immediately clear why one should care about a function like $\zeta$. We will content ourselves with saying that, even though $\zeta(s)\to\infty$ as $s\to1$, combining the Euler product with knowledge of how fast $\zeta(s)\to\infty$ as $s\to1$ we are able to extract meaningful information about the distribution of primes.
+\begin{remark} \label{rem:whyzeta}
+	To rigorize the above sentence, write
+	\[\log\zeta(s)=-\sum_{p\text{ prime}}\log\left(1-p^{-s}\right).\]
+	Expanding $-\log(1-x)\approx x$ for small $x$, we can write
+	\[\log\zeta(s)\approx\sum_{p\text{ prime}}\frac1{p^s}\]
+	as $s\to1$. Thus, understanding how $\log\zeta(s)$ behaves as $s\to1$ allows us to approximate primes.
+\end{remark}
+\begin{remark}
+	As for why one should care about the Riemann hypothesis, the Riemann hypothesis is equivalent to the statement
+	\[\pi(x)=\int_2^x\frac1{\log t}\,dt+O\left(\sqrt x\log x\right),\]
+	where $\pi(x)$ is the number of primes below some $x\in\RR$.
+\end{remark}
+The moral of our story here is that we are going to encounter ``lots'' of functions like $\zeta$ which are at least conjectured to satisfy properties 1--4. Let's see two popular examples.
+
+\subsection{Dedekind \texorpdfstring{$\zeta$}{ Z}-Functions}
+Let $K$ be a finite extension of $\QQ$; i.e., a number field.
+\begin{example}
+	Throughout this example, one should let $K=\QQ$ or $K=\QQ(i)$ (where $i^2=-1$) unless you are already familiar with these objects.
+\end{example}
+It turns out that there is an especially nice ring lying inside $K$, which we will name $\mathcal O_K$. Formally, $\mathcal O_K$ is the ring of elements of $K$ which are the root of some monic polynomial with integer coefficients.
+\begin{example}
+	In the case of $K=\QQ$, we have $\mathcal O_K=\ZZ$. In the case of $K=\QQ(i)$, we have $\mathcal O_K=\ZZ[i]$.
+\end{example}
+The ring $\mathcal O_K$ does not, in general, need to have unique prime factorization of elements as is the case with $\mathcal O_K=\ZZ$ or $\mathcal O_K=\ZZ[i]$. However, do not fear---we are not going to use elements to define our $L$-function!
+
+Instead, we will use ideals. We would like to write a series like
+\[\sum_{\text{nonzero ideals }I\subseteq\mathcal O_K}\frac1{I^s}\]
+for $\op{Re}s>1$, but this doesn't make sense because we haven't defined what $I^s$ should mean. To remedy this, we will take a hint from the case of $\mathcal O_K=\ZZ$: here, we would like to think about the ideal $4\ZZ\subseteq\ZZ$ is associated to the number $4$. One naive way to see this is that $4$ is the size of $\ZZ/4\ZZ$. As such, we will define the \textit{Dedekind $\zeta$-function}
+\begin{equation}
+	\zeta_K(s)\coloneqq\sum_{\text{nonzero ideal }I\subseteq\mathcal O_K}\frac1{|\mathcal O_K/I|^s}. \label{eq:dedekindzetaseries}
+\end{equation}
+As before, $\zeta_K$ has the following magical properties.
+\begin{enumerate}
+	\item By unique prime factorization of ideals (which we won't elaborate on here), one can write
+	\[\zeta_K(s)=\prod_{\text{maximal ideal }\mf p\subseteq\mathcal O_K}\frac1{1-|\mathcal O_K/\mf p|^s}.\]
+	This is called the \textit{Euler product for $\zeta_K(s)$}.
+	\item There is a unique way to define $\zeta(s)$ for all $s\in\CC$ which agrees with \autoref{eq:dedekindzetaseries} for $\op{Re}s>1$ while being differentiable everywhere. This is called the \textit{analytic continuation}.
+	\item There is a functional equation. This is somewhat difficult to state precisely, but we will first just say that there is some $\xi_K$ defined using various known constants and $\Gamma$ functions as well as the desired function $\zeta_K$, which satisfies
+	\[\xi_K(s)=\xi_K(1-s).\]
+	This is called the \textit{functional equation for $\zeta_K(s)$}.
+	
+	To be exact, there exists integers $\op{disc}\mathcal O_K$, $r_1$, and $r_2$ such that we may set
+	\[\xi_K(s)=|\op{disc}\mathcal O_K|\cdot\left(\pi^{-s/2}\Gamma(s)\right)^{r_1}\cdot\left(2(2\pi)^{-s}\Gamma(s)\right)^{r_2/2}\cdot\zeta_K(s).\]
+	For experts, $\op{disc}\mathcal O_K$ is the discriminant of $\mathcal O_K$, $r_1$ is the number of field embeddings $K\into\RR$, and $r_2$ is the number of field embeddings $K\into\CC$ which have image not contained in $\RR$.
+	\item It is conjectured that, if $\zeta_K(s)=0$ for $0<\op{Re}s<1$, then $\op{Re}s=1/2$. This is called the \textit{(extended) Riemann hypothesis for $\zeta_K(s)$}.
+\end{enumerate}
+The reasons why one should care about $\zeta_K$ are essentially the same for $\zeta$. Namely, questions about the distribution of primes in $\ZZ$ often have natural analogues in $\mathcal O_K$; for example, one can show that
+\[\pi_K(x)\coloneqq\#\{\mf p\subseteq\mathcal O_K:|\mathcal O_K/\mf p|\le x\}\]
+satisfies
+\[\pi_K(x)\sim\frac x{\log x},\]
+and $\zeta_K(s)$ is once again the main object of the argument.
+\begin{exe}
+	Let $K=\QQ(i)$ so that $\mathcal O_K=\ZZ[i]$. Using the classification of primes in $\ZZ[i]$, write out the Euler product for $\zeta_K(s)$ in terms of primes in $\ZZ$.
+\end{exe}
+
+\subsection{Dirichlet \texorpdfstring{$L$}{ L}-Functions}
+We begin with the following definition.
+\begin{definition}[Character]
+	Let $G$ be a group. Then a \textit{character} is a group homomorphism $\chi\colon R\to S^1$. Here,
+	\[S^1=\left\{e^{i\theta}:\theta\in\RR\right\}\subseteq\CC^\times.\]
+\end{definition}
+More specifically, we will speak of Dirichlet characters, which are group homomorphisms $\chi\colon(\ZZ/m\ZZ)^\times\to S^1$ extended to a multiplicative function $\ZZ\to\CC$ by setting $\chi(k)=0$ whenever $\gcd(k,m)=1$. Here are some examples.
+\begin{example}
+	The function $\chi(n)=0$ for all $n\in\ZZ$ is a Dirichlet character, with $m=1$.
+\end{example}
+\begin{example}
+	The function
+	\[\chi(n)\coloneqq\begin{cases}
+		1 & n\text{ is odd}, \\
+		0 & n\text{ is even},
+	\end{cases}\]
+	is a Dirichlet character, with $m=2$.
+\end{example}
+\begin{example}
+	The function
+	\[\chi(n)\coloneqq\begin{cases}
+		1 & n\equiv1\pmod4, \\
+		-1 & n\equiv3\pmod4, \\
+		0 & n\equiv0\pmod2
+	\end{cases}\]
+	is a Dirichlet character, with $m=4$.
+\end{example}
+Now, given a Dirichlet character $\chi\colon\ZZ\to\CC$, we define the \textit{Dirichlet $L$-function} by the infinite series
+\begin{equation}
+	L(s,\chi)\coloneqq\sum_{n=1}^\infty\frac{\chi(n)}{n^s}, \label{eq:lfuncseries}
+\end{equation}
+for $s\in\CC$ with $\op{Re}s>1$. As usual, this function has the following magical properties.
+\begin{enumerate}
+	\item By unique prime factorization and the multiplicativity of $\chi$, we have
+	\[L(s,\chi)=\prod_{p\text{ prime}}\Bigg(\sum_{k=0}^\infty\frac{\chi(p)^k}{p^{ks}}\Bigg)=\prod_{p\text{ prime}}\frac1{1-\chi(p)p^{-s}}\]
+	for $\op{Re}s>1$. This is called the \textit{Euler product for $L(s,\chi)$}.
+	\item There is a unique way to define $L(s,\chi)$ for all $s\in\CC$ which agrees with \autoref{eq:lfuncseries} while being differentiable everywhere. This is called the \textit{analytic continuation for $L(s,\chi)$}.
+	\item There is a functional equation. As usual, this is incredibly annoying to state precisely, but we will give a taste for it: pick up a character $\chi\colon(\ZZ/m\ZZ)^\times\to S^1$ where $m$ is as small as possible, and extend $\chi$ to a Dirichlet character $\chi\colon\ZZ\to\CC$. Then one can compute an integer $a\in\ZZ$ (depending on $\chi$) and define
+	\[\xi(s,\chi)\coloneqq\left(\frac q\pi\right)^{(s+a)/2}\Gamma\left(\frac{s+a}2\right)L(s,\chi).\]
+	Then we have
+	\[\xi(s,\chi)=\varepsilon(\chi)\xi(1-s,\overline\chi)\]
+	for some complex number $\varepsilon(\chi)\in\CC$ depending on $\chi$. Note that $\chi$ became $\overline\chi$ in the functional equation! Anyway, this is called the \textit{functional equation for $L(s,\chi)$}.
+	\item It is conjectured that, if $L(s,\chi)=0$ for $0<\op{Re}s<1$, then $\op{Re}s=1/2$. This is called the \textit{(generalized) Riemann hypothesis for $L(s,\chi)$}.
+\end{enumerate}
+Let's spend a moment to discuss why one might care about these $L$-functions. For one, the generalization from $\zeta$ has taught us something about how the functional equation behaves: when looking at $L$-functions in general, we should no longer expect to be looking at the same $L$-function on both sides!
+
+For another reason, the difficult step in the following theorem is showing that $L(1,\chi)\ne0$ for all Dirichlet characters $\chi$.
+\begin{theorem} \label{thm:dirichlet}
+	Let $a$ and $m$ be integers with $\gcd(a,m)=1$. Then there are infinitely primes $p$ such that $p\equiv a\pmod m$.
+\end{theorem}
+It will help us a little later to have a notion of how $L(1,\chi)$ enters the picture. We will want the following result.
+\begin{lemma}
+	Let $m$ be an integer and $a,b\in(\ZZ/m\ZZ)^\times$. Then
+	\[\frac1{\varphi(m)}\sum_\chi\chi(a)\chi(b)^{-1}=\begin{cases}
+		1 & a=b, \\
+		0 & a\ne b,
+	\end{cases}\]
+	where the sum is over all characters $\chi\colon(\ZZ/m\ZZ)^\times\to S^1$.
+\end{lemma}
+Correct proofs of this statement would take us too far afield to give here, so we won't prove this. However, we will assign the following exercise.
+\begin{exe}
+	Let $G$ be a cyclic group. Then, for $g,h\in G$,
+	\[\frac1{\#G}\sum_\chi\chi(g)\chi(h)^{-1}=\begin{cases}
+		1 & g=h, \\
+		0 & g\ne h,
+	\end{cases}\]
+	where the sum is over all characters $\chi\colon G\to S^1$.
+\end{exe}
+Why do we care? Well, fix integers $a$ and $m$ with $\gcd(a,m)=1$. The main goal is to show that the sum
+\[\sum_{p\equiv a\pmod m}\frac1{p^s}\]
+diverges, where $\sum_p$ is a sum over primes. This divergence forces there to be infinitely many primes $p$ with $p\equiv a\pmod m$. For this, define $\delta_a\colon\ZZ\to\ZZ$ by $\delta_a(n)=1$ if $n\equiv a\pmod m$ and $0$ otherwise. Now, we can write
+\[\sum_{p\equiv a\pmod m}\frac1{p^s}=\sum_p\frac{\delta_a(p)}{p^s}=\sum_p\Bigg(\frac1{\varphi(m)}\sum_\chi\chi(a)^{-1}\chi(p)\Bigg)\frac1{p^s},\]
+where $\sum_\chi$ is over all Dirichlet characters $\chi$ extended from $\chi\colon(\ZZ/m\ZZ)^\times\to S^1$. Continuing, this rearranges into
+\[\sum_{p\equiv a\pmod m}\frac1{p^s}=\frac1{\varphi(m)}\sum_{\chi\pmod m}\Bigg(\chi(a)^{-1}\sum_p\frac{\chi(p)}{p^s}\Bigg).\]
+It might look like we've just made things more complicated, but they are about to simplify because we have infinite series involving characters $\chi$, which are better-behaved than the indicator function $\delta_a$. Indeed, we argue as in \autoref{rem:whyzeta} and use the Euler product for $L(s,\chi)$ to write
+\[\log L(s,\chi)=-\sum_p\log\left(1-\chi(p)p^{-s}\right)\approx\sum_p\frac{\chi(p)}{p^s},\]
+so
+\[\sum_{p\equiv a\pmod m}\frac1{p^s}\approx\frac1{\varphi(m)}\sum_\chi\chi(a)^{-1}\log L(s,\chi).\]
+Now, the proof of \autoref{thm:dirichlet} proceeds by showing that $L(1,\chi)$ is a nonzero complex number for all but one character $\chi=\chi_0$ and that $L(1,\chi_0)=\infty$ there. (Make no mistake---showing the previous sentence is the hard part of the proof!) As such, the sum on the right has a divergent term, so the sum on the left diverges as well.
+\begin{remark}
+	One can also attach characters to Dirichlet $\zeta$-functions. This produces Hecke $L$-functions, but we will not discuss them here.
+\end{remark}
+
+\section{The Weil Conjectures}
+We will state the Weil conjectures, focusing on affine varieties. We will not state the Betti numbers conjecture because we won't want to have to define what a Betti number is.
+
+\subsection{Affine Varieties}
+In \autoref{sec:lfunc}, we focused on number theory, but we will now turn our attention to geometry. We will let $K$ be a field in this section; for concreteness one should take $K=\RR$ or $K=\CC$ throughout.
+\begin{definition}[Affine space]
+	Let $K$ be a field and $n$ a positive integer. Then we define \textit{affine $n$-space over $K$}, denoted $\AA_K^n$, to be the set of $n$-tuples $(a_1,\ldots,a_n)\in K^n$.
+\end{definition}
+It might seem silly to introduce entirely new notation for just writing $K^n$, but this has an important psychological effect: we want to think about $\AA_K^n$ as a purely geometric object, while $K^n$ we might be tempted to think about as having some extra structure (for example, as a vector space).
+
+Now, here is our central definition.
+\begin{definition}[Affine variety]
+	Let $K$ be a field and $n$ a positive integer. Then, given a subset of polynomials $S\subseteq K[x_1,\ldots,x_n]$, we define the vanishing set
+	\[V(S)\coloneqq\left\{(a_1,\ldots,a_n)\in\AA_K^n:f(a_1,\ldots,a_n)\text{ for all }f\in S\right\}.\]
+	Now, an \textit{affine variety} is any subset $V\subseteq\AA_K^n$ for which there exists an $S\subseteq K[x_1,\ldots,x_n]$ with $V=V(S)$.
+\end{definition}
+\begin{remark}
+	Some authors also require some extra geometric conditions to be a variety (e.g., irreducibility). We will not discuss these here.
+\end{remark}
+We've defined some geometric objects, so the next demand is to see some pictures. Throughout, we will let $K=\RR$.
+\begin{example}
+	Set $K=\RR$ and $n=1$, with $S=\{0\}$. Then $V(S)=\AA_\RR^1$ is the red set, as follows.
+	\begin{center}
+		\begin{asy}
+			unitsize(1cm);
+			usepackage("amsfonts");
+			draw((-1,0) -- (4,0), arrow=EndArrow, p=red);
+			for(int i = 0; i <= 3; ++i)
+			{
+				dot("$"+string(i)+"$", (i,0), S, red);
+			}
+			label("$\mathbb A_{\mathbb R}^1$", (4,0), 2*E);
+		\end{asy}
+	\end{center}
+	Observe that $V(\emp)=\AA_\RR^1$ as well.
+\end{example}
+\begin{example}
+	Set $K=\RR$ and $n=1$, with $S=\{(x-1)(x-2)\}$. Then $V(S)$ is the red set.
+	\begin{center}
+		\begin{asy}
+			unitsize(1cm);
+			usepackage("amsfonts");
+			draw((-1,0) -- (4,0), arrow=EndArrow);
+			for(int i = 0; i <= 3; ++i)
+			{
+				dot("$"+string(i)+"$", (i,0), S);
+			}
+			dot((1,0) ^^ (2,0), red+linewidth(5));
+			label("$\mathbb A_{\mathbb R}^1$", (4,0), 2*E);
+		\end{asy}
+	\end{center}
+\end{example}
+
+\end{document}

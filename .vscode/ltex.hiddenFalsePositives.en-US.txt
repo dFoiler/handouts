@@ -18,3 +18,7 @@
 {"rule":"EN_A_VS_AN","sentence":"^\\QFurther, because \\E(?:Dummy|Ina|Jimmy-)[0-9]+\\Q is also only defined up to a multiple in \\E(?:Dummy|Ina|Jimmy-)[0-9]+\\Q, to show that the classes in \\E(?:Dummy|Ina|Jimmy-)[0-9]+\\Q coincide, it thus suffices to exhibit a single triple \\E(?:Dummy|Ina|Jimmy-)[0-9]+\\Q such that \\E(?:Dummy|Ina|Jimmy-)[0-9]+\\Q is a uniformizer.\\E$"}
 {"rule":"MORFOLOGIK_RULE_EN_US","sentence":"^\\QClassifying \\E(?:Dummy|Ina|Jimmy-)[0-9]+\\Q-cyclic Gerbs Nir Elber FUNDAMENTAL CLASS\\E$"}
 {"rule":"EN_A_VS_AN","sentence":"^\\Q\\E(?:Dummy|Ina|Jimmy-)[0-9]+\\Q To begin, we know that we can write \\E(?:Dummy|Ina|Jimmy-)[0-9]+\\Q, where \\E(?:Dummy|Ina|Jimmy-)[0-9]+\\Q is a uniformizer of \\E(?:Dummy|Ina|Jimmy-)[0-9]+\\Q.\\E$"}
+{"rule":"MORFOLOGIK_RULE_EN_US","sentence":"^\\QThe Weil Conjectures Nir Elber WEIL CONJECTURES\\E$"}
+{"rule":"SENTENCE_WHITESPACE","sentence":"^\\QL.-Functions.\\E$"}
+{"rule":"MORFOLOGIK_RULE_EN_US","sentence":"^\\QThe Weil Conjectures Nir Elber 8 August 2022 WEIL CONJECTURES\\E$"}
+{"rule":"MORFOLOGIK_RULE_EN_US","sentence":"^\\Q\\E(?:Dummy|Ina|Jimmy-)[0-9]+\\Q L-Functions and The Weil Conjectures Nir Elber 8 August 2022 \\E(?:Dummy|Ina|Jimmy-)[0-9]+\\Q-FUNCTIONS AND WEIL CONJECTURES\\E$"}
