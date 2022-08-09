@@ -22,3 +22,4 @@
 {"rule":"SENTENCE_WHITESPACE","sentence":"^\\QL.-Functions.\\E$"}
 {"rule":"MORFOLOGIK_RULE_EN_US","sentence":"^\\QThe Weil Conjectures Nir Elber 8 August 2022 WEIL CONJECTURES\\E$"}
 {"rule":"MORFOLOGIK_RULE_EN_US","sentence":"^\\Q\\E(?:Dummy|Ina|Jimmy-)[0-9]+\\Q L-Functions and The Weil Conjectures Nir Elber 8 August 2022 \\E(?:Dummy|Ina|Jimmy-)[0-9]+\\Q-FUNCTIONS AND WEIL CONJECTURES\\E$"}
+{"rule":"MISSING_GENITIVE","sentence":"^\\QMöbius inversion gives the following statement.\\E$"}

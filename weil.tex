@@ -108,9 +108,19 @@ The reasons why one should care about $\zeta_K$ are essentially the same for $\z
 satisfies
 \[\pi_K(x)\sim\frac x{\log x},\]
 and $\zeta_K(s)$ is once again the main object of the argument.
-\begin{exe}
-	Let $K=\QQ(i)$ so that $\mathcal O_K=\ZZ[i]$. Using the classification of primes in $\ZZ[i]$, write out the Euler product for $\zeta_K(s)$ in terms of primes in $\ZZ$.
+\begin{remark}
+	These $\zeta$-functions do not exist in isolation. For example, if $K/\QQ$ is a finite field extension and $L/K$ is finite Galois extension, then it is conjectured that $\zeta_L(s)/\zeta_K(s)$ is defined everywhere.
+\end{remark}
+\begin{exe} \label{exe:dedekindzetaforqi}
+	Let $K=\QQ(i)$ so that $\mathcal O_K=\ZZ[i]$. Using the classification of primes in $\ZZ[i]$, write out the Euler product for $\zeta_K(s)$ in terms of primes in $\ZZ$. Use this Euler product to compute an Euler product for $\zeta_{\QQ(i)}(s)/\zeta_\QQ(s)$.
 \end{exe}
+\begin{remark} \label{rem:arithmeticzeta}
+	In the discussion that follows, we will want to generalize this example a little more. Observe that the Euler product for $\zeta$ allows us to write
+	\[\zeta(s)=\prod_{p\text{ prime}}\frac1{1-p^{-s}}=\prod_{\text{maximal }\mf m\subseteq\ZZ}\frac1{1-|\ZZ/\mf m|^{-s}}.\]
+	More generally, given any ring $R$, we have the \textit{arithmetic $\zeta$-function}
+	\[\zeta_R(s)\coloneqq\prod_{\substack{\text{maximal }\mf m\subseteq R\\|R/\mf m|<\infty}}\frac1{1-|R/\mf m|^{-s}}.\]
+	For example, for number fields $K$, we have $\zeta_{\mathcal O_K}(s)=\zeta_K(s)$. We will not discuss convergence issues or precisely state the functional equation or Riemann hypothesis for these $\zeta$ functions because there are some technical hypotheses on $R$ which we are going to actively avoid.
+\end{remark}
 
 \subsection{Dirichlet \texorpdfstring{$L$}{ L}-Functions}
 We begin with the following definition.
@@ -163,13 +173,13 @@ For another reason, the difficult step in the following theorem is showing that 
 	Let $a$ and $m$ be integers with $\gcd(a,m)=1$. Then there are infinitely primes $p$ such that $p\equiv a\pmod m$.
 \end{theorem}
 It will help us a little later to have a notion of how $L(1,\chi)$ enters the picture. We will want the following result.
-\begin{lemma}
-	Let $m$ be an integer and $a,b\in(\ZZ/m\ZZ)^\times$. Then
-	\[\frac1{\varphi(m)}\sum_\chi\chi(a)\chi(b)^{-1}=\begin{cases}
-		1 & a=b, \\
-		0 & a\ne b,
+\begin{lemma} \label{lem:orthogonality}
+	Let $G$ be a finite group. Then
+	\[\frac1{\#G}\sum_\chi\chi(g)\chi(h)^{-1}=\begin{cases}
+		1 & g=h, \\
+		0 & g\ne h,
 	\end{cases}\]
-	where the sum is over all characters $\chi\colon(\ZZ/m\ZZ)^\times\to S^1$.
+	where the sum is over all characters $\chi\colon G\to S^1$.
 \end{lemma}
 Correct proofs of this statement would take us too far afield to give here, so we won't prove this. However, we will assign the following exercise.
 \begin{exe}
@@ -182,7 +192,7 @@ Correct proofs of this statement would take us too far afield to give here, so w
 \end{exe}
 Why do we care? Well, fix integers $a$ and $m$ with $\gcd(a,m)=1$. The main goal is to show that the sum
 \[\sum_{p\equiv a\pmod m}\frac1{p^s}\]
-diverges, where $\sum_p$ is a sum over primes. This divergence forces there to be infinitely many primes $p$ with $p\equiv a\pmod m$. For this, define $\delta_a\colon\ZZ\to\ZZ$ by $\delta_a(n)=1$ if $n\equiv a\pmod m$ and $0$ otherwise. Now, we can write
+diverges, where $\sum_p$ is a sum over primes. This divergence forces there to be infinitely many primes $p$ with $p\equiv a\pmod m$. For this, define $\delta_a\colon\ZZ\to\ZZ$ by $\delta_a(n)=1$ if $n\equiv a\pmod m$ and $0$ otherwise. Now, we can use \autoref{lem:orthogonality} to write
 \[\sum_{p\equiv a\pmod m}\frac1{p^s}=\sum_p\frac{\delta_a(p)}{p^s}=\sum_p\Bigg(\frac1{\varphi(m)}\sum_\chi\chi(a)^{-1}\chi(p)\Bigg)\frac1{p^s},\]
 where $\sum_\chi$ is over all Dirichlet characters $\chi$ extended from $\chi\colon(\ZZ/m\ZZ)^\times\to S^1$. Continuing, this rearranges into
 \[\sum_{p\equiv a\pmod m}\frac1{p^s}=\frac1{\varphi(m)}\sum_{\chi\pmod m}\Bigg(\chi(a)^{-1}\sum_p\frac{\chi(p)}{p^s}\Bigg).\]
@@ -192,31 +202,45 @@ so
 \[\sum_{p\equiv a\pmod m}\frac1{p^s}\approx\frac1{\varphi(m)}\sum_\chi\chi(a)^{-1}\log L(s,\chi).\]
 Now, the proof of \autoref{thm:dirichlet} proceeds by showing that $L(1,\chi)$ is a nonzero complex number for all but one character $\chi=\chi_0$ and that $L(1,\chi_0)=\infty$ there. (Make no mistake---showing the previous sentence is the hard part of the proof!) As such, the sum on the right has a divergent term, so the sum on the left diverges as well.
 \begin{remark}
-	One can also attach characters to Dirichlet $\zeta$-functions. This produces Hecke $L$-functions, but we will not discuss them here.
+	One can also attach characters to Dedekind $\zeta$-functions. This produces Hecke $L$-functions, but we will not discuss them here.
 \end{remark}
+\begin{remark} \label{rem:productoflfuncs}
+	Again, these $L$-functions do not live in isolation: given a positive integer $m$, let $\zeta_m=e^{2\pi i/m}$ denote a primitive $m$th root of unity. Then one can show that
+	\[\zeta_K(s)=\prod_{\chi\pmod m}L(s,\chi),\]
+	where the product is over all Dirichlet characters $\chi$ lifted from a character $\chi\colon(\ZZ/m\ZZ)^\times\to S^1$.
+\end{remark}
+\begin{exe}
+	Verify \autoref{rem:productoflfuncs} for $K=\QQ(i)$, where here $i=\zeta_4$. \autoref{exe:dedekindzetaforqi} may be helpful.
+\end{exe}
 
 \section{The Weil Conjectures}
-We will state the Weil conjectures, focusing on affine varieties. We will not state the Betti numbers conjecture because we won't want to have to define what a Betti number is.
+We will state the Weil conjectures, focusing on affine varieties. We will not state the Betti numbers conjecture because we won't want to have to define what a Betti number is. And despite great gnashing of teeth, we will only state the functional equation and Riemann hypothesis at the very end of the discussion, in order to avoid having to talk in detail about projective varieties and other such geometric things.
 
 \subsection{Affine Varieties}
 In \autoref{sec:lfunc}, we focused on number theory, but we will now turn our attention to geometry. We will let $K$ be a field in this section; for concreteness one should take $K=\RR$ or $K=\CC$ throughout.
 \begin{definition}[Affine space]
-	Let $K$ be a field and $n$ a positive integer. Then we define \textit{affine $n$-space over $K$}, denoted $\AA_K^n$, to be the set of $n$-tuples $(a_1,\ldots,a_n)\in K^n$.
+	Let $K$ be a field and $d$ a positive integer. Then we define \textit{affine $n$-space over $K$}, denoted $\AA_K^d$, to be the set of $d$-tuples $(a_1,\ldots,a_d)\in K^n$.
 \end{definition}
-It might seem silly to introduce entirely new notation for just writing $K^n$, but this has an important psychological effect: we want to think about $\AA_K^n$ as a purely geometric object, while $K^n$ we might be tempted to think about as having some extra structure (for example, as a vector space).
+It might seem silly to introduce entirely new notation for just writing $K^d$, but this has an important psychological effect: we want to think about $\AA_K^d$ as a purely geometric object, while $K^d$ we might be tempted to think about as having some extra structure (for example, as a vector space).
 
 Now, here is our central definition.
 \begin{definition}[Affine variety]
-	Let $K$ be a field and $n$ a positive integer. Then, given a subset of polynomials $S\subseteq K[x_1,\ldots,x_n]$, we define the vanishing set
-	\[V(S)\coloneqq\left\{(a_1,\ldots,a_n)\in\AA_K^n:f(a_1,\ldots,a_n)\text{ for all }f\in S\right\}.\]
-	Now, an \textit{affine variety} is any subset $V\subseteq\AA_K^n$ for which there exists an $S\subseteq K[x_1,\ldots,x_n]$ with $V=V(S)$.
+	Let $K$ be a field and $d$ a positive integer. Then, given a subset of polynomials $S\subseteq K[x_1,\ldots,x_d]$, we define the vanishing set
+	\[V(S)\coloneqq\left\{(a_1,\ldots,a_d)\in\AA_K^d:f(a_1,\ldots,a_d)\text{ for all }f\in S\right\}.\]
+	Now, an \textit{affine variety} is any subset $V\subseteq\AA_K^n$ for which there exists an $S\subseteq K[x_1,\ldots,x_d]$ with $V=V(S)$.
 \end{definition}
 \begin{remark}
 	Some authors also require some extra geometric conditions to be a variety (e.g., irreducibility). We will not discuss these here.
 \end{remark}
+\begin{remark} \label{rem:useideals}
+	Observe that we have a point $p\in V(S)$ if and only if $p$ vanishes on all the polynomials in $S$. However, $p$ vanishing on the polynomials in $S$ means that $p$ will also vanish on any linear combination of polynomials in $S$. As such, $p\in V(S)$ if and only if $p\in V((S))$, where $(S)\subseteq K[x_1,\ldots,x_d]$ is the ideal generated by the elements of $S$.
+\end{remark}
 We've defined some geometric objects, so the next demand is to see some pictures. Throughout, we will let $K=\RR$.
 \begin{example}
-	Set $K=\RR$ and $n=1$, with $S=\{0\}$. Then $V(S)=\AA_\RR^1$ is the red set, as follows.
+	Set $K=\RR$ and $d=1$, with $S=\{1\}$. Then $V(S)=\emp$.
+\end{example}
+\begin{example}
+	Set $K=\RR$ and $d=1$, with $S=\{0\}$. Then $V(S)=\AA_\RR^1$ is the red set, as follows.
 	\begin{center}
 		\begin{asy}
 			unitsize(1cm);
@@ -232,7 +256,7 @@ We've defined some geometric objects, so the next demand is to see some pictures
 	Observe that $V(\emp)=\AA_\RR^1$ as well.
 \end{example}
 \begin{example}
-	Set $K=\RR$ and $n=1$, with $S=\{(x-1)(x-2)\}$. Then $V(S)$ is the red set.
+	Set $K=\RR$ and $d=1$, with $S=\{(x-1)(x-2)(x-3),(x-1)(x-2)(x-4)\}$. Then $V(S)$ is the red set.
 	\begin{center}
 		\begin{asy}
 			unitsize(1cm);
@@ -240,12 +264,226 @@ We've defined some geometric objects, so the next demand is to see some pictures
 			draw((-1,0) -- (4,0), arrow=EndArrow);
 			for(int i = 0; i <= 3; ++i)
 			{
-				dot("$"+string(i)+"$", (i,0), S);
+				label("$"+string(i)+"$", (i,0), S);
 			}
-			dot((1,0) ^^ (2,0), red+linewidth(5));
+			dot((1,0) ^^ (2,0), red);
+			dot((0,0) ^^ (3,0));
 			label("$\mathbb A_{\mathbb R}^1$", (4,0), 2*E);
 		\end{asy}
 	\end{center}
 \end{example}
+\begin{example}
+	Set $K=\RR$ and $d=2$, with $S=\{(x-1)(x-2)(x-3),(x-1)(x-2)(x-4)\}$. Then $V(S)$ is the red set.
+	\begin{center}
+		\begin{asy}
+			unitsize(1cm);
+			import graph;
+			draw((-1,0) -- (3,0), arrow=EndArrow);
+			draw((0,-1) -- (0,1), arrow=EndArrow);
+			draw((1,-1) -- (1,1), arrow=Arrows, p=red);
+			draw((2,-1) -- (2,1), arrow=Arrows, p=red);
+			label("$x$", (3,0), E);
+			label("$y$", (0,1), N);
+		\end{asy}
+	\end{center}
+\end{example}
+\begin{example}
+	Set $K=\RR$ and $d=2$, with $S=\left\{y-x^2\right\}\subseteq\RR[x,y]$. Then $V(S)$ is the red set.
+	\begin{center}
+		\begin{asy}
+			unitsize(1cm);
+			import graph;
+			draw((-2,0) -- (2,0), arrow=EndArrow);
+			draw((0,-1) -- (0,2), arrow=EndArrow);
+			real y(real x)
+			{
+				return x*x;
+			}
+			draw(graph(y, -1.41, 1.41), arrow=Arrows, p=red);
+			label("$x$", (2,0), E);
+			label("$y$", (0,2), N);
+		\end{asy}
+	\end{center}
+\end{example}
+\begin{example}
+	Set $K=\RR$ and $d=2$, with $S=\left\{y^2-x^2(x+1)\right\}\subseteq\RR[x,y]$. Then $V(S)$ is the red set.
+	\begin{center}
+		\begin{asy}
+			unitsize(1cm);
+			import graph;
+			draw((-2,0) -- (2,0), arrow=EndArrow);
+			draw((0,-2) -- (0,2), arrow=EndArrow);
+			real y1(real x)
+			{
+				return x*sqrt(x+1);
+			}
+			real y2(real x)
+			{
+				return -x*sqrt(x+1);
+			}
+			draw(graph(y1, -1, 1.31), arrow=EndArrow, p=red);
+			draw(graph(y2, -1, 1.31), arrow=EndArrow, p=red);
+			label("$x$", (2,0), E);
+			label("$y$", (0,2), N);
+		\end{asy}
+	\end{center}
+\end{example}
+
+\subsection{The \texorpdfstring{$\zeta$}{ Z}-Function} \label{subsec:constructzeta}
+Let $q$ be a fixed prime-power and $d$ a positive integer. Then we can construct a variety $V\subseteq\AA_{\FF_q}^d$ by choosing some subset of polynomials $S\subseteq\FF_q[x_1,\ldots,x_d]$. In a field like arithmetic geometry, we are interested in counting the number of points on $V$.
+
+It turns out to be relatively difficult to study $V$ in isolation. To help with this, we will employ the following trick: note that we can embed $\FF_q$ into $\FF_{q^n}$ for any positive integer $n$, so we can view $S\subseteq\FF_{q^m}[x_1,\ldots,x_d]$, allowing us to define another perhaps larger variety in $\AA_{\FF_q^n}^d$.
+
+With this in mind, we will let $X\left(K\right)$ denote the variety defined by $S$ in a field $K$ containing $\FF_q$; we will mostly be concerned with $K=\FF_{q^n}$ for some positive integer $n$ or $K=\overline{\FF_q}$. In practice,
+\[X\left(\FF_{q^n}\right)=\left\{(a_1,\ldots,a_d)\in\FF_{q^n}:f(a_1,\ldots,a_n)\text{ for all }f\in S\right\}.\]
+In particular, instead of trying to count just $|X(\FF_q)|$, it will be convenient to count all $|X(\FF_{q^n})|$ at once. To see why, we define our $\zeta$ function to be the generating function
+\[\zeta_X(T)\coloneqq\exp\Bigg(\sum_{n=1}^\infty|X(\FF_{q^n})|\frac{T^n}n\Bigg)\in\QQ\bb T.\]
+The following will be our main example.
+\begin{example}
+	Take $S=\emp$ so that $X\left(\FF_{q^n}\right)=\AA_{\FF_q^n}^d$ for all positive integers $n$. Then
+	\[\zeta_X(T)=\exp\Bigg(\sum_{n=1}^\infty q^{nd}\cdot\frac{T^n}n\Bigg)=\exp\Bigg(\sum_{n=1}^\infty\frac{\left(q^dT\right)^n}n\Bigg)=\frac1{1-q^dT},\]
+	where we have used the Taylor expansion $-\log(1-T)=\sum_{n=1}^\infty\frac{T^n}n$.
+\end{example}
+It will be enlightening to recast $\zeta_X$ as an arithmetic $\zeta$-function, in the sense of \autoref{rem:arithmeticzeta}. This will be a little technical, but the details are not so important. The reader is encouraged to set $d=1$ in what follows because it simplifies many parts of the discussion.
+
+The relevant ring is $R\coloneqq\FF_q[x_1,\ldots,x_d]/(S)$, where $(S)$ is the ideal generated by the elements of $S$, as discussed in \autoref{rem:useideals}. We will use the following idea.
+\begin{idea}
+	Points on varieties correspond to maximal ideals of rings.
+\end{idea}
+Indeed, to interface with an arithmetic $\zeta$-function, we need to understand the maximal ideals of $R$; in some sense it is not too surprising that these maximal ideals are about to be able to let us count points on varieties, but the exact translation requires some care.
+
+It turns out that these are in bijection with the maximal ideals of $\FF_q[x_1,\ldots,x_d]$ which contain $S$. So let's begin by finding some maximal ideals. Well, given a point $p=(a_1,\ldots,a_d)\in X\left(\overline{\FF_{q}}\right)$, observe that there is a map
+\[\varphi\colon\FF_q[x_1,\ldots,x_d]\to\overline{\FF_{q}}\]
+sending $x_i\mapsto a_i$ for all $i$. In particular, we get an embedding
+\[\varphi\colon\frac{\FF_q[x_1,\ldots,x_d]}{\ker\varphi}\into\overline{\FF_{q}},\]
+which implies that $\FF_q[x_1,\ldots,x_d]/\ker\varphi$ is a field and hence $\ker\varphi$ is maximal. Additionally, requiring that $(a_1,\ldots,a_d)\in X\left(\overline{\FF_{q}}\right)$ ensures that $S\subseteq\ker\varphi$. For notational convenience, we let $\mf m_p\coloneqq\ker\varphi$.
+
+It turns out that all maximal ideals of $\FF_q[x_1,\ldots,x_d]/(S)$ take the form $\mf m_p$ for some $p\in X\left(\overline{\FF_q}\right)$. To see this, the key ingredient is Hilbert's Nullstellensatz.
+\begin{theorem}[Hilbert's Nullstellensatz] \label{thm:nullstellensatz}
+	Let $K$ be a field and $d$ a positive integer. If $\mf m\subseteq K[x_1,\ldots,x_d]$ is a maximal ideal, then $K[x_1,\ldots,x_d]/\mf m$ is a finite field extension of $K$.
+\end{theorem}
+\begin{proof}
+	Take a course in algebraic geometry.
+\end{proof}
+\begin{remark}
+	Many approximately equivalent statements are given the name Hilbert's Nullstellensatz, but we will only need the one of the above form.
+\end{remark}
+Applied to our context, we are being told that all maximal ideals $\mf m\subseteq\FF_q[x_1,\ldots,x_d]$ come equipped with an isomorphism
+\[\varphi\colon\frac{\FF_q[x_1,\ldots,x_d]}{\mf m}\to\FF_{q^n}\]
+for some positive integer $n$. We can then use $\varphi$ to read off a $d$-tuple $p\coloneqq(a_1,\ldots,a_d)=(\varphi(x_1),\ldots,\varphi(x_d))$ in $\AA^d_{\FF_{q^n}}$, which lives in $X\left(\FF_{q^n}\right)$ if and only if $S\subseteq\ker\varphi$. Thus, $\mf m=\ker\varphi=\mf m_p$.
+
+Even though we have constructed all maximal ideals $\mf m$ from points in $p\in X\left(\overline{\FF_{q}}\right)$, some care is still required because it is possible for two points to give the same maximal ideal. Fixing this requires us to venture a little too far afield, so we will relegate the technicalities to an exercise.
+\begin{exe} \label{exe:galoisorbits}
+	Fix a maximal ideal $\mf m\subseteq\FF_q[x_1,\ldots,x_d]/(S)$. Additionally, we define the Frobenius automorphism $F\colon\overline{\FF_q}\to\overline{\FF_q}$, which acts as $F(x)\coloneqq x^p$, and extend $F$ to $X\left(\overline{\FF_q}\right)$ coordinate-wise.
+	\begin{listalph}
+		\item Use \autoref{thm:nullstellensatz} show that there is a positive integer $n$ such that $q^n$ equals the cardinality of the field $\FF_q[x_1,\ldots,x_d]/\mf m$.
+		\item If $p\in X\left(\overline{\FF_q}\right)$ has $\mf m=\mf m_p$, then actually $p\in X\left(\FF_{q^n}\right)$.
+		\item Show that any $p\in X\left({\FF_{q^n}}\right)$ has $\mf m_p=\mf m_{Fp}$. (Hint: $\mf m_p$ is the set of polynomials in $\FF_q[x_1,\ldots,x_d]$ which vanish at $p$.)
+		\item It turns out that any $p,p'\in X\left({\FF_{q^n}}\right)$ with $\mf m_p=\mf m_{p'}$ has $p=F^kq$ for some integer $k$. Show this for $d=1$, but feel free to use this fact for any positive integer $d$ later on.
+		\item Suppose that $\mf m=\mf m_p$ for $p\in X\left(\FF_{q^n}\right)$. Use the previous two parts to show that
+		\[\left\{p'\in X\left(\FF_{q^n}\right):\mf m=\mf m_{p'}\right\}=\left\{F^kp:k\in\ZZ\right\}\]
+		has cardinality $n$. (Hint: $F^n$ is the identity on $\FF_{q^n}$.)
+	\end{listalph}
+\end{exe}
+We are now ready to talk about our arithmetic $\zeta$-function $\zeta_R$, where $R=\FF_q[x_1,\ldots,x_d]/(S)$. Given two points $p,p'\in X\left(\overline{\FF_q}\right)$, say $p\sim p'$ if and only if there exists $k\in\ZZ$ such that $p=F^kp'$. Then our work above combined with \autoref{exe:galoisorbits} tells us that maximal ideals $\mf m$ of $R$ are in bijection with equivalence classes of points $[p]$ in $X\left(\overline{\FF_q}\right)/\sim$.
+
+Now that we understand maximal ideals, the rest of the argument is just a computation. For convenience, we will write
+\[\deg p\coloneqq\left[\frac{\FF_q[x_1,\ldots,x_d]}{\mf m_p}:\FF_q\right]\]
+so that the equivalence class $[p]\subseteq$ has $\deg p$ points in it, using \autoref{exe:galoisorbits}. Intuitively, we can think of the coordinates of $p$ as generating a (finite) field extension of $\FF_q$, and we have let $n$ be the degree of this extension. In other words, the least $n$ for which the coordinates of $p$ live in $\FF_{q^n}$ is $n=\deg p$, so translating this into Galois theory we have that the least $n$ for which $F^np=p$ is $n=\deg p$ as well.
+
+Now, our bijection between maximal ideals and equivalence classes of points gives
+\begin{align*}
+	\zeta_R(s) &= \prod_{\substack{\text{maximal }\mf m\subseteq R\\|R/\mf m|<\infty}}\frac1{1-|R/\mf m|^{-s}} = \prod_{[p]\in X\left(\overline{\FF_q}\right)/\sim}\frac1{1-q^{-s\cdot \deg p}}.
+\end{align*}
+Already we see that we might as well set $T\coloneqq q^{-s}$ to abstract away the $q$ from our $\zeta$-function. As such, we write
+\[\zeta_R(T)=\prod_{[p]\in X\left(\overline{\FF_q}\right)/\sim}\frac1{1-T^n}.\]
+To try to get closer to the definition of $\zeta_X(T)$, we will want to apply logarithmic differentiation, so we write
+\begin{align*}
+	\frac d{dT}\log\zeta_R(T) &= \sum_{[p]\in X\left(\overline{\FF_q}\right)/\sim}\frac d{dT}-\log\left(1-T^{\deg p}\right) \\
+	&= \sum_{[p]\in X\left(\overline{\FF_q}\right)/\sim}\frac{(\deg p)T^{\deg p-1}}{1-T^{\deg p}} \\
+	&= \sum_{[p]\in X\left(\overline{\FF_q}\right)/\sim}\sum_{k=1}^\infty(\deg p)T^{(\deg p)k-1} \\
+	&= \sum_{p\in X\left(\overline{\FF_q}\right)}\sum_{k=1}^\infty T^{(\deg p)k-1},
+\end{align*}
+where at the end we used the fact that $[p]$ has $\deg p$ points in it. To help us out a little, we multiply both sides by $T$, giving
+\begin{align*}
+	T\cdot\frac d{dT}\log\zeta_R(T) &= \sum_{p\in X\left(\overline{\FF_q}\right)}\sum_{k=1}^\infty T^{(\deg p)k} \\
+	&= \sum_{n=1}^\infty\Bigg(\sum_{d\mid n}\left|\{p\in X(\overline{\FF_q}):\deg p=d\}\right|\Bigg)T^n
+\end{align*}
+To finish up, $p\in X\left(\FF_{q^n}\right)$ is equivalent to the coordinates of $p$ living in $\FF_{q^n}$, which is equivalent to $\FF_{q^{\deg p}}\subseteq\FF_{q^n}$, which is equivalent to $\deg p\mid n$. As such,
+\[T\cdot\frac d{dT}\log\zeta_R(T)=\sum_{n=1}^\infty\left|X(\FF_{q^n})\right|T^n=T\cdot\frac d{dT}\log\zeta_X(T),\]
+which shows that $\zeta_X(T)=\zeta_R(T)$ after integrating and exponentiating---note $T=0$ gives $1=1$, so our constant term is correct. In other words,
+\begin{equation}
+	\zeta_X\left(q^{-s}\right)=\zeta_R(T) \label{eq:wehaveazeta}
+\end{equation}
+after substituting back for $T$.
+
+\subsection{The Prime Number Theorem}
+As an application of the theory we've built, let $q$ be a prime-power, set $d=1$, and $S=(0)\subseteq\FF_q[x_1,\ldots,x_d]$ so that $X(K)=\AA^d_K$ is to the $K$-points of the variety $V(S)\subseteq\AA_K^d$, where $\FF_q\subseteq K$. Lastly, we see $R=\FF_q[x]$.
+
+The main benefit to \autoref{eq:wehaveazeta} is that it gives us an Euler product
+\[\zeta_R(T)=\prod_{\text{maximal }\mf m\subseteq R}\frac1{1-T^{[R/\mf m:\FF_q]}}\]
+after messaging the definition of $\zeta_R(T)$. Because $R$ is a principal ideal domain with units $\FF_q^\times$, for each maximal ideal $\mf m$, we can find a unique monic irreducible polynomial $\pi\in\FF_q[x]$ with $\mf m=(\pi)$. Then
+\[R/\mf m=\FF_q[x]/(\pi)\cong\FF_{q^{\deg\pi}},\]
+so
+\[\zeta_R(T)=\prod_{\text{monic }\pi}\frac1{1-T^{\deg\pi}},\]
+where the product is taken over monic irreducible polynomials $\pi\in\FF_q[x]$.
+\begin{remark}
+	We can use unique prime factorization in $\FF_q[x]$ to expand out $\zeta_R(T)$ into the series
+	\[\zeta_R(T)=\sum_{\text{monic }f\in\FF_q[x]}T^{\deg f},\]
+	where the sum is over monic polynomials $f\in\FF_q[x]$.
+\end{remark}
+For that matter, careful examination of the arguments made at the end of \autoref{subsec:constructzeta} (or by direct logarithmic differentiation again), we deduce
+\begin{equation}
+	T\cdot\frac d{dT}\log\zeta_R(T)=\sum_{n=1}^\infty\Bigg(\sum_{d\mid n}d\pi_q(d)\Bigg)T^n, \label{eq:logddx}
+\end{equation}
+where $\pi_q(d)$ is the number of monic irreducible polynomials of degree $d$. On the other hand,
+\[T\cdot\frac d{dT}\log\zeta_X(T)=\sum_{n=1}^\infty|X\left(\FF_{q^n}\right)|T^n=\sum_{n=1}^\infty q^nT^n,\]
+so we conclude
+\[\sum_{d\mid n}d\pi_q(d)=q^n.\]
+M\"obius inversion gives the following statement.
+\begin{theorem}
+	Let $q$ be a prime-power and $n$ a positive integer. Letting $\pi_q(n)$ denote the number of monic irreducible polynomials in $\FF_q[x]$, we have
+	\[\pi_q(n)=\frac1n\sum_{d\mid n}q^d\mu(n/d)=\frac{q^n}n+O\big(q^{n/2}\big).\]
+\end{theorem}
+\begin{remark}
+	The error bound of $O\left(q^{n/2}\right)$ is said to have Riemann hypothesis quality because the analogous bound for integers is equivalent to the Riemann hypothesis.
+\end{remark}
+\begin{remark} \label{rem:reallyjustpnt}
+	Importantly, the above proof is more or less the easy part of the proof of the Prime number theorem (notably taking logarithmic differentiation of our $\zeta$ function in \autoref{eq:logddx}). But then things immediately collapse because $\zeta_X(T)$ has no zeroes at all, meaning that the difficult bounding of the proof of the Prime number theorem to establish zero-free regions may be omitted.
+\end{remark}
+
+% \subsection{The Weil Conjectures}
+% We will now state the Weil conjectures which apply to our situation.
+
+% As usual, let $q$ be a prime-power and $d$ a positive integer. Then we let $S\subseteq\FF_q[x_1,\ldots,x_d]$ be a set of polynomials of fixed degree $d$ so that we can define a variety $X(K)\subseteq\AA^{d}_K$ for any field $K$ containing $\FF_q$, allowing us to define $\zeta_X(T)$ as before. Then we have the following.
+% \begin{theorem}
+% 	Fix everything as above. Then $\zeta_X(T)$ is a rational function in $\QQ(T)$.
+% \end{theorem}
+% This is technically only the first Weil conjecture. To state the others, we must add some geometric conditions on $X$.
+% \subsection{Primes in Arithmetic Progression}
+% We continue in the context of the previous subsection.
+
+% Having proven the Prime number theorem for $\FF_q[x]$ by arguments analogous to the case of $\ZZ$ (\autoref{rem:reallyjustpnt}), we might hope that we can adapt the arguments from Dirichlet's theorem on primes in arithmetic progression to $\FF_q[x]$ as well. Indeed, we won't want to touch the analytic parts of the proof (dealing with $L(1,\chi)$ and such), but we hope that we won't have to because the analytic parts of the Prime number theorem also vanished over $\FF_q[x]$.
+
+% It turns out that it will be harder to make this work than we might otherwise hope, but it will be worth efforts to attempt anyway. To make this work, we need a notion of a Dirichlet character. Adapting from the case over $\ZZ$, we have the following definition.
+% \begin{definition}[Dirichlet character]
+% 	Fix a prime-power $q$ and modulus $\mu(x)\in\FF_q[x]$. Then, given a character $\chi\colon(\FF_q[x]/\mu(x))^\times\to S^1$, we define a \textit{Dirichlet character$\pmod{\mu}$} to be the function
+% 	\[\chi(f)\coloneqq\begin{cases}
+% 		\chi(f) & \gcd(f,\mu)=1, \\
+% 		0 & \gcd(f,m)>1.
+% 	\end{cases}\]
+% \end{definition}
+% In particular, given $\mu(x)\in\FF_q[x]$ and $a(x)\in\FF_q[x]$ with $\gcd(a,\mu)=1$, we can use \autoref{lem:orthogonality} to write
+% \[\frac1{\varphi(\mu)}\sum_{\chi\pmod\mu}\chi(f)\chi(a)=\begin{cases}
+% 	1 & f\equiv a\pmod\mu, \\
+% 	0 & f\not\equiv a\pmod\pi.
+% \end{cases}\]
+% Thus, if we let $\pi_{a,\mu}(n)$ denote the number of monic irreducible polynomials $\pi(x)\in\FF_q[x]$ of degree $n$ with $\pi\equiv a\pmod\pi$, we get to write
+% \[\pi_{a,\mu}(n)=\]
+% Some elbow grease (namely, using arguments similar to the end of \autoref{subsec:constructzeta}) gives
+% \[\]
+
+% \subsection{A Harder Variety}
+% Let's continue building our analogues. So far we have been working with $d=1$ and $S=(0)$, which roughly corresponded to working over $\ZZ$. If we want to build an analogue for the Dedekind $\zeta_K$-functions, we should make our variety a little more complicated.
 
 \end{document}

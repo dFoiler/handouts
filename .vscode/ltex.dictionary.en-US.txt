@@ -33,3 +33,8 @@ monic
 multiplicativity
 Hecke
 Betti
+Nullstellensatz
+surjections
+endomorphism
+exponentiating
+irred
