@@ -38,3 +38,10 @@ surjections
 endomorphism
 exponentiating
 irred
+YMC
+Diller
+Raphson
+Seki
+Takakazu
+homeomorphic
+homeomorphism

@@ -1,0 +1,182 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+
+\newcommand{\nirpdftitle}{YMC Plenary Talks}
+\usepackage{import}
+\inputfrom{../notes}{nir}
+% \usepackage[backend=biber,
+%     style=alphabetic,
+%     sorting=ynt
+% ]{biblatex}
+% \addbibresource{bib.bib}
+\setcounter{tocdepth}{2}
+
+\pagestyle{contentpage}
+
+\title{YMC Plenary Talks}
+\author{Nir Elber}
+\date{August 2022}
+\usepackage{graphicx}
+\lhead{}
+\rhead{\textit{YMC PLENARY TALKS}}
+
+\begin{document}
+
+\maketitle
+
+\tableofcontents
+
+\section{Newton's Method for the Clueless --- Jeff Diller}
+Math is more than numbers.
+\begin{idea}
+	For this talk, math is about solving equations.
+\end{idea}
+To be specific, we are interested in solving for $x$ solving $f(x)=0$, where $f$ is some specified function (often polynomial).
+\begin{example}
+	Here are some sets meant to solve equations in $\ZZ[x]$.
+	\begin{itemize}
+		\item Integers solve equations $x-k\in\ZZ[x]$.
+		\item Rational numbers solve equations like $ax+b\in\ZZ[x]$.
+		\item Real numbers solve equations like $x^2-2\in\ZZ[x]$.
+		\item Complex numbers solve equations like $x^2+1\in\ZZ[x]$.
+	\end{itemize}
+\end{example}
+It will be difficult to ``algebraically'' solving polynomials arbitrarily; this is impossible for degree at least $5$. In this talk, we will be interested in numerical approximations of these solutions. For this, we will use Newton's method.
+\begin{remark}
+	Newton's method is attributed to Newton, but it's probably due to Simpson. Other mathematicians who have a claim to fame here are Joseph Raphson and Seki Takakazu.
+\end{remark}
+
+\subsection{Newton's Method}
+We follow the following idea.
+\begin{idea}
+	If we want to solve $f(x)=0$, guess a solution $x_0$ and pretend $f$ is linear.
+\end{idea}
+To be a little more technical, we begin with a guess $x_0$, approximate
+\[f(x)\approx f(x_0)+f'(x_0)(x-x_0)\]
+and then set
+\[x_1\coloneqq x_0-\frac{f(x_0)}{f'(x_0)}\]
+to be our new guess. Here is the image. 
+\begin{center}
+	\begin{asy}
+		import graph;
+		unitsize(3cm);
+		real f(real x)
+		{
+			return x*x*x - x + 0.1;
+		}
+		draw((-0.6,0)--(2,0)); draw((0,-0.6)--(0,2));
+		draw(graph(f,-0.6,1.5), blue);
+
+		real a0 = 1.3;
+		real a1 = a0 - (a0*a0*a0 - a0) / (3*a0*a0 - 1);
+
+		pair v = (a0, f(a0)) - (a1, 0);
+		draw((a1, 0) -- (a1, 0) + 1.8*v, red);
+
+		draw((a0,0) -- (a0,f(a0)), dashed);
+		draw((a1,0) -- (a1,f(a1)), dashed);
+
+		dot("$x_0$", (a0,0), S); dot("$x_1$", (a1, 0), S);
+
+		dot("$(x_0,f(x_0))$", (a0, f(a0)), WNW);
+		dot("$(x_{1},f(x_{1}))$", (a1, f(a1)), WNW);
+
+		label("\color{red}$y-f(x_0)=f'(x_0)(x-x_0)$", (a1,0) + 1.5*v, W);
+	\end{asy}
+\end{center}
+In practice, we will take our guess $x_1$ and repeat the process, and we will end up well-approximating the root.
+\begin{remark}
+	This is an example of a ``dynamical system,'' where we have some function $N\colon X\to X$ and ask what happens to the orbits of points $x\in X$. In particular, Newton's method has
+	\[N(x)=x-\frac{f(x)}{f'(x)}.\]
+\end{remark}
+\begin{example}
+	With $f(x)=x^2-2$, we have
+	\[N(x)\coloneqq\frac12\left(x+\frac2x\right)\]
+	as our iteration function. In particular, for any field $K$, we have $N\colon K\to K$.
+\end{example}
+\begin{example}
+	With $f(x)=x^2+1$, we have
+	\[N(x)\coloneqq\frac12\left(x+\frac{-1}x\right)\]
+	as our iteration function. Because $N\colon\RR\to\RR$, we expect applying Newton's method to guesses starting as real numbers to not be very helpful.
+\end{example}
+\begin{remark}
+	From the perspective of dynamical systems, $f(x)=x^2+1$ is actually very interesting: a random first guess will provide a sequence dense in $\RR$. However, we can find periodic points as well, which is pretty cool.
+\end{remark}
+
+\subsection{Efficiency}
+To justify Newton's method's efficiency, let's try another method and compare. The idea for our second method is the Intermediate value theorem.
+\begin{theorem}[Intermediate value]
+	Let $f\colon\RR\to\RR$ be continuous. Then if $f(a)<0$ and $f(b)>0$, there is a root of $f$ between $a$ and $b$.
+\end{theorem}
+As such, we can imagine taking an interval $[a,b]$, evaluating $f\left(\frac{a+b}2\right)$ and dividing the interval in half depending on its sign. Here is the image.
+\begin{center}
+	\begin{asy}
+		import graph;
+		unitsize(3cm);
+		real f(real x)
+		{
+			return x*x*x - x + 0.1;
+		}
+		draw((-0.6,0)--(2,0)); draw((0,-0.6)--(0,2));
+		draw(graph(f,-0.6,1.5), blue);
+
+		real a0 = 0.3;
+		real b0 = 1.3;
+		real a1 = (a0+b0)/2;
+
+		draw((a0,0) -- (a0,f(a0)), dashed);
+		draw((a1,0) -- (a1,f(a1)), dashed);
+		draw((b0,0) -- (b0,f(b0)), dashed);
+
+		dot("$b_0$", (b0,0), S); dot("$a_0$", (a0, 0), N);
+		dot("$a_1$", (a1, 0), N);
+
+		dot("$(a_0,f(a_0))$", (a0, f(a0)), SW);
+		dot("$(a_1,f(a_1))$", (a1, f(a1)), SE);
+		dot("$(b_0,f(b_0))$", (b0, f(b0)), WNW);
+	\end{asy}
+\end{center}
+This ``Intermediate value theorem'' method uses a single iteration to get a bit of information out of the root. However, Newton's method gets a quadratic improvement on the root!
+
+Let's see this quadratic improvement. Without loss of generality, suppose $f(0)=0$ is our root. Then, using a Taylor series, we have
+\[N(x)=x^2\cdot\frac{f''(0)}{f'(0)}+O\left(x^3\right),\]
+so with $x$ small we get $N(x)\sim x^2$ to be a quadratic improvement.
+
+\subsection{Random Guess}
+One issue with this method is that we need a good first guess. What if we just tried guessing? This idea is due to Cayley.
+\begin{example}
+	Take $f(x)=x^2-1$. It turns out that, guessing $x_0\in\CC$, we have that $x_n\to1$ if $\op{Re}x_0>0$ and $x_n\to-1$ if $\op{Re}x_0<0$.
+\end{example}
+\begin{remark}
+	In the case of $\op{Re}x_0=0$, this is essentially analogous to trying to solve $f(x)=x^2+1$ over $\RR$.
+\end{remark}
+The behavior for quadratic polynomials is essentially isomorphic to this behavior for $f(x)=x^2-1$, essentially applying a suitable isometry and dilation.
+
+So what happens with cubic polynomials? Well, the behavior becomes fractal-like and quite complicated, and it stays complicated as one adds more roots. However, we still can gain some control over this. We pick up the following definition.
+\begin{definition}
+	Let $N\colon\CC\to\CC$ be Newton's method for a given polynomial $f$. The set of all points $z\in\CC$ which approach a given root $\alpha$ is called the \textit{basin} of $\alpha$. The connected component of the basin of $\alpha$ which contains $\alpha$ is called the \textit{immediate basin}.
+\end{definition}
+\begin{remark}
+	All these basins are open: a small perturbed element of the basin will still converge to the same root.
+\end{remark}
+There is the following result.
+\begin{theorem}
+	The immediate basin of a given root $\alpha$ is simply connected in $\CC$; i.e., it is homeomorphic to the disk $\overline{B(0,1)}$ of radius $1$ in $\CC$, and under this homeomorphism, $N$ becomes the function $\hat N\colon D(0,1)\to D(0,1)$ given by
+	\[\hat N(x)=x^2.\]
+\end{theorem}
+Notably, $\hat N$ has two fixed points $0$ and $1$, which when pulled back to the map $N\colon\CC\to\CC$ corresponds to the immediate basin containing the fixed point $\alpha$ (as its root) as well as $\infty$. Namely, the immediate basin must contain arbitrary large values! We can say better than this.
+\begin{theorem}
+	The immediate basin of a given root $\alpha$ has a somewhat large ``wedge'' of $\CC$ as a subset.
+\end{theorem}
+So here is the idea: fix a polynomial $f$, and set some very large circle $\del B(0,R)$. Then doing a bunch (in fact, $1.11d(\log d)^2$ is enough, where $d\coloneqq\deg f$) of initial guesses evenly distributed around $\del B(0,R)$ will be able to converge to the roots using Newton's method.
+\begin{remark}
+	This is a miracle! Newton's method was intended to improve approximation of roots locally (close to the roots), but we managed to find all roots globally.
+\end{remark}
+We close with a couple of further directions.
+\begin{itemize}
+	\item How does this generalize to systems of polynomial equations?
+	\item How does this compare to the secant method to approximate roots?
+	\item Is there a story for higher-order approximations (e.g., Halley's method)?
+\end{itemize}
+
+\end{document}
