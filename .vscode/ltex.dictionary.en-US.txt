@@ -45,3 +45,8 @@ Seki
 Takakazu
 homeomorphic
 homeomorphism
+Plavnik
+Hopf
+monoidal
+nonnegative
+coevaluation
