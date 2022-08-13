@@ -50,3 +50,5 @@ Hopf
 monoidal
 nonnegative
 coevaluation
+quadric
+Noether

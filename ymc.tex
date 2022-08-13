@@ -369,4 +369,227 @@ Here is some progress.
 \end{definition}
 We can classify braided fusion categories up to rank $3$. There is some partial progress up to higher dimensions. Classifying by dimension gives other progress. On the other side of classification, we have been able to build some new braided fusion categories from old; for example, we have had motivations from cohomology, from physics, etc.
 
+\section{Interpolation Problems for Curves --- Isabel Vogt}
+Let's start at the (very) beginning. Here is our question.
+\begin{ques}
+	When is there a curve (with some specified properties) which goes through some given points.
+\end{ques}
+\begin{example}
+	We can choose a curve
+	\begin{center}
+		\begin{asy}
+			unitsize(1cm);
+			dot((1,0) ^^ (0,1) ^^ (-2,0) ^^ (-2,-0.5));
+		\end{asy}
+	\end{center}
+	as follows.
+	\begin{center}
+		\begin{asy}
+			unitsize(1cm);
+			dot((1,0) ^^ (0,1) ^^ (-2,0) ^^ (-2,-0.5));
+			draw((1,0) .. (0,1) .. (-2,0) .. (-2,-0.5));
+		\end{asy}
+	\end{center}
+\end{example}
+
+\subsection{Classical Results}
+Here are some basic examples.
+\begin{example}
+	There is a line between two points.
+\end{example}
+\begin{theorem}[Euclid]
+	There is a circle between three noncollinear points.
+\end{theorem}
+Note that the circle is requiring us to work with points in ``general position.'' With this in mind, we have the following more general result.
+\begin{theorem}[Pappus] \label{thm:pappus}
+	Any five points in general position has a conic section.
+\end{theorem}
+Providing an actual synthetic construction of this conic is quite difficult. However, it is still possible.
+
+\subsection{Classical Algebraic Geometry}
+Instead of using compasses and straightedges, we began using equations. This allows us to prove \autoref{thm:pappus} fairly easily. To begin, we define a conic.
+\begin{definition}
+	A \textit{conic} $C$ is a curve specified by an equation
+	\[C\colon ax^2+bxy+cy^2+dx+ey+f=0.\]
+\end{definition}
+Namely, $C(k)$ consists of the set of pairs $(x,y)\in k^2$ which satisfy the equation given by $C$.
+
+So here is our theorem.
+\begin{proof}[Proof of \autoref{thm:pappus}]
+	Fix our conic as
+	\[C\colon ax^2+bxy+cy^2+dx+ey+f=0.\]
+	Now, given our five points $(p_i,q_i)$ for $1\le i\le 5$, we are going to get a system of equations
+	\[ap_i^2+bp_iq_i+cq_i^2+dp_i+eq_i+f=0\qquad\text{for}\qquad1\le i\le 5.\]
+	However, these equations are linear in $(a,b,c,d,e,f)$, so we can simply solve for our conic directly! Namely, we want
+	\[\begin{bmatrix}
+		a \\ b \\ c \\ d \\ e \\ f
+	\end{bmatrix}\in\ker\begin{bmatrix}
+		p_i^2 & p_iq_i & q_i^2 & p_i & q_i & 1
+	\end{bmatrix},\]
+	where the matrix at the right has five rows. However, we have five rows and six columns, so it has nonzero kernel, allowing us to find our nonzero conic given by $(a,b,c,d,e,f)$. This finishes the proof.
+\end{proof}
+\begin{remark}
+	In fact, if the points are in general position we expect the matrix to have kernel with dimension exactly $1$, so the $(a,b,c,d,e,f)$ defines a unique conic.
+\end{remark}
+\begin{remark}
+	Realizing or space of conics as a kernel allows us to give it a vector space structure.
+\end{remark}
+With this approach, we actually have the following guiding philosophy.
+\begin{idea}
+	A general curve of degree $d$ can interpolate $n-1$ points, where $n$ is the number of coefficients in a general degree-$d$ curve.
+\end{idea}
+To count this number of coefficients, we note that there are $k+1$ different monomials $x^ay^b$ with $a+b=k$, so the total number of monomials with degree at most $d$ is
+\[\sum_{i=0}^{d}(i+1)=\frac{(d+1)(d+2)}2=\binom{d+2}2,\]
+so we need
+\[\binom{d+2}2-1=\frac{d(d+3)}2\]
+total points.
+\begin{remark}
+	In fact, we have not used the fact that our points need to be in general position. This in particular comes in to make sure that our plane curve has degree actually $d$ and not less.
+\end{remark}
+Anyway, here is the result we proved.
+\begin{theorem}[Cramer] \label{thm:cramer}
+	A plane curve of degree $d$ can interpolate $\frac{d(d+3)}2$ points, and for points of general position then this curve is unique.
+\end{theorem}
+\begin{remark}
+	We have been a little fast and loose about what ``general position'' means; to be technical, we simply ask for the result in an open dense subset.
+\end{remark}
+
+\subsection{Waring/Lagrange Interpolation}
+Here is a different source of interpolation problem: we want a polynomial $f$ of degree (at most) $d$ with $f(p_i)=q_i$ for $n$ given points $(p_i,q_i)$ where $1\le i\le n$.
+\begin{example}
+	We can fit the points
+	\begin{center}
+		\begin{asy}
+			import graph;
+			unitsize(1.5cm);
+			real f(real x)
+			{
+				return x*x*x - x + 0.1 + 0;
+			}
+			draw((-0.6,0)--(2,0)); draw((0,-0.6)--(0,2));
+			//draw(graph(f,-0.6,1.5), blue);
+			dot((0,f(0)) ^^ (1,f(1)) ^^ (0.7,f(0.7)) ^^ (1.3,f(1.3)));
+		\end{asy}
+	\end{center}
+	as follows.
+	\begin{center}
+		\begin{asy}
+			import graph;
+			unitsize(1.5cm);
+			real f(real x)
+			{
+				return x*x*x - x + 0.1 + 0;
+			}
+			draw((-0.6,0)--(2,0)); draw((0,-0.6)--(0,2));
+			draw(graph(f,-0.6,1.5), blue);
+			dot((0,f(0)) ^^ (1,f(1)) ^^ (0.7,f(0.7)) ^^ (1.3,f(1.3)));
+		\end{asy}
+	\end{center}
+\end{example}
+Essentially the same approach that we had before will work: namely we set
+\[f(x)=\sum_{i=0}^{d}a_ix^i\]
+and want to solve
+\[\begin{bmatrix}
+	p_1^d & p_1^{d-1} & \cdots & p_1 & 1 \\
+	\vdots & \vdots & \ddots & \vdots & \vdots \\
+	p_n^d & p_n^{d-1} & \cdots & p_n & 1
+\end{bmatrix}\begin{bmatrix}
+	a_d \\
+	\vdots \\
+	a_0
+\end{bmatrix}=\begin{bmatrix}
+	q_1 \\
+	\vdots \\
+	p_n
+\end{bmatrix}.\]
+Then this can be solved provided that $n\le d+1$. So we have the following result.
+\begin{theorem}[Waring--Lagrange]
+	There exists a unique polynomial $f$ of degree at most $d$ interpolating $d+1$ points.
+\end{theorem}
+\begin{remark}
+	The above approach should be attributed to Waring, but we gave it to Lagrange.
+\end{remark}
+
+\subsection{Reed--Solomon Error-Correcting Codes}
+Here is a nice application problem: suppose we want to send a message consisting of the possibly large number of characters $p_1,\ldots,p_n$, but we are going through a lossy channel. One naive way to detect if an error has occurred is to send
+\[p_1,\ldots,p_n,p_1,\ldots,p_n.\]
+Namely, in our two copies we can detect the error if there is a difference between the copies. If we want to correct the error, we should send three copies, using the third copy to break ties about what the error is.
+
+The issue is that we are sending $3n$ terms to correct a single error in a message of length $n$. However, we claim that we can do this same task in $n+2$ terms instead of $3n$. Here is the magic. Construct the polynomial
+\[f(x)=p_1x^{n-1}+p_2x^{n-2}+\cdots+p_{n-1}x+p_n.\]
+Then we can send $f(1),\ldots,f(n)$ to determine $f$ uniquely, and they allow us to send the message.
+
+However, if we want to detect an error, we can send $f(n+1)$, and if we cannot make a single polynomial $f$ from our data, then we have an error. Namely, we have over-determined our polynomial, so an error is not expected to exist! A single error is correcting this way.
+\begin{remark}
+	Of course, there might be lots of errors which push us back to being a polynomial again. If we want to detect $k$ errors, then we should send
+	\[f(n+1),\ldots,f(n+k)\]
+	as well.
+\end{remark}
+If we want to do error correction, then we can correct for a single error by sending $f(n+1)$ and $f(n+2)$: if we cannot make a polynomial, then we simply choose the largest subset of $n$ inputs which do make a polynomial, and the point we have left over is the one with the error, and we can correct it according to our solved polynomial.
+\begin{remark}
+	In practice, we use finite fields for our outputs of $f$. This ensures that we are not transmitting numbers which are huge.
+\end{remark}
+
+\subsection{Further Directions}
+Here are some further directions for interpolations.
+\begin{itemize}
+	\item We can try to interpolate higher-dimensional varieties with points again. For example, with a quadric surface given by equation
+	\[Q\colon ax^2+bxy+cy^2+dyz+ez^2+fzx+gx+hy+iz+j\]
+	requires nine points to specify.
+	\item Here is a different sort of problem: working in $r$-dimensional space, we can specify curves of degree $d$ (meaning that any cross-section with a $1$-dimensional hyperplane should intersect at $d$ points) as well as the genus $g$.
+\end{itemize}
+Going in the second direction, which is a little more interesting, we can ask the following question.
+\begin{ques} \label{ques:genus}
+	Having specified the genus $g$ and dimension $d$ of our variety living in $r$-space, how many points in general position can we interpolate?
+\end{ques}
+\begin{example}
+	A degree-$d$ plane curve can interpolate $\frac{d(d+3)}2$ points. This was \autoref{thm:cramer}.
+\end{example}
+However, the approach we used for \autoref{thm:cramer} will not be so easy anymore because it is difficult to specify these varieties as equations like we did there.
+
+Nonetheless, let's try to reframe the proof of \autoref{thm:cramer}: the dimension of the space $X$ of degree-$d$ plane curves is $\frac{d(d+3)}2$ from our monomial computations. To specify our interpolation, we make a space $X_n$ of dimension
+\[\frac{d(d+3)}2+n\]
+as the curves themselves with $n$ points marked on the curve. There is a natural projection $X_n\onto X$ by going down to the curve, and our fibers have dimension $n$ given by the points themselves.
+
+Alternatively, there is a natural map $X\onto k^{2n}$ down to the points themselves. So we are asking for this map
+\[X\onto k^{2n}\]
+to be ``dominant'' in the sense that we should hit all points in general position. Well, one bound we can use for this question is to ask for the dimension of the source space $\frac{d(d+3)}2+n$ to be at least $2n$, which shows that we are requiring
+\[\frac{d(d+3)}2+n\ge 2n,\]
+forcing $\frac{d(d+3)}2\ge n$. This is one side of \autoref{thm:cramer}.
+
+Let's now generalize this. For \autoref{ques:genus}, we will want to know the dimension
+\[\dim\mathcal M(g,d,r)\]
+of varieties with genus $g$, of dimension-$d$, living in $r$-space. This turns out to be incredibly difficult, but here is something partial we can say.
+\begin{theorem}[Brill--Noether]
+	If
+	\[\rho(g,r,d)=g-(r+1)(g-d+r)\ge0,\]
+	then there is a unique component $\mathcal M(g,r,d)^\circ\subseteq\mathcal M(g,r,d)$ containing ``general'' genus-$g$ curves; we call these \textit{Brill--Noether curves}. In fact,
+	\[\dim\mathcal M(g,r,d)^\circ=(r+1)d-(r-3)(g-1).\]
+\end{theorem}
+So let's state our conjecture, which is that the lower bound given by the above approach is sharp.
+\begin{conj}
+	A Brill--Noether curve of degree $d$ and genus $g$ in $r$-space interpolate $n$ points in general position if and only if
+	\[m\le\dim\mathcal M(g,r,d,n)^\circ=(r+1)d-(r-3)(g-1)+n.\]
+\end{conj}
+\begin{example}
+	With $d=6$ and $g=4$ and $r=3$, we predict that we can interpolate $12$ general points. However, it turns out that all these varieties lie in a quadric surface, so actually we could only use $9$ points.
+\end{example}
+However, it turns out that this is one of only two counterexamples in $r=3$.
+\begin{theorem}[Vogt, 2018]
+	A Brill--Noether curve of degree $d$ and genus $g$ in $3$-space interpolate $n$ points in general position if and only if
+	\[m\le\dim\mathcal M(g,r,d,n)^\circ=(r+1)d-(r-3)(g-1)+n,\]
+	provided that $(d,g)\notin\{(5,2),(6,4)\}$.
+\end{theorem}
+It turns out that there are no counterexamples at dimension $r=4$. Here is the full result.
+\begin{theorem}[Vogt--Larson, 2022]
+	A Brill--Noether curve of degree $d$ and genus $g$ in $r$-space interpolate $n$ points in general position if and only if
+	\[m\le\dim\mathcal M(g,r,d,n)^\circ=(r+1)d-(r-3)(g-1)+n,\]
+	provided that
+	\[(d,g,r)\notin\{(5,2,3),(6,4,3),(7,2,5),(10,6,5)\}.\]
+\end{theorem}
+\begin{remark}
+	This result is very hard to prove! For a reasoning why, note that whatever proof you write down must account for the counterexamples.
+\end{remark}
+The moral of the story is that sometimes you start a project in 2016 and only finish it in 2022.
+
 \end{document}
