@@ -1,0 +1,44 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+
+\newcommand{\nirpdftitle}{Arithmetic Statistics}
+\usepackage{import}
+\inputfrom{../notes}{nir}
+% \usepackage[backend=biber,
+%     style=alphabetic,
+%     sorting=ynt
+% ]{biblatex}
+% \addbibresource{bib.bib}
+\setcounter{tocdepth}{2}
+
+\pagestyle{contentpage}
+
+\title{Arithmetic Statistics}
+\author{Nir Elber}
+\date{Fall 2022}
+\usepackage{graphicx}
+\lhead{}
+\rhead{\textit{Arithmetic Statistics}}
+
+\begin{document}
+
+\maketitle
+
+\tableofcontents
+
+\section{September 14th}
+Recall the following definition.
+\begin{definition}
+	We define $D(X)$ to be the set of number fields $K/\QQ$ of discriminant up to $X$, up to isomorphism.
+\end{definition}
+Last time we were interested in counting the number of fields in $D(X)$, perhaps with some added Galois or local constraints.
+
+For today, we restrict to looking at imaginary quadratic fields, so we will quickly define the notation $D_{\textrm{imq}}(X)$ to be the set of imaginary quadratic fields $K/\QQ$ of discriminant upper-bounded by $X$, and we will be interested in studying
+\[\lim_{X\to\infty}\frac{\#\{K\in D_{\textrm{imq}}(X):\op{Cl}(K)_p\cong\Gamma\}}{\#D_{\textrm{imq}}(X)}.\]
+Note that we are interested in studying these sorts of class group questions as distributions, but we could also care about various moment problems.
+
+It turns out that these class group questions are related to counting number fields. For example, where $K$ is an imaginary quadratic field, define $M$ to be the set of surjections $\op{Cl}(K)\onto\ZZ/3\ZZ$; analogously define, $P$ to be the set of ordered pairs $(L,\psi)$ where $L/K$ is an unramified degree-$3$ extension of $K$, and $\psi$ is a choice of isomorphism $\op{Gal}(L/K)\to\ZZ/3\ZZ$. Then class field theory provides a natural isomorphism
+\[M\simeq P.\]
+One can extend this to work in the other direction.
+
+\end{document}

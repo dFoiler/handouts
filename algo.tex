@@ -1,0 +1,279 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+
+\newcommand{\nirpdftitle}{Algorithms}
+\usepackage{import}
+\inputfrom{../notes}{nir}
+% \usepackage[backend=biber,
+%     style=alphabetic,
+%     sorting=ynt
+% ]{biblatex}
+% \addbibresource{bib.bib}
+\setcounter{tocdepth}{2}
+
+\pagestyle{contentpage}
+
+\title{Algorithms}
+\author{Nir Elber}
+\date{Fall 2022}
+\usepackage{graphicx}
+\lhead{}
+\rhead{\textit{Algorithms}}
+
+\begin{document}
+
+\maketitle
+
+\tableofcontents
+
+\section{January 11}
+Problem set 1 will be released tonight.
+
+\subsection{Recursion}
+Today we're going to talk about run-time for recursive algorithms. Here are some examples.
+\begin{example}
+	Multiplication of $n$-bit integers had a run-time of $T(n)$, where
+	\[T(n)=3T(n/2)+\Theta(n).\]
+	Diagrammatically, we can think about this as in the following tree.
+	% https://q.uiver.app/?q=WzAsNCxbMSwwLCJuIl0sWzAsMSwibi8yIl0sWzEsMSwibi8yIl0sWzIsMSwibi8yIl0sWzAsMV0sWzAsMl0sWzAsM11d&macro_url=https%3A%2F%2Fraw.githubusercontent.com%2FdFoiler%2Fnotes%2Fmaster%2Fnir.tex
+	\[\begin{tikzcd}
+		& n \\
+		{n/2} & {n/2} & {n/2}
+		\arrow[from=1-2, to=2-1]
+		\arrow[from=1-2, to=2-2]
+		\arrow[from=1-2, to=2-3]
+	\end{tikzcd}\]
+	Continuing the tree down, we will have $\log_2(n)$ total layers making for a total work of
+	\[T(n)=\sum_{i=0}^{\floor{\log_2n}}\left(\frac32\right)^in=n\cdot\frac{(3/2)^{1+\floor{\log_2n}}}{(3/2)-1}=O\left(n^{\log_23}\right).\]
+	In fact, we see $T(n)=\Theta\left(n^{\log_23}\right)$ by a similar argument.
+\end{example}
+\begin{example}
+	Merge sort has a run-time of $T(n)$, where $T(n)=2T(n/2)+\Theta(n)$. Here, the tree looks like the following.
+	% https://q.uiver.app/?q=WzAsMyxbMSwwLCJuIl0sWzAsMSwibi8yIl0sWzIsMSwibi8yIl0sWzAsMV0sWzAsMl1d&macro_url=https%3A%2F%2Fraw.githubusercontent.com%2FdFoiler%2Fnotes%2Fmaster%2Fnir.tex
+	\[\begin{tikzcd}
+		& n \\
+		{n/2} && {n/2}
+		\arrow[from=1-2, to=2-1]
+		\arrow[from=1-2, to=2-3]
+	\end{tikzcd}\]
+	Summing, the total work comes out to $T(n)=\Theta(n\log_2n)$.
+\end{example}
+\begin{example}
+	Binary search has a run-time of $T(n)=T(n/2)+\Theta(1)$, which we can solve as above to give $T(n)=O(\log_2n)$.
+\end{example}
+\begin{example}
+	Suppose we have a recurrence which looks like $T(n)=3T(n/2)+\Theta\left(n^2\right)$. Here is our tree.
+	% https://q.uiver.app/?q=WzAsNCxbMSwwLCJuIl0sWzAsMSwibi8yIl0sWzEsMSwibi8yIl0sWzIsMSwibi8yIl0sWzAsMV0sWzAsMl0sWzAsM11d&macro_url=https%3A%2F%2Fraw.githubusercontent.com%2FdFoiler%2Fnotes%2Fmaster%2Fnir.tex
+	\[\begin{tikzcd}
+		& n \\
+		{n/2} & {n/2} & {n/2}
+		\arrow[from=1-2, to=2-1]
+		\arrow[from=1-2, to=2-2]
+		\arrow[from=1-2, to=2-3]
+	\end{tikzcd}\]
+	Here, the $k$th layer of our tree has $3^k$ nodes, each producing work $n^2/4^k$, producing a total work on the $k$th layer as $n^2(3/4)^k$. Summing the geometric series (over all layers), we see
+	\[T(n)=\sum_{i=0}^{\floor{\log_2n}}\left(\frac34\right)^in^2\le\frac{n^2}{1-\frac14}=O\left(n^2\right).\]
+	A similar argument shows $T(n)=\Theta\left(n^2\right)$.
+\end{example}
+More generally, if we have a recursion of the form
+\[T(n)=aT(n/b)+\Theta\left(n^c\right),\]
+then the $k$th layer of our imagined tree has $a^k$ nodes, each of size $n/b^k$, producing a total work of $(a/b^c)^k\cdot n^c$ in this layer. At the last layer, which is the $\floor{\log_ba}$th layer, we can solve that we do $\Theta\left(n^{\log_ba}\right)$ work. We can then sum this geometric series, in the following cases.
+\begin{itemize}
+	\item If $c<\log_ba$, then our geometric series is dominated by the last term, so $T(n)=\Theta\left(n^{\log_ba}\right)$.
+	\item If $c=\log_ba$, then our geometric series is constant, and we find $T(n)=\Theta\left(n^{\log_ba}\log n\right)$.
+	\item If $c>\log_ba$, then our geometric series is dominated by the first term, so $T(n)=\Theta\left(n^c\right)$.
+\end{itemize}
+We can check that the above cases match up with our examples.
+\begin{remark}
+	One can apply a similar analysis to a recurrence of the form $T(n)=aT(n/b)+f(n)$, where the cases depend on how $f(n)$ compares with $n^{\log_ba}$. Here are the statements.
+	\begin{itemize}
+		\item If $f(n)=O\left(n^c\right)$ for $c<\log_ba$, then $T(n)$ is still dominated by the last term.
+		\item If $f(n)=\Theta\left(n^{\log_ba}\log^kn\right)$ for some $k\ge0$, then $T(n)=\Theta\left(n^{\log_ba}\log^{k+1}n\right)$.
+		\item Lastly, if $f(n)=\Omega\left(n^c\log^kn\right)$ for some $c>\log_ba$, then $T(n)=\Theta\left(n^c\right)$.
+	\end{itemize}
+\end{remark}
+
+\subsection{Recursion with Back-tracking}
+Here is our example problems.
+\begin{exe}
+	Can we place $n$ queens on an $n\times n$ board which do not attack each other?
+\end{exe}
+Note that we certainly cannot place more than $n$ queens.
+\begin{proof}
+	One approach is to place queens arbitrarily. This tends to not work on your first try. Let's say we start with $n=4$, placing a queen in the top-left.
+	\begin{center}
+		\begin{asy}
+			unitsize(0.7cm);
+			usepackage("skak");
+			real n = 4;
+			for(int i = 0; i < n+1; ++i)
+			{
+				draw((0,i)--(n,i));
+				draw((i,0)--(i,n));
+			}
+			label("$\symqueen$", (0.5,3.5));
+		\end{asy}
+	\end{center}
+	Maybe we try to place a queen in the first place that works.
+	\begin{center}
+		\begin{asy}
+			unitsize(0.7cm);
+			usepackage("skak");
+			real n = 4;
+			for(int i = 0; i < n+1; ++i)
+			{
+				draw((0,i)--(n,i));
+				draw((i,0)--(i,n));
+			}
+			label("$\symqueen$", (0.5,3.5));
+			label("$\symqueen$", (2.5,2.5));
+		\end{asy}
+	\end{center}
+	But now we're in trouble because we can't put a queen anywhere in the third row! So let's try the next spot in the second row.
+	\begin{center}
+		\begin{asy}
+			unitsize(0.7cm);
+			usepackage("skak");
+			real n = 4;
+			for(int i = 0; i < n+1; ++i)
+			{
+				draw((0,i)--(n,i));
+				draw((i,0)--(i,n));
+			}
+			label("$\symqueen$", (0.5,3.5));
+			label("$\symqueen$", (3.5,2.5));
+		\end{asy}
+	\end{center}
+	But here we're still in trouble because no spot in the third row is valid! So next we should try moving the queen in the first row, as follows.
+	\begin{center}
+		\begin{asy}
+			unitsize(0.7cm);
+			usepackage("skak");
+			real n = 4;
+			for(int i = 0; i < n+1; ++i)
+			{
+				draw((0,i)--(n,i));
+				draw((i,0)--(i,n));
+			}
+			label("$\symqueen$", (1.5,3.5));
+		\end{asy}
+	\end{center}
+	There's only place to put the queen in the second row, which as follows.
+	\begin{center}
+		\begin{asy}
+			unitsize(0.7cm);
+			usepackage("skak");
+			real n = 4;
+			for(int i = 0; i < n+1; ++i)
+			{
+				draw((0,i)--(n,i));
+				draw((i,0)--(i,n));
+			}
+			label("$\symqueen$", (1.5,3.5));
+			label("$\symqueen$", (3.5,2.5));
+		\end{asy}
+	\end{center}
+	Now we see that there is one option to place the queen in the third row, as follows.
+	\begin{center}
+		\begin{asy}
+			unitsize(0.7cm);
+			usepackage("skak");
+			real n = 4;
+			for(int i = 0; i < n+1; ++i)
+			{
+				draw((0,i)--(n,i));
+				draw((i,0)--(i,n));
+			}
+			label("$\symqueen$", (1.5,3.5));
+			label("$\symqueen$", (3.5,2.5));
+			label("$\symqueen$", (0.5,1.5));
+		\end{asy}
+	\end{center}
+	Lastly, we see that there is exactly one place we can put the queen in the last row, returning a valid queen arrangement for $n=4$.
+	\begin{center}
+		\begin{asy}
+			unitsize(0.7cm);
+			usepackage("skak");
+			real n = 4;
+			for(int i = 0; i < n+1; ++i)
+			{
+				draw((0,i)--(n,i));
+				draw((i,0)--(i,n));
+			}
+			label("$\symqueen$", (1.5,3.5));
+			label("$\symqueen$", (3.5,2.5));
+			label("$\symqueen$", (0.5,1.5));
+			label("$\symqueen$", (2.5,0.5));
+		\end{asy}
+	\end{center}
+	This process will work for general $n$ and will always terminate eventually, telling us there was no possible way to place the queens, or returning a legitimate way to place the queens.
+
+	Here is some Python code for this algorithm. We represent the position of the queens as a row of positions for columns, where the first entry goes to the first row.
+	\begin{lstlisting}[language=Python]
+	def placeQueens(Q, n):
+		if len(Q) == n:
+			# we have succeeded!
+			return Q
+		r = len(Q)
+		# let's try adding in a queen at (r,i)
+		for i in range(n):
+			legal = True
+			for j,val in enumerate(Q):
+				# test for matching column
+				if val == i:
+					legal = False
+				# test for matching diagonal
+				if abs(val-i) == r-j:
+					legal = False
+			if legal:
+				# placing in (r,i) is possible!
+				# let's try it
+				attempt = placeQueens(Q+[i], n)
+				if attempt:
+					return attempt
+		# nothing worked :(
+		return None
+	\end{lstlisting}
+	This program will work, but it does not run quickly because of all the back-tracking we have to do with our queens.
+\end{proof}
+Let's see a few more examples. They all have the common theme that they more or less ``just try everything'' and are therefore correct but very slowly.
+\begin{exe}
+	We describe an algorithm which will solve chess.
+\end{exe}
+\begin{proof}
+	Given a board state and whose turn it is to move, we merely have to check if it is currently checkmate. If it's not, then let's say it's white's turn to move: we now just run through all possible valid moves by white to ask if it puts black in checkmate. If black doesn't end up in checkmate, we test all of black's moves to see if it now puts white into checkmate; if black has such a move, then we know that white's move was a bad one, so white should try a different move. This algorithm can continue layering indefinitely.
+\end{proof}
+\begin{remark}
+	The issue with the above algorithm is that it is incredibly slow to have to check through all possible moves in all possible positions.
+\end{remark}
+\begin{exe}
+	We describe an algorithm to solve ``subset sum'': given a finite (multi)set $X=\{x_1,\ldots,x_n\}$ of integers and a target $T$, does there exist a subset $S\subseteq X$ such that
+	\[\sum_{x\in S}x=T?\]
+\end{exe}
+\begin{proof}
+	The idea, as usual, is to just loop through all subsets. To recurse, there are two cases: if our subset should contain $x_1$, then we want the remaining subset to sum to $T-x_1$; otherwise, we want the remaining subset to sum to $T$. In the base case, $X$ will be empty, where the problem is only possible if $T=0$. Here is the Python code.
+	\begin{lstlisting}[language=Python]
+	def subsetSum(X,T):
+		if not X:
+			# X is empty
+			return T == 0
+		x = X[0]
+		# the case-work on x
+		return subsetSum(X[1:], T) or subsetSum(X[1:], T-x)
+	\end{lstlisting}
+	There are a few ways to deal with the indexing; the above is a particular stupid way. Note that this algorithm runs through all possible subsets, so this will run in $\Theta\left(2^n\right)$.
+\end{proof}
+\begin{exe}
+	We describe an algorithm to solve ``longest increasing subsequence'': given a sequence of integers $\{a_i\}_{i=1}^n$, we want the largest $N$ such that there exist indices $i_1,\ldots,i_N$ such that the sequence $a_{i_1},\ldots,a_{i_N}$ is increasing.
+\end{exe}
+\begin{proof}
+	Here are a few possible ways to do recursion with back-tracking.
+	\begin{itemize}
+		\item We could go element-by-element and ask if we should include that element in our subsequence.
+		\item We could ask in each position where to go next in the subsequence.
+	\end{itemize}
+	There are many more ways.
+\end{proof}
+The goal of the next few lectures is to try to make the above na\"ive algorithms more efficient.
+
+\end{document}

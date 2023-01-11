@@ -52,3 +52,5 @@ nonnegative
 coevaluation
 quadric
 Noether
+Eisenbud
+recurse
