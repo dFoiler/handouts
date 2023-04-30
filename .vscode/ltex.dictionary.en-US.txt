@@ -76,3 +76,17 @@ Lehmer
 Hooley
 Bilharz
 Chebotarev
+Eischen
+Herglotz
+Kummer
+Iwasawa
+Halleck
+Kontsevich
+enumerative
+Zariski
+hypersurfaces
+compactify
+multiplicatively
+Feng
+Gaussians
+codimension

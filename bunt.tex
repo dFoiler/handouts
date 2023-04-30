@@ -307,4 +307,292 @@ The nontrivial part of the conjecture is passing the limit to $k\to\infty$. Nota
 	Achieving GRH for the number fields $\QQ\left(\zeta_k,a^{1/k}\right)$ will grant Artin's conjecture. Roughly speaking, one sieves the primes by intervals (it turns out that if $a\pmod p$ fails to be a primitive root, it will probably have witnesses $\ell$ roughly the size of $\log p$), reduces the problems to counting prime ideals with bounded norms, and then applying a prime-counting result with GRH input.
 \end{remark}
 
+\section{Bernoulli Numbers --- Ellen Eischen}
+Today we're talking about four seemingly unrelated problems.
+\begin{enumerate}
+	\item In general, we might be interested in computing the sums of powers
+	\[1^k+2^k+\cdots+n^k\]
+	for positive integers $n$ and $k$. For example, to sum $1+2+\cdots+n$, we first imagine doubling it by adding to it $n+(n-1)+\cdots+1$. In total, there are $n$ pairs of $(n+1)$, so after dividing by $2$, we have $n(n+1)/2$. However, this 
+	\item We might be interested in the infinite series
+	\[\zeta(2k)\coloneqq\frac1{1^{2k}}+\frac1{2^{2k}}+\cdots.\]
+	\item We might be interested in solutions to $a^k+b^k=c^k$ in the positive integers.
+	\item The ring $\ZZ$ has unique prime factorization, so it is an interesting question to ask how this result might generalize to $\ZZ[\zeta_p]$, where $\zeta_p$ is a primitive $p$th root of unity.
+\end{enumerate}
+
+\subsection{Sums of Powers}
+Let's discuss the first question. Here are some cases for small $k$.
+\begin{itemize}
+	\item One has $1^0+2^0+\cdots+n^0=n=\frac11n^1$.
+	\item One has $1^1+2^1+\cdots+n^1=n(n+1)/2=\frac12\left(n^2+n\right)$.
+	\item By induction, one could show that $1^2+2^2+\cdots+n^2=\frac13\left(n^3+\frac32n^2+\frac12n\right)$.
+\end{itemize}
+In general, one has the following.
+\begin{theorem}[Faulhaber] \label{thm:faulhaber}
+	For any positive integers $n$ and $k$, one has
+	\[1^{k-1}+2^{k-1}+\cdots+n^{k-1}=\frac1k\left(n^k+\binom k1B_1n^{k-1}+\cdots+\binom k{k-1}B_{k-1}n^1\right)\]
+	where $B_k$ is the $k$th Bernoulli number.
+\end{theorem}
+\begin{proof}
+	For fixed $k$, induct on $n$. Then induct on $k$.
+\end{proof}
+\begin{remark}
+	Intuitively, one could imagine defining $B^k=B_k$ as the $k$th Bernoulli number and then write
+	\[1^{k-1}+2^{k-1}+\cdots+n^{k-1}=\frac{(n+B)^k-B^k}k,\]
+	where the expression in the numerator is made sense of using the binomial theorem.
+\end{remark}
+In fact, one can use the above theorem to define Bernoulli numbers recursively. Rigorously, we recursively define $B_0=1$ and $(B-1)^k=B_k$.
+\begin{example}
+	We have $B_0=1$. We can solve for $B_1$ by noting $(B-1)^2=B_2$, which gives $-2B_1+1=0$, so $B_1=1/2$. Then we can get $B_2$ by writing
+	\[B_3=(B-1)^3=B_3-3B_2+3B_1-1,\]
+	so we get $B_3=\frac12\left(3B_1-1\right)=\frac16$.
+\end{example}
+Now, taking the above as a definition of our Bernoulli numbers, we can compute
+\[(n+B)^k-(n+(B-1))^k\]
+and then do an induction to get \Cref{thm:faulhaber}.
+
+Here is a different definition of Bernoulli numbers.
+\begin{definition}[Bernoulli]
+	We define the Bernoulli numbers $\{B_k\}_{k=2}^\infty$ as
+	\[\frac{te^t}{e^t-1}=1+\frac t2+\sum_{k=2}^\infty\frac{B_k}{k!}t^k,\]
+	where we have expanded as a Taylor series.
+\end{definition}
+One can show that the definitions coincide by some kind of induction; namely, one can turn the generating function into a recursion, which matches up as needed.
+
+\subsection{Sums of Powers of Reciprocals}
+Euler showed that
+\[\sum_{n=1}^\infty\frac1{n^2}=\frac{\pi^2}6,\qquad\sum_{n=1}^\infty\frac1{n^4}=\frac{\pi^4}{90},\qquad\cdots.\]
+More generally, we have the following.
+\begin{theorem}[Euler]
+	For any positive integer $k$, we have
+	\[\sum_{n=1}^\infty\frac1{n^{2k}}=(-1)^{k+1}(2\pi)^{2k}\frac{B_{2k}}{2(2k)!}.\]
+\end{theorem}
+\begin{proof}
+	Omitted. There is a proof by the Herglotz trick to show
+	\[\pi\cot\pi x=\lim_{N\to\infty}\sum_{n=-N}^N\frac1{x+n}\]
+	and then expand out a Taylor series in both sides.
+\end{proof}
+\begin{remark}
+	This shows that the Bernoulli numbers have
+	\[|B_{2k}|=\left|\frac{\zeta(2k)}{(-1)^{k+1}(2\pi)^{2k}}\cdot2(2k)!\right|\ge\left|\frac{2(2k)!}{(2\pi)^{2k}}\right|.\]
+	In particular, $|B_{2k}|\to\infty$ as $k\to\infty$ because the factorial is large.
+\end{remark}
+
+\subsection{Fermat's Last Theorem}
+The following is a hard result.
+\begin{theorem}[Wiles] \label{thm:fermat-last}
+	For $n\ge3$, there are no positive integer solutions to the equation $a^n+b^n=c^n$.
+\end{theorem}
+Kummer had an approach to this problem as follows: it suffices to deal with the case where $n$ is an odd prime and $n=4$. Fermat had dealt with $n=4$, so it remains to deal with the case where $n$ is an odd prime. For this, we work in $\ZZ[\zeta_p]$, where we can factor
+\[c^p=a^p+b^p=(a+b)(a+\zeta_pb)\left(a+\zeta_p^2b\right)\cdots\left(a+\zeta_p^{p-1}b\right).\]
+One can assume that $\gcd(a,b)=1$, and then make some kind of $n$th power argument to conclude that $a+\zeta_pb$ should be a $p$th power under the assumption that $\ZZ[\zeta_p]$ has unique prime factorization. This holds for $p<23$ but fails later.
+
+In fact, Kummer discovered that he could get away with $p\nmid\#\op{Cl}\QQ(\zeta_p)$---namely, Kummer did not require the full power of being a unique factorization domain. Here, where $\op{Cl}\QQ(\zeta_p)$ is the class group of $K$. This grants us our definition.
+\begin{definition}[regular]
+	An odd prime $p$ is \textit{regular} if and only if $p\nmid\#\op{Cl}\QQ(\zeta_p)$.
+\end{definition}
+We don't know if there are infinitely regular primes. It is true that $\#\op{Cl}\QQ(\zeta_p)\to\infty$ as $p\to\infty$. To see the Bernoulli numbers, we note that Kummer was able to check primes for regularity as follows.
+\begin{theorem}
+	An odd prime $p$ is \textit{regular} if and only if $p$ does not divide the numerators of the Bernoulli numbers $B_2,B_4,\ldots,B_{p-3}$.
+\end{theorem}
+Thus, we are motivated to understand how Bernoulli numbers behave under modulus. For example, for an odd prime $p$ and nonnegative integer $d$, Kummer showed that $k\equiv\ell\pmod{\varphi(p^{d+1})}$ grants
+\begin{equation}
+	\left(1-p^{k-1}\right)\frac{B_k}k\equiv\left(1-p^{\ell-1}\right)\frac{B_\ell}\ell\pmod{p^{d+1}}. \label{eq:kummer-cong}
+\end{equation}
+Notably, $\nu_p(B_k/k)\ge0$ so that $B_k/k$ makes sense in $\ZZ/p^{d+1}\ZZ$.
+\begin{remark}
+	Roughly speaking, these ideas were continued by Iwasawa, whose theory played a central role in \Cref{thm:fermat-last}.
+\end{remark}
+While we're here, we might as well discuss the $p$-adics for a little.
+\begin{definition}
+	Given a rational number $\frac ab$, we define the $p$-adic absolute value as
+	\[\left|\frac ab\right|_p\coloneqq p^{-(\nu_p(a)-\nu_p(b))},\]
+	where $\nu_p(n)$ refers to the largest power of $p$ dividing $n$.
+\end{definition}
+\begin{example}
+	One has $\left|\frac35\right|_2=1$ because there are no powers of $2$ here. One has $\left|100\right|_2=\left|2^2\right|_2=\frac14$.
+\end{example}
+The point here is that we can read \eqref{eq:kummer-cong} as saying that $k\to\infty$ makes $\left(1-p^{k-1}\right)\frac{B_k}k$ converge. These sorts of ideas lead to $p$-adic interpolation and $p$-adic $L$-functions.
+
+\subsection{Kontsevich's Formula for Rational Plane Curves --- Connor Halleck Dub\'e}
+Today we're doing enumerative algebraic geometry, so we are counting things associated to polynomial equations.
+\begin{example}[Apollonius]
+	Given three circles, how many circles are tangent to all three? The answer turns out to be eight: what's going on here is that such a circle is either inside or outside each triangle, so there are $2^3=8$ in total circles.
+\end{example}
+Today we want to count curves. For us, curves are going to projective curves in $\PP^2_\CC$. More precisely, $\PP^2_\CC$ is the moduli space of lines in $\CC^2$, so points can be written down as $[x:y:z]$ where $(x,y,z)\ne(0,0,0)$, and $[x:y:z]=[\lambda x:\lambda y:\lambda z]$ for each $\lambda\in\CC^\times$. For example, $\PP^2_\CC$ is a two-dimensional complex manifold or scheme or so on. To have a curve in projective space, we want to cut out by a single equation of the form
+\[y^2=x^3-1.\]
+Technically, one should homogenize this to $y^2z=x^3-z^3$ to cut a curve in $\PP^2_\CC$; this curve would have degree $3$ because that is the degree of our homogeneous polynomial.
+
+\subsection{Counting Planar Curves}
+Here is an example question: how many curves of degree $d$ are there through $k$ (generic) points?
+\begin{itemize}
+	\item For $(d,k)=(1,2)$, we are asking for lines going through two (generic) points, for which is there is exactly one.
+	\item For $(d,k)=(2,2)$, we are asking for quadratics going through two points, for which there are infinitely many. (In fact, there is one dimension worth of these quadratics.)
+	\item For $(d,k)=(1,3)$, we are asking for lines going through 
+\end{itemize}
+It turns out that $k=\frac12\left(d^2+3d\right)$ is exactly the number of (generic) points needed to pin down one curve of degree $d$. More points, and we expect to have no curves; fewer points, and we expect to have infinitely many.
+\begin{remark}
+	We take a moment to explicitly acknowledge that 
+\end{remark}
+We might want to measure our infinities. For this, we should discuss the moduli space of curves of fixed degree.
+\begin{example}
+	Degree-$3$ plane curves are determined by $9$ coefficients
+	\[a_0x^3+a_1x^2y+a_2x^2z+a_3xy^2+a_4xyz+a_5xz^2+a_6y^3+a_7y^2z+a_8yz^2+a_9z^3=0.\]
+	However, scaling the coefficients does nothing, and we want to avoid the zero $9$-tuple, so we see that our moduli space is actually $\PP^8_\CC$.
+\end{example}
+More generally, with degree $d$ and three variables, we will have $\binom{d+2}2$ different coefficients. Expanding this out, we are setting $N\coloneqq\frac12\left(d^2+3d\right)$ and looking in $\PP^N_\CC$.
+
+Now, the condition of a curve containing a point we can see visually will turn into a linear condition on the coefficients of the polynomial. Thus, the moduli space of degree-$d$ curves containing a fixed point $p$ is a codimension-$1$ hyperplane in $\PP^N_\CC$. In total, $N$ points in general position will impose $N$ hyperplanes in $\PP^N_\CC$, which we see exactly will determine a point in $\PP^N_\CC$, which is what we wanted! The general position here is needed to ensure that these hyperplanes do not intersect unreasonably; one can check that this condition is Zariski open because we are basically asking to avoid some determinant vanishing.
+
+\subsection{Counting Rational Curves}
+Today, a curve $C\subseteq\PP^2_\CC$ is ``rational'' if and only if we can parameterize as $t\mapsto[x(t):y(t):1]$. Equivalently, we can require a generically injective function $\PP^1_\CC\to C$.
+\begin{example}
+	The curve $y^2z=x^3-x^2z$ is rational by the map $t\mapsto\left[t^2+1:t(t^2+1):t\right]$. In contrast, curves of higher genus (such as elliptic curves) are 
+\end{example}
+For our enumerative question, we want to know how many rational curves of degree $d$ pass through $k$ points. We could try to cut out the rational curves, but this is not so easy.
+
+It turns out that we require $k=3d-1$ points to pin down finitely many rational curves. For example, at $d=1$, we are asking for the single line through a point. For degree $2$, we need five points, which uniquely determine a curve of degree $2$. But in degree $3$, we are asking for $8$ points in generic point, which will uniquely determine $12$ curves.
+
+So this problem is more interesting. Nonetheless, the approach is similar: build a moduli space of rational curves and examine the hypersurfaces cut out by requiring us to live in a particular point. To see how we build the moduli space, realize that we are more or less looking for images of degree-$d$ maps $\PP^1_\CC\to\PP^2_\CC$. One can parameterize these maps, but then one has to quotient by automorphisms of $\PP^1_\CC$, which then produces a stack as our moduli space. Anyway, this produces a moduli space $M_d^{\mathrm{rat}}$.
+
+We can now compute $\dim M_d^{\mathrm{rat}}=3d-1$, which explains by some rough intersection theory why require $3d-1$ points to determine finitely many rational curves. However, $M_d^{\mathrm{rat}}$ is not compact, so one has to work a little harder to make it compact and then do the intersection theory in the compactification. Doing all this produces the following result.
+\begin{theorem}[Kontsevich]
+	Let $N_d$ be the number of rational curves of degree $d$ passing through $3d-1$ points in general position. Then there is a recurrence solving for $N_d$.
+\end{theorem}
+\begin{remark}
+	Kontsevich was actually a physicist, despite doing all this reasonably hard algebraic geometry. These problems came up organically!
+\end{remark}
+The morals of the story are to use moduli spaces to understand families and to compactify your spaces.
+
+\subsection{An \texorpdfstring{$L$}{ L}-Function --- Thomas Browning}
+Let's do something which isn't geometry. By way of example, we will work with the curve
+\[C\colon x^3+y^3+z^3=0.\]
+For example, the rational solutions $C(\QQ)=\emp$ by Fermat's last theorem. Nonetheless, there are solutions over $\FF_p$, which we can count: define $n_p\coloneqq\#C(\FF_p)$. Approximately speaking, for any fixed $x$, we expect about $p$ solutions based on what $y$ and $z$ should be, so we expect $n_p\approx p^2$. Let's see this.
+\begin{example}
+	We can compute $n_2=4$ by placing a $0$ in exactly one spot or everywhere. Here are some more numbers.
+	\[\begin{array}{c|ccccccccccc}
+		p & 2 & 3 & 5 & 7 & 11 & 13 & 17 & 19 & \cdots \\\hline
+		n_p & 4 & 9 & 25 & 55 & 121 & 109 & 289 & 487 & \cdots
+	\end{array}\]
+	Notably, many of these look like squares.
+\end{example}
+In some sense, we are counting solutions incorrectly: after subtracting out by the solution $(0,0,0)$, we can multiply by any scalar in $\FF_p^\times$ to produce sets of solutions. In this way, perhaps we should instead count
+\[b_p\coloneqq\frac{n_p-1}{p-1}.\]
+Rigorously, this is the number of solutions in $\PP^2_{\FF_p}$. Here is our table.
+\[\begin{array}{c|ccccccccccc}
+	p & 2 & 3 & 5 & 7 & 11 & 13 & 17 & 19 & \cdots \\\hline
+	b_p & 3 & 4 & 6 & 9 & 12 & 9 & 18 & 27 & \cdots
+\end{array}\]
+Notably, the property that $n_p=p^2$ turns into $b_p=p+1$. As discussed before, we see $n_p\approx p^2$, so $b_p\approx p+1$. So we set $a_p\coloneqq(p+1)-b_p$, which is the following table.
+\[\begin{array}{c|ccccccccccc}
+	p & 2 & 3 & 5 & 7 & 11 & 13 & 17 & 19 & \cdots \\\hline
+	a_p & 0 & 0 & 0 & -1 & 0 & 5 & 0 & -7 & \cdots
+\end{array}\]
+So now we are interested in $a_p\approx0$.
+\begin{remark}
+	In fact, if $p\equiv1\pmod3$, then $a_p=0$. Indeed, in the original equation, $p\equiv1\pmod3$ implies that the cubing map $x\mapsto x^3$ is a bijection, so $C$ will have the same number of points as $x+y=z=0$, for which there are indeed $p^2$ solutions.
+\end{remark}
+Another pattern we might see is that $a_p\equiv-1\pmod3$ otherwise, which we won't sketch because it's harder. It is also true that $|a_p|\le2\sqrt p$, which is a pretty sharp bound.
+
+To build our $L$-function, we would like to extend $a_p$ from primes to a sequence $\{a_n\}_{n\in\NN}$.
+\begin{remark}
+	One way to do this would be to define $a_n$ by extending completely multiplicatively, but this turns out to be the incorrect definition, even though this will give us a good Euler product
+	\[\sum_{n=1}^\infty\frac{a_n}{n^s}=\prod_{p\text{ prime}}\Bigg(\sum_{\nu=0}^\infty\frac{a_{p^\nu}}{p^{\nu s}}\Bigg)=\prod_{p\text{ prime}}\frac1{1-a_pp^{-s}}.\]
+\end{remark}
+Nonetheless, we might still want an Euler product of the form
+\[\sum_{n=1}^\infty\frac{a_n}{n^s}=\prod_{p\text{ prime}}\Bigg(\sum_{\nu=0}^\infty\frac{a_{p^\nu}}{p^{\nu s}}\Bigg),\]
+so we will try to define $a_n$ multiplicatively. It then remains to define $a_n$ at prime powers. For example, it is not too behaved to try to count solutions in $\ZZ/p^k\ZZ$, but we could define
+\[\widetilde n_{p^k}\coloneqq\#C\left(\FF_{p^k}\right),\]
+which have some nice properties. The corresponding $\widetilde a_{p^k}\coloneqq\left(\widetilde n_{p^k}-1\right)/\left(p^k-1\right)$. It is a surprising but true fact that these terms satisfy a recurrence $\widetilde a_{p^{k+1}}=a_p\widetilde a_{p^k}-p\widetilde a_{p^{k+1}}$, but this turns out to require $\widetilde a_1=2$.
+\begin{remark}
+	One can explain this $\widetilde a_1=2$ because these point-counts have to do with traces of certain powers of operators, whence at $1$ we are computing $1+1=2$.
+\end{remark}
+The solution, now, is to ditch the point-counting but maintain the recurrence. Namely, we define $a_1\coloneqq1$ and $a_p\coloneqq\#C(\FF_p)$ and then set
+\[a_{p^{k+1}}=a_pa_{p^k}-pa_{p^{k-1}}.\]
+Then we extend to all positive integers multiplicatively.
+\begin{remark}
+	As motivation, one can show that
+	\[\exp\Bigg(\sum_{k=1}^\infty\frac{\widetilde a_{p^k}}{k}T^k\Bigg)=\sum_{k=0}^\infty a_{p^k}T^k\]
+	which turns out to be the correct definition.
+\end{remark}
+In total, we have our $L$-function
+\[L(s)\coloneqq\sum_{n=1}^\infty\frac{a_n}{n^s}=\prod_{p\text{ prime}}\sum_{k=0}^\infty\frac{a_{p^k}}{p^{ks}}=\prod_{p\ne3}\frac1{1-a_pp^{-s}+p^{1-2s}}.\]
+It turns out that this $L$-function has all the correct properties, from meromorphic continuation to functional equation, and one can find some zero-free regions.
+\begin{remark}
+	This $L$-function also arises from Hecke characters. Approximately speaking, one can show that $a_p\equiv1\pmod3$ is the unique solution to $4p=a_p^2+27x^2$.
+\end{remark}
+\begin{remark}
+	One also has
+	\[\sum_{n=1}^\infty a_nq^n=q\prod_{n=1}^\infty\left(1-q^{3n}\right)\left(1-q^{9n}\right)^2,\]
+	which is a modular form.
+\end{remark}
+
+\section{On the Origin of Modularity --- Tony Feng}
+For our last talk, we will discuss modularity.
+
+\subsection{Motivation of Modularity}
+Let's warm up. A few times already, we've seen numbers which cannot be written as the sum of two squares. For example, not every number can be written as the sum of two squares: nothing $3\pmod4$ will suffice. Similarly, not every number can be written as the sum of three squares: nothing $7\pmod8$ will suffice. It turns out that we can write every number as the sum of four squares, due Lagrange.
+
+Jacobi was able to achieve more: he could also count the number of ways to write a number as the sum of four squares.
+\begin{theorem}[Jacobi]
+	For any nonnegative integer $n$, let $r_4(n)$ be the number of ways to write $n$ as the sum of four squares. Then
+	\[r_4(n)=8\sum_{\substack{d\mid n\\4\nmid d}}d.\]
+\end{theorem}
+The idea in the proof is to define the $q$-series
+\[\theta(z)\coloneqq\sum_{n=0}^\infty r_4(n)q^n,\]
+where $q=e^{2\pi iz}$. It turns out that $\theta$ is a modular form, and assigning it a weight and level fits it into a two-dimensional modular form.
+
+For $\theta$ functions in general, one fixes a lattice $\Lambda$ equipped with a positive-definite quadratic form $Q$, and we define
+\[\theta_Q(z)\coloneqq\sum_{n\ge0}\#\{\lambda\in\Lambda:Q(\lambda)=n\}q^n.\]
+For example, we recover the above $\theta$ with $\Lambda=\ZZ^4$ and $Q(a,b,c,d)=a^2+b^2+c^2+d^2$. As before, these functional equations inherit some extra symmetry conditions.
+\begin{remark}
+	As more motivation, one can relate the Riemann $\zeta$-function to a theta function $\theta$, whereupon the symmetry condition on $\theta$ turns into the functional equation for $\zeta$.
+\end{remark}
+
+\subsection{Geometric \texorpdfstring{$\vartheta$}{ Theta}-functions}
+Proving that these $\theta$ functions are modular is based on the Fourier transform $\mc F$. The properties we will need today are that $\mc F$ Gaussians are self-dual and has the Poisson summation formula
+\[\sum_{\lambda\in\Lambda}f(\lambda)=\sum_{\lambda^\lor\in\Lambda^\lor}\mc Ff(\lambda^\lor)\]
+for functions on $\Lambda\otimes\RR$.
+
+We might want to allow quadratic forms $Q$ which are not positive-definite, but nonetheless, we do have a set $\mathbb D$ of maximal spaces of $\Lambda\otimes\RR$ where $Q$ is positive-definite, and one can provide it with a reasonable (hyperbolic) topology and so on. Then for each $W\in\mathbb D$, one has a counting problem $Z_W$, which is how we build the $q$-series.
+
+Now, changing bases does not change the object, so we actually want to look at $\mathbb D/O(\Lambda)$. Further, the image $Z_W(n)$ for given $n$ will trace out some geometric object $Z(n)$ in $\mathbb D$. It turns out that $Z(n)$ is a cycle on $\mathbb D/O(\Lambda)$, which lives in a suitable homology group. As before, taking a Fourier series produces a ``$\vartheta$ cycle.'' It is a conjecture that
+\[\vartheta(z)=\sum_{n\ge0}Z(n)q^n\]
+is a modular function, just valued in homology. However, everything is hard here, and little is known.
+\begin{remark}
+	By way of analogy, $\theta$ is like cats and $\vartheta$ is like lions.
+\end{remark}
+
+\subsection{Positive Characteristic}
+So geometric $\vartheta$ functions are hard, but we hope that function-field analogues will be easier. Many of the constructions are similar, but we will avoid giving definitions rigorously because it requires some algebraic geometry to state precisely.
+
+In positive characteristic, it turns out that the original $\theta$ functions are $r=0$ as $\Theta_0$. Then $\vartheta$ turns out to be $r=1$ as $\Theta_1$, and we can continue to a family in $\Theta_n$. (There do not currently exist analogues in the number field setting, and we do not have the technology for it.) It is conjectured that all of these $\Theta_r$ have some suitable modularity.
+\begin{remark}
+	Continuing the analogy, $\Theta_2$ is like a saber-tooth tiger.
+\end{remark}
+It is known that $\Theta_r$ is modular after deleting some positive codimension objects. Roughly speaking, we expect to be able to study all the $\Theta_r$ at once and see modularity in each from a more common structure.
+
+To continue, we need some formalism. On a base field $k$, one has summation of and tensor product of $k$-vector spaces. For example, one can check that endomorphisms $T_1,T_2\colon V\to V$ achieve
+\[\tr(T_1\oplus T_2)=\tr T_1+\tr T_2\qquad\text{and}\qquad\tr(T_1\otimes T_2)=\tr T_1\cdot\tr T_2.\]
+Going further, one can talk about sheaves with direct sums and vector spaces, and we have much the same structure.
+\begin{example}
+	The usual example of a sheaf is the set of continuous functions on a space $S$ valued in a vector space $V$.
+\end{example}
+We even still have some notion of trace: a sheaf endomorphism $T\colon V\to V$ has a trace given by $x\mapsto\tr T(x)$, where $T(x)$ is the operator on the fiber $V(x)$.
+\begin{example}
+	In order to Fourier analysis, we would like exponential functions. In sheaves, we want exponential objects among our sheaves. Roughly speaking, in sheaves, we want a sheaf $s\mapsto V(s)$ where we have
+	\[V(s_1+s_2)=V(s_1)\otimes V(s_2)\]
+	for $s_1,s_2\in S$. The point is that we are turning addition (roughly speaking) into multiplication. It's not obvious that such sheaves exist, but they do exist over (for example) $\RR$ and $\FF_p$.
+\end{example}
+With exponential sheaves, one can build the same sort of Fourier transform with self-dual integrality (i.e., a Poisson summation formula) and self-dual Gaussian sheaves. As such, we do achieve modularity of $\theta$ sheaves, suitably generalized. The same proof goes through.
+
+Roughly speaking, we have produced a generalization for $\Theta_0$, which we can recover from our modularity of sheaves as above by using the trace to produce the original $\Theta_0$. To continue, we need some background. Recall that a short exact sequence
+\[0\to A\to B\to C\to0\]
+of (say) abelian groups will produce a long exact sequence
+\[0\to\op{Hom}(D,A)\to\op{Hom}(D,B)\to\op{Hom}(D,C)\to\op{Ext}^1(D,A)\to\op{Ext}^1(D,B)\to\op{Ext}^1(D,C)\to\cdots.\]
+Approximately speaking, we can thus think of $\op{Ext}^1(D,A)$ as the obstruction to exactness on the right. The point of introducing all of this is that we can upgrade endomorphisms $T\colon V\to V$ to endomorphisms actually living in $\op{Ext}^r(V,V)$ for $r\ge0$; applying the trace here does produce a cycle, which looks promising for our modularity! And indeed, we have the following.
+\begin{theorem}
+	For a ``$\theta$-sheaf'' $\mc S$, one can find an endomorphism $\mc S\to\mc S$ and ``derived'' endomorphisms in $\op{Ext}(\mc S,\mc S)$ which produces $\Theta_r$ after taking the trace.
+\end{theorem}
+The point is that taking the trace now produces modularity in $\Theta_r$ for $r\ge0$, up to the previously mentioned positive codimension pieces.
+
 \end{document}
