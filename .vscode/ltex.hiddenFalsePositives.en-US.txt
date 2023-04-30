@@ -28,3 +28,4 @@
 {"rule":"ENGLISH_WORD_REPEAT_BEGINNING_RULE","sentence":"^\\QIf \\E(?:Dummy|Ina|Jimmy-)[0-9]+\\Q, then our geometric series is dominated by the first term, so \\E(?:Dummy|Ina|Jimmy-)[0-9]+\\Q.\\E$"}
 {"rule":"MORFOLOGIK_RULE_EN_US","sentence":"^\\QWe describe an algorithm to solve SubsetSum: given a set \\E(?:Dummy|Ina|Jimmy-)[0-9]+\\Q of integers and a target \\E(?:Dummy|Ina|Jimmy-)[0-9]+$"}
 {"rule":"MORFOLOGIK_RULE_EN_US","sentence":"^\\QWe describe an algorithm to solve SubsetSum: given a finite (multi)set \\E(?:Dummy|Ina|Jimmy-)[0-9]+\\Q of integers and a target \\E(?:Dummy|Ina|Jimmy-)[0-9]+\\Q, does there exist a subset \\E(?:Dummy|Ina|Jimmy-)[0-9]+\\Q such that \\E(?:Dummy|Ina|Jimmy-)[0-9]+\\Q The idea, as usual, is to just loop through all subsets.\\E$"}
+{"rule":"MORFOLOGIK_RULE_EN_US","sentence":"^\\QIndeed, something like this is a conjecture of Zilber.\\E$"}
