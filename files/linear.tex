@@ -1,0 +1,85 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+
+\newcommand{\nirpdftitle}{Isometries Are Linear}
+\usepackage{import}
+\inputfrom{../../notes}{nir}
+\usepackage[backend=biber,
+    style=alphabetic,
+    sorting=ynt
+]{biblatex}
+\setcounter{tocdepth}{2}
+
+\pagestyle{contentpage}
+
+\title{Isometries Are Linear}
+\author{Nir Elber}
+\date{November 2023}
+\usepackage{graphicx}
+
+\begin{document}
+
+\maketitle
+
+The goal of this note is to prove the following theorem.
+\begin{theorem}
+    Fix a real inner product space $V$. If $T\colon V\to V$ is a function which fixes the origin and preserves distances, then $T$ is a linear transformation preserving the inner product (i.e., orthogonal), and all (complex) eigenvalues have magnitude $1$. If $V$ is finite-dimensional, then $T$ is diagonalizable (over $\CC$) with respect to some orthonormal basis.
+\end{theorem}
+\begin{proof}
+    We will proceed in steps. Over time, the proof will become gradually more algebraic. The main point is to show that $T$ preserves inner products as early as possible.
+    \begin{enumerate}
+        \setcounter{enumi}{-1}
+        \item We take a moment to actually write down the hypotheses on $T$. Fixing the origin means that $T(0)=0$, and preserving distances means that the distance between two vectors $v$ and $w$ is the same as the distance between $Tv$ and $Tw$. In other words, we require
+        \[\norm{Tv-Tw}=\norm{v-w}.\]
+
+        % \item As an intermediate step, suppose that two nonzero vectors $v$ and $w$ both have length $r$, but the distance between them is $2r$. Then we claim that $v=-w$. (Note that the claim still holds when $v=0$ or $w=0$ because then $\norm v=\norm w$ would imply that $v=w=0$.)
+        
+        % One can see this purely geometrically, but we can also see it directly. The main point is to show that $w\in\op{span}\{v\}$, which will quickly complete the claim. Indeed, writing $w=cv$ implies that $\left|c\right|=1$ because $\norm v=\norm w=r\ne0$, but then the distance between $v$ and $w$ is
+        % \[2r=\norm{v-w}=\left|1-c\right|r,\]
+        % but having both $\left|c\right|=1$ and $\left|1-c\right|=2$ requires $c=-1$.
+
+        % It remains to show that $w\in\op{span}\{v\}$. \todo{}
+
+        % \item We claim that $T(-v)=-Tv$. Well, note that $\norm{T(-v)}=\norm{-v}=\norm v=\norm{Tv}$, so $T(-v)$ and $Tv$ both have the same length, and the distance between them is
+        % \[\norm{Tv-T(-v)}=\norm{v-(-v)}=2\norm v\]
+        % because $T$ preserves distances. So the previous step allows us to conclude that $T(-v)=-Tv$.
+
+        % While we're here, we note that we may now write
+        % \[\norm{Tv+Tw}=\norm{Tv-T(-w)}=\norm{v-(-w)}=\norm{v+w}\]
+
+        \item We claim that $T$ preserves inner products. The main point is that
+        \[\norm{v+w}^2=\langle v+w,v+w\rangle=\norm v^2+\norm 2^2+2\langle v,w\rangle\]
+        implies that
+        \[\langle v,w\rangle=\frac{\norm{v+w}^2-\norm v^2-\norm w^2}2,\]
+        so we may recover the inner product from norms alone. However, $v+w$ is written with a $+$, and we only have access to differences a priori. But this is okay: write
+        \begin{align*}
+            \langle Tv,Tw\rangle &= -\langle Tv,-Tw\rangle \\
+            &= -\frac{\norm{Tv-Tw}-\norm{Tv}^2-\norm{-Tw}^2}2 \\
+            &= -\frac{\norm{Tv-Tw}-\norm{Tv-T(0)}^2-\norm{T(0)-Tw}^2}2 \\
+            &= -\frac{\norm{v-w}-\norm{v}^2-\norm{-w}^2}2 \\
+            &= -\langle v,-w\rangle \\
+            &= \langle v,w\rangle.
+        \end{align*}
+
+        \item We claim that $T$ is linear. Namely, given $v,w\in V$ and scalars $a,b\in\RR$, we would like to show that $T(av+bw)-aTv-bTw=0$. The idea is to instead compute the norm of this and break things down into the inner product, where we know that things are linear. Explicitly,
+        \begin{align*}
+            \norm{T(av+bw)-aTv-bTw}^2 &= \langle T(av+bw),T(av+bw)\rangle+a^2\langle Tv,Tv\rangle+b^2\langle Tw,Tw\rangle \\
+            &\qquad-2a\langle T(av+bw),Tv\rangle-2b\langle T(av+bw),Tw\rangle+2an\langle Tv,Tw\rangle \\
+            &= \langle av+bw),av+bw)\rangle+a^2\langle v,v\rangle+b^2\langle w,w\rangle \\
+            &\qquad-2a\langle av+bw,v\rangle-2b\langle av+bw,w\rangle+2an\langle v,w\rangle \\
+            &= \norm{(av+bw)-av-bw}^2 \\
+            &= 0.
+        \end{align*}
+
+        \item We show that all eigenvalues have magnitude $1$. Well, if $v$ is a nonzero eigenvector in the complexification $V_\CC$ of $V$ with eigenvalue $\lambda\in\CC$, then we see that $Tv=\lambda v$ implies that
+        \[\norm v=\norm{Tv}=\norm{\lambda v}=\left|\lambda\right|\cdot\norm v,\]
+        so $\left|\lambda\right|=1$.
+
+        \item If $V_\CC$ is finite-dimensional, we show that $T$ is diagonalizable. We do this by induction on $\dim V_\CC$. If $\dim V_\CC=0$, there is nothing to show. Otherwise, take $\dim V_\CC>0$. Because $T\colon V_\CC\to V_\CC$ is an operator on a complex vector space, it will have an eigenvector $v$. But then the space $\{v\}^\perp$ is preserved by $T$ because $T$ preserves inner products, so we may restrict $T$ to $T\colon\{v\}^\perp\to\{v\}^\perp$. Because $\{v\}^\perp$ is of smaller dimension, we may diagonalize the restriction of $T$ to $\{v\}^\perp$, and so the decomposition
+        \[V_\CC\cong\{v\}\oplus\{v\}^\perp\]
+        permits a diagonalization to $V_\CC$.
+        \qedhere
+    \end{enumerate}
+\end{proof}
+
+\end{document}
