@@ -1,0 +1,1295 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+
+\newcommand{\nirpdftitle}{THE PICARD VARIETY}
+\usepackage{import}
+\inputfrom{../../notes}{nir}
+\usepackage[backend=biber,
+    style=alphabetic,
+    sorting=ynt
+]{biblatex}
+\setcounter{tocdepth}{2}
+
+\pagestyle{contentpage}
+
+\title{The Picard Variety}
+\author{Nir Elber}
+\date{December 2023}
+\usepackage{graphicx}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+	The goal of this note is to establish the existence of the Picard variety $\Pic_{X/k}$ of a geometrically integral projective $k$-variety $X$, assuming only results which could be located in (say) \cite{rising-sea}.
+\end{abstract}
+
+\section{Abstract Nonsense}
+Fix a base scheme $S$, eventually to be the spectrum of a field (not necessarily algebraically closed). Over the course of these notes, we are going to be acquainted with a number of ``moduli problems.'' Approximately speaking, one is given a functor $F\colon\mathrm{Sch}_S\opp\to\mathrm{Set}$, and we would like to show that there exists an $S$-scheme $X$ such that $F\simeq h_X$, where $h_T\coloneqq\op{Mor}_S(-,X)$.
+
+\subsection{Representable Functors}
+It will be beneficial for us to record some facts about representable functors here.
+\begin{definition}[representable]
+	A functor $F\colon\mathcal C\opp\to\mathrm{Set}$ is \textit{representable} if and only if there is an object $X\in\mathcal C$ such that there is a natural isomorphism $\eta\colon h_X\simeq F$. We say that the pair $(X,\eta_X({\id_X}))$ \textit{represents} $F$.
+\end{definition}
+It might be a little confusing that we are focusing on the pair of objects $(X,\xi)$, but the main point is that $\xi$ can recover the natural isomorphism $h_X\Rightarrow F$.
+\begin{theorem}[Yoneda] \label{thm:yoneda}
+	Fix a functor $F\colon\mathcal C\opp\to\mathrm{Set}$ and an object $c\in\mathcal C$. Then there is an isomorphism $\op{Nat}(h_X,F)\to F(X)$ which is natural in both $X$ and $F$.
+\end{theorem}
+\begin{proof}
+	This is \cite[Exercise~10.1.B]{rising-sea}. It is important to note that the forward map is given by sending $\eta\colon h_X\Rightarrow F$ to $\eta_X({\id_X})$, and the backward map is given by sending $\xi\in F(X)$ to the natural transformation $\eta\colon h_X\Rightarrow F$ by $\eta_T(f)\coloneqq Ff(\xi)$.
+\end{proof}
+With the data equipped, we get the following universal property.
+\begin{corollary} \label{cor:yoneda-up}
+	Fix a functor $F\colon\mathcal C\opp\to\mathrm{Set}$ represented by $(X,\xi)$. For any object $X'\in\mathcal C$ and element $\xi'\in F(X')$, there is a unique morphism $f\colon X'\to X$ such that $Ff(\xi)=\xi'$.
+\end{corollary}
+\begin{proof}
+	Up to the canonical isomorphism $\eta\colon h_X\Rightarrow F$ given by $\xi\in F(X)$ in \Cref{thm:yoneda}, we may assume that $F=h_X$ and $\xi=\id_X$. Then any $\xi''\in F(X'')$ amounts to some morphism $\xi''\colon X''\to X$ which has $(h_X\xi'')({\id_X})={\id_X}\circ\xi''=\xi''$. So we see that we must have $f=\xi'$, which exists and is unique.
+\end{proof}
+
+\subsection{Base-Change of Representable Functors}
+It will be beneficial in the sequel to understand how representable functors behave with respect to base-change. One has to be fairly careful about this. For this, we discuss how to restrict and then base-change a functor. Here is ``restriction.''
+\begin{definition}
+	Fix a morphism of objects $f\colon c'\to c$ in a category $\mathcal C$, and fix a functor $F\colon\mathcal C_{c}\opp\to\mathrm{Set}$. Then we can define the functor $F|_{c'}\colon\mathcal C_{c'}\opp\to\mathrm{Set}$ by
+	\[F|_{c'}(p\colon t\to c')\coloneqq F(f\circ p).\]
+\end{definition}
+Quickly, we note that $F|_{c'}$ is in fact a functor: given a $c'$-morphism $a\colon t\to t'$ with structure morphisms $p\colon t\to c'$ and $p'\colon t'\to c'$, we define $F|_{c'}a\colon F|_{c'}t'\to F|_{c'}t$ by noticing that $F|_{c'}t=Ft$ and $F|_{c'}t'=Ft'$ (with suitable abuse of notation), so we may take $F|_{c'}a\coloneqq Fa$. Notably, $a\colon t\to t'$ continues to be a $c$-morphism because $p=p'\circ a$ implies $f\circ p=f\circ p'\circ a$. Now, functoriality of $F$ immediately translates to functoriality of $F|_{c'}$.
+\begin{remark} \label{rem:restrict-functorial}
+	This construction is ``functorial in $F$.'' Namely, given a natural transformation $\eta\colon F\Rightarrow G$ of functors $F,G\colon\mathcal C_{c}\opp\to\mathrm{Set}$, we can define $\eta|_{c'}\colon F|_{c'}\Rightarrow G|_{c'}$ as follows. Given an object $p\colon t\to c'$, define $\eta|_{c'}(t)\colon F|_{c'}(t)\to G|_{c'}(t)$ by taking $x\in F|_{c'}(t)=F(f\circ p)$ to $\eta(f\circ p)(x)\in G(f\circ p)=G|_{c'}(t)$. Naturality follows because the following square commutes by naturality of $\eta$.
+	% https://q.uiver.app/#q=WzAsMTAsWzEsMCwiRnxfe2MnfSh0KSJdLFswLDAsInQiXSxbMCwxLCJ0JyJdLFsxLDEsIkZ8X3tjJ30odCcpIl0sWzIsMCwiRnQiXSxbMywwLCJHdCJdLFsyLDEsIkZ0JyJdLFszLDEsIkd0JyJdLFs0LDAsIkd8X3tjJ30odCkiXSxbNCwxLCJHfF97Yyd9KHQnKSJdLFsxLDIsImEiLDJdLFszLDAsIkZ8X3tjJ31hIl0sWzAsNCwiIiwwLHsibGV2ZWwiOjIsInN0eWxlIjp7ImhlYWQiOnsibmFtZSI6Im5vbmUifX19XSxbNCw1LCJcXGV0YSh0KSIsMl0sWzYsNCwiRmEiXSxbMyw2LCIiLDIseyJsZXZlbCI6Miwic3R5bGUiOnsiaGVhZCI6eyJuYW1lIjoibm9uZSJ9fX1dLFs2LDcsIlxcZXRhKHQnKSJdLFs1LDgsIiIsMix7ImxldmVsIjoyLCJzdHlsZSI6eyJoZWFkIjp7Im5hbWUiOiJub25lIn19fV0sWzcsOSwiIiwwLHsibGV2ZWwiOjIsInN0eWxlIjp7ImhlYWQiOnsibmFtZSI6Im5vbmUifX19XSxbOSw4LCJHfF97Yyd9YSIsMl0sWzcsNSwiR2EiLDJdLFswLDgsIlxcZXRhfF97Yyd9KHQpIiwwLHsiY3VydmUiOi0yfV0sWzMsOSwiXFxldGF8X3tjJ30odCcpIiwyLHsiY3VydmUiOjJ9XV0=&macro_url=https%3A%2F%2Fraw.githubusercontent.com%2FdFoiler%2Fnotes%2Fmaster%2Fnir.tex
+	\[\begin{tikzcd}
+		t & {F|_{c'}(t)} & Ft & Gt & {G|_{c'}(t)} \\
+		{t'} & {F|_{c'}(t')} & {Ft'} & {Gt'} & {G|_{c'}(t')}
+		\arrow["a"', from=1-1, to=2-1]
+		\arrow["{F|_{c'}a}", from=2-2, to=1-2]
+		\arrow[Rightarrow, no head, from=1-2, to=1-3]
+		\arrow["{\eta(t)}"', from=1-3, to=1-4]
+		\arrow["Fa", from=2-3, to=1-3]
+		\arrow[Rightarrow, no head, from=2-2, to=2-3]
+		\arrow["{\eta(t')}", from=2-3, to=2-4]
+		\arrow[Rightarrow, no head, from=1-4, to=1-5]
+		\arrow[Rightarrow, no head, from=2-4, to=2-5]
+		\arrow["{G|_{c'}a}"', from=2-5, to=1-5]
+		\arrow["Ga"', from=2-4, to=1-4]
+		\arrow["{\eta|_{c'}(t)}", curve={height=-12pt}, from=1-2, to=1-5]
+		\arrow["{\eta|_{c'}(t')}"', curve={height=12pt}, from=2-2, to=2-5]
+	\end{tikzcd}\]
+\end{remark}
+And now we discuss ``base-change.''
+\begin{definition}
+	Fix a morphism of objects $f\colon c'\to c$ in a category $\mathcal C$, and fix a functor $F\colon\mathcal C_{c'}\opp\to\mathrm{Set}$. Then we can define the functor $F_c\colon\mathcal C_c\opp\to\mathrm{Set}$ by
+	\[F_c(t)\coloneqq\{(q,\zeta):q\in\op{Mod}_c(t,c'),\zeta\in F(t)\}.\]
+\end{definition}
+Quickly, we note that $F_c$ is in fact a functor: given a $c$-morphism $a\colon t\to t'$, we define $F_ca\colon F_ct'\to F_ct$ by sending some $(q',\zeta')\in F_c(t')$ to $(q'\circ a,Fa(\zeta'))$; notably, $a\colon t\to t'$ has been upgraded to a $c'$-morphism via the structure morphisms $q'\colon t'\to c'$ and $(q'\circ a)\colon t\to c'$. The construction shows $F_c\id_t=\id_{F_c(t)}$ quickly, and functoriality follows because $a\mapsto q'\circ a$ and $F$ are both functorial already.
+\begin{remark} \label{rem:base-change-functorial}
+	This construction is ``functorial in $F$.'' Namely, given a natural transformation $\eta\colon F\Rightarrow G$ of functors $F,G\colon\mathcal C_{c'}\opp\to\mathrm{Set}$, we can define $\eta_c\colon F_c\Rightarrow G_c$ as follows. Given an object $p\colon t\to c$, define $\eta_c(t)\colon F_c(t)\to G_c(t)$ by sending the ordered pair $(q,\zeta)\in F_c(t)$ to $(q,\eta(t)(\zeta))$; here, $\eta(t)$ makes sense by viewing $t$ as an object over $c'$ via $q\colon t\to c'$. Naturality follows as shown in the following diagram.
+	% https://q.uiver.app/#q=WzAsMTAsWzAsMCwidCJdLFswLDEsInQnIl0sWzEsMCwiRl9jKHQpIl0sWzIsMCwiR19jKHQpIl0sWzEsMSwiRl9jKHQnKSJdLFsyLDEsIkdfYyh0JykiXSxbMywwLCIocSdcXGNpcmMgYSxGYShcXHpldGEnKSkiXSxbNCwwLCIocVxcY2lyYyBhLEdhKFxcZXRhKHQnKShcXHpldGEnKSkpIl0sWzMsMSwiKHEnLFxcemV0YScpIl0sWzQsMSwiKHEnLFxcZXRhKHQnKShcXHpldGEnKSkiXSxbMCwxLCJhIiwyXSxbMiwzLCJcXGV0YV9jKHQpIl0sWzQsNSwiXFxldGFfYyh0JykiXSxbNCwyLCJGX2NhIl0sWzUsMywiR19jYSIsMl0sWzgsOSwiIiwyLHsic3R5bGUiOnsidGFpbCI6eyJuYW1lIjoibWFwcyB0byJ9fX1dLFs5LDcsIiIsMix7InN0eWxlIjp7InRhaWwiOnsibmFtZSI6Im1hcHMgdG8ifX19XSxbOCw2LCIiLDAseyJzdHlsZSI6eyJ0YWlsIjp7Im5hbWUiOiJtYXBzIHRvIn19fV0sWzYsNywiIiwwLHsic3R5bGUiOnsidGFpbCI6eyJuYW1lIjoibWFwcyB0byJ9fX1dXQ==&macro_url=https%3A%2F%2Fraw.githubusercontent.com%2FdFoiler%2Fnotes%2Fmaster%2Fnir.tex
+	\[\begin{tikzcd}
+		t & {F_c(t)} & {G_c(t)} & {(q'\circ a,Fa(\zeta'))} & {(q\circ a,Ga(\eta(t')(\zeta')))} \\
+		{t'} & {F_c(t')} & {G_c(t')} & {(q',\zeta')} & {(q',\eta(t')(\zeta'))}
+		\arrow["a"', from=1-1, to=2-1]
+		\arrow["{\eta_c(t)}", from=1-2, to=1-3]
+		\arrow["{\eta_c(t')}", from=2-2, to=2-3]
+		\arrow["{F_ca}", from=2-2, to=1-2]
+		\arrow["{G_ca}"', from=2-3, to=1-3]
+		\arrow[maps to, from=2-4, to=2-5]
+		\arrow[maps to, from=2-5, to=1-5]
+		\arrow[maps to, from=2-4, to=1-4]
+		\arrow[maps to, from=1-4, to=1-5]
+	\end{tikzcd}\]
+\end{remark}
+In some sense, $F_c$ ought to be thought of as the base-change $F\times_{h_c}h_{c'}$. Let's make this precise.
+\begin{lemma} \label{lem:base-change-on-homs}
+	Fix a morphism of objects $f\colon c'\to c$ in a category $\mathcal C$, and fix a functor $F\colon\mathcal C_{c}\opp\to\mathrm{Set}$. Then the following square is a pullback square of functors $\mathcal C_c\opp\to\mathrm{Set}$.
+	% https://q.uiver.app/#q=WzAsNCxbMSwwLCJGIl0sWzAsMCwiKEZ8X3tjJ30pX2MiXSxbMSwxLCJoX2MiXSxbMCwxLCJoX3tjJ30iXSxbMSwwXSxbMCwyXSxbMSwzXSxbMywyLCJmIl1d&macro_url=https%3A%2F%2Fraw.githubusercontent.com%2FdFoiler%2Fnotes%2Fmaster%2Fnir.tex
+	\[\begin{tikzcd}
+		{(F|_{c'})_c} & F \\
+		{h_{c'}} & {h_c}
+		\arrow[from=1-1, to=1-2]
+		\arrow[from=1-2, to=2-2]
+		\arrow[from=1-1, to=2-1]
+		\arrow["f", from=2-1, to=2-2]
+	\end{tikzcd}\]
+\end{lemma}
+\begin{proof}
+	% We won't bother checking that $F|_{c'}$ is a functor because it behaves exactly like $F$ on objects and morphisms.
+	%
+	% Now, the top and right maps in our square are projections from $F_c$, which are natural by the construction of how $F$ behaves on morphisms. Explicitly, given a $c$-map $a\colon t\to t'$, the following diagrams commute.
+	% % https://q.uiver.app/#q=WzAsOCxbMCwwLCIoRnxfe2MnfSlfYyh0JykiXSxbMCwxLCIoRnxfe2MnfSlfYyh0KSJdLFsxLDAsImhfe2MnfSh0JylcXHRpbWVzIEYodCcpIl0sWzEsMSwiaF97Yyd9KHQpXFx0aW1lcyBGKHQpIl0sWzIsMCwiKHEnLFxcemV0YScpIl0sWzMsMCwiKHEnLFxcemV0YScpIl0sWzIsMSwiKHEnXFxjaXJjIGEsRmEoXFx6ZXRhJykpIl0sWzMsMSwiKHEnXFxjaXJjIGEsRmEoXFx6ZXRhJykpIl0sWzAsMSwiYSIsMl0sWzAsMiwiXFxzdWJzZXRlcSIsMyx7InN0eWxlIjp7ImJvZHkiOnsibmFtZSI6Im5vbmUifSwiaGVhZCI6eyJuYW1lIjoibm9uZSJ9fX1dLFsyLDMsImEiLDJdLFsxLDMsIlxcc3Vic2V0ZXEiLDMseyJzdHlsZSI6eyJib2R5Ijp7Im5hbWUiOiJub25lIn0sImhlYWQiOnsibmFtZSI6Im5vbmUifX19XSxbNCw1LCIiLDMseyJsZXZlbCI6Miwic3R5bGUiOnsiaGVhZCI6eyJuYW1lIjoibm9uZSJ9fX1dLFs2LDcsIiIsMyx7ImxldmVsIjoyLCJzdHlsZSI6eyJoZWFkIjp7Im5hbWUiOiJub25lIn19fV0sWzQsNiwiIiwzLHsic3R5bGUiOnsidGFpbCI6eyJuYW1lIjoibWFwcyB0byJ9fX1dLFs1LDcsIiIsMyx7InN0eWxlIjp7InRhaWwiOnsibmFtZSI6Im1hcHMgdG8ifX19XV0=&macro_url=https%3A%2F%2Fraw.githubusercontent.com%2FdFoiler%2Fnotes%2Fmaster%2Fnir.tex
+	% \[\begin{tikzcd}
+	% 	{(F|_{c'})_c(t')} & {h_{c'}(t')\times F(t')} & {(q',\zeta')} & {(q',\zeta')} \\
+	% 	{(F|_{c'})_c(t)} & {h_{c'}(t)\times F(t)} & {(q'\circ a,Fa(\zeta'))} & {(q'\circ a,Fa(\zeta'))}
+	% 	\arrow["a"', from=1-1, to=2-1]
+	% 	\arrow["\subseteq"{marking, allow upside down}, draw=none, from=1-1, to=1-2]
+	% 	\arrow["a"', from=1-2, to=2-2]
+	% 	\arrow["\subseteq"{marking, allow upside down}, draw=none, from=2-1, to=2-2]
+	% 	\arrow[Rightarrow, no head, from=1-3, to=1-4]
+	% 	\arrow[Rightarrow, no head, from=2-3, to=2-4]
+	% 	\arrow[maps to, from=1-3, to=2-3]
+	% 	\arrow[maps to, from=1-4, to=2-4]
+	% \end{tikzcd}\]
+	% Further, the bottom and right maps of the square arise because $h_c$ is final among functors $\mathcal C_c\opp\to\mathrm{Set}$.
+	Let's directly show our square is a pullback. Well, these limits are computed pointwise in $\mathrm{Set}$, so any test object $p\colon t\to c$ has
+	\[(h_{c'}\times_{h_c}F)(t)=\{(q,\zeta):q\in\mathrm{Mod}_c(t,c'),\zeta\in F(t)\}=\{(q,\zeta):q\in\mathrm{Mod}_c(t,c'),\zeta\in F|_{c'}(t)\}=(F|_{c'})_c(t).\]
+	So these are the same functor on objects, and they are the same on morphisms as shown by the following commutative diagram.
+	\[\begin{tikzcd}
+		{(F|_{c'})_c(t')} & {h_{c'}(t')\times F(t')} & {(q',\zeta')} & {(q',\zeta')} \\
+		{(F|_{c'})_c(t)} & {h_{c'}(t)\times F(t)} & {(q'\circ a,Fa(\zeta'))} & {(q'\circ a,Fa(\zeta'))}
+		\arrow["a"', from=1-1, to=2-1]
+		\arrow["\subseteq"{marking, allow upside down}, draw=none, from=1-1, to=1-2]
+		\arrow["a"', from=1-2, to=2-2]
+		\arrow["\subseteq"{marking, allow upside down}, draw=none, from=2-1, to=2-2]
+		\arrow[Rightarrow, no head, from=1-3, to=1-4]
+		\arrow[Rightarrow, no head, from=2-3, to=2-4]
+		\arrow[maps to, from=1-3, to=2-3]
+		\arrow[maps to, from=1-4, to=2-4]
+	\end{tikzcd}\]
+	So $(F|_{c'})_c$ is indeed the pullback, and we are done. Notably, the top and right maps of our square are the projections.
+\end{proof}
+\begin{remark}
+	Notably, the proof of \Cref{lem:base-change-on-homs} tells us that the projection maps out of $(F|_{c'})|_c$ are simply the projections.
+\end{remark}
+\begin{corollary} \label{cor:base-change-of-base-change-on-homs}
+	Fix a morphism of objects $f\colon c'\to c$ in a category $\mathcal C$, and fix a morphism $\eta\colon F\Rightarrow G$ of functors $F,G\colon\mathcal C_{c}\opp\to\mathrm{Set}$. Then the following square commutes and is a pullback square of functors $\mathcal C_c\opp\to\mathrm{Set}$.
+	% https://q.uiver.app/#q=WzAsNCxbMSwwLCJGIl0sWzAsMCwiKEZ8X3tjJ30pX2MiXSxbMSwxLCJHIl0sWzAsMSwiKEd8X3tjJ30pX2MiXSxbMSwwXSxbMCwyLCJcXGV0YSJdLFsxLDMsIihcXGV0YXxfe2MnfSlfYyIsMl0sWzMsMl1d&macro_url=https%3A%2F%2Fraw.githubusercontent.com%2FdFoiler%2Fnotes%2Fmaster%2Fnir.tex
+	\[\begin{tikzcd}
+		{(F|_{c'})_c} & F \\
+		{(G|_{c'})_c} & G
+		\arrow[from=1-1, to=1-2]
+		\arrow["\eta", from=1-2, to=2-2]
+		\arrow["{(\eta|_{c'})_c}"', from=1-1, to=2-1]
+		\arrow[from=2-1, to=2-2]
+	\end{tikzcd}\]
+\end{corollary}
+\begin{proof}
+	Here, $(\eta|_{c'})|_c$ is constructed by combining \Cref{rem:restrict-functorial} and \Cref{rem:base-change-functorial}. Notably, the diagram commutes by computing as follows for a single object $p\colon t\to c$.
+	% https://q.uiver.app/#q=WzAsMTIsWzAsMCwiKEZ8X3tjJ30pX2ModCkiXSxbMiwwLCIocSxcXHpldGEpIl0sWzEsMCwiRnQiXSxbMywwLCJcXHpldGEiXSxbMSwxLCJHdCJdLFsyLDEsIihxLFxcZXRhKHQpKFxcemV0YSkpIl0sWzMsMSwiXFxldGEodCkoXFx6ZXRhKSJdLFswLDEsIihHfF97Yyd9KV9jKHQpIl0sWzEsMiwiaF9jKHQpIl0sWzAsMiwiaF97Yyd9KHQpIl0sWzIsMiwicSJdLFszLDIsInAiXSxbMCwyXSxbMiw0XSxbMSw1LCIiLDIseyJzdHlsZSI6eyJ0YWlsIjp7Im5hbWUiOiJtYXBzIHRvIn19fV0sWzEsMywiIiwwLHsic3R5bGUiOnsidGFpbCI6eyJuYW1lIjoibWFwcyB0byJ9fX1dLFszLDYsIiIsMCx7InN0eWxlIjp7InRhaWwiOnsibmFtZSI6Im1hcHMgdG8ifX19XSxbNSw2LCIiLDIseyJzdHlsZSI6eyJ0YWlsIjp7Im5hbWUiOiJtYXBzIHRvIn19fV0sWzcsNF0sWzAsN10sWzksOF0sWzcsOV0sWzQsOF0sWzUsMTAsIiIsMCx7InN0eWxlIjp7InRhaWwiOnsibmFtZSI6Im1hcHMgdG8ifX19XSxbMTAsMTEsIiIsMCx7InN0eWxlIjp7InRhaWwiOnsibmFtZSI6Im1hcHMgdG8ifX19XSxbNiwxMSwiIiwwLHsic3R5bGUiOnsidGFpbCI6eyJuYW1lIjoibWFwcyB0byJ9fX1dXQ==&macro_url=https%3A%2F%2Fraw.githubusercontent.com%2FdFoiler%2Fnotes%2Fmaster%2Fnir.tex
+	\[\begin{tikzcd}
+		{(F|_{c'})_c(t)} & Ft & {(q,\zeta)} & \zeta \\
+		{(G|_{c'})_c(t)} & Gt & {(q,\eta(t)(\zeta))} & {\eta(t)(\zeta)} \\
+		{h_{c'}(t)} & {h_c(t)} & q & p
+		\arrow[from=1-1, to=1-2]
+		\arrow[from=1-2, to=2-2]
+		\arrow[maps to, from=1-3, to=2-3]
+		\arrow[maps to, from=1-3, to=1-4]
+		\arrow[maps to, from=1-4, to=2-4]
+		\arrow[maps to, from=2-3, to=2-4]
+		\arrow[from=2-1, to=2-2]
+		\arrow[from=1-1, to=2-1]
+		\arrow[from=3-1, to=3-2]
+		\arrow[from=2-1, to=3-1]
+		\arrow[from=2-2, to=3-2]
+		\arrow[maps to, from=2-3, to=3-3]
+		\arrow[maps to, from=3-3, to=3-4]
+		\arrow[maps to, from=2-4, to=3-4]
+	\end{tikzcd}\]
+	In fact, the addition of the bottom row above tells us that the outer rectangle and lower square are both pullback squares (on the level of functors) as shown in \Cref{lem:base-change-on-homs}. As such, the top square is a pullback by an argument similar to \cite[Exercise~1.3.G]{rising-sea}.
+\end{proof}
+Anyway, here is our representability result.
+\begin{proposition} \label{prop:rep-base-change}
+	Fix a morphism of objects $f\colon c'\to c$ in a category $\mathcal C$, and fix a functor $F\colon\mathcal C_{c'}\opp\to\mathrm{Set}$. Then the following are equivalent for a pair of morphism $p\colon x\to c'$ and $\xi\in F(x)$.
+	\begin{listroman}
+		\item The pair $(p\colon x\to c',\xi)$ represents $F$.
+		\item The pair $((f\circ p)\colon x\to c,(p\colon x\to c',\xi))$ represents $F_c$.
+	\end{listroman}
+\end{proposition}
+\begin{proof}
+	This proof boils down to directly checking everything. We run our representability checks separately.
+	\begin{itemize}
+		\item We show (i) implies (ii). Well, fix some test object $q\colon t\to c$, and we would like to show that the map sending $c$-maps $a\colon t\to x$ to the pair
+		\[F_ca(p,\xi)=(p\circ a,Fa(\xi))\]
+		is a bijection. Because it is not so bad, we will just show injectivity and surjectivity separately.
+		\begin{itemize}
+			\item Injective: suppose we have two maps $a_1,a_2\colon t\to x$ with $p\circ a_1=p\circ a_2$ and $Fa_1(\xi)=Fa_2(\xi)$. The fact that $p\circ a_1=p\circ a_2$ means that $t$ currently has an unambiguous structure over $c'$. But now $(x,\xi)$ represents $F$, so the map sending maps $a'\colon t\to x$ over $c'$ to $Fa'(\xi)$ is injective, so we are forced into $a_1=a_2$.
+			\item Surjective: fix some pair of $q\colon t\to c'$ and $\zeta\in F(t)$ which we would like to hit. Now, $q$ makes $t$ into an object over $c'$, so the fact that $(x,\xi)$ represents $F$ implies that there is a map $a\colon t\to x$ over $c'$ such that $Fa(\xi)=\zeta$. But then $q=p\circ a$ because $a$ is a morphism over $c'$, so $F_ca=(p\circ a,Fa(\xi))=(q,\zeta)$, as needed.
+		\end{itemize}
+		\item We show (ii) implies (i). Well, fix some test object $q\colon t\to c'$, and we would like to show that the map sending $c'$-maps $a\colon t\to x$ to $Fa(\xi)$ is a bijection. Again, we will check injectivity and surjectivity separately.
+		\begin{itemize}
+			\item Injective: suppose we have two $c'$-maps $a_1,a_2\colon t\to x$ with $Fa_1(\xi)=Fa_2(\xi)$. Then $p\circ a_1=p\circ a_2$, so actually $F_ca_1(p,\xi)=F_ca_2(p,\xi)$. But $(x,(p,\xi))$ represents $F_c$, so $Fa_1(\xi)=Fa_2(\xi)$ implies $a_1=a_2$.
+			\item Surjective: fix some $\zeta\in F(t)$ which we would like to hit. Well, note that $(q,\zeta)\in F_c(t)$, so (ii) tells us there is a $c$-map $a\colon t\to x$ such that $q=p\circ a$ (so that $a$ is actually a $c'$-map) and $\zeta=Fa(\xi)$, which is precisely what we wanted.
+			\qedhere
+		\end{itemize}
+	\end{itemize}
+\end{proof}
+
+\subsection{Subfunctors}
+As with all things in algebraic geometry, it will be helpful to be able to check that a functor $F$ is representable ``locally,'' but we must define what this means first.
+\begin{definition}[subfunctor]
+	Fix a category $\mathcal C$. A natural transformation $\eta\colon F\Rightarrow G$ of functors $F,G\colon\mathcal C\to\mathrm{Set}$ is a \textit{subfunctor} if and only if $\eta_c\colon Fc\to Gc$ is an inclusion for each $c\in\mathcal C$.
+\end{definition}
+\begin{remark}
+	Equivalently, we may view a subfunctor $F'$ of a functor $F\colon\mathcal C\to\mathrm{Set}$ as merely requiring that $F'c\subseteq Fc$ for each object $c\in\mathcal C$, and any morphism $f\colon c\to d$ has the restriction of $Ff$ carry $F'c$ to $F'd$. (Namely, $F'$ should be a functor contained inside $F$.) Somehow requiring that $F'$ be a literal subset is a little ``evil,'' but it will be helpful to have some physical identification in our definitions.
+\end{remark}
+Here are the usual coherence checks.
+\begin{lemma} \label{lem:basic-sub}
+	Fix a category $\mathcal C$.
+	\begin{listalph}
+		\item If $F'$ is a subfunctor of $F$, and $F''$ is a subfunctor of $F$, then $F''$ is a subfunctor of $F$.
+		\item Fix a functor $G$ with a natural transformation $\eta\colon G\Rightarrow F$. If $F'$ is a subfunctor of $F$, then we may identify $G\times_FF'$ with the functor
+		\[G'(T)\coloneqq\{x\in G(T):\eta_T(x)\in F'(T)\},\]
+		which is a subfunctor of $G$.
+	\end{listalph}
+\end{lemma}
+\begin{proof}
+	We check these separately.
+	\begin{listalph}
+		\item Let $\eta\colon F'\Rightarrow F$ and $\eta'\colon F''\Rightarrow F'$ denote the corresponding natural transformations. Then, we see $(\eta\circ\eta')\colon F''\Rightarrow F$ is a natural transformation, where $(\eta\circ\eta')_c=\eta_c\circ\eta'_c$ is an inclusion $F''c\to F'c\to Fc$. So $F''$ is a subfunctor of $F$.
+		\item By construction of the fiber product, we may write
+		\[(G\times_FF')(T)=\{(x,y)\in G(T)\times F'(T):\eta_T(x)=y\}.\]
+		However, by looping over all $y\in F'(T)$, this set is in natural bijection with
+		\[(G\times_FF')(T)\cong\{x\in G(T):\eta_T(x)\in F'(T)\}=G'(T).\]
+		Explicitly, for any map $f\colon T'\to T$, we note that
+		% https://q.uiver.app/#q=WzAsOCxbMCwwLCIoR1xcdGltZXNfRkYnKShUJykiXSxbMCwxLCIoR1xcdGltZXNfRkYnKShUKSJdLFsxLDAsIkcnKFQnKSJdLFsxLDEsIkcoVCkiXSxbMiwwLCIoeCcseScpIl0sWzMsMCwieCciXSxbMywxLCJHZih4JykiXSxbMiwxLCIoR2YoeCcpLEZmKHknKSkiXSxbMCwxLCJmIiwyXSxbMiwzLCJmIiwyXSxbMCwyXSxbMSwzXSxbNCw1LCIiLDEseyJzdHlsZSI6eyJ0YWlsIjp7Im5hbWUiOiJtYXBzIHRvIn19fV0sWzUsNiwiIiwxLHsic3R5bGUiOnsidGFpbCI6eyJuYW1lIjoibWFwcyB0byJ9fX1dLFs3LDYsIiIsMSx7InN0eWxlIjp7InRhaWwiOnsibmFtZSI6Im1hcHMgdG8ifX19XSxbNCw3LCIiLDEseyJzdHlsZSI6eyJ0YWlsIjp7Im5hbWUiOiJtYXBzIHRvIn19fV1d&macro_url=https%3A%2F%2Fraw.githubusercontent.com%2FdFoiler%2Fnotes%2Fmaster%2Fnir.tex
+		\[\begin{tikzcd}
+			{(G\times_FF')(T')} & {G'(T')} & {(x',y')} & {x'} \\
+			{(G\times_FF')(T)} & {G(T)} & {(Gf(x'),Ff(y'))} & {Gf(x')}
+			\arrow["f"', from=1-1, to=2-1]
+			\arrow["f"', from=1-2, to=2-2]
+			\arrow[from=1-1, to=1-2]
+			\arrow[from=2-1, to=2-2]
+			\arrow[maps to, from=1-3, to=1-4]
+			\arrow[maps to, from=1-4, to=2-4]
+			\arrow[maps to, from=2-3, to=2-4]
+			\arrow[maps to, from=1-3, to=2-3]
+		\end{tikzcd}\]
+		commutes. So $G'$ is a functor, and it has natural inclusion maps to $G$ and is thus a subfunctor.
+		\qedhere
+	\end{listalph}
+\end{proof}
+\begin{example}
+	Given two subfunctors $F'$ and $F''$ of $F\colon\mathcal C\to\mathrm{Set}$, we see that the map $(F'\cap F'')\colon\mathcal C\to\mathrm{Set}$
+	\[(F'\cap F'')(T)\coloneqq F'(T)\cap F''(T)\]
+	can be identified with the functor $F'\times_FF''$.
+\end{example}
+We will want subfunctors to have adjectives inherited by adjectives for schemes. The main character will be open subfunctors, but this is a more general notion.
+\begin{definition}[pre-reasonable class]
+	A class $\mathcal P$ of morphisms in $\mathrm{Sch}_S$ is \textit{pre-reasonable} if and only if it satisfies the following conditions.
+	\begin{listroman}
+		\item $\mathcal P$ contains all isomorphisms.
+		\item $\mathcal P$ is preserved by composition.
+		\item $\mathcal P$ is preserved by base-change.
+	\end{listroman}
+\end{definition}
+\begin{definition}[adjective subfunctor]
+	Fix a subfunctor $F'$ of a functor $F\colon\mathrm{Sch}_S\opp\to\mathrm{Set}$, and let $\mathcal P$ be a pre-reasonable class of monomorphisms. Then $F'$ is a \textit{$\mathcal P$-subfunctor of $F$} if and only if, for any test $S$-scheme $T$ and $\xi\in F(T)$, there is a $\mathcal P$-subscheme $U_\xi\subseteq T$ such that the map $f\colon T'\to T$ factors through $U_\xi$ if and only if $Ff(\xi)\in F'(T')$.
+\end{definition}
+For example, in the sequel, we will frequently take $\mathcal P$ to be the class of open embeddings.
+\begin{remark}
+	Note that the open subset $U_\xi$ is unique, provided that it exists. Indeed, suppose that both $U_\xi$ and $V_\xi$ satisfy the given property. Then the inclusion $f\colon U_\xi\to T$ has $Ff(\xi)\in F'(U_\xi)$, so $f$ must factor through $V_\xi$, meaning $U_\xi\subseteq V_\xi$. A symmetric argument shows that $V_\xi\subseteq U_\xi$, so equality follows.
+\end{remark}
+\begin{remark}
+	Because $\mathcal P$ contains only monomorphisms, the factoring of $f\colon T'\to T$ through $i\colon U_\xi\subseteq T$ must be unique. Namely, suppose $f$ factors as $f=i\circ f_1$ and $f=i\circ f_2$; then $f_1=f_2$ follows because $i$ is monic.
+\end{remark}
+The idea is that it does not make immediate sense for $F'$ to be open in $F$, but we can try to test this on test schemes $T$.
+
+Let's check that this definition makes sense.
+\begin{lemma} \label{lem:subfunctor-on-sch}
+	Fix a morphism $i\colon X\to Y$ of $S$-schemes in a pre-reasonable class $\mathcal P$ of monomorphisms. Then $h_X$ is identified with a $\mathcal P$-subfunctor of $h_Y$ via $(\varphi\circ-)\colon h_X\Rightarrow h_Y$.
+\end{lemma}
+\begin{proof}
+	To begin, we note that we have an inclusion $(i\circ-)\colon h_X\Rightarrow h_Y$ defined by sending some map $f\colon T\to X$ and composing with the inclusion $i\colon X\to Y$. This makes $\eta$ into a subfunctor, where $(i\circ-)$ is injective because $i$ is monic.
+	
+	It remains to show that we have a $\mathcal P$-subfunctor. Well, fix some $\xi\in h_Y(T)$. In practice, $\xi$ is a map $T\to Y$, so we define $i'\colon U_\xi\to T$ to be the pullback of $i\colon X\to Y$, which we remark is still in $\mathcal P$. In fact, the square
+	% https://q.uiver.app/#q=WzAsNCxbMCwxLCJZIl0sWzEsMSwiWCJdLFsxLDAsIlQiXSxbMCwwLCJVX1xceGkiXSxbMiwxLCJcXHhpIl0sWzMsMCwiXFx4aSciXSxbMCwxLCJpIl0sWzMsMiwiaSciXV0=&macro_url=https%3A%2F%2Fraw.githubusercontent.com%2FdFoiler%2Fnotes%2Fmaster%2Fnir.tex
+	\[\begin{tikzcd}
+		{U_\xi} & T \\
+		X & Y
+		\arrow["\xi", from=1-2, to=2-2]
+		\arrow["{\xi'}", from=1-1, to=2-1]
+		\arrow["i", from=2-1, to=2-2]
+		\arrow["{i'}", from=1-1, to=1-2]
+	\end{tikzcd}\]
+	is a pullback square, so we see that a map $f\colon T'\to T$ factors through $U_\xi$ if and only if the composite $(\xi\circ f)\colon T'\to Y$ factors through $X$. Because $(\xi\circ f)=h_Yf(\xi)$, this is equivalent to asking for $h_Yf(\xi)\in h_X(T')$, as desired.
+\end{proof}
+\begin{lemma} \label{lem:base-change-open-sub}
+	Let $\mathcal P$ be a pre-reasonable class of monomorphisms. Fix a $\mathcal P$-subfunctor $F'$ of a functor $F\colon\mathrm{Sch}_S\opp\to\mathrm{Set}$. Given a natural transformation $\eta\colon G\Rightarrow F$, the functor $F'\times_FG$ is (canonically isomorphic to) a $\mathcal P$-subfunctor of $G$ via \Cref{lem:basic-sub}.
+\end{lemma}
+\begin{proof}
+	For brevity, define $G'\coloneqq F'\times_FG$, which we may as well write as
+	\[G'(T)=\left\{b\in G(T):\eta_T(b)\in F'(T)\right\}\]
+	by \Cref{lem:basic-sub}.
+	
+	It remains to show that $G'$ is a $\mathcal P$-subfunctor. Let $T$ be a test $S$-scheme, and fix some $\xi\in G(T)$. Then $\eta_T(\xi)\in F(T)$ has some $\mathcal P$-subscheme $U_\xi\subseteq T$ such that any map $f\colon T'\to T$ factors through $U_\xi$ if and only if $(Ff\circ\eta_T)(\xi)\in F'(T')$. But $Ff\circ\eta_T=\eta_{T'}\circ Gf$, so this last condition is equivalent to $\eta_{T'}(Gf(\xi))\in F'(T')$, which is equivalent to $Gf(\xi)\in G'(T')$ by the computation of $G'$ above. Thus, $U_\xi$ is the required $\mathcal P$-subscheme.
+\end{proof}
+Note that representability is inherited by open subfunctors.
+\begin{lemma} \label{lem:open-sub-of-rep}
+	Let $\mathcal P$ be a pre-reasonable class of monomorphisms. Fix a $\mathcal P$-subfunctor $F$ of a functor $h_X$, where $X$ is an $S$-scheme. Then $F$ is represented by a $\mathcal P$-subscheme $Y$ of $X$.
+\end{lemma}
+\begin{proof}
+	The main point is to consider ${\id_X}\in h_X(X)$, which must have some $\mathcal P$-subscheme $U\subseteq X$ such that a map $f\colon T\to X$ factors through $U$ if and only if $h_Xf({\id_X})\in F(T)$. However, this last condition is equivalent to $f\in F(T)$, so we are seeing that $f\in F(T)$ if and only if $f$ factors through $U$, so in fact $F(T)=h_U(T)$. This is what we wanted.
+\end{proof}
+We can now recast our definition of open subfunctors in order to make the intuition of ``checking openness on test schemes'' more rigorous.
+\begin{proposition} \label{prop:test-open-sub}
+	Let $\mathcal P$ be a pre-reasonable class of monomorphisms. Fix a subfunctor $F'$ of a functor $F\colon\mathrm{Sch}\opp_S\to\mathrm{Set}$. Then $F'$ is a $\mathcal P$-subfunctor if and only if, for any test $S$-scheme $T$ and morphism $\eta\colon h_T\Rightarrow F$, the product $h_T\times_FF'\subseteq h_T$ is represented by a $\mathcal P$-subscheme $U\subseteq T$. In particular, we are requiring the following square to be a pullback.
+	% https://q.uiver.app/#q=WzAsNCxbMCwwLCJoX1UiXSxbMSwwLCJoX1QiXSxbMCwxLCJGJyJdLFsxLDEsIkYiXSxbMSwzLCJcXGV0YSJdLFsyLDNdLFswLDFdLFswLDJdXQ==&macro_url=https%3A%2F%2Fraw.githubusercontent.com%2FdFoiler%2Fnotes%2Fmaster%2Fnir.tex
+	\[\begin{tikzcd}
+		{h_U} & {h_T} \\
+		{F'} & F
+		\arrow["\eta", from=1-2, to=2-2]
+		\arrow[from=2-1, to=2-2]
+		\arrow[from=1-1, to=1-2]
+		\arrow[from=1-1, to=2-1]
+	\end{tikzcd}\]
+\end{proposition}
+\begin{proof}
+	In one direction, suppose that $F'$ is a $\mathcal P$-subfunctor of $F$. Then $h_T\times_FF$ is a $\mathcal P$-subfunctor of $h_T$ by \Cref{lem:base-change-open-sub}, and it is represented by a $\mathcal P$-subscheme $U\subseteq T$ by \Cref{lem:open-sub-of-rep}. We still must check that the composite $h_U\simeq h_T\times_FF'\Rightarrow h_T$ is given by the inclusion $U\subseteq T$. This requires us to unwrap the constructions. Well, because $F'$ is a subfunctor of $F$, we identify $h_T\times_FF'$ with the corresponding subfunctor of $h_T$, but then we know that it is literally equal to $h_U$ by the proof of \Cref{lem:open-sub-of-rep}, and the inclusion $h_T\times_FF'\Rightarrow h_T$ is the inclusion $h_U\Rightarrow h_T$, as needed.
+
+	We now show the other direction; suppose $F'$ satisfies the conclusion. Now, fix any test $S$-scheme $T$ and some $\xi\in F(T)$. The Yoneda lemma (see, for example, \cite[Exercise~10.1.B]{rising-sea}) then tells us that $\xi\in F(T)$ corresponds to a natural transformation $\eta\colon h_T\Rightarrow F$ defined as follows: given some $f\colon T'\to T$, we define $\eta_{T'}(f)\coloneqq Ff(\xi)$.
+
+	From here, the hypothesis promises a $\mathcal P$-subscheme $U_\xi\subseteq T$ representing $h_T\times_FF'$. Let's unwrap what this means to check that $U_\xi$ has the required property. Computing the fiber products in this case, we may as well identify
+	\[(h_T\times_FF')(T')=\left\{f\in h_T(T'):Ff(\xi)\in F'(T')\right\}\]
+	by \Cref{lem:basic-sub}. Now, the composite $h_U\simeq h_T\times_FF'\Rightarrow h_T$ is supposed to be given by the inclusion $U\subseteq T$; however, the map $(h_T\times_FF')(T')\to h_T(T')$ is simply inclusion, so we are saying that $f\in h_T(T')$ factors through $U$ (i.e., comes from $h_U$) if and only if $Ff(\xi)\in F'(T')$, as desired.
+\end{proof}
+\begin{corollary} \label{cor:base-change-p-subfunctor}
+	Let $\mathcal P$ be a pre-reasonable class of monomorphisms. Then $\mathcal P$ is also preserved by base change of functors: given a pullback square
+	% https://q.uiver.app/#q=WzAsNCxbMCwxLCJGJyJdLFsxLDEsIkYiXSxbMCwwLCJHJyJdLFsxLDAsIkciXSxbMiwwXSxbMCwxXSxbMywxXSxbMiwzXV0=&macro_url=https%3A%2F%2Fraw.githubusercontent.com%2FdFoiler%2Fnotes%2Fmaster%2Fnir.tex
+	\[\begin{tikzcd}
+		{G'} & G \\
+		{F'} & F
+		\arrow[from=1-1, to=2-1]
+		\arrow[from=2-1, to=2-2]
+		\arrow[from=1-2, to=2-2]
+		\arrow[from=1-1, to=1-2]
+	\end{tikzcd}\]
+	of functors $\mathrm{Sch}_S\opp\to\mathrm{Set}$, if $F'\subseteq F$ is a $\mathcal P$-subfunctor, then $G'$ is identified with a $\mathcal P$-subfunctor of $G$.
+\end{corollary}
+\begin{proof}
+	We use the check of \Cref{prop:test-open-sub}. Fix an $S$-scheme $T$ and morphism $\eta\colon h_T\Rightarrow G$, we note that there is a $\mathcal P$-subscheme $U\subseteq T$ making the outer rectangle into a pullback square.
+	% https://q.uiver.app/#q=WzAsNixbMCwyLCJGJyJdLFsxLDIsIkYiXSxbMSwxLCJHIl0sWzEsMCwiaF9UIl0sWzAsMCwiaF9VIl0sWzAsMSwiRyciXSxbMCwxXSxbNCwzXSxbMywyXSxbMiwxXSxbNCwwLCIiLDAseyJjdXJ2ZSI6MX1dLFs1LDBdXQ==&macro_url=https%3A%2F%2Fraw.githubusercontent.com%2FdFoiler%2Fnotes%2Fmaster%2Fnir.tex
+	\[\begin{tikzcd}
+		{h_U} & {h_T} \\
+		{G'} & G \\
+		{F'} & F
+		\arrow[from=3-1, to=3-2]
+		\arrow[from=1-1, to=1-2]
+		\arrow[from=1-2, to=2-2]
+		\arrow[from=2-2, to=3-2]
+		\arrow[curve={height=12pt}, from=1-1, to=3-1]
+		\arrow[from=2-1, to=3-1]
+	\end{tikzcd}\]
+	Now, the commutativity of the outer rectangle and the fact that the smaller square is a pullback means that we actually have the following tower.
+	% https://q.uiver.app/#q=WzAsNixbMCwyLCJGJyJdLFsxLDIsIkYiXSxbMSwxLCJHIl0sWzEsMCwiaF9UIl0sWzAsMCwiaF9VIl0sWzAsMSwiRyciXSxbMCwxXSxbNCwzXSxbMywyXSxbMiwxXSxbNSwwXSxbNCw1XSxbNSwyXV0=&macro_url=https%3A%2F%2Fraw.githubusercontent.com%2FdFoiler%2Fnotes%2Fmaster%2Fnir.tex
+	\[\begin{tikzcd}
+		{h_U} & {h_T} \\
+		{G'} & G \\
+		{F'} & F
+		\arrow[from=3-1, to=3-2]
+		\arrow[from=1-1, to=1-2]
+		\arrow[from=1-2, to=2-2]
+		\arrow[from=2-2, to=3-2]
+		\arrow[from=2-1, to=3-1]
+		\arrow[from=1-1, to=2-1]
+		\arrow[from=2-1, to=2-2]
+	\end{tikzcd}\]
+	Now, the total rectangle and bottom square are both pullbacks, so the top square is also a pullback by an argument similar to \cite[Exercise~1.3.G]{rising-sea}.
+\end{proof}
+We also have a notion of a covering, which will be important in the following section.
+\begin{definition}[covering]
+	Fix a functor $F\colon\mathrm{Sch}_S\opp\to\mathrm{Set}$, and let $\{F_\alpha\}_{\alpha\in\kappa}$ be a family of subfunctors. Then the subfunctors \textit{cover} $F$ if and only if, for any test $S$-scheme $T$ and $\xi\in F(T)$, there is an open cover of $T$ given by $\{U_\alpha\}_{\alpha\in\kappa}$ such that $\xi|_{U_\alpha}\in F_\alpha(U_\alpha)$ for each $\alpha\in\kappa$. (Here, $\xi|_{U_\alpha}$ means $Fi_\alpha(\xi)$ where $i_\alpha\colon U_\alpha\to T$ is the inclusion.)
+\end{definition}
+\begin{example} \label{ex:open-cover-on-sch}
+	Given an $S$-scheme $f\colon T\to S$ and an open cover $\{U_\alpha\}_{\alpha\in\kappa}$ of $T$, the open subfunctors $h_{U_\alpha}\subseteq h_T$ (see \Cref{lem:subfunctor-on-sch}) form a covering of $h_T$. Indeed, we check this directly from the definition: for any test $S$-scheme $T'$ and some $f\in h_T(T')$, define $U_\alpha'\coloneqq f^{-1}(U_\alpha)$ so that $f|_{U_\alpha'}\in h_{U_\alpha}(U_\alpha')$ for each $\alpha\in\kappa$. (Notably, $f|_{U_\alpha'}$ means the composition of $f$ with the embedding $U_\alpha'\subseteq T'$.)
+\end{example}
+This also has an interpretation via ``checking on test $S$-schemes.''
+\begin{proposition} \label{prop:test-open-cover}
+	Fix a functor $F\colon\mathrm{Sch}_S\opp\to\mathrm{Set}$. A collection $\{F_\alpha\}_{\alpha\in\kappa}$ of open subfunctors covers $F$ if and only if, for any test $S$-scheme $T$ and morphism $\eta\colon h_T\Rightarrow F$, the scheme $T$ is covered by the open subschemes $\{U_\alpha\}_{\alpha\in\kappa}$, where $U_\alpha\subseteq T$ represents $h_T\times_FF_\alpha\subseteq h_T$.
+\end{proposition}
+\begin{proof}
+	Quickly, note that the conclusion makes sense: the $U_\alpha$ exist by \Cref{prop:test-open-sub}. We show our two directions separately.
+	\begin{itemize}
+		\item In one direction, suppose that the collection satisfies the conclusion. Then we show that $\{F_\alpha\}_{\alpha\in\kappa}$ is a covering. Well, fix a test $S$-scheme $T$ and $\xi\in F(T)$. Then $\xi$ via the Yoneda lemma \cite[Exercise~10.1.B]{rising-sea} provides a natural transformation $\eta\colon h_T\Rightarrow F$ defined by sending $f\colon T'\to T$ to $\eta_{T'}(f)\coloneqq Ff(\xi)$. Now, we choose $U_\alpha$ to represent $h_T\times_FF_\alpha$, and we are given that the $\{U_\alpha\}_{\alpha\in\kappa}$ is an open cover of $T$.
+
+		It remains to show that $\xi|_{U_\alpha}\in F_\alpha(U_\alpha)$ for each $\alpha\in\kappa$. Well, by the proof of \Cref{prop:test-open-sub}, we have seen that some $f\colon T'\to T$ factors through $U_\alpha$ if and only if $Ff(\xi)\in F_\alpha(T')$; this can also be rechecked via a direct computation. However, if we let $f$ be the inclusion $U_\alpha\to T$, then we see that $f$ factors through $U_\alpha$, so $Ff(\xi)=\xi|_{U_\alpha}$ lives in $F_\alpha(U_\alpha)$, as desired.
+		
+		\item In the other direction, suppose that the collection is a covering; define $T$ and $\eta$ and $\{U_\alpha\}_{\alpha\in\kappa}$ as in the conclusion, and we need to show that $\{U_\alpha\}_{\alpha\in\kappa}$ is an open cover of $T$. Note that the morphism $\eta\colon h_T\Rightarrow F$ produces an element $\xi\coloneqq\eta_T({\id_T})$ in $F(T)$. Thus, the definition of a covering provides an open cover $\{V_\alpha\}_{\alpha\in\kappa}$ of $T$ such that $\xi|_{V_\alpha}\in F_\alpha(V_\alpha)$ for each $\alpha\in\kappa$.
+
+		We claim that $V_\alpha\subseteq U_\alpha$, which will imply that $\{U_\alpha\}_{\alpha\in\kappa}$ is an open cover too, thus completing the proof. Let $i_\alpha\colon V_\alpha\to T$ denote the inclusion; we would like to show that $i_\alpha$ factors through $U_\alpha$. By the computation in \Cref{prop:test-open-sub}, we see that $i_\alpha$ factors through $U_\alpha$ if and only if $Fi_\alpha(\xi)\in F_\alpha(U_\alpha)$, but $\xi|_{U_\alpha}\in F_\alpha(U_\alpha)$ already, so we are done.
+		\qedhere
+	\end{itemize}
+\end{proof}
+This allows us to check open covers after base-change.
+\begin{corollary} \label{cor:base-change-open-cover}
+	Fix a natural transformation $\varphi\colon G\Rightarrow F$ of functors $\mathrm{Sch}_S\opp\to\mathrm{Set}$. Given an open cover $\{F_\alpha\}_{\alpha\in\kappa}$ of $F$, then $\{G\times_FF_\alpha\}_{\alpha\in\kappa}$ is an open cover of $G$.
+\end{corollary}
+\begin{proof}
+	Quickly, we note that $G_\alpha\coloneqq G\times_FF_\alpha$ can be viewed as an open subfunctor of $G$ by \Cref{cor:base-change-p-subfunctor}. Now, we check that this is an open cover via \Cref{prop:test-open-cover}: fix some $\eta\colon h_T\Rightarrow G$, which we note induces a morphism $(\varphi\circ\eta)\colon h_T\Rightarrow F$. Thus, the open cover $\{F_\alpha\}_{\alpha\in\kappa}$ of $F$ produces an open cover $\{U_\alpha\}_{\alpha\in\kappa}$, where each $\alpha\in\kappa$ has the following diagram where the outer rectangle is a pullback square.
+	% https://q.uiver.app/#q=WzAsNixbMiwwLCJGX1xcYWxwaGEiXSxbMiwxLCJGIl0sWzEsMSwiRyJdLFsxLDAsIkdfXFxhbHBoYSJdLFswLDEsImhfVCJdLFswLDAsImhfe1VfXFxhbHBoYX0iXSxbNCwyXSxbMiwxXSxbMCwxXSxbMywyXSxbMywwXSxbNSw0XSxbNSwwLCIiLDAseyJjdXJ2ZSI6LTJ9XV0=&macro_url=https%3A%2F%2Fraw.githubusercontent.com%2FdFoiler%2Fnotes%2Fmaster%2Fnir.tex
+	\[\begin{tikzcd}
+		{h_{U_\alpha}} & {G_\alpha} & {F_\alpha} \\
+		{h_T} & G & F
+		\arrow[from=2-1, to=2-2]
+		\arrow[from=2-2, to=2-3]
+		\arrow[from=1-3, to=2-3]
+		\arrow[from=1-2, to=2-2]
+		\arrow[from=1-2, to=1-3]
+		\arrow[from=1-1, to=2-1]
+		\arrow[curve={height=-12pt}, from=1-1, to=1-3]
+	\end{tikzcd}\]
+	Now, the commutativity of the outer rectangle means that we induce a map $h_{U_\alpha}\to G_\alpha$ because $G_\alpha=G\times_FF_\alpha$. But then the outer rectangle is a pullback, and the right square is a pullback, so the left square is a pullback again by an argument similar to \cite[Exercise~1.3.G]{rising-sea}.
+\end{proof}
+
+\subsection{Representability is Local}
+We continue our discussion of trying to show that we can check representability of a functor $F\colon\mathrm{Sch}_S\opp\to S$ locally. The previous subsection allows us to talk about what it means to check locally on open subfunctors. However, we do need to require that the functor $F$ have some local-to-global property in order to translate representability of open subfunctors to $F$. So we want $F$ to be a sheaf. As a sanity check, here is a check.
+\begin{proposition}
+	Fix an $S$-scheme $X$. Then the functor $h_X$ is a (Zariski) sheaf.
+\end{proposition}
+\begin{proof}
+	In other words, for any $S$-scheme $T$ and open cover $\{U_\alpha\}_{\alpha\in\kappa}$ of $T$, we must check that $h_X(T)$ is the equalizer of the maps
+	\[\prod_{\alpha\in\kappa}h_X(U_\alpha)\rightrightarrows\prod_{\alpha,\beta}h_X(U_\alpha\cap U_\beta),\]
+	where the two maps are the restriction map. In other words, we are trying to say that a map $T\to X$ is uniquely determined by its restrictions to the $U_\alpha$, and the morphisms $U_\alpha\to X$ glue to a morphism $T\to X$ provided that they agree on the intersections $U_\alpha\cap U_\beta$. This is exactly the statement that morphisms glue (uniquely), which is \cite[Exercise~7.2.A]{rising-sea}.
+\end{proof}
+Before actually going into the proof, let's explain how we will use the sheaf condition. Unsurprisingly, we are going to try to build some sort of local-to-global result.
+\begin{lemma} \label{lem:glue-sheaf-morphism}
+	Fix (Zariski) sheaves $F,G\colon\mathrm{Sch}_S\opp\to\mathrm{Set}$ with open covers $\{F_\alpha\}_{\alpha\in\kappa}$ and $\{G_\alpha\}_{\alpha\in\kappa}$, respectively. Further, suppose that we have natural transformations $\eta_\alpha\colon F_\alpha\Rightarrow G_\alpha$ which ``agree on intersections'' in the sense that
+	% https://q.uiver.app/#q=WzAsNixbMCwwLCJGX1xcYWxwaGFcXGNhcCBGX1xcYmV0YSJdLFsxLDAsIkZfXFxhbHBoYSJdLFsxLDEsIkdfXFxiZXRhIl0sWzAsMSwiRl9cXGJldGEiXSxbMiwwLCJHX1xcYWxwaGEiXSxbMiwxLCJHIl0sWzAsMV0sWzEsNCwiXFxldGFfXFxhbHBoYSJdLFswLDNdLFszLDIsIlxcZXRhX1xcYmV0YSJdLFsyLDVdLFs0LDVdXQ==&macro_url=https%3A%2F%2Fraw.githubusercontent.com%2FdFoiler%2Fnotes%2Fmaster%2Fnir.tex
+	\[\begin{tikzcd}
+		{F_\alpha\cap F_\beta} & {F_\alpha} & {G_\alpha} \\
+		{F_\beta} & {G_\beta} & G
+		\arrow[from=1-1, to=1-2]
+		\arrow["{\eta_\alpha}", from=1-2, to=1-3]
+		\arrow[from=1-1, to=2-1]
+		\arrow["{\eta_\beta}", from=2-1, to=2-2]
+		\arrow[from=2-2, to=2-3]
+		\arrow[from=1-3, to=2-3]
+	\end{tikzcd}\]
+	commutes. Then there is a unique natural transformation $\eta\colon F\Rightarrow G$ which restricts to $\eta_\alpha\colon F_\alpha\Rightarrow G_\alpha$. (Namely, for any $T\in\mathrm{Sch}_S\opp$ and $\xi\in F_\alpha(T)$, we have $\eta_T(\xi)=(\eta_\alpha)_T(\xi)$.) Furthermore, if the $\eta_\alpha$ are natural isomorphisms which restrict to natural isomorphisms $(F_\alpha\cap F_\beta)\Rightarrow(G_\alpha\cap G_\beta)$, then $\eta$ is also a natural isomorphism.
+\end{lemma}
+\begin{proof}
+	We check the uniqueness and existence separately.
+	\begin{itemize}
+		\item Unique: suppose we have two such isomorphisms $\eta,\eta'\colon F\Rightarrow G$. Then for any $S$-scheme $T$ and element $\xi\in F(T)$, we must show that $\eta_T(\xi)=\eta_T'(\xi)$. Because $\{F_\alpha\}_{\alpha\in\kappa}$ is an open cover, there is an open cover $\{U_\alpha\}_{\alpha\in\kappa}$ such that $\xi|_{U_\alpha}\in F_\alpha(U_\alpha)$ for each $\alpha\in\kappa$. Then we see that
+		\[\eta_T(\xi)|_{U_\alpha}=\eta_{U_\alpha}(\xi|_{U_\alpha})=(\eta_\alpha)_{U_\alpha}(\xi|_{U_\alpha}),\]
+		and similarly $\eta'_T(\xi)|_{U_\alpha}=(\eta_\alpha)_{U_\alpha}(\xi|_{U_\alpha})$, so $\eta_T(\xi)|_{U_\alpha}=\eta'_T(\xi)|_{U_\alpha}$ for each $\alpha\in\kappa$. However, $\{U_\alpha\}_{\alpha\in\kappa}$ is an open cover of $T$, so because $G$ is a Zariski sheaf, we conclude that $\eta_T(\xi)=\eta'_T(\xi)$.
+
+		\item Exists: we imitate the uniqueness proof to provide existence of $\eta$. For an $S$-scheme $T$ and $\xi\in F(T)$, we begin by defining $\eta_T(\xi)$, and then we will check naturality.
+
+		We will construct $\eta_T(\xi)$ so that whenever we have a pair $(U,\alpha)$ of open subscheme $U\subseteq T$ and $\alpha\in\kappa$ such that $\xi|_U\in F_{\alpha}(U)$, we have
+		\[\eta_T(\xi)|_U\stackrel?=(\eta_{\alpha})_U(\xi|_U).\]
+		Enumerate all such ordered pairs $(U,\alpha)$ by $\{(U_i,\alpha_i)\}_{i\in\lambda}$. Because $\{F_\alpha\}_{\alpha\in\kappa}$ is an open cover of $F$, there is an open cover $\mathcal U$ of $T$ such that any $U\in\mathcal U$ has some $\alpha\in\kappa$ such that $\xi|_{U}\in F_\alpha(U_\alpha)$ for each $\alpha\in\kappa$. Thus, $\{U_i\}_{i\in I}$ forms an open cover of $T$. As such, we claim that we can glue the elements
+		\[(\eta_{\alpha_i})_{U_i}(\xi|_{U_i})\in G(U_i)\]
+		into a unique element of $G(T)$. This will be our definition of $\eta_T(\xi)$, and it works by construction. Well, by the sheaf condition, it is enough to check that
+		\[(\eta_{\alpha_i})_{U_i}(\xi|_{U_i})|_{U_i\cap U_j}\stackrel?=(\eta_{\alpha_j})_{U_j}(\xi|_{U_j})|_{U_i\cap U_j}\]
+		for $i,j\in\lambda$. Well, we compute
+		\[(\eta_{\alpha_i})_{U_i}(\xi|_{U_i})|_{U_i\cap U_j}=(\eta_{\alpha_i})_{U_i\cap U_j}(\xi|_{U_i\cap U_j}),\]
+		but now $\xi|_{U_i\cap U_j}\in (F_{\alpha_i}\cap F_{\alpha_j})(U_{\alpha_i}\cap U_{\alpha_j})$, so the hypothesized commutativity implies that the above is also equal to
+		\[(\eta_{\alpha_j})_{U_i\cap U_j}(\xi|_{U_i\cap U_j})=(\eta_{\alpha_j})_{U_j}(\xi|_{U_j})|_{U_i\cap U_j},\]
+		as desired.
+
+		We now run our checks. To begin, we note that any $S$-scheme $T$ with $\xi\in F_\alpha(T)$ will have $\eta_T(\xi)=(\eta_\alpha)_T(\xi)$ by construction of $\eta_T$.
+		
+		It remains to check naturality. Fix a map $f\colon T\to T'$ of $S$-schemes, and we want to show that $\eta_{T}\circ Ff=Gf\circ \eta_{T'}$. Well, pick up some $\xi'\in F(T')$, and we want to show that $\eta_T(Ff(\xi'))=Gf(\eta_{T'}(\xi'))$. Well, $\{F_\alpha\}_{\alpha\in\kappa}$ is an open cover of $F$, so there is an open cover $\{U'_\alpha\}_{\alpha\in\kappa}$ of $T'$ such that $\xi'|_{U_\alpha'}\in F_\alpha(U_\alpha')$ for each $\alpha\in\kappa$. Notably, this implies $(\eta_\alpha)_{U_\alpha'}(\xi'|_{U_\alpha'})\in G_\alpha(U_\alpha')$. For brevity, we let $U_\alpha\coloneqq f^{-1}(U_\alpha)$, we let $f_\alpha\colon U_\alpha\to U_\alpha'$ denote the restriction. %, and we let $i_\alpha\colon f^{-1}(U_\alpha')\to T$ and $i_\alpha'\colon U_\alpha\to T$ denote the restrictions.
+		Now, we note
+		\begin{align*}
+			Gf(\eta_{T'}(\xi'))|_{U_\alpha} %&= G(f\circ i_\alpha)(\eta_{T'}(\xi')) \\
+			%&= G(i_\alpha'\circ f_\alpha)(\eta_{T'}(\xi')) \\
+			&= Gf_\alpha(\eta_{T'}(\xi')|_{U_{\alpha}'}) \\
+			&= G_\alpha f_\alpha((\eta_\alpha)_{U_\alpha'}(\xi'|_{U_{\alpha}'})) \\
+			&= (\eta_\alpha)_{U_\alpha}(F_\alpha f_\alpha(\xi'|_{U_\alpha'})) \\
+			&= \eta_{U_\alpha}(Ff_\alpha(\xi'|_{U_\alpha'})) \\
+			%&= \eta_{U_\alpha}(F(i_\alpha'\circ f_\alpha)(\xi')) \\
+			%&= \eta_{U_\alpha}(F(f\circ i_\alpha)(\xi')) \\
+			&= \eta_{U_\alpha}(Ff(\xi')|_{U_\alpha}) \\
+			&= \eta_{U_\alpha}(Ff(\xi'))|_{U_\alpha'}.
+		\end{align*}
+		Because the $\{U_\alpha'\}_{\alpha\in\kappa}$ cover $T$, we conclude that $Gf(\eta_{T'}(\xi'))=\eta_{U_\alpha}(Ff(\xi'))$ because $G$ is a (Zariski) sheaf.
+
+		\item Lastly, suppose that the $\eta_\alpha$ are natural isomorphisms such that the induced maps $(F_\alpha\cap F_\beta)\Rightarrow(G_\alpha\cap G_\beta)$ are also natural isomorphisms. Let $\mu_\alpha\colon G_\alpha\Rightarrow F_\alpha$ be the inverse of $\eta_\alpha$, and we note that the diagram
+		% https://q.uiver.app/#q=WzAsNixbMCwwLCJHX1xcYWxwaGFcXGNhcCBHX1xcYmV0YSJdLFsxLDEsIkZfXFxiZXRhIl0sWzIsMSwiRiJdLFswLDEsIkdfXFxiZXRhIl0sWzIsMCwiRl9cXGFscGhhIl0sWzEsMCwiR19cXGFscGhhIl0sWzAsM10sWzMsMSwiXFxtdV9cXGJldGEiXSxbMCw1XSxbNSw0LCJcXG11X1xcYWxwaGEiXSxbNCwyXSxbMSwyXV0=&macro_url=https%3A%2F%2Fraw.githubusercontent.com%2FdFoiler%2Fnotes%2Fmaster%2Fnir.tex
+		\[\begin{tikzcd}
+			{G_\alpha\cap G_\beta} & {G_\alpha} & {F_\alpha} \\
+			{G_\beta} & {F_\beta} & F
+			\arrow[from=1-1, to=2-1]
+			\arrow["{\mu_\beta}", from=2-1, to=2-2]
+			\arrow[from=1-1, to=1-2]
+			\arrow["{\mu_\alpha}", from=1-2, to=1-3]
+			\arrow[from=1-3, to=2-3]
+			\arrow[from=2-2, to=2-3]
+		\end{tikzcd}\]
+		commutes because it is the inverse of the diagram for the $\eta_\bullet$s. Namely, any $\zeta\in(G_\alpha\cap G_\beta)(T)$ can be written as $\zeta=\eta_\alpha(\xi)=\eta_\beta(\xi)$ for some $\xi\in(F_\alpha\cap F_\beta)(T)$, but then this means that $\mu_\alpha(\zeta)=\mu_\beta(\zeta)$, as needed.
+
+		Thus, the $\mu_\bullet$s also glue together into a natural transformation $\mu\colon G\Rightarrow F$. Now, we claim that $\mu\circ\eta$ and $\eta\circ\mu$ are inverse natural isomorphisms, which will complete the proof. Well, for any $\alpha\in\kappa$, we see that $\mu\circ\eta$ restricts to a natural transformation $F_\alpha\Rightarrow F_\alpha$ which is simply the identity because $\mu_\alpha\circ\eta_\alpha=\id_{F_\alpha}$. Thus, so the uniqueness of the gluing in the above argument implies that $\mu\circ\eta=\id_F$. A symmetric argument shows that $\eta\circ\mu=\id_G$, completing the proof.
+		\qedhere
+	\end{itemize}
+\end{proof}
+Anyway, here is our result.
+\begin{theorem} \label{thm:rep-is-local}
+	Fix a functor $F\colon\mathrm{Sch}\opp_S\to\mathrm{Set}$. Suppose that $F$ has a covering $\{F_\alpha\}_{\alpha\in\kappa}$ of representable open subfunctors. Then $F$ is representable.
+\end{theorem}
+\begin{proof}
+	The point is to glue together the schemes representing the $F_\alpha$, using \cite[Exercise~4.4.A]{rising-sea}. We proceed in steps.
+	\begin{enumerate}
+		\item We define the needed schemes. For each $\alpha\in\kappa$, we are given a natural isomorphism $\eta_\alpha\colon h_{X_\alpha}\Rightarrow F_{\alpha}$, where $X_\alpha$ is some $S$-scheme. For brevity, set $\xi_\alpha\coloneqq(\eta_\alpha)_{X_\alpha}({\id_\alpha})$.
+
+		Given $\alpha,\beta\in\kappa$, we would also like to define $X_{\alpha\beta}\subseteq X_\alpha$ to be identified with $X_{\beta\alpha}\subseteq X_\beta$ in the gluing. Somehow this should be the intersection of the two open subfunctors $F_\alpha$ and $F_\beta$, so we define $X_{\alpha\beta}\subseteq X_\alpha$ so that $X_{\alpha\beta}$ represents $h_{X_\alpha}\times_FF_\beta\subseteq h_{X_\alpha}$. This scheme exists by \Cref{lem:open-sub-of-rep}, and we see that a map $f\colon T\to X_\alpha$ factors through $X_{\alpha\beta}$ if and only if $f\in(h_{X_\alpha}\times_FF_\beta)(T)$, which is equivalent to $(\eta_\alpha)_T(f)\in F_\beta(T)$.
+
+		For example, we see that $X_{\alpha\alpha}=X_\alpha$ because $\id\colon X_\alpha\to X_\alpha$ factors through $X_{\alpha\alpha}$: note $(\eta_\alpha)_{X_\alpha}({\id})\in F_\alpha(T)$.
+
+		\item We define the needed maps. Namely, we need an isomorphism $f_{\alpha\beta}\colon X_{\alpha\beta}\to X_{\beta\alpha}$. The point is that the object $X_{\alpha\beta}$ represents $h_{X_\alpha}\times_FF_\beta\simeq F_\alpha\times_F F_\beta=F_\alpha\cap F_\beta$. To find the corresponding element, we track through the element ${\id_{X_\alpha\beta}}\in h_{X_{\alpha\beta}}(X_{\alpha\beta})$: letting $i_{\alpha\beta}\colon X_{\alpha\beta}\to X_\alpha$ denote the inclusion, we go to $i_{\alpha\beta}\in h_X(X_{\alpha\beta})$, which then goes to
+		\[\eta_{X_{\alpha\beta}}(i_{\alpha\beta})=Fi_{\alpha\beta}(\xi_\alpha)=\xi_\alpha|_{X_{\alpha\beta}}\]
+		in $(F_\alpha\cap F_\beta)(X_{\alpha\beta})$.
+
+		A similar discussion applies to $X_{\beta\alpha}$, but we see that there is an identification $F_\alpha\times_FF_\beta$ with $F_\beta\times_FF_\alpha$ as subfunctors of $F$, so these pairs represent the same subfunctor of $F$, so \Cref{cor:yoneda-up} provides unique maps $f_{\alpha\beta}\colon X_{\alpha\beta}\to X_{\beta\alpha}$ and $f_{\beta\alpha}\colon X_{\beta\alpha}\to F_{\alpha\beta}$ such that
+		\[Ff_{\alpha\beta}(\xi_\beta|_{X_{\beta\alpha}})=\xi_\alpha|_{X_{\alpha\beta}}\qquad\text{and}\qquad Ff_{\beta\alpha}(\xi_\alpha|_{X_{\alpha\beta}})=\xi_\beta|_{X_{\beta\alpha}}.\]
+		Note that $(f_{\alpha\beta}\circ f_{\beta\alpha})\colon X_{\beta\alpha}\to X_{\beta\alpha}$ has $F(f_{\alpha\beta}\circ f_{\beta\alpha})$ sending $\xi_\beta|_{X_{\alpha\beta}}\mapsto\xi_\beta|_{X_{\alpha\beta}}$. However, \Cref{cor:yoneda-up} says that there is a unique such map $X_{\beta\alpha}\to X_{\beta\alpha}$, which must be $\id_{X_{\beta\alpha}}$, so $f_{\alpha\beta}\circ f_{\beta\alpha}$ must be the identity. Switching $\alpha$ and $\beta$ implies that these maps are inverse to each other and thus isomorphisms.
+
+		\item We check that $f_{\alpha\beta}$ carries $X_{\alpha\beta}\cap X_{\alpha\gamma}\subseteq X_\alpha$ to $X_{\beta\alpha}\cap X_{\beta\gamma}\subseteq X_\beta$. Well, $f_{\alpha\beta}$ sends $\xi_\beta|_{X_{\beta\alpha}}$ to $\xi_\alpha|_{X_{\alpha\beta}}$, and its restriction to $X_{\alpha\beta}\cap X_{\alpha\gamma}$ factors through $X_{\beta\gamma}$ by the following computation: let $i_{\alpha\beta\gamma}\colon(X_{\alpha\beta}\cap X_{\alpha\gamma})\to X_{\alpha\beta}$ and $i_{\beta\alpha}\colon X_{\beta\alpha}\to X_\beta$ denote the inclusions, and then we see
+		\[(\eta_\beta)_{X_{\alpha\beta}\cap X_{\alpha\gamma}}(i_{\beta\alpha}\circ f_{\alpha\beta}\circ i_{\alpha\beta\gamma})=F_\beta(i_{\beta\alpha}\circ f_{\alpha\beta}\circ i_{\alpha\beta\gamma})(\xi_\beta)=\xi_\alpha|_{X_{\alpha\beta}\cap X_{\alpha\gamma}}.\]
+		This lives in $F_\gamma(X_{\alpha\beta}\cap X_{\alpha\gamma})$ by the discussion of the previous step; in particular, $\xi_\alpha|_{X_{\alpha\gamma}}$ lives in $F_\gamma(X_{\alpha\gamma})$, and we are simply restricting further to $X_{\alpha\beta}$.
+
+		\item We check the cocycle condition. Note that
+		\begin{align*}
+			h_{X_{\alpha\beta}\cap X_{\alpha\gamma}} &= h_{X_{\alpha\beta}\times_{X_\alpha}X_{\alpha\gamma}}\simeq h_{X_{\alpha\beta}}\times_{h_{X_{\alpha}}} h_{X_{\alpha\gamma}}\simeq(F_\alpha\times_FF_\beta)\times_{F_\alpha}(F_\alpha\times_FF_\gamma)=F_\alpha\cap F_\beta\cap F_\gamma.
+		\end{align*}
+		Tracking through $\id_{X_{\alpha\beta}\times X_{\alpha\gamma}}$ through these isomorphisms as before, we see that it goes to $\xi_\alpha|_{X_{\alpha\beta}\cap X_{\alpha\gamma}}$.
+
+		A similar computation for $X_{\beta\alpha}\cap X_{\beta\gamma}$ shows that it also represents $F_\alpha\cap F_\beta\cap F_\gamma$ when equipped with $\xi_\beta|_{X_{\beta\alpha}\cap X_{\beta\gamma}}$. Thus, by \Cref{cor:yoneda-up}, there is a unique map (in fact, an isomorphism) $(X_{\alpha\beta}\cap X_{\alpha\gamma})\to(X_{\beta\alpha}\cap X_{\beta\gamma})$ sending $\xi_\beta|_{X_{\beta\alpha}\cap X_{\beta\gamma}}$ to $\xi_\alpha|_{X_{\alpha\beta}\cap X_{\alpha\gamma}}$. By the previous step, we see that this map must be the restriction of $f_{\alpha\beta}$ to $X_{\alpha\beta}\cap X_{\alpha\gamma}$.
+
+		Repeating the discussion of this step a few more times, we are able to deduce that
+		\[f_{\alpha\gamma}|_{X_{\alpha\beta}\cap X_{\alpha\gamma}}\stackrel?=f_{\beta\gamma}|_{X_{\beta\alpha}\cap X_{\beta\gamma}}\circ f_{\alpha\beta}|_{X_{\alpha\beta}\cap X_{\alpha\gamma}}.\]
+		(The right-hand side makes sense by the previous step.) Indeed, both the left-hand and right-hand sides describe maps $(X_{\alpha\beta}\cap X_{\alpha\gamma})\to(X_{\gamma\alpha}\to X_{\gamma\beta})$ which send $\xi_\alpha|_{X_{\alpha\beta}\cap X_{\alpha\gamma}}$ to $\xi_\gamma|_{X_{\gamma\alpha}\cap X_{\gamma\beta}}$.
+
+		\item By \cite[Exercise~4.4.A]{rising-sea}, the previous steps are able to provide a scheme $Y$ equipped with open embeddings $j_\alpha\colon X_\alpha\to X$ such that $X$ is covered by the $Y_\alpha\coloneqq j_\alpha(X_\alpha)$, and $Y_{\alpha\beta}\coloneqq j_\alpha(X_{\alpha\beta})=j_\beta(X_{\beta\alpha})=j_\alpha(X_\alpha)\cap j_\beta(X_\beta)$, and the maps $X_{\alpha\beta}\cong Y_{\alpha\beta}\cong X_{\beta\alpha}$ are $f_{\alpha\beta}$.
+		
+		Notably, $Y_\alpha$ now represents the functor $F_\alpha$. Then the corresponding element is found by tracking $\id_{Y_\alpha}$ through $h_{Y_\alpha}\simeq h_{X_{\alpha}}\simeq F_\alpha$, so we see that it is $y_\alpha\coloneqq(Fj_\alpha)^{-1}(\xi_\alpha)$. We will call the corresponding natural isomorphism $\mu_\alpha\colon h_{Y_\alpha}\Rightarrow F_\alpha$.
+		
+		We can glue these $y_\alpha$ together. Namely, we see
+		\[Fj_\alpha\left(y_\alpha|_{Y_{\alpha\beta}}\right)=Fj_\alpha(y_\alpha)|_{X_{\alpha\beta}}=\xi_\alpha|_{X_{\alpha\beta}},\]
+		so by passing through $f_{\alpha\beta}$, we see that $y_\alpha|_{Y_{\alpha\beta}}=y_\beta|_{Y_{\alpha\beta}}$. Thus, the $y_\bullet$s glue together into a unique global section $y\in F(Y)$ because $F$ is a sheaf.
+
+		While we're here, we also note that $Y_\alpha\cap Y_\beta\cong X_{\alpha\beta}$ represents $F_\alpha\cap F_\beta$, where the corresponding element is found by tracking $\xi_\alpha|_{X_{\alpha\beta}}$ through $F_\alpha\cap F_\beta\simeq h_{Y_\alpha\cap Y_\beta}$, but the above computation shows that this element is simply $y|_{Y_\alpha\cap Y_\beta}$.
+
+		% \item As a quick intermediate step, we use the fact that $F_\alpha\subseteq F$ is an open subfunctor to show that a map $f\colon T\to Y$ of $S$-schemes factors through $Y_\alpha$ if and only if $Ff(y)\in F_\alpha(T)$.
+
+		% Indeed, because $F_\alpha\subseteq F$ is an open subfunctor, there is an open subscheme $Y_\alpha'\subseteq Y_\alpha$ such that a map $f\colon T\to Y$ factors through $Y_\alpha'$ if and only if $Ff(y)\in F_\alpha(T)$. For example, letting $i_\alpha\colon Y_\alpha\to Y$ denote the inclusion, we see that $Fi_\alpha(y)=y|_{Y_\alpha}\in F_\alpha(Y_\alpha)$ because $(Y_\alpha,y_{\alpha})$ represents $F_\alpha$, so $i_\alpha$ factors through $Y_\alpha'$, so $Y_\alpha\subseteq Y'_\alpha$.
+
+		% On the other hand, let $i_\alpha'\colon Y_\alpha'\to Y$ denote the inclusion, and we see that we must have $Fi_\alpha'(y)\in F_\alpha(Y_\alpha')$, so \Cref{cor:yoneda-up} provides a unique map $f\colon Y_\alpha'\to Y_\alpha$ such that $Ff(y_\alpha)=Fi_\alpha'(y)$.
+
+		\item We claim that $(Y,y)$ represents $F$, which will complete the proof. For this, we use \Cref{lem:glue-sheaf-morphism}. By \Cref{thm:yoneda}, $y\in F(Y)$ provides a natural transformation $\mu\colon h_Y\Rightarrow F$ given by $\mu_T(f)\coloneqq Ff(y)$.
+		
+		Notably, the following diagram commutes by \Cref{thm:yoneda}; here $i_U\colon U\to Y$ is the inclusion for any open subscheme $U\subseteq Y$.
+		% https://q.uiver.app/#q=WzAsOCxbMCwwLCJoX3tZX1xcYWxwaGF9Il0sWzEsMCwiaF9ZIl0sWzAsMSwiRl9cXGFscGhhIl0sWzEsMSwiRiJdLFsyLDAsIlxcaWRfe1lfXFxhbHBoYX0iXSxbMywwLCJpX3tcXGFscGhhfSJdLFsyLDEsInlfXFxhbHBoYSJdLFszLDEsInl8X3tZX1xcYWxwaGF9Il0sWzAsMV0sWzAsMiwiXFxtdV9cXGFscGhhIiwyXSxbMiwzXSxbMSwzLCJcXG11IiwyXSxbNCw1LCIiLDAseyJzdHlsZSI6eyJ0YWlsIjp7Im5hbWUiOiJtYXBzIHRvIn19fV0sWzUsNywiIiwwLHsic3R5bGUiOnsidGFpbCI6eyJuYW1lIjoibWFwcyB0byJ9fX1dLFs2LDcsIiIsMix7ImxldmVsIjoyLCJzdHlsZSI6eyJoZWFkIjp7Im5hbWUiOiJub25lIn19fV0sWzQsNiwiIiwyLHsic3R5bGUiOnsidGFpbCI6eyJuYW1lIjoibWFwcyB0byJ9fX1dXQ==&macro_url=https%3A%2F%2Fraw.githubusercontent.com%2FdFoiler%2Fnotes%2Fmaster%2Fnir.tex
+		\[\begin{tikzcd}
+			{h_{Y_\alpha}} & {h_Y} & {\id_{Y_\alpha}} & {i_{Y_{\alpha}}} \\
+			{F_\alpha} & F & {y_\alpha} & {y|_{Y_\alpha}}
+			\arrow[from=1-1, to=1-2]
+			\arrow["{\mu_\alpha}"', from=1-1, to=2-1]
+			\arrow[from=2-1, to=2-2]
+			\arrow["\mu", from=1-2, to=2-2]
+			\arrow[maps to, from=1-3, to=1-4]
+			\arrow[maps to, from=1-4, to=2-4]
+			\arrow[Rightarrow, no head, from=2-3, to=2-4]
+			\arrow[maps to, from=1-3, to=2-3]
+		\end{tikzcd}\]
+		Now, to use \Cref{lem:glue-sheaf-morphism}, we note that the diagram
+		% https://q.uiver.app/#q=WzAsMTIsWzAsMCwiaF97WV9cXGFscGhhfVxcY2FwIGhfe1lfXFxiZXRhfSJdLFsxLDAsImhfe1lfXFxhbHBoYX0iXSxbMCwxLCJoX3tZX1xcYmV0YX0iXSxbMiwwLCJGX1xcYWxwaGEiXSxbMSwxLCJGX1xcYmV0YSJdLFsyLDEsIkYiXSxbMywwLCJcXGlkX3tZX1xcYWxwaGFcXGNhcCBZX1xcYmV0YX0iXSxbNCwwLCJpX3tZX1xcYWxwaGFcXGNhcCBZX1xcYmV0YX0iXSxbNSwwLCJ5fF97WV9cXGFscGhhXFxjYXAgWV9cXGJldGF9Il0sWzMsMSwiaV97WV9cXGFscGhhXFxjYXAgWV9cXGJldGF9Il0sWzQsMSwieXxfe1lfXFxhbHBoYVxcY2FwIFlfXFxiZXRhfSJdLFs1LDEsInl8X3tZX1xcYWxwaGFcXGNhcCBZX1xcYmV0YX0iXSxbMCwxXSxbMSwzXSxbMyw1XSxbMCwyXSxbMiw0XSxbNCw1XSxbNiw5LCIiLDIseyJzdHlsZSI6eyJ0YWlsIjp7Im5hbWUiOiJtYXBzIHRvIn19fV0sWzYsNywiIiwwLHsic3R5bGUiOnsidGFpbCI6eyJuYW1lIjoibWFwcyB0byJ9fX1dLFs3LDgsIiIsMCx7InN0eWxlIjp7InRhaWwiOnsibmFtZSI6Im1hcHMgdG8ifX19XSxbOCwxMSwiIiwwLHsic3R5bGUiOnsidGFpbCI6eyJuYW1lIjoibWFwcyB0byJ9fX1dLFs5LDEwLCIiLDIseyJzdHlsZSI6eyJ0YWlsIjp7Im5hbWUiOiJtYXBzIHRvIn19fV0sWzEwLDExLCIiLDIseyJzdHlsZSI6eyJ0YWlsIjp7Im5hbWUiOiJtYXBzIHRvIn19fV1d&macro_url=https%3A%2F%2Fraw.githubusercontent.com%2FdFoiler%2Fnotes%2Fmaster%2Fnir.tex
+		\[\begin{tikzcd}
+			{h_{Y_\alpha}\cap h_{Y_\beta}} & {h_{Y_\alpha}} & {F_\alpha} & {\id_{Y_\alpha\cap Y_\beta}} & {i_{Y_\alpha\cap Y_\beta}} & {y|_{Y_\alpha\cap Y_\beta}} \\
+			{h_{Y_\beta}} & {F_\beta} & F & {i_{Y_\alpha\cap Y_\beta}} & {y|_{Y_\alpha\cap Y_\beta}} & {y|_{Y_\alpha\cap Y_\beta}}
+			\arrow[from=1-1, to=1-2]
+			\arrow[from=1-2, to=1-3]
+			\arrow[from=1-3, to=2-3]
+			\arrow[from=1-1, to=2-1]
+			\arrow[from=2-1, to=2-2]
+			\arrow[from=2-2, to=2-3]
+			\arrow[maps to, from=1-4, to=2-4]
+			\arrow[maps to, from=1-4, to=1-5]
+			\arrow[maps to, from=1-5, to=1-6]
+			\arrow[maps to, from=1-6, to=2-6]
+			\arrow[maps to, from=2-4, to=2-5]
+			\arrow[maps to, from=2-5, to=2-6]
+		\end{tikzcd}\]
+		commutes and so the $\mu_\alpha$s glue to a unique morphism $\mu'\colon h_Y\Rightarrow F$ which maps $i_{Y_\alpha}\mapsto y|_{Y_\alpha}$. But of course $\mu$ satisfies this property, so $\mu=\mu'$ is the needed morphism.
+
+		Further, to use \Cref{lem:glue-sheaf-morphism} to show that $\mu$ is an isomorphism, we note that the $\mu_\bullet$s are all isomorphisms, and we see that $\mu_\alpha$ (and $\mu_\beta$) carry $h_{Y_\alpha}\cap h_{Y_\beta}=h_{Y_\alpha\cap Y_\beta}$ to $F_\alpha\cap F_\beta$ by the gluing data. Explicitly, we know that $(Y_\alpha\cap Y_\beta,y|_{Y_\alpha\cap Y_\beta})$ represents $F_\alpha\cap F_\beta$, and the corresponding isomorphism is a restriction of $\mu_\alpha$ because $(\mu_\alpha)_{Y_\alpha\cap Y_\beta}(i_{Y_\alpha\cap Y_\beta})=(\mu_\alpha)_{Y_\alpha}({\id_{Y_\alpha}})|_{Y_\alpha\cap Y_\beta}=y|_{Y_\alpha\cap Y_\beta}$.
+		\qedhere
+
+		% We would like to show that $\mu$ is a natural isomorphism, which amounts to showing that $\eta_T$ is a bijection for any test $S$-scheme $T$. Here are our two checks.
+		% \begin{itemize}
+		% 	\item Injective: suppose that $\zeta\coloneqq\mu_T(f)=\mu_T(g)$ for two maps $f,g\colon T\to Y$. Define $U_\alpha\coloneqq f^{-1}(Y_\alpha)$ and $V_\beta\coloneqq g^{-1}(Y_\alpha)$, and we see that $\{U_\alpha\cap V_\beta\}_{\alpha,\beta\in\kappa}$ is an open cover of $T$. Thus, it suffices to show that $f|_{U_\alpha\cap V_\beta}=g|_{U_\alpha\cap V_\beta}$ for each $\alpha,\beta\in\kappa$.
+		% 	% We must show that $g_1=g_2$. Well, because $\{F_\alpha\}_{\alpha\in\kappa}$ is an open cover of $F$, there is an open cover of $T$ given by $\{U_\alpha\}_{\alpha\in\kappa}$ such that $\zeta|_{U_\alpha}\in F_\alpha(U_\alpha)$ for each $\alpha\in\kappa$. Let $i_\alpha'\colon U_\alpha\to T$ denote the inclusion. 
+			
+		% 	% Now, we claim that $g_i|_{U_\alpha}=g_i\circ i_\alpha'$ factors through $Y_\alpha$: indeed, $\mu_{U_\alpha}(g_i|_{U_\alpha})=\mu_T(g_i)|_{U_\alpha}=\zeta|_{U_\alpha}$ actually lives in $F_\alpha(U_\alpha)$, so we can find some $g_\alpha\in h_{Y_\alpha}(U_\alpha)$ such that $(\mu_\alpha)_{U_\alpha}(g_\alpha)=\mu_{U_\alpha}(g_i|_{U_\alpha})$.
+
+		% 	% \[i_\alpha\circ(\mu_\alpha)_{U_\alpha}^{-1}(g_i\circ i_\alpha')\]
+			
+		% 	% Now,
+		% 	% \[(\mu_\alpha)_{U_\alpha}(g_i|_{U_\alpha})=F_\alpha(g_i|_{U_\alpha})(y_\alpha)=F(g_i|_{U_\alpha})(y_\alpha)=(\mu_\alpha)_T(g_i)|_{U_\alpha}=\zeta|_{U_\alpha}\]
+		% 	% for $i\in\{1,2\}$. Because $\mu_\alpha$ is a natural isomorphism, we see that $g_1|_{U_\alpha}=g_2|_{U_\alpha}$ for each $\alpha\in\kappa$, so $g_1=g_2$ follows.
+
+		% 	\item Surjective: fix some $\zeta\in F(T)$ which we would like to hit by some $f\colon T\to Y$. Again, $\{F_\alpha\}_{\alpha\in\kappa}$ is an open cover, so there is an open cover $\{U_\alpha\}_{\alpha\in\kappa}$ of $T$ such that $\zeta|_{U_\alpha}\in F_\alpha(U_\alpha)$. Now, by \Cref{cor:yoneda-up}, there is a unique $g_\alpha\colon U_\alpha\to Y_\alpha$ such that $Fg_\alpha(y_\alpha)=(\mu_\alpha)_{U_\alpha}(g_\alpha)=\zeta|_{U_\alpha}$; set $f_\alpha\coloneqq i_\alpha\circ g_\alpha$ where $i_\alpha\colon Y_\alpha\to Y$ is the inclusion, so we see $Ff_\alpha(y)=\zeta|_{U_\alpha}$.
+
+		% 	Now, $f_\alpha$ and $f_\beta$ agree on $U_\alpha\cap U_\beta$: we see
+		% 	\[F(f_\alpha|_{U_\alpha\cap U_\beta})(y)=Ff_\alpha(y)|_{U_\alpha\cap U_\beta}=\zeta|_{U_\alpha\cap U_\beta}=Ff_\beta(y)|_{U_\alpha\cap U_\beta}=F(f_\beta|_{U_\alpha\cap U_\beta})(y),\]
+		% 	but \Cref{cor:yoneda-up} tells us that there is a unique map $(U_\alpha\cap U_\beta)\to Y$ sending $y\in F(Y)$ to $\zeta|_{U_\alpha\cap U_\beta}$.
+
+		% 	Thus, we may glue the morphisms $f_\alpha\colon U_\alpha\to Y$ to a map $f\colon T\to Y$, and we note that $Ff(y)=\zeta$ because
+		% 	\[Ff(y)|_{U_\alpha}=Ff_\alpha(y)=\zeta|_{U_\alpha}\]
+		% 	for each $\alpha\in\kappa$, so equality follows because $F$ is a Zariski sheaf.
+		% \end{itemize}
+	\end{enumerate}
+\end{proof}
+
+\section{Grassmannians}
+We now put \Cref{thm:rep-is-local} to good use and to prove the representability of a nontrivial functor.
+
+\subsection{The Functor}
+Grassmannians are supposed to be a generalization of projective space. Given a ground field $k$ and a $k$-vector space $V$, the projective space $\mathbb PV$ is defined a space parameterizing one-dimensional subspaces of $V$. To generalize, we will want Grassmannians to be a moduli space parameterizing $d$-dimensional subspaces of $V$, for some fixed nonnegative integer $d$. For technical reasons, it will be better to work with the quotient map instead of the subspace; these are equivalent over a field, but there is a difference over general base schemes.
+\begin{definition}[Grassmannian functor]
+	Fix a vector bundle $\mathcal E$ of rank $n$ over a base scheme $S$, and fix a nonnegative integer $d\le n$. Then the \textit{Grassmannian functor} $\mathcal Gr_{d,\mathcal F}$ is the functor $\mathrm{Sch}_S\opp\to\mathrm{Set}$ sending test $S$-schemes $p\colon T\to S$ to the set of (isomorphism classes of) surjections $\pi\colon p^*\mathcal F\to\mathcal V$, where $\mathcal V$ is a vector bundle of rank $d$.
+\end{definition}
+Here, an isomorphism of surjections $\pi_1\colon p^*\mathcal E\to\mathcal V$ and $\pi_2\colon p^*\mathcal F\to\mathcal W$ is an isomorphism of objects over $p^*\mathcal F$. In other words, it is an isomorphism $\varphi\colon\mathcal V\to\mathcal W$ making the following diagram commute.
+% https://q.uiver.app/#q=WzAsNCxbMCwwLCJcXE9PX1Ree1xcb3BsdXMgbn0iXSxbMCwxLCJcXE9PX1Ree1xcb3BsdXMgbn0iXSxbMSwwLCJcXG1hdGhjYWwgViJdLFsxLDEsIlxcbWF0aGNhbCBWJyJdLFswLDIsIlxcYWxwaGEiLDAseyJzdHlsZSI6eyJoZWFkIjp7Im5hbWUiOiJlcGkifX19XSxbMSwzLCJcXGFscGhhJyIsMCx7InN0eWxlIjp7ImhlYWQiOnsibmFtZSI6ImVwaSJ9fX1dLFsyLDMsIlxcdmFycGhpIl0sWzAsMSwiIiwxLHsibGV2ZWwiOjIsInN0eWxlIjp7ImhlYWQiOnsibmFtZSI6Im5vbmUifX19XV0=&macro_url=https%3A%2F%2Fraw.githubusercontent.com%2FdFoiler%2Fnotes%2Fmaster%2Fnir.tex
+\[\begin{tikzcd}
+	{p^*\mathcal F} & {\mathcal V} \\
+	{p^*\mathcal F} & {\mathcal W}
+	\arrow["\pi_1", two heads, from=1-1, to=1-2]
+	\arrow["{\pi_2}", two heads, from=2-1, to=2-2]
+	\arrow["\varphi", from=1-2, to=2-2]
+	\arrow[Rightarrow, no head, from=1-1, to=2-1]
+\end{tikzcd}\]
+Anyway, the point is that the case of $\mathcal F=\OO_S^{\oplus n}$ implies that we are looking at surjections $\pi\colon\OO_T^{\oplus n}\to\mathcal V$, whose kernel will correspond to a vector bundle of $\OO_T^{\oplus n}$ of fixed rank.
+
+Notably, we have only defined what the Grassmannian functor does to objects. It should behave like base-change on morphisms; let's check that this makes sense.
+\begin{lemma} \label{lem:grass-on-mor}
+	Fix a vector bundle $\mathcal F$ of rank $n$ over a base scheme $S$, and fix a nonnegative integer $d\le n$. Given an $S$-morphism $f\colon T\to T'$, the morphism $\mathcal Gr_{d,\mathcal F}f\colon\mathcal Gr_{d,\mathcal F}T'\to\mathcal Gr_{d,\mathcal F}T$ sends a surjection $\pi'$ to its pullback $f^*\pi'$ by $f$.
+\end{lemma}
+\begin{proof}
+	We are merely checking that the functor $f^*\colon\mathrm{QCoh}(\OO_{T'})\to\mathrm{QCoh}(\OO_{T})$ is well-defined when restricted to $\mathcal Gr_{d,\mathcal F}$. To be explicit, let the structure morphisms be $p\colon T\to S$ and $p'\colon T'\to S$.
+	\begin{itemize}
+		\item We show that $f^*$ at least makes sense. To begin, note that \cite[Exercise~14.6.G]{rising-sea} allows us to write $p^*=(p'\circ f)^*=f^*(p')^*$, so $p^*\mathcal F=f^*(p')^*\mathcal F$, up to associativity of tensor products. Further, note that $f^*$ is additive and in fact right-exact \cite[Exercise~14.6.E]{rising-sea}, so $f^*\pi\colon f^*\mathcal F\to f^*\mathcal V'$ is a surjection still.
+		
+		Additionally, $f^*\mathcal V'$ is still a vector bundle of rank $d$: if $\mathcal U$ is a trivializing open cover for $\mathcal V'$, then for any $U'\in\mathcal U$, we see that we can pull back along the inclusions $i\colon f^{-1}U\to T$ and $i'\colon U'\to T'$ via \cite[Exercise~14.6.B]{rising-sea} to see
+		\[(f^*\mathcal V')|_{f^{-1}U'}=i^*f^*\mathcal V'=f^*(i')^*\mathcal V'\cong f^*\OO_{T'}^{\oplus d}\cong\OO_T^{\oplus d}.\]
+		Thus, $f^*\pi$ is a surjection onto a vector bundle of rank $d$.
+
+		Lastly, we show that equivalent surjections remain equivalent after pullback. Indeed, an isomorphism $\varphi\colon\mathcal V\to\mathcal W$ of the surjections $\pi_1'\colon(p')^*\mathcal F\to\mathcal V'$ and $\pi_2'\colon(p')^*\mathcal F\to\mathcal W'$ produces the commutative diagram
+		% https://q.uiver.app/#q=WzAsNCxbMCwwLCJcXE9PX1Ree1xcb3BsdXMgbn0iXSxbMCwxLCJcXE9PX1Ree1xcb3BsdXMgbn0iXSxbMSwwLCJmXipcXG1hdGhjYWwgViciXSxbMSwxLCJmXipcXG1hdGhjYWwgVyciXSxbMCwyLCJmXipcXGFscGhhJyIsMCx7InN0eWxlIjp7ImhlYWQiOnsibmFtZSI6ImVwaSJ9fX1dLFsxLDMsImZeKlxcYmV0YSciLDAseyJzdHlsZSI6eyJoZWFkIjp7Im5hbWUiOiJlcGkifX19XSxbMiwzLCJmXipcXHZhcnBoaSJdLFswLDEsIiIsMSx7ImxldmVsIjoyLCJzdHlsZSI6eyJoZWFkIjp7Im5hbWUiOiJub25lIn19fV1d&macro_url=https%3A%2F%2Fraw.githubusercontent.com%2FdFoiler%2Fnotes%2Fmaster%2Fnir.tex
+		\[\begin{tikzcd}
+			{f^*\mathcal F} & {f^*\mathcal V'} \\
+			{f^*\mathcal F} & {f^*\mathcal W'}
+			\arrow["{f^*\pi_1'}", two heads, from=1-1, to=1-2]
+			\arrow["{f^*\pi_2'}", two heads, from=2-1, to=2-2]
+			\arrow["{f^*\varphi}", from=1-2, to=2-2]
+			\arrow[Rightarrow, no head, from=1-1, to=2-1]
+		\end{tikzcd}\]
+		upon applying $f^*$. Because $f^*$ is a functor, we see that $f^*\varphi$ is still an isomorphism, so we are done.
+
+		\item We check functoriality. For the identity check, we note that $(\id_T)^*$ is the identity functor $\mathrm{QCoh}(\OO_T)\to\mathrm{QCoh}(\OO_T)$ (for example, by its construction in \cite[Definition~14.6.6]{rising-sea}), so $\mathcal Gr_{d,\mathcal F}(\id_T)$ continues to be the identity.
+		
+		For the functoriality check, fix two morphisms $f\colon T\to T'$ and $f'\colon T'\to T''$, and we must show that $\mathcal Gr_{d,n}(f'\circ f)=\mathcal Gr_{d,n}f\circ\mathcal Gr_{d,n}f'$. Well, given a surjection $\pi''\colon(p'')^*\mathcal F\to\mathcal V''$, we compute
+		\[(f'\circ f)^*\pi''=f^*(f')^*\pi''\]
+		by (say) \cite[Exercise~14.6.G]{rising-sea}. This is exactly what we needed upon unwinding.% (Perhaps one can worry about the identification between $f^*\OO_{T'}=\OO_T$, but this causes no problems because it is functorial in $f$: the canonical isomorphism $f^*(f')^*\OO_{T''}\cong\OO_T$ is the same as the composite $f^*(f')^*\OO_{T''}\cong f^*\OO_{T'}\cong \OO_T$ by associativity of the tensor product.)
+		\qedhere
+	\end{itemize}
+\end{proof}
+\begin{remark} \label{rem:pull-back-gr}
+	Now that we understand this functor $\mathcal Gr_{d,\mathcal F}$, it will be useful to remark what happens on base-change by a morphism $f\colon S'\to S$.
+	\begin{itemize}
+		\item For an $S'$-scheme $p\colon T\to S'$, we see that $\mathcal Gr_{d,f^*\mathcal F}(T)$ is made of isomorphism classes of surjections $\pi\colon p^*f*\mathcal F\to\mathcal V$, and $\mathcal Gr_{d,f^*\mathcal F}$ on morphisms is given by pullback.
+		\item On the other hand, for an $S'$-scheme $p\colon T\to S'$, we can view this as an $S$-scheme via $(f\circ p)\colon T\to S$, whereupon we see that $(\mathcal Gr_{d,\mathcal F})|_{S'}(T)$ is made of the same isomorphism classes of surjections $\pi\colon p^*f*\mathcal F\to\mathcal V$, and $\mathcal Gr_{d,\mathcal F}|_{S'}$ on morphisms is given by pullback.
+	\end{itemize}
+	So we see that $\mathcal Gr_{d,\mathcal F}|_{S'}=\mathcal Gr_{d,f^*\mathcal F}$.
+\end{remark}
+\begin{remark}
+	We will use the following remark without mention quite frequently in the following arguments: if $\mathcal F\cong\mathcal F'$, then $\mathcal Gr_{d,\mathcal F}\cong\mathcal Gr_{d,\mathcal F'}$. Namely, one can take surjections $\alpha\colon\mathcal F\onto\mathcal V$ and compose with the isomorphism $\mathcal F\cong\mathcal F'$ to produce a surjection $\alpha'\colon\mathcal F'\onto\mathcal V$. The inverse map simply composes in the opposite direction of the isomorphism $\mathcal F\cong\mathcal F'$.
+\end{remark}
+While we're running checks on our functor, let's show that $\mathcal Gr_{d,n}$ is a (Zariski) sheaf.
+\begin{lemma} \label{lem:gr-sheaf}
+	Fix a vector bundle $\mathcal F$ of rank $n$ over a base scheme $S$, and fix a nonnegative integer $d\le n$. Then $\mathcal Gr_{d,\mathcal F}$ is a (Zariski) sheaf.
+\end{lemma}
+\begin{proof}
+	Fix an $S$-scheme $p\colon T\to S$ and an open cover $\{\mathcal U_\alpha\}_{\alpha\in\kappa}$ of $T$. We must check that $\mathcal Gr_{d,\mathcal F}T$ is the equalizer of the maps
+	\[\prod_{\alpha\in\kappa}\mathcal Gr_{d,\mathcal F}(U_\alpha)\rightrightarrows\prod_{\alpha,\beta\in\kappa}\mathcal Gr_{d,\mathcal F}(U_\alpha\cap U_\beta),\]
+	where the two maps are the ``restriction'' map given by the pullbacks. For concreteness, let $i_U\colon U\to T$ denote the inclusion of an open subscheme $U\subseteq T$.
+	
+	Now, unwinding the sheaf condition, we are given (isomorphism classes of) surjections $\pi_\alpha\colon i_{U_\alpha}^*p^*\mathcal F\to\mathcal V_\alpha$ which ``agree on overlaps'' in the sense that we have isomorphisms $\varphi_{\alpha\beta}\colon i_{U_\alpha\cap U_\beta}^*\pi_\alpha\cong i_{U_\alpha\cap U_\beta}^*\pi_\beta$. Then we must show that there is a unique $\pi\colon p^*\mathcal F\to\mathcal V$ with $\varphi_\alpha\colon i_{U_\alpha}^*\pi\cong\pi_\alpha$ for each $\alpha\in\kappa$. The main point is that one should be able to glue these projections together uniquely using the sheaf condition. Notably, one may identify pulling back along an inclusion with restriction to an open subscheme, which is legal by \cite[Exercise~14.6.G]{rising-sea}.
+	
+	Anyway, we run our uniqueness checks independently. Let $\mathcal B$ be the base of the topology on $T$ given by open subsets contained in some $U_\alpha$.
+	\begin{itemize}
+		\item We show uniqueness. Suppose that there are two such surjections $\pi_1\colon p^*\mathcal F\to\mathcal V_1$ and $\pi_2\colon p^*\mathcal F\to\mathcal V_2$, and we would like to show that $\pi_1\cong\pi_2$. It suffices to exhibit this isomorphism on the level of sheaves on the base $\mathcal B$, by \cite[Exercise~2.5.C]{rising-sea}. Well, we note that each $\alpha\in\kappa$ produces the following commutative diagram.
+		% https://q.uiver.app/#q=WzAsNixbMCwwLCIocF4qXFxtYXRoY2FsIEYpfF97VV9cXGFscGhhfSJdLFswLDEsIlxcbWF0aGNhbCBWXzF8X3tVX1xcYWxwaGF9Il0sWzEsMCwiKHBeKlxcbWF0aGNhbCBGKXxfe1VfXFxhbHBoYX0iXSxbMiwwLCIocF4qXFxtYXRoY2FsIEYpfF97VV9cXGFscGhhfSJdLFsyLDEsIlxcbWF0aGNhbCBWXzJ8X3tVX1xcYWxwaGF9Il0sWzEsMSwiXFxtYXRoY2FsIFZfXFxhbHBoYSJdLFsxLDUsIlxcdmFycGhpX3tcXGFscGhhMX0iXSxbNCw1LCJcXHZhcnBoaV97XFxhbHBoYTJ9IiwyXSxbMCwxLCJcXHBpXzF8X3tVX1xcYWxwaGF9IiwyXSxbMCwyLCIiLDIseyJsZXZlbCI6Miwic3R5bGUiOnsiaGVhZCI6eyJuYW1lIjoibm9uZSJ9fX1dLFszLDQsIlxccGlfMnxfe1VfXFxhbHBoYX0iXSxbMywyLCIiLDAseyJsZXZlbCI6Miwic3R5bGUiOnsiaGVhZCI6eyJuYW1lIjoibm9uZSJ9fX1dLFsyLDUsIlxccGlfXFxhbHBoYSJdXQ==&macro_url=https%3A%2F%2Fraw.githubusercontent.com%2FdFoiler%2Fnotes%2Fmaster%2Fnir.tex
+		\[\begin{tikzcd}
+			{(p^*\mathcal F)|_{U_\alpha}} & {(p^*\mathcal F)|_{U_\alpha}} & {(p^*\mathcal F)|_{U_\alpha}} \\
+			{\mathcal V_1|_{U_\alpha}} & {\mathcal V_\alpha} & {\mathcal V_2|_{U_\alpha}}
+			\arrow["{\varphi_{\alpha1}}", from=2-1, to=2-2]
+			\arrow["{\varphi_{\alpha2}}"', from=2-3, to=2-2]
+			\arrow["{\pi_1|_{U_\alpha}}"', from=1-1, to=2-1]
+			\arrow[Rightarrow, no head, from=1-1, to=1-2]
+			\arrow["{\pi_2|_{U_\alpha}}", from=1-3, to=2-3]
+			\arrow[Rightarrow, no head, from=1-3, to=1-2]
+			\arrow["{\pi_\alpha}", from=1-2, to=2-2]
+		\end{tikzcd}\]
+		Restricting this diagram to any given $U\subseteq U_\alpha$ for $U\in\mathcal B$ will produce an isomorphism $\mathcal V_1\to\mathcal V_2$ of sheaves on the base $\mathcal B$ making the diagram commute, as soon as we check that these maps are well-defined and functorial. Note that this will thus complete the proof.
+		
+		To be well-defined, suppose that $U\subseteq U_\alpha\cap U_\beta$. We then claim the following diagram to commute, which will be sufficient.
+		% https://q.uiver.app/#q=WzAsNixbMCwwLCJcXG1hdGhjYWwgVl8xfF97VV9cXGFscGhhfXxfVSJdLFsyLDAsIlxcbWF0aGNhbCBWXzJ8X3tVX1xcYWxwaGF9fF9VIl0sWzEsMCwiXFxtYXRoY2FsIFZfXFxhbHBoYXxfVSJdLFswLDEsIlxcbWF0aGNhbCBWXzF8X3tVX1xcYmV0YX18X1UiXSxbMSwxLCJcXG1hdGhjYWwgVl9cXGJldGF8X1UiXSxbMiwxLCJcXG1hdGhjYWwgVl8yfF97VV9cXGJldGF9fF9VIl0sWzAsMiwiXFx2YXJwaGlfe1xcYWxwaGExfXxfVSJdLFsxLDIsIlxcdmFycGhpX3tcXGFscGhhMn18X1UiLDJdLFszLDQsIlxcdmFycGhpX3tcXGJldGExfXxfVSJdLFs1LDQsIlxcdmFycGhpX3tcXGJldGEyfXxfVSIsMl0sWzAsMywiIiwxLHsibGV2ZWwiOjIsInN0eWxlIjp7ImhlYWQiOnsibmFtZSI6Im5vbmUifX19XSxbMSw1LCIiLDEseyJsZXZlbCI6Miwic3R5bGUiOnsiaGVhZCI6eyJuYW1lIjoibm9uZSJ9fX1dLFsyLDQsIlxcdmFycGhpX3tcXGFscGhhXFxiZXRhfXxfVSJdXQ==&macro_url=https%3A%2F%2Fraw.githubusercontent.com%2FdFoiler%2Fnotes%2Fmaster%2Fnir.tex
+		\[\begin{tikzcd}
+			{\mathcal V_1|_{U_\alpha}|_U} & {\mathcal V_\alpha|_U} & {\mathcal V_2|_{U_\alpha}|_U} \\
+			{\mathcal V_1|_{U_\beta}|_U} & {\mathcal V_\beta|_U} & {\mathcal V_2|_{U_\beta}|_U}
+			\arrow["{\varphi_{\alpha1}|_U}", from=1-1, to=1-2]
+			\arrow["{\varphi_{\alpha2}|_U}"', from=1-3, to=1-2]
+			\arrow["{\varphi_{\beta1}|_U}", from=2-1, to=2-2]
+			\arrow["{\varphi_{\beta2}|_U}"', from=2-3, to=2-2]
+			\arrow[Rightarrow, no head, from=1-1, to=2-1]
+			\arrow[Rightarrow, no head, from=1-3, to=2-3]
+			\arrow["{\varphi_{\alpha\beta}|_U}", from=1-2, to=2-2]
+		\end{tikzcd}\]
+		By symmetry, it is enough to check that the left square commutes, for which we draw the following diagram.
+		% https://q.uiver.app/#q=WzAsNixbMCwwLCIocF4qXFxtYXRoY2FsIEYpfF9VIl0sWzIsMCwiXFxtYXRoY2FsIFZfMXxfVSJdLFsxLDEsIlxcbWF0aGNhbCBWX1xcYWxwaGF8X1UiXSxbMCwyLCIocF4qXFxtYXRoY2FsIEYpfF9VIl0sWzIsMiwiXFxtYXRoY2FsIFZfMXxfVSJdLFsxLDMsIlxcbWF0aGNhbCBWX1xcYmV0YXxfVSJdLFswLDEsIiIsMCx7InN0eWxlIjp7ImhlYWQiOnsibmFtZSI6ImVwaSJ9fX1dLFszLDQsIiIsMCx7InN0eWxlIjp7ImhlYWQiOnsibmFtZSI6ImVwaSJ9fX1dLFswLDMsIiIsMSx7ImxldmVsIjoyLCJzdHlsZSI6eyJoZWFkIjp7Im5hbWUiOiJub25lIn19fV0sWzIsNSwiXFx2YXJwaGlfe1xcYWxwaGFcXGJldGF9fF9VIiwxLHsibGFiZWxfcG9zaXRpb24iOjMwfV0sWzEsNCwiIiwxLHsibGV2ZWwiOjIsInN0eWxlIjp7ImhlYWQiOnsibmFtZSI6Im5vbmUifX19XSxbMCwyLCIiLDEseyJzdHlsZSI6eyJoZWFkIjp7Im5hbWUiOiJlcGkifX19XSxbMyw1LCIiLDEseyJzdHlsZSI6eyJoZWFkIjp7Im5hbWUiOiJlcGkifX19XSxbMSwyLCJcXHZhcnBoaV97XFxhbHBoYTF9fF9VIiwxXSxbNCw1LCJcXHZhcnBoaV97XFxiZXRhMX18X1UiLDFdXQ==&macro_url=https%3A%2F%2Fraw.githubusercontent.com%2FdFoiler%2Fnotes%2Fmaster%2Fnir.tex
+		\[\begin{tikzcd}
+			{(p^*\mathcal F)|_U} && {\mathcal V_1|_U} \\
+			& {\mathcal V_\alpha|_U} \\
+			{(p^*\mathcal F)|_U} && {\mathcal V_1|_U} \\
+			& {\mathcal V_\beta|_U}
+			\arrow[two heads, from=1-1, to=1-3]
+			\arrow[two heads, from=3-1, to=3-3]
+			\arrow[Rightarrow, no head, from=1-1, to=3-1]
+			\arrow["{\varphi_{\alpha\beta}|_U}"{description, pos=0.3}, from=2-2, to=4-2]
+			\arrow[Rightarrow, no head, from=1-3, to=3-3]
+			\arrow[two heads, from=1-1, to=2-2]
+			\arrow[two heads, from=3-1, to=4-2]
+			\arrow["{\varphi_{\alpha1}|_U}"{description}, from=1-3, to=2-2]
+			\arrow["{\varphi_{\beta1}|_U}"{description}, from=3-3, to=4-2]
+		\end{tikzcd}\]
+		The left parallelogram commutes by construction of $\varphi_{\alpha\beta}$, so because $\pi_1$ and $\pi_2$ are epic, the right parallelogram must also commute (because the right parallelogram provides two morphisms $(p^*\mathcal F)|_U\onto\mathcal V_\beta|_U$, which must be identified).
+
+		Lastly, functoriality has little content because we are defining the maps for arbitrary $U\subseteq U_\alpha$ by restricting them from maps on the level of the $U_\alpha$. Written out, if we have two $U\subseteq V$ in $\mathcal B$ where $V\subseteq U_\alpha$, the isomorphisms $\mathcal V_1|_U\cong\mathcal V_2|_U$ is the restriction of the isomorphism $\mathcal V_2|_V\cong\mathcal V_2|_V$ because both are restrictions of the isomorphism $\mathcal V_1|_{U_\alpha}\cong\mathcal V_2|_{U_\alpha}$.
+
+		\item We show existence. The main point of the construction is to figure out how to make $\mathcal V$. We use the universal property of the sheaf construction in \cite[Exercise~2.5.E]{rising-sea}. In particular, to glue the sheaves $\mathcal V_\alpha$ along the isomorphisms $\varphi_{\alpha\beta}\colon\mathcal V_\alpha|_{U_\alpha\cap U_\beta}\cong\mathcal V_\beta|_{U_\alpha\cap U_\beta}$, we must check
+		\[\varphi_{\alpha\gamma}=\varphi_{\beta\gamma}\circ\varphi_{\alpha\beta}\]
+		on $U\coloneqq U_\alpha\cap U_\beta\cap U_\gamma$. Well, these are isomorphisms under $(p^*\mathcal F)|_U$, so we produce the following diagram.
+		% https://q.uiver.app/#q=WzAsNixbMCwwLCIocF4qXFxtYXRoY2FsIEYpfF9VIl0sWzEsMCwiKHBeKlxcbWF0aGNhbCBGKXxfVSJdLFsyLDAsIihwXipcXG1hdGhjYWwgRil8X1UiXSxbMCwxLCJcXG1hdGhjYWwgVl9cXGFscGhhfF9VIl0sWzEsMSwiXFxtYXRoY2FsIFZfXFxiZXRhfF9VIl0sWzIsMSwiXFxtYXRoY2FsIFZfXFxnYW1tYXxfVSJdLFswLDEsIiIsMCx7ImxldmVsIjoyLCJzdHlsZSI6eyJoZWFkIjp7Im5hbWUiOiJub25lIn19fV0sWzEsMiwiIiwwLHsibGV2ZWwiOjIsInN0eWxlIjp7ImhlYWQiOnsibmFtZSI6Im5vbmUifX19XSxbMCwzLCIiLDIseyJzdHlsZSI6eyJoZWFkIjp7Im5hbWUiOiJlcGkifX19XSxbMiw1LCIiLDAseyJzdHlsZSI6eyJoZWFkIjp7Im5hbWUiOiJlcGkifX19XSxbMSw0LCIiLDAseyJzdHlsZSI6eyJoZWFkIjp7Im5hbWUiOiJlcGkifX19XSxbMyw0LCJcXHZhcnBoaV97XFxhbHBoYVxcYmV0YX0iXSxbNCw1LCJcXHZhcnBoaV97XFxiZXRhXFxnYW1tYX0iXSxbMyw1LCJcXHZhcnBoaV97XFxhbHBoYVxcZ2FtbWF9IiwyLHsiY3VydmUiOjJ9XV0=&macro_url=https%3A%2F%2Fraw.githubusercontent.com%2FdFoiler%2Fnotes%2Fmaster%2Fnir.tex
+		\begin{equation}
+			\begin{tikzcd}
+				{(p^*\mathcal F)|_U} & {(p^*\mathcal F)|_U} & {(p^*\mathcal F)|_U} \\
+				{\mathcal V_\alpha|_U} & {\mathcal V_\beta|_U} & {\mathcal V_\gamma|_U}
+				\arrow[Rightarrow, no head, from=1-1, to=1-2]
+				\arrow[Rightarrow, no head, from=1-2, to=1-3]
+				\arrow[two heads, from=1-1, to=2-1]
+				\arrow[two heads, from=1-3, to=2-3]
+				\arrow[two heads, from=1-2, to=2-2]
+				\arrow["{\varphi_{\alpha\beta}}", from=2-1, to=2-2]
+				\arrow["{\varphi_{\beta\gamma}}", from=2-2, to=2-3]
+				\arrow["{\varphi_{\alpha\gamma}}"', curve={height=12pt}, from=2-1, to=2-3]
+			\end{tikzcd} \label{eq:cocycle-grassmannian-sheaf}
+		\end{equation}
+		Now, we want the bottom triangle to commute. Well, $(p^*\mathcal F)|_U$ surjects onto $\mathcal V_\alpha|_U$, so being epic requires the bottom triangle to commute.
+
+		Thus, \cite[Exercise~2.5.E]{rising-sea} allows us to glue the sheaves $\mathcal V_\alpha$ together along the isomorphisms to produce a sheaf $\mathcal V$ on $T$ equipped with isomorphisms $\varphi_\alpha\colon\mathcal V|_{U_\alpha}\cong\mathcal V_\alpha$. We now run our checks on $\mathcal V$. For example, because $\mathcal V_\alpha$ is a vector bundle of rank $d$, the same open cover for $\mathcal V_\alpha$ reveals that $\mathcal V$ is also a vector bundle of rank $d$.
+
+		Lastly, we construct the needed surjection $\pi\colon p^*\mathcal F\to\mathcal V$. Note that $\mathcal V$ is constructed as a sheaf on the base $\mathcal B$ via the isomorphisms $\varphi_\alpha$ glued together via $\varphi_{\alpha\beta}$s. As such, for any $\alpha\in\kappa$, we may define $\pi|_{U_\alpha}\colon(p^*\mathcal F)|_{U_\alpha}\to\mathcal V|_{U_\alpha}$ as $\varphi_\alpha^{-1}\circ\pi_\alpha$. Note that these $\pi|_{U_\alpha}$ are well-defined on the overlaps: for $U\subseteq U_\alpha\cap U_\beta$, we see that the following diagram commutes.
+		% https://q.uiver.app/#q=WzAsNixbMCwwLCIocF4qXFxtYXRoY2FsIEYpfF9VIl0sWzEsMCwiXFxtYXRoY2FsIFZfXFxhbHBoYXxfVSJdLFsyLDAsIlxcbWF0aGNhbCBWfF97VV9cXGFscGhhfXxfVSJdLFsyLDEsIlxcbWF0aGNhbCBWfF97VV9cXGJldGF9fF9VIl0sWzAsMSwiKHBeKlxcbWF0aGNhbCBGKXxfVSJdLFsxLDEsIlxcbWF0aGNhbCBWX1xcYmV0YXxfVSJdLFsyLDMsIiIsMCx7ImxldmVsIjoyLCJzdHlsZSI6eyJoZWFkIjp7Im5hbWUiOiJub25lIn19fV0sWzAsMSwiXFxwaV9cXGFscGhhIl0sWzIsMSwiXFx2YXJwaGlfXFxhbHBoYSIsMl0sWzMsNSwiXFx2YXJwaGlfXFxiZXRhIiwyXSxbMSw1LCJcXHZhcnBoaV97XFxhbHBoYVxcYmV0YX0iXSxbNCw1LCJcXHBpX1xcYmV0YSJdLFswLDQsIiIsMSx7ImxldmVsIjoyLCJzdHlsZSI6eyJoZWFkIjp7Im5hbWUiOiJub25lIn19fV1d&macro_url=https%3A%2F%2Fraw.githubusercontent.com%2FdFoiler%2Fnotes%2Fmaster%2Fnir.tex
+		\[\begin{tikzcd}
+			{(p^*\mathcal F)|_U} & {\mathcal V_\alpha|_U} & {\mathcal V|_{U_\alpha}|_U} \\
+			{(p^*\mathcal F)|_U} & {\mathcal V_\beta|_U} & {\mathcal V|_{U_\beta}|_U}
+			\arrow[Rightarrow, no head, from=1-3, to=2-3]
+			\arrow["{\pi_\alpha}", from=1-1, to=1-2]
+			\arrow["{\varphi_\alpha}"', from=1-3, to=1-2]
+			\arrow["{\varphi_\beta}"', from=2-3, to=2-2]
+			\arrow["{\varphi_{\alpha\beta}}", from=1-2, to=2-2]
+			\arrow["{\pi_\beta}", from=2-1, to=2-2]
+			\arrow[Rightarrow, no head, from=1-1, to=2-1]
+		\end{tikzcd}\]
+		As such, we have constructed a morphism of sheaves on the base $\mathcal B$, so we have constructed our morphism $\pi\colon p^*\mathcal F\to\mathcal V$ constructed so that the following diagram commutes.
+		% https://q.uiver.app/#q=WzAsNCxbMCwwLCIocF4qXFxtYXRoY2FsIEYpfF97VV9cXGFscGhhfSJdLFswLDEsIihwXipcXG1hdGhjYWwgRil8X3tVX1xcYWxwaGF9Il0sWzEsMCwiXFxtYXRoY2FsIFZ8X3tVX1xcYWxwaGF9Il0sWzEsMSwiXFxtYXRoY2FsIFZfXFxhbHBoYSJdLFsxLDMsIlxccGlfXFxhbHBoYSJdLFswLDIsIlxccGkiXSxbMiwzLCJcXHZhcnBoaV9cXGFscGhhIl0sWzAsMSwiIiwxLHsibGV2ZWwiOjIsInN0eWxlIjp7ImhlYWQiOnsibmFtZSI6Im5vbmUifX19XV0=&macro_url=https%3A%2F%2Fraw.githubusercontent.com%2FdFoiler%2Fnotes%2Fmaster%2Fnir.tex
+		\[\begin{tikzcd}
+			{(p^*\mathcal F)|_{U_\alpha}} & {\mathcal V|_{U_\alpha}} \\
+			{(p^*\mathcal F)|_{U_\alpha}} & {\mathcal V_\alpha}
+			\arrow["{\pi_\alpha}", from=2-1, to=2-2]
+			\arrow["\pi", from=1-1, to=1-2]
+			\arrow["{\varphi_\alpha}", from=1-2, to=2-2]
+			\arrow[Rightarrow, no head, from=1-1, to=2-1]
+		\end{tikzcd}\]
+		Namely, $\varphi_\alpha\colon i_{U_\alpha}^*\pi\cong\pi_\alpha$, which was among the requirements. Lastly, the bottom map is surjective on stalks at any $t\in U_\alpha$, so the top map must also be surjective on stalks at any $t\in U_\alpha$. Looping over all $\alpha\in\kappa$ means that $\pi$ is surjective at each stalk $t\in T$, so $\pi$ is surjective.
+		%It will be constructed, as suggested above, as a sheaf on the base $\mathcal B$. Namely, for each $U\in\mathcal B$ contained in some $U_\alpha$, we define $\mathcal V(U)$ via some isomorphism $\psi_{\alpha,U}\colon\mathcal V(U)\cong\mathcal V_\alpha(U)$. Note that this is well-defined up to isomorphism over $(p^*\mathcal F)|_U$: if $U\subseteq U_\alpha\cap U_\beta$, we have an isomorphism $\varphi_{\alpha\beta}|_U\colon\pi_\alpha|_U\cong\pi_\beta|_U$ over $(p^*\mathcal F)|_U$.
+		\qedhere
+	\end{itemize}
+\end{proof}
+% \begin{lemma}
+% 	Fix a vector bundle $\mathcal F$ of rank $n$ over a base scheme $S$, and fix a nonnegative integer $d\le n$. Given a morphism $f\colon S'\to S$, we have a canonical isomorphism
+% 	\[\mathcal Gr_{d,f^*\mathcal F}\cong\mathcal Gr_{d,\mathcal F}\times_{h_S}h_{S'}\]
+% 	of functors $\mathrm{Sch}_{S'}\opp\to\mathrm{Set}$.
+% \end{lemma}
+% \begin{proof}
+% 	Here, $\mathcal Gr_{d,\mathcal F},h_S\colon\mathrm{Sch}_S\opp\to\mathrm{Set}$ are being made into a functor $\mathrm{Sch}_{S'}\opp\to\mathrm{Set}$ because any $S'$-scheme $p\colon T\to S'$ is also an $S$-scheme via $(f\circ p)\colon T\to S$. In particular, $p\mapsto f\circ p$ defines a functor $\mathrm{Sch}_S\to\mathrm{Sch}_{S'}$, which we are then composing with. (Perhaps we should mention that morphisms $g\colon T\to T'$ of $S$-schemes remains a morphism of $S'$-schemes because $p'\circ g=p$ implies that $f\circ p'\circ g=f\circ p$.)
+
+% 	Anyway, we will exhibit the needed isomorphism of functors by hand. Given an $S'$-scheme $p\colon T\to S'$, we compute
+% 	\[(\mathcal Gr_{d,\mathcal F}\times_{h_S}h_{S'})(T)=\mathcal Gr_{d,\mathcal F}(T)\times_{h_S(T)}h_{S'}(T)\]
+% 	has data consisting of a pair $(\alpha,q)$ where $\alpha\colon(f\circ p)^*\mathcal F\to\mathcal V$ is a surjection (isomorphism class) in $\mathcal Gr_{d,\mathcal F}(T)$, and $q\colon T\to S'$ is an $S$-morphism
+
+% 	We run our checks independently.
+% 	\begin{listalph}
+% 		\item Before doing anything, we note that are we identifying $\mathcal Gr_{d,\mathcal F|_U}$ as a subfunctor of $\mathcal Gr_{d,\mathcal F}$
+		
+% 		Now, fix a test $S$-scheme $p\colon T\to S$ and some surjection $\alpha\colon p^*\mathcal F\to\mathcal V$ in $\mathcal Gr_{d,\mathcal F}$. Now, set $U_T\coloneqq f^{-1}(U)$, and we claim that $f\colon T'\to T$ factors through $U_T$ if and only if $\mathcal Gr_{d,\mathcal F}f(\alpha)\in\mathcal Gr_{d,\mathcal F|_U}(T')$
+% 	\end{listalph}
+% \end{proof}
+
+\subsection{Representability of Grassmannians}
+The key case of interest will be when $S$ is an affine scheme and $\mathcal F=\OO_S^{\oplus n}$ is a free vector bundle of rank $n$. Approximately speaking, covering $S$ with a sufficiently fine open cover allows us to deduce the larger representability result from this key case, so we will focus on this key case in this subsection. For brevity, we define
+\[\mathcal Gr_{d,n}\coloneqq\mathcal Gr_{d,\OO_S^{\oplus n}},\]
+where the ground scheme $S$ will always be clear from context. Now, we are going to cover $\mathcal Gr_{d,n}$ in representable open subfunctors. The following lemma provides the needed functors.
+\begin{lemma}
+	Fix a ring $A$ and nonnegative integers $d\le n$. For a subset $I\subseteq\{1,\ldots,n\}$ of cardinality $d$, define $\mathcal Gr_{d,n}^I\subseteq\mathcal Gr_{d,n}$ by sending an $A$-scheme $p\colon T\to\Spec A$ to
+	\[\mathcal Gr_{d,n}^I(T)\coloneqq\left\{\text{isomorphism classes of surjections }\alpha\colon\OO_T^{\oplus n}\rightarrow\mathcal V:\alpha\circ p^*\iota_I\text{ is surjective}\right\},\]
+	where $\iota_I\colon\OO_A^{\oplus d}\to\OO_A^{\oplus n}$ embeds into the $d$ coordinates in $I$. Then $\mathcal Gr_{d,n}^I$ is a subfunctor.
+	% \begin{listalph}
+	% 	\item $\mathcal Gr_{d,n}^I\subseteq\mathcal Gr_{d,n}$ is an open subfunctor.
+	% 	\item As $I$ varies over all subsets, $\big\{\mathcal Gr_{d,n}^I\big\}_{I\subseteq\{1,\ldots,n\}}$ is an open cover of $\mathcal Gr_{d,n}$.
+	% \end{listalph}
+\end{lemma}
+\begin{proof}
+	Note that we are being quite sloppy in identifying $f^*\OO_S$ with $\OO_T$ whenever we have a morphism $f\colon T\to S$, which essentially comes straight from \cite[Definition~14.6.6]{rising-sea}; we will continue to do this.
+
+	Quickly, we note that $\pi\circ p^*\iota_I$ being surjective is independent of the isomorphism class of $\pi$: if $\varphi\colon\pi_1\cong\pi_2$, then the commutative diagram
+	% https://q.uiver.app/#q=WzAsNixbMCwwLCJcXE9PX1Ree1xcb3BsdXMgZH0iXSxbMSwwLCJcXE9PX1Ree1xcb3BsdXMgbn0iXSxbMCwxLCJcXE9PX1Ree1xcb3BsdXMgZH0iXSxbMSwxLCJcXE9PX1Ree1xcb3BsdXMgbn0iXSxbMiwwLCJcXG1hdGhjYWwgViJdLFsyLDEsIlxcbWF0aGNhbCBWIl0sWzQsNSwiXFx2YXJwaGkiXSxbMCwxLCJwXipcXGlvdGFfSSJdLFsyLDMsInBeKlxcaW90YV9JIl0sWzAsMiwiIiwxLHsibGV2ZWwiOjIsInN0eWxlIjp7ImhlYWQiOnsibmFtZSI6Im5vbmUifX19XSxbMSwzLCIiLDEseyJsZXZlbCI6Miwic3R5bGUiOnsiaGVhZCI6eyJuYW1lIjoibm9uZSJ9fX1dLFsxLDQsIlxcYWxwaGFfMSJdLFszLDUsIlxcYWxwaGFfMiJdXQ==&macro_url=https%3A%2F%2Fraw.githubusercontent.com%2FdFoiler%2Fnotes%2Fmaster%2Fnir.tex
+	\[\begin{tikzcd}
+		{\OO_T^{\oplus d}} & {\OO_T^{\oplus n}} & {\mathcal V} \\
+		{\OO_T^{\oplus d}} & {\OO_T^{\oplus n}} & {\mathcal V}
+		\arrow["\varphi", from=1-3, to=2-3]
+		\arrow["{p^*\iota_I}", from=1-1, to=1-2]
+		\arrow["{p^*\iota_I}", from=2-1, to=2-2]
+		\arrow[Rightarrow, no head, from=1-1, to=2-1]
+		\arrow[Rightarrow, no head, from=1-2, to=2-2]
+		\arrow["{\pi_1}", from=1-2, to=1-3]
+		\arrow["{\pi_2}", from=2-2, to=2-3]
+	\end{tikzcd}\]
+	implies that $\pi_1\circ p^*\iota_I$ is surjective if and only if $\pi_2\circ p^*\iota_I$ is surjective. (For example, take stalks in the diagram, and the top row is surjective if and only if the bottom row is surjective.)
+
+	More importantly, we need to see that $\mathcal Gr_{d,n}^I$ is in fact a functor. We embed into $\mathcal Gr_{d,n}$ for our functoriality checks (namely, identity and the composition check), so we really must check that a map $f\colon T'\to T$ has $\mathcal Gr_{d,n}f$ restrict to a map $\mathcal Gr_{d,n}^I(T)\to\mathcal Gr_{d,n}^I(T)$. Well, as described in \Cref{lem:grass-on-mor}, the map is simply given by pullback, so we merely need to check that having a surjection $\pi\colon\OO_T^{\oplus n}\to\mathcal V$ with $\pi\circ p^*\iota_I$ surjective will make the surjection $f^*\pi\colon\OO_{T'}^{\oplus n}\to f^*\mathcal V$ also have
+	\[f^*\pi\circ(p\circ f)^*\iota_I\]
+	surjective. Well, \cite[Exercise~14.6.G]{rising-sea} and functoriality of $f^*$ allows us to compute $f^*\pi\circ(p\circ f)^*\iota_I=f^*\pi\circ f^*p^*\iota_I=f^*(\pi\circ\iota_I)$. So because $\pi\circ\iota_I$ is surjective, so its pullback by $f$ is too by \cite[Exercise~14.6.E]{rising-sea}.
+\end{proof}
+Before we go any further, the following remark will prove useful.
+\begin{remark} \label{rem:det-gives-iso}
+	Fix a ring $A$. A morphism $\varphi\colon A^n\to A^n$ is an isomorphism if and only if $\det\varphi\in A^\times$. Indeed, $\det\varphi_b\in B_b^\times$ is certainly required because the inverse morphism $\psi_b\colon B^d\to B^d$ will have
+	\[(\det\varphi_b)(\det\psi_b)=1.\]
+	On the other hand, $\det\varphi_b\in B_b^\times$ is sufficient because one can then use $(\det\varphi_b)^{-1}\op{Adj}\varphi_b$ as the needed inverse map.
+\end{remark}
+Now, we show that the $\mathcal Gr_{d,n}^I$ form a cover by open subfunctors.
+\begin{lemma} \label{lem:gr-open-subfunctor}
+	Fix a ring $A$ and nonnegative integers $d\le n$. For a subset $I\subseteq\{1,\ldots,n\}$ of cardinality $d$, the subfunctor $\mathcal Gr_{d,n}^I\subseteq\mathcal Gr_{d,n}$ is open.
+\end{lemma}
+\begin{proof}
+	We will proceed directly from the definition. Fix a test $A$-scheme $p\colon T\to\Spec A$ and some surjection $\pi\colon\OO_T^{\oplus n}\to\mathcal V$ in $\mathcal Gr_{d,n}(T)$. Now, define
+	\[U_\pi\coloneqq\left\{t\in T:(\pi\circ p^*\iota_I)_t\text{ is surjective}\right\}.\]
+	We will show that $U_\pi\subseteq T$ is the desired open subscheme. Before doing anything, we note that actually $(\pi\circ p^*\iota_I)_t$ is surjective if and only if it is an isomorphism: note that $\mathcal V_t\cong\OO_{T,t}^{\oplus d}$, so being surjective implies that we have a surjection $(\pi\circ p^*\iota_I)_t\colon\OO_{T,t}^{\oplus d}\to\mathcal V_t$, which then must be an isomorphism by Nakayama's lemma \cite[Exercise~8.2.G]{rising-sea}.
+	\begin{itemize}
+		\item We check that $U_\pi$ is open. Given an open cover $\mathcal U$ of $T$, it is enough to show that $U_\pi\cap U\subseteq U$ is open for each $U\in\mathcal U$. So because $\mathcal V$ is a vector bundle of rank $d$, we will choose $\mathcal U$ to be a trivializing open cover of affine open subschemes. So we fix some open subscheme $U\subseteq T$ such that $\mathcal V|_U\cong\OO_U^{\oplus d}$ and $r\colon\Spec B\cong U$, and we would like to show that
+		\[U_\pi\cap U=\{t\in U:(\pi\circ p^*\iota_I)_t\text{ is an isomorphism}\}\]
+		is an open subscheme of $U$. Now, pulling back by $r^*$ is an equivalence of categories (with inverse given by pulling back along the inverse of $r$ by \cite[Exercise~14.6.G]{rising-sea}), so for any $b\in\Spec B$, we see $(\pi\circ p^*\iota_I)_{r(b)}$ will be surjective if and only if $(r^*\pi\circ r^*p^*\iota_I)_b$ is surjective. (Pullbacks commute with taking stalks by \cite[Exercise~14.6.H]{rising-sea}.)
+
+		So we go ahead and replace $T$ with $\Spec B$ and $\pi$ with $r^*\pi$. We would now like to show that
+		\[\{b\in\Spec B:(\pi\circ p^*\iota_I)_b\text{ is an isomorphism}\}\]
+		is open in $\Spec B$. Notably, we still have $\mathcal V|_{\Spec B}\cong\OO_B^{\oplus d}$, and because adjusting $\mathcal V|_{\Spec B}$ up to isomorphism will not adjust the above surjectivity, we may as well assume that $\mathcal V=\OO_B^{\oplus d}$. Now, $(\pi\circ p^*\iota_I)\colon\OO_B^{\oplus d}\to\OO_B^{\oplus d}$ as a morphism of quasicoherent sheaves come from some module morphism $\varphi\colon B^d\to B^d$ (by \cite[Exercise~4.1.G]{rising-sea}), and we see we are just trying to show that
+		\[\{b\in\Spec B:\varphi_b\text{ is an isomorphism}\}\]
+		is open. Well, $\varphi_b\colon B_b^d\to B_b^d$ is an isomorphism if and only if $\det\varphi_b\in B_b^\times$. Now $\det\varphi_b=\det\varphi$, so viewing $b\in\Spec B$ as a prime, we see that the required set is simply $\{b\in\Spec B:\det\varphi\notin b\}=D(\det\varphi)$, which is indeed open in $\Spec B$.
+
+		\item We check that $U_\pi$ has the required universal property. Fix a map $f\colon T'\to T$. We must show that $f^*\pi\in\mathcal Gr_{d,n}^I(T')$ if and only if $f$ factors through $U_\pi$. Well, $f^*\pi\in\mathcal Gr_{d,n}^I(T')$ is equivalent to $f^*\pi\circ f^*p^*\iota_I$ being surjective, but surjectivity can be checked on stalks, so this is equivalent to having
+		\[(f^*\pi\circ f^*p^*\iota_I)_{t'}\]
+		be an isomorphism for each $t'\in T'$ by the same argument at the start of this step. We will show that this is an isomorphism if and only if $f(t')\in U$, which amounts to saying that $f$ factors through the open subscheme $U\subseteq T$ by some restriction.
+		
+		% Now, taking stalks commutes with pullbacks by \cite[Exercise~14.6.H]{rising-sea}, so this map is $f^*\left((\pi\circ p^*\iota_I)_{f(t')}\right)$.
+
+		For brevity, set $\varphi\coloneqq(\pi\circ p^*\iota_I)_{f(t')}$ to be the morphism $\OO_{T,f(t')}^{\oplus d}\to\mathcal V_{f(t')}$. Fix some isomorphism $\mathcal V_{f(t')}\cong\mathcal O_{T,f(t')}^{\oplus d}$ and then replace $\varphi$ with the corresponding map $\mathcal O_{T,f(t')}^{\oplus d}\to\mathcal O_{T,f(t')}^{\oplus d}$. Now, as described in the previous check, $\varphi$ is an isomorphism if and only if $\det\varphi\in\OO_{T,f(t')}^\times$, which because $f\colon\OO_{T,f(t')}\to\OO_{T',t'}$ is a morphism of local rings, is equivalent to $f(\det\varphi)\in\OO_{T',t'}^\times$.
+		
+		To finish off, we note that the argument in the previous check now says that $f(\det\varphi)\in\OO_{T',t'}^\times$ is equivalent to $\OO_{T',t'}^{\oplus d}\to(f^*\mathcal V)_{t'}$ being an isomorphism. (Namely, the map $\OO_{T',t'}^{\oplus d}\to(f^*\mathcal V)_{t'}$ is the map $\mathcal O_{T,f(t')}^{\oplus d}\to\mathcal O_{T,f(t')}^{\oplus d}$ upon taking tensor product by $\OO_{T',t'}$ by \cite[Exercise~14.6.H]{rising-sea}.) This completes the check.
+		\qedhere
+	\end{itemize}
+\end{proof}
+\begin{lemma} \label{lem:gr-open-cover-index}
+	Fix a ring $A$ and nonnegative integers $d\le n$. Over all subsets $I\subseteq\{1,\ldots,n\}$ of cardinality $d$, the subfunctors $\mathcal Gr_{d,n}^I$ form an open cover of $\mathcal Gr_{d,n}$.
+\end{lemma}
+\begin{proof}
+	Once again, we proceed directly from the definition. Fix a test $A$-scheme $p\colon T\to\Spec A$ and some surjection $\pi\colon\OO_T^{\oplus n}\to\mathcal V$ in $\mathcal Gr_{d,n}(T)$. Now, for each $d$-element subset $I\subseteq\{1,\ldots,n\}$, we define
+	\[U_I\coloneqq\left\{t\in T:(\pi\circ p^*\iota_I)_t\text{ is surjective}\right\}.\]
+	The proof of \Cref{lem:gr-open-subfunctor} has shown that $U_I\subseteq T$ is open. We would like to show that $\{U_I\}_{I\subseteq\{1,\ldots,n\}}$ is the required open cover. Let $i_I\colon U_I\to T$ denote the inclusion.
+	\begin{itemize}
+		\item We show that $i_I^*\pi\in\mathcal Gr_{d,n}^I(U_I)$ for any $d$-element subset $I\subseteq\{1,\ldots,n\}$. Namely, we must check that $(i_I^*\pi\circ i_I^*p^*\iota_I)_t$ is surjective for each $t\in U_I$. Well, $(i_I^*\pi\circ i_I^*p^*\iota_I)=i_I^*(\pi\circ p^*\iota_I)$ by functoriality, and $i_I$ is an open embedding and thus an isomorphism of stalks (namely, use \cite[Exercise~14.6.H]{rising-sea}), so being surjective at $t\in U_I$ is equivalent to $(\pi\circ p^*\iota_I)_t$ being surjective. But this last condition is automatic for $t\in U_I$, so we are done.
+
+		\item We show that $\{U_I\}_{I\subseteq\{1,\ldots,n\}}$ is an open cover of $T$. Well, for each $t\in T$, we must show that $t\in U_I$ for some $I\subseteq\{1,\ldots,n\}$. For this, we note $t\in T$ must have $\pi_t\colon\OO_{T,t}^{\oplus n}\to\mathcal V_t$ surjective. %Now, fix an isomorphism $\mathcal V_t\cong\OO_{T,t}^{\oplus d}$ and replace $\mathcal V_t$ so that we now have a surjection $\pi_t\colon\OO_{T,t}^{\oplus n}\to\mathcal O_{T,t}^{\oplus d}$.
+
+		Now, the point is that one of the $d\times d$ minors of $\pi_t$ ought to have nonzero determinant, and this minor determines the required subset $I$. Well, let $e_1,\ldots,e_n$ be a basis for $\OO_{T,t}^{\oplus n}$, and we see that the elements $\{\pi_t(e_1),\ldots,\pi_t(e_n)\}$ generate $\mathcal V_t$ and in particular span the vector space $\mathcal V_t/\mf m_t\mathcal V_t$ upon reduction. But we can shrink the generating set to $d$ elements over this field, so we have some sequence $\{\pi_t(e_{i_1}),\ldots,\pi_t(e_{i_d})\}$ which reduces to a basis of $\mathcal V_t/\mf m_t\mathcal V_t$. But then $\{\pi_t(e_{i_1}),\ldots,\pi_t(e_{i_d})\}$ actually generates $\mathcal V_t$ by Nakayama's lemma \cite[Exercise~8.2.H]{rising-sea}.
+
+		Thus, we set $I\coloneqq\{i_1,\ldots,i_d\}$ and see that $\pi_t\circ(p^*\iota_I)_t$ is a surjective map $\OO_{T,t}^{\oplus d}\to\mathcal V_t$, as needed.
+		\qedhere
+	\end{itemize}
+\end{proof}
+We now deal the killing blow by showing that the $\mathcal Gr_{d,n}^I$ are representable.
+\begin{lemma} \label{lem:rep-gr-i}
+	Fix a ring $A$ and nonnegative integers $d\le n$. Given a $d$-element subset $I\subseteq\{1,\ldots,n\}$, we describe a natural isomorphism between $\mathcal Gr_{d,n}^I$ and $h_{\AA^{d(n-d)}_A}$.
+\end{lemma}
+\begin{proof}
+	We proceed in steps.
+	\begin{enumerate}
+		\item The main point is to give a better description of $\mathcal Gr_{d,n}^I(T)$, where $p\colon T\to\Spec A$ is an $A$-scheme. Currently, we are looking at isomorphism classes of surjections $\pi\colon\OO_T^{\oplus n}\to\mathcal V$ such that $\pi\circ p^*\iota_I$ is surjective. However, for each $t\in T$, we see that
+		\[(\pi\circ p^*\iota_I)_t\colon\OO_{T,t}^{\oplus d}\to\mathcal V_t\]
+		is a surjection of modules isomorphic to $\OO_{T,t}^{\oplus d}$, so $(\pi\circ p^*\iota_I)_t$ is in fact an isomorphism by Nakayama's lemma \cite[Exercise~8.2.G]{rising-sea}. Being an isomorphism can be checked on stalks, so actually $\pi\circ p^*\iota_I$ is fully an isomorphism. Using this isomorphism, we produce the commutative diagram
+		% https://q.uiver.app/#q=WzAsNixbMSwwLCJcXE9PX1Ree1xcb3BsdXMgbn0iXSxbMiwwLCJcXG1hdGhjYWwgViJdLFsyLDEsIlxcT09fVF57XFxvcGx1cyBkfSJdLFsxLDEsIlxcT09fVF57XFxvcGx1cyBufSJdLFswLDAsIlxcT09fVF57XFxvcGx1cyBkfSJdLFswLDEsIlxcT09fVF57XFxvcGx1cyBkfSJdLFswLDEsIlxcYWxwaGEiXSxbMiwxLCJcXGFscGhhXFxjaXJjIHBeKlxcaW90YV9JIiwyXSxbMywwLCIiLDAseyJsZXZlbCI6Miwic3R5bGUiOnsiaGVhZCI6eyJuYW1lIjoibm9uZSJ9fX1dLFszLDIsIlxcYWxwaGEnIiwwLHsic3R5bGUiOnsiYm9keSI6eyJuYW1lIjoiZGFzaGVkIn19fV0sWzQsMCwicF4qXFxpb3RhX0kiXSxbNSwzLCJwXipcXGlvdGFfSSJdLFs0LDUsIiIsMSx7ImxldmVsIjoyLCJzdHlsZSI6eyJoZWFkIjp7Im5hbWUiOiJub25lIn19fV1d&macro_url=https%3A%2F%2Fraw.githubusercontent.com%2FdFoiler%2Fnotes%2Fmaster%2Fnir.tex
+		\[\begin{tikzcd}
+			{\OO_T^{\oplus d}} & {\OO_T^{\oplus n}} & {\mathcal V} \\
+			{\OO_T^{\oplus d}} & {\OO_T^{\oplus n}} & {\OO_T^{\oplus d}}
+			\arrow["\pi", from=1-2, to=1-3]
+			\arrow["{\pi\circ p^*\iota_I}"', from=2-3, to=1-3]
+			\arrow[Rightarrow, no head, from=2-2, to=1-2]
+			\arrow["{\pi'}", dashed, from=2-2, to=2-3]
+			\arrow["{p^*\iota_I}", from=1-1, to=1-2]
+			\arrow["{p^*\iota_I}", from=2-1, to=2-2]
+			\arrow[Rightarrow, no head, from=1-1, to=2-1]
+		\end{tikzcd}\]
+		where the bottom row is the identity. Thus, every $\pi\colon\OO_T^{\oplus n}\to\mathcal V$ in $\mathcal Gr_{d,n}^I$ is isomorphic to a surjection $\pi'\colon\OO_T^{\oplus n}\to\OO_T^{\oplus d}$ such that $\pi'\circ p^*\iota_I$ is the identity.
+
+		\item In fact, we claim that each surjection $\pi\colon\OO_T^{\oplus n}\to\mathcal V$ in $\mathcal Gr_{d,n}^I(T)$ is isomorphic to a unique surjection $\pi'\colon\OO_T^{\oplus n}\to\OO_T^{\oplus d}$ such that $\pi'\circ p^*\iota_I$ is the identity. In light of the previous step, it suffices to show that having isomorphic surjections $\pi_1',\pi_2'\colon\OO_T^{\oplus n}\to\OO_T^{\oplus d}$ with $\pi_1'\circ p^*\iota_I=\pi_2'\circ p^*\iota_I=\id$ must have $\pi_1'=\pi_2'$. Well, we are given an isomorphism $\varphi\colon\OO_T^{\oplus d}\to\OO_T^{\oplus d}$ making the diagram
+		% https://q.uiver.app/#q=WzAsNixbMSwwLCJcXE9PX1Ree1xcb3BsdXMgbn0iXSxbMSwxLCJcXE9PX1Ree1xcb3BsdXMgbn0iXSxbMiwwLCJcXE9PX1Ree1xcb3BsdXMgZH0iXSxbMiwxLCJcXE9PX1Ree1xcb3BsdXMgZH0iXSxbMCwwLCJcXE9PX1Ree1xcb3BsdXMgZH0iXSxbMCwxLCJwXipcXGlvdGFfSSJdLFswLDEsIiIsMCx7ImxldmVsIjoyLCJzdHlsZSI6eyJoZWFkIjp7Im5hbWUiOiJub25lIn19fV0sWzIsMywiXFx2YXJwaGkiXSxbMCwyLCJcXGFscGhhJyJdLFsxLDMsIlxcYmV0YSciXSxbNCwwLCJwXipcXGlvdGFfSSJdLFs1LDFdLFs0LDUsIiIsMSx7ImxldmVsIjoyLCJzdHlsZSI6eyJoZWFkIjp7Im5hbWUiOiJub25lIn19fV1d&macro_url=https%3A%2F%2Fraw.githubusercontent.com%2FdFoiler%2Fnotes%2Fmaster%2Fnir.tex
+		\[\begin{tikzcd}
+			{\OO_T^{\oplus d}} & {\OO_T^{\oplus n}} & {\OO_T^{\oplus d}} \\
+			{p^*\iota_I} & {\OO_T^{\oplus n}} & {\OO_T^{\oplus d}}
+			\arrow[Rightarrow, no head, from=1-2, to=2-2]
+			\arrow["\varphi", from=1-3, to=2-3]
+			\arrow["{\pi_1'}", from=1-2, to=1-3]
+			\arrow["{\pi_2'}", from=2-2, to=2-3]
+			\arrow["{p^*\iota_I}", from=1-1, to=1-2]
+			\arrow[from=2-1, to=2-2]
+			\arrow[Rightarrow, no head, from=1-1, to=2-1]
+		\end{tikzcd}\]
+		commute, but the top and bottom composite are both the identity, so $\varphi$ must be the identity as well. Thus, we see that $\pi_1'=\pi_2'$ is forced.
+
+		\item Thus, we have chosen a special element from our isomorphism classes to see that we may identify
+		\[\mathcal Gr_{d,n}^I(T)\simeq\mathcal Gr_{d,n}^{I\circ}(T)\coloneqq\left\{\pi\in\op{Hom}_{\OO_T}(\OO_T^{\oplus n},\OO_T^{\oplus d}):\pi\circ p^*\iota_I={\id}\right\}.\]
+		Note that $\mathcal Gr_{d,n}^{I\circ}$ still forms a functor by sending $A$-morphisms $f\colon T'\to T$ to the pullback map: given some $\pi\in\mathcal Gr_{d,n}^{I\circ}(T)$, the map $f^*\pi\colon\OO_{T'}^{\oplus n}\to\OO_{T'}^{\oplus d}$ will have
+		\[f^*\pi\circ f^*p^*\iota_I=f^*(\pi\circ p^*\iota_I)=f^*{\id_{\OO_T^{\oplus d}}}=\id_{\OO_{T'}^{\oplus d}}\]
+		by functoriality of $f^*$. So we have a natural isomorphism between our two functors by sending some $\pi\in\mathcal Gr_{d,n}^{I\circ}(T)$ to its isomorphism class in $\mathcal Gr_{d,n}^I(T)$, where this map is natural because both of our functors simply take a map $\pi$ to its pullback $f^I\pi$ on $A$-morphisms $f\colon T'\to T$.
+
+		\item We now begin to show that the functor $\mathcal Gr_{d,n}^{I\circ}$ is representable. Up to rearranging our indices, we may take $I=\{1,\ldots,d\}$. We'll show $\mathcal Gr_{d,n}^{I\circ}$ is representable by the scheme $X\coloneqq\Spec A[\{x_{ij}\}_{1\le i\le d<j\le n}]$, where the universal surjection $\xi\colon\OO_X^{\oplus n}\to\OO_X^{\oplus d}$ is given by
+		\[\xi(e_j)\coloneqq\begin{cases}
+			e_j & \text{if }j\le d, \\
+			\sum_{i=1}^dx_{ij}e_i & \text{if }j>d,
+		\end{cases}\]
+		where $\{e_\bullet\}$ provides the bases. (Rigorously, one should treat $e_i$ the inclusion morphism $e_i\colon\OO_X\to\OO_X^{\oplus d}$ or $e_i\colon\OO_X\to\OO_X^{\oplus n}$, and then $\xi$ is constructed using the universal properties.) Visually, $\xi$ corresponds to the matrix
+		\[\begin{bmatrix}
+			1 & 0 & \cdots & 0 & 0 & x_{1,d+1} & \cdots & x_{1,n} \\
+			0 & 1 & \cdots & 0 & 0 & x_{2,d+1} & \cdots & x_{2,n} \\
+			\vdots & \vdots & \ddots & \vdots & \vdots & \vdots & \ddots & \vdots \\
+			0 & 0 & \cdots & 1 & 0 & x_{d-1,d+1} & \cdots & x_{d-1,n} \\
+			0 & 0 & \cdots & 0 & 1 & x_{d,d+1} & \cdots & x_{d,n}
+		\end{bmatrix}.\]
+		Quickly, we note that $\xi\circ p_X^*\iota_I$ is the identity (where $p_X\colon X\to\Spec A$ is the structure morphism) because $\xi(e_j)=e_j$ for each $j\in I$, and so $\xi\circ p_X^*\iota_I$ is the identity on a basis of $\OO_X^{\oplus d}$, which extends to being an identity on all of $\OO_X^{\oplus d}$. (This is by the universal property of $\OO_X^{\oplus d}$ as a direct sum of the $\{e_i\}_{1\le i\le d}$.)
+
+		\item We describe the map to show that $(X,\xi)$ represents $\mathcal Gr_{d,n}^{I\circ}$. Fix some $A$-scheme $p\colon T\to\Spec A$, and we would like to show that the map sending $A$-morphisms $f\colon T\to X$ to $f^*\xi\in\mathcal Gr_{d,n}^{I\circ}$ is a bijection.
+		
+		We take a moment to describe this map more explicitly. By \cite[Exercise~7.3.G]{rising-sea}, the morphisms $f$ are in bijection with an $A$-map
+		\[f^\sharp\colon A[\{x_{ij}\}_{1\le i\le d<j\le n}]\to\OO_T(T),\]
+		which by the universal property of polynomial rings is in bijection with the sequence of global sections $f^\sharp(x_{ij})$.
+
+		Thus, given global sections $\{a_{ij}\}_{1\le i\le d<j\le n}\in\OO_T(T)$, we form the corresponding $A$-morphism $f\colon T\to X$ with $f^\sharp(x_{ij})=a_{ij}$, and then the surjection $f^*\xi\colon\OO_T^{\oplus n}\to\OO_T^{\oplus d}$ is defined by
+		\begin{equation}
+			f^*\xi(f^*e_j)=\begin{cases}
+				f^*e_j & \text{if }j\le d, \\
+				\sum_{i=1}^da_{ij}f^*e_i & \text{if }j>d,
+			\end{cases} \label{eq:universal-surjection-gr}
+		\end{equation}
+		by functoriality and additivity of $f^*$. (Here, $f^*(x_{ij}e_i)=a_{ij}f^*e_i$ as maps $\OO_T\to\OO_T$ because we are pulling back the map $x_{ij}\colon\OO_X\to\OO_X$ via $f^*$, and the generating global section goes to $a_{ij}$ on the pullback.)
+		
+		\item We now show the representability. Continuing in the context of the previous step, our task is to show that elements $\pi\in\mathcal Gr_{d,n}^{I\circ}(T)$ can be written uniquely in the form \eqref{eq:universal-surjection-gr}. Certain writing $\pi$ in this way is unique: given two sequences $\{a_{ij}\}$ and $\{b_{ij}\}$ giving rise to morphisms $f,g\colon T\to X$ with $f^*\xi=g^*\xi$, we see that $(f^*\xi)(f^*e_j)=(g^*\xi)(g^*e_j)$ implies
+		\[\sum_{i=1}^da_{ij}f^*e_i=\sum_{i=1}^db_{ij}g^*e_i.\]
+		Thus, $a_{ij}=b_{ij}$ for each $i$ and $j$ because the $\{f^*e_i\}$ form a basis. (Note $f^*e_i=g^*e_i$ because these are both the inclusion map $\OO_T\to\OO_T^{\oplus d}$ to the $i$th coordinate; namely, we are looking at a sum of $0$s and $\id$, both of which are not adjusted by pullback.)
+
+		Lastly, we must show that any $\pi\in\mathcal Gr_{d,n}^{I\circ}(T)$ takes the form \eqref{eq:universal-surjection-gr}. Well, $\pi\circ p^*\iota_I$ must be the identity, so we start by seeing that
+		\[\pi(f^*e_j)=f^*e_j\text{ if }j\le d,\]
+		where we are acknowledging that the $f^*e_j$ form a basis of $\OO_T^{\oplus d}$ as in the previous paragraph. As for $j>d$, having the $f^*e_j$ as a basis of $\OO_T^{\oplus d}$, we see that there must exist global sections $\{a_{ij}\}_{1\le i\le d<j\le n}$ such that
+		\[\pi(f^*e_j)=\sum_{i=1}^da_{ij}f^*e_j,\]
+		which is exactly what we wanted. Namely, to construct the $a_{ij}$, one post-composes $\pi(f^*e_j)$ with the various projections $\OO_T^{\oplus d}\to\OO_T$ and uses the fact that maps $\OO_T\to\OO_T$ are all multiplication by a global section. (This global section is the image of $1\in\OO_T(T)$, verified by using the fact that we are looking at a morphism of $\OO_T$-modules.)
+		\qedhere
+	\end{enumerate}
+\end{proof}
+At long last, here is our representability result over affine schemes.
+\begin{proposition} \label{prop:affine-gr-rep}
+	Fix a ring $A$ and nonnegative integers $d\le n$. Then $\mathcal Gr_{d,n}$ is represented by an $A$-scheme $\mathrm{Gr}_{d,n}$ of finite presentation and smooth of relative dimension $d(n-d)$.
+\end{proposition}
+\begin{proof}
+	By \Cref{lem:gr-sheaf} plugged into \Cref{thm:rep-is-local}, it suffices to cover $\mathcal Gr_{d,n}$ by finitely many open subfunctors represented by $A$-schemes of finite presentation and of smooth of relative dimension $d(n-d)$. (The smoothness and finite presentation follow from the proof of \Cref{thm:rep-is-local}, which constructs the representing object covered by the representing objects of the subfunctors.) Well, we have an open cover given by the $\mathcal Gr_{d,n}^I$ as discussed in \Cref{lem:gr-open-cover-index}, of which there are finitely many, and these are all representable by the $A$-scheme $\AA_A^{d(n-d)}$ by \Cref{lem:rep-gr-i}, which is of finite presentation and smooth of relative dimension $d(n-d)$.
+\end{proof}
+We now glue \Cref{prop:affine-gr-rep} together to produce representability of $\mathcal Gr_{d,\mathcal F}$ in general.
+\begin{theorem} \label{thm:gr-rep}
+	Fix a vector bundle $\mathcal F$ of rank $n$ over a base scheme $S$, and fix a nonnegative integer $d\le n$. Then $\mathcal Gr_{d,\mathcal F}$ is represented by a smooth $S$-scheme $\mathrm{Gr}_{d,\mathcal F}$ of finite presentation.
+\end{theorem}
+\begin{proof}
+	Because $\mathcal F$ is a vector bundle of rank $n$, we may fix an affine open cover $\{U_\alpha\}_{\alpha\in\kappa}$ of $S$ such that we have an isomorphism $\varphi_\alpha\colon\mathcal F|_{U_\alpha}\cong\OO_{U_\alpha}^{\oplus n}$ for each $\alpha\in\kappa$. Thus, the open subfunctors $h_{U_\alpha}\subseteq h_S$ form an open cover by \Cref{ex:open-cover-on-sch}, so $\mathcal Gr_{d,\mathcal F}\times_{h_S}h_{U_\alpha}$ makes an open cover of $\mathcal Gr_{d,\mathcal F}$ by \Cref{cor:base-change-open-cover}.
+	
+	As such, we will want to represent the open subfunctors $\mathcal Gr_{d,\mathcal F}\times_{h_S}h_{U_\alpha}$, which by \Cref{lem:base-change-on-homs} may be identified with $(\mathcal Gr_{d,\mathcal F}|_{U_\alpha})_S$. Now we use \Cref{rem:pull-back-gr} to see that $\mathcal Gr_{d,\mathcal F}|_{U_\alpha}$ is actually $\mathcal Gr_{d,\mathcal F|_{U_\alpha}}$ and is thus represented by a $U_\alpha$-scheme $\mathrm{Gr}_{d,\OO^{\oplus n}_{U_\alpha}}$ of finite presentation and smooth of relative dimension $d(n-d)$. (The isomorphism $U_\alpha\cong\Spec\OO_{U_\alpha}(U_\alpha)$ will cause no problems in the translation because this induces an equivalence of categories $\mathrm{Sch}_{\OO_{U_\alpha}(U_\alpha)}\cong\Spec_{U_\alpha}$.) Thus, \Cref{prop:rep-base-change} tells us that $\mathrm{Gr}_{d,\OO_{U_\alpha}^{\oplus n}}$ viewed as an $S$-scheme continues to represent the open subfunctor $(\mathcal Gr_{d,\mathcal F}|_{U_\alpha})_S$.
+
+	Thus, \Cref{lem:gr-sheaf} plugged into \Cref{thm:rep-is-local} implies that $\mathcal Gr_{d,\mathcal F}$ is represented by an $S$-scheme $\mathrm{Gr}_{d,\mathcal F}$. Now, the above discussion established the pullback square
+	% https://q.uiver.app/#q=WzAsNCxbMSwwLCJcXG1hdGhjYWwgR3Jfe2QsXFxtYXRoY2FsIEZ9Il0sWzEsMSwiaF9TIl0sWzAsMSwiaF97VV9cXGFscGhhfSJdLFswLDAsIihcXG1hdGhjYWwgR3Jfe2QsXFxtYXRoY2FsIEZ8X3tVX1xcYWxwaGF9fSlfUyJdLFszLDBdLFswLDFdLFszLDJdLFsyLDFdXQ==&macro_url=https%3A%2F%2Fraw.githubusercontent.com%2FdFoiler%2Fnotes%2Fmaster%2Fnir.tex
+	\[\begin{tikzcd}
+		{(\mathcal Gr_{d,\mathcal F|_{U_\alpha}})_S} & {\mathcal Gr_{d,\mathcal F}} \\
+		{h_{U_\alpha}} & {h_S}
+		\arrow[from=1-1, to=1-2]
+		\arrow[from=1-2, to=2-2]
+		\arrow[from=1-1, to=2-1]
+		\arrow[from=2-1, to=2-2]
+	\end{tikzcd}\]
+	which upon plugging into our various representability results produces the pullback square
+	% https://q.uiver.app/#q=WzAsNCxbMSwwLCJcXG1hdGhybXtHcn1fe2QsXFxtYXRoY2FsIEZ9Il0sWzEsMSwiUyJdLFswLDEsIlVfXFxhbHBoYSJdLFswLDAsIlxcbWF0aHJte0dyfV97ZCxcXG1hdGhjYWwgRnxfe1VfXFxhbHBoYX19Il0sWzMsMF0sWzAsMV0sWzMsMl0sWzIsMV1d&macro_url=https%3A%2F%2Fraw.githubusercontent.com%2FdFoiler%2Fnotes%2Fmaster%2Fnir.tex
+	\[\begin{tikzcd}
+		{\mathrm{Gr}_{d,\mathcal F|_{U_\alpha}}} & {\mathrm{Gr}_{d,\mathcal F}} \\
+		{U_\alpha} & S
+		\arrow[from=1-1, to=1-2]
+		\arrow[from=1-2, to=2-2]
+		\arrow[from=1-1, to=2-1]
+		\arrow[from=2-1, to=2-2]
+	\end{tikzcd}\]
+	because the Yoneda embedding is fully faithful \cite[Exercise~1.3.Z]{rising-sea}, and fully faithful functors reflect limits. Thus, because being finite presentation and smooth of relative dimension $d(n-d)$ can both be checked on open covers (smoothness by \cite[Definition~13.6.2]{rising-sea} and finite presentation follows roughly speaking by \cite[Exercise~8.3.U]{rising-sea}), we see that $\mathrm{Gr}_{d,\mathcal F}$ is of finite presentation and smooth of relative dimension $d(n-d)$.
+\end{proof}
+While we're here, we note that a generalization of the above argument actually explains how Grassmannians behave on base-change.
+\begin{proposition} \label{prop:base-change-gr}
+	Fix a vector bundle $\mathcal F$ of rank $n$ over a base scheme $S$, and fix a nonnegative integer $d\le n$. Further, fix a morphism $f\colon S'\to S$. Then there is a pullback square of schemes as follows.
+	% https://q.uiver.app/#q=WzAsNCxbMCwxLCJTJyJdLFsxLDEsIlMiXSxbMCwwLCJcXG1hdGhybXtHcn1fe2QsZl4qXFxtYXRoY2FsIEZ9Il0sWzEsMCwiXFxtYXRocm17R3J9X3tkLFxcbWF0aGNhbCBGfSJdLFswLDEsImYiXSxbMiwwXSxbMywxXSxbMiwzXV0=&macro_url=https%3A%2F%2Fraw.githubusercontent.com%2FdFoiler%2Fnotes%2Fmaster%2Fnir.tex
+	\[\begin{tikzcd}
+		{\mathrm{Gr}_{d,f^*\mathcal F}} & {\mathrm{Gr}_{d,\mathcal F}} \\
+		{S'} & S
+		\arrow["f", from=2-1, to=2-2]
+		\arrow[from=1-1, to=2-1]
+		\arrow[from=1-2, to=2-2]
+		\arrow[from=1-1, to=1-2]
+	\end{tikzcd}\]
+\end{proposition}
+\begin{proof}
+	The Yoneda embedding is fully faithful \cite[Exercise~1.3.Z]{rising-sea}, and fully faithful functors reflect limits, so it's enough to check that there is a pullback square
+	% https://q.uiver.app/#q=WzAsNCxbMCwxLCJoX3tTJ30iXSxbMSwxLCJoX1MiXSxbMCwwLCJoX3tcXG1hdGhybXtHcn1fe2QsZl4qXFxtYXRoY2FsIEZ9fSJdLFsxLDAsImhfe1xcbWF0aHJte0dyfV97ZCxcXG1hdGhjYWwgRn19Il0sWzAsMSwiZiJdLFsyLDBdLFszLDFdLFsyLDNdXQ==&macro_url=https%3A%2F%2Fraw.githubusercontent.com%2FdFoiler%2Fnotes%2Fmaster%2Fnir.tex
+	\[\begin{tikzcd}
+		{h_{\mathrm{Gr}_{d,f^*\mathcal F}}} & {h_{\mathrm{Gr}_{d,\mathcal F}}} \\
+		{h_{S'}} & {h_S}
+		\arrow["f", from=2-1, to=2-2]
+		\arrow[from=1-1, to=2-1]
+		\arrow[from=1-2, to=2-2]
+		\arrow[from=1-1, to=1-2]
+	\end{tikzcd}\]
+	of functors $\mathrm{Sch}_S\opp\to\mathrm{Set}$. The main point is to use \Cref{lem:base-change-on-homs}.
+	
+	Indeed, $\mathrm{Gr}_{d,f^*\mathcal F}$ actually represents the functor $\mathcal Gr_{d,f^*\mathcal F}\colon\mathrm{Sch}_{S'}\opp\to\mathrm{Set}$, but \Cref{prop:rep-base-change} explains that this same object will represent the functor $(\mathcal Gr_{d,f^*\mathcal F})_{S}\colon\mathrm{Sch}_S\opp\to\mathrm{Set}$. However, \Cref{rem:pull-back-gr} tells us that $\mathcal Gr_{d,f^*\mathcal F}=\mathcal Gr_{d,\mathcal F}|_{S'}$, so our top-left element in the square is now $(\mathcal Gr_{d,\mathcal F}|_{S'})_S$, so we are done by \Cref{lem:base-change-on-homs}.
+\end{proof}
+\begin{remark}
+	Note that we have not described the top map in \Cref{prop:base-change-gr} because it is actually somewhat tricky. In some sense, a description of this map should be done via the functor of points, going through \Cref{lem:base-change-on-homs}.
+\end{remark}
+
+\subsection{The Pl\"ucker Embedding}
+We now use the Pl\"ucker embedding to show that Grassmannians are projective. As before, the key case is when $S=U$ is affine and $\mathcal F=\OO_U^{\oplus n}$ is free. It will be convenient to let $P(d)$ denote the collection of $d$-element subsets $I\subseteq\{1,\ldots,n\}$.
+\begin{lemma}[Pl\"ucker map]
+	Fix an affine scheme $U$ and nonnegative integers $d\le n$. Then there is a morphism of $U$-schemes $i_P\colon\mathrm{Gr}_{d,\OO_U^{\oplus n}}\to\PP_U\left(\land^d\OO_U^{\oplus n}\right)$, called the Pl\"ucker map.
+\end{lemma}
+\begin{remark}
+	In the rest of the subsection, we are really thinking about $\PP_U\left(\land^d\OO_U^{\oplus n}\right)$ as $\PP^{\binom nd-1}_U$, which are the same by \cite[Exercise~14.3.L]{rising-sea}. Namely, $\land^d\OO_U^{\oplus n}$ is a free $\OO_U$-module with basis given by $e_{i_1}\land\cdots\land e_{i_d}$ where $I=\{i_1,\ldots,i_d\}$ is a $d$-element subset (with $i_1<\cdots<i_d$).
+\end{remark}
+\begin{proof}
+	For brevity, set $N\coloneqq\binom nd$. By \cite[Theorem~15.2.2]{rising-sea}, $U$-maps $T\to\PP^{N-1}_U$ (for a $U$-scheme $T$) are in bijection with the data of a line bundle $\mathcal L/T$ generated by global sections indexed by $P(d)$. As such, we let $\mathcal P^{N-1}$ denote the functor sending $U$-schemes $T$ to isomorphism classes of line bundles $\mathcal L/T$ together with their $N$ global sections, and we know that $\PP_U\left(\land^d\OO_U^{\oplus n}\right)$ represents $\mathcal P^{N-1}$. %(The universal element is the line bundle $\OO_{\PP^{N-1}}(1)$ together with its ``standard'' global sections $x_1,\ldots,x_N$.)
+	
+	Now, because the Yoneda embedding is fully faithful \cite[Exercise~1.3.Z]{rising-sea}, it is enough to exhibit a natural transformation $\mathcal Gr_{d,n}\Rightarrow\mathcal P^{N-1}$. Well, given a $U$-scheme $p\colon T\to U$, we need a natural map $\mathcal Gr_{d,n}(T)\to\mathcal P^{N-1}(T)$. For this, we send a surjection $\pi\colon\OO_T^{\oplus n}\to\mathcal V$ in $\mathcal Gr_{d,n}(T)$ to the map
+	\[\land^d\pi\colon\land^d\OO_T^{\oplus n}\to\land^d\mathcal V.\]
+	Note that $\land^d\OO_T^{\oplus n}\cong\OO_T$ by \cite[Exercise~14.3.L]{rising-sea}, and this is surjective by \cite[Exercise~14.3.N]{rising-sea}. (Actually, the surjectivity could be checked directly at stalks on the level of pure tensors: at some point $t\in T$, fix some pure tensor $a_1\land\cdots\land a_d\in\land^d\mathcal V_t$; but then each $a_i$ is in the image of $\pi_t$, so the total pure tensor is in the image of $\land^d\pi_t$. Notably, the exterior power commutes with taking stalks---and more general localizations---by checking affine-locally.)
+
+	Thus, choosing the standard basis of $\land^d\OO_T^{\oplus n}$, we are giving the line bundle $\land^d\mathcal V$ a list of $N$ generators, which is an element of $\mathcal P^{N-1}(T)$. Explicitly, letting $e_1,\ldots,e_n$ denote the usual basis of $\OO_U^{\oplus n}$, we are sending
+	\[\pi\mapsto\left(\land^d\mathcal V,\{\pi(p^*e^{\land I})\}_{I\in P(d)}\right),\]
+	where $e^{\land I}$ is $e_{i_1}\land\cdots\land e_{i_d}$ in order, where $I=\{i_1,\ldots,i_d\}$ is a $d$-element subset. Quickly, we note that the class in $\mathcal P^{N-1}(T)$ is not adjusted by the isomorphism class of $\pi$: if $\varphi\colon\pi_1\cong\pi_2$ is an isomorphism of surjections $\pi_1\colon\OO_T^{\oplus n}\to\mathcal V_1$ and $\pi_2\colon\OO_T^{\oplus n}\to\mathcal V_2$, we see that $\land^d\varphi\colon\land^d\mathcal V_1\to\land^d\mathcal V_2$ is an isomorphism of the line bundles making the diagram
+	% https://q.uiver.app/#q=WzAsNCxbMCwwLCJcXGxhbmReZFxcT09fVF57XFxvcGx1cyBufSJdLFsxLDAsIlxcbGFuZF5kXFxtYXRoY2FsIFZfMSJdLFswLDEsIlxcbGFuZF5kXFxPT19UXntcXG9wbHVzIG59Il0sWzEsMSwiXFxsYW5kXmRcXG1hdGhjYWwgVl8yIl0sWzAsMSwiXFxsYW5kXmRcXHBpXzEiLDAseyJzdHlsZSI6eyJoZWFkIjp7Im5hbWUiOiJlcGkifX19XSxbMiwzLCJcXGxhbmReZFxccGlfMiIsMCx7InN0eWxlIjp7ImhlYWQiOnsibmFtZSI6ImVwaSJ9fX1dLFsxLDMsIlxcbGFuZF5kXFx2YXJwaGkiXSxbMCwyLCIiLDEseyJsZXZlbCI6Miwic3R5bGUiOnsiaGVhZCI6eyJuYW1lIjoibm9uZSJ9fX1dXQ==&macro_url=https%3A%2F%2Fraw.githubusercontent.com%2FdFoiler%2Fnotes%2Fmaster%2Fnir.tex
+	\[\begin{tikzcd}
+		{\land^d\OO_T^{\oplus n}} & {\land^d\mathcal V_1} \\
+		{\land^d\OO_T^{\oplus n}} & {\land^d\mathcal V_2}
+		\arrow["{\land^d\pi_1}", two heads, from=1-1, to=1-2]
+		\arrow["{\land^d\pi_2}", two heads, from=2-1, to=2-2]
+		\arrow["{\land^d\varphi}", from=1-2, to=2-2]
+		\arrow[Rightarrow, no head, from=1-1, to=2-1]
+	\end{tikzcd}\]
+	commute by functoriality of $\land^d$. In particular, the image of the standard basis $p^*e_I$ of $\land^d\OO_T^{\oplus n}$ in $\mathcal V_1$ is taken to the image in $\mathcal V_2$ by $\land^d\varphi$, so $\land^d\varphi$ witnesses the needed isomorphism of line bundles with attached global sections.
+
+	Lastly, we must check that this map is natural. Fix a morphism $f\colon T'\to T$, and we note that the following diagram commutes.
+	% https://q.uiver.app/#q=WzAsOCxbMCwwLCJcXG1hdGhjYWwgR3Jfe2Qsbn0oVCkiXSxbMCwxLCJcXG1hdGhjYWwgR3Jfe2Qsbn0oVCcpIl0sWzEsMCwiUF57Ti0xfShUKSJdLFsxLDEsIlBee04tMX0oVCcpIl0sWzIsMCwiXFxiaWcoXFxtYXRoY2FsIE9fVF57XFxvcGx1cyBufVxcc3RhY2tyZWxcXHBpXFx0b1xcbWF0aGNhbCBWXFxiaWcpIl0sWzMsMCwiXFxsZWZ0KFxcbGFuZF5kXFxtYXRoY2FsIFYsXFx7XFxwaShwXiplXntcXGxhbmQgSX0pXFx9X0kpXFxyaWdodCkiXSxbMiwxLCJcXGJpZyhcXG1hdGhjYWwgT197VCd9XntcXG9wbHVzIG59XFxzdGFja3JlbHtmXipcXHBpfVxcdG8gZl4qXFxtYXRoY2FsIFZcXGJpZykiXSxbMywxLCJcXGxlZnQoXFxsYW5kXmRmXipcXG1hdGhjYWwgVixcXHtmXipcXHBpKHBeKmVee1xcbGFuZCBJfSlcXH1fSSlcXHJpZ2h0KSJdLFswLDJdLFsyLDNdLFsxLDNdLFswLDFdLFs0LDYsIiIsMix7InN0eWxlIjp7InRhaWwiOnsibmFtZSI6Im1hcHMgdG8ifX19XSxbNiw3LCIiLDIseyJzdHlsZSI6eyJ0YWlsIjp7Im5hbWUiOiJtYXBzIHRvIn19fV0sWzQsNSwiIiwwLHsic3R5bGUiOnsidGFpbCI6eyJuYW1lIjoibWFwcyB0byJ9fX1dLFs1LDcsIiIsMCx7InN0eWxlIjp7InRhaWwiOnsibmFtZSI6Im1hcHMgdG8ifX19XV0=&macro_url=https%3A%2F%2Fraw.githubusercontent.com%2FdFoiler%2Fnotes%2Fmaster%2Fnir.tex
+	\[\begin{tikzcd}
+		{\mathcal Gr_{d,n}(T)} & {\mathcal P^{N-1}(T)} & {\big(\mathcal O_T^{\oplus n}\stackrel\pi\to\mathcal V\big)} & {\left(\land^d\mathcal V,\{\pi(p^*e^{\land I})\}_I\right)} \\
+		{\mathcal Gr_{d,n}(T')} & {\mathcal P^{N-1}(T')} & {\big(\mathcal O_{T'}^{\oplus n}\stackrel{f^*\pi}\to f^*\mathcal V\big)} & {\left(\land^df^*\mathcal V,\{f^*\pi(f^*p^*e^{\land I})\}_I\right)}
+		\arrow[from=1-1, to=1-2]
+		\arrow[from=1-2, to=2-2]
+		\arrow[from=2-1, to=2-2]
+		\arrow[from=1-1, to=2-1]
+		\arrow[maps to, from=1-3, to=2-3]
+		\arrow[maps to, from=2-3, to=2-4]
+		\arrow[maps to, from=1-3, to=1-4]
+		\arrow[maps to, from=1-4, to=2-4]
+	\end{tikzcd}\]
+	Explicitly, we note that $\land^df^*\mathcal V=f^*(\land^d\mathcal V)$ because $f^*$ is right-exact, and $\mathcal V$ is essentially a quotient of free modules. Under this identification, we do indeed pull back the global sections exactly the same way on both sides: $e^{\land I}$ is just some map $\OO_U\to\land^d\OO_U$, which can be pulled back and composed with $\pi$ in any order to produce the same map $\OO_{T'}\to\land^d f^*\mathcal V$.
+\end{proof}
+For some $d$-element subset $I\subseteq\{1,\ldots,n\}$, it will turn out that $\mathrm{Gr}_{d,n}^I$ is the pre-image of the standard affine open subscheme of $\PP_U\left(\land^d\OO_U^{\oplus n}\right)$ where the $I$th coordinate is a unit.
+
+As such, we let $U_I\subseteq\PP_U\left(\land^d\OO_U^{\oplus n}\right)$ denote this open subscheme, and we note that a similar argument to \cite[Theorem~15.2.2]{rising-sea} shows that $U$-morphisms $T\to U_I\subseteq\PP_U\left(\land^d\OO_U^{\oplus n}\right)$ are in bijection with isomorphism classes of line bundles $\mathcal L$ together with generating global sections $\{s_J\}_{J\in P(d)}$ where $s_I\colon\OO_T\to\mathcal L$ is an isomorphism. Namely, $s_I$ fixes an identification of $\OO_T\cong\mathcal L$, and then the remaining global sections are then some arbitrary global sections of $\OO_T$, so this representing scheme is $\AA^{\binom nd-1}_U$ corresponding to the other coordinates in $P(d)\setminus I$, which is what $U_I\subseteq\PP_U\left(\land^d\OO_U^{\oplus n}\right)$ is anyway.
+
+As such, we let $\mathcal U_I$ denote the subfunctor of $\mathcal P^{\binom nd-1}$ defined in the previous paragraph. \Cref{lem:subfunctor-on-sch} tells us that $\mathcal U_I$ is an open subfunctor because $U_I\subseteq\PP_U\left(\land^d\OO_U^{\oplus n}\right)$ is open.
+\begin{lemma} \label{lem:plucker-on-affine}
+	Fix an affine scheme $U$ and nonnegative integers $d\le n$, and let $i_P\colon\mathrm{Gr}_{d,n}\to\PP_U\left(\land^d\OO_U^{\oplus n}\right)$ be the Pl\"ucker map. For any $d$-element subset $I\subseteq\{1,\ldots,n\}$, we have $i_P^{-1}(U_I)=\mathrm{Gr}_{d,n}^I$.
+\end{lemma}
+\begin{proof}
+	Again, set $N\coloneqq\binom nd$. We are trying to establish that
+	% https://q.uiver.app/#q=WzAsNCxbMCwwLCJcXG1hdGhybXtHcn1fe2Qsbn1eSSJdLFsxLDAsIlxcbWF0aHJte0dyfV97ZCxufSJdLFsxLDEsIlxcUFBee1xcYmlub20gbmQtMX1fQSJdLFswLDEsIlVfSSJdLFsxLDIsImlfUCJdLFszLDJdLFswLDFdLFswLDNdXQ==&macro_url=https%3A%2F%2Fraw.githubusercontent.com%2FdFoiler%2Fnotes%2Fmaster%2Fnir.tex
+	\[\begin{tikzcd}
+		{\mathrm{Gr}_{d,n}^I} & {\mathrm{Gr}_{d,n}} \\
+		{U_I} & {\PP_U\left(\land^d\OO_U^{\oplus n}\right)}
+		\arrow["{i_P}", from=1-2, to=2-2]
+		\arrow[from=2-1, to=2-2]
+		\arrow[from=1-1, to=1-2]
+		\arrow[from=1-1, to=2-1]
+	\end{tikzcd}\]
+	is a pullback square, which because the Yoneda embedding is fully faithful \cite[Exercise~1.3.Z]{rising-sea} (and because fully faithful embeddings reflect limits), it is enough to show that their corresponding functors of points make
+	% https://q.uiver.app/#q=WzAsNCxbMCwwLCJcXG1hdGhjYWwgR3Jfe2Qsbn1eSSJdLFsxLDAsIlxcbWF0aGNhbHtHfXJfe2Qsbn0iXSxbMSwxLCJcXG1hdGhjYWwgUF57Ti0xfSJdLFswLDEsIlxcbWF0aGNhbCBVX0kiXSxbMSwyLCJpX1AiXSxbMywyXSxbMCwxXSxbMCwzXV0=&macro_url=https%3A%2F%2Fraw.githubusercontent.com%2FdFoiler%2Fnotes%2Fmaster%2Fnir.tex
+	\[\begin{tikzcd}
+		{\mathcal Gr_{d,n}^I} & {\mathcal{G}r_{d,n}} \\
+		{\mathcal U_I} & {\mathcal P^{N-1}}
+		\arrow["{i_P}", from=1-2, to=2-2]
+		\arrow[from=2-1, to=2-2]
+		\arrow[from=1-1, to=1-2]
+		\arrow[from=1-1, to=2-1]
+	\end{tikzcd}\]
+	into a pullback square. We will check this via \Cref{lem:basic-sub}: given an $A$-scheme $p\colon T\to\Spec A$, we must show that some $\pi\colon\OO_T^{\oplus n}\to\mathcal V$ from $\mathcal Gr_{d,n}(T)$ lives in $\mathcal Gr_{d,n}^I(T)$ if and only if $i_P(\pi)\in\mathcal U_I(T)$.
+
+	To begin, we note that $i_P(\pi)\in\mathcal U_I(T)$ simply means that the $I$-coordinate of $i_P(\pi)$ produces an isomorphism, meaning that $\pi(p^*e^{\land I})\colon\land^d\OO_T^{\oplus n}\to\land^d\mathcal V$ is an isomorphism. We must show that this is equivalent to $(\pi\circ\iota_I)\colon\OO_T^{\oplus d}\to\mathcal V$ being surjective; note that this surjectivity may be checked on stalks, where Nakayama's lemma \cite[Exercise~8.2.G]{rising-sea} informs us that being surjective is equivalent to being an isomorphism. So in fact we want to show that $(\pi\circ p^*\iota_I)\colon\OO_T^{\oplus d}\to\mathcal V$ is an isomorphism if and only if $\pi(p^*e^{\land I})\colon\land^d\OO_T^{\oplus n}\to\land^d\mathcal V$ is an isomorphism.
+
+	Both of these isomorphism conditions can be checked on stalks at a given $t\in T$, so we will actually show that $(\pi\circ p^*\iota_I)_t\colon\OO_{T,t}^{\oplus d}\to\mathcal V_t$ is an isomorphism if and only if $\pi(p^*e^{\land I})\colon\land^d\OO_{T,t}^{\oplus n}\to\land^d\mathcal V_t$ is an isomorphism. This is helpful because we can now set $B\coloneqq\OO_{T,t}$ and fix an isomorphism $\mathcal V_t\cong B^{\oplus d}$ so that we want to show that $(\pi\circ p^*\iota_I)_t\colon B^{\oplus d}\to B^{\oplus d}$ is an isomorphism if and only if $\pi(p^*e^{\land I})\colon\land^dB^{\oplus n}\to\land^dB^{\oplus d}$ is an isomorphism.
+
+	But now this is just \Cref{rem:det-gives-iso}: the map $(\pi\circ p^*\iota_I)_t\colon B^{\oplus d}\to B^{\oplus d}$ is an isomorphism if and only if $\det(\pi\circ p^*\iota_I)_t$ as an element of $B$ is invertible. To see how this determinant relates to $\pi(p^*e^{\land I})$, we set $I=\{1,\ldots,d\}$ for concreteness so that
+	\[\pi_t(p^*e_1\land\cdots\land p^*e_d)=\det(\pi\circ p^*\iota_I)_t(p^*e_1\land\cdots\land p^*e_d).\]
+	So we see that $\det(\pi\circ p^*\iota_I)_t$ being invertible is equivalent to the map $\pi_t\colon\land^dB^{\oplus d}\to\land^dB^{\oplus d}$ being an isomorphism, which is exactly what we wanted.
+\end{proof}
+A careful computation now shows that $i_P$ is a closed embedding.
+\begin{proposition} \label{prop:affine-gr-projective}
+	Fix an affine scheme $U$ and nonnegative integers $d\le n$. Then $i_P\colon\mathrm{Gr}_{d,n}\to\PP_U\left(\land^d\OO_U^{\oplus n}\right)$ is a closed embedding.
+\end{proposition}
+\begin{proof}
+	As usual, set $N\coloneqq\binom nd$ and $A\coloneqq\OO_U(U)$. Being a closed embedding can be checked on an affine open cover by \cite[Exercise~9.1.D]{rising-sea}, so \Cref{lem:plucker-on-affine} tells us that it suffices to show that the restricted map $i_P^I\colon\mathrm{Gr}_{d,n}^I\to U_I$ is a closed embedding for each $d$-element subset $I\subseteq\{1,\ldots,n\}$. Both these schemes are affine, so we will do this by a direct computation. By rearranging our coordinates if necessary, we may assume that $I=\{1,\ldots,d\}$.
+
+	The main point is to actually compute what this map is. By the Yoneda embedding, this map can be recovered by passing $\id_{\mathrm{Gr}_{d,n}^I}$ through the composite
+	\[h_{\mathrm{Gr}_{d,n}^I}\simeq\mathcal Gr_{d,n}^{I\circ}\simeq\mathcal Gr_{d,n}^I\stackrel{i_P}\to\mathcal U_I\simeq h_{U_I},\]
+	where we are using the notation of the proof of \Cref{prop:affine-gr-rep}. For brevity, set $X\coloneqq\mathrm{Gr}_{d,n}^I$ to be the scheme $\Spec A[\{x_{ij}\}_{1\le i\le d<j\le n}]$ (with structure morphism $p\colon X\to U$) as in the proof of \Cref{prop:affine-gr-rep}. Now, the first isomorphism above sends $\id$ to the universal surjection $\xi\colon\OO_X^{\oplus n}\to\OO_X^{\oplus d}$ defined by
+	\[\xi(p^*e_j)\coloneqq\begin{cases}
+		p^*e_j & \text{if }j\le d, \\
+		\sum_{i=1}^dx_{ij}p^*e_i & \text{if }j>d,
+	\end{cases}\]
+	where $\{e_\bullet\}$ provides the bases. For brevity, we define $\xi_{ij}=1_{i=j}$ when $j\le d$ and $\xi_{ij}=x_{ij}$ if $j>d$ so that
+	\[\xi(p^*e_j)=\sum_{i=1}^d\xi_{ij}p^*e_i\]
+	always. Anyway, the second isomorphism then sends $\xi\in\mathcal Gr_{d,n}^{I\circ}(X)$ to its isomorphism class in $\mathcal Gr_{d,n}^I(X)$. Then $i_P$ will send $\xi$ to the line bundle $\land^d\OO_X^{\oplus d}$ together with the global sections $\{\xi(p^*e^{\land J})\}_{J\in P(d)}$.
+	
+	It remains to turn this into a morphism $X\to U_I$. Now, $\land^d\OO_X^{\oplus d}\cong\OO_X$ generated by $p^*e_1\land\cdots\land p^*e_d$. Thus, because $\xi(p^*e_j)=p^*e_j$ for each $j\le d$, the identification of the previous step makes $\xi(p^*e^{\land I})$ into $1$, so this is the correct identification of $\land^d\OO_X^{\oplus d}$ with $\OO_X$. For a general subset $\{j_1,\ldots,j_d\}\in P(d)$, we compute $\xi(p^*e_{j_1}\land\cdots\land p^*e_{j_d})$ under the identification $p^*e_1\land\cdots\land p^*e_d\mapsto1$ will simply be $\det(\xi\circ p^*\iota_J)$. Explicitly, written out in coordinates, we can write
+	\[\xi(p^*e_{j_1}\land\cdots\land p^*e_{j_d})=\bigland_{k=1}^d\xi(p^*e_{j_k})=\bigland_{k=1}^d\Bigg(\sum_{i=1}^d\xi_{ij}p^*e_i\Bigg)\]
+	and note that the identification of $\land^d\OO_X^{\oplus d}\cong\OO_X$ merely makes the right-hand side equal to $\det(\xi\circ p^*\iota_J)$.
+
+	Thus, by how $U_I=\Spec A[\{y_J\}_{J\ne I}]$ represents $\mathcal U_I$, we see that our ring map $i_P^\sharp\colon\OO_X(X)\to\OO_{U_I}(U_I)$ is given by
+	\[y_J\mapsto\det(\xi\circ p^*\iota_J).\]
+	To have a closed embedding of affine schemes, we need this map to be surjective. By taking polynomials, it is enough to show that each $x_{ij}$ is in the image of $i_P^\sharp$.
+
+	Being explicit, $\det(\xi\circ p^*\iota_J)$ is the determinant of the $d\times d$ minor of the matrix
+	\[(\xi_{ij})=\begin{bmatrix}
+		1 & 0 & \cdots & 0 & 0 & x_{1,d+1} & \cdots & x_{1,n} \\
+		0 & 1 & \cdots & 0 & 0 & x_{2,d+1} & \cdots & x_{2,n} \\
+		\vdots & \vdots & \ddots & \vdots & \vdots & \vdots & \ddots & \vdots \\
+		0 & 0 & \cdots & 1 & 0 & x_{d-1,d+1} & \cdots & x_{d-1,n} \\
+		0 & 0 & \cdots & 0 & 1 & x_{d,d+1} & \cdots & x_{d,n}
+	\end{bmatrix},\]
+	where the columns come from $J$. So if we want the determinant to be $x_{ij}$, we need to replace the $i$th column with the $j$th column; namely, take $J=(I\setminus\{i\})\cup\{j\}$. Then up to rearranging the columns (which only affects the determinant by the sign), we are computing the determinant of
+	\[\begin{bmatrix}
+		1 & 0 & \cdots & x_{1j} & \cdots & 0 & 0 \\
+		0 & 1 & \cdots & x_{2j} & \cdots & 0 & 0 \\
+		\vdots & \vdots & \ddots & \vdots & \ddots & \vdots & \vdots \\
+		0 & 0 & \cdots & x_{d-1,j} & \cdots & 1 & 0 \\
+		0 & 0 & \cdots & x_{dj} & \cdots & 0 & 1
+	\end{bmatrix},\]
+	where the insertion is happening at the $i$th row. In particular, a direct expansion by minors reveals that the determinant of this matrix is $x_{ij}$, so $i_P^\sharp(y_J)=\det(\xi\circ p^*\iota_J)=\pm x_{ij}$, so $x_{ij}\in\im i_P^\sharp$. This completes the proof.
+\end{proof}
+% \begin{remark}
+% 	One can glue \Cref{prop:affine-gr-projective} together to work over a general base. This will produce a closed embedding $\mathrm{Gr}_{d,\mathcal F}\to\PP\left(\land^d\mathcal F\right)$. We won't write out the details of this because it will not be necessary in the sequel.\todo{}
+% \end{remark}
+We now glue \Cref{prop:affine-gr-projective} together to work over a general base.
+\begin{lemma} \label{lem:plucker-natural}
+	Fix a morphism $f\colon U\to V$ of affine schemes and nonnegative integers $d\le n$. Then the Pl\"ucker map is natural in the sense that the following diagram commutes.
+	% https://q.uiver.app/#q=WzAsNCxbMCwwLCJcXG1hdGhybXtHcn1fe2QsXFxPT19VXntcXG9wbHVzIG59fSJdLFsxLDAsIlxcUFBcXGxlZnQoXFxsYW5kXmRcXE9PX1Vee1xcb3BsdXMgbn1cXHJpZ2h0KSJdLFswLDEsIlxcbWF0aHJte0dyfV97ZCxcXE9PX1Zee1xcb3BsdXMgbn19Il0sWzEsMSwiXFxQUFxcbGVmdChcXGxhbmReZFxcT09fVl57XFxvcGx1cyBufVxccmlnaHQpIl0sWzAsMl0sWzEsM10sWzIsMywiaV9QIl0sWzAsMSwiaV9QIl1d&macro_url=https%3A%2F%2Fraw.githubusercontent.com%2FdFoiler%2Fnotes%2Fmaster%2Fnir.tex
+	\[\begin{tikzcd}
+		{\mathrm{Gr}_{d,\OO_U^{\oplus n}}} & {\PP\left(\land^d\OO_U^{\oplus n}\right)} \\
+		{\mathrm{Gr}_{d,\OO_V^{\oplus n}}} & {\PP\left(\land^d\OO_V^{\oplus n}\right)}
+		\arrow[from=1-1, to=2-1]
+		\arrow[from=1-2, to=2-2]
+		\arrow["{i_P}", from=2-1, to=2-2]
+		\arrow["{i_P}", from=1-1, to=1-2]
+	\end{tikzcd}\]
+	The vertical maps are induced by \Cref{prop:base-change-gr}.
+\end{lemma}
+\begin{proof}
+	As usual, set $N\coloneqq\binom nd$. Also, for this proof, we will add a subscript the functor $\mathcal P^{N-1}$ by its base scheme, writing $\mathcal P^{N-1}_U$ or $\mathcal P^{N-1}_V$. Notably, $\mathcal P^{N-1}_V|_U=\mathcal P^{N-1}_U$ by the argument of \Cref{rem:pull-back-gr} (with $d=1$).
+	
+	It suffices to show that this diagram commutes on the level of functor of points $\mathrm{Sch}_V\opp\to\mathrm{Set}$. By \Cref{rem:pull-back-gr} and \Cref{prop:rep-base-change}, we may view $\mathrm{Gr}_{d,\OO_U^{\oplus n}}$ as representing the functor $(\mathcal Gr_{d,\OO_U^{\oplus n}}|_V)_U\colon\mathrm{Sch}_U\opp\to\mathrm{Set}$. Similarly, we may view $\PP_V\left(\land^d\OO_V^{\oplus n}\right)$ as representing the functor $\mathcal P^{N-1}_V\colon\mathrm{Sch}_V\opp\to\mathrm{Set}$, so \Cref{prop:rep-base-change} tells us that this object represents $(\mathcal P^{N-1}_V)_U\colon\mathrm{Sch}_U\opp\to\mathrm{Set}$.
+
+	Thus, on the functor of points, we would like the following diagram to commute.
+	% https://q.uiver.app/#q=WzAsNCxbMSwxLCJcXGxlZnQoXFxtYXRoY2FsIFBee04tMX1fVlxccmlnaHQpX1UiXSxbMCwxLCIoXFxtYXRoY2FsIEdyX3tkLFxcT09fVl57XFxvcGx1cyBufX0pX1UiXSxbMCwwLCJcXG1hdGhjYWwgR3Jfe2QsXFxPT19VXntcXG9wbHVzIG59fSJdLFsxLDAsIlxcbWF0aGNhbCBQXntOLTF9X1UiXSxbMSwwXSxbMCwzXSxbMSwyXSxbMiwzXV0=&macro_url=https%3A%2F%2Fraw.githubusercontent.com%2FdFoiler%2Fnotes%2Fmaster%2Fnir.tex
+	\[\begin{tikzcd}
+		{\mathcal Gr_{d,\OO_U^{\oplus n}}} & {\mathcal P^{N-1}_U} \\
+		{(\mathcal Gr_{d,\OO_V^{\oplus n}})_U} & {\left(\mathcal P^{N-1}_V\right)_U}
+		\arrow[from=2-1, to=2-2]
+		\arrow[from=2-2, to=1-2]
+		\arrow[from=2-1, to=1-1]
+		\arrow[from=1-1, to=1-2]
+	\end{tikzcd}\]
+	However, the vertical maps are merely projection onto the relevant coordinate, so the diagram commutes.\todo{}
+\end{proof}
+\begin{theorem}
+	Fix a base scheme $S$, and fix nonnegative integers $d\le n$. Then there is a closed embedding $i_P\colon\mathrm{Gr}_{d,\OO_S^{\oplus n}}\to\PP_S\left(\land^d\OO_S^{\oplus n}\right)$.
+\end{theorem}
+\begin{proof}
+	We proceed as in \Cref{thm:gr-rep}. Fix an affine open cover $\{U_\alpha\}_{\alpha\in\kappa}$ of $S$; throughout, we may abbreviate a subscript by $U_\alpha$ to a simply a subscript by $\alpha$. This time using \Cref{prop:base-change-gr} more directly, we immediately produce a pullback square as follows.
+	% https://q.uiver.app/#q=WzAsNCxbMCwxLCJVX1xcYWxwaGEiXSxbMSwxLCJTIl0sWzEsMCwiXFxtYXRocm17R3J9X3tkLFxcbWF0aGNhbCBGfSJdLFswLDAsIlxcbWF0aHJte0dyfV97ZCxcXG1hdGhjYWwgRnxfe1VfXFxhbHBoYX19Il0sWzAsMV0sWzIsMV0sWzMsMl0sWzMsMF1d&macro_url=https%3A%2F%2Fraw.githubusercontent.com%2FdFoiler%2Fnotes%2Fmaster%2Fnir.tex
+	\[\begin{tikzcd}
+		{\mathrm{Gr}_{d,\OO_\alpha^{\oplus n}}} & {\mathrm{Gr}_{d,\OO_S^{\oplus n}}} \\
+		{U_\alpha} & S
+		\arrow[from=2-1, to=2-2]
+		\arrow[from=1-2, to=2-2]
+		\arrow[from=1-1, to=1-2]
+		\arrow[from=1-1, to=2-1]
+	\end{tikzcd}\]
+	Additionally, as in the proof of \Cref{thm:gr-rep}, we see that these $\mathrm{Gr}_{d,\OO_\alpha^{\oplus n}}$ form an open cover of $\mathrm{Gr}_{d,n}$.
+
+	Now, we have closed embeddings $i_\alpha\colon\mathrm{Gr}_{d,\OO_\alpha^{\oplus n}}\to\PP_\alpha\left(\land^d\OO_\alpha^{\oplus n}\right)$ by \Cref{prop:affine-gr-projective}. We would like to glue these morphisms together to a map to the glued space $\PP_S\left(\land^d\OO_S^{\oplus n}\right)$, which amounts to checking that these morphisms agree on overlaps by \cite[Exercise~7.2.A]{rising-sea}. Well, given $\alpha,\beta\in\kappa$, set $V\coloneqq U_\alpha\cap U_\beta$, and we note that the following diagram commutes by \Cref{lem:plucker-natural}.
+	% https://q.uiver.app/#q=WzAsNyxbMCwwLCJcXG1hdGhybXtHcn1fe2QsXFxPT19cXGFscGhhXntcXG9wbHVzIG59fSJdLFswLDEsIlxcbWF0aHJte0dyfV97ZCxcXE9PX1Zee1xcb3BsdXMgbn19Il0sWzAsMiwiXFxtYXRocm17R3J9X3tkLFxcT09fXFxiZXRhXntcXG9wbHVzIG59fSJdLFsxLDAsIlxcUFBfXFxhbHBoYVxcbGVmdChcXGxhbmReZFxcT09fXFxhbHBoYV57XFxvcGx1cyBufVxccmlnaHQpIl0sWzEsMiwiXFxQUF9cXGJldGFcXGxlZnQoXFxsYW5kXmRcXE9PX1xcYmV0YV57XFxvcGx1cyBufVxccmlnaHQpIl0sWzEsMSwiXFxQUF9WXFxsZWZ0KFxcbGFuZF5kXFxPT19WXntcXG9wbHVzIG59XFxyaWdodCkiXSxbMiwxLCJcXFBQX1NcXGxlZnQoXFxsYW5kXmRcXE9PX1Nee1xcb3BsdXMgbn1cXHJpZ2h0KSJdLFswLDNdLFsxLDBdLFsxLDVdLFs1LDNdLFsxLDJdLFs1LDRdLFsyLDRdLFszLDZdLFs1LDZdLFs0LDZdXQ==&macro_url=https%3A%2F%2Fraw.githubusercontent.com%2FdFoiler%2Fnotes%2Fmaster%2Fnir.tex
+	\[\begin{tikzcd}
+		{\mathrm{Gr}_{d,\OO_\alpha^{\oplus n}}} & {\PP_\alpha\left(\land^d\OO_\alpha^{\oplus n}\right)} \\
+		{\mathrm{Gr}_{d,\OO_V^{\oplus n}}} & {\PP_V\left(\land^d\OO_V^{\oplus n}\right)} & {\PP_S\left(\land^d\OO_S^{\oplus n}\right)} \\
+		{\mathrm{Gr}_{d,\OO_\beta^{\oplus n}}} & {\PP_\beta\left(\land^d\OO_\beta^{\oplus n}\right)}
+		\arrow[from=1-1, to=1-2]
+		\arrow[from=2-1, to=1-1]
+		\arrow[from=2-1, to=2-2]
+		\arrow[from=2-2, to=1-2]
+		\arrow[from=2-1, to=3-1]
+		\arrow[from=2-2, to=3-2]
+		\arrow[from=3-1, to=3-2]
+		\arrow[from=1-2, to=2-3]
+		\arrow[from=2-2, to=2-3]
+		\arrow[from=3-2, to=2-3]
+	\end{tikzcd}\]
+	Actually, the right part of the diagram commutes by the construction of relative $\mathrm{Proj}$, discussed in \cite[Exercise~17.2.C]{rising-sea}. Anyway, we see that we do glue to a morphism $i_P\colon\mathrm{Gr}_{d,\OO_S^{\oplus n}}\to\PP_S\left(\land^d\OO_S^{\oplus n}\right)$.
+	
+	To see that $i_P$ is closed, we check on an open cover. Indeed, it is enough to check $i_P^{-1}\left(\PP_\alpha\left(\land^d\OO_\alpha^{\oplus n}\right)\right)\to\PP_\alpha\left(\land^d\OO_\alpha^{\oplus n}\right)$ is a closed embedding for each $\alpha\in\kappa$. Well, we claim that $i_P^{-1}\left(\PP_\alpha\left(\land^d\OO_\alpha^{\oplus n}\right)\right)=\mathrm{Gr}_{d,\OO_\alpha^{\oplus n}}$, suitably embedded, which will complete the proof because $i_\alpha$ is a closed embedding. To prove the claim, we draw the following diagram.
+	% https://q.uiver.app/#q=WzAsNixbMCwwLCJcXG1hdGhybXtHcn1fe2QsXFxtYXRoY2FsIE9fXFxhbHBoYV57XFxvcGx1cyBufX0iXSxbMSwwLCJcXG1hdGhiYiBQX1xcYWxwaGFcXGxlZnQoXFxsYW5kXmRcXE9PX1xcYWxwaGFee1xcb3BsdXMgbn1cXHJpZ2h0KSJdLFswLDEsIlxcbWF0aHJte0dyfV97ZCxcXG1hdGhjYWwgT19TXntcXG9wbHVzIG59fSJdLFsxLDEsIlxcbWF0aGJiIFBfU1xcbGVmdChcXGxhbmReZFxcT09fU157XFxvcGx1cyBufVxccmlnaHQpIl0sWzIsMCwiVV9cXGFscGhhIl0sWzIsMSwiUyJdLFswLDEsImlfXFxhbHBoYSJdLFsxLDRdLFsyLDMsImlfUCJdLFszLDVdLFsxLDNdLFs0LDVdLFswLDJdXQ==&macro_url=https%3A%2F%2Fraw.githubusercontent.com%2FdFoiler%2Fnotes%2Fmaster%2Fnir.tex
+	\[\begin{tikzcd}
+		{\mathrm{Gr}_{d,\mathcal O_\alpha^{\oplus n}}} & {\mathbb P_\alpha\left(\land^d\OO_\alpha^{\oplus n}\right)} & {U_\alpha} \\
+		{\mathrm{Gr}_{d,\mathcal O_S^{\oplus n}}} & {\mathbb P_S\left(\land^d\OO_S^{\oplus n}\right)} & S
+		\arrow["{i_\alpha}", from=1-1, to=1-2]
+		\arrow[from=1-2, to=1-3]
+		\arrow["{i_P}", from=2-1, to=2-2]
+		\arrow[from=2-2, to=2-3]
+		\arrow[from=1-2, to=2-2]
+		\arrow[from=1-3, to=2-3]
+		\arrow[from=1-1, to=2-1]
+	\end{tikzcd}\]
+	The diagram commutes by construction of $i_P$. The claim amounts to showing that the left square is a pullback square by \cite[Exercise~8.1.D]{rising-sea}. Well, the right square is a pullback square by the construction of $\PP_S^\bullet$ in \cite[Exercise~17.2.C]{rising-sea}, and the total rectangle is a pullback square by \Cref{prop:base-change-gr}, so the left square is a pullback square by an argument similar to \cite[Exercise~1.3.G]{rising-sea}.
+\end{proof}
+
+% for the representability and pluker embedding, we need to go down to F is free
+% this is okay because an open subscheme of S makes an open subfunctor, so the representability proof immediately reduces
+% for the Pluker embedding, you need to go to PF^{\lor k} or something, and being closed can be checked locally when free (and on affines)
+
+\nirprintbib
+
+\end{document}

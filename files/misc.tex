@@ -1,0 +1,105 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+
+\newcommand{\nirpdftitle}{Student Arithmetic Geometry Seminar}
+\usepackage{import}
+\inputfrom{../../notes}{nir}
+\usepackage[backend=biber,
+    style=alphabetic,
+    sorting=ynt
+]{biblatex}
+\setcounter{tocdepth}{2}
+
+\pagestyle{contentpage}
+
+\title{Student Arithmetic Geometry Seminar}
+\author{Nir Elber}
+\date{Spring 2024}
+\usepackage{graphicx}
+
+\begin{document}
+
+\maketitle
+
+\tableofcontents
+
+\section{January 19: Martin Olsson}
+Today, we will provide an introduction to what this seminar will be about.
+
+\subsection{Motivating Paper}
+We are motivated by Deligne--Mumford's paper ``The irreducibility of moduli of curves of given genus.'' The main theorem is as follows.
+\begin{theorem}[Deligne--Mumford] \label{thm:dm}
+	Fix a nonnegative integer $g\ge2$ and a field $k$. Then the moduli space $\mc M_g$ of curves of genus $g$ over $k$ is irreducible.
+\end{theorem}
+There is quite a bit which goes into this proof.
+\begin{itemize}
+	\item Curve theory.
+	\item The formalism of moduli problems.
+	\item The Semistable reduction theorem.
+	\item Jacobian varieties.
+	\item The notion of stable curves and the compactification $\ov{\mc M}_g$.
+	\item Deformation theory.
+	\item The theory of stacks and coarse moduli spaces.
+	\item An analytic description to get from $\CC$.
+\end{itemize}
+From these ingredients, there are other directions to go in.
+\begin{itemize}
+	\item Finer geometry of $\mc M_g$.
+	\item Moduli of curves with marked points $\mc M_{g,n}$.
+	\item Higher-dimensional directions, such as abelian varieties.
+\end{itemize}
+Let's go ahead and provide a sketch.
+\begin{proof}[Sketch of \Cref{thm:dm}]
+	The result is known over $\CC$ via some analytic methods. We want to get to other fields. We begin with the following exercise.
+	\begin{proposition} \label{prop:reduce-conn}
+		Fix a complete discrete valuation ring $(R,\mf m)$ with fraction field $K$ and residue field $\kappa\coloneqq R/\mf m$. Fix a smooth proper morphism $f\colon X\to\Spec R$. If $X_{\ov K}$ is connected, then $X_{\ov\kappa}$ is also connected.
+	\end{proposition}
+	\begin{proof}[Sketch]
+		One can assume that $\kappa$ is algebraically closed by some argument. Then the Formal functions theorem tells us that
+		\[H^0(X,\OO_X)=\limit_nH^0(X_n,\OO_{X_n}),\]
+		where $X_n\coloneqq X\times_V\Spec V/\mf m^n$. Now, suppose for the sake of contradiction that $X_\kappa=X^1_\kappa\sqcup X^2_\kappa$. Then by taking nilpotent thickenings, we see that $X_n=X^1_n\sqcup X^2_n$, so
+		\[\limit_nH^0(X_n,\OO_{X_n})=\limit_nH^0(X_n^1,\OO_{X_n^1})\times\limit_nH^0(X_n^2,\OO_{X_n^2}).\]
+		So we are receiving a product of rings $A_1\times A_2$, which are flat over $R$, so by viewing the global sections back in $H^0(X,\OO_X)$, which should be $\ov K$ upon algebraic closure, we will receive our contradiction.
+	\end{proof}
+	Now, the (coarse) moduli space $\mc M_g$ fails to be either smooth or proper, but some theory of stacks allows us to reduce to this case. Namely, the point is to find some compactification $\mc M_g\into\ov{\mc M}_g$ where $\ov{\mc M}_g$ is a smooth proper $\ZZ$-stack with $\mc M_g\subseteq\ov{\mc M}_g$ dense in each fiber. As such, we can imagine using \Cref{prop:reduce-conn} to pull back the result from $\ov{\mc M}_g$ to $\mc M_g$.
+\end{proof}
+
+\subsection{Thinking about the Moduli Spaces}
+Let's describe what $\mc M_g$ is. By the functor of points description, we merely need to describe maps $S\to\mc M_g$, which we declare to be in natural bijection with genus-$g$ curves $\pi\colon C\to S$; i.e., $\pi$ is a proper, flat, and smooth morphism whose geometric fibers are genus-$g$ curves.
+\begin{example}
+	There is a family of curves over a field $k$ given by the equations
+	\[y^2=(x-a_1)\cdots(x-a_n),\]
+	where $a_1,\ldots,a_n$ are allowed to vary. Viewing the $a_\bullet$s as giving a point in affine space, we see that we are (approximately speaking) producing a rational map $\AA^n\to\mc M_g$, where perhaps we need to check that we have a curve of the correct genus.
+\end{example}
+Now, using a functor of points description, smoothness of $\mc M_g$ over $\Spec\ZZ$ is requiring the following (in the sense of formal smoothness): for any surjection $A'\onto A$ with kernel $J$ such that $J^2=0$, any morphism $\Spec A\to\mc M_g$ induces a unique dashed arrow.
+% https://q.uiver.app/#q=WzAsNCxbMCwwLCJcXFNwZWMgQSJdLFswLDEsIlxcU3BlYyBBJyJdLFsxLDAsIlxcbWMgTV9nIl0sWzEsMSwiXFxTcGVjXFxaWiJdLFsxLDNdLFswLDFdLFswLDJdLFsyLDNdLFsxLDIsIiIsMSx7InN0eWxlIjp7ImJvZHkiOnsibmFtZSI6ImRhc2hlZCJ9fX1dXQ==&macro_url=https%3A%2F%2Fraw.githubusercontent.com%2FdFoiler%2Fnotes%2Fmaster%2Fnir.tex
+\[\begin{tikzcd}
+	{\Spec A} & {\mc M_g} \\
+	{\Spec A'} & \Spec\ZZ
+	\arrow[from=2-1, to=2-2]
+	\arrow[from=1-1, to=2-1]
+	\arrow[from=1-1, to=1-2]
+	\arrow[from=1-2, to=2-2]
+	\arrow[dashed, from=2-1, to=1-2]
+\end{tikzcd}\]
+As such, we can unwind the functor of points description of $\mc M_g$ to prove something like smoothness, which is quite remarkable.
+
+Analogously, we can describe $\ov{\mc M}_g$ via the functor of points: maps $S\to\ov{\mc M}_g$ are ``stable curves'' $\pi\colon C\to S$, which will be a proper flat morphism whose geometric fibers by $\ov s\to S$ satisfy the following.
+\begin{itemize}
+	\item The geometric fibers are nodal curves, meaning that the completion at any closed point is $\kappa(\ov s)\bb x$ or $\kappa(\ov s)\bb{x,y}/(xy)$.
+	\item Every rational component (namely, irreducible component whose normalization is $\PP^1$) has three distinguished points. (These three points are desirable, for example, to ensure that its automorphism group is trivial.)
+\end{itemize}
+Now, we can also check being proper via the functor of points description, using the valuative criterion. Namely, for a complete discrete valuation ring $R$ with fraction field $K$, we would like to know that any map $\Spec K\to\ov{\mc M}_g$ induces a unique dashed arrow.
+% https://q.uiver.app/#q=WzAsNCxbMCwxLCJcXFNwZWMgUiJdLFsxLDEsIlxcU3BlY1xcWloiXSxbMSwwLCJcXG92e1xcbWMgTX1fZyJdLFswLDAsIlxcU3BlYyAgSyJdLFswLDFdLFszLDBdLFszLDJdLFsyLDFdLFswLDIsIiEiLDEseyJzdHlsZSI6eyJib2R5Ijp7Im5hbWUiOiJkYXNoZWQifX19XV0=&macro_url=https%3A%2F%2Fraw.githubusercontent.com%2FdFoiler%2Fnotes%2Fmaster%2Fnir.tex
+\[\begin{tikzcd}
+	{\Spec  K} & {\ov{\mc M}_g} \\
+	{\Spec R} & \Spec\ZZ
+	\arrow[from=2-1, to=2-2]
+	\arrow[from=1-1, to=2-1]
+	\arrow[from=1-1, to=1-2]
+	\arrow[from=1-2, to=2-2]
+	\arrow["{!}"{description}, dashed, from=2-1, to=1-2]
+\end{tikzcd}\]
+And again, we can directly turn this into a geometry problem of curves by tracking through the moduli interpretation, which is the Semistable reduction theorem.
+
+\end{document}
