@@ -122,3 +122,10 @@ Deligne
 Semistable
 nilpotent
 valuative
+Supersingular
+Ekedahl
+Dieudonné
+supersingular
+de Rham
+Rham
+Weyl

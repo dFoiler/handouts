@@ -43,3 +43,5 @@
 {"rule":"POSSESSIVE_APOSTROPHE","sentence":"^\\QThen the Formal functions theorem.\\E$"}
 {"rule":"POSSESSIVE_APOSTROPHE","sentence":"^\\QThen the Formal functions theorem tells us that \\E(?:Dummy|Ina|Jimmy-)[0-9]+\\Q, where \\E(?:Dummy|Ina|Jimmy-)[0-9]+\\Q.\\E$"}
 {"rule":"SENTENCE_WHITESPACE","sentence":"^\\QMg.\\E$"}
+{"rule":"MISSING_GENITIVE","sentence":"^\\QHodge filtration:\\E$"}
+{"rule":"MISSING_GENITIVE","sentence":"^\\QHodge filtration: \\E(?:Dummy|Ina|Jimmy-)[0-9]+\\Q.\\E$"}
