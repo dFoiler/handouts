@@ -102,4 +102,85 @@ Now, we can also check being proper via the functor of points description, using
 \end{tikzcd}\]
 And again, we can directly turn this into a geometry problem of curves by tracking through the moduli interpretation, which is the Semistable reduction theorem.
 
+\section{January 26th: Martin Olsson}
+
+Today we discuss the setup for our moduli problems.
+
+\subsection{The Yoneda Lemma}
+Here is the statement.
+\begin{theorem}[Yoneda] \label{thm:yo}
+	Fix a category $\mc C$, and let $\mathrm{PSh}(\mc C)$ denote the category of presheaves on $\mc C$.
+	\begin{listalph}
+		\item For $X\in\mc C$, the functor $h_X\colon A\mapsto\op{Mor}(A,X)$ is a presheaf $h_X\colon\mc C\opp\to\mathrm{Set}$.
+		\item There is a natural bijection
+		\[\op{Mor}_{\mathrm{PSh}(\mc C)}(h_X,F)\to FX.\]
+		\item The construction $h_\bullet$ forms a fully faithful embedding $h_\bullet\colon\mc C\to\mathrm{PSh}(\mc C)$.
+	\end{listalph}
+\end{theorem}
+\begin{proof}
+	We won't bother to show (a). For (b), the forward map sends $\eta\colon h_X\Rightarrow F$ to $\eta_X({\id_X})$, and one can check that this is a bijection. To show (c), we note that we need to show
+	\[\op{Mor}_\mc C(X,Y)\simeq\op{Mor}_{\mathrm{Pre}(\mc C)}(h_X,h_Y),\]
+	but this simply follows by taking $F=h_Y$ in (b).
+\end{proof}
+\begin{remark}
+	Most of the time, we will take $\mc C=\mathrm{Sch}(S)$ for a fixed base scheme $S$.
+\end{remark}
+Anyway, we can now make the following definition.
+\begin{definition}[representable]
+	Fix a category $\mc C$. A functor $F\colon\mc C\opp\to\mathrm{Set}$ is \textit{representable} if and only if $F\simeq h_X$ for some object $X\in\mc C$. In the sequel, we may want to fix the isomorphism $F\simeq h_X$, which can be specified by an element $\xi\in FX$.
+\end{definition}
+Here are some examples.
+\begin{example}
+	Take $\mc C\coloneqq\mathrm{Sch}$, and consider the functor $F\colon\mc C\opp\to\mathrm{Set}$ defined by $FY\coloneqq\Gamma(Y,\OO_Y)^n$. We claim $F$ is represented by $\AA^n_\ZZ=\Spec\ZZ[x_1,\ldots,x_n]$. Indeed, we see
+	\[\op{Mor}_{\mathrm{Sch}}(Y,\AA^n_\ZZ)\simeq\op{Hom}_{\mathrm{Ring}}(\ZZ[x_1,\ldots,x_n],\OO_Y(Y))\simeq\OO_Y(Y)^n,\]
+	as desired. To specify this isomorphism, \Cref{thm:yo} tells us that it is enough to track through the identity map in $\op{Mor}(\AA^n_\ZZ,\AA^n_\ZZ)\simeq\Gamma(\AA^n_\ZZ,\OO_{\AA^n_\ZZ})^n$, which we can track through is $(x_1,\ldots,x_n)$. Of course, we could choose other isomorphisms, such as determined by the element $(x_n,\ldots,x_1)\in\Gamma(\AA^n_\ZZ,\OO_{\AA^n_\ZZ})^n$.
+\end{example}
+\begin{example}
+	Take $\mc C\coloneqq\mathrm{Sch}$, and consider the functor $F\colon\mc C\opp\to\mathrm{Set}$ defined by
+	\[FY\coloneqq\left\{(f_\bullet)\in\Gamma(Y,\OO_Y)^n:(f_1,\ldots,f_n)=\Gamma(Y,\OO_Y)\right\}.\]
+	Then $F$ is represented by $\AA^n_\ZZ\setminus\{0\}$.
+\end{example}
+\begin{example} \label{ex:moduli-pn}
+	Take $\mc C\coloneqq\mathrm{Sch}$, and consider the functor $F\colon\mc C\opp\to\mathrm{Set}$ defined by setting $FY$ to the collection of surjections $\OO_Y^{\oplus n}\onto\mc L$ up to isomorphism, where $\mc L/Y$ is a line bundle. Then $F$ is represented by $\PP^n_\ZZ$. The representing element in $F\left(\PP^n_\ZZ\right)$ is given by the surjection $(x_0,\ldots,x_n)\colon\OO_{\PP^n_\ZZ}\onto\OO_{\PP^n_\ZZ}(1)$.
+\end{example}
+\begin{remark}
+	By identifying a line with the corresponding quotient space, we see that the above interpretation of $\PP^n_k$ agrees with the interpretation as ``lines in $k^{n+1}$.''
+\end{remark}
+\begin{example}
+	Fix a field $k$ and homogeneous polynomial $f\in k[x_0,\ldots,x_n]$ of degree $N$, and consider $V(f)\subseteq\PP^n_k$. A map $Y\to V(f)$ will certainly produce a map $Y\to\PP^n_\ZZ$, so our answer should be a subfunctor of \Cref{ex:moduli-pn}. But then we want to determine which surjections $(s_0,\ldots,s_n)\colon\OO_Y^{\oplus n}\onto\mc L$ (which really consists of $n+1$ global sections of $\mc L$ globally generating), but then to live in $V(f)$, we request that $f(s_0,\ldots,s_n)=0$.
+\end{example}
+\begin{remark}
+	Note $\AA^n_\ZZ\subseteq\PP^n_\ZZ$ (e.g. going to the standard affine open $x_0\ne0$). So we expect to have an inclusion $h_{\AA^n_\ZZ}\subseteq h_{\PP^n_\ZZ}$, and one can track through that it simply corresponds to the provided map $(s_0,\ldots,s_n)\colon\OO_Y^{\oplus(n+1)}\onto\mc L$ having $s_0$ be an isomorphism. In this case, after identifying $\OO_Y$ with $\mc L$ via $s_0$, we see that the other sections are indeed providing an element of $\Gamma(Y,\OO_Y)^n$.
+\end{remark}
+\begin{example}[Hilbert scheme]
+	Fix a flat separated $X$-scheme $S$. Then the Hilbert functor assigns a $Y$-scheme $S$ to flat proper (locally of finite presentation) subschemes $Z\subseteq X\times_SY$. It turns out that this functor is representable if $X$ is quasi-projective, which is a result due to Grothendieck.
+\end{example}
+
+\subsection{Functors Not Representable}
+Representable functors have the tendency to be sheaves. For the Zariski topology, here is the relevant definition.
+\begin{definition}[Zariski sheaf]
+	A functor $F\colon\mc C\opp\to\mathrm{Set}$ is a \textit{Zariski sheaf} if and only if we have the usual equalizer diagram
+	\[FY\to\prod_{\alpha\in\kappa}FY_\alpha\twoheadleftarrow\prod_{\alpha,\beta\in\kappa}F(Y_\alpha\cap Y_\beta),\]
+	where $\{Y_\alpha\}_{\alpha\in\kappa}$ is a Zariski open cover of $Y$.
+\end{definition}
+\begin{example}
+	If $F\simeq h_X$ is representable, then $F$ is a Zariski sheaf because morphisms glue.
+\end{example}
+\begin{nex}
+	Define the functor $F$ as taking a scheme $Y$ and taking the quotient of the set of $(n+1)$-tuples $(s_0,\ldots,s_n)\in\Gamma(Y,\OO_Y)$ by multiplication by $\Gamma(Y,\OO_Y^\times)$. This is not a sheaf, but if we do sheafification, we will recover \Cref{ex:moduli-pn}. Thus, this functor is not representable.
+\end{nex}
+As another remark, we have the following.
+\begin{lemma} \label{lem:field-extension-rep}
+	If $X$ is a scheme, and $L/K$ is a field extension, then the map $X(\Spec K)\to X(\Spec L)$ is injective.
+\end{lemma}
+\begin{proof}
+	Indeed, a map $\Spec K\to X$ is simply a point $x\in X$ together with an inclusion $\kappa(x)\to K$, which by a similar description for $\Spec L\to X$ is uniquely determined by that map $\Spec L\to X$.
+\end{proof}
+\begin{example}
+	Define the functor $F$ by taking a scheme $Y$ and returning elliptic curves over $Y$ (up to isomorphism). But there are distinct elliptic curves over $\QQ$ which become isomorphic over $\ov\QQ$. For example, $y^2=x^3+D$ and $y^2=x^3-D$ is one such example, which become isomorphic over $\QQ(i)$ where we can send $(x,y)\mapsto(-x,iy)$. Thus, $F$ is not representable by \Cref{lem:field-extension-rep}.
+\end{example}
+\begin{remark}
+	One can argue similarly for curves of genus $g\ge2$.
+\end{remark}
+
 \end{document}

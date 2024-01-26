@@ -129,3 +129,7 @@ supersingular
 de Rham
 Rham
 Weyl
+presheaves
+presheaf
+Grothendieck
+sheafification
