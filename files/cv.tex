@@ -1,0 +1,247 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsfonts,amsmath}
+
+\usepackage{comment}
+\usepackage[margin=0.75in]{geometry}
+\addtolength{\topmargin}{-0.8in}
+\addtolength{\textheight}{1.5in}
+\usepackage{asymptote}
+\usepackage{hyperref}    % mailto
+\usepackage{anyfontsize} % For the section size
+\usepackage{multicol}
+\usepackage{worldflags}
+
+\usepackage{marvosym}    % \Telefon \Letter
+\usepackage{fontawesome} % \faMapMarker \faGithub
+
+% I heavily abuse document behavior and commands for my bidding.
+\usepackage{xcolor}
+\setcounter{secnumdepth}{0}
+\setlength{\parindent}{0em}
+\setlength{\parskip}{0.8em}
+\renewcommand{\familydefault}{\sfdefault}
+\pagenumbering{gobble}
+
+\definecolor{headercolor}{HTML}{3e80b0}
+\renewcommand{\section}[1]{{\color{headercolor}\LARGE
+    \textbf{#1\phantom{p}}\hrule}}
+    % Insert the phantom p to make the bottom hrule just below the text.
+
+\newcommand{\entry}[5]{{\large\textbf{#1}}\hfill\textit{#3}\\
+    #2\hfill\\
+    \textcolor{gray}{#5}}
+
+\newcommand{\award}[3]{{\large\textbf{#1}}\hfill\textit{#2}\\
+    \textcolor{gray}{#3}}
+
+\begin{document}
+
+\hspace{-8.15em}
+\begin{asy}
+    size(24cm);
+    real h = 3.5;
+    fill((0,0)--(0,h)--(21.6,h)--(21.6,0)--cycle, hsv(205,0.1,1));
+\end{asy}
+
+\vspace{-2.4cm}
+
+
+\begin{center}
+    \textcolor{headercolor}{\Huge\textbf{Nir Elber}}
+    
+    \textcolor{gray}{
+        % \textbf{\scalebox{0.2}{\worldflag{US}} US Citizen} \\[0.1em]
+        \faMapMarker~\,Berkeley, CA\hspace{1.3em}$\bullet$\hspace{1em}
+        {\fontsize{14}{1}\selectfont\Telefon}~\,(512) 634-7121\hspace{1.3em}$\bullet$\hspace{1em}
+        {\fontsize{13}{1}\Letter}~\,\href{mailto:nire@berkeley.edu}{nire@berkeley.edu}
+        \hspace{1.1em}$\bullet$\hspace{1.4em}{\fontsize{11}{1}\faGithub}~\,\href{https://github.com/dFoiler}{dFoiler}
+    }
+    
+    \vspace{-0.5em}
+\end{center}
+
+\section{Education}
+
+\award{University of California, Berkeley}{Aug. 2021--May 2025}
+{Undergraduate pursuing a Bachelor of Arts in mathematics. Current GPA: 4.0/4.0. Current math GPA: 4.0/4.0.}
+
+% \award{Program in Mathematics for Young Scientists (PROMYS)}{July--Aug. 2019, 2020, 2021}
+% {Student in the six-week summer program immersing students in an accelerated undergraduate number theory course. As \textbf{junior counselor} (2021), facilitated discussions in the Galois theory and hyperelliptic curves seminars. Also oversaw student work, organized social events, gave talks to students and counselors, suggested program improvements.}
+
+% \award{Liberal Arts and Science Academy (LASA)}{2017--2021}
+% {Public magnet high school, ranked 34th nationally by \textit{U.S. News \& World Report}. GPA: 3.87/4.0. Rank: 11/310.}
+%Top 10\% every year.
+
+\iffalse
+    \entry{MORPH}{Student}{June--Aug. 2020}{3 hours/week}
+    {Worked through some of \textit{Problems in Analytic Number Theory} as directed reading, wrote over 100 pages of solutions, wrote introductory handout for the Prime Number Theorem.}
+\fi
+
+\award{Programming}{}{Python (SageMath, Jupyter), \LaTeX{}, C++}{}
+
+% Maybe mention Spring 2021 DRP?
+
+\section{Research Experience}
+
+\award{University of Michigan REU}{June~2023--August~2023}
+{Attached invariants to triples of certain representations of $\operatorname{GL}_2(\mathbb F_q)$ and examined properties of these invariants. Advisors: Jialiang Zou and Elad Zehlinger.}
+
+\award{University of Michigan REU}{May~2022--July~2022}
+{Used group cohomology to explicitly compute the Tate canonical class. Advisors: Alexander Bertoloni Meli, Patrick Daniels, and Peter Dillery.}
+
+% \award{Program in Mathematics for Young Scientists (PROMYS)}{July--Aug. 2019, 2020, 2021}
+% {In 2021, studied patterns in graphical properties of prime sums. In 2020, studied asymptotics associated to Thue's lemma. In 2019, participated in directed reading on group-theoretic properties of fractional linear transformations.
+% As \textbf{junior counselor} (2021), facilitated discussions in the Galois theory and hyperelliptic curves seminars. Also oversaw student work, organized social events, gave talks to students and counselors, suggested program improvements. Also student (2019).
+% }
+
+\section{Preprints}
+
+{\large\bfseries Interests:} {\large\color{gray}Algebraic number theory and algebraic geometry.}
+
+% \award{Degenerate Principal Series Representations of Symplectic Groups over Finite Fields}{}
+% {Studied the reducibility and eigenvalues of the intertwining operator of the degenerate principal series representations of the groups $\mathrm{Sp}_{2n}(\mathbb F_q)$ and $\mathrm{GSp}_{2n}(\mathbb F_q)$. In progress.}
+
+\award{Generalized Periodicity in Group Cohomology}{}
+{To appear in \textit{Communications in Algebra}. Studied a certain generalization of periodic cohomology with computational applications. Published (\underline{\href{https://arxiv.org/abs/2302.06160}{arXiv:2302.06160}}).}
+
+\award{Explicit Computations of Fundamental Classes}{}
+{Provided an explicit computation of the local fundamental class in various cases. Gave applications to Artin reciprocity and computations of the Tate canonical class. Preprint (\underline{\href{https://arxiv.org/abs/2302.06163}{arXiv:2302.06163}}).}
+
+% \award{Prime Sums}{}
+% {Studied graphical properties of certain prime sums and their generalizations to $\mathbb Z[i]$. With Anupam Datta, Raymond Feng, and Henry Xie. Preprint (\texttt{\href{https://arxiv.org/abs/2111.02795}{arXiv:2111.02795}}).}
+
+\section{Talks}
+
+\award{Gamma Factors for Representations of General Linear Groups over Finite Fields}{Jan.~2023}{Joint Mathematics Meeting}
+
+\award{One $\mathbf{\mathrm{GL}_2}$, Two $\mathbf{\mathrm{GL}_2}$, Red $\mathbf{\mathrm{GL}_2}$, Blue $\mathbf{\mathrm{GL}_2}$}{July 2023}{Summer Undergraduate Michigan Mathematics Research Conference}
+
+\award{Group Laws for Galois Gerbs}{Aug.~2022}{Young Mathematicians Conference}
+
+\award{Groups of Wrath}{July 2022}{University of Michigan REU Seminar}
+
+\section{Outreach}
+
+\iffalse
+    \entry{Technical Director}{Hyde Park Baptist Church Media Ministry}{Summer 2017--Present}{3 hours/week}
+    {Operated the video switcher as final check before broadcast. Also occasional cameraperson. Served for weekly broadcasts, weddings, and funerals.}
+\fi
+
+\entry{Academic Officer}{Math Undergraduate Student Society (MUSA)}{Dec.~2022--Present}{}
+{Organized ``Math Mondays,'' a weekly undergraduate seminar. Also Vice President (Dec.~2022--Dec.~2023), in which I ran the bureaucratic side of MUSA, in writing emails, delegating appropriately, and setting up meetings.}
+
+\entry{Problem Writer}{Berkeley Math Tournament (BMT)}{Sept.~2021--Present}{}
+{Collaborated making problems (writing and solving) for BMT, a high-school math contest with \raisebox{0.5ex}{\texttildelow}1200 participants in 2021. Attended weekly problem-writing meetings and socials. Also graded proof-based questions for the US and China contests.}
+
+% \award{Private Tutor}{Sept. 2021--Present}
+% {Tutored online for Discrete Structures I (COMP 1805) for Carleton University.}
+
+% \entry{Peer Tutor}{Breakthrough Central Texas}{Sept.~2019--May 2021}{3 hours/week}
+% {Aided students (one-on-one and in small groups) through physics and math after school as a part of Breakthrough's Central Texas chapter at the Liberal Arts and Science Academy.}
+
+
+\newpage
+
+\addtolength{\topmargin}{0.8in}
+\vspace{10em}
+
+
+\section{Teaching}
+
+\entry{Facilitator}{MUSA 154}{Fall 2023}{}
+{MUSA 154 is a student-lead course discussing topics in Diophantine equations: continued fractions, Pell's equations, Dirichlet's unit theorem, Hensel's lemma, elliptic curves, SageMath. As facilitator, wrote \underline{\href{https://dfoiler.github.io/notes/154/notes.pdf}{course notes}}, wrote and graded homework problems, and lectured. \href{https://drive.google.com/file/d/1rFrRkBsHJudkTDIoJZ76rk3sxnTt2ntE/view}{\underline{Syllabus}}}.
+
+\entry{Facilitator}{MUSA 74}{Spring 2023, Fall 2023}{}
+{MUSA 74 is a student-lead course to help math students transition to proof-based upper-division courses. As facilitator, rewrote and reformatted \underline{\href{https://musa-berk.github.io/MUSA-74/notes.pdf}{course notes}}, wrote and graded homework problems, and lectured. \href{https://musa-berk.github.io/MUSA-74/syllabus.pdf}{\underline{Syllabus}}.}
+
+\entry{Peer Tutor}{Student Learning Center}{Mar.~2022--Dec.~2023}{4 hours/week}
+{Worked one-on-one in drop-in environment for real analysis and abstract algebra and lower-division math as needed. Also co-wrote, organized, and delivered lecture-style content reviews for final exam preparation.}
+
+% \entry{Junior Counselor}{PROMYS}{July--Aug. 2021}{}
+% {Participated in the PROMYS program with both student and counselor duties: attended lectures on Galois theory and hyperelliptic curves, gave talks to students and seminars to counselors, organized some social events.}
+
+\iffalse
+    \entry{Peer Tutor}{LASA Math Department}{Sept.~2018--Present}{3 hours/week}
+    {Formed relationships while tutoring one-on-one Precalculus, Linear Algebra, and Logic. Conveyed some metamathematics.}
+\fi
+
+\iffalse
+    \entry{VBS Teen Helper}{Hyde Park Baptist Church Children's Ministry}{June 2017--2019}{40 hours/week}
+    {For two weeks annually, worked along with one or two adults responsible for the behavior of about 15 elementary-school children. Similarly helped with KAMP (July 2017) for one week, 30 hours.}
+\fi
+
+\iffalse
+    \entry{Operation Christmas Child}{Samaritan's Purse}{November 2017--2019}{4 hours/week}
+    {Packed and labeled shoeboxes into larger boxes for shipping. One week a year.}
+\fi
+
+% \section{Leadership}
+
+% \entry{President}{Liberal Arts and Science Academy Math Club}{Dec.~2019--Mar.~2021}{3 hours/week}
+% {Spearheaded activity planning, curated email and website, prepared handouts, lectured. Member Sept. 2017--Dec. 2019.}
+
+% \entry{Head Problem Writer}{Austin Math Circle Practice MATHCOUNTS}{June 2019--Jan.~2021}{1 hour/week}
+% {Wrote for the written and unwritten tests, formatted the written test, organized problem placement, planned some contest details. Also proctored, graded, and sorted student exams.}
+
+% \entry{Officer of Outreach}{LASA Christian Club}{Sept.~2019--Present}{1 hour/week}
+% {Ran prayer time, organized other officers, curated email, led club activities. Member Sept. 2018--May 2019.}
+
+% \entry{Teacher's Aide}{LASA}{Spring 2020}{4 hours/week}
+% {Taught AP Calculus BC during teacher's paternity leave. Lectured, graded papers, helped office hours.}
+
+% \section{Selected Awards}
+
+% \award{Capture the Flag Contests (CTFs) --- 1st in angstromCTF 2019}{2018--2020}
+% {Participated in CTFs, intense multi-day cybersecurity contests. Specialized in cryptography and heap exploitation.
+% % Co-founder of my team, the Callipygian Consortium of Cryptography, ranked 11th nationally on CTFtime in 2020. \\
+% Placed 1st in angstromCTF 2019, 2nd in HSCTF 7, 5th in picoCTF 2019, top 50 in plaidCTF 2020 and GoogleCTF 2020.}
+
+% \award{AIME Qualifier}{2018--2021}
+% {Qualified from the American Mathematics Contest as top 10\% participant. Scored 6 in 2018, 10 in 2020, 8 in 2021. Also scored 132 on the AMC 10 in 2018, with Distinguished Honor Role.}
+
+\iffalse
+    \award{Texas A\&M University High School Contest}{Oct. 2018}
+    {State contest. Placed 5th in Best Student Closed exam, 10th in EF exam.}
+\fi
+
+% \award{USACO Gold}{Mar. 2020}
+% {Placed in gold division in 2020 US Open. Studied and implemented computer-theoretic algorithms.}
+
+\iffalse
+    \award{TLU Bulldog Calculus Showdown}{Mar. 2018, 2019}
+    {State contest. Led team to place 1st consecutively for the final round.}
+\fi
+
+\iffalse
+    \award{National AP Scholar}{2020}
+    {Scored 4 or higher on eight total AP exams.}
+\fi
+
+% \newpage
+\section{Coursework}
+Course numbers beginning with 2 are graduate coursework. A * signals currently taking. Courses are listed thematically.
+\begin{multicols}{2}
+    \begin{itemize}
+        \item 104: Real Analysis
+        \item 185: Complex Analysis
+        \item 202A: Topology and Measure Theory
+        \item 215A: Algebraic Topology
+        \item 214*: Smooth Manifolds
+        \item 225A: Model Theory
+        \item 198: Category Theory (student-led)
+        \item 250A: Groups, Rings, and Fields
+        \item 250B: Commutative Algebra
+        \item 191: Analytic Number Theory
+        \item 199: Arithmetic Statistics (reading course)
+        \item 199: Modular Forms (reading course)
+        \item 191: Automorphic Forms (reading course)
+        \item 256A: Algebraic Geometry, Schemes
+        \item 256B: Algebraic Geometry, Cohomology
+        \item 191*: \'Etale Cohomology (reading course)
+        \item 254B: Rational Points on Varieties
+        \item 254B*: Complex Multiplication of Abelian Varieties
+    \end{itemize}
+\end{multicols}
+
+\end{document}
