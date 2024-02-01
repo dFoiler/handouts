@@ -133,3 +133,4 @@ presheaves
 presheaf
 Grothendieck
 sheafification
+conjugacy

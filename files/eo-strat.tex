@@ -23,7 +23,7 @@
 
 \tableofcontents
 
-\section{January 25: Ekedahl--Oort Stratification}
+\section{January 25: Sean Gonzales}
 We're going to talk about the Ekedahl--Oort stratification.
 
 \subsection{Dieudonn\'e Modules}
@@ -116,9 +116,52 @@ So actually we want to understand $F$-zips with this extra symplectic structure.
 	Fix everything as above. A \textit{symplectic $F$-zip} is an $F$-zip $(M,C^\bullet,D_\bullet,\varphi_\bullet)$ such that there is a symplectic form $\psi$ on $M$, with some coherence conditions. For example, we want $C^\bullet$ and $D_\bullet$ to be symplectic flags (i.e., the symplectic dual spaces of an element of $C^\bullet$ lives in $C^\bullet$, and similar for $D_\bullet$).
 \end{definition}
 So here is a classification result.
-\begin{theorem}
+\begin{theorem} \label{thm:classify-symp-f-zip}
 	Let $k$ be algebraically closed, and let $(V,\psi)$ be a symplectic $k$-vector space and let $G=\op{Sp}(V,\psi)$ with Weyl group $(W,I)$. Let $\tau$ be an ``admissible type'' (namely, on the type of our $F$-zips). Then there is a bijection between isomorphism classes of symplectic $F$-zips of type $\tau$ and $W_j\backslash W$.
 \end{theorem}
-The point is that $F$-zips can be understood from ``combinatorial data'' from the Weyl group.
+The point is that $F$-zips can be understood from ``combinatorial data'' from the Weyl group, which are what produce the Ekedahl--Oort stratification.
+
+\section{January 31st: Sean Gonzales}
+Today we're going to define a Shimura datum. To review, let's do an example using \Cref{thm:classify-symp-f-zip}.
+\begin{example}
+		As usual, fix a perfect field $k$ of positive characteristic $p$, and let $E$ be an elliptic $k$-curve. Then $W={\op{GSp}_2}={\op{GL}_2}$, where our vector space is $H^1_{\mathrm{dR}}(E)\cong k^2$. Fixing a basis $\{e_1,e_2\}$ corresponding to the action, our $F$-zip can come in two forms.
+		\begin{itemize}
+			\item Ordinary: $C^\bullet\colon0\subseteq ke_1\subseteq k^2$ and $D_\bullet\colon 0\subseteq ke_2\subseteq k^2$.
+			\item Supersingular: $C^\bullet\colon 0\subseteq ke_1\subseteq k^2$ and $D_\bullet\colon 0\subseteq ke_1\subseteq k^2$.
+		\end{itemize}
+		Notably, ordinary is $(1,2)\in W$, and supersingular is $\id$.
+\end{example}
+
+\subsection{Shimura Datum Examples}
+A Shimura datum will consist of a pair $(G,X)$. Instead of giving a precise definition now, we write out some examples.
+\begin{example}
+	Elliptic curves over $\CC$ can be written as $\CC/\Lambda$, where $\Lambda=\ZZ\oplus\ZZ\tau$ is a lattice, where $\tau\in\HH$. Equivalently, we can imagine fixing $\Lambda\coloneqq\ZZ^2$ and choose an embedding $j\colon\RR^2\to\CC$. The point is that choice of $\tau\in\HH$ then defines the map $\RR^2\to\CC$ given by $(0,1)\mapsto\tau$, which is equivalently defining a map $\CC^\times\to\op{GL}_2(\RR)$.
+
+	The point of thinking this way is that the map $\CC^\times\to\op{GL}_2(\RR)$ is really a map $h\colon\mathbb S\to\op{GL}_{2,\RR}$ where $\mathbb S\coloneqq\op{Res}_{\CC/\RR}(\mathbb G_{m,\CC})$ is the Deligne torus. With this viewpoint, $(\Lambda,h)$ is a $\ZZ$-Hodge structure: $\Lambda\otimes_\CC$ has basis given by $\tau$ and something else, where the point is that $h$ acts by conjugation on one basis vector and identity on the other one.
+
+	Anyway, taking $X$ to be the conjugacy class of a particular $h$ (namely, $i\mapsto\begin{bsmallmatrix}
+		0 & -1 \\ 1 & 0
+	\end{bsmallmatrix}$) has $\op{Sh}({\op{GL}_2},X)$ being the needed modular curve. This Shimura datum ``explains'' how $2$-dimensional $\ZZ$-Hodge structures correspond to elliptic curves.
+\end{example}
+\begin{example}
+	Abelian varieties over $\CC$ can be written as $\CC^g/\Lambda$ with a Riemann form $\psi\colon\Lambda\times\Lambda\to\ZZ$. Again, we can imagine this as fixing $\Lambda\coloneqq\ZZ^{2g}$ and then choosing an embedding $\RR^{2g}\cong\CC^g$, but this is equivalent to choosing a map $h\colon\CC^\times\to\op{GSp}_{2g}(\psi)$. Then one can tell much the same story, producing a Shimura datum $\op{Sh}({\op{GSp}_{2g}(\psi)},X)$.
+\end{example}
+\begin{example} \label{ex:non-split-sh}
+	Let's try to parameterize elliptic curves $E$ over $\CC$ with an embedding $i\colon\ZZ[i]\to\op{End}_\CC(E)$. The elliptic curve itself becomes $2$-dimensional Hodge structure, but we should now have some additional $\ZZ[i]$-module structure. Notably, it's not even clear what our group is.
+
+	Well, set $\Lambda\coloneqq\ZZ^2$ as usual, and provide it with $\ZZ[i]$-action in the usual way by $i\mapsto\begin{bsmallmatrix}
+		0 & -1 \\ 1 & 0
+	\end{bsmallmatrix}$. So our group $G$ should have $G(R)$ be the automorphisms of $\Lambda\otimes_\ZZ R$ commuting with the given action of $\ZZ[i]\otimes_\ZZ R$, which is approximately $R[i]^\times$. So our group ought to be $\op{Res}_{\QQ(i)/\QQ}(\mathbb G_{m,\QQ(i)})$. Notably, this group isn't even split!
+\end{example}
+We are approaching the end of the talk, so we may as well define something.
+\begin{definition}[reflex field]
+	Fix $(G,X)$. Then the \textit{reflex field} $E$ of $(G,X)$ is the fixed field of the subgroup of $\op{Gal}(\ov{\QQ}/\QQ)$ which fixes the conjugacy class of the map $z\mapsto h_\CC(z,1)$. (This is algebraic over $\QQ$ for reasons we will not explain.)
+\end{definition}
+For good enough primes $p$ (for example, we want $G$ to be unramified at $p$, i.e. split over $\QQ_p$), one can reduce $\op{Sh}(G,X)$ modulo $\mf p\mid p\OO_E$, where $\mf p\in V(E)$.
+\begin{example}
+	We continue \Cref{ex:non-split-sh}. Odd primes $p$ are good enough. Quickly, note that we have a reductive model of $G$ over $\ZZ_p$ given by
+	\[G(R)\coloneqq\op{GL}_{\ZZ_p[i]\otimes R}\left(\ZZ_p^2\otimes R\right).\]
+	Thus, for example if $p\equiv1\pmod4$, then $\ZZ_p[i]$ splits into $\ZZ_p\times\ZZ_p$, so we are looking at $\op{GL}_{R^2}\left(R^2\right)$, which is $R^\times\times R^\times$. This is $\mathbb G_m\times\mathbb G_m$, which reduces$\pmod p$ just fine. Going back to the moduli problem, one can track back through to see that we are looking for elliptic $\FF_p$-curves $E$ equipped with a map $\ZZ[i]\to\op{End}(E)$, which is equivalent to being ordinary!
+\end{example}
 
 \end{document}
