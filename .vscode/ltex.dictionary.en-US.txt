@@ -134,3 +134,8 @@ presheaf
 Grothendieck
 sheafification
 conjugacy
+Halleck-Dube
+adéle
+Haar
+cocompact
+Selberg

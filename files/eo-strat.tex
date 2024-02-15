@@ -164,4 +164,103 @@ For good enough primes $p$ (for example, we want $G$ to be unramified at $p$, i.
 	Thus, for example if $p\equiv1\pmod4$, then $\ZZ_p[i]$ splits into $\ZZ_p\times\ZZ_p$, so we are looking at $\op{GL}_{R^2}\left(R^2\right)$, which is $R^\times\times R^\times$. This is $\mathbb G_m\times\mathbb G_m$, which reduces$\pmod p$ just fine. Going back to the moduli problem, one can track back through to see that we are looking for elliptic $\FF_p$-curves $E$ equipped with a map $\ZZ[i]\to\op{End}(E)$, which is equivalent to being ordinary!
 \end{example}
 
+\section{February 7th: Sean Gonzales}
+Today we will talk about Hasse invariants and their generalizations. Throughout today, $k$ is a field of positive characteristic $p\coloneqq\op{char}k>0$.
+
+\subsection{Hasse Invariant}
+Here is a definition, which is perhaps not so helpful.
+\begin{definition}[Hasse invariant]
+	Fix an elliptic curve $E$ over $k$. Then the \textit{Hasse invariant} $h_E$ of $E$ is $0$ if $E$ is supersingular and is $1$ if $E$ is ordinary.
+\end{definition}
+Here is a more advanced definition, which is the same upon defining supersingular and ordinary.
+\begin{definition}[Hasse invariant]
+	Fix an elliptic curve $E$ over $k$. Let $F\colon E\to E$ denote the absolute Frobenius. Then the \textit{Hasse invariant} $h_E$ of $E$ is $0$ if $F^*\colon H^1(E,\OO_E)\to H^1(E,\OO_E)$ is the zero map and $1$ if $F^*$ is nonzero (i.e., an isomorphism because $H^1(E,\OO_E)\cong k$).
+\end{definition}
+So we've introduced some cohomology. In fact, by using Serre duality, we can move everything into cohomology.
+\begin{definition}[Hasse invariant]
+	Fix an elliptic curve $E$ over $k$, and let $\omega$ be a basis of $H^0(E,\Omega_E)$, which corresponds canonically to a basis element $\eta\in H^1(E,\OO_E)^\lor$ by Serre duality. Letting $F\colon E\to E$ be the absolute Frobenius, then the \textit{Hasse invariant} is the unique $h_{E,\omega}\in k$ such that
+	\[F^*\eta=h_{E,\omega}\eta.\]
+\end{definition}
+\begin{remark}
+	Adjusting $\omega\mapsto\lambda\omega$ makes $\eta\mapsto\lambda^{-1}\eta$, so $h_{E,\lambda\omega}=\lambda^{1-p}h_{E,\omega}$. Thus, one can view $h_{E,\omega}$ has a level $1$, weight $p-1$ modular form$\pmod p$.
+\end{remark}
+\begin{remark}
+	Locally, we can think about $h_{E,\omega}$ as an element of $H^0\left(E,\underline\omega_E^{\otimes(p-1)}\right)$.
+\end{remark}
+We would like to understand these ``modular forms'' as sections of some line bundles. I need to focus on the exposition, so I am going to stop taking notes.
+
+\section{February 14th: Connor James Halleck-Dube}
+Today we're talking about trace formulae and orbital integrals.
+
+\subsection{The Trace Formula}
+Fix locally compact topological group $G$. Representation theory might be interested in the decomposition of $L^2(G)$. It turns out $L^2(G)$ is pretty big, so perhaps we might have access to a discrete subgroup $\Gamma\subseteq G$, and we'll ask for representations living $L^2(\Gamma\backslash G)$. If $\Gamma\backslash G$ is in fact compact, then $L^2(\Gamma\backslash G)$ will decompose as a Hilbert space into a sum of irreducible representations, as one expects from representation theory of finite groups.
+\begin{example} \label{ex:r-mod-z}
+	The representations of $\RR$ living in $L^2(\ZZ\backslash\RR)$ is really asking for representations to $S^1$, which is basically Fourier analysis. Explicitly, one can argue that
+	\[L^2(\ZZ\backslash\RR)\cong L^2(\ZZ)=\widehat{\bigoplus_{n\in\ZZ}}\RR_n,\]
+	where $\RR$ acts on $\RR_n$ via the character $r\mapsto\exp(2\pi inr)$. As a remark, one can even decompose $L^2(\RR)$, but the decomposition is more complicated because it is no longer ``discrete.''
+\end{example}
+\begin{example} \label{ex:finite-group}
+	Fix a finite group $G$ and $\Gamma\subseteq G$ to be any subgroup. Then we are asking for irreducible representations of $G$ when $\Gamma=1$, and in general we are asking to decompose $\op{Ind}_\Gamma^G1$.
+\end{example}
+\begin{example} \label{ex:adele}
+	Fix a global field $F$, and let $\AA_F$ be the ad\'ele ring. Given a reductive $F$-group $G$, one has a discrete inclusion $G(F)\to G(\AA_F)$. The representation theory here is related to the story of modular forms, where $G$ is a real reductive Lie group and $\Gamma\subseteq G$ an arithmetic subgroup.
+\end{example}
+In our representation theory, one often wants to pick up some tools to do functional analysis.
+\begin{itemize}
+	\item One can upgrade the $G$-action on $L^2(\Gamma\backslash G)$ to a map $R\colon C_c(G)\to\op{End}L^2(\Gamma\backslash G)$ in a way that agrees with the earlier $G$-action if we view $G$ in $C_c(G)$ as Dirac $\delta$s. Explicitly, given $f\in C_c(G)$, we have
+	\[(Rf)(\varphi)(g)\coloneqq\int_Gf(h)\varphi(gh)\,dh.\]
+	The point is that if we imagine $f$ as an indicator for some $g\in G$, then we are looking at the desired right translation. Notably, our Haar measure permits
+	\[(Rf)(\varphi)(g)=\int_Gf\left(g^{-1}h\right)\varphi(h)\,dh.\]
+	Now, $\varphi$ is really a function on $\Gamma\backslash G$, so we can first integrate over the quotient as
+	\[(Rf)(\varphi)(g)=\int_{\Gamma\backslash G}\Bigg(\sum_{\gamma\in\Gamma}f\left(g^{-1}\gamma h\right)\Bigg)\varphi(h)\,dh.\]
+	So we are looking at an integral operator via the kernel $K_f(g,h)\coloneqq\sum_{\gamma\in\Gamma}f\left(g^{-1}\gamma h\right)$. Note that this is in fact a finite sum because $\op{supp}f$ is compact and $\Gamma$ is discrete.
+
+	\item Now that we have some ring homomorphism, we can define some traces. For some reason, the kernel $K(g,h)$ is approximately analogous to some matrix entries, so we attempt to define
+	\[\tr Rf\coloneqq\int_{\Gamma\backslash G}K_f(h,h)\,dh.\]
+	When $\Gamma\subseteq G$ is cocompact, this integral will always exist, but in general it is a hypothesis on the function that we can take its trace as above.
+
+	Expanding, we can do the same sort of conjugacy class dependence of $f$ to see
+	\[\tr Rf=\int_{\Gamma\backslash G}\Bigg(\sum_{\gamma\in\Gamma}f\left(h^{-1}\gamma h\right)\Bigg)dh=\sum_{\text{class }[\gamma]}\op{vol}(\Gamma_\gamma\backslash G_\gamma)\int_{G_\gamma\backslash G}f\left(h^{-1}\gamma h\right)\,dh.\]
+	Here $G_\gamma$ and $\Gamma_\gamma$ are stabilizers. This is called the ``geometric expansion'' of the trace formula, and the integrals are ``orbital integrals'' because we are integrating over orbits.
+
+	\item On the other side, under the hypothesis that $\Gamma\subseteq G$ is cocompact, we decompose
+	\[L^2(\Gamma\backslash G)=\widehat{\bigoplus_{\alpha\in\kappa}}\pi_\alpha^{m_\alpha},\]
+	so by decomposing the action of some $Rf$ here, we receive
+	\[\tr Rf=\sum_{\alpha\in\kappa}m_\alpha\tr R(f)|_{\pi_\alpha}.\]
+	This is called the ``spectral side.''
+\end{itemize}
+So we have proven the following.
+\begin{theorem}[Trace formula] \label{thm:tr-form}
+	Fix a cocompact discrete subgroup $\Gamma$ of a locally compact topological group $G$. Given $f\in C_c(G)$, one has
+	\[\sum_{\text{class }[\gamma]}\op{vol}(\Gamma_\gamma\backslash G_\gamma)\int_{G_\gamma\backslash G}f\left(h^{-1}\gamma h\right)\,dh=\sum_{\alpha\in\kappa}m_\alpha\tr R(f)|_{\pi_\alpha}.\]
+\end{theorem}
+\begin{proof}
+	Both sides equal $\tr R(f)$.
+\end{proof}
+The point is that we can try to relate some ``geometric'' orbital integrals with ``spectral'' information on irreducible representations.
+\begin{example}
+	Continue from \Cref{ex:r-mod-z}. For some $f\in C_c(\ZZ\backslash\RR)$, computing \Cref{thm:tr-form} produces
+	\[\sum_{n\in\ZZ}f(n)=\sum_{n\in\ZZ}\widehat f(n).\]
+	The geometric side is direct, and the spectral side depends on the Fourier expansion of $f$.
+\end{example}
+\begin{example}
+	Continue from \Cref{ex:finite-group}. Then one recovers Burnside's lemma or Frobenius reciprocity.
+\end{example}
+\begin{example}
+	Selberg was able to make \Cref{thm:tr-form} work in the case where $\op{SL}_2(\ZZ)\subseteq\op{SL}_2(\RR)$. Selberg then used this along with the fact that geodesics of quotients $\Gamma\backslash\HH$ with conjugacy classes in $\Gamma$, where (say) $\Gamma$ is an arithmetic subgroup; comparing this with \Cref{thm:tr-form} allows one to count geodesics by understanding the relevant representation theory.
+\end{example}
+From here, Arthur extended \Cref{thm:tr-form} to allow $G(F)\subseteq G(\AA_F)$ where $G$ is reductive. For example, if $G$ has any parabolic subgroup or any split torus, we are horribly not compact, so the geometric side of \Cref{thm:tr-form} can become infinite. The idea was to modify \Cref{thm:tr-form} via adding in some alternating sum of parabolic subgroups in order to cancel out some infinities.
+
+\subsection{Orbital Integrals}
+Let's examine our orbital integrals
+\[O_\gamma(f)\coloneqq\int_{G_\gamma(\AA_F)\backslash G(F)}f\left(g^{-1}\gamma g\right)\,dg,\]
+where $\gamma\in\Gamma$ and $f\in C_c^\infty(G(\AA_F))$ (where the $\infty$ means some smoothness that we will not be precise about). Here, $F$ is a global field, so working over $\AA_F$ allows us to perhaps decompose the integral into a product of local orbital integrals.
+\begin{example}
+	Take $G\coloneqq\op{GL}_2$ and $F_v\coloneqq\QQ_p$ and $\gamma\coloneqq\begin{bsmallmatrix}
+		a \\ & b
+	\end{bsmallmatrix}$ for $a-b\in\OO_v^\times$. Then we can ask for the integral
+	\[O_\gamma=\int_{G_\gamma(F_v)\backslash G(F_v)}1_{g^{-1}\gamma g\in G(\OO_v)}\,dg,\]
+	which we can compute via some explicit combinatorics. For example, it turns out to be a rational function in $p$.
+\end{example}
+
 \end{document}
