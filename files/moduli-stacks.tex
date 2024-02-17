@@ -183,4 +183,27 @@ As another remark, we have the following.
 	One can argue similarly for curves of genus $g\ge2$.
 \end{remark}
 
+\section{February 16th: Martin Olsson}
+I missed one week, and then one week was cancelled. I am a little too tired to take detailed notes.
+\begin{remark}
+	Recall that the Yoneda lemma asserts that representing a functor $F\colon\mathrm{Sch}_S\opp\to\mathrm{Set}$ amounts to specifying an object $X$ in addition to an element $\xi\in FX$ so that the induced map $h_X\Rightarrow F$ (given by $\xi$) is representable.
+\end{remark}
+\begin{example}
+	The Hilbert functor $\op{Hilb}_{\PP^n}$ is represented by some scheme $H$. In particular, we are provided an isomorphism $\sigma\colon h_H\Rightarrow\op{Hilb}_{\PP^n}$, so passing $\id_H$ through implies we are being given a flat proper subscheme $\mc Z\subseteq\PP^n_H$ so that $\op{Hilb}_H(S)$ is merely given by $h_H(S)$, which consists of pullbacks of $\mc Z$ along the morphisms $f\colon S\to H$. The point is that we can really see the element of $\op{Hilb}_H(S)$ provided to us by some $f\in h_H(S)$ as $f^*\mc Z$.
+\end{example}
+\begin{example}
+	The functor $\mc M_{0,n}$ takes a scheme $S$ and then asks for curves $f\colon C\to S$ (i.e., $f$ is proper and flat where all fibers are isomorphic to $\PP^1$), and we mark $n$ points (in fact, $S$-points) somewhere on $C$. The issue here is that we are considering these up to isomorphism, but it turns out that an automorphism of $C$ is basically determined by where it sends three points. When $S=\Spec k$, this is classical; in general, one needs to make some more global argument. So, for example, one finds that $\mc M_{0,3}$ is $\Spec\ZZ$ (where the universal curve is $\PP^1_\ZZ$ with the marked points $\{0,1,\infty\}$).
+\end{example}
+\begin{example}
+	Continuing from the above example, we see $\mc M_{0,4}$ is $\PP^1_\ZZ\setminus\{0,1,\infty\}$ basically by trying to mark a fourth point of $\PP^1_\ZZ$ (outside $\{0,1,\infty\}$). Here are universal curve is given by
+	\[\PP^1\times\left(\PP^1_\ZZ\setminus\{0,1,\infty\}\right).\]
+	Then our first three marked points are $\{0\}\times\mc M_{0,4}$ and $\{1\}\times\mc M_{0,4}$ and $\{\infty\}\times\mc M_{0,4}$, and the last marked point is given by what we chose in $\mc M_{0,4}$ to begin with, so it is given by the diagonal embedding.
+\end{example}
+\begin{remark}
+	One takes the compactification $\ov{\mc M}_{0,n}$ of $\mc M_{0,n}$ by taking nodal curves (without automorphisms) instead of just curves. Using this one can realize $\ov{\mc M}_{0,4}$ by $\PP^1$, and we can track through what the points $\{0,1,\infty\}$ mean. For example, our universal curve is $\PP^1\times\PP^1$ blown up at three points in $\{(0,0),(1,1),(\infty,\infty)\}$.
+\end{remark}
+\begin{remark}
+	Continuing, it turns out that $\ov{\mc M}_{0,5}$ ought to be the universal curve over $\ov{\mc M}_{0,4}$. The point is that choosing $5$ points amounts to choosing $4$ points first (which is $\mc M_{0,4}$) and then the last point goes up a dimension. This continues inductively.
+\end{remark}
+
 \end{document}
