@@ -206,4 +206,69 @@ I missed one week, and then one week was cancelled. I am a little too tired to t
 	Continuing, it turns out that $\ov{\mc M}_{0,5}$ ought to be the universal curve over $\ov{\mc M}_{0,4}$. The point is that choosing $5$ points amounts to choosing $4$ points first (which is $\mc M_{0,4}$) and then the last point goes up a dimension. This continues inductively.
 \end{remark}
 
+\subsection{February 23rd: Charley Hutchison}
+Today we are talking about deformation of curves. Work over a field $k$. For our purposes, a deformation of a morphism $X_0\to\Spec k$ is a pullback square of the form
+% https://q.uiver.app/#q=WzAsNCxbMCwwLCJYXzAiXSxbMCwxLCJcXFNwZWMgayJdLFsxLDEsIlMiXSxbMSwwLCJYIl0sWzAsM10sWzMsMl0sWzEsMl0sWzAsMV1d&macro_url=https%3A%2F%2Fraw.githubusercontent.com%2FdFoiler%2Fnotes%2Fmaster%2Fnir.tex
+\[\begin{tikzcd}
+	{X_0} & X \\
+	{\Spec k} & S
+	\arrow[from=1-1, to=1-2]
+	\arrow[from=1-2, to=2-2]
+	\arrow[from=2-1, to=2-2]
+	\arrow[from=1-1, to=2-1]
+\end{tikzcd}\]
+where $X\to S$ should be flat. For our purposes, we will mostly work with ``infinitesimal deformations'' where $S$ is an Artinian local ring such as $S=\Spec k[\varepsilon]/\left(\varepsilon^2\right)$; we'll write $k[\varepsilon]\coloneqq k[\varepsilon]/\left(\varepsilon^2\right)$.
+\begin{example}
+	Let $A\onto B$ be a closed embedding where $B=A/I$. Then getting a deformation by $\Spec k[\varepsilon]/\left(\varepsilon^2\right)$ is asking for an ideal $\widetilde I\subseteq A[\varepsilon]$ such that
+	\[\frac{A[\varepsilon]}{\widetilde I}\otimes_{k[\varepsilon]}k\cong A/I.\]
+	Namely, we have just turned our scheme-theoretic diagram into a ring-theoretic problem. For example, given an $A$-module map $\varphi\colon I\to B$, one can define
+	\[I_\varphi\coloneqq\{x+\varepsilon y:x\in I,y\in A,\varphi(x)\equiv y\pmod I\},\]
+	and one can see that $I_\varphi\subseteq A[\varepsilon]$ will do the trick. In fact, all possible deformations will take this form: one can take such an ideal $\widetilde I$ and then define a map $I\to B$ by lifting a given $x\in I$ to some $\widetilde x+\varepsilon\widetilde y$ and then outputting $\widetilde y$. (This is well-defined by flatness.)
+\end{example}
+The above example classifies our ``affine'' infinitesimal deformations of a closed embedding. Flatness is crucial to the discussion, though it is not totally obvious how. Namely, a $\op{Tor}^1$ computation tells us that a module $M$ over $k[\varepsilon]$ succeeds in being flat if and only if
+\[0\to k\varepsilon\to k[\varepsilon]\to k\to0\]
+succeeds in staying exact after applying $-\otimes_{k[\varepsilon]}M$. The point is that we are able to build a large diagram
+% https://q.uiver.app/#q=WzAsMjEsWzAsMSwiMCJdLFsxLDEsIkkiXSxbMiwxLCJcXHdpZGV0aWxkZSBJIl0sWzMsMSwiSSJdLFswLDIsIjAiXSxbNCwxLCIwIl0sWzEsMiwiQSJdLFsyLDIsIkFbXFx2YXJlcHNpbG9uXSJdLFszLDIsIkEiXSxbNCwyLCIwIl0sWzEsMywiQiJdLFsyLDMsIkFbXFx2YXJlcHNpbG9uXS9cXHdpZGV0aWxkZSBJIl0sWzMsMywiQiJdLFs0LDMsIjAiXSxbMSw0LCIwIl0sWzIsNCwiMCJdLFszLDQsIjAiXSxbMCwzLCIwIl0sWzEsMCwiMCJdLFsyLDAsIjAiXSxbMywwLCIwIl0sWzAsMV0sWzEsMl0sWzIsM10sWzMsNV0sWzQsNl0sWzYsN10sWzcsOF0sWzgsOV0sWzE3LDEwXSxbMTAsMTFdLFsxMSwxMl0sWzEyLDEzXSxbMTgsMV0sWzEsNl0sWzYsMTBdLFsxMCwxNF0sWzE5LDJdLFsyLDddLFs3LDExXSxbMTEsMTVdLFsyMCwzXSxbMyw4XSxbOCwxMl0sWzEyLDE2XV0=&macro_url=https%3A%2F%2Fraw.githubusercontent.com%2FdFoiler%2Fnotes%2Fmaster%2Fnir.tex
+\[\begin{tikzcd}
+	& 0 & 0 & 0 \\
+	0 & I & {\widetilde I} & I & 0 \\
+	0 & A & {A[\varepsilon]} & A & 0 \\
+	0 & B & {A[\varepsilon]/\widetilde I} & B & 0 \\
+	& 0 & 0 & 0
+	\arrow[from=2-1, to=2-2]
+	\arrow[from=2-2, to=2-3]
+	\arrow[from=2-3, to=2-4]
+	\arrow[from=2-4, to=2-5]
+	\arrow[from=3-1, to=3-2]
+	\arrow[from=3-2, to=3-3]
+	\arrow[from=3-3, to=3-4]
+	\arrow[from=3-4, to=3-5]
+	\arrow[from=4-1, to=4-2]
+	\arrow[from=4-2, to=4-3]
+	\arrow[from=4-3, to=4-4]
+	\arrow[from=4-4, to=4-5]
+	\arrow[from=1-2, to=2-2]
+	\arrow[from=2-2, to=3-2]
+	\arrow[from=3-2, to=4-2]
+	\arrow[from=4-2, to=5-2]
+	\arrow[from=1-3, to=2-3]
+	\arrow[from=2-3, to=3-3]
+	\arrow[from=3-3, to=4-3]
+	\arrow[from=4-3, to=5-3]
+	\arrow[from=1-4, to=2-4]
+	\arrow[from=2-4, to=3-4]
+	\arrow[from=3-4, to=4-4]
+	\arrow[from=4-4, to=5-4]
+\end{tikzcd}\]
+and note that the Nine lemma tells us that the top row is exact if and only if the bottom row is exact, and these conditions correspond to flatness of $\widetilde I$ and $A[\varepsilon]/\widetilde I$ respectively.
+\begin{example}
+	Take $A\coloneqq k[x]$ and $I\coloneqq(f)$. Then we see that a deformation corresponds to an $A$-linear map $(f)\to k[x]/(f)$. For example, one can map $f\mapsto f'$.
+\end{example}
+Approximately speaking, one may restate this as follows: given closed subscheme $Z_0\subseteq X_0$ (everything is affine here) defined by the ideal sheaf $\mc I\subseteq\OO_{X_0}$, deformations living inside $X_0$ are parameterized by
+\[\op{Hom}_{X_0}\left(\mc I/\mc I^2,\OO_{X_0}/\mc I\right),\]
+which is just global sections of the normal bundle $\mc N_{Z_0/X_0}$. This is fairly compelling geometrically: an infinitesimal deformation of $Z_0$ is a global vector field ``normal'' to $Z_0$.
+\begin{remark}
+	Given a smooth separated scheme $X$, one can give $X$ an affine cover and then run the above classification construction. Now, there is some gluing data corresponding to taking local deformations to global ones, and this data satisfies some cocycle condition. As such, it will turn out that our deformations correspond to classes in $H^1(X,\mc T_{X/k})$.
+\end{remark}
+
 \end{document}

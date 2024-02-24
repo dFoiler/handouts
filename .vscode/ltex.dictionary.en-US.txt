@@ -139,3 +139,4 @@ adéle
 Haar
 cocompact
 Selberg
+Artinian
