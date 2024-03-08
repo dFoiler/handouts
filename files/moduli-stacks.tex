@@ -206,7 +206,7 @@ I missed one week, and then one week was cancelled. I am a little too tired to t
 	Continuing, it turns out that $\ov{\mc M}_{0,5}$ ought to be the universal curve over $\ov{\mc M}_{0,4}$. The point is that choosing $5$ points amounts to choosing $4$ points first (which is $\mc M_{0,4}$) and then the last point goes up a dimension. This continues inductively.
 \end{remark}
 
-\subsection{February 23rd: Charley Hutchison}
+\section{February 23rd: Charley Hutchison}
 Today we are talking about deformation of curves. Work over a field $k$. For our purposes, a deformation of a morphism $X_0\to\Spec k$ is a pullback square of the form
 % https://q.uiver.app/#q=WzAsNCxbMCwwLCJYXzAiXSxbMCwxLCJcXFNwZWMgayJdLFsxLDEsIlMiXSxbMSwwLCJYIl0sWzAsM10sWzMsMl0sWzEsMl0sWzAsMV1d&macro_url=https%3A%2F%2Fraw.githubusercontent.com%2FdFoiler%2Fnotes%2Fmaster%2Fnir.tex
 \[\begin{tikzcd}
@@ -270,5 +270,89 @@ which is just global sections of the normal bundle $\mc N_{Z_0/X_0}$. This is fa
 \begin{remark}
 	Given a smooth separated scheme $X$, one can give $X$ an affine cover and then run the above classification construction. Now, there is some gluing data corresponding to taking local deformations to global ones, and this data satisfies some cocycle condition. As such, it will turn out that our deformations correspond to classes in $H^1(X,\mc T_{X/k})$.
 \end{remark}
+
+\section{March 1st: Reed Jacobs}
+Today we're talking about Siegel modular varieties and the analytic theory of abelian varieties.
+
+\subsection{Siegel Modular Varieties}
+Fix a positive integer $g\ge1$. Our ``upper half-plane'' is given by
+\[\HH^g\coloneqq\left\{\tau\in\CC^{g\times g}:\tau=\tau^\intercal,\Im\tau>0\right\},\]
+where $\Im\tau>0$ means that the matrix $\Im\tau$ is positive-definite and in particular invertible. Notably, $\dim\HH^g=\frac12g(g+1)$ because we are looking at symmetric matrices.
+
+To build our lattices, fix some positive integers $(e_1,\ldots,e_g)$ such that $e_i\mid e_{i+1}$ for each $i$, and we define
+\[\Omega_\tau\coloneqq\begin{bmatrix}
+	\tau \\
+	E
+\end{bmatrix},\]
+where $E\coloneqq\op{diag}(e_1,\ldots,e_g)$. Then our lattice $\Lambda_\tau$ is the $\ZZ$-span of $\Omega_\tau$.
+
+Notably, $\CC^g/\Lambda_\tau$ is a complex torus, and it has a Riemann form given by $H\colon(x,y)\mapsto x\Im(\tau)^{-1}\ov y^{-\intercal}$; thus, it is an abelian variety. What is important is that we are essentially getting all complex tori equipped with Riemann forms (i.e., abelian varieties). Approximately speaking, we will use the Riemann form to produce lots of holomorphic functions on our complex torus. To get us set up, we do note that any lattice $\Lambda\subseteq\CC^g$ with Riemann form $H$ can be given a basis such that
+\[H_\RR=\begin{bmatrix}
+	& E \\ -E
+\end{bmatrix}\]
+where $E$ is some diagonal matrix in the above form, and $\Lambda=E\ZZ^{2g}$. (This is some version of the Smith normal form.) Now, the point is that being a Riemann form enforces some algebraic conditions on our lattice. Another adjustment of bases actually puts us in the above form, completing our argument.
+
+From here, the next natural question is when two $E$s as above may give the same abelian variety. Set $w\coloneqq\begin{bsmallmatrix}
+	& E \\
+	-E
+\end{bsmallmatrix}$ as before, and one finds that $\op{Sp}(w)$ acts on $\HH^g$ by some analogue of fractional linear transformations. Explicitly,
+\[\begin{bmatrix}
+	A & B \\
+	C & D
+\end{bmatrix}\tau\coloneqq(A\tau+BE)(C\tau+DE)^{-1}E.\]
+Namely, one can check that $C\tau+DE$ is forced to be invertible. As such, one finds that the moduli space of $g$-dimensional principally polarized abelian varieties is given by $\mc A_g=\op{Sp}_{2g}(\ZZ)\backslash\HH^g$.
+
+In analogy to classical modular forms, which can be viewed as invariant differentials on $\op{SL}_2(\ZZ)\backslash\HH$, one can define Siegel modular forms to be invariant differentials on $\op{Sp}_{2g}(\ZZ)\backslash\HH^g$. There is some problem in making this generalization because passing to an arithmetic subgroup because the notion of weight is a little complicated, and somehow we are really trying to look at a line bundle on a stack, which has its own sort of complications.
+
+\section{March 8th: Feiyang Lin}
+Today we are discussing curves of genus $6$. As a warning, we are doing intersection theory with rational coefficients.
+
+\subsection{Tautological Chow Rings}
+Our goal is to show that the chow ring of $\mc M_6$ is ``tautological.''
+\begin{theorem}
+	The Chow ring $A^*(\mc M_6)$ of $\mc M_6$ is tautological.
+\end{theorem}
+Let's review what being tautological means. Let $\mc C_g$ be the universal curve on $\mc M_g$ so that we have a projection $\pi\colon\mc C_g\to\mc M_g$. By gluing together the canonical bundle, we get a canonical bundle $\omega_\pi\in\op{Pic}\mc C_g$, which produces a Chern class $\kappa\in c_1(\omega_\pi)$. This can then be pushed repeatedly to $\kappa_i\coloneqq\pi_*(\kappa^{i+1})$. Alternatively, we can just take $\mathbb E\coloneqq\pi_*\omega_\pi$ to be a vector bundle of rank $g$ on $\mc M_g$, and its Chern class is similarly $\lambda_i\coloneqq c_i(\mathbb E)$ on $A^i(\mc M_g)$.
+
+With all of this information, we let $R^*(\mc M_g)$ be the $\QQ$-subalgebra of $A^*(\mc M_g)$ generated by the $\kappa_\bullet$ and $\lambda_\bullet$. Work of many people have shown that the following.
+\begin{itemize}
+	\item High degree: $R^i(\mc M_g)=0$ for $i\ge g-1$.
+	\item ``Top'' degree: $R^{g-2}(\mc M_g)$ is generated by a single nonzero class $[\mc H_g]$.
+	\item For $g\le5$, one actually has $A^*(\mc M_g)=R^*(\mc M_g)$ is isomorphic to $\QQ[\kappa_1]/\left(\kappa_1^{g-1}\right)$.
+	\item Even in degree $6$, one finds that
+	\[R^*(\mc M_6)\cong\frac{\QQ[\kappa_1,\kappa_2]}{\left(127\kappa_1^3-2304\kappa_1\kappa_2,113\kappa_1^4-3686\kappa_2^2\right)}.\]
+\end{itemize}
+
+\subsection{Building a Filtration}
+Our goal is to show that $A^*(\mc M_g)=R^*(\mc M_6)$. The outline will be to build a filtration
+\[Z_1\subseteq Z_2\subseteq\cdots\subseteq Z_n=\mc M_6.\]
+Then given surjections $R^*(\mc M_6)\onto A^*(Z_{i+1}/Z_i)$ along with knowing that the complement of $Z_{i+1}\setminus Z_i$ lives in $R^*(\mc M_6)$, we will know that$A^*(\mc M_6)$ is contained in $R^*(\mc M_6)$, as needed. Indeed, this is by an inductive argument: one has a right-exact sequence
+\[A^*(Z_i)\to A^*(Z_{i+1})\to A^*(Z_i\setminus Z_{i+1})\to0,\]
+and we know that $R^*(\mc M_6)$ surjects on to the left and right terms of the exact sequence by construction, so it surjects onto the middle term.
+
+So it remains to construct the magical filtration. We will use the following result.
+\begin{theorem}[Vistoli]
+	Let $X$ be a smooth DM stack with action by $G\in\{{\op{GL}_n},{\op{SL}_n}\}$. Then the quotient $q\colon X\to X/G$ gives rise to a surjection $A^*(X/G)\to A^*(X)$ (by pullback), and $A^*(X/G)$ is generated by any arbitrary set of lifts from $A^*(X)$.
+\end{theorem}
+We are not going to prove this. But here is our filtration.
+\begin{theorem}[Penev--Vakil]
+	The stack $\mc M_6$ is a disjoint union of the following.
+	\begin{itemize}
+		\item The ``Mukai--general'' curves of genus $6$.
+		\item Bi-elliptic curves: double-covers of elliptic curves.
+		\item Smooth planar quintic curves.
+		\item Trigonal curves: triple-covers of $\PP^1$.
+		\item Hyperelliptic curves.
+	\end{itemize}
+\end{theorem}
+Wait, what is a Mukai--general curve? The point is to write down curves which are not among any of the other families. For example, not being trigonal nor hyperelliptic means that it has no $g^1_3$ or $g^2_5$; it turns out that this implies that we have a $g^1_4$. Brill--Noether theory now produces a line bundle $\mc L$ on $\mc C$ such that $h^0(\mc L)=2$; letting $\mc M\coloneqq K_C\otimes\mc L^\lor$ be the Serre dual, we see that $h^0(\mc M)=h^1(\mc L)=3$.
+
+Quickly, we claim that we can find a unique vector bundle $\mc E$ of rank $2$ fitting in a nontrivial extension
+\[0\to\mc L\to\mc E\to\mc M\to0\]
+such that $h^0(\mc E)=5$ and is globally generated. The point is that one gets a map
+\[H^0(\mc M^{\otimes2})=\op{Ext}^1(\mc M,\mc L)\to H^0(\mc M)^\lor\otimes H^1(\mc M)\]
+which is dual to the multiplication map $H^0(\mc M)\otimes H^0(\mc M)\to H^0(\mc M^{\otimes2})$. Now, $\mc M$ is a $g^2_6$ and hence produces a map $C\to\PP^2$, allowing us to move everything over to $\PP^2$. Then one can go through the possibilities of what this map looks like. Note that $\mc E$ will end up being globally generated because both $\mc L$ and $\mc M$ are.
+
+At this point in the talk, I lost the ability to take notes and had to pay attention.
 
 \end{document}
