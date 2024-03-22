@@ -149,3 +149,16 @@ Mukai
 Hyperelliptic
 quintic
 hyperelliptic
+Seewoo
+Thue
+uncountably
+packings
+Viazovska
+Radchenko
+Ruoxi
+Vivasvat
+Vatatmaja
+fibration
+subvarieties
+Naïvely
+pushforward

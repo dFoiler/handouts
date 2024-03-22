@@ -355,4 +355,58 @@ which is dual to the multiplication map $H^0(\mc M)\otimes H^0(\mc M)\to H^0(\mc
 
 At this point in the talk, I lost the ability to take notes and had to pay attention.
 
+\subsection{March 15th: Ruoxi Li}
+I was not tall enough for this talk.
+
+\subsection{March 22nd: Vivasvat Vatatmaja}
+Today, we work over a base field $k$ everywhere, which we will not comment again on. We begin with a definition.
+\begin{definition}
+	Let $G$ will be an algebraic group, and let $X$ is a scheme (or possibly an algebraic space). Suppose $X$ has a $G$-action given by $j\colon G\times X\to X\times X$ via $(g,x)\mapsto(gx,x)$.
+	\begin{itemize}
+		\item The action is \textit{proper} if $j$ is proper.
+		\item The action is \textit{free} if $j$ is a closed embedding.
+		\item Considering the map $j^{-1}\Delta_X\to\Delta_X$, we see that the action has trivial stabilizer if and only if this map has trivial fibers.
+	\end{itemize}
+\end{definition}
+Here is our main theorem for today.
+\begin{theorem}
+	The integral chow ring $A^*(\mc M_{1,1})$ of $\mc M_{1,1}$ is $\ZZ[t]/(12t)$.
+\end{theorem}
+In particular, we will need to discuss how to even make sense of the integral Chow ring. Here, $\mc M_{1,1}$ is the moduli space of curves of genus $1$ with a marked point, and we will show that it can be realized as a quotient stack $X/G$.
+
+So we want to understand the Chow ring of a quotient stack $X/G$.
+\begin{definition}
+	Fix a group $G$ acting on an algebraic space $X$ and index $i$. Then choose a representation $V$ of $G$ such that $G$ acts freely on an open subset $U\subseteq V$ (and we take $U$ to be the largest such open subset), where the codimension of $V\setminus U$ is $\dim X-i$. Then we define $X_G\coloneqq(X\times U)/G$ and set $A_i^G(X)\coloneqq A_{i+\dim V-\dim G}(X_G)$.
+\end{definition}
+\begin{remark}
+	One can show that $A_i^G(X)$ does not depend on the choices. This is the ``double fibration'' argument. Indeed, choose another representation $V'$ of $G$, and we let $U'$ again be the locus where $G$ acts freely. To compare the two, we note that $G$ acts diagonally on $V\oplus V'$, and its locus $W$ of free action contains $(U'\oplus V)\cup(V'\oplus U)$. Now, a codimension argument explains that
+	\[A_{i+\dim V+\dim V'-\dim G}((X\times W)/G)=A_{i+\dim V+\dim V'-\dim G}((X\times(U\oplus V'))/G).\]
+	Now, $(X\times(U\oplus V'))/G$ is a vector bundle on $(X\times U)/G$, so one finds that
+	\[A_{i+\dim V+\dim V'-\dim G}((X\times(U\oplus V'))/G)\cong A_{i+\dim V-\dim G}((X\times U)/G),\]
+	and a symmetric argument compares this to $V'$.
+\end{remark}
+\begin{remark}
+	Na\"ively, one might want to take $G$-invariant subvarieties to define our Chow ring. One does see that $[Y]_G\in A^G_\bullet(X)$ by an explicit construction, and in fact, one can show that any $\alpha\in A^G_i(X)$ can be realized in some representation via $G$-invariant subvarieties.
+\end{remark}
+\begin{remark}
+	One can show that we have flat pullback and proper pushforward and so on.
+\end{remark}
+\begin{example}
+	Let $G\coloneqq\mathbb G_m$ act on a point $X\coloneqq\{*\}$. Here, $\mathbb G_m$ acts on any $d$-dimensional vector space $V$, and it acts freely on the set of nonzero values $U\subseteq V$. So $U/\mathbb G_m$ is $\PP^{d-1}$, so $A^G_i(X)=A_i\left(\PP^{d-1}\right)$ for $d$ large enough, for which classical computation provides $\ZZ t^i$, so $A^G(X)=\ZZ[t]$.
+\end{example}
+\begin{example}
+	Let $G\coloneqq\op{GL}_n$ act on a point $X\coloneqq\{*\}$. Then we let $V$ be the vector space of $(n\times p)$ matrices where $p$ is very large, and we see that $G$ acts by matrix multiplication on $V$, and it acts freely on the open subset $U$ of matrices of maximal rank. Thus, $U/G$ is $\op{Gr}(n,p)$, and one finds that
+	\[A^G_i(X)=\ZZ[c_1,\ldots,c_n]\]
+	again by some classical computations.
+\end{example}
+We now take as our definition
+\[\mc A^G_i(X/G)\coloneqq A^G_{i-g}(X).\]
+At this point, we return to $\mc M_{1,1}$. The point is to use Weierstrass equations. Consider $\PP^9$ as the space of cubic forms in the variables $(x,y,z)$, and we let $X$ be the subspace of forms which are proportional to $y^2z-\left(x^3+e_1x^2z+e_2xz^2+e_3z^3\right)$ so that
+\[G\coloneqq\left\{\begin{bmatrix}
+	1 & & B \\
+	& A \\
+	& & A^{-2}
+\end{bmatrix}:A\ne0\right\}\]
+acts on $X$ via some change of coordinates representation hitting all Weierstrass equations. By restricting $X$ further to the open subset $U$ where $x^3+e_1x^2+e_2x+e_3$ has three distinct roots, we find that our curves are forced to be smooth. In particular, we have $\mc M_{1,1}\cong U/G$. We are now able to do a computation to prove our result.
+
 \end{document}

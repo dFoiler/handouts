@@ -263,4 +263,63 @@ where $\gamma\in\Gamma$ and $f\in C_c^\infty(G(\AA_F))$ (where the $\infty$ mean
 	which we can compute via some explicit combinatorics. For example, it turns out to be a rational function in $p$.
 \end{example}
 
+\section{March 20th: Seewoo Lee}
+Today we're talking about linear programming. In short, linear programming is optimizing a linear functional over linear constructs.
+\begin{remark}
+	Integer linear programming is NP-complete; in particular, it cannot be so easily solved.
+\end{remark}
+
+\subsection{Sphere Packing}
+For a dimension $d$, let $\Delta_d$ be the optimal density for $\RR^d$.
+\begin{itemize}
+	\item One can fully tile $\RR$, so $\Delta_1=1$.
+	\item Thue proved that $\Delta_2=\pi/(2\sqrt3)$, given by a hexagonal lattice.
+	\item Kepler conjectured and Hales proved that $\Delta_3=\pi/(3\sqrt2)$. One difficulty here is that there are uncountably many different packings with the same density, which one must do by hand.
+	\item We have a conjecture for $\Delta_4$ but no current proof.
+	\item Viazovska in 2016 shows that the $E_8$ lattice was optimal for $8$ dimensions, proving $\Delta_8=\pi^4/384$.
+	\item Then Cohn, Kumar, Miller, Radchenko, and Viazovska showed that the Leech lattice is optimal in $24$ dimensions, proving $\Delta_{24}=\pi^{12}/12!$.
+\end{itemize}
+The bottom two results used ``linear programming bounds'' due to Cohn and Elkies.
+\begin{theorem}
+	Fix a Schwartz function $f\colon\RR^d\to\RR$ with the following properties.
+	\begin{itemize}
+		\item $f(x)\le0$ for $\norm x\ge1$.
+		\item $\widehat f(y)\ge0$ always. Here, $\widehat f$ denotes the Fourier transform $\widehat f(y)\coloneqq\int_{\RR^d}f(x)e^{i\langle x,y\rangle}\,dx$.
+	\end{itemize}
+	Then the center density (i.e., the number of permitted centers per unit volume) is bounded above by
+	\[\frac1{2^d}\cdot\frac{f(0)}{\widehat f(0)}.\]
+\end{theorem}
+In practice, one finds that we may assume that the function is radial, so a reasonable choice is
+\[f(x)=p(\norm x)e^{-\alpha\norm x^2},\]
+where $p$ is some polynomial. Then we are basically trying to maximize the quantity in the inclusion subject to the constraints given by the hypotheses.
+
+One can also prove the following variant of the above.
+\begin{theorem}
+	Fix a Schwartz function $f\colon\RR^d\to\RR$ and real number $r>0$ with the following properties.
+	\begin{itemize}
+		\item $f(x)=\widehat f(0)>0$.
+		\item $f(x)\le0$ whenever $\norm x\ge r$.
+		\item $\widehat f(y)\ge0$ always.
+	\end{itemize}
+	Then
+	\[\Delta_d\le\op{vol}B(0,r/2).\]
+\end{theorem}
+\begin{remark}
+	Viazovska in her work was able to construct functions providing the optimal bound for $d\in\{8,24\}$. It is expected that one works for $d=2$, but it is known yet.
+\end{remark}
+\begin{proof}[Proof for lattice packings]
+	Let $\Lambda$ be the lattice, and let $r$ be the smallest nonzero distance between any two vectors in $\Lambda$, which then gives our packing. Then Poisson summation implies
+	\[\sum_{x\in\Lambda}f(x)=\frac1{\op{vol}\left(\RR^d/\Lambda\right)}\widehat f(y).\]
+	The left-hand side is bounded above by $f(0)$, and the right-hand side is bounded below by $\widehat f(0)/\op{vol}\left(\RR^d/\Lambda\right)$. This inequality produces the result.
+\end{proof}
+Let's discuss how one might hope to construct the best possible function $f$. The proof showed that we need $f(x)=0$ for nonzero $x\in\Lambda$ (based on us just throwing out those terms) and $\widehat f(y)=0$ for nonzero $y$ in the dual lattice (for the same reason). But we also need sign conditions, so almost all these roots need to be double roots. In theory these sorts of conditions tell us what the best possible function $f$ will look like. Indeed, Viazovska managed to construct functions like this as $f=f_++f_-$ where $\widehat f_+=f_+$ and $\widehat f_-=-f_-$ and 
+\[f_\pm(x)=\sin^2\left(\frac{\pi\norm x^2}2\right)\int_0^\infty\psi_\pm(it)e^{-\pi\norm x^2t}\,dt.\]
+It turns out that $\psi_\pm$ being a Fourier eigenfunction essentially corresponds to $\psi_\pm$ being a (quasi-)modular form with explicit weight, depth, and level. The space of such (quasi-)modular forms is finite-dimensional, and then one can solve some system of equations to optimize.
+\begin{remark}
+	One can use quadratics instead of linear programming to pack spheres, basically by adding in another positive-definite function $f_3$. This is able to provide better bounds than linear programming; indeed, one recovers linear programming bounds by setting $f_3\equiv0$. It is conjectured that this is optimal at $d=4$.
+\end{remark}
+\begin{remark}
+	There is a ``dual'' linear programming bound. Techniques like these are able to show that linear programming is provably suboptimal for $d\in\{3,4,5,6,12,16\}$.
+\end{remark}
+
 \end{document}
