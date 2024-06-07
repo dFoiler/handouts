@@ -162,3 +162,7 @@ fibration
 subvarieties
 Naïvely
 pushforward
+properness
+semistable
+prestable
+quaternionic

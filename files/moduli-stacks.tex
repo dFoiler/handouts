@@ -355,10 +355,10 @@ which is dual to the multiplication map $H^0(\mc M)\otimes H^0(\mc M)\to H^0(\mc
 
 At this point in the talk, I lost the ability to take notes and had to pay attention.
 
-\subsection{March 15th: Ruoxi Li}
+\section{March 15th: Ruoxi Li}
 I was not tall enough for this talk.
 
-\subsection{March 22nd: Vivasvat Vatatmaja}
+\section{March 22nd: Vivasvat Vatatmaja}
 Today, we work over a base field $k$ everywhere, which we will not comment again on. We begin with a definition.
 \begin{definition}
 	Let $G$ will be an algebraic group, and let $X$ is a scheme (or possibly an algebraic space). Suppose $X$ has a $G$-action given by $j\colon G\times X\to X\times X$ via $(g,x)\mapsto(gx,x)$.
@@ -408,5 +408,70 @@ At this point, we return to $\mc M_{1,1}$. The point is to use Weierstrass equat
 	& & A^{-2}
 \end{bmatrix}:A\ne0\right\}\]
 acts on $X$ via some change of coordinates representation hitting all Weierstrass equations. By restricting $X$ further to the open subset $U$ where $x^3+e_1x^2+e_2x+e_3$ has three distinct roots, we find that our curves are forced to be smooth. In particular, we have $\mc M_{1,1}\cong U/G$. We are now able to do a computation to prove our result.
+
+\section{April 12th: Rose Lopez}
+Today we will start discussing the Stable reduction theorem (which we will finish next week).
+
+\subsection{The Statement}
+Here is our goal.
+\begin{theorem}
+	The moduli stack $\ov{\mc M_{g,n}}$ of $n$-pointed stable curves of genus $g$ is proper.
+\end{theorem}
+The only way to access properness of a moduli problem is to use a valuative criterion, for which we have the following.
+\begin{proposition} \label{prop:val-proper-stacks}
+	Fix a reasonably nice morphism $f\colon\mf X\to\mf Y$. Then $f$ is proper if and only if it has finite type and any $2$-commutative diagram
+	% https://q.uiver.app/#q=WzAsNCxbMCwwLCJcXFNwZWMgSyJdLFswLDEsIlxcU3BlYyBSIl0sWzEsMCwiXFxtZiBYIl0sWzEsMSwiXFxtZiBZIl0sWzIsMywiZiJdLFswLDEsIiIsMCx7InN0eWxlIjp7InRhaWwiOnsibmFtZSI6Imhvb2siLCJzaWRlIjoidG9wIn19fV0sWzAsMl0sWzEsM11d&macro_url=https%3A%2F%2Fraw.githubusercontent.com%2FdFoiler%2Fnotes%2Fmaster%2Fnir.tex
+	\[\begin{tikzcd}
+		{\Spec K} & {\mf X} \\
+		{\Spec R} & {\mf Y}
+		\arrow["f", from=1-2, to=2-2]
+		\arrow[hook, from=1-1, to=2-1]
+		\arrow[from=1-1, to=1-2]
+		\arrow[from=2-1, to=2-2]
+	\end{tikzcd}\]
+	where $R$ is a discrete valuation ring and $K\coloneqq\op{Frac}R$ has an extension $R\to R'$ of discrete valuation rings so that $\op{Frac}R\to\op{Frac}R'$ has finite transcendence degree and with  a unique lift $\Spec R'\to\mf X$.
+\end{proposition}
+This is different from schemes because of the needed extension of discrete valuation rings. Anyway, this will basically serve as our definition of properness. As such, here is our theorem.
+\begin{theorem}[Stable reduction] \label{thm:stable-reduction}
+	Fix a discrete valuation ring $R$ with fraction field $K$, and set $\Delta\coloneqq\Spec R$ and $\Delta^*\coloneqq\Spec K$. Then suppose that $(\mc C^*,\sigma_1^*,\ldots,\sigma_n^*)$ is an $n$-pointed stable curve. Then there is an $n$-ponter family of stable curves $(\mc C',\sigma_1',\ldots,\sigma_n')$ which extends to $\mc C^*$ after extension by $K'$ (where $K'$ is the fraction field of some extension $R'$ of $R$).
+\end{theorem}
+After undoing some Yoneda business, we see that the above theorem plugs directly into the existence portion of \Cref{prop:val-proper-stacks}.
+
+\subsection{Stable Curves}
+Wait, what is a stable curve? Let's begin with a definition of curve.
+\begin{definition}
+	A \textit{curve} $C$ over a field $K$ is a $1$-dimensional scheme of finite type over $K$.
+\end{definition}
+If $C$ is proper, then we can define our genus as $g\coloneqq h^1(C,\OO_C)$. If $C$ is smooth, then we also get a dualizing sheaf $\omega_C$.
+
+Now, to define stable, we recognize that we are in a moduli problem. For our (completed) moduli problem, we must allow for some controlled singularities.
+\begin{definition}[node]
+	Fix a curve $C$ over an algebraically closed field $K$. Then $p\in C$ is a \textit{node} if and only if
+	\[\widehat{\OO_{C,p}}\cong k\bb{x,y}/(xy).\]
+	We say that $C$ is \textit{nodal} if and only if $C$ is smooth except for some set of nodes.
+\end{definition}
+Approximately speaking, we are saying that the curve $C$ locally looks like a crossing. The normalization will be able to separate out the crossing into two pieces.
+\begin{definition}[stable]
+	An $n$-pointed curve $(C,p_1,\ldots,p_n)$ is \textit{prestable} if and only if $C$ is geometrically connected, nodal, and projective, where a genus-$1$ component has at least $1$ marked point, and any genus-$0$ component must have at least $3$ marked points. We say that it is \textit{stable} if genus-$0$ components have precisely $3$ marked points. We also require that the marked points $p_\bullet$ are distinct and smooth everywhere.
+\end{definition}
+There is also a weaker notion of semistable by weakening some inequalities appropriately.
+\begin{remark}
+	One can check by hand that stable implies that $2g-2+n>0$.
+\end{remark}
+\begin{remark}
+	By working out with components, we see that a prestable curve is stable if and only if it has finite automorphism group, which is what is able to give us a DM stack. It turns out that this is equivalent to having $\omega_C(p_1+\cdots+p_n)$ be ample, which notably witnesses that $C$ is projective.
+\end{remark}
+Of course, one can now make these definitions work in families: a family of smooth proper curves of genus $g$ over $S$ is a morphism $\mc C\to S$ which is smooth and proper such that each geometric fiber is a connected curve of genus $g$. Then we add in $n$ marked points to each fiber (which corresponds to asking  for $n$ sections of the structure map $\mc C\to S$), and asking for stable, nodal, etc. can all be checked on the fibers.
+
+\subsection{The Proof}
+The point of \Cref{thm:stable-reduction} is to be able to fill in a gap in a family of stable curves over the closed point of a discrete valuation ring. Let's give a sketch of what's going on.
+\begin{enumerate}
+	\item We reduce to the smooth case.
+	\item We find some flat extension to $\Spec R$. However, the produced extension maybe non-reduced or badly singular or similar.
+	\item Lastly, we use birational geometry on surfaces to fix the constructed extension.
+\end{enumerate}
+
+\section{April 19th: Robin Huang}
+I'll be honest; I'm too tired to take notes today.
 
 \end{document}
