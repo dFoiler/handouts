@@ -166,3 +166,5 @@ properness
 semistable
 prestable
 quaternionic
+imprimitive
+compactified

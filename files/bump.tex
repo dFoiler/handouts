@@ -1,0 +1,305 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+
+\newcommand{\nirpdftitle}{Notes on Bump}
+\usepackage{import}
+\inputfrom{../../notes}{nir}
+\usepackage[backend=biber,
+    style=alphabetic,
+    sorting=ynt
+]{biblatex}
+\setcounter{tocdepth}{2}
+
+\pagestyle{contentpage}
+
+\title{Notes on Bump}
+\author{Nir Elber}
+\date{Spring 2024}
+\usepackage{graphicx}
+
+\begin{document}
+
+\maketitle
+
+\tableofcontents
+
+\section{June 7th}
+We plan on covering \SS1.1--1.3.
+
+\subsection{Dirichlet \texorpdfstring{$L$}{ L}-Functions}
+We begin by defining Dirichlet characters.
+\begin{definition}[Dirichlet character]
+	Fix a positive integer $N$. A \textit{Dirichlet character$\pmod N$} is a character $\chi\colon(\ZZ/N\ZZ)^\times$ extended to $\ZZ$ by declaring $\chi(n)=0$ whenever $\gcd(n,N)>1$. If $N\mid M$ where $N<M$, then a Dirichlet character $\chi\pmod N$ \textit{induces} a Dirichlet character$\pmod M$ by the canonical projection $\ZZ/M\ZZ\onto\ZZ/N\ZZ$. If $\chi$ is not induced by any other character, then $\chi$ is \textit{primitive}; otherwise, $\chi$ is \textit{imprimitive}.
+\end{definition}
+Dirichlet characters $\chi\pmod N$ have two important attached invariants.
+\begin{definition}[$L$-function]
+	Fix a Dirichlet character $\chi\pmod N$. Then we define the \textit{Dirichlet $L$-function} by
+	\[L(s,\chi)\coloneqq\sum_{n=1}^\infty\frac{\chi(n)}{n^s}.\]
+\end{definition}
+\begin{remark}
+	We note that $L(s,\chi)$ converges absolutely for $\Re s>1$. If $\chi$ is not induced by the trivial character, then one sees $L(s,\chi)$ actually converges for $\Re s>0$ uniformly on compacts. If $\chi=1$, then $L(s,\chi)=\zeta(s)$, and one can use a summation-by-parts argument to show that $\zeta(s)$ has an integral representation valid for $\Re s>0$.
+\end{remark}
+\begin{remark}
+	The usual argument with unique prime factorization implies $L(s,\chi)$ admits an Euler product
+	\[L(s,\chi)=\prod_p\frac1{1-\chi(p)p^{-s}}.\]
+\end{remark}
+Our goal for the time being is to show that $L(s,\chi)$ admits a meromorphic continuation and functional equation. To this end, we introduce the second invariant of a Dirichlet character.
+\begin{definition}[Gauss sum]
+	Fix a primitive Dirichlet character $\chi\pmod N$. Then we define the \textit{Gauss sum}
+	\[\tau(\chi)\coloneqq\sum_{n\in\ZZ/N\ZZ}\tau(n)e^{2\pi in/N}.\]
+\end{definition}
+We may like to adjust the character $n\mapsto e^{2\pi in/N}$. To this end, we have the following lemma.
+\begin{lemma}
+	Fix a primitive Dirichlet character $\chi\pmod N$. Then
+	\[\sum_{n\in\ZZ/N\ZZ}\chi(n)e^{2\pi inm/N}=\ov\chi(m)\tau(\chi).\]
+\end{lemma}
+\begin{proof}
+	If $\gcd(m,N)=1$, then this is a matter of rearranging the sum. Otherwise, the right-hand side vanishes by definition of $\chi$, and one shows that the left-hand side vanishes essentially because the ``periods'' of $\chi$ and $n\mapsto e^{2\pi inm/N}$ differ.
+\end{proof}
+We will want to know that $\tau(\chi)$ is nonzero. As is common in harmonic analysis, it will be easier to compute the norm.
+\begin{lemma}
+	Fix a primitive Dirichlet character $\chi\pmod N$. Then $\left|\tau(\chi)\right|^2=N$.
+\end{lemma}
+\begin{proof}
+	Some rearranging reveals that
+	\[\tau(\chi)\ov{\tau(\chi)}=\frac1{\varphi(N)}\sum_{m\in\ZZ/N\ZZ}\sum_{n_1,n_2\in(\ZZ/N\ZZ)^\times}\chi(n_1)\ov\chi(n_2)e^{2\pi i(n_1-n_2)m/N}.\]
+	(The point is that each $m$ produces the same value.) Summing over $m$, we see that we only care about terms where $n_1\equiv n_2\pmod N$, from which the result follows.
+\end{proof}
+Our proof of the functional equation requires the Poisson summation formula. Thus, we introduce a little more harmonic analysis.
+\begin{definition}[Fourier transform]
+	For a Schwartz function $f\colon\RR\to\CC$, we define its \textit{Fourier transform} by
+	\[\mc Ff(x)\coloneqq\int_\RR f(y)e^{2\pi ixy}\,dy.\]
+\end{definition}
+\begin{example} \label{ex:fourier-transform-gaussian}
+	For $t\in\RR$, define $f_t(x)\coloneqq e^{-\pi tx^2}$. Then one can compute that $\mc Ff_t=t^{-1/2}f_{1/t}$. Bump includes a proof using contour integration, but of course other proofs exist.
+\end{example}
+\begin{example} \label{ex:fourier-transform-almost-gaussian}
+	For $t\in\RR$, define $g_t(x)\coloneqq xe^{-\pi tx^2}$. Integrating by parts and using \Cref{ex:fourier-transform-gaussian}, one finds that $\mc Fg_t=it^{-3/2}g_{1/t}$.
+\end{example}
+\begin{proposition}[Poisson summation] \label{prop:poisson-sum}
+	For a Schwarz function $f\colon\RR\to\CC$, we have
+	\[\sum_{n\in\ZZ}f(n)=\sum_{n\in\ZZ}\mc Ff(n).\]
+\end{proposition}
+\begin{proof}
+	The trick is to consider the periodic function
+	\[F(x)\coloneqq\sum_{n\in\ZZ}f(x+n).\]
+	Because $f$ is Schwartz, $F$ is infinitely differentiable, so it admits a Fourier series. A computation of the Fourier coefficients then reveals that
+	\[F(x)=\sum_{m\in\ZZ}\mc Ff(m)e^{2\pi imx},\]
+	from which the result follows by taking $m=0$.
+\end{proof}
+\begin{corollary} \label{cor:twisted-poisson-sum}
+	For a Schwarz function $f\colon\RR\to\CC$ and primitive Dirichlet character $\chi\pmod N$, we have
+	\[\sum_{n\in\ZZ}\chi(n)f(n)=\frac{\tau(\ov\chi)}N\sum_{n\in\ZZ}\widehat f(n/N).\]
+\end{corollary}
+\begin{proof}
+	Apply Poisson summation to the function
+	\[g(x)\coloneqq\left(\frac{\tau(\ov\chi)}N\sum_{m\in\ZZ/N\ZZ}\ov\chi(m)e^{2\pi ixm/N}\right)f(x).\]
+	For example, the left-hand side equals $\sum_{n\in\ZZ}g(n)$ because the big factor equals $\chi(n)$ when $x=n$ is an integer.
+\end{proof}
+We now move towards our proof of the functional equation. Our functional equation for Dirichlet $L$-func\-tions will be boot\-strapped from the functional equation for certain $\theta$-functions.
+\begin{proposition} \label{prop:theta-functional-eq}
+	Fix a primitive Dirichlet character $\chi\pmod N$. Say $\chi(-1)=(-1)^\varepsilon$, where $\varepsilon\in\{0,1\}$. Define the $\theta$-function
+	\[\theta_\chi(t)\coloneqq\frac12\sum_{n\in\ZZ}n^\varepsilon\chi(n)e^{-\pi n^2t}.\]
+	Then
+	\[\theta_\chi(t)=\frac{(-i)^\varepsilon\tau(\chi)}{N^{1+\varepsilon}t^{\varepsilon+1/2}}\theta_{\ov\chi}\left(\frac1{N^2t}\right).\]
+\end{proposition}
+\begin{proof}
+	Doing casework on $\varepsilon$, combine \Cref{cor:twisted-poisson-sum} with \Cref{ex:fourier-transform-gaussian,ex:fourier-transform-almost-gaussian}.
+\end{proof}
+At long last, here is our result.
+\begin{theorem}
+	Fix a primitive Dirichlet character $\chi\pmod N$. Say $\chi(-1)=(-1)^\varepsilon$, where $\varepsilon\in\{0,1\}$. Then the completed $L$-function
+	\[\Lambda(s,\chi)\coloneqq\pi^{-(s+\varepsilon)/2}\Gamma\left(\frac{s+\varepsilon}2\right)L(s,\chi)\]
+	has a meromorphic continuation to $\CC$ and satisfies the functional equation
+	\[\Lambda(s,\chi)=(-i)^\varepsilon\tau(\chi)N^{-s}\Lambda(1-s,\ov\chi).\]
+\end{theorem}
+\begin{proof}
+	It is enough to show the functional equation. A $u$-substitution proves
+	\[\int_{\RR^+}e^{-\pi tn^2}t^{(s+\varepsilon)/2}\,\frac{dt}t=\pi^{-(s+\varepsilon)/2}\Gamma\left(\frac{s+\varepsilon}2\right)n^{-s-\varepsilon}.\]
+	Summing over $n\ge0$ reveals
+	\[\Lambda(s,\chi)=\int_{\RR^+}\theta_\chi(t)t^{(s+\varepsilon)/2}\,\frac{dt}t.\]
+	\Cref{prop:theta-functional-eq} completes the proof.
+\end{proof}
+
+\subsection{The Modular Group}
+The natural action of $\op{SL}_2(\CC)$ on $\CC^2$ descends to an action of $\op{SL}_2(\RR)$ on $\mathbb H\coloneqq\{z\in\CC:\Im z>0\}$ by fractional linear transformations. Explicitly,
+\[\begin{bmatrix}
+	a & b \\ c & d
+\end{bmatrix}z\coloneqq\frac{az+b}{cz+d}.\]
+We would like some arithmetic input to this action, so we introduce some subgroups.
+\begin{definition}[congruence subgroup]
+	For a positive integer $N$, we define $\Gamma(N)$ as the kernel of the reduction map $\op{SL}_2(\ZZ)\to\op{SL}_2(\ZZ/N\ZZ)$. Explicitly,
+	\[\Gamma(N)\coloneqq\left\{\begin{bmatrix}
+		a & b \\ c & d
+	\end{bmatrix}\in\op{SL}_2(\ZZ):\begin{bmatrix}
+		a & b \\ c & d
+	\end{bmatrix}\equiv\begin{bmatrix}
+		1 & 0 \\ 0 & 1
+	\end{bmatrix}\pmod N\right\}.\]
+	A subgroup $\Gamma\subseteq\op{SL}_2(\ZZ)$ is a \textit{congruence subgroup} if and only if it contains $\Gamma(N)$ for some positive integer $N$.
+\end{definition}
+We will spend the rest of the section collecting some facts about $\op{SL}_2(\ZZ)$ and its action on $\HH$.
+\begin{proposition}
+	The group $\op{SL}_2(\ZZ)$ acts discontinuously on $\mathbb H$.
+\end{proposition}
+\begin{proof}
+	For compact subsets $K_1,K_2\subseteq\HH$, we must show that
+	\[S\coloneqq\{g\in\op{SL}_2(\ZZ):K_2\cap gK_1\ne\emp\}\]
+	is a finite set. Well, note that $g\coloneqq\begin{bsmallmatrix}
+		a & b \\ c & d
+	\end{bsmallmatrix}$ has
+	\[\Im g(z)=\frac y{\left|cz+d\right|^2}\]
+	by a direct computation. Thus, the values of $c$ and $d$ are bounded in $S$. Because $\begin{bsmallmatrix}
+		1 & b \\ & 1
+	\end{bsmallmatrix}$ behaves a lateral shift (to the left or right by $\left|a\right|$), we see that there are only finitely many possible values of $b$. Lastly, $a$ is determined by $(b,c,d)$ because $ad-bc=1$, so we conclude that $S$ is finite.
+\end{proof}
+\begin{proposition}
+	The action of $\op{SL}_2(\ZZ)$ on $\HH$ has a fundamental domain given by
+	\[F\coloneqq\left\{z\in\HH:\left|\Re z\right|<\frac12,\left|z\right|>1\right\}.\]
+	Namely, any class of $\op{SL}_2(\ZZ)\backslash\HH$ has a representative in $\ov F$, and $z_1,z_2\in F$ with $g(z_1)=z_2$ must have $z_1=z_2$ (and $g=\pm I_2$).
+\end{proposition}
+\begin{proof}
+	This is essentially a matter of making the previous proof explicit. For the first claim, choose $z\in\HH$, and apply $\op{SL}_2(\ZZ)$ until $\Im z$ is maximized; then apply elements of the form $\begin{bsmallmatrix}
+		1 & b \\ & 1
+	\end{bsmallmatrix}$ until $\Re z\in[-1/2,1/2]$. For the second claim, one does some explicit algebra and casework on $z$ and $g$.
+\end{proof}
+\begin{remark}
+	Any finite-index subgroup $\Gamma\subseteq\op{SL}_2(\ZZ)$ can also be given a fundamental domain by taking $\bigcup_{g\in\Gamma\backslash\op{SL}_2(\ZZ)}gF$, where the union is merely over a set of representatives for $\Gamma\backslash\op{SL}_2(\ZZ)$.
+\end{remark}
+\begin{proposition}
+	Fix a congruence subgroup $\Gamma\subseteq\op{SL}_2(\ZZ)$. Then the quotient $\Gamma\backslash\HH$ can be compactified and then given the structure of a compact Riemann surface.
+\end{proposition}
+\begin{proof}
+	Define $\HH^*\coloneqq\HH\sqcup\PP^1_\QQ$, where the points of $\PP^1_\QQ$ are called ``cusps.'' Note that $\Gamma$ acts on $\PP^1_\QQ$ separately and with only finitely many orbits (because $\Gamma\subseteq\op{SL}_2(\ZZ)$ has finite index). We will explain how $\Gamma\backslash\HH^*$ can be given the structure of a compact Riemann surface. Let $\ov\Gamma\subseteq\op{PSL}_2(\RR)$ be the image of $\Gamma$; there are three cases for $a\in\HH^*$
+	\begin{itemize}
+		\item If the stabilizer of $a$ in $\ov\Gamma$ is trivial, then the discontinuity of our action implies that this is the case in an open neighborhood of $a$. So we map $a$ to the fundamental domain and take a chart there.
+		\item If the stabilizer of $a$ in $\ov\Gamma$ is nontrivial and $a\in\HH$, then we use the map $z\mapsto\frac{z-a}{z-\ov a}$ to send $a$ to the origin, and it sends everything else to the unit disk. Tracking through how fractional linear transformations behave, we see that the stabilizer must now be a finite collection of rotations about the origin, so we take roots to build our charts.
+		\item If the stabilizer of $a$ in $\ov\Gamma$ is nontrivial and $a\in\PP^1_\QQ$, use $\op{SL}_2(\ZZ)$ to move $a$ to $\infty$, and a similar argument as the previous point can move everything to the unit disk again.
+		\qedhere
+	\end{itemize}
+\end{proof}
+
+\subsection{Modular Forms}
+Here is our definition.
+\begin{definition}[modular form]
+	Fix an integer $k$ and finite-index subgroup $\Gamma\subseteq\op{SL}_2(\ZZ)$. Then a \textit{modular form} of weight $k$ and level $\Gamma$ is a holomorphic function $f$ on $\HH^*$ such that
+	\[f\left(\frac{az+b}{cz+d}\right)=(cz+d)^kf(z)\]
+	for any $\begin{bsmallmatrix}
+		a & b \\ c & d
+	\end{bsmallmatrix}\in\Gamma$. The vector space of such $f$ is denoted by $M_k(\Gamma)$. If $f$ vanishes on the cusps of $\HH^*$, we say that $f$ is a \textit{cusp form}, and 
+\end{definition}
+\begin{remark}
+	Being holomorphic on $\HH^*$ is a somewhat tricky condition. Because $\Gamma\backslash\HH^*$ has already been given the structure of a compact Riemann surface, it is enough to show that $f$ has at worst removable singularities, so it is enough to show that $f$ is bounded approaching the cusps in $\PP^1_\QQ$. More explicitly, if $\Gamma\supseteq\Gamma(N)$, then $q\coloneqq e^{2\pi iz/N}$ is a local chart around $\infty\in\PP^1_\QQ$, so we want the Fourier expansion
+	\[f(z)=\sum_{n\in\ZZ}a_nq^n\]
+	to have $a_n=0$ for $n<0$.
+\end{remark}
+\begin{remark} \label{rem:odd-weight}
+	Suppose $k$ is odd and $\Gamma=\op{SL}_2(\ZZ)$. Then $g=-I_2$ tells us that $f(z)=(-1)^kf(z)$, so $f=0$.
+\end{remark}
+\begin{remark}
+	If $k=0$, then we are asking for holomorphic functions on $\Gamma\backslash\HH^*$, but this is a compact Riemann surface, so our modular forms of weight $0$ are constant.
+\end{remark}
+\begin{remark}
+	More formally, we see that $M(\Gamma)$ is a graded ring, with grading given by the weight. The point is that the product of modular forms of weights $k$ and $\ell$ produces a modular form of weight $k+\ell$.
+\end{remark}
+We would like to classify modular forms for $\op{SL}_2(\ZZ)$.
+\begin{proposition} \label{prop:mk-fin-dim}
+	Fix a finite-index subgroup $\Gamma\subseteq\op{SL}_2(\ZZ)$. Then $M_k(\Gamma)$ is finite-dimensional.
+\end{proposition}
+\begin{proof}
+	If $M_k(\Gamma)$ only has $0$, then we are done. Else, choose a nonzero element $f_0$. Then division by $f_0$ sends $f\in M_k(\Gamma)$ to meromorphic functions $f/f_0$ on $X\coloneqq\Gamma\backslash\HH^*$. Now, this collection of holomorphic functions $f/f_0$ on $X$ have prescribed poles at the zeroes of $f$, so an argument with Laurent expansions in local charts around these poles explains that the space of such holomorphic functions on $X$ is finite-dimensional.
+\end{proof}
+Thus, $M_k(\op{SL}_2(\ZZ))$ is relatively small. We now want to show that it is frequently nonempty when $k$ is even (see \Cref{rem:odd-weight}).
+\begin{lemma}
+	For even $k\ge4$, define
+	\[E_k(z)\coloneqq\frac12\sum_{(m,n)\in\ZZ^2\setminus\{(0,0)\}}\frac1{(mz+n)^{k}}.\]
+	Then $E_k\in M_k(\op{SL}_2(\ZZ))$.
+\end{lemma}
+\begin{proof}
+	With $k\ge4$, one can check that $E_k$ is absolutely convergent, and it is weight $k$ essentially by construction. To check that $E_k$ is holomorphic at $\infty$, we compute its Fourier expansion. The Fourier transform of $f(u)\coloneqq(u-\tau)^{-1}$ is
+	\[\mc Ff(v)=\begin{cases}
+		2\pi i\op{Res}_{u=t}\left(e^{2\pi iuv}(u-\tau)^{-k}\right) & \text{if }v>0 \\
+		0 & \text{if }v\le0,
+	\end{cases}=\begin{cases}
+		\frac{(2\pi i)^k}{(k-1)!}v^{k-1}e^{2\pi iv\tau} & \text{if }v>0, \\
+		0 & \text{if }v\le0.
+	\end{cases}\]
+	Thus, the Poisson summation formula and a little rearrangement tells us that
+	\[E_k(z)=\zeta(k)+\frac{(2\pi i)^k}{(k-1)!}\sum_{n=1}^\infty\sigma_{k-1}(n)q^n,\]
+	where $\sigma_{k-1}(n)$ is the sum of the $(k-1)$st powers of the divisors of $n$.
+\end{proof}
+\begin{remark}
+	A computation of $\zeta(k)$ (for even $k$) reveals that $G_k(z)\coloneqq\zeta(k)^{-1}E_k(z)$ has rational coefficients. For example, one can see that $\Delta\coloneqq G_4^3-G_6^2$ lives in $S_{12}(\op{SL}_2(\ZZ))$.
+\end{remark}
+\begin{lemma}
+	There exists an element in $S_{12}(\op{SL}_2(\ZZ))$ which does not vanish on $\HH$.
+\end{lemma}
+\begin{proof}
+	We recall the Jacobi triple product formula given by
+	\[\sum_{n\in\ZZ}q^{n^2}x^n=\prod_{n=1}^\infty\left(1-q^{2n}\right)\left(1+q^{2n-1}x\right)\left(1+q^{2n-1}x^{-1}\right).\]
+	Substituting $q\mapsto q^{3/2}$ and $x\mapsto-q^{-1/2}$ and rearranging, we see
+	\[\eta(z)\coloneqq q^{1/24}\prod_{n=1}^\infty\left(1-q^n\right)=\sum_{n\in\ZZ}\chi(n)q^{n^2/24},\]
+	where $\chi\pmod{12}$ is the primitive quadratic character. (Explicitly, $\chi(\pm)=1$ and $\chi(\pm5)=-1$.) Note $\eta(z)=\theta_\chi(-z/12)$.
+
+	We claim that $\eta^{24}$ is the required function. The infinite product tells us that $\eta$ does not vanish on $\HH$, but $\eta$ vanishes at $\infty\in\HH^*$ (which is $q=0$). Thus, it remains to show that $\eta^{24}$ is modular with weight $12$. The infinite product explains that $\eta^{24}$ satisfies the modularity property for $\begin{bsmallmatrix}
+		1 & 1 \\ & 1
+	\end{bsmallmatrix}$, so it remains to check for $\begin{bsmallmatrix}
+		& -1 \\ & 1
+	\end{bsmallmatrix}$. Well, plugging $\theta_\chi$ into \Cref{prop:theta-functional-eq}, we see
+	\[\sqrt{-iz}\eta(z)=\eta\left(-\frac1z\right),\]
+	which completes the proof upon raising to the $24$th power.
+\end{proof}
+\begin{remark}
+	The argument of \Cref{prop:mk-fin-dim} tells us that $S_{12}(\op{SL}_2(\ZZ))$ is actually one-dimensional. Thus, it is spanned by $\Delta$.
+\end{remark}
+And here is our classification result.
+\begin{theorem}
+	The ring $M(\op{SL}_2(\ZZ))$ is generated by $G_4$ and $G_6$. In particular,
+	\[\dim M_{12a+2b}(\op{SL}_2(\ZZ))=\begin{cases}
+		a+1 & \text{if }2b\in\{0,4,6,8,10\}, \\
+		a & \text{if }2b=2.
+	\end{cases}\]
+\end{theorem}
+\begin{proof}
+	We abbreviate the group $\op{SL}_2(\ZZ)$ from our notation. Dimension arguments imply that it is enough to show the last computation. The argument of \Cref{prop:mk-fin-dim} implies that multiplication by $\Delta$ provides an isomorphism $M_{k}\to S_{k+12}$ for all $k$; additionally, because we have only one cusp, we see that either $M_k=S_k$ or $\dim M_k=\dim S_k+1$. Thus, $\dim M_{k+12}=1+\dim M_k$ always, so it remains to show the result for $k<12$.
+
+	Examining what we've done so far, it remains to show $\dim M_k=1$ for even $k\in[4,10]$ and $\dim M_2=0$.
+	\begin{itemize}
+		\item Take $k\in\{4,6,8,10\}$. To show $\dim M_k=1$, we will show $\dim S_k=0$ (and then use $E_k$ to increase dimension). Well, suppose for contradiction that we have a nonzero element $f\in S_k$. On one hand, we see $E_{6(12-k)}(f/\Delta)^6$ is a modular form of weight $0$, so it is constant, so we may say $E_{6(12-k)}=\Delta^6/f^6$ by adjusting $f$ by a constant multiple. On the other hand, this means $E_{6(12-k)}$ fails to vanish on $\HH$, so $\Delta^{(12-k)/2}/E_{6(12-k)}$ is a modular form of weight $0$ with no poles but a zero at the cusp, which is impossible.
+		\item Take $k=2$. Suppose for contradiction that we have a nonzero element $f\in M_2$. By adjusting $f$ by a constant multiple, the previous tells us we have $fE_4=E_6$. However, a computation shows $E_4\left(e^{2\pi i/3}\right)=0$, which would $\Delta$ has a zero in $\HH$, which we know is false.
+		\qedhere
+	\end{itemize}
+\end{proof}
+Our next goal is to make a discussion of $L$-functions.
+\begin{definition}[$L$-function]
+	For $f\in M_k(\op{SL}_2(\ZZ))$ with Fourier expansion $f(z)=\sum_{n=1}^\infty a_nq^n$, we define
+	\[L(s,f)\coloneqq\sum_{n=1}^\infty\frac{a_n}{n^s}.\]
+\end{definition}
+We should probably check that this converges.
+\begin{proposition}
+	For $f\in S_k(\op{SL}_2(\ZZ))$ with Fourier expansion $f(z)=\sum_{n=1}^\infty a_nq^n$. Then $\left|a_n\right|=O\left(n^{k/2}\right)$.
+\end{proposition}
+\begin{proof}
+	A direct computation shows that $\left|f(z)(\Im z)^{k/2}\right|$ is $\op{SL}_2(\ZZ)$-invariant; because $f$ is a cusp form, we see that $\left|f(z)(\Im z)^{k/2}\right|$ is bounded on $\HH$ by some constant $C$. Now, for any $y\in\RR$, we see
+	\[\left|a_n\right|e^{-2\pi ny}=\left|\int_{\RR/\ZZ}f(x+iy)e^{-2\pi inx}\,dx\right|\le\int_0^1\left|f(x+iy)\right|\,dx\le Cy^{-k/2}.\]
+	Choosing $y=1/n$ completes the proof.
+\end{proof}
+\begin{remark}
+	In general, we know we can write $f=f_0+cE_k$ for cusp form $f_0$, so our computation of the Fourier expansion of $E_k$ reveals that 
+\end{remark}
+Thus, $L(s,f)$ converges for $\Re s$ sufficiently large. Here is our functional equation.
+\begin{theorem}
+	For $f\in M_k(\op{SL}_2(\ZZ))$, define
+	\[\Lambda(s,f)\coloneqq(2\pi)^{-s}\Gamma(s)L(s,f).\]
+	Then $\Lambda$ has a meromorphic continuation to $\CC$ and satisfies the functional equation
+	\[\Lambda(s,f)=(-1)^{k/2}\Lambda(k-s,f).\]
+\end{theorem}
+\begin{proof}
+	Summing the identity
+	\[\int_{\RR^+}e^{-2\pi ny}y^s\,\frac{dy}y=(2\pi)^{-s}\Gamma(s)n^{-s}\]
+	for $n\ge1$ shows that
+	\[\Lambda(s,f)=\int_{\RR^+}f(iy)y^s\,\frac{dy}y.\]
+	The result now follows because $f(iy)=(-1)^{k/2}y^{-k}=f(i/y)$ by the modularity of $f$.
+\end{proof}
+
+\end{document}

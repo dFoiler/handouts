@@ -47,3 +47,5 @@
 {"rule":"MISSING_GENITIVE","sentence":"^\\QHodge filtration: \\E(?:Dummy|Ina|Jimmy-)[0-9]+\\Q.\\E$"}
 {"rule":"NUMEROUS_DIFFERENT","sentence":"^\\QOne difficulty here is that there are uncountably many different packings with the same density, which one must do by hand.\\E$"}
 {"rule":"MORFOLOGIK_RULE_EN_US","sentence":"^\\QViazovska in 2016 shows that the \\E(?:Dummy|Ina|Jimmy-)[0-9]+\\Q lattice was optimal for \\E(?:Dummy|Ina|Jimmy-)[0-9]+\\Q dimensions, Then Cohn, Kumar, Miller, Radchenko, and Viazovska\\E$"}
+{"rule":"IF_IS","sentence":"^\\QThe Fourier transform of \\E(?:Dummy|Ina|Jimmy-)[0-9]+\\Q is \\E(?:Dummy|Ina|Jimmy-)[0-9]+\\Q if \\E(?:Dummy|Ina|Jimmy-)[0-9]+\\Q if \\E(?:Dummy|Ina|Jimmy-)[0-9]+\\Q if \\E(?:Dummy|Ina|Jimmy-)[0-9]+\\Q if \\E(?:Dummy|Ina|Jimmy-)[0-9]+\\Q.\\E$"}
+{"rule":"IF_IS","sentence":"^\\QIn particular, \\E(?:Dummy|Ina|Jimmy-)[0-9]+\\Q if \\E(?:Dummy|Ina|Jimmy-)[0-9]+\\Q if \\E(?:Dummy|Ina|Jimmy-)[0-9]+\\Q.\\E$"}
