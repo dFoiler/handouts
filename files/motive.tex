@@ -1,0 +1,80 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+
+\newcommand{\nirpdftitle}{Motives}
+\usepackage{import}
+\inputfrom{../../notes}{nir}
+\usepackage[backend=biber,
+    style=alphabetic,
+    sorting=ynt
+]{biblatex}
+\setcounter{tocdepth}{2}
+
+\pagestyle{contentpage}
+
+\title{Motives}
+\author{Nir Elber}
+\date{Spring 2024}
+\usepackage{graphicx}
+
+\begin{document}
+
+\maketitle
+
+\tableofcontents
+
+\section{Introduction}
+Here is the statement of the conjecture.
+\begin{conj} \label{conj:desired-conjecture}
+	Fix an abelian motive $A$ over a number field $K$, and let $G(A)$ denote the motivic Galois group of $A$. Suppose $A$ has good reduction at a prime $\mf p$ of $K$. Then there exists a class $F\in\op{Conj}G(A)(\QQ)$ such that
+	\[F=[\rho_\ell(\mathrm{Frob}_\mf p)]\]
+	for each rational prime $\ell\nmid\mf p$, where $\rho_\ell\colon\op{Gal}(\ov K/K)\to\op{GL}\left(H^1_{\mathrm{\acute et}}(A;\QQ_\ell)\right)$ is the $\ell$-adic Galois representation.
+\end{conj}
+
+% \section{Background on Motives}
+% Throughout, $X$ denotes a smooth proper variety over a field $k$, which is possibly but not definitely algebraically closed.
+
+\section{Basic Cases}
+In this subsection, we work out some basic cases.
+\begin{proposition} \label{prop:cm}
+	Fix an abelian variety $A$ over a number field $K$ with CM by $E$. Then \Cref{conj:desired-conjecture} holds for $A$.
+\end{proposition}
+\begin{proof}
+	The main point is that we are able to lift $\op{Frob}_\mf p$ to become an endomorphism of $A$.
+
+	Let $\mc A$ be the N\'eron model of $A$ over $\OO_{K_\mf p}$, and let $\kappa\coloneqq\OO_K/\mf p$ be the residue field. The N\'eron mapping property implies $\op{End}_E(A)^\circ=\op{End}_E^\circ(\mc A)$, which then has a natural reduction map to $\op{End}_E^\circ(\mc A_\kappa)$. An argument on the Tate module tells us that
+	\[\op{End}_E^\circ(A)\to\op{End}_E^\circ(\mc A_\kappa)\]
+	is injective, but we see that both sides are free $E$-modules of rank $1$. Thus, this reduction map is an isomorphism, so $\op{Frob}_\mf p$ lifts from an endomorphism on $\mc A_\kappa$ to an endomorphism on $A$.
+
+	We now note that the diagram
+	% https://q.uiver.app/#q=WzAsNCxbMCwwLCJIXjFfQihBO1xcUVEpXFxvdGltZXNfXFxRUVxcUVFfXFxlbGwiXSxbMSwwLCJIXjFfQihBO1xcUVEpXFxvdGltZXNfXFxRUVxcUVFfXFxlbGwiXSxbMCwxLCJIXjFfe1xcbWF0aHJte1xcYWN1dGUgZXR9fShBO1xcUVFfXFxlbGwpIl0sWzEsMSwiSF4xX3tcXG1hdGhybXtcXGFjdXRlIGV0fX0oQTtcXFFRX1xcZWxsKSJdLFswLDEsIkheMV9CKEYpIl0sWzIsMywiXFxyaG9fXFxlbGwoXFxvcHtGcm9ifV9cXG1mIHApIl0sWzAsMl0sWzEsM11d&macro_url=https%3A%2F%2Fraw.githubusercontent.com%2FdFoiler%2Fnotes%2Fmaster%2Fnir.tex
+	\[\begin{tikzcd}
+		{H^1_B(A;\QQ)\otimes_\QQ\QQ_\ell} & {H^1_B(A;\QQ)\otimes_\QQ\QQ_\ell} \\
+		{H^1_{\mathrm{\acute et}}(A;\QQ_\ell)} & {H^1_{\mathrm{\acute et}}(A;\QQ_\ell)}
+		\arrow["{H^1_B(F)}", from=1-1, to=1-2]
+		\arrow[from=1-1, to=2-1]
+		\arrow[from=1-2, to=2-2]
+		\arrow["{\rho_\ell(\mathrm{Frob}_\mf p)}", from=2-1, to=2-2]
+	\end{tikzcd}\]
+	commutes by the functoriality of the applied comparison isomorphism (and the definition of $F$), so the result follows.
+\end{proof}
+\begin{proposition}
+	Fix an elliptic curve $A$ over a number field. Then \Cref{conj:desired-conjecture} holds for $A$.
+\end{proposition}
+\begin{proof}
+	If $A$ has complex multiplication, we are done by \Cref{prop:cm}. This leaves us with two cases.
+	\begin{itemize}
+		\item Suppose $A_\CC$ still has no complex multiplication. Then $\mathrm{MT}(A)$ is $\op{GL}_{2,\QQ}$, so the result follows from classical considerations.
+		\item Suppose $A_\CC$ is CM so that $A$ has potential CM. For brevity, define $V\coloneqq H^1(A;\QQ)$. Note that $A_L$ has CM for some quadratic extension $L$ of $K$, so we produce a short exact sequence
+		\[1\to\op{MT}(A)\to G(A)\to\op{Gal}(L/K)\to1.\]
+		Note $\op{MT}(A)$ is a torus, so $V_\CC$ decomposes into two eigenspaces $V_\CC=V^1_\CC\oplus V^2_\CC$; considering the rank of $\op{MT}(A)$, we see that $\sigma\in\op{MT}(A)$ if and only if $\sigma_\CC\colon V_\CC\to V_L$ sends $V^1_\CC$ and $V^2_\CC$ to themselves. Thus, choosing some $c\in G(A)$ to lift the generator of $\op{Gal}(L/K)$, we see that $c$ must normalize $\op{MT}(A)$ while not actually living in $\op{MT}(A)$, and the only way for this to happen is for $c_\CC$ to swap $V^1_\CC$ and $V^2_\CC$ (possibly adding a scalar in the process to ensure that $c$ is defined over $\QQ$).
+		
+		This will be enough to complete the proof. Letting $q$ be the cardinality of $\OO_K/\mf p$, we know that $\rho_\ell(\mathrm{Frob}_\mf p)$ is semisimple with characteristic polynomial $P_\mf p(x)\in\QQ[x]$ not depending on $\ell$. The point is that the eigenvalues $\alpha_{1,\ell}$ and $\alpha_{2,\ell}$ of $\rho_\ell(\op{Frob}_\mf p)$ on $V^1_\CC$ and $V^2_\CC$ may not be determined up to order, but the set of eigenvalues $\{\alpha_{1,\ell},\alpha_{2,\ell}\}$ is independent of $\ell$. Conjugation by $c$ is able to swap the two eigenspaces, so we see that the conjugacy class of $\rho_\ell(\op{Frob}_\mf p)$ is now independent of $\ell$.
+		\qedhere
+	\end{itemize}
+\end{proof}
+\begin{remark}
+	It may appear that one can upgrade this second proof to work for arbitrary abelian varieties with potential CM, but this is not the case. Indeed, the given proof only functions because $\op{Gal}(L/K)$ acts simply transitively on the eigenspaces of $\op{MT}(A)$ acting on $V_\CC$. However, $G(A)\subseteq\op{GSp}_{2\dim A}(\QQ)$, so one cannot hope for the normalizer of a torus to be large enough in general.
+\end{remark}
+
+\end{document}

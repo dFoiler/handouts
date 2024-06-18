@@ -172,3 +172,5 @@ Petersson
 eigenforms
 eigenform
 Mellin
+Néron
+eigenspaces
