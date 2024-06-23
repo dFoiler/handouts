@@ -174,3 +174,13 @@ eigenform
 Mellin
 Néron
 eigenspaces
+Tannakian
+bifunctor
+duals
+étale
+subobject
+subquotient
+cuspidal
+cocharacter
+subrepresentation
+idéles

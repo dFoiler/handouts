@@ -303,7 +303,7 @@ Thus, $L(s,f)$ converges for $\Re s$ sufficiently large. Here is our functional 
 \end{proof}
 
 \section{June 14th}
-Today we plan on covering \S1.4--1.6.
+Today we plan on covering \S1.4--1.5.
 
 \subsection{Hecke Operators}
 Following Bump, we begin by discussing Hecke operators for $\op{SL}_2(\ZZ)$ and then will discuss Hecke operators for different level in remarks later.
@@ -570,7 +570,219 @@ One would like a converse theorem from these functional equations.
 	One now does a lengthy computation to bootstrap this into the required result.
 \end{proof}
 
-% \subsection{The Rankin--Selberg Method}
+\section{June 20}
+Today we plan on covering \S1.6--1.8.
 
+\subsection{The Rankin--Selberg Method}
+In short, the Rankin--Selberg method integrates some automorphic form by an Eisenstein series to produce certain $L$-functions which provably desirable properties. As such, we begin by discussing our required Eisenstein series.
+\begin{definition}[Eisenstein series]
+	For $z\in\HH$ and $s\in\CC$, we define the \textit{Eisenstein series}
+	\[E(z,s)\coloneqq\pi^{-s}\Gamma(s)\cdot\frac12\sum_{\substack{(m,n)\in\ZZ^2\\(m,n)\ne(0,0)}}\frac{y^s}{\left|mz+n\right|^{2s}}.\]
+	This series converges absolutely for $\Re s>1$ and thus descends to a holomorphic map on $z\in\op{Sl}_2(\ZZ)\backslash\HH$.
+\end{definition}
+We will require a functional equation for $E$ (in addition to some growth properties). Our approach will proceed by computing the Fourier coefficients of $E$, a notion which makes sense because $E(z+1,s)=E(z)$, for which we will use Bessel functions.
+\begin{definition}[Bessel function]
+	For $s\in\CC$ and $y>0$, we define the \textit{Macdonald Bessel function}
+	\[K_s(y)\coloneqq\frac12\int_{\RR^+}e^{-y\left(t+t^{-1}\right)/2}t^s\,\frac{dt}t.\]
+	This series converges (rapidly) for $y>0$. Note $K_s(y)=K_{-s}(y)$.
+\end{definition}
+\begin{remark} \label{rem:rapid-decay-bessel}
+	Let's provide a basic bound. For $y>4$, one sees $e^{-y\left(t+t^{-1}\right)/2}<e^{-y/2}e^{t+t^{-1}}$, so integrating proves
+	\[\left|K_s(y)\right|\le e^{-y/2}K_{\op{Re}s}(2).\]
+\end{remark}
+The following is the main reason for introducing Bessel functions.
+\begin{lemma} \label{lem:use-bessel}
+	For $s\in\CC$ with $\Re s>1/2$ and $r\in\RR$, we have
+	\[\left(\frac y\pi\right)^s\Gamma(s)\int_\RR\left(x^2+y^2\right)^{-s}e^{2\pi irx}\,dx=\begin{cases}
+		\pi^{-s+1/2}\Gamma(s-1/2)y^{1-s} & \text{if }r=0, \\
+		2\left|r\right|^{s-1/2}\sqrt yK_{s-1/2}(2\pi\left|r\right|y) & \text{if }r\ne0.
+	\end{cases}\]
+\end{lemma}
+\begin{proof}
+	We let $L$ denote the left-hand side. Expanding our $\Gamma(s)$ and interchanging integrals, we see
+	\[L=\int_{\RR^+}\underbrace{\int_\RR e^{-\pi t\left(x^2+y^2\right)/y}e^{2\pi irx}\,dx}_{\sqrt{y/t}e^{-t\pi r^2/t}}\,t^s\frac{dt}t,\]
+	where the inner integral is computed as the Fourier transform of a Gaussian. Casework on $r$ now completes the proof.
+\end{proof}
+\begin{proposition} \label{prop:fourier-expansion-eisenstein}
+	Write $E(z,s)=\sum_{r\in\ZZ}q_r(y,s)e^{2\pi irx}$. Then
+	\[a_r(y,s)=\begin{cases}
+		\pi^{-s}\gamma(s)\zeta(2s)y^s+\pi^{s-1}\Gamma(1-s)\zeta(2-2s)y^{1-s} & \text{if }r=0, \\
+		2\left|r\right|^{s-1/2}\sigma_{1-2s}(\left|r\right|)\sqrt yK_{s-1/2}(2\pi\left|r\right|y) & \text{if }r\ne0.
+	\end{cases}\]
+\end{proposition}
+\begin{proof}
+	We are tasked with computing
+	\[a_r(y,s)=\int_{\RR/\ZZ}E(x+iy)e^{-2\pi irx}\,dx=\pi^{-s}\Gamma(s)y^2\cdot\frac12\sum_{\substack{(m,n)\in\ZZ^2\\(m,n)\ne(0,0)}}\frac{e^{-2\pi irx}}{\left|m(x+iy)+n\right|^{2s}}\,dx.\]
+	If $m=0$, then we only get contribution when $r=0$, in which case we total to $\pi^{-s}\Gamma(s)\zeta(2s)y^2$. If $m\ne0$, then our contribution comes out to
+	\[\pi^{-s}\Gamma(s)y^s\sum_{m=1}^\infty\sum_{n\in\ZZ}\int_{0}^1\frac{e^{2\pi irx}{\left((mx+n)^2+m^2y^2\right)^s}}\,dx.\]
+	Sending $x\mapsto x-n/m$ and then isolating a sum over $\sum_ne^{2\pi irn/m}$ shows we get
+	\[\pi^{-s}\Gamma(s)y^s\sum_{m\mid r}m^{1-2s}\int_\RR\left(x^2+y^2\right)^{-s}e^{2\pi irx}\,dx.\]
+	Plugging into \Cref{lem:use-bessel} and totaling contributions completes the proof.
+\end{proof}
+\begin{corollary} \label{cor:eisenstein-continuation}
+	The function $E(z,s)$ admits a meromorphic continuation to $s\in\CC$ with at worst simple poles only ad $s\in\{0,1\}$. Further, we have the functional equation $E(z,s)=E(z,1-s)$ and growth condition $E(x+iy,s)=O\left(y^\sigma\right)$ as $y\to\infty$ and $\Re s\in[1-\sigma,\sigma]$.
+\end{corollary}
+\begin{proof}
+	The analytic continuation follows from examining the Fourier series in \Cref{prop:fourier-expansion-eisenstein}; notably $a_0$ has poles only at $s\in\{0,1\}$, and otherwise the series converges rapidly (use \Cref{rem:rapid-decay-bessel}). The functional equation also follows from Fourier series upon checking that $a_n(y,s)=a_n(y,1-s)$.
+\end{proof}
+For the application, it will be useful to have a different series expansion for $E$. Instead of summing over $(m,n)\ne(0,0)$, we sum $(Nc,Nd)$ where $N>0$ and $(c,d)\in\ZZ^2$ with $\gcd(c,d)=1$. A computation shows
+\[\frac{y^s}{\left|mz+n\right|^{2s}}=N^{-2s}\Im\left(\begin{bmatrix}
+	1 & n \\ & 1
+\end{bmatrix}z\right)^s,\]
+so we let $\Gamma_\infty\coloneqq\left\{\begin{bsmallmatrix}
+	1 & n \\ & 1
+\end{bsmallmatrix}:n\in\ZZ\right\}$ denote the stabilizer of $\infty$ in $\op{SL}_2(\ZZ)$. Thus,
+\[E(z,s)=\pi^{-s}\Gamma(s)\zeta(2s)\sum_{\gamma\in\ov{\Gamma_\infty}\backslash\op{PSL}_2(\ZZ)},\]
+where $\ov{\Gamma_\infty}$ denotes the image of $\Gamma_\infty$ in $\op{PSL}_2(\ZZ)$.
+
+Now here is our result.
+\begin{proposition} \label{prop:rankin-selberg}
+	Fix a smooth function $\varphi\colon\op{SL}_2(\ZZ)\backslash\HH\to\CC$ such that $\varphi(x+iy)=O\left(y^{-N}\right)$ for all $N>0$. Write $\varphi(z)=\sum_{n\in\ZZ}\varphi_n(y)e^{2\pi inx}$ for the resulting Fourier series. Then we define
+	\[\Lambda(s)\coloneqq\pi^{-s}\Gamma(s)\zeta(2s)\mc M\varphi_0(s-1).\]
+	Then in fact
+	\[\Lambda(s)=\int_{\op{SL}_2(\ZZ)\backslash\HH}E(z,s)\varphi(z)\,\frac{dx\,dy}{y^2},\]
+	so $\Lambda(s)$ admits a meromorphic continuation with at worst simple poles at $s\in\{0,1\}$.
+\end{proposition}
+\begin{proof}
+	Note the integral in $\mc M\varphi_0(s)$ converges absolutely for $\op{Re}s>0$ by the growth condition on $\varphi_0$, so $\Lambda$ starts out holomorphic in some right-half plane. Note that the meromorphic continuation will follow from the corresponding facts about $E$ (and rapid decay for $\varphi$) via \Cref{cor:eisenstein-continuation} as soon as we verify the integral representation. For $\Re s>1$, we use the discussion preceding the proposition to see that the integral equals
+	\[\pi^{-s}\Gamma(s)\zeta(2s)\int_{\Gamma_\infty\backslash\HH}(\Im z)^s\varphi(z)\frac{dx\,dy}{y^s}\]
+	after summing over $\gamma$. Taking $[0,1]\times\RR^+\subseteq\HH$ as a fundamental domain for $\Gamma_\infty\backslash\HH$ completes the proof.
+\end{proof}
+We now plug in some $\varphi_0$ of some interest.
+\begin{theorem}
+	Fix cuspidal normalized Hecke eigenforms $f$ and $g$ of weight $k$ and level $\op{SL}_2(\ZZ)$. Then we get Fourier series $f(z)=\sum_{n\ge1}a_nq^n$ and $g(z)=\sum_{n\ge1}b_nq^n$. Define
+	\begin{align*}
+		L(s,f\times g) &\coloneqq \zeta(2s-2k+2)\sum_{n=1}^\infty a_nb_nn^{-s}, \\
+		\Lambda(s,f\times g) &\coloneqq (2\pi)^{-s}\Gamma(s)\Gamma(s-k+1)L(s,f\times g).
+	\end{align*}
+	Then $\Lambda(s,f\times g)$ admits a meromorphic continuation to all $s\in\CC$ with at worst simple poles at $s\in\{k,k-1\}$ and satisfies the functional equation
+	\[\Lambda(s,f\times g)=\Lambda(2k-1-s,f\times g).\]
+\end{theorem}
+\begin{proof}
+	We will apply \Cref{prop:rankin-selberg} to $\varphi_0(z)\coloneqq f(z)\ov{g(z)}(\Im z)^k$. The growth condition is satisfied because $f$ and $g$ are cuspidal, and this descends to a map on $\op{SL}_2(\ZZ)\backslash\HH$ because $f$ and $g$ are modular forms. A direct expansion with the Fourier expansion of $f$ and $g$ shows
+	\[\varphi_0(y)=\sum_{m,n\in\ZZ}\int_0^1a_n\ov{b_m}e^{2\pi inx-2\pi ny-2\pi imx-2\pi my}y^k\,dx=\sum_{n=0}^\infty a_nb_ne^{-4\pi ny}y^k\]
+	upon integrating and noting $b_n\in\RR$ because they are eigenvalues of a self-adjoint operator. From here, we can compute the Mellin transform as
+	\[\mc M\varphi_0(s)=(4\pi)^{-s-k}\Gamma(s+k)\sum_{n=0}^\infty a_nb_nn^{-s-k}.\]
+	Shifting $s$, we see $\Lambda(s-k+1)=\pi^{k-1}\Lambda(s,f\times g)$, from which the result follows from \Cref{prop:rankin-selberg}.
+\end{proof}
+We conclude, in passing, by noting that $L(s,f\times g)$ even admits an Euler product. In the setting of the above theorem, factor
+\[1-a_pT+p^{k-1}T^2=\left(1-\alpha_{1p}X\right)\left(1-\alpha_{2p}X\right),\]
+and define $\beta_{1p}$ and $\beta_{2p}$ similarly. We will show that
+\[L(s,f\times g)=\prod_p\prod_{i,j=1}^2\frac1{1-\alpha_i(p)\beta_j(p)p^{-s}}.\]
+Attempting to match up Euler factors on either side, we recall that
+\begin{equation}
+	\sum_{\nu=0}^\infty a_{p^\nu}T^r=\frac1{1-a_pT+p^{k-1}T^2} \label{eq:almost-geometric-sum}
+\end{equation}
+and similarly for $b_\bullet$s, so we are essentially tasked with showing
+\[\sum_{\nu=0}^\infty a_{p^\nu}b_{p^\nu}T^r\stackrel?=\left(1-\alpha_{p1}\alpha_{p2}\beta_{p1}\beta_{p2}T^2\right)\prod_{i,j=1}^2\frac1{1-\alpha_{pi}\beta_{pj}T}.\]
+This is some purely formal algebraic identity. Bump proves this by clever contour integration by considering
+\[\frac1{2\pi i}\oint_\gamma\Bigg(\sum_{\nu=0}^\infty a_{p^\nu}(Tq)^r\Bigg)\Bigg(\sum_{\mu=0}^\infty b_{p^\mu}q^{-r}\Bigg)\frac{dq}q,\]
+where the contour $\gamma$ is positively oriented around the origin. Expanding the product of the sums produces the desired series over $a_{p^\nu}b_{p^\nu}$; using \eqref{eq:almost-geometric-sum} produces an integral which can be evaluated using residue calculus.
+
+\subsection{Hecke Characters and Hilbert Modular Forms}
+We will generalize modular forms and zeta functions away from $\QQ$ to certain number fields. In particular, let $F$ be a totally real number field of degree $n$, and let $\rho_1,\ldots,\rho_n\colon F\to\RR$ be the real embeddings. Eventually, we will want to have $h^+(F)=1$, which concretely means that any ideal has a totally positive generator; however, we will state when this assumption is used. For more notation, we let $\mf d$ denote the different of $F$, and let $D$ denote the discriminant.
+
+The theory is best stated in terms of characters of id\'eles, but we would rather not spend the time required to set up these objects. Instead, we will write everything ideal-theoretically, and instead of working with ideals directly, we will work with explicit field elements whenever possible. As such, many of our arguments requiring checking that certain concepts are independent of units, so we want the following structure theorem.
+\begin{theorem}
+	Fix $F$ as above. Then $\OO_F^\times$ is finitely generated. In fact, the map
+	\[\alpha\mapsto\left(\log\rho_1(\alpha),\ldots,\log\rho_n(\alpha)\right)\]
+	is an isomorphism of $\OO_F^\times/\{\pm1\}$ onto a lattice of rank $(n-1)$ inside the trace-zero hyperplane of $\RR^n$.
+\end{theorem}
+\begin{proof}
+	This is a special case of the Dirichlet unit theorem.
+\end{proof}
+Generalizing Dirichlet characters, we define Hecke characters.
+\begin{definition}[Hecke character]
+	Fix an ideal $\mf f\subseteq\OO_F$, and let $\chi_{\mf f}\colon(\OO_F/\mf f)^\times\to\CC^\times$ be a character. Then we extend $\chi_{\mf f}$ to a character on $\OO_F$ by taking the value $0$ whenever the input is not coprime with $\mf f$. To make this a character on principal ideals, we must adjust $\chi_{\mf a}$ to be trivial on $\OO_F^\times$, so we define $\chi\coloneqq\chi_{\mf a}\chi_\infty$, where $\chi_\infty$ is chosen so that $\chi|_{\OO_F^\times}=1$ and
+	\[\chi_\infty(a)\prod_{i=1}^n\op{sgn}(\sigma_i(a))^{\varepsilon_i}\left|\sigma_i(a)\right|^{\nu_i}\]
+	for some $\varepsilon_\bullet$s and $\nu_\bullet$s. As usual, we say that $\chi$ is \textit{primitive} if and only if it is not induced by some $\mf f'$ dividing $\mf f$; we say that $\mf f$ is then the \textit{conductor} of $\chi$.
+\end{definition}
+\begin{remark}
+	Let's explain how to select $\chi_\infty$. Choose the $\varepsilon_\bullet$s so that $\chi$ is trivial on $\OO_F^+$. Then select a basis of $\OO_F^+$ and write down equations which will make $\chi$ trivial on the basis.
+\end{remark}
+As with Dirichlet characters, we have a notion of Gauss sum.
+\begin{definition}[Gauss sum]
+	Fix a Hecke character $\chi$ of conductor $\mf f$. Suppose $\mf d=(d)$ and $\mf f=(f)$ where $d,f\in\OO_F$ are totally positive. Then we define the \textit{Gauss sum}
+	\[\tau(\chi_\mf f)\coloneqq\sum_{a\in\OO_F/\mf f}\chi_\mf f(a)e^{2\pi i\tr(\alpha/(fd))}.\]
+	Importantly, $\tau(\chi_\mf f)$ depends on $d$ and $f$ despite the notation not reflecting this.
+\end{definition}
+We now may define our $L$-function. For a (primitive) Hecke character $\chi$, we define the $L$-function
+\[L(s,\chi)\coloneqq\sum_{\mf a\subseteq\OO_F}\frac{\chi(\mf a)}{\op N(\mf a)^{-s}},\]
+which we note has the usual Euler product $\prod_{\mf p}\left(1-\chi(\mf p)\op N(\mf p)^{-s}\right)^{-1}$.
+\begin{example}
+	If $\chi$ is the trivial character, then we set $\zeta_F\coloneqq L(s,1)$ to be the Dedekind $\zeta$-function. For example, if $F$ is real quadratic, we let $\chi_D$ be the quadratic character with conductor $\left|D\right|$. Noting that prime-splitting behavior in $\OO_F$ is determined by $\chi_D$, one can show that
+	\[\zeta_F(s)=\zeta(s)L(s,\chi_D)\]
+	by comparing Euler factors.
+\end{example}
+Here is our analytic continuation and functional equation.
+\begin{theorem}
+	Fix notation as above, and suppose $h^+(F)=1$. Then define
+	\[\Lambda(s,\chi)\coloneqq D^{s/2}\pi^{-ns/2}\prod_{i=1}^n\Gamma\left(\frac{s-\nu_i+\varepsilon_i}2\right)L(s,\chi).\]
+	Then $\Lambda(s,\chi)$ has a meromorphic continuation to all $s$ with at worst simple poles at $s\in\{0,1\}$. There is a functional equation
+	\[\Lambda(s,\chi)=\frac{\chi_{\mf f}(-1)\chi_\infty(fd)\tau(\chi_{\mf f})}{\sqrt{\op N(\mf f)}}\cdot i^{\tr\varepsilon}\op N(\mf f)^{-s+1/2}\Lambda\left(1-s,\chi^{-1}\right).\]
+\end{theorem}
+\begin{proof}
+	This proof is a direct generalization of the proof for Dirichlet characters. We describe the required ingredients for the generalization. We require a Fourier transformation for functions $h$ on $\RR^n/\ZZ^n$, for which we take as
+	\[\mc Fh(x)\coloneqq\frac1{\sqrt D}\int_{\RR^n}h(y)e^{2\pi i\tr(xy/d)}\,dy,\]
+	a formula more or less arising from the theory of locally compact abelian groups. For Schwartz functions, \Cref{prop:poisson-sum} now generalizes to the statement
+	\[\sum_{a\in\OO_F}h(a)=\sum_{a\in\OO_F}\mc Fh(a),\]
+	and \Cref{cor:twisted-poisson-sum} generalizes to
+	\[\tau(\ov\chi_\mf f)\sum_{a\in\OO_F}\chi_\mf f(a)F(a)=\sum_{a\in\OO_F}\ov\chi_\mf f(a)\mc Fh(a/f)\]
+	using Fourier analysis on $\OO_F/\mf f$. Now, one computes the Fourier transform of the corresponding Gaussian $x\mapsto\op N(x^\varepsilon) e^{-\pi\tr\left(tx^2/d\right)}$ (where $\op N(x)$ means multiplying the coordinates).
+
+	With our Fourier analysis properly set up, we define
+	\[\Theta_{\chi_\mf f}(t)\coloneqq\sum_{a\in\OO_F}\chi_\mf f(a)\op N(a)^\varepsilon e^{-\pi\tr\left(ta^2/d\right)},\]
+	from which Poisson summation produces the functional equation
+	\[\Theta_{\chi_\mf f}(t)=\frac1{\tau(\ov\chi_\mf f)}\frac1{\sqrt{\op N(t)}}\op N((i/ft)^\varepsilon)\Theta_{\ov\chi_\mf f}\left(\frac1{f^2t}\right).\]
+	Now, for $\Re s$ sufficiently large, one computes the Mellin transform
+	\[\int_{\RR^{n+}/\OO_F^+}\Theta_{\chi_\mf f}(t)\op N\left(t^{(s+\varepsilon-\nu)/2}\right)\frac{\op N(dt)}{\op N(t)}=2\pi^{-\tr\varepsilon}\op N\left(d^{(\varepsilon-\nu)/2}\right)\Lambda(s,\chi),\]
+	from which the functional equation and meromorphic continuation follow from the corresponding properties of $\Theta$. (If $\chi$ is trivial, then the integral does not actually converge for enough $s$, so we need to subtract out the pole before taking the Mellin transform to produce the meromorphic continuation.)
+\end{proof}
+We now turn our attention to Hilbert modular forms. We will write $\begin{bsmallmatrix}
+	a & b \\ c & d
+\end{bsmallmatrix}$ where $a,b,c,d\in\RR^n$ to refer to $n$-tuple of matrices $\begin{bsmallmatrix}
+	a_\bullet & b_\bullet \\ c_\bullet & d_\bullet
+\end{bsmallmatrix}$. Then we note that $\op{SL}_2(F)\subseteq\op{SL}_2(\RR)^n$ has a sublattice $\op{SL}_2(\OO_F)\subseteq\op{SL}_2(F)$, which will inherit the natural action on $\HH^n$. The action is discontinuous (roughly speaking, $\op{SL}_2(\OO_F)\subseteq\op{SL}_2(F)$ is cocompact), and the quotient has finite volume with respect to the invariant measure $dx\,dy/y^2$. The theory of complex manifolds allows us to compactify $\Gamma\backslash\HH^n$, essentially by taking the quotient by $(\HH^n)^*\coloneqq\HH^n\sqcup\PP^1_F$. Importantly, the resulting quotient is an algebraic complex variety, but it need not be smooth.
+
+We are now ready to define a Hilbert modular form. For the remainder of this subsection, we always take $h^+(F)=1$.
+\begin{definition}[Hilbert modular form]
+	Fix an even nonnegative integer $k$. A \textit{Hilbert modular form} $f$ of weight $k$ is a holomorphic function $f\colon\HH^n\to\CC$ such that
+	\[f(z)=\op N(cz+d)^{-k}f(\gamma(z))\]
+	for all $\gamma\in\op{SL}_2(\OO_F)$.
+\end{definition}
+Importantly, if $n\ge2$, because $f$ is holomorphic, it will turn out that $f$ is automatically holomorphic on the cusps of $\HH^{n*}$. (Approximately speaking, this is intuitively because being holomorphic outside a set of codimension at least $2$ implies being holomorphic everywhere.)
+\begin{remark}
+	Let $f$ be a Hilbert modular form of weight $k$. Take $h^+(F)=1$ so that we can write $\mf d=(d)$ for totally positive $d$. Then $a\in\OO_F$ has $f(z+a)=f(z)$, so $f$ descends to a function on $\RR^n/\OO_F$. As such, Fourier analysis on $\RR^n/\OO_F$ produces the Fourier expansion
+	\[f(z)=\sum_{\nu\in\OO_F}a_\nu e^{2\pi i\tr(\nu z/d)}.\]
+	It turns out that $a_\nu=0$ unless $\nu$ is zero or is totally positive. In fact, $a_\nu=a_{\varepsilon\nu}$ for any totally positive unit $\varepsilon$ by writing the totally positive unit $\varepsilon$ as a square. (This uses $h^+(F)=1$.)
+\end{remark}
+The previous remark tells us that $a_\bullet$ descends from a function on $\OO_F$ to a function on ideals. Thus, we define
+\[L(s,f)\coloneqq\sum_{\mf a\subseteq\OO_F}\frac{a_\mf a}{\op N(\mf a)^s}.\]
+One can prove a growth condition on the $a_\mf a$, which promises that this converges for large $\Re s$.
+\begin{remark}
+	We will not do this, but one can build a Hecke theory analogously to the case where $F=\QQ$ in order to define a notion of a Hecke eigenform and prove a resulting Euler product.
+\end{remark}
+Here is our functional equation.
+\begin{definition}
+	Continue supposing $h^+(F)=1$, and let $f$ denote a Hilbert modular cusp form of weight $k$, where $k$ is an even nonnegative integer. Then define
+	\[\Lambda(s,f)\coloneqq(2\pi)^{-ns}\Gamma(s)^nD^sL(s,f),\]
+	where we recall $D\coloneqq\op{disc}F$. Then $\Lambda(s,f)$ has an analytic continuation to all $s\in\CC$ and satisfies
+	\[\Lambda(s,f)=(-1)^{nk/2}\Lambda(k-s,f).\]
+\end{definition}
+\begin{proof}
+	The Fourier expansion of $f$ and some rearranging is able to show that
+	\[\Lambda(s,f)=\int_{\OO_F^+\backslash\RR^{n+}}f(iy)\op N(y)^s\,\frac{dy}y.\]
+	Notably, this integral is convergent for any $s$ because $f$ is a cusp form, so $y_\bullet\to\infty$ means that $f$ rapidly decays, and $y_\bullet\to0$ still makes $f$ rapidly decay because
+	\[f(i/y)=(-1)^{nk/2}\op N(y)^kf(iy).\]
+	The above functional equation $f$ in fact provides the functional equation for $\Lambda$.
+\end{proof}
+We will spend the remainder of the chapter proving the following (quadratic) base-change result.
+\begin{theorem}
+	Fix a real quadratic field $F$ such that $h^+(F)=1$, and set $D\coloneqq\op{disc}F$. If $\varphi$ is a Hecke eigenform of weight $k$ and level $\op{SL}_2(\ZZ)$, then there is a unique Hilbert modular form $f$ such that
+	\[L(s,f)=L(s,\varphi)L(s,\varphi,\chi_D).\]
+\end{theorem}
+\begin{remark}
+	One can expand the right-hand side into Euler factors to reveal that its Euler product does in fact look like $L(s,f)$ for a Hilbert modular form $f$. However, it is rather difficult to check that the corresponding Fourier series is actually a Hilbert modular form, so we see that the main content of the above theorem is the existence.
+\end{remark}
 
 \end{document}
