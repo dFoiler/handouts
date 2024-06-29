@@ -571,7 +571,7 @@ One would like a converse theorem from these functional equations.
 \end{proof}
 
 \section{June 20}
-Today we plan on covering \S1.6--1.8.
+Today we plan on covering \S1.6--1.7.
 
 \subsection{The Rankin--Selberg Method}
 In short, the Rankin--Selberg method integrates some automorphic form by an Eisenstein series to produce certain $L$-functions which provably desirable properties. As such, we begin by discussing our required Eisenstein series.
@@ -784,5 +784,68 @@ We will spend the remainder of the chapter proving the following (quadratic) bas
 \begin{remark}
 	One can expand the right-hand side into Euler factors to reveal that its Euler product does in fact look like $L(s,f)$ for a Hilbert modular form $f$. However, it is rather difficult to check that the corresponding Fourier series is actually a Hilbert modular form, so we see that the main content of the above theorem is the existence.
 \end{remark}
+
+\section{June 28th}
+Today we plan on covering \S1.8--1.10. We will only address \S1.10 briefly.
+
+\subsection{Artin \texorpdfstring{$L$}{ L}-Functions and Langlands Functoriality}
+
+\subsection{Maass Forms}
+We spend time discussing Maass forms.
+\begin{definition}[Laplacian]
+	We define the \textit{non-Euclidean Laplacian} as the second-order differential operator $\Delta$ acting on $C^\infty(\HH)$ by
+	\[\Delta\coloneqq-y^2\left(\frac{\del^2}{\del^2x}+\frac{\del^2}{\del^2y}\right).\]
+\end{definition}
+One can check that $g\in\op{SL}_2(\RR)$ and $f\in C^\infty(\HH)$ has $\Delta(f\circ g)=\Delta(f)\circ g$ by some chain rule computation.
+\begin{definition}[Maass form]
+	Fix a finite-index subgroup $\Gamma$ of $\op{SL}_2(\ZZ)$. A \textit{Maass form} of level $\Gamma$ is a smooth eigenfunction $f\in C^\infty(\Gamma\backslash\HH)$ for $\Delta$ satisfying the bounding condition $f(x+iy)=O\left(y^N\right)$ as $y\to\infty$ for some $N$. A Maass form $f$ is a \textit{cusp form} if and only if
+	\[\int_{\RR/\ZZ}f(z+x)\,dx=0.\]
+\end{definition}
+\begin{example}
+	When $\nu\in\CC$ has $\Re \nu>1/2$, then the function $z\mapsto E(z,\nu+1/2)$ satisfies
+	\[\Delta E\left(z,\nu+\frac12\right)=\left(\frac14-\nu^2\right)E\left(z,\nu+\frac12\right)\]
+	by applying $\Delta$ directly to the series and noting $\Delta y^{\nu+1/2}=\left(\frac14-\nu^2\right)y^{\nu+1/2}$. Thus, we can see that $(z,\nu+1/2)$ is a Maass form. An argument using the Fourier series of $E(z,\nu+1/2)$ verifies that this still holds for arbitrary $\nu\notin\{\pm1/2\}$. Notably, for nonzero $r\in\ZZ$, verifying $\Delta a_r(y,\nu+1/2)=\left(\frac14-\nu^2\right)a_r(y,\nu+1/2)$ uses the fact
+	\begin{equation}
+		\left(y^2\frac{\del^2}{\del y^2}+y\frac{\del}{\del y}-\left(y^2+\nu^2\right)\right)K_\nu(y)=0, \label{eq:bessel-de}
+	\end{equation}
+	which holds by differentiating under the integral sign.
+\end{example}
+\begin{remark}
+	As with modular forms, a Maass form $f$ of level $\op{SL}_2(\ZZ)$ admits a Fourier expansion
+	\[f(x+iy)=\sum_{r\in\ZZ}a_r(y)e^{2\pi irx}.\]
+	Motivated by the previous example, choose $\nu\in\CC$ so that $\Delta f=\left(\frac14-\nu^2\right)f$. For nonzero $r$, we claim that
+	\[a_r(y)\stackrel?=a_r\sqrt yK_\nu(2\pi\left|r\right|y).\]
+	Well, fixing $r$, define $k\colon\RR^+\to\CC$ so that the above equation holds for $k$ replacing $a_rK_\nu$. Then one can apply $\Delta$ here to see that \eqref{eq:bessel-de} must hold for $k$. Analyzing the possible functions $k$ satisfying this differential equation, we are able to conclude $k=a_rK_\nu$ for some $a_r$. (Notably, $y\gg0$ means $k$ will be approximated by a function satisfying $d^2k/dy^2-k=0$, so $k=ce^{\pm y}$, and the $+$ sign is disallowed because $a_r(y)$ admits only polynomial growth.)
+\end{remark}
+As usual, we would like to build an $L$-function and establish a functional equation and meromorphic continuation. Well, for cusp form $f$ of level $\op{SL}_2(\ZZ)$, we define $\{a_n\}_{n\in\ZZ}$ as in the above remark and define
+\[L(s,f)\coloneqq\sum_{n\ge1}\frac{a_n}{n^s}.\]
+One can check that $a_n=O\left(n^{1/2}\right)$ as $n\to\infty$ via the usual arguments on the quotient $\op{SL}_2(\ZZ)\backslash\HH$, so $L(s,f)$ converges for $\Re s>3/2$.
+
+Notably, $L(s,f)$ only acknowledges $a_n$ for $n\ge1$, so we might be interested in the negative values.
+\begin{definition}[even, odd]
+	Let $\iota\colon\HH\to\HH$ be the involution $\iota(x+iy)=-x+iy$. A Maass cusp form $f$ is \textit{even} if and only if $f\circ\iota=f$ (so that $a_n=a_{-n}$) and is \textit{odd} if and only if $f\circ\iota=-f$ (so that $a_n=-a_{-n}$).
+\end{definition}
+\begin{remark}
+	The decomposition
+	\[f^+\coloneqq\frac{f+(f\circ\iota)}2\qquad\text{and}\qquad f^-\coloneqq\frac{f-(f\circ\iota)}2\]
+	shows that any Maass cusp form $f$ can be decomposed (uniquely) into a sum $f=f^++f^-$ of an even and odd Maass cusp form.
+\end{remark}
+Thus, in the sequel, we will consider even and odd forms.
+\begin{proposition}
+	Fix a Maass cusp form $f$ with eigenvalue $\frac14-\nu^2$. Choose $\varepsilon=0$ if $f$ is even and $\varepsilon=-1$ if $f$ is odd. Then set
+	\[\Lambda(s,f)\coloneqq\pi^{-s}\Gamma\left(\frac{s+\varepsilon+\nu}2\right)\Gamma\left(\frac{s+\varepsilon-\nu}2\right).\]
+	Then $\Lambda(s,f)$ has an analytic continuation to all $s\in\CC$ and satisfies the functional equation
+	\[\Lambda(s,f)=(-1)^\varepsilon\Lambda(1-s,f).\]
+\end{proposition}
+\begin{proof}
+	For simplicity, we take $f$ to be even. The main claim is that
+	\[\frac12\Lambda(s,f)\stackrel?=\int_{\RR^+}f(iy)y^{s-1/2}\,\frac{dy}y.\]
+	(When $f$ is odd, we set $g\coloneqq(4\pi i)^{-1}\del f/\del x$ and integrate.) Notably, the right-hand side converges for all $s\in\CC$ because $f$ is a cusp form, and one has the relation $f(iy)=f(i/y)$; this relation also explains the resulting functional equation for $\Lambda$. Anyway, the above equality follows plugging in the Fourier expansion of $f$ and applying the equality
+	\[\int_{\RR^+}K_\nu(y)y^s\,\frac{dy}y=2^{s-2}\Gamma\left(\frac{s+\nu}2\right)\Gamma\left(\frac{s-\nu}2\right),\]
+	which follows by plugging in for $K_\nu(y)$ and a variable-change.
+\end{proof}
+We now turn to base-change of Maass forms. Let $F$ be a real quadratic field with discriminant $D$ and $h^+(F)=1$. Set $\chi\coloneqq\chi_D$ to be the quadratic Dirichlet character of conductor $D$ satisfying $\chi(-1)=1$.
+
+We will want to understand certain Gauss sums. 
 
 \end{document}

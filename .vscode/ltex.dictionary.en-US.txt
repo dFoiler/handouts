@@ -184,3 +184,4 @@ cuspidal
 cocharacter
 subrepresentation
 idéles
+Functoriality
