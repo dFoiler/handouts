@@ -552,7 +552,7 @@ Here is our functional equation.
 	Now, in the usual way, plug in $iy$ into this equation and apply the Mellin transform to conclude.
 \end{proof}
 One would like a converse theorem from these functional equations.
-\begin{theorem}[Weil]
+\begin{theorem}[Weil] \label{thm:weil-converse}
 	Fix a positive integer $N$ and Dirichlet character $\psi\pmod N$. Further, fix sequences of complex $\{a_m\}$ and $\{b_m\}$ exhibiting polynomial growth, and define the functions $f\coloneqq\sum_{m}a_mq^m$ and $g\coloneqq\sum_mb_mq^m$ so that we can define $L(s,f,\chi)$ and so on as usual. Lastly, fix a finite set of primes $S$ (including the prime divisors of $N$), and we assume the following for all Dirichlet characters $\chi$ with conductor $D$ or a prime not in $S$.
 	\begin{listalph}
 		\item Analytic continuation: $\Lambda(s,f,\chi)$ and $\Lambda(s,g,\ov\chi)$ has an analytic continuation to all $s\in\CC$.
@@ -763,12 +763,12 @@ One can prove a growth condition on the $a_\mf a$, which promises that this conv
 	We will not do this, but one can build a Hecke theory analogously to the case where $F=\QQ$ in order to define a notion of a Hecke eigenform and prove a resulting Euler product.
 \end{remark}
 Here is our functional equation.
-\begin{definition}
+\begin{theorem} \label{thm:hilbert-functional-equation}
 	Continue supposing $h^+(F)=1$, and let $f$ denote a Hilbert modular cusp form of weight $k$, where $k$ is an even nonnegative integer. Then define
 	\[\Lambda(s,f)\coloneqq(2\pi)^{-ns}\Gamma(s)^nD^sL(s,f),\]
 	where we recall $D\coloneqq\op{disc}F$. Then $\Lambda(s,f)$ has an analytic continuation to all $s\in\CC$ and satisfies
 	\[\Lambda(s,f)=(-1)^{nk/2}\Lambda(k-s,f).\]
-\end{definition}
+\end{theorem}
 \begin{proof}
 	The Fourier expansion of $f$ and some rearranging is able to show that
 	\[\Lambda(s,f)=\int_{\OO_F^+\backslash\RR^{n+}}f(iy)\op N(y)^s\,\frac{dy}y.\]
@@ -788,7 +788,7 @@ We will spend the remainder of the chapter proving the following (quadratic) bas
 \section{June 28th}
 Today we plan on covering \S1.8--1.10. We will only address \S1.10 briefly.
 
-\subsection{Artin \texorpdfstring{$L$}{ L}-Functions and Langlands Functoriality}
+% \subsection{Artin \texorpdfstring{$L$}{ L}-Functions and Langlands Functoriality}
 
 \subsection{Maass Forms}
 We spend time discussing Maass forms.
@@ -846,6 +846,216 @@ Thus, in the sequel, we will consider even and odd forms.
 \end{proof}
 We now turn to base-change of Maass forms. Let $F$ be a real quadratic field with discriminant $D$ and $h^+(F)=1$. Set $\chi\coloneqq\chi_D$ to be the quadratic Dirichlet character of conductor $D$ satisfying $\chi(-1)=1$.
 
-We will want to understand certain Gauss sums. 
+We will want to understand certain Gauss sums.
+\begin{proposition}
+	Let $\sigma\pmod q$ be a primitive Dirichlet character. Then the conductor $\mf f$ of $\sigma\circ\op N_{F/\QQ}$ is the unique ideal with $\op N\mf f=q^2$ invariant under $\op{Gal}(F/\QQ)$. Then
+	\[\tau_F(\sigma\circ N)=D^{-1/2}\tau(\sigma)\tau(\sigma\chi_D)=\sigma(D)\chi_D(q)\tau(\sigma)^2.\]
+\end{proposition}
+\begin{proof}
+	We use the functional equations. Choose $\delta\in\{0,1\}$ such that $\sigma(-1)=(-1)^\delta$. Let $\Lambda(s,\sigma)$, $\Lambda(s,\sigma\chi_D)$, and $\Lambda(s,\sigma\circ{\op N_{F/\QQ}})$ be the relevant completed $\Lambda$-functions. A comparison of Euler products shows that
+	\[\Lambda(s,{\sigma\circ\op N_{F/\QQ}})=D^{s/2}\pi^\delta\Lambda(s,\sigma)\Lambda(s,\sigma\chi_D).\]
+	Comparing the functional equations for everything in sight, we see
+	\[\frac{\tau(\sigma)\tau(\sigma\chi_D)}{q\sqrt D}q^{-2s+1}=\frac{\tau_F(\sigma\circ{\op N_{F/\QQ}}}{\sqrt{\op N_{F/\QQ}(\mf f)}}\op N_{F/\QQ}(\mf f)^{-s+1/2}.\]
+	Thus, $\op N_{F/\QQ}(\mf f)=q^2$, and $s=1/2$ establishes the left equality. The right equality follows by showing $\tau(\sigma\chi_D)=\sigma(D)\chi_D(q)\tau(\sigma)\tau(\chi_D)$ (for which one applies a full expansion of $\tau(\sigma)$ and $\tau(\chi_D)$) and $\tau(\chi_D)=\sqrt D$ (for which one takes $q=1$ and $\sigma=1$ in the above argument).
+\end{proof}
+Now, for a Hecke character $\psi=\psi_{\mf f}\psi_\infty$ of $F$, we will build a Maass form $\Gamma_0(D)$ for our lifting. For simplicity, we take $\mf f=\OO_F$ so that $\psi$ only depends on $\psi_\infty$. By definition of $\psi_\infty$, we receive $\varepsilon\in\{0,1\}$ and complex numbers $\nu\in\CC$ so that
+\[\psi_\infty(x)=\op{sgn}(x_1x_2)^{\varepsilon}\left|\frac{x_1}{x_2}\right|^\nu.\]
+We will assume $\nu\ne0$ and $\varepsilon=0$ for simplicity. Continuing with our set-up, we let $\eta>1$ be the fundamental unit of $\OO_F^\times$; set $d\coloneqq\eta\sqrt D$ to be totally positive.
+
+We are now ready to define
+\[\theta_\psi(z)\coloneqq\sum_{\mf a\subseteq\OO_F}\psi(\mf a)\sqrt yK_\nu(2\pi\op N_{K/\QQ}(\mf a)y)\cos(2\pi\op N_{K/\QQ}(\mf a)x).\]
+Here is our result.
+\begin{theorem}
+	Fix everything as above. Then $\theta_\psi$ is a Maass cups form for $\Gamma_0(D)$.
+\end{theorem}
+\begin{proof}
+	The argument is similar to the proof of \Cref{thm:weil-converse}. For example, to show
+	\[\theta_\psi(z)\stackrel?=\theta_\psi\left(\frac{-1}{Dz}\right),\]
+	use the known functional equation
+	\[\Lambda(s,\psi)=\psi_\infty(d)\Lambda(1-s,\psi)\]
+	and then Mellin inversion to establish the desired equality from the expression
+	\[\int_{\RR^+}\theta_\psi(iy)y^{s-1/2}\,\frac{dy}y=\frac14D^{-s/2}\Lambda(s,\psi).\]
+	The other identities needed for $\Gamma_0(D)$ follow from several pages of manipulations of $2\times2$ matrices.
+\end{proof}
+
+\section{July 5th}
+
+Today we move on to chapter 2.
+
+\subsection{Maass Forms and the Spectral Problem}
+It will turn out that we are interested in the representation theory of $G\coloneqq\op{GL}_2(\RR)$. For motivation, let $\Gamma\subseteq\op{SL}_2(\RR)$ be a subgroup such that $\Gamma\backslash\HH$ is compact. Given a unitary character $\chi\colon\Gamma\to\CC^\times$, we can produce the following automorphic forms: (holomorphic) modular forms $M_k(\gamma,\chi)$, Maass forms, and constant functions.
+
+Representation theory will explain this trichotomy. However, we will require a generalization of Maass forms to ``higher weights'' $k$, so we wil want higher weight Laplacians. For convenience, define
+\[\frac\del{\del z}\coloneqq\frac12\left(\frac\del{\del x}-i\frac{\del}{\del y}\right)\qquad\text{and}\qquad\frac\del{\del\ov z}=\frac12\left(\frac\del{\del x}+i\frac\del{\del y}\right),\]
+where $z=x+iy$. For example, the Cauchy--Riemann equations imply $\del f/\del\ov z=0$ when $f$ is holomorphic.
+\begin{definition}
+	We define the \textit{Maass differential operators} on $C^\infty(\HH)$ by
+	\begin{align*}
+		R_k &\coloneqq (z-\ov z)\frac\del{\del z}+\frac k2, \\
+		L_k &\coloneqq (\ov z-z)\frac\del{\del z}-\frac k2, \\
+		\Delta_k &\coloneqq -y^2\left(\frac{\del^2}{\del x^2}+\frac{\del^2}{\del y^2}\right)+iky\frac\del{\del x}.
+	\end{align*}
+\end{definition}
+We will also require a right action of $G$ on $C^\infty(\HH)$ by
+\[f|_kg\coloneqq\left(\frac{c\ov z+d}{\left|cz+d\right|}\right)^kf\left(\frac{az+b}{cz+d}\right)\]
+for $f\in C^\infty(\HH)$ and $g\coloneqq\begin{bsmallmatrix}
+	a & b \\ c & d
+\end{bsmallmatrix}\in G$.
+\begin{lemma} \label{lem:diff-operator-ids}
+	For $f\in C^\infty(\HH)$ and $g\in G$, we have
+	\begin{align*}
+		(R_kf)|_{k+2}g &= R_k(f|_kg), \\
+		(L_kf)|_{k-2}g &= L_k(f|_kg), \\
+		(\Delta_kf)|_kg &= \Delta_k(f|_kg).
+	\end{align*}
+\end{lemma}
+\begin{proof}
+	The first two equalities follow from the third and the identity
+	\[\Delta_k=-L_{k+2}R_k-\frac k2\left(1+\frac k2\right).\]
+	We will focus on the first equality because the second is similar. Set $w\coloneqq g(z)$. The Cauchy--Riemann equations and the chain rule implies
+	\[(w-\ov w)\frac\del{\del w}=\left(\frac{cz+d}{c\ov z+d}\right)(z-\ov z)\frac\del{\del z}.\]
+	Now, some expansion shows
+	\[(z-\ov z)\frac\del{\del z}\left(\frac{c\ov z+d}{\left|cz+d\right|}\right)^k=(z-\ov z)\left(\frac{c\ov z+d}{\left|cz+d\right|}\right)^k\frac\del{\del z}+\frac k2\left(\left(\frac{c\ov z+d}{\left|cz+d\right|}\right)^{k+2}-\left(\frac{c\ov z+d}{\left|cz+d\right|}\right)^k\right).\]
+	Combining these two equalities produces the first equality.
+\end{proof}
+We now introduce some notions around operators.
+\begin{definition}[operator]
+	Fix a Hilbert space $H$ with inner product $\langle\cdot,\cdot\rangle$. An \textit{operator} on $H$ is a pair $(T,D_T)$ $D_T\subseteq H$ is a dense linear subspace and $T\colon D_T\to H$ is linear. Here are some adjectives for $T$.
+	\begin{itemize}
+		\item $T$ is \textit{closed} if and only if its graph is closed in $H\times H$.
+		\item $T$ is \textit{unbounded} if and only if it is not continuous on $D_T\subseteq H$.
+		\item $T$ is \textit{symmetric} if and only if $\langle Tf,g\rangle=\langle f,Tg\rangle$ for all $f,g\in D_T$.
+	\end{itemize}
+\end{definition}
+\begin{definition}[adjoint]
+	Fix an operator $(T,D_T)$ on a Hilbert space $H$ with inner product $\langle\cdot,\cdot\rangle$. Define $D_{T^*}$ as the space of $g\in H$ such that $f\mapsto\langle Tf,g\rangle$ is a bounded linear functional on $D_T$, from which the Riesz representation theorem promises a unique $T^*g\in H$ such that
+	\[\langle Tf,g\rangle=\langle f,T^*g\rangle.\]
+	Then $(T^*,D_{T^*})$ is the \textit{adjoint} operator of $T$. We say $T$ is \textit{self-adjoint} if and only if $(T,D_T)=(T^*,D_{T^*})$.
+\end{definition}
+Self-adjoint operators enjoy a spectral theorem, but symmetric ones do not. Importantly, it is not even always possible to extend a symmetric operator to a self-adjoint one.
+
+Unsurprisingly, our example of interest is the Laplacian $\Delta_k$.
+\begin{example}
+	Give $\HH$ the $G$-invariant measure $y^{-2}\,dx\land dy$. Then $\Delta_k$ is an (unbounded) operator defined on $C_c^\infty(\HH)\subseteq L^2(\HH)$.
+\end{example}
+\begin{proposition}
+	The Laplacian operator $\Delta_k$ on $L^2(\HH)$ is symmetric.
+\end{proposition}
+\begin{proof}
+	Choose $f,g\in C_c^\infty(\HH)$ so that we want to show $\langle\Delta_kf,g\rangle=\langle f,\Delta_kg\rangle$. For convenience, define the operators $\Delta^e\coloneqq\del^2/\del x^2+\del^2/\del y^2$ as the Euclidean Laplacian and $T\coloneqq -iy^{-1}\del/\del x$. These definitions are useful because
+	\[\langle\Delta_kf,g\rangle=\int_\HH\left(-\Delta^ef+kTf\right)\ov g\,dx\land dy,\]
+	so it will be enough to prove symmetry results for $\Delta^e$ and $T$ individually. For example, Green's theorem asserts
+	\[\int_\HH(\ov g\Delta^ef-f\Delta^e\ov g)dx\land dy=\int_\gamma\left(\ov g\left(\frac{\del f}{\del x}dy-\frac{\del f}{\del y}dx\right)-f\left(\frac{\del\ov g}{\del x}dy-\frac{\del\ov g}{\del y}\,dx\right)\right),\]
+	where $\gamma$ is some (positively oritented) contour around the supports of $f$ and $g$. Notably, this last integral vanishes (because $f$ and $g$ vanish on $\gamma$), so we achieve
+	\[\int_\HH\ov g\Delta^ef\,dx\land dy=\int_\HH f\Delta^e\ov g\,dx\land dy.\]
+	A similar Green's theorem argument achieves the required symmetry for $T$ as well.
+\end{proof}
+The ``spectral theory'' of automorphic forms arises from studying the eigenvalues of the Laplacian operators $\Delta_k$. However, $\HH$ is quite unwieldy, so we will want to pass to compact quotients $\Gamma\backslash\HH$ (or at least such quotients with finite volume).
+\begin{example}
+	The unit group $\Gamma$ of the quaternions acts on $\HH$ with compact quotient.
+\end{example}
+Passing to a quotient permits a unitary character $\chi\colon\Gamma\to\CC^\times$, from which we define $C^\infty(\Gamma\backslash\HH,\chi,k)$ as consisting of $f\colon\HH\to\CC$ such that
+\[\chi(\gamma)f(z)=\left(\frac{c\ov z+d}{\left|cz+d\right|}\right)^kf\left(\frac{az+b}{cz+d}\right)\]
+for each $\gamma\coloneqq\begin{bsmallmatrix}
+	a & b \\ c & d
+\end{bsmallmatrix}\in\Gamma$. We will assume $\chi(-1_2)=(-1)^k$, for otherwise the space vanishes. Note that $C^\infty(\Gamma\backslash\HH,\chi,k)$ is equipped with the usual inner product
+\[\langle f,g\rangle\coloneqq\int_{\Gamma\backslash\HH}f(z)\ov{g(z)}\,\frac{dx\,dy}{y^2}.\]
+The completion of our space will be denoted $L^2(\Gamma\backslash\HH,\chi,k)$.
+\begin{lemma}
+	The operator $\Delta_k$ is symmetric on the Hilbert space $L^2(\Gamma\backslash\HH,\chi,k)$.
+\end{lemma}
+\begin{proof}
+	\Cref{lem:diff-operator-ids} shows $R_k$, $L_k$, and $\Delta_k$ send $C^\infty(\Gamma\backslash\HH,\chi,k)$ to $C^\infty(\Gamma\backslash\HH,\chi,k+2)$, $C^\infty(\Gamma\backslash\HH,\chi,k-2)$, and $C^\infty(\Gamma\backslash\HH,\chi,k)$, respectively. In fact, letting $w\coloneqq\gamma z$ as usual for some $\gamma\in G$ where $z=x+iy$ and $w=u+iv$, an application of Stokes's theorem to the differential form
+	\[v^{-1}f(w)\ov{g(w)}\,d\ov w=y^{-1}f(z)\ov{g(z)}\,d\ov z,\]
+	one finds that
+	\[\langle R_kf,g\rangle=\langle f,-L_{k+2}g\rangle,\]
+	so the result follows.
+\end{proof}
+So our main task in the theory of automorphic forms becomes the following.
+\begin{ques} \label{ques:spectral-laplacian}
+	What is the spectrum of the operator $\Delta_k$ acting on $L^2(\Gamma\backslash\HH,\chi,k)$?
+\end{ques}
+It will turn out that $\Gamma\backslash\HH$ being compact implies that $\Delta_k$ has discrete (though infinite) spectrum. However, in the more arithmetic application where $\Gamma\backslash\HH$ merely has finite volume (even though it may not be compact), then the spectrum gains a continuous part.
+
+To answer \Cref{ques:spectral-laplacian}, we introduce the following definition.
+\begin{definition}[Maass form]
+	Fix $\Gamma\subseteq\op{SL}_2(\RR)$ containing $-1_2$ such that $\Gamma\backslash\HH$ is finite volume, and choose a unitary character $\chi\colon\Gamma\to\CC^\times$ and $k\in\ZZ$ such that $\chi(-1_2)=(-1)^k$. Then a \textit{Maass form} of level $\Gamma$ and weight $k\in\ZZ$ is a smooth eigenfunction $f\in C^\infty(\Gamma\backslash\HH,\chi,k)$ (and admitting moderate growth at the cusps of $\Gamma$).
+\end{definition}
+To relate our discussion to representation theory, we will want to understand locally compact groups. Recall that a locally compact group $G$ admits left- and right-invariant Haar measures $d_Lg$ and $d_Rg$ which are unique up to scalar, and we say that $G$ is ``unimodular'' if these agree. We will also want the following result on semidirect produts.
+\begin{proposition}
+	Fix a unimodular group $G$. Suppose there are closed subgroups $P,K\subseteq G$ such that $G=PK$ and $P\cap K$ is compact. Then the Haar measure on $G$ is given by
+	\[\int_Gf(g)\,dg=\int_P\int_Kf(pk)\,d_Lpd_Rk.\]
+\end{proposition}
+\begin{proof}
+	View $G$ as the quotient of $P\times K$ by $P\cap K$ and appeal to the Haar measure on quotients. Namely, it is enough to check that the given measure is $G$-invariant, which can be done explicitly.
+\end{proof}
+\begin{example} \label{ex:iwasawa-haar-measure}
+	For $G=\op{GL}_2(\RR)^+$, one can check that $G$ is unimodular (one can compute $\op{GL}_2(\RR)$ is unimodular with measure $\frac{dM}{\left|\det M\right|}$). It will be more convenient to describe the Haar measure as follows: any $g\in G$ admits a unique Iwasawa decomposition
+	\[g=\begin{bmatrix}
+		u \\ & u
+	\end{bmatrix}\begin{bmatrix}
+		\sqrt y & \sqrt{x/y} \\
+		& \sqrt{1/y}
+	\end{bmatrix}\begin{bmatrix}
+		\cos\theta & \sin\theta \\
+		-\sin\theta & \cos\theta
+	\end{bmatrix},\]
+	so $G$ admits a Haar measure $dg=\frac{du}u\,\frac{dx\,dy}{y^2}\,d\theta$.
+\end{example}
+The point of having a Haar measure is that we are able to discuss square-integrable functions such as in $L^2$. As such, we pick up the following definition.
+\begin{definition}
+	Let $Z\subseteq G$ denote the torus of scalar matrices, and let $Z^+$ denote the subgroup with positive diagonal entries; notably, $G/Z^+\cong\op{SL}_2(\RR)$. Given a unitary character $\chi\colon\Gamma\to\CC^\times$, we dfeine $C^\infty(\Gamma\backslash G,\chi)$ as the space of smooth functions $f\colon G\to\CC$ such that
+	\[f(\gamma gu)=\chi(\gamma)f(g)\]
+	for $\gamma\in\Gamma$ and $g\in G$ and $u\in Z^+$. Similarly, $L^2(\Gamma\backslash G,\chi)$ is the space of square integrable functions satisfying the above condition.
+\end{definition}
+Here's a sanity check.
+\begin{lemma}
+	Fix everything as above. Then $C^\infty(\Gamma\backslash G,\chi)$ is dense in $L^2(\Gamma\backslash G,\chi)$.
+\end{lemma}
+\begin{proof}
+	Let $C(\Gamma\backslash G,\chi)$ be the space $C^\infty(\Gamma\backslash G,\chi)$ with smoothness weakened to continuity. Letting $U\subseteq G/Z^+$ be an open fundamental domain, we see that $C_c(U)\subseteq C(\Gamma\backslash G,\chi)$ in the obvious way, and $C_c(U)$ is dense in $L^2(U)=L^2(\Gamma\backslash G)$ by functional analysis.
+
+	Thus, it remains to show that $C^\infty(\Gamma\backslash G,\chi)$ is dense in $C(\Gamma\backslash G,\chi)$. Well, for $f_1\in C(\Gamma\backslash G,\chi)$, one can choose some smooth nonnegative $f_2$ compactly supported in a small enough neighborhood of the identity and satisfying $\int_Gf_2\,dh=1$ so that $f_1*f_2$ is smooth and approximately $f_1$.
+\end{proof}
+Thus, our representation-theoretic question is as follows.
+\begin{ques} \label{ques:spectal-rep-theory}
+	What is the decomposition of the Hilbert space $L^2(\Gamma\backslash G,\chi)$ into irreducible $G$-rep\-resen\-tations?
+\end{ques}
+Notably, $L^2(\Gamma\backslash G,\chi)$ is a (continuous) $G$-representation where the action is given by $(gf)(x)\coloneqq f(xg)$; one can check that this action is continuous. Later in life, we will discover that $L^2(\Gamma\backslash G,\chi)$ decomposes into an infinite (discrete) direct sum of irreducible $G$-representations, and this description will be able to answer \Cref{ques:spectral-laplacian}.
+
+Let's explain how these two questions are related. Letting $K\coloneqq\op{SO}_2(\RR)$ be a (maximal) compact subgroup of $G$, we see that $L^2(\Gamma\backslash G,\chi)$ will decompose into $K$-eigenvectors (because $K\cong S^1$ is abelian) as
+\[L^2(\Gamma\backslash G,\chi)\coloneqq\bigoplus_{k\in\ZZ}L^2(\Gamma\backslash G,\chi,k),\]
+where $L^2(\Gamma\backslash G,\chi,k)$ is the $K$-eigenspace with eigenvalue $\begin{bsmallmatrix}
+	\cos\theta & -\sin\theta \\
+	\sin\theta & \cos\theta
+\end{bsmallmatrix}\mapsto e^{ik\theta}$. We can now relate $\Gamma\backslash\HH$ and $\Gamma\backslash G$.
+\begin{proposition}
+	For each $k$, there is a Hilbert space isomorphism $\sigma_k\colon L^2(\Gamma\backslash\HH,\chi,k)\to L^2(\Gamma\backslash G,\chi,k)$ given by
+	\[(\sigma_kf)(g)\coloneqq(f|_kg)(i).\]
+\end{proposition}
+\begin{proof}
+	The algebraic identities are set up to guarantee that $\sigma_k$ is at least well-defined. There is also an inverse map by taking $F\in L^2(\Gamma\backslash G,\chi,k)$ to the map
+	\[f(x+yi)\coloneqq F\left(\begin{bmatrix}
+		y & x \\ & 1
+	\end{bmatrix}\right).\]
+	Lastly, the compatibility of inner products can be checked from \Cref{ex:iwasawa-haar-measure}.
+\end{proof}
+We are now able to move $R$, $L$, and $\Delta$ from $L^2(\Gamma\backslash\HH,k)$ to $L^2(\Gamma\backslash G,\chi)$. Throughout, we use the Isawasa coordinates $(u,x,y,\theta)$ provided in \Cref{ex:iwasawa-haar-measure}. Then we define
+\begin{align*}
+	R &\coloneqq e^{2i\theta}\left(iy\frac\del{\del x}+y\frac\del{\del y}+\frac2{2i}\frac\del{\del\theta}\right), \\
+	L &\coloneqq e^{-2i\theta}\left(-iy\frac\del{\del x}+y\frac\del{\del y}-\frac2{2i}\frac\del{\del\theta}\right), \\
+	\Delta &\coloneqq -y^2\left(\frac{\del^2}{\del x^2}+\frac{\del^2}{\del y^2}\right)+y\frac{\del^2}{\del x\del\theta}.
+\end{align*}
+We are now able to answer Questions \ref{ques:spectral-laplacian} and \ref{ques:spectal-rep-theory} simultaneously, which will be the point of our discussion in chapter 2.
+\begin{theorem}
+	Set $G\coloneqq\op{GL}_2(\RR)^+$ and $G_1\coloneqq\op{SL}_2(\RR)$. Suppose $\Gamma\subseteq\op{SL}_2(\RR)$ is a discontinuous subgroup of $G$ such that $\Gamma\backslash G_1$ is compact. Choose a unitary character $\chi\colon\Gamma\to\CC^\times$, and select $\varepsilon\in\{0,1\}$ so that $\chi(-1_2)=(-1)^\varepsilon$.
+	\begin{listalph}
+		\item The space $L^2(\Gamma\backslash G,\chi)$ decomposes into a Hilbert space direct sum of irreducible representations; similarly
+		\item Each irreducible subrepresentation $H\subseteq L^2(\Gamma\backslash G,\chi)$ is a $\Delta$-eigenspace with eigenvalue $\Lambda(H)$, and each $\Delta$-eigenspace of $L^2(\Gamma\backslash G,\chi)$ is $G$-invariant. In fact, either we have $\lambda\ge\frac14\varepsilon$ or $\lambda=\frac k2\left(1-\frac k2\right)$ for $k\in\ZZ^+$.
+		\item The only finite-dimensional $G$-representation in $L^2(\Gamma\backslash\HH,\chi)$ is the constant one.
+		\item If $\lambda$ does not take the form $\frac k2\left(1-\frac k2\right)$, then there is a unique irreducible subrepresentation of $G$ in $L^2(\Gamma\backslash\HH,\chi)$ with eigenvalue $\lambda$. Its multiplicity is equal to the multiplicity of the eigenvalue of $\lambda$ in $L^2(\Gamma\backslash\HH,\chi,k)$.
+		\item If $\lambda=\frac k2\left(\frac12-\frac k2\right)$, there are two infinite-dimensional irreducible $G$-representations in $L^2(\Gamma\backslash\HH,\chi)$ with eigenvalue $\lambda$. Their multiplicities are equal to the dimension of the space of holomorphic modular forms of weight $k$ and level $\Gamma$.
+	\end{listalph}
+\end{theorem}
 
 \end{document}
