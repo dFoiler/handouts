@@ -31,6 +31,21 @@ Here is the statement of the conjecture.
 	for each rational prime $\ell\nmid\mf p$, where $\rho_\ell\colon\op{Gal}(\ov K/K)\to\op{GL}\left(H^1_{\mathrm{\acute et}}(A;\QQ_\ell)\right)$ is the $\ell$-adic Galois representation.
 \end{conj}
 
+\subsection{Notation}
+In this subsection, we review the notation which will be in place for the article.
+\begin{itemize}
+	\item $k$, $K$, $E$, are all fields.
+	\item For number fields $E$, we let $E^+$ denote the field of totally real elements.
+	\item $D$ is a division algebra.
+	\item $X,Y,Z$ are projective varieties defined over $K$.
+	\item $A,B,C$ are abelian varieties defined over $K$.
+	\item $\op{End}_K(A)$ denotes the endomorphisms of $A$ defined over $k$.
+	\item $\op{End}_K^0(A)\coloneqq\op{End}_K(A)\otimes_\ZZ\QQ$.
+	\item $H^\bullet$ denotes a cohomology theory valued in $k$-vector spaces.
+	\item For abelian variety $A$, we set $V(A)\coloneqq H^1(A)\otimes_\ZZ\QQ$.
+	\item For a polarized abelian variety $A$, we let $\langle\cdot,\cdot\rangle_A$ denote the Weil pairing on $V(A)$, and we let $(\cdot)^\dagger$ denote the adjoint endomorphism for elements in $\op{End}_K(V(A))$. Note that $(\cdot)^\dagger$ restricted to $\op{End}_K^0(A)$ is the Rosati involution.
+\end{itemize}
+
 \section{Background on Motives}
 Throughout, $X$ denotes a smooth proper variety over a field $k$, which is possibly but not definitely algebraically closed.
 
@@ -442,6 +457,204 @@ In this subsection, we work out some basic cases.
 \end{proof}
 \begin{remark}
 	It may appear that one can upgrade this second proof to work for arbitrary abelian varieties with potential CM, but this is not the case. Indeed, the given proof only functions because $\op{Gal}(L/K)$ acts simply transitively on the eigenspaces of $\op{MT}(A)$ acting on $V_\CC$. However, $G(A)\subseteq\op{GSp}_{2\dim A}(\QQ)$, so one cannot hope for the normalizer of a torus to be large enough in general.
+\end{remark}
+
+% \section{Hi}
+% Fix an abelian variety $A$ defined over a number field $K$, and fix some finite prime $\mf p$ of $\OO_K$. For each rational prime $\ell$ not dividing $\mf p$, we may define the group element
+% \[g_\ell\coloneqq\rho_\ell({\op{Frob}_{\mf p}})\in G^{\mathrm{mot}}(A)(\QQ_\ell)\]
+% corresponding to the Galois action of $\op{Gal}(\ov\QQ/K)$ on $A$.
+
+% For distinct primes $\ell$ and $\ell'$ as above, we will show that $g_\ell$ and $g_{\ell'}$ are $\ov\QQ$-conjugate in $G^{\mathrm{mot}}(A)$, under an assumption on the eigenvalues of $g_\ell$ and $g_{\ell'}$. This is based on combining two observations.
+% \begin{itemize}
+% 	\item We claim $g_\ell$ and $g_{\ell'}$ live in the same connected component of $G^{\mathrm{mot}}(A)$. Indeed, one has the exact sequence
+% 	\[1\to\op{MT}(A)\to G^{\mathrm{mot}}(A)\to\op{Gal}(K'/K)\to1,\]
+% 	where $K'$ is some finite Galois extension of $K$. This last map simply takes $g_\ell$ and $g_\ell'$ both to $\op{Frob}_{\mf p}$.
+% 	\item We claim $g_\ell^n$ is conjugate to $g_{\ell'}^n$ for some $n$ large enough. Indeed, for $n$ large enough, $\op{Frob}_{\mf p}^n$ lives in the identity component of $G^{\mathrm{mot}}(A)$, and then $\op{Frob}_{\mf p}^n$ equals $\op{Frob}_{\mf P}$ for some prime $\mf P$ living above $\mf p$ in a field extension of $K$ large enough. The result is already known for $\op{Frob}_{\mf P}$, so we are done.
+% \end{itemize}
+% Now, choose some representative $w$ of the connected component of $g_\ell$ (and $g_{\ell'}$) such that $w$ has only roots of unity among its eigenvalues. (I suspect that we can choose $w$ so that $w$ is a permutation matrix corresponding to permuting Hodge cycles.)\todo{} Now, $w^{-1}g_\ell$ and $w^{-1}g_{\ell'}$ will be semisimple because $g_\ell$ and $g_{\ell'}$ are semisimple, so we force (up to $\ov\QQ$-conjugacy) to have that $g_\ell$ and $g_{\ell'}$ are diagonal.
+
+% As our requirement on the eigenvalues, we require that $d_\ell\coloneqq w^{-1}g_\ell$ and $d_{\ell'}\coloneqq w^{-1}g_\ell$ be neat. (That is, the ratio of the eigenvalues cannot be a root of unity other than $1$.) Up to conjugation, we may require that $g_\ell^n=g_{\ell'}^n$, so a cycle decomposition of $w$ then forces $g_\ell=g_{\ell'}$ by comparing what eigenvalues correspond to which columns.
+% \begin{remark}
+% 	I am really only sure of this argument working in the potential CM case. The point is that $\op{MT}(A)$ is an actual torus where we can properly write things as a diagonal matrix (up to $\ov\QQ$-conjugacy), and $w$ is an actual Weyl element. When $\op{MT}(A)$ is larger, I am a little unsure.
+% \end{remark}
+% I conjecture that these Hodge cycles can be seen as eigenvectors. I do not know how to make this rigorous, but I would quite like to.
+
+\section{The Lefschetz Group}
+In this section, we define the Lefschetz group and compute it for all abelian varieties. We follow \cite{milne-lefschetz-group}.
+
+\subsection{Basic Properties of the Lefschetz Group}
+Roughly speaking, the Lefschetz group is $\mathrm{MT}(A)$ under the assumption that all Hodge classes are generated by endomorphisms and polarizations, which is indeed the case for wide classes of abelian varieties. To begin with, we deal with endomorphisms.
+\begin{definition}
+	Fix a polarized abelian variety $A$ defined over $K$. Then we define
+	\[C(A)\coloneqq\op{End}_{\op{End}^0_K(A)\otimes_\QQ k}(V(A)).\]
+	In other words, $C(A)$ consists of the $k$-linear endomorphisms $f\colon V(A)\to V(A)$ which commute with $V(\alpha)$ for all $\alpha\in\op{End}^0_K(A)$.
+\end{definition}
+To account for the polarization, we need to know that $(\cdot)^\dagger$ behaves on $C(A)$.
+\begin{remark}
+	The Rosati involution $(\cdot)^\dagger$ extends to a positive involution on $C(A)$. Namely, if $f\colon V(A)\to V(A)$ commutes with $V(\alpha)$ for all $\alpha\in\op{End}^0_K(A)$, then we want to show that the adjoint $f^\dagger$ does too. Well, for any $\alpha\in\op{End}^0_K(A)$, we see that
+	\[\langle x,f^\dagger V(\alpha)y\rangle=\langle V(\alpha^\dagger)fx,y\rangle=\langle fV(\alpha^\dagger)x,y\rangle=\langle x,V(\alpha)f^\dagger y\rangle\]
+	for any $x,y\in V(A)$. Non-degeneracy of the Weil pairing then requires $f^\dagger V(\alpha)=V(\alpha)f^\dagger$.
+\end{remark}
+We are now able to define the Lefschetz group; note that our definition differs from \cite{milne-lefschetz-group} because we require $\op L(A)$ to be connected.
+\begin{definition}[Lefschetz group]
+	Fix a polarized abelian variety $A$ defined over $K$. Then we define the \textit{Lefschetz group} $\op L(A)$ as the algebraic $k$-group given by
+	\[\op L(A)(R)\coloneqq\left\{g\in C(A)\otimes_kR:g^\dagger g=1\right\}^\circ.\]
+	In other words, $\op L(A)(k)$ is the connected component of the $k$-linear automorphisms of $V(A)$ commuting with endomorphisms and preserving the Weil pairing.
+\end{definition}
+We would like to compute $\op L(A)$ for various abelian varieties $A$. We will use the isogeny decomposition of $A$, so we should check that $C(A)$ does not depend on the isogney decomposition.
+\begin{remark}
+	An isogeny $\varphi\colon A\to B$ of polarized abelian varieties defined over $K$ induces isomorphisms $V(\varphi)\colon V(A)\to V(B)$ and $\op{End}_K^0(A)\cong\op{End}_K^0(B)$ (by $\alpha\mapsto\varphi\alpha\varphi^{-1}$). Thus, we produce an isomorphism $C(A)\cong C(B)$ (by $f\mapsto V(\varphi) fV(\varphi)^{-1}$). The fact that $\varphi$ should preserve the Weil pairing implies that the isomorphism $C(A)\cong C(B)$ of $k$-algebras with involution restricts to an isomorphism $\op L(A)\cong\op L(B)$.
+\end{remark}
+\begin{lemma} \label{lem:prod-av-lefschetz}
+	Fix polarized abelian varieties $A$ and $B$ defined over $K$. Suppose $\op{Hom}_K(A,B)=0$. Then
+	\[\op L(A\times B)\cong\op L(A)\times\op L(B).\]
+\end{lemma}
+\begin{proof}
+	In fact, we claim that we have an isomorphism $C(A\times B)\cong C(A)\times C(B)$ of $k$-algebras with involution, which will complete the proof. Well, we certainly have a map $C(A\times B)\to C(A)$ given by $f\mapsto V(\pi_A)\circ f\circ V(\iota_A)$, where $\pi_A\colon A\times B\to A$ and $\iota_A\colon A\to A\times B$ are the projection and inclusion respectively. Defining $\pi_B$ and $\iota_B$ analogously, we get a map $C(A\times B)\to C(B)$, so we may glue these maps together into a larger map
+	\[C(A\times B)\to C(A)\times C(B).\]
+	Note that everything in sight commutes with polarizations because the polarization on $A\times B$ is implicitly given by the polarizations on $A$ and $B$. Thus, it only remains to check that above $k$-linear map is bijective.
+	\begin{itemize}
+		\item Injective: if $f\in C(A\times B)$ satisfies $V(\pi_A)\circ f\circ V(\iota_A)=0$ and $V(\pi_B)\circ f\circ V(\iota_B)=0$, then we would like to show that $f=0$. Well, for $(x,y)\in V(A\times B)$ where $x\in V(A)$ and $y\in V(B)$, we must show $f(x,y)=f(x,0)+f(0,y)$ vanishes. Thus, by symmetry, it will be enough to show that $V(\pi_B)\circ f\circ V(\iota_A)=0$.
+
+		The point is to define the endomorphism $\varphi\colon A\times B\to A\times B$ by $\varphi(a,b)\coloneqq(0,b)$. Then $f$ needs to commute with $V(\varphi)$, which in practice means that
+		\begin{align*}
+			(0,V(\pi_B)(f(x,0))) &= (V(\varphi)\circ f)(x,0) \\
+			&= (f\circ V(\varphi))(x,0) \\
+			&= f(0,0) \\
+			&= (0,0)
+		\end{align*}
+		for any $x\in V(A)$, so $V(\pi_B)\circ f\circ V(\iota_A)=0$.
+
+		\item Surjective: choose $f_A\in C(A)$ and $f_B\in C(B)$. Now, define $f\colon V(A\times B)\to V(A\times B)$ by
+		\[f(x,y)\coloneqq(f_A(x),f_B(y)).\]
+		Certainly $f$ is $k$-linear. As soon as we can show that $f\in C(A\times B)$, we will be able to say that $f$ projects onto $(f_A,f_B)$ through the map $C(A\times B)\to C(A)\times C(B)$, proving surjectivity.
+
+		Thus, it remains to check that $f$ commutes with endomorphisms of $\op{End}_K(A\times B)$. Well, $\op{Hom}_K(A,B)=0$ implies that $\op{End}_K(A\times B)\cong\op{End}_K(A)\times\op{End}_K(B)$, and in particular, we know that any endomorphism $\varphi\in\op{End}_K(A\times B)$ takes the form $\varphi(a,b)\coloneqq(\varphi_A(a),\varphi_B(b))$ where $\varphi_A\in\op{End}_K(A)$ and $\varphi_B\in\op{End}_K(B)$. We now see that
+		\begin{align*}
+			(f\circ V(\varphi))(x,y) &= ((f_A\circ V(\varphi_A))(x),(f_B\circ V(\varphi_B))(y)) \\
+			&= ((V(\varphi_A)\circ f_A)(x),(V(\varphi_B)\circ f_B)(y)) \\
+			&= (V(\varphi)\circ f)(x,y),
+		\end{align*}
+		for any $(x,y)\in V(A\times B)$. Thus, $f\in C(A\times B)$.
+		\qedhere
+	\end{itemize}
+\end{proof}
+\begin{remark}
+	Without the hypothesis $\op{Hom}_K(A,B)=0$, the above proof gives an injection $C(A\times B)\to C(A)\times C(B)$.
+\end{remark}
+\begin{lemma} \label{lem:power-av-lefschetz}
+	Fix a polarized abelian variety $A$ and a positive integer $m$. Then
+	\[\op L(A)\cong\op L(A^m).\]
+\end{lemma}
+\begin{proof}
+	In fact, we claim that we have an isomorphism $C(A)\cong C(A^m)$ of $k$-algebras with involution, which will complete the proof. The beginning of the proof of \Cref{lem:prod-av-lefschetz} (applied inductively) implies that there is an injection
+	\[C(A^m)\to\underbrace{C(A)\times\cdots\times C(A)}_m\]
+	given by $f\mapsto(V(\pi_i)\circ f\circ V(\iota_i))_{1\le i\le m}$, where $\pi_i$ and $\iota_i$ are the $i$th projection and inclusion, respectively.
+	
+	We claim that the image of this map is the image of the diagonal inclusion of $C(A)$ into $C(A)^m$, which will complete the proof.
+	\begin{itemize}
+		\item On one hand, certainly the diagonal subspace is contained in our image because any $f\in C(A)$ can define $\widetilde f\in C(A^m)$ by $\widetilde f\coloneqq(f,\ldots,f)$. To see that $\widetilde f\in C(A^m)$, we note that certainly $\widetilde f$ is $k$-linear. To see that $\widetilde f$ commutes with endomorphisms, we note that any $\alpha\in\op{End}_K(A^m)$ can be expanded out into a matrix $(\alpha_{ij})_{1\le i,j\le m}$ where $\alpha_{ij}\in\op{End}_K(A)$. Then we compute
+		\begin{align*}
+			\left(\widetilde f\circ V(\alpha)\right)(x_1,\ldots,x_n) &= \widetilde f\Bigg(\sum_{i=1}^mV(\alpha_{1i})(x_i),\ldots,\sum_{i=1}^mV(\alpha_{mi})(x_i)\Bigg) \\
+			&= \Bigg(\sum_{i=1}^m(f\circ V(\alpha_{1i}))(x_i),\ldots,\sum_{i=1}^m(f\circ V(\alpha_{mi}))(x_i)\Bigg) \\
+			&\stackrel*= \Bigg(\sum_{i=1}^mV(\alpha_{1i})(f(x_i)),\ldots,\sum_{i=1}^m V(\alpha_{mi})(f(x_i))\Bigg) \\
+			&= V(\alpha)(f(x_1),\ldots,f(x_m)) \\
+			&= \left(V(\alpha)\circ\widetilde f\right)(x_1,\ldots,x_m),
+		\end{align*}
+		where $\stackrel*=$ holds because $f$ already commutes with endomorphisms $x_{ij}$.
+		\item On the other hand, suppose $f\in C(A)^m$, and we want to show that $V(\pi_i)\circ f\circ V(\iota_i)=V(\pi_j)\circ f\circ V(\pi_j)$ for any (distinct) indices $i$ and $j$. Well, consider the involution $\op{sw}_{ij}\colon A^m\to A^m$ which swaps entries $i$ and $j$ and fixes everything else. Then we know that $V({\op{sw}_{ij}})\circ f\circ V({\op{sw}_{ij}})=V({\op{sq}_{ij}})\circ f$, so
+		\[V(\pi_i)\circ f\circ V(\iota_i) = V(\pi_i)\circ V({\op{sw}_{ij}}) \circ f\circ V({\op{sw}_{ij}})\circ V(\iota_i) = V(\pi_j)\circ f\circ V(\iota_j),\]
+		as required.
+		\qedhere
+	\end{itemize}
+\end{proof}
+\begin{proposition} \label{prop:lefschetz-by-isog-decomp}
+	Fix a polarized abelian variety $A$ defined over $K$ with an isogeny decomposition $A\cong\bigoplus_{i=1}^tA_i^{m_i}$. Then
+	\[\op L(A)\cong\prod_{i=1}^t\op L(A_i).\]
+\end{proposition}
+\begin{proof}
+	Combine \Cref{lem:prod-av-lefschetz,lem:power-av-lefschetz}.
+\end{proof}
+
+\subsection{Computation of the Lefschetz Group}
+In this subsection, we compute $\op L(A)$ for many abelian varieties $A$. \Cref{prop:lefschetz-by-isog-decomp} explains that we should focus on the case where $A$ is simple.
+
+Glancing at the Albert classification, we thus see that $\op{End}_K^0(A)$ frequently contains a rather large field. As such, the following decomposition result will be useful.
+\begin{lemma} \label{lem:field-action-on-tate-module}
+	Fix an abelian variety $A$ defined over a field $K$ of dimension $g\coloneqq\dim A$. Suppose that $L$ is a subfield of the $\QQ$-algebra $\op{End}^0_K(A)$. Then $V(A)$ is free over $L\otimes_\QQ k$ of rank $2g/[L:\QQ]$.
+\end{lemma}
+\begin{proof}
+	A decomposition of $L\otimes_\QQ k$ into a product of fields $\prod_{i=1}^tL_i$ grants us a collection of $t$ orthogonal idempotents $e_1+\cdots+e_t=1$ of $L\otimes_\QQ k$, where $e_i$ is the projection of $L\otimes\QQ k$ onto $L_i$. Then we define $V_i\coloneqq e_iV(A)$ so that
+	\[V=V_1\oplus\cdots\oplus V_t,\]
+	and $V_i$ is an $L_i$-vector space for each $i$.\footnote{We can also define $V_i$ as $V_i\coloneqq V(A)\otimes_{L\otimes_\QQ k}L_i$.} Thus, we fix an isomorphism $V_i=L_i^{\oplus m_i}$ for each $i$, where $m_i\ge0$ is some nonnegative integer.
+
+	We would like to show that all the $m_i$ are equal, which for dimension reasons will require them to all equal $2g/[L:\QQ]$. The proof of this claim will require some extra geometric input. Choose some $\alpha\in L$ such that $L=\QQ(\alpha)$. We now compute the characteristic polynomial $P_{\alpha,A}$ of $\alpha$ acting on $V(A)$ in two different ways.
+	\begin{itemize}
+		\item On one hand, the decomposition $V(A)\cong\bigoplus_{i=1}^tL_i^{\oplus m_i}$ tells us that
+		\[P_{\alpha,A}(T)=\prod_{i=1}^tP_{\alpha,L_i/k}(T)^{m_i},\]
+		where $P_{\alpha,L_i/k}(T)$ is the characteristic polynomial of $\alpha$ acting on $L_i$.
+		\item On the other hand, we see that the characteristic polynomial $P_{\alpha,L/\QQ}$ of $\alpha$ acting on $L$ satisfies
+		\[P_{\alpha,L/\QQ}(T)=\prod_{i=1}^tP_{\alpha,L_i/k}(T)\]
+		because we have a product decomposition $L\otimes_\QQ k=\prod_{i=1}^tL_i$.
+
+		The point is that $P_{\alpha,L/\QQ}(T)\in\QQ[T]$ is the minimal polynomial for $\alpha$, but each root of $P_{\alpha,A}(T)\in\QQ[T]$ is a root of some $P_{L_i/k}(T)$ and hence of $P_{\alpha,L/\QQ}(T)$. Unique factorization of $\QQ[T]$ now requires $P_{\alpha,A}=P_{\alpha,L/\QQ}^m$ for some nonnegative integer $m\ge0$.
+	\end{itemize}
+	Combining the above two points completes the proof.
+\end{proof}
+
+\subsubsection{Type I}
+For this subsection, fix a simple abelian variety $A$ defined over a field $K$ of dimension $g$. Suppose that $A$ is of type I so that $\op{End}^0_K(A)=E$ for some totally real field $E$ of dimension $e$.
+
+Now, the action of $E$ on $V(A)$ implies by \Cref{lem:field-action-on-tate-module} that we have decomposition $E\otimes_\QQ k=\prod_{i=1}^tE_i$ inducing a decomposition
+\[V(A)=\bigoplus_{i=1}^tV_i\]
+where $V_i$ is an $E_i$-vector space of rank $2g/e$. Further, viewing $V_i$ as $V(A)\otimes_{E\otimes_k\QQ}E_i$ allows us to ``extend'' the Weil pairing on $V(A)$ to $V_i$, upgrading the above into a decomposition of symplectic spaces.\footnote{In practice, passing to an algebraic closure allows us to simultaneously diagonalize the self-adjoint operators $E$, from which Galois descent explains that the $V_i$ make sense as symplectic spaces.} Thus, $C(A)$ decomposes into a product of $M_n(E_i)$s, and
+\[\op L(A)\cong\prod_{i=1}^t\op{Res}_{E_i/\QQ}\op{Sp}_{2g/e}.\]
+In particular, passing to the algebraic closure allows us to loop over all embeddings $E\into\ov k$ instead of grouping them by $E_i$s, so
+\[\op L(A)_{\ov k}\cong\left(\op{Sp}_{2g/e}\right)^e.\]
+
+\subsubsection{Type II}
+For this subsection, fix a simple abelian variety $A$ defined over a field $K$ of dimension $g$. Suppose that $A$ is of type II.\todo{}
+
+\subsubsection{Type III}
+For this subsection, fix a simple abelian variety $A$ defined over a field $K$ of dimension $g$. Suppose that $A$ is of type III.\todo{}
+
+\subsubsection{Type IV}
+For this subsection, fix a simple abelian variety $A$ defined over a field $K$ of dimension $g$. Suppose that $A$ is of type IV.\todo{}
+
+\subsection{Conjugacy Classes in the Lefschetz Group}
+\begin{remark}
+	It should be possible to prove the result for the twisted Lefschetz group.
+\end{remark}
+We will prove the following theorem.
+\begin{theorem} \label{thm:under-hodge-is-lefschetz}
+	Fix an absolutely simple abelian variety $A$ defined over a number field $K$ of types I or II, and let $G^{\mathrm{mot}}_A$ be its motivic Galois group. Suppose that the Hodge group $\op{Hg}(A)$ equals the Lefshetz group $\op L(A)$. Then there is a Zariski open and dense subset $U\subseteq G^{\mathrm{mot}}(A)$ such that the following holds: for a fixed finite prime $\mf p$ of $K$ and two rational primes $\ell$ and $\ell'$ not lying under $\mf p$, if $\rho_\ell(\mathrm{Frob}_{\mf p})$ and $\rho_{\ell'}(\mathrm{Frob}_{\mf p})$ lie in $U$, then $\rho_{\ell}(\mathrm{Frob}_{\mf p})$ and $\rho_{\ell'}(\mathrm{Frob}_{\mf p})$ are $\ov\QQ$-conjugate.
+\end{theorem}
+Roughly speaking, we will use the hypothesis $\op{Hg}(A)=\op L(A)$ in order to compute $\op{MT}(A)=G^{\mathrm{mot}}(A)^\circ$; from here, it really only remains to control the component group $G^{\mathrm{mot}}(A)/G^{\mathrm{mot}}(A)^\circ$, which is understood to be a Galois group.
+\begin{proof}[Proof of \Cref{thm:under-hodge-is-lefschetz}]
+	For brevity, set $g\coloneqq\dim A$. In \cite[Section~2]{milne-lefschetz-group}, Milne computes $\op L(A)\subseteq\op{GSp}_{2g,\QQ}$ as $G^f$ for some classical group $G$. To use this computation, we break up our proof into cases depending on the endomorphism ring of $A$.
+	\begin{itemize}
+		\item Suppose $A$ is of Type I so that $\op{End}_\CC^0(A)=E$ for some totally real field $E$ of degree $e$. Then $\op{Hg}(A)=({\op{Sp}_{2g/e}})^e$, so $\op{MT}(A)=\mathbb G_m({\op{Sp}_{2g/e}})^e$.
+
+		Now, for any $g\in G^{\mathrm{mot}}(A)$, we take a moment to put $g$ into some kind of normal form. We want to write $g=dw$ for some $d\in\op{MT}(A)$ and $w\in G^{\mathrm{mot}}(A)$, where we have reasonable control over both $d$ and $w$. (Such a decomposition is certainly possible by setting $d=1$.) Now, the conjugation map $\sigma_w\colon x\mapsto wxw^{-1}$ induces an automorphism of $\op{MT}(A)$. By multiplying $w$ by an element of $\op{MT}(A)$, we can adjust this automorphism by an inner automorphism of $\op{MT}(A)$, meaning that $w$ may be adjusted to any element in its coset in the outer automorphism group. As such, we note that a computation with the root datum of $\op{MT}(A)$ reveals that its outer automorphism group is simply $S_e$. Thus, we may assume that $\sigma_w$ is a permutation of the entries of $(\op{Sp}_{2g/e})^e$.\footnote{Perhaps we need signs in various places, but I will omit these.}
+
+		The conclusion of the previous paragraph is that we may assume that $g_\ell\coloneqq\rho_\ell({\op{Frob}_{\mf p}})$ and $g_{\ell'}\coloneqq\rho_{\ell'}({\op{Frob}_{\mf p}})$ take the form $d_\ell w$ and $d_{\ell'}w$, respectively, where $d_\ell,d_{\ell'}\in\op{MT}(A)$ and $w\in G^{\mathrm{mot}}(A)$ has $\sigma_w$ equal to some permutation. The key input we will use to achieve $g_\ell\sim g_{\ell'}$ is that we already know $g_\ell^N$ and $g_{\ell'}^N$ live in $\op{MT}(A)$ and are conjugate to each other in $\op{MT}(A)$, for sufficiently divisible $N$.
+		
+		For concreteness, we rearrange the factors of $\op{MT}(A)$ to put $\sigma_w$ into a cycle decomposition
+		\[\sigma_w=(1,2,\ldots,a_1)(a_1+1,a_1+2,\ldots,a_1+a_2)\cdots(a_1+\cdots+a_{m-1},\ldots,a_1+\cdots+a_{m-1}+a_m).\]
+		Then we can see that conjugating $g_\ell$ by an element of $\op{MT}(A)$ allows us to assume that $d_\ell$ takes the form
+		\[d_\ell=\op{diag}(\underbrace{1_e,\ldots,1_e,X_{\ell1}}_{a_1},\ldots,\underbrace{1_e,\ldots,1_e,X_{\ell m}}_{a_m}),\]
+		where we have $X_i\in\op{GSp}_{2g/e}$ for each $i$. In fact, we claim that the $X_{\ell i}$ are all semisimple. Well, we know that $g_\ell$ is semisimple, so $g_\ell^N=(d_\ell w)^N$ is semisimple for sufficiently divisible $N$, which we can compute as implying that $X_{\ell i}^{N'}$ is semisimple for some sufficiently divisible $N'$, so $X_{\ell i}$ must also be semisimple. Quickly, note that we can do the same construction for $d_{\ell'}$.
+		
+		We are now ready to define our open set $U\subseteq G^{\op{mot}}(A)$ as requiring that the set of all eigenvalues of all the $X_\bullet$s be such that no two has a ratio which is an $M$th root of unity for some sufficiently large $M$ to be determined later (but depending only on $e$ and $N$).
+
+		The current state is that we have some $s\in\op{MT}(A)$ such that $g_\ell^N=sg_{\ell'}^Ns^{-1}$ for sufficiently divisible $N$. To finish proving that $g_\ell\sim g_{\ell'}$, it will be enough to know that $X_{\ell i}\sim X_{\ell'i}$ for each $i$. Being given that $g_\ell^N=sg_{\ell'}^Ns^{-1}$ actually promises that $X_{\ell i}^N\sim X_{\ell'i}^N$ (in $\op{GSp}_{2g/e}$) for sufficiently divisible $N$, so we achieve $X_{\ell i}\sim X_{\ell'i}$ by \cite[Proposition~3.2]{noot-neat-class}.\footnote{This proposition applies to the $X$s but not to the $g$s directly because $\op{GSp}$ is connected while $G^{\mathrm{mot}}(A)$.}
+
+		\item Suppose $A$ is of Type II so that $\op{Hg}(A)_\CC=({\op{Sp}_{g/e}})^e$ for some positive integer $e$. Then the argument as above goes through verbatim, replacing $2g$ with $g$ as is necessary.
+		\qedhere
+	\end{itemize}
+\end{proof}
+\begin{remark}
+	One should be able to relax the ``absolutely simple'' hypothesis somewhat. For example, if $A_\CC$ is a product of absolutely simple abelian varieties $B$ of types I and II satisfying $\op{Hg}(B)=\op L(B)$, we see know that $\op{Hg}(A)$ becomes the product of the Hodge groups of the factors, so it is relatively easy to understand our conjugacy classes.
 \end{remark}
 
 \end{document}
