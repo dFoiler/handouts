@@ -1,0 +1,84 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+
+\newcommand{\nirpdftitle}{Student Arithmetic Geometry Seminar}
+\usepackage{import}
+\inputfrom{../../notes}{nir}
+\usepackage[backend=biber,
+    style=alphabetic,
+    sorting=ynt
+]{biblatex}
+\setcounter{tocdepth}{2}
+
+\pagestyle{contentpage}
+
+\title{Student Arithmetic Geometry Seminar}
+\author{Nir Elber}
+\date{Fall 2024}
+\usepackage{graphicx}
+
+\begin{document}
+
+\maketitle
+
+\tableofcontents
+
+\section{August 30: Martin Olsson}
+Today is an organizational meeting. There is no paper list yet (but soon), but almost all dates for talks have been taken anyway. The papers that Professor Olsson has in mind are along the lines of ``how to do birational geometry with stacks.''
+
+\subsection{Geometric Invariant Theory}
+There is a classical book by Mumford and Fogarty on geometric invariant theory. More recently there is some hope to do this theory over a more general base by Seshadri and some theory of ``adequate'' moduli spaces by Alper.
+
+For today, we will over a Noetherian ring $R$, and let $G$ be a smooth, affine, connected group scheme with reductive geometric fibers, which we may just call a reductive group scheme over $R$.
+\begin{example}
+    The group $G=\mathrm{GL}_{n,R}$ and the other classical groups are an example, but $\mathbb G_{a,R}$ is not.
+\end{example}
+\begin{example}
+    We won't define reductive, but here is one way to access the notion: examples of reductive group schemes are the linearly reductive group schemes whose category of representations is semisimple, and these are all the examples in characteristic $0$ (but not in characteristic $p$).
+\end{example}
+In Alper's story, a linearly reductive group scheme corresponds to a ``good'' moduli space, but a reductive group scheme corresponds to an ``adequate'' moduli space. (We have not said what ``corresponds'' means.)
+
+For our affine story of geometric invariant theory, one has an affine $R$-scheme $X=\Spec A$ equipped with a $G$-action, which amounts to a morphism $G\times X\to X$ with some special properties. Everything in sight is affine, so we can also think about this as a morphism $A\to A\otimes\OO_G$ with some special properties. In general, there is a quotient map $X\to [X/G]$, where $[X/G]$ is some stack, and then $[X/G]$ maps onto $Y\coloneqq\Spec A^G$, and $\Spec A^G$ is perhaps the ``affine quotient.'' Here is the visual.
+\[X\to[X/G]\stackrel\pi\to Y.\]
+Geometric invariant theory now roughly divides into two steps.
+\begin{enumerate}
+    \item Find a substack $\mc X^s$ of $[X/G]$ with finite diagonal. (This roughly corresponds to finding the points with closed orbits by the $G$-action.)
+    \item Find the course moduli space of $\mc X^s$.
+\end{enumerate}
+Let's see an example.
+\begin{example}
+    We work over a field $k$; fix some integers $a_0,\ldots,a_n\in\ZZ$. Now, we let $\mathbb G_m$ act on $\AA_k^{n+1}=\Spec k[x_0,\ldots,x_n]$ by
+    \[u*x_i\coloneqq u^{a_i}x_i.\]
+    Note that having $a_i>0$ for all $i$ implies that $A^G=k$, so $A^G$ is quite small!
+\end{example}
+We are able to execute the first step above, which we do in steps.
+\begin{enumerate}
+    \item Given a geometric point $\ov x$ of $[X/G]$, let $G_{\ov x}$ denote the stabilizer (which is some subgroup scheme).
+    \item Then we let $\mc U\subseteq[X/G]$ be the maximal open subscheme containing the $\ov x$ for which $G_{\ov x}$ is finite.
+    \item It turns out that $\pi(\mc X\setminus\mc U)\subseteq Y$ is closed; we let this subset be $Z$.
+    \item It now turns out that $\mc X^s\coloneqq\pi^{-1}(Y\setminus Z)$ will do the trick.
+\end{enumerate}
+Let's work through an example. Continue with a field $k$, and now take two integers $a,b\in\ZZ$, and we are able to let $\mathbb G_m$ act on $A\coloneqq\Spec k[x,y]$ by $u*x\coloneqq u^ax$ and $u*y\coloneqq u^by$. On rings, this map is as follows.
+\[\arraycolsep=1.4pt\begin{array}{cccccc}
+    k[x,y] &\otimes& k[u,1/u] &\from& k[x,y] \\
+    x &\otimes& u^a &\mapsfrom x \\
+    y &\otimes& u^b &\mapsfrom y
+\end{array}\]
+Let's do some cases.
+\begin{listalph}
+    \item Suppose $a=0$ and $b\ne0$; the case $a\ne0$ and $b=0$ is symmetric. Now, it turns out we can only check monomials, and we find that $A^{\mathbb G_m}=k[x]$. But there is some extra stacky information because having $y$ nonzero makes our point have stabilizer $\mu_b$ (which is the $b$th roots of unity); when $y=0$, our stabilizer is actually a full $\mathbb G_m$! Thus, we can compute that $\mc U$ is $[\Spec k[x,y,1/y]/\mathbb G_m]$, so we will find that $\mc X^s$ is empty!
+
+    \item Suppose $a>0$ and $b<0$, and set $g\coloneqq\gcd(a,b)$. On monomials, we find
+    \[u*x^\alpha y^\beta=u^{a\alpha+b\beta}x^\alpha y^\beta,\]
+    so one can calculate that $A^{\mathbb G_m}=\Spec k[w]$, where $w\coloneqq x^{b/g}y^{a/g}$.
+
+    Now, if $\alpha=0$ or $\beta=0$, then our stabilizer is small (something like $\mu_a$ or $\mu_b$ again), and our orbit fails to be closed. But if both are nonzero, then we are cutting out some subvariety which looks like
+    \[x^{b/g}y^{a/g}=\alpha\beta,\]
+    which is closed with stabilizer small. As a result, our $\mc U$ is everything minus the origin, so $Z=0$, so we find that $\mc X^s$ consists of the points not on the axes modulo $\mathbb G_m$.
+\end{listalph}
+\begin{remark}
+    We close by making a quick remark on how to add a character to this story. With our group $G$, we may equip a character $\chi\colon G\to\mathbb G_m$, and then we can try to understand
+    \[A_\chi\coloneqq\{g\in A:g*f=\chi(g)f\}.\]
+\end{remark}
+
+\end{document}
