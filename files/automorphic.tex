@@ -1,0 +1,201 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+
+\newcommand{\nirpdftitle}{Student Automorphic Forms Seminar}
+\usepackage{import}
+\inputfrom{../../notes}{nir}
+\usepackage[backend=biber,
+    style=alphabetic,
+    sorting=ynt
+]{biblatex}
+\setcounter{tocdepth}{2}
+
+\pagestyle{contentpage}
+
+\title{Student Automorphic Forms Seminar}
+\author{Nir Elber}
+\date{Fall 2024}
+\usepackage{graphicx}
+
+\begin{document}
+
+\maketitle
+
+\tableofcontents
+
+\section{September 4th: Nir Elber}
+Today we're talking about the local theory of Tate's thesis.
+
+\subsection{A Little Global Theory}
+In order to not lose perspective in the Fourier analysis that makes up the body of this talk, we discuss a little global theory. The goal of Tate's thesis is to derive analytic properties of $L$-functions such as the following.
+\begin{definition}
+	We define the \textit{Riemann $\zeta$-function} as
+	\[\zeta(s)\coloneqq\prod_{p\text{ prime}}\frac1{1-p^{-s}}.\]
+\end{definition}
+\begin{definition}
+	Given a Dirichlet character $\chi\colon(\ZZ/N\ZZ)^\times\to\CC^\times$, we define the \textit{Dirichlet $L$-function} by
+	\[L(s,\chi)\coloneqq\prod_{p\text{ prime}}\frac1{1-\chi(p)p^{-s}}.\]
+\end{definition}
+\begin{definition}
+	For a number field $K$, we define the Dedekind $\zeta$-function of a number field $K$
+\[\zeta_K(s)\coloneqq\prod_{\substack{\mf p\subseteq\OO_K\\\mf p\text{ prime}}}\frac1{1-\op N(\mf p)^{-s}}.\]
+\end{definition}
+For now, ``analytic properties'' means deriving a meromorphic continuation, which in practice means deriving a functional equation.
+\begin{remark}
+	There is a common generalization of the above two $L$-functions called a ``Hecke $L$-function,'' but streamlined definitions would require a discussion of the ad\'eles, which we are temporarily avoiding.
+\end{remark}
+In fact, Hecke had proven functional equations before Tate, but Tate's arguments modernize better, which is why we will talk about them.
+
+By way of example, we state the functional equation for the Riemann $\zeta$-function $\zeta(s)$.
+\begin{theorem}[Riemann]
+	Define the completed Riemann $\zeta$-function by
+	\[\Xi(s)\coloneqq\pi^{-s/2}\Gamma(s)\zeta(s).\]
+	Then $\Xi(s)$ admits an analytic continuation to all of $\CC$ and satisfies the functional equation $\Xi(s)=\Xi(1-s)$.
+\end{theorem}
+In some sense, the real goal of Tate's thesis is to explain the presence of the mysterious factor $\pi^{-s/2}\Gamma(s)$ which permits the functional equation $\Xi(s)=\Xi(1-s)$. To understand this, we write
+\[\Xi(s)=\pi^{-s/2}\Gamma(s)\prod_{p\text{ prime}}\frac1{1-p^{-s}},\]
+and the idea is that we should view this product over all places of $\QQ$: the factor $\pi^{-s/2}\Gamma(s)$ belongs to the archimedean place of $\QQ$!
+\begin{idea}[Tate] \label{idea:l-function-places}
+	Completed $L$-functions should be products over all places.
+\end{idea}
+Very roughly, \Cref{idea:l-function-places} allows us to reduce global functional equations into products of local ones.
+
+\subsection{Local \texorpdfstring{$Z$}{ Z}-integrals}
+We are interested in proving equations of the type $Z(s)\approx Z(1-s)$ for some suitable function $Z$. We will emply the following trick: we will show that both $Z(s)$ and $Z(1-s)$ live in the same one-dimensional space of functions and then study the scale factor between the two functions later.
+
+To define our function $Z$, we take motivation from the definition of
+\[\Gamma(s)=\int_{\RR^+}e^{-t}t^s\,\frac{dt}t.\]
+We know that this should correspond to the archimedean place of $\QQ$, but we would like to extend this definition to the finite places. As such, we make the following observations.
+\begin{itemize}
+	\item $\RR$ is the completion of $\QQ$ with respect to the archimedean place.
+	\item The function $t\mapsto e^{-t}$ is an additive character $\RR\to\CC^\times$.
+	\item The function $t\mapsto t^{-s}$ is a multiplicative character $\RR^\times\to\CC^\times$.
+	\item The measure $dt/t$ is a Haar measure of $\RR^+$.
+\end{itemize}
+To begin our generalizations, we recall the definition of a local field, which will place $\RR$ in the correct context.
+\begin{definition}[local field]
+	A \textit{local field} is a locally compact nondiscrete topological field. It turns out that local fields of characteristic zero are exactly the finite extensions of $\RR$ and $\QQ_p$.
+\end{definition}
+Next up, to place $dt/t$ in the correct context, we should define a Haar measure.
+\begin{definition}[Haar measure]
+	Fix a locally compact topological group $G$. Then a \textit{left-invariant Haar measure} $d\mu_\ell(g)$ is a Radon measure such that $\mu_\ell(gS)=\mu_\ell(S)$ for each $g\in G$ and measureable set $S$. In terms of intergrals, this is equivalent to
+	\[\int_Gf(gh)\,dh=\int_Gf(h)\,dh\]
+	for each $g\in G$ and measurable function $f$. It turns out that the Haar measure is unique up to scalar.
+\end{definition}
+\begin{remark}
+	In general, a left-invariant Haar measure need not be right-invariant. However, this is frequently true: for example, if $G$ is abelian or ``reductive'' (such as $G=\op{GL}_n$), then left-invariant Haar measures are right-invariant.
+\end{remark}
+\begin{example}
+	The Lebesgue measure $dt$ is a Haar measure on $\RR$. The measure $dt/\left|t\right|$ is a Haar measure on $\RR^+$ and $\RR^\times$.
+\end{example}
+\begin{example}
+	Fix a prime $p$. There is a unique Haar measure $\mu$ on $\QQ_p$ such that $\mu(\ZZ_p)=1$. For example, we find that $\mu(a+p\ZZ_p)=\frac1p$ for each $a\in\QQ_p$.
+\end{example}
+\begin{remark}
+	Local fields turn out be normed, though this is not immediately obvious from the definition. Even though $\RR$, $\CC$, and $\QQ_p$ all have natural norms (extended from $\QQ$), here is a hands-free way to obtain this norm from a local field $K$: choosing a Haar measure $dt$ on $K$, we define the norm $\left|a\right|$ of some $a\in K$ as the scalar such that
+	\[d(at)=\left|a\right|dt.\]
+	It is not at all obvious that $\left|\cdot\right|$ is a norm (in particular, why does it satisfy the triangle inequality?), but it is true. As an example, $\left|\cdot\right|$ is the square of the Euclidean norm on $\CC$.
+\end{remark}
+\begin{example}
+	We are now able to say that $dt/\left|t\right|$ is a Haar measure of $K^\times$ for any local field $K$.
+\end{example}
+At this point, we may expect that our generalization of $\Gamma(s)$ to a generic local field $K$ to be
+\[Z(\psi,\omega)=\int_K\psi(t)\omega(t)\,\frac{dt}{\left|t\right|},\]
+where $\psi\colon K\to\CC^\times$ and $\omega\colon K^\times\to\CC^\times$ are characters. However, this is a little too rigid for our purposes.
+
+Notably, by taking linear combinations of additive characters, Fourier analysis explains that understanding $\Gamma$ very well should permit understanding integrals of the form
+\[\int_{\RR^+}f(t)t^s\,\frac{dt}t,\]
+where $f\colon\RR\to\CC$ is some sufficiently nice function. It will help to have the flexibility that this extra $f$ permits.
+\begin{definition}
+	Fix a local field $K$. For a nice enough function $f$ and character $\omega\colon K^\times\to\CC^\times$, we define the \textit{local $Z$-integral}
+	\[Z(f,\omega)\coloneqq\int_{K^\times}f(t)\omega(t)\,\frac{dt}{\left|t\right|}.\]
+\end{definition}
+We will not dwell on this, but perhaps we should explain what is required by ``nice enough'' function $f$. The keyword is ``Schwartz--Bruhat.''
+\begin{definition}[Schwartz--Bruhat]
+	Fix a local field $K$.
+	\begin{itemize}
+		\item If $K\in\{\RR,\CC\}$, we say $f\colon K\to\CC$ is \textit{Schwartz--Bruhat} if and only if it is infinitely differentiable and for all of its derivatives to decay rapidly (namely, $f(t)p(t)\to0$ as $\left|t\right|\to\infty$ for any polynomial $p$).
+		\item For other $K$, we say $f\colon K\to\CC$ is \textit{Schwartz--Bruhat} if and only if it is locally constant and compactly supported.
+	\end{itemize}
+	We let $S(K)$ denote the vector space of Schwartz--Bruhat functions on $K$, and we let $S(K)'$ denote its dual (i.e., the vector space of distributions).
+\end{definition}
+\begin{example}
+	The function $t\mapsto e^{-t^2}$ is a Schwartz--Bruhat function $\CC\to\CC$.
+\end{example}
+\begin{example}
+	Fix a prime $p$. Then the indicator function $1_{\ZZ_p}$ on $\QQ_p$ is Schwartz--Bruhat.
+\end{example}
+Importantly, the definition of Schwartz--Bruhat will promise that 
+
+\subsection{Fourier Analysis}
+We now take a moment to review where we are standing. We were hoping to prove a statement like $Z(s)\approx Z(1-s)$, where $Z(s)$ perhaps has some kind analytic properties. However, we currently have a function $Z(f,\omega)$, so it's not at all obvious how to replace $f$ and $\omega$ with ``dual'' entries or how to make sense of analytic properties. In this subsection, we address both of these concerns; they are both related to character theory.
+
+Going in order of difficulty, it is a little easier to explain how to add analytic structure to $Z$. After taking norms, we can find some $s\in\CC$ such $\left|\omega\right|=\left|\cdot\right|^s$ so that $\eta\coloneqq\omega\left|\cdot\right|^{-s}$ outputs to $S^1$, and
+\[\omega=\eta\left|\cdot\right|^s.\]
+Thus, we see that we can decompose characters $K^\times\to\CC^\times$ into a unitary part $\eta$ and an ``unramified'' part $\left|\cdot\right|^s$, and the unramified part now has a complex parameter $s\in\CC$. Namely, $\omega\left|\cdot\right|^{-s}$ now outputs to $S^1$; i.e., this character is unitary.
+Fix a local field $K$.
+
+Thus, we can view $Z(f,\eta)$ as having three parameters as $Z(f,\eta,s)\coloneqq Z\left(f,\eta\left|\cdot\right|^s\right)$, where we now require that $\eta$ is unitary. Because we already have some notion of smoothness in the parameter $s\in\CC$, it remains to understand smoothness in the parameter of unitary character $\eta$.
+\begin{example}
+	In the archimedean case, the parameter $\eta$ is not so interesting.
+	\begin{itemize}
+		\item The characters $\RR^\times\to S^1$ take the form $t\mapsto t^{-a}\left|t\right|^s$ where $a\in\{0,1\}$ and $s\in\CC$.
+		\item The characters $\CC^\times\to S^1$ take the form $z\mapsto z^a\ov z^b\left|z\right|^s$ where $a,b\in\ZZ$ and $s\in\CC$.
+	\end{itemize}
+\end{example}
+We now understand that our functional equation for $Z$ should arise from $Z(f,\eta,s)$. We hope to take $s\mapsto1-s$, and it seems reasonable (by looking at functional equations for $L(s,\chi)$) to replace $\eta$ with $\eta^{-1}$.
+
+However, we still need to replace $f$ with some dual function. In the archimedean case, we expect this to be the Fourier transform defined by
+\[\widehat f(s)\coloneqq\int_\RR f(t)e^{2\pi ist}\,dt.\]
+Such a definition will more or less carry through for arbitrary local fields, but we will have to go through approximately the same dictionary that defined $Z(f,\omega)$ from $\Gamma(s)$. In particular, the functions $t\mapsto e^{2\pi ist}$ list the characters of $\RR$, so the above is the integration of our function $f$ against the list of characters. To this end, we pick up the following theorem.
+\begin{theorem}
+	Fix a local field $K$. Then there exists a nontrivial character $\psi\colon K\to S^1$. Any choice of $\psi$ defines a bijection $K\to\widehat K$ by sending $a\in K$ to the character $\psi_a(t)\coloneqq\psi(at)$.
+\end{theorem}
+\begin{remark}
+	For a general locally compact abelian group $G$, one can give $\widehat K\coloneqq\op{Hom}(G,\CC)$ a locally compact topology. With this topology in hand, one actually finds that $a\mapsto\psi_a$ is an isomorphism of locally compact abelian groups. However, we do not currently have the need to work in this level of generality.
+\end{remark}
+We are now ready to define our Fourier transform.
+\begin{definition}
+	Fix a local field $K$, and choose a nontrivial character $\psi\colon K\to S^1$. For $f\in S(K)$, we define the \textit{Fourier transform}
+	\[\mc F_\psi f(t)\coloneqq\int_Kf(t)\psi(st)\,dt.\]
+\end{definition}
+\begin{example}
+	For $K=\RR$, choose $\psi(t)\coloneqq e^{2\pi it}$. Then the Fourier transform (up to normalization) agrees with the usual one
+	\[\mc F_\psi f(t)\coloneqq\int_\RR f(t)e^{2\pi ist}\,dt.\]
+\end{example}
+It turns out that one has the usual properties for the Fourier transform, such as $\mc F_\psi\mc F_\psi f(t)=f(-t)$.
+
+We are now ready to state the local functional equation.
+\begin{theorem} \label{thm:local-fe}
+	Fix a local field $K$, and choose a nontrivial character $\psi\colon K\to S^1$. For every $f\in S(K)$, the function $Z(f,\omega,s)$ has a meromorphic continuation to $s\in\CC$ (with well-understood poles) and satisfies a functional equation of the form
+	\[Z(f,\omega,s)=\gamma(\psi,\omega,s,dx)Z\left(\mc F_\psi f,\omega^{-1},1-s\right),\]
+	where $\gamma(\psi,\omega,s,dx)$ is meromorphic in $s\in\CC$ (with well-understood poles).
+\end{theorem}
+Tate's original proof of \Cref{thm:local-fe} was more or less by an explicit computation: by some argument interchanging integrals, one can relate $Z(f,\omega,s)$ with $Z(g,\omega,s)$ for separate $f,g\in S(K)$, which allows us to reduce the proof to a single $f$. Then one chooses some $f$ such that $\mc F_\psi f=f$ (e.g., one chooses a Gaussian when $K=\RR$) and does an explicit computation to check the result.
+
+\subsection{Multiplicity One}
+We are not going to prove \Cref{thm:local-fe} in detail, but we will gesture towards an argument which uses a bit more functional analysis and less explicit computation. The key point is that $Z(-,\omega)\colon S(K)\to\CC$ is a distribution with the curious property that
+\[\int_{K^\times}f(at)\omega(t)\,\frac{dt}t=\omega^{-1}(a)\int_{K^\times}f(t)\omega(t)\,\frac{dt}{\left|t\right|}.\]
+Thus, we see that $Z(-,\omega)$ is an eigendistribution of sorts. To make this more explicit, we let $K^\times$ act on $S(K)$ by translation: for $a\in K$ and $f\in S(K)$, we define $(r(a)f)(t)\coloneqq f(at)$. Then $K^\times$ acts on the distributions $S(K)'$ accordingly: for $a\in K$ and $\lambda\in S(K)'$ and $f\in S(K)$, we can define
+\[\langle r'(a)\lambda,f\rangle\coloneqq\left\langle\lambda,r(a)^{-1}f\right\rangle.\]
+Tracking everything through, we see that $Z(-,\omega)\in S(K)'$ is an eigendistribution for the action of $K^\times$ on $S(K)'$ with eigenvalue given by the character $\omega$.
+\begin{notation}
+	Let $S(K)'(\omega)$ denote the space of $K^\times$-eigendistributions with eigenvalue $\omega$.
+\end{notation}
+Now, we see that $Z(-,\omega)\in S(K)'(\omega)$, and one can check that $Z\left(\mc F_\psi-,\omega^{-1}\right)$ is also in $S(K)'(\omega)$. Thus, a statement like \Cref{thm:local-fe} will follow from the following ``representation-theoretic'' multiplicity one result.
+\begin{theorem} \label{thm:mult-one}
+	Fix a local field $K$ and character $\omega\colon K\to\CC^\times$. Then
+	\[\dim S(K)'(\omega)=1.\]
+\end{theorem}
+Let's explain the sort of inputs that go into proving \Cref{thm:mult-one}, but we will not say more.
+\begin{itemize}
+	\item One can verify that $Z(-,\omega)$ provides some vector in $S(K)'(\omega)$, so this space is at least nonempty.
+	\item Let $C_c^\infty(K)$ denote the set of compactly supported Schwartz functions on $K$. Duality provides an exact sequence
+	\[0\to S(K)'_0\to S(K)'\to C_c^\infty(K)'\to0,\]
+	where $S(K)'_0$ denotes the distributions supported at $0$. Taking eigenspaces, we get an exact sequence
+	\[0\to S(K)'_0(\omega)\to S(K)'(\omega)\to C_c^\infty(K)'(\omega).\]
+	\item One can show that $C_c^\infty(K)'(\omega)$ is one-dimensional with basis given by $f\mapsto\int_Kf(t)\omega(t)\,dt/\left|t\right|$.
+	\item Understanding $S(K)'_0$ comes down to some casework. For example, we look at the nonarchimedean case. If $\omega$ is trivial, we have the distribution $f\mapsto f(0)$; otherwise, $S(K)'_0(\omega)$ is zero.
+\end{itemize}
+
+\end{document}
