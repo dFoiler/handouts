@@ -80,7 +80,7 @@ Next up, to place $dt/t$ in the correct context, we should define a Haar measure
 \begin{definition}[Haar measure]
 	Fix a locally compact topological group $G$. Then a \textit{left-invariant Haar measure} $d\mu_\ell(g)$ is a Radon measure such that $\mu_\ell(gS)=\mu_\ell(S)$ for each $g\in G$ and measureable set $S$. In terms of intergrals, this is equivalent to
 	\[\int_Gf(gh)\,dh=\int_Gf(h)\,dh\]
-	for each $g\in G$ and measurable function $f$. It turns out that the Haar measure is unique up to scalar.
+	for each $g\in G$ and integrable function $f$. It turns out that the Haar measure is unique up to scalar.
 \end{definition}
 \begin{remark}
 	In general, a left-invariant Haar measure need not be right-invariant. However, this is frequently true: for example, if $G$ is abelian or ``reductive'' (such as $G=\op{GL}_n$), then left-invariant Haar measures are right-invariant.
@@ -152,7 +152,7 @@ Such a definition will more or less carry through for arbitrary local fields, bu
 	Fix a local field $K$. Then there exists a nontrivial character $\psi\colon K\to S^1$. Any choice of $\psi$ defines a bijection $K\to\widehat K$ by sending $a\in K$ to the character $\psi_a(t)\coloneqq\psi(at)$.
 \end{theorem}
 \begin{remark}
-	For a general locally compact abelian group $G$, one can give $\widehat K\coloneqq\op{Hom}(G,\CC)$ a locally compact topology. With this topology in hand, one actually finds that $a\mapsto\psi_a$ is an isomorphism of locally compact abelian groups. However, we do not currently have the need to work in this level of generality.
+	For a general locally compact abelian group $G$, one can give $\widehat G\coloneqq\op{Hom}(G,\CC)$ a locally compact topology. With this topology in hand, one actually finds that the map $K\to\widehat K$ given by $a\mapsto\psi_a$ is an isomorphism of locally compact abelian groups. However, we do not currently have the need to work in this level of generality.
 \end{remark}
 We are now ready to define our Fourier transform.
 \begin{definition}

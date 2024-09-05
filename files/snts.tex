@@ -1,0 +1,45 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+
+\newcommand{\nirpdftitle}{Student Number Theory Seminar}
+\usepackage{import}
+\inputfrom{../../notes}{nir}
+\usepackage[backend=biber,
+    style=alphabetic,
+    sorting=ynt
+]{biblatex}
+\setcounter{tocdepth}{2}
+
+\pagestyle{contentpage}
+
+\title{Student Number Theory Seminar}
+\author{Nir Elber}
+\date{Fall 2024}
+\usepackage{graphicx}
+
+\begin{document}
+
+\maketitle
+
+\tableofcontents
+
+\section{September 4th: Yuchan Lee}
+Today we are talking a bit about orbital integrals. As some motivation, orbital integrals are the object of interest on the geometric side of the Arthur--Selberg trace formula. It is frequently desirable to compute these orbital integrals in order to use the trace formula to extract spectral information.
+
+\subsection{}
+Today, $F$ is a nonarchimedean local field. We let $\mf o$ denote its ring of integers (with uniformizer $\pi$), and we let $\kappa$ be its residue field (with cardinality $q$). We further fix a classical Lie group $G$ over $K$, with Lie algebra $\mf g$.
+
+A regular semisimple element $\gamma\in\mf g(\mf o)$ gives rise to an orbit $\OO_\gamma$. We want to compute its volume, which is the stable orbital integral of $\gamma$. Over the past two decades, we have developed two methods for the computation: analytic and geometric, where the geometric method uses the theory of Bruhat--Tits buildings.
+
+For some $\mf g$, we consider the map $\varphi_n\colon\mf g(\mf o)\to\mf o^n$ given by sending some $m$ to the coefficients of its characteristic polynomial. Notably, $\OO_\gamma$ is the fiber of $\chi_\gamma$ for some regular semisimple $\gamma$. Notably, $\varphi_n$ ugprades to a morphism of schemes, so one can hope to compare what happens on the geometric and special fibers. For example, one has the following result.
+\begin{theorem}[Weil]
+	For a smooth scheme $\mf X$ over $\mf o$, one has
+	\[\int_{\mf X(\mf o)}\left|\omega\right|=\frac{\left|\mf X(\kappa)\right|}{q^n}.\]
+\end{theorem}
+However, one cannot hope for our map $\varphi_n$ to be smooth over $\mf o$. Thus, the strategy is to stratify our integral over $\varphi_n^{-1}(\chi_\gamma)(\mf o)$ and then smoothen over each stratum. The stratification depends on the theory of finitely generated $\mf o$-modules, and the smoothening is by some $\pi$-adic congruence condition.
+
+Let's begin by discussing $\mf{gl}_n$. For simplicity, we will suppose that $\chi_\gamma(xx)$ is irreducible, and we let $L$ be a free $\mf o$-module of rank $n$. Now, we can see
+\[\OO_\gamma=\{m\in\op{End}_{\mf o}(L):\chi_m(x)=\chi_\gamma(x)\}.\]
+Letting $d$ be the valuation of $\det\gamma$, we also define $M\subseteq L$ to be the image of some $m$. The point is that we can look at the quotient $L/M$ and separate it according to the theory of finitely generated modules over $\mf o$ (which is a principal ideal domain). Splitting up the integral accordingly permits an explicit computation of the orbital integrals.
+
+\end{document}
