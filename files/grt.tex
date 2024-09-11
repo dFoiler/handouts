@@ -1,0 +1,72 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+
+\newcommand{\nirpdftitle}{Geometric Representation Theory Seminar}
+\usepackage{import}
+\inputfrom{../../notes}{nir}
+\usepackage[backend=biber,
+    style=alphabetic,
+    sorting=ynt
+]{biblatex}
+\setcounter{tocdepth}{2}
+
+\pagestyle{contentpage}
+
+\title{Geometric Representation Theory Seminar}
+\author{Nir Elber}
+\date{Fall 2024}
+\usepackage{graphicx}
+
+\begin{document}
+
+\maketitle
+
+\tableofcontents
+
+\section{September 5th: David Nadler}
+The theme for this semester is ``categorical representation theory,'' which is now contained in ``geometric representation theory,'' which is the title of our seminar. Gurbir Dhillon \cite{dhillon-cat-rep-theory} has provided an informal introduction.
+
+\subsection{Basic Definitions}
+We are interested in representations of groups. Here are some examples of groups of interest.
+\begin{itemize}
+	\item Finite groups, such as the finite groups of Lie type.
+	\item Groups over local fields, such as real Lie groups and $p$-adic groups.
+	\item Algebraic groups, such as the classical groups.
+\end{itemize}
+Importantly, these are not merely sets with multiplication: they come from algebraic groups.
+
+There are two motivations for representation theory.
+\begin{itemize}
+	\item Groups are hard, so representations provide concrete objects to understand them.
+	\item Representations are a natural setting for objects with symmetries.
+\end{itemize}
+With this in mind, a representation should be thought of as a map from our group $G$ to some automorphism group $\op{Aut}_\mc C(c)$ of an object in a category. What kind of representation one has depends on $\mc C$ and $c$.
+\begin{example}
+	One frequently works with $\mc C$ as the category of finite-dimensional complex vector spaces. Thus, a representation is a homomorphism $G\to\op{GL}_n(\CC)$. Things can become more complicated working with other fields than $\CC$, such as finite fields.
+\end{example}
+In order to use extra (say, analytic or algebraic) properties of our set-up, we will want to study functions on $G$. So we let $\op{Fun}(G)$ denote the functions on $G$ and $\op{Dist}(G)$ denote the distributions on $G$. The group law on $G$ then gives a co-algebra and algebra structure to $\op{Fun}(G)$ and $\op{Dist}(G)$, respectively. The point is that representations of $G$ become comodules over $\op{Fun}(G)$ or modules over $\op{Dist}(G)$.
+\begin{remark}
+	Thus far, we have made the following choices: the category $\mc C$ and which functions/distributions we think about. In practice, we typically we fix a field $k$ for our coefficients (though $\mc C$ may not be $\op{Vec}_k$), and we want to fix a type of functions.
+\end{remark}
+\begin{example}
+	Consider $G=S^1$.
+	\begin{itemize}
+		\item Viewing $G$ as a compact (real) Lie group, we could think about smooth representations, functions, and distributions, then it turns out that our representations decompose into one-dimensional irreducible representations.
+		\item From the perspective of homotopy theory, we view $G$ as a topological group, and we want to work with locally constant functions. Then our distributions of $S^1$ (valued in $S^1$) consists of the differential graded algebra of chain complexes on $S^1$; this is quasi-isomorphic to $\CC[\varepsilon]/\left(\varepsilon^2\right)$ where we require $\deg\varepsilon=-1$. So we want to understand $\CC[\varepsilon]$-modules, but putting $\varepsilon$ in degree $-1$ means that it must act by $0$. One can upgrade this equivalence to complexes.
+	\end{itemize}
+\end{example}
+
+\subsection{Character Sheaves}
+As motivation for the subject, we explain how categorical representation theory contextualizes Lusztig's character sheaves. We are interested in studying representations of finite groups of Lie type, such as the classical groups of Lie type like $\op{GL}_n(\FF_q)$, so fix our ambient algebraic group $G$. There are basically two ways to construct representations.
+\begin{itemize}
+	\item Induction from an abelian subgroup, or more generally a parabolic subgroup.
+	\item Prayer, due to Langlands; this is the theory of cuspidal representations.
+\end{itemize}
+In order to avoid having to pray too much, recall that we can understand representations of $G$ by their characters, which make up a basis of the class functions. Thus, we are interested in constructing cuspidal characters, and then we will get everyone else by induction.
+
+Lusztig does not try to construct characters directly on $G(\FF_q)$ but instead construct character sheaves on the algebraic group $G$. Passing to the algebraic group allows us to use algebraic geometry and maybe even complex Lie theory and so on to produce sheaves, and then we will do some ``decategorification'' of the character sheaves to get our characters back (explicitly, one does the usual dimensions of Frobenius actions for \'etale cohomology). The punchline is that character sheaves can be produced by induction from tori, so we get the needed characters!
+\begin{remark}
+	Philosophically, from the point of view of the seminar, what's going on is that geometric representation theory is controlled by a choice of topological field theory. At a core level, we made the problem ``core'' enough to access this by induction, namely by forgetting about $\FF_q$.
+\end{remark}
+
+\end{document}

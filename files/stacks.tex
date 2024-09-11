@@ -61,8 +61,8 @@ We are able to execute the first step above, which we do in steps.
 Let's work through an example. Continue with a field $k$, and now take two integers $a,b\in\ZZ$, and we are able to let $\mathbb G_m$ act on $A\coloneqq\Spec k[x,y]$ by $u*x\coloneqq u^ax$ and $u*y\coloneqq u^by$. On rings, this map is as follows.
 \[\arraycolsep=1.4pt\begin{array}{cccccc}
     k[x,y] &\otimes& k[u,1/u] &\from& k[x,y] \\
-    x &\otimes& u^a &\mapsfrom x \\
-    y &\otimes& u^b &\mapsfrom y
+    x &\otimes& u^a &\mapsfrom& x \\
+    y &\otimes& u^b &\mapsfrom& y
 \end{array}\]
 Let's do some cases.
 \begin{listalph}
@@ -80,5 +80,71 @@ Let's do some cases.
     We close by making a quick remark on how to add a character to this story. With our group $G$, we may equip a character $\chi\colon G\to\mathbb G_m$, and then we can try to understand
     \[A_\chi\coloneqq\{g\in A:g*f=\chi(g)f\}.\]
 \end{remark}
+
+\section{September 6th: Martin Olsson}
+Today we are giving an introduction of algebraic stacks ``for the working mathematician.''
+
+\subsection{Algebraic Stacks}
+We work over a base scheme $S$. Here is an okay definition.
+\begin{definition}[algebraic stack]
+    An \textit{algebraic stack} is a functor $\mf X\colon\mathrm{Sch}\opp\to\mathrm{Groupoids}$ satisfying the following.
+    \begin{listalph}
+        \item Descent: $\mf X$ is a sheaf for the \'etale topology.
+        \item The diagonal of $\mf X$ is representable by a scheme.
+        \item $\mf X$ admits a smooth cover by a scheme.
+    \end{listalph}
+\end{definition}
+\begin{remark}
+    Here, $\mathrm{Groupoids}$ is a category of categories (where all morphisms are isomorphisms). One must be a rather careful to explain what a functor valued in groupoids actually is.
+\end{remark}
+\begin{remark}
+    The ``algebraic'' part of ``algebraic stack'' arises from (b) and (c).
+\end{remark}
+Intuitively, a stack should be thought of as a scheme with some ``stacky points'' that have some larger automorphism group; for example, quotient stacks can be thought of in this way. (This is somewhat similar to orbifolds in differential topology.) Our goal is to turn the above definition into this intuition.
+
+One way to produce stacks is by group actions.
+\begin{definition}[principal homogeneous space]
+    Fix an affine group scheme $G$ over $S$. Then a \textit{principal homogeneous space} under $G$ is a flat surjective scheme $P\to S$ with $G$-action such that the induced map $G\times_SP\to P\times_SP$ given by $(g,x)\mapsto(gx,x)$ is an isomorphism.
+\end{definition}
+\begin{example}
+    There is an equivalence of groupoid categories between invertible sheaves over $S$ and principal homogeneous spaces under $\mathbb G_m$. In one direction, we take the line bundle $\mc L$ to the scheme representing the functor $\op{Isom}(\mc L,\mc O_S)$, where the $\mathbb G_m$-action arises from its action on $\OO_S$. One can check that $\op{Isom}(\mc L,\OO_S)$ is isomorphic to
+    \[\Spec_S\left(\bigoplus_{n\in\ZZ}\mc L^{\otimes n}\right),\]
+    where the $\mathbb G_m$-action on $\mc L^{\otimes n}$ is given by the $n$th power of $\mathbb G_m$ on $\mc L$.
+\end{example}
+\begin{example}
+    Given a $G$-action on a scheme $U$, let's try to make sense of the algebraic stack $\mf X\coloneqq[U/G]$. Well, given a test scheme $T\to S$, we produce the groupoid of diagrams
+    % https://q.uiver.app/#q=WzAsNCxbMCwwLCJQIl0sWzAsMSwiVCJdLFsxLDEsIlMiXSxbMSwwLCJVIl0sWzEsMl0sWzMsMl0sWzAsMywiXFx2YXJwaGkiXSxbMCwxLCJHIiwyXV0=&macro_url=https%3A%2F%2Fraw.githubusercontent.com%2FdFoiler%2Fnotes%2Fmaster%2Fnir.tex
+    \[\begin{tikzcd}
+        P & U \\
+        T & S
+        \arrow["\rho", from=1-1, to=1-2]
+        \arrow["G"', from=1-1, to=2-1]
+        \arrow[from=1-2, to=2-2]
+        \arrow[from=2-1, to=2-2]
+    \end{tikzcd}\]
+    where $P\to T$ is a principal homogeneous space under $G$. We will write down our objects as pairs $(P,\rho)$. Intuitively, one can think of the object $(P,\rho)$ as being related to its image in $U$, which is approximately a $G$-orbit in $U$.
+\end{example}
+Let's explain this last example a little more.
+\begin{listalph}
+    \item Descent follows by some kind of faithfully flat descent for affine schemes.
+    \item Approximately speaking, (b) is asking for the functor $\op{Isom}_{\mf X}((P,\rho),(P',\rho'))\colon\op{Sch}_T\opp\to\mathrm{Set}$ to be representable. Here, our isomorphisms need to be isomorphisms of the principal homogeneous spaces (namely, commuting with the $G$-action) also commuting with the $\rho$s.
+    \item Quickly, note that there is a ``tautological'' principal homogeneous space $G\times U\to U$, which we will label $(P_0,\rho_0)$. If $G$ is smooth, then (c) is the statement that the map
+    \[\op{Isom}_{U\times_ST}((P_0,\rho_0),(P,\rho))\to T\]
+    is smooth and surjective, which is not obvious but true.
+\end{listalph}
+Here is are some more examples.
+\begin{example}
+    We attempt to take a quotient stack $\mf X\coloneqq[U/\mathbb G_m]$. Then our objects in some groupoid $\mf X(T)$ are principal homogeneous spaces over $\mathbb G_m$, which we now understand to be line bundles. Thus, for example, taking two line bundles $\mc L$ and $\mc L'$, (b) is asking for
+    \[\op{Isom}_T(\mc L,\mc L')\cong\op{Isom}_T(\mc L'\otimes\mc L^\lor,\OO_T)\]
+    to be representable. One can check this sometimes, I suppose.
+\end{example}
+\begin{example}
+    Take $G=\mu_p$ over a base field $k$ of positive characteristic $p>0$. We try to consider $B\mu_p\coloneqq[(\Spec k)/\mu_p]$. Notably, $\mu_p$ is flat but not smooth, so checking (c) may be trickier. The main point is to use the Kummer exact sequence
+    \[1\to\mu_p\to\mathbb G_m\stackrel{(\cdot)^p}\to\mathbb G_m\to1.\]
+    As such, principal homogeneous spaces over $\mu_p$ turn out to be pairs $(\mc L,\lambda)$, where $\mc L$ is an invertible sheaf, and $\lambda\colon\mc L^{\otimes p}\to\OO$ is an isomorphism. One can check that this identification shows $B\mu_p$ is the same as $[\mathbb G_m/\mathbb G_m]$, where $\mathbb G_m$ acts on $\mathbb G_m$ by $u*v\coloneqq u^pv$. The point is that we are now taking a quotient by a smooth scheme, so we have checked (c)! In general, one can always do this kind of trick when our group $G$ is flat.
+\end{example}
+\begin{example}
+    One can enforce points with automorphisms by basically making our line bundles in our groupoids. For example, let's say we want to put a $\mu_2$ stabilizer on $0\in\PP^1$ and put a $\mu_3$ stabilizer on $\infty\in\PP^1$. Then our functor $\mf X$ should assign test schemes $T$ to a map $T\to\PP^1$ so that the produced line bundle $\mc L$ has assigned isomorphisms $\mc L_0^{\otimes2}\to\OO_{\PP^1,0}$ and $\mc L_\infty^{\otimes3}\to\OO_{\PP^1,\infty}$. It is not obvious if we can realize $\mf X$ as a quotient, though it turns out that we can.
+\end{example}
 
 \end{document}
