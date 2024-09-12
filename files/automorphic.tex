@@ -47,7 +47,7 @@ For now, ``analytic properties'' means deriving a meromorphic continuation, whic
 In fact, Hecke had proven functional equations before Tate, but Tate's arguments modernize better, which is why we will talk about them.
 
 By way of example, we state the functional equation for the Riemann $\zeta$-function $\zeta(s)$.
-\begin{theorem}[Riemann]
+\begin{theorem}[Riemann] \label{thm:riemann-fe}
 	Define the completed Riemann $\zeta$-function by
 	\[\Xi(s)\coloneqq\pi^{-s/2}\Gamma(s)\zeta(s).\]
 	Then $\Xi(s)$ admits an analytic continuation to all of $\CC$ and satisfies the functional equation $\Xi(s)=\Xi(1-s)$.
@@ -94,7 +94,7 @@ Next up, to place $dt/t$ in the correct context, we should define a Haar measure
 \begin{remark}
 	Local fields turn out be normed, though this is not immediately obvious from the definition. Even though $\RR$, $\CC$, and $\QQ_p$ all have natural norms (extended from $\QQ$), here is a hands-free way to obtain this norm from a local field $K$: choosing a Haar measure $dt$ on $K$, we define the norm $\left|a\right|$ of some $a\in K$ as the scalar such that
 	\[d(at)=\left|a\right|dt.\]
-	It is not at all obvious that $\left|\cdot\right|$ is a norm (in particular, why does it satisfy the triangle inequality?), but it is true. As an example, $\left|\cdot\right|$ is the square of the Euclidean norm on $\CC$.
+	It is not at all obvious that $\left|\cdot\right|$ is a norm (in particular, why does it satisfy the triangle inequality?), but it is true. As an example, $\left|\cdot\right|$ is the square of the Euclidean norm on $\CC$. For $\QQ_p$, we find $\left|p\right|=1/p$.
 \end{remark}
 \begin{example}
 	We are now able to say that $dt/\left|t\right|$ is a Haar measure of $K^\times$ for any local field $K$.
@@ -148,14 +148,14 @@ We now understand that our functional equation for $Z$ should arise from $Z(f,\e
 However, we still need to replace $f$ with some dual function. In the archimedean case, we expect this to be the Fourier transform defined by
 \[\widehat f(s)\coloneqq\int_\RR f(t)e^{2\pi ist}\,dt.\]
 Such a definition will more or less carry through for arbitrary local fields, but we will have to go through approximately the same dictionary that defined $Z(f,\omega)$ from $\Gamma(s)$. In particular, the functions $t\mapsto e^{2\pi ist}$ list the characters of $\RR$, so the above is the integration of our function $f$ against the list of characters. To this end, we pick up the following theorem.
-\begin{theorem}
+\begin{theorem} \label{thm:local-self-dual}
 	Fix a local field $K$. Then there exists a nontrivial character $\psi\colon K\to S^1$. Any choice of $\psi$ defines a bijection $K\to\widehat K$ by sending $a\in K$ to the character $\psi_a(t)\coloneqq\psi(at)$.
 \end{theorem}
-\begin{remark}
+\begin{remark} \label{rem:lca-duality}
 	For a general locally compact abelian group $G$, one can give $\widehat G\coloneqq\op{Hom}(G,\CC)$ a locally compact topology. With this topology in hand, one actually finds that the map $K\to\widehat K$ given by $a\mapsto\psi_a$ is an isomorphism of locally compact abelian groups. However, we do not currently have the need to work in this level of generality.
 \end{remark}
 We are now ready to define our Fourier transform.
-\begin{definition}
+\begin{definition} \label{def:local-fourier}
 	Fix a local field $K$, and choose a nontrivial character $\psi\colon K\to S^1$. For $f\in S(K)$, we define the \textit{Fourier transform}
 	\[\mc F_\psi f(t)\coloneqq\int_Kf(t)\psi(st)\,dt.\]
 \end{definition}
@@ -197,5 +197,142 @@ Let's explain the sort of inputs that go into proving \Cref{thm:mult-one}, but w
 	\item One can show that $C_c^\infty(K)'(\omega)$ is one-dimensional with basis given by $f\mapsto\int_Kf(t)\omega(t)\,dt/\left|t\right|$.
 	\item Understanding $S(K)'_0$ comes down to some casework. For example, we look at the nonarchimedean case. If $\omega$ is trivial, we have the distribution $f\mapsto f(0)$; otherwise, $S(K)'_0(\omega)$ is zero.
 \end{itemize}
+
+\section{September 11: Reed Jacobs}
+Today we are talking about the global theory of Tate's thesis. This will mostly be an excuse to discuss the ad\'eles.
+
+\subsection{Ad\'eles}
+For today, $K$ is a global field; in particular, it is a number field (in characteristic $0$) or a finite extension of $\FF_p(t)$ (in postive characteristic $p>0$). Here is our main character for today.
+\begin{definition}[ad\'ele ring]
+	Fix a global field $K$, and let $V_K$ denote the set of places of $K$. Then the \textit{ad\'ele ring $\AA_K$} is the restricted direct product
+	\[\AA_K\coloneqq\prod_{v\in V_K}(K_v,\OO_v).\]
+	Here, this notation means that $\AA_K$ consists of infinite tuples $(a_v)_v\in\prod_{v\in V_K}K_v$ where $a_v\in \OO_v$ for all but finitely many places $v\in V_K$.
+\end{definition}
+\begin{remark}
+	Even though $\OO_v$ may not have a definition for infinite $v$, we see that this does not matter because there are only finitely many infinite places anyway.
+\end{remark}
+\begin{remark}
+	We see that $\AA_K$ becomes a ring under the pointwise operations. In fact, it becomes a topological ring when given the subspace topology of the product topology on $\prod_vK_v$. In particular, upon taking the intersection, we see that our basic open sets look like
+	\[\prod_{v\in V_K}U_v,\]
+	where $U_v\subseteq K_v$ is open, but $U_v=\OO_v$ for all but finitely many $v\in V_K$.
+\end{remark}
+Here are some quick properties of the topology.
+\begin{proposition}
+	Fix a global field $K$. Then $\AA_K$ is a locally compact topological ring.
+\end{proposition}
+\begin{proof}
+	The fact that the ring operations are continuous can be checked pointwise on the level of the product $\prod_vK_v$. Perhaps we should also check that $\AA_K$ is Hausdorff, for which we note that this follows from being a subspace of $\prod_vK_v$ again.
+	
+	To be locally compact, we have to do a little more work. This follows more or less  Fix some $x\in\AA_K$, and we want some open neighborhood $U\subseteq\AA_K$ of $x$ with compact closure. By translation, we may assume that $x=0$. Then the open subset
+	\[\prod_{\substack{v\in V_K\\v\text{ infinite}}}B_v(0,1)\times\prod_{\substack{v\in V_K\\v\text{ finite}}}\OO_v,\]
+	where $B_v(0,1)$ is the open ball around $0\in K_v$. This is open by construction, and its closure $\prod_{v\in V_K}\overline{B_v(0,1)}$ is a product of compact sets and hence compact.
+\end{proof}
+\begin{remark}
+	Do note that $\prod_vK_v$ fails to be locally compact because the open subsets are too big! This is one reason why we want to work with the ad\'eles instead: once has a chance of doing some reasonable topology on $\AA_K$.
+\end{remark}
+To misquote Tate, we remark that one can really only extract arithmetic information from $\AA_K$ by putting $K$ inside it. Here is this embedding.
+\begin{proposition}
+	Fix a global field $K$. Then the embedding $i\colon K\into\AA_K$ defined by
+	\[i\colon a\mapsto(a)_v\]
+	is discrete and cocompact.
+\end{proposition}
+\begin{proof}
+	We will not prove cocompactness; it is equivalent to the finiteness of the class group and Dirichlet's unit theorem. Alternatively, one can use Minkowski theory to show this directly.
+
+	Discreteness is a little easier to show. For $a\in K$, we must show that $i(a)$ has an open neighborhood disjoint from the rest of $i(K)$. By translating, we may take $a=0$. Now, define the open neighborhood of $0$ given by
+	\[U\coloneqq\prod_{\substack{v\in V_K\\v\text{ infinite}}}B_v(0,1)\times\prod_{\substack{v\in V_K\\v\text{ finite}}}\OO_v.\]
+	Now, for any $b\in K^\times$, the product formula asserts that $\prod_v\left|b\right|_v=1$, but $\prod_v\left|b_v\right|_v<1$ for any $(b_v)_v\in U$, so $U\cap i(K)=\{0\}$, as required.
+\end{proof}
+The above cocompactness tells us that the quotient $\AA_K/K$ will be interesting to us; similarly, the group $\AA_K^\times/K^\times$ will be interesting to us.
+
+\subsection{Some Pontryagin Duals}
+We have some time, so let's expand the discussion of \Cref{rem:lca-duality}.
+\begin{definition}
+	Fix a locally compact abelian group $G$. Then we define the group $G\coloneqq\op{Hom}\left(G,S^1\right)$ to be the \textit{Pontryagin dual}, which we turn into a topological group by giving it the compact-open topology. It turns out that $\widehat G$ is a locally compact abelian group.
+\end{definition}
+\begin{example}
+	\Cref{thm:local-self-dual} explains that local fields $K_v$ are self-dual.
+\end{example}
+\begin{example}
+	One can check that a character $\ZZ\to S^1$ has equivalent data to an element of $S^1$, which essentially proves $\widehat{\ZZ}\cong S^1$.
+\end{example}
+\begin{example}
+	On the other hand, a continuous homomorphism $S^1\to S^1$ must be exponentiation by some integer, so $\widehat{S^1}\cong\ZZ$.
+\end{example}
+\begin{remark}
+	It is a general fact that the Pontryagin dual of $\widehat G$ is isomorphic to $G$. There is at least a map $G\to\op{Hom}\left(\widehat G,S^1\right)$ given by $g\mapsto\op{ev}_g$, where $\op{ev}_g\colon\widehat G\to S^1$ is given by $\op{ev}_g(\chi)\coloneqq\chi(g)$.
+\end{remark}
+We even have a nice duality, as in \Cref{thm:local-self-dual}.
+\begin{theorem} \label{thm:adele-self-dual}
+	Fix a global field $K$. Then the locally compact abelian group $\AA_K$ is self-dual. More precisely, there exists a nontrivial character $\psi\colon\AA_K\to S^1$. Then for any choice of $\psi$, then the map $\AA_K\to\widehat{\AA_K}$ given by
+	\[a\mapsto(\psi_a\colon t\mapsto\psi(at))\]
+	is an isomorphism of locally compact abelian groups.
+\end{theorem}
+\begin{proof}[Sketch]
+	This follows roughly from \Cref{thm:local-self-dual}, essentially by trying to take a product of the self-duality results for each local field in the restricted direct product. A detailed proof would require understanding the topology of the Pontryagin dual in more detail, so we will avoid it.
+\end{proof}
+Here is an application.
+\begin{corollary} \label{cor:dual-global}
+	Fix a global field $K$. Then the Pontryagin dual of $K$ is $\AA_K/K$.
+\end{corollary}
+\begin{proof}
+	Fix a nontrivial character $\psi\colon\AA_K/K\to S^1$ (note the quotient!), and we construct that the composite
+	\[K\into\AA_K\stackrel\psi\cong\widehat{\AA_K},\]
+	where the last map is given by \Cref{thm:adele-self-dual}. Now, this composite actually outputs to $\widehat{\AA_K/K}$: any $a\in K$ produces a character $\psi_a$ satisfying $\psi_a(t)=\psi(at)=1$ for each $t\in K$, so $\psi_a$ descends to a character of $\AA_K/K$. We claim that the above map is an isomorphism, which we do by combining three observations.
+	\begin{itemize}
+		\item We can check that $\widehat{\AA_K/K}$ is a vector space over $K$.
+		\item Note $\AA_K/K$ is compact, so $\widehat{\AA_K/K}$ is discrete by some fact of Pontryagin duals.
+		\item Note $\widehat{\AA_K/K}/K\subseteq\widehat{\AA_K}/K\cong\AA_K/K$, and this last space is compcat.
+	\end{itemize}
+	The last two observations imply $\widehat{\AA_K/K}$ is finite, but then the first observation requires it to be trivial.
+\end{proof}
+
+\subsection{A Poisson Summation Formula}
+The presence of a duality permits a well-behaved Fourier analysis. For our technicalities, we explain what our Schwartz functions are.
+\begin{definition}[Schwartz]
+	A \textit{Schwartz--Bruhat} function $f$ on the quotient $\AA_K/K$ is a function of the form $\prod_\nu f_\nu$ such that each $f_\nu$ is Schwartz, and $f_\nu=1_{\OO_\nu}$ for all but finitely many $\nu$. We also permit finite $\CC$-linear combinations of these functions to be Scwhartz--Bruhat.
+\end{definition}
+And here is our corresponding Fourier transform; it is our global analogue of \Cref{def:local-fourier}.
+\begin{definition}
+	Fix a global field $K$, and choose a nontrivial character $\psi\colon\AA_K/K\to S^1$. For any Schwartz--Bruhat function $f$, then we define the \textit{Fourier transform} to be
+	\[\mc F_\psi f(y)\coloneqq\int_{x\in\AA_K}f(x)\psi(xy)\,dx.\]
+\end{definition}
+\begin{remark} \label{rem:general-fourier-trans}
+	For the discussion which follows shortly, it will be worth our time to write out what the Fourier transform is in general for a locally compact abelian group $G$. Given a nice enough function $f\colon G\to\CC$ (such as Schwartz--Bruhat), the Fourier transform $\widehat f$ is a function on $\widehat G$ defined by
+	\[\widehat f(\chi)\coloneqq\int_Gf(g)\chi(g)\,dg.\]
+	For example, the identification of characters of $\AA_K$ with $\AA_K$ recovers the above definition. One finds that taking the Fourier transform twice almost recovers the original function.
+\end{remark}
+Notably, the Fourier transform depends on a choice of Haar measure. These can be found by taking the product of the Haar measures on the local fields; by scaling, we can get the usual identity $\mc F_\psi\mc F_\psi f(x)=f(-x)$.
+
+Riemann's original proof of \Cref{thm:riemann-fe} has the result more or less follow from some functional equation coming from a Poisson summation formula. As such, we desire a Poisson summation formula in our context as well. The point of a Poisson summation formula is to relate sums for a function $f$ over the discrete cocompact subgroup $\ZZ\subseteq\QQ$ with the same sums of the Fourier transform. Because $K\subseteq\AA_K$ is discrete and cocompact, it is natural to have the following statement.
+\begin{theorem}[Poisson summation] \label{thm:adelic-p-s}
+	Fix a global field $K$, and choose a nontrivial character $\psi\colon\AA_K/K\to S^1$. For any Schwartz--Bruhat function $f$, we have
+	\[\sum_{\gamma\in K}f(\gamma)=\sum_{\gamma\in K}\mc F_\psi f(\gamma).\]
+\end{theorem}
+\begin{proof}
+	Define $F\colon\AA_K\to\CC$ by $F(x)\coloneqq\sum_{\gamma\in K}f(x+\gamma)$. Note that $F$ descends to a function on $\AA_K/K$. Quickly, note that the convergence of these sums follows from our definition of Schwartz--Bruhat; the convergence is fast enough to ensure that both sides define a continuous function on $\AA_K/K$. We will spend the rest of the proof ignoring convergence issues.
+	
+	The point is to compute the Fourier transform of $F$ and apply Fourier inversion. However, $F$ has descended to a function on $\AA_K/K$, so its Fourier transform should be a function on the Pontryagin dual of $\AA_K/K$, which is $K$ by \Cref{cor:dual-global}. As such, we let $D\subseteq\AA_K$ be a fundamental domain for $\AA_K/K$, which we give a volume of $1$ to fix our Haar measure, and we compute
+	\begin{align*}
+		\mc F_\psi F(y) &= \int_{\AA_K/K}F(x)\psi(xy)\,dx \\
+		&= \int_DF(x)\psi(xy)\,dx \\
+		&= \int_D\sum_{\gamma\in K}f(x+\gamma)\psi(xy)\,dx \\
+		&= \sum_{\gamma\in K}\int_Df(x+\gamma)\psi(xy)\,dx \\
+		&= \sum_{\gamma\in K}\int_Df(x)\psi((x-\gamma)y)\,dx \\
+		&\stackrel*= \sum_{\gamma\in K}\int_Df(x)\psi(xy)\,dx \\
+		&= \mc F_\psi f(y),
+	\end{align*}
+	where $\stackrel*=$ holds because $\psi|_K=1$. The general theory of Pontryagin duality allows us to apply a Fourier inversion formula for $\widehat K\cong\AA_K/K$ to see $F(x)$ equals
+	\[\sum_{y\in K}\widehat F(y)\overline{\psi(xy)}=\sum_{y\in K}\mc F_\psi f(y)\overline{\psi(xy)}.\]
+	(Note that this is basically the Fourier transform of the Fourier transform, where we are plugging into the general definition of \Cref{rem:general-fourier-trans}.) Plugging in $x=0$ completes the proof.
+\end{proof}
+\begin{remark}[Reed]
+	In the case where $K$ is the function field of a curve $C$ over a finite field $\FF_q$, one is able to turn \Cref{thm:adelic-p-s} into the Riemann--Roch theorem for $C$. We will not explain this in detail.
+\end{remark}
+\begin{remark}
+	One can basically mimic the proof of \Cref{thm:riemann-fe} to prove a functional equation for ``global $Z$-integrals'' which look like
+	\[Z(f,\chi)\coloneqq\int_{\AA_K^\times}f(x)\chi(x)\,d^\times x,\]
+	where $d^\times x$ is some suitably defined Haar measure on $\AA_K^\times$. The key analytic input into the proof of \Cref{thm:riemann-fe} is a Poisson summation formula used to produce the symmetry; analogously, the key input into the global functional equation is the ``ad\'elic Poisson summation formula'' \Cref{thm:adelic-p-s} used to produce the symmetry.
+\end{remark}
 
 \end{document}
