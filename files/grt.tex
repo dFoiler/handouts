@@ -131,4 +131,49 @@ Given a smooth morphism $f\colon X\to Y$ of smooth schemes, one wants some funct
 	\item Pushforward: one has a functor $f_*\colon\mathrm{Mod}(D_X)\to\mathrm{Mod}(D_Y)$.
 \end{itemize}
 
+\section{September 19: Raymond}
+Here we go.
+
+\subsection{K\"ahler Differentials}
+We would like to go between left and right $D_X$-modules, for which we want to be tensoring by some bimodule. For a $k$-algebra $A$, there is a universal differential $d\colon A\to\Omega_{A/k}$ so that
+\[\op{Der}_k(A,M)\simeq\op{Hom}_A(\Omega_{A/k},M)\]
+for any $A$-module $M$; here $\op{Dek}_k(A,M)$ are the $k$-linear derivations $A\to M$. In particular, taking $M=A$ above, we see that $\Omega_{A/k}$ is dual (over $A$) to $\op{Vect}_A$. This continues to be true after gluing, so $\Omega_{X}$ is dual to $\op{Vect}_X$ for a scheme $X$.
+
+Now, let $\Omega_X^{\mathrm{top}}$ denote the top differential $\land^{\dim X}\Omega_X$. We have a $D_X$-module structure given by the Lie derivative: for $\xi\in\op{Vect}_X$ and $\omega\in\Omega_X^{\mathrm{top}}$, we define $(\op{Lie}\xi)(\omega)\in\Omega_X^{\mathrm{top}}$ given by
+\[(\op{Lie}\xi)(\omega)(\xi_1,\ldots,\xi_n)=\xi(\omega(\xi_1,\ldots,\xi_n))-\sum_{i=1}^n\omega(\xi_1,\ldots,[\xi,\xi_i],\ldots,\xi_n),\]
+which one can essentially believe as some kind of product rule. The following can be checked by some computations.
+\begin{itemize}
+	\item $(\op{Lie})f\xi)(\omega)=\op{Lie}\xi(f\omega)$ for any function $f$.
+	\item $\op{Lie}\xi(f\omega)=\xi(f)\omega+f(\op{Lie}\xi)(\omega)$.
+	\item $\op{Lie}[\xi_1,\xi_2](\omega)=[{\op{Lie}\xi_1},{\op{Lie}\xi_2}](\omega)$, where the bracket means taking the commutator.
+\end{itemize}
+In particular, the first formula tells us that this is a right $D_X$-action: $f$ and $\xi$ have switched places, so it is perhaps more natural to write this as $\omega\cdot f\xi=\omega\cdot f\cdot\xi$. Even the second formula
+\begin{remark}[Nadler]
+	There is a perfect pairing between functions in $\OO_X$ and top forms in $\Omega_X^{\mathrm{top}}$ by integration. Thus, we can turn left modules into right modules by this sort of duality. More formally, we note that differentials act on $C_c^\infty(M)$ in the natural way on the left, so distributions act on $C_c^\infty(M)^*$ on the right. Given $\omega\in\Omega_X^{\mathrm{top}}$, we can produce a distribution by integration: $f\mapsto\int_Mf\,\omega$, and then we can unwind the action of dual action of differentials to produce the Lie derivative: for vector field $X$, we have
+	\[\int_Mdf(X)\land\omega=\int_Mf(-\mc L_X\omega).\]
+\end{remark}
+Now, given a left $D_X$-module, we can produce a right $D_X$-module by $\Omega_X^{\mathrm{top}}\otimes_{\OO_X}-$; conversely, given a right $D_X$-module, we can produce a left $D_X$-module by $-\otimes_{\OO_X}\Omega_X^{\mathrm{top}}$.
+\begin{example}
+	A left $D_X$-module $M$ is essentially a family of functions, so given a section $m$, we see that elements of $M\otimes_{\OO_X}\Omega_X^{\mathrm{top}}$ look like $m\,\omega$ where $\omega$ is a top form. This now has our right action by something like
+	\[\xi\cdot(m\omega)=-\xi(m)\omega+m\xi\omega.\]
+	Namely, there are some complications in our actions.
+\end{example}
+\begin{remark}[Eugene, Nadler]
+	Let's explain this a bit more conceptually. Note that $\op{Diff}(\OO_X,\Omega_X^{\mathrm{top}})$ has two separate right actions: $\Omega_X^{\mathrm{top}}$ has a natural right action, and $\OO_X$ has a natural left action giving the total another right action. Thus, we see that $\op{Diff}(\OO_X,\Omega_X^{\mathrm{top}})\otimes_{D_X}-$ is turning left modules into right modules: choose one of the right actions to form the tensor product and use the other right action for our right module structure.
+\end{remark}
+
+\subsection{Pullback and Pushforward}
+Let's now return to our discussion of pullback and pushforward. Fix some $f\colon X\to Y$.
+\begin{itemize}
+	\item Pullback: we define $D_{X\to Y}\coloneqq\OO_X\otimes_{f^*\OO_Y}D_Y$ and then are able to define $f^*M\coloneqq D_{X\to Y}\otimes_{D_X}M$ for $D_Y$-module $M$. Note $D_{X\to Y}$ can be thought of as $\op{Diff}(f^*\OO_Y,\OO_X)$.
+	\item Pushforward: we will still use $D_{X\to Y}$, but we now must keep twisting around. Given our left $D_X$-module $M$, we make it into a right module by considering $\Omega_X^{\mathrm{top}}\otimes_{\OO_X}M$, which we are now able to tensor with the bimodule $D_{X\to Y}$ to make a right $D_Y$-module $\left(\Omega_X^{\mathrm{top}}\otimes_{\OO_X}M\right)\otimes_{D_X}D_{X\to Y}$. But we want a left $D_Y$-module, so we define
+	\[f_*M\coloneqq\left(\left(\Omega_X^{\mathrm{top}}\otimes_{\OO_X}M\right)\otimes_{D_X}D_{X\to Y}\right)\otimes\Omega_X^{\mathrm{top},-1}.\]
+	Alternatively, one can think about this as tensoring by $\op{Diff}(f^*\Omega_Y^{\mathrm{top}},\Omega_X^{\mathrm{top}})$.
+\end{itemize}
+
+\subsection{The Convolution}
+Fix a group scheme $G$. We would like for $\mathrm{Mod}(D_G)$ to be a monoidal category, which will turn into our group algebra. For $a\in G$, recall we define $\delta_a$ as $D_G/D_G\mf m_a$. One can compute that
+\[m_*\left(\pi_1^*\delta_a\otimes_{\OO_{G\times G}}\pi_2^*\delta_b\right)=\delta_{m(a,b)},\]
+so there is some suspicion of this module structure.
+
 \end{document}
