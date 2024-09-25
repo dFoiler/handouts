@@ -310,7 +310,9 @@ Riemann's original proof of \Cref{thm:riemann-fe} has the result more or less fo
 	\[\sum_{\gamma\in K}f(\gamma)=\sum_{\gamma\in K}\mc F_\psi f(\gamma).\]
 \end{theorem}
 \begin{proof}
-	Define $F\colon\AA_K\to\CC$ by $F(x)\coloneqq\sum_{\gamma\in K}f(x+\gamma)$. Note that $F$ descends to a function on $\AA_K/K$. Quickly, note that the convergence of these sums follows from our definition of Schwartz--Bruhat; the convergence is fast enough to ensure that both sides define a continuous function on $\AA_K/K$. We will spend the rest of the proof ignoring convergence issues.
+	Define $F\colon\AA_K\to\CC$ by
+	\[F(x)\coloneqq\sum_{\gamma\in K}f(x+\gamma).\]
+	Note that $F$ descends to a function on $\AA_K/K$. Quickly, note that the convergence of these sums follows from our definition of Schwartz--Bruhat; the convergence is fast enough to ensure that we get a continuous function on $\AA_K/K$. We will spend the rest of the proof ignoring convergence issues.
 	
 	The point is to compute the Fourier transform of $F$ and apply Fourier inversion. However, $F$ has descended to a function on $\AA_K/K$, so its Fourier transform should be a function on the Pontryagin dual of $\AA_K/K$, which is $K$ by \Cref{cor:dual-global}. As such, we let $D\subseteq\AA_K$ be a fundamental domain for $\AA_K/K$, which we give a volume of $1$ to fix our Haar measure, and we compute
 	\begin{align*}
@@ -324,7 +326,7 @@ Riemann's original proof of \Cref{thm:riemann-fe} has the result more or less fo
 	\end{align*}
 	where $\stackrel*=$ holds because $\psi|_K=1$. The general theory of Pontryagin duality allows us to apply a Fourier inversion formula for $\widehat K\cong\AA_K/K$ to see $F(x)$ equals
 	\[\sum_{y\in K}\widehat F(y)\overline{\psi(xy)}=\sum_{y\in K}\mc F_\psi f(y)\overline{\psi(xy)}.\]
-	(Note that this is basically the Fourier transform of the Fourier transform, where we are plugging into the general definition of \Cref{rem:general-fourier-trans}.) Plugging in $x=0$ completes the proof.
+	(Note that this is basically the Fourier transform of the Fourier transform, where we are plugging into the general definition of \Cref{rem:general-fourier-trans}.) Plugging in $x=0$ completes the proof!
 \end{proof}
 \begin{remark}[Reed]
 	In the case where $K$ is the function field of a curve $C$ over a finite field $\FF_q$, one is able to turn \Cref{thm:adelic-p-s} into the Riemann--Roch theorem for $C$. We will not explain this in detail.
@@ -333,6 +335,131 @@ Riemann's original proof of \Cref{thm:riemann-fe} has the result more or less fo
 	One can basically mimic the proof of \Cref{thm:riemann-fe} to prove a functional equation for ``global $Z$-integrals'' which look like
 	\[Z(f,\chi)\coloneqq\int_{\AA_K^\times}f(x)\chi(x)\,d^\times x,\]
 	where $d^\times x$ is some suitably defined Haar measure on $\AA_K^\times$. The key analytic input into the proof of \Cref{thm:riemann-fe} is a Poisson summation formula used to produce the symmetry; analogously, the key input into the global functional equation is the ``ad\'elic Poisson summation formula'' \Cref{thm:adelic-p-s} used to produce the symmetry.
+\end{remark}
+
+\section{September 18th: Nir Elber}
+I filled in for Saud Molaib, who has a last-minute cancellation.
+
+% \subsection{Algebraic Groups}
+
+% \subsection{Reductive Groups}
+
+% \subsection{Borel Subgroups}
+
+\section{September 25th: Justin Wu}
+Today we are discussing how to put a topology on the ad\'eles and related groups.
+
+We begin by fixing some notation. Today, $F$ will be a global field, and $V(F)$ is its set of places. Throughout, $S\subseteq V(K)$ will be a finite subset, usually including the finite set $\infty$ of infinite places. We define the ad\'ele ring as the usual restricted direct product
+\[\AA_F=\prod_{v\in V(K)}(F_v,\OO_v).\]
+For our finite set $S$, we define
+\begin{align*}
+	\AA_F^S &\coloneqq \prod_{v\notin S}(F_v,\OO_v) \\
+	F_S &\coloneqq \AA_{F,S}\coloneqq\prod_{v\in S}F_v \\
+	\widehat\OO_F^S &\coloneqq\prod_{v\notin S}\OO_v.
+\end{align*}
+For example, $\AA_F^\emp=\AA_F$, and $\widehat\OO_F^\infty$ is compact.
+\begin{remark}
+	There is not a unified consensus on notation. We are agreeing with Getz and Hahn.
+\end{remark}
+
+\subsection{Topology from Topological Rings}
+For an affine scheme $X$ over $F$, we would like to give a topology on $X(\AA_F)$. It is not totally obvious how to do this. The classical example is that $\AA_F$ is a topological ring, and we may want to give a topology on its units $\AA_F^\times$, but $\AA_F^\times$ will fail to be a topological group if given the subspace topology from $\AA_F$: the inversion map $\AA_F^\times\to\AA_F^\times$ won't be continuous!
+
+The correct way to proceed is to use the closed embedding $j\colon\mathbb G_m\to\mathbb A^2$ given by $x\mapsto\left(x,x^{-1}\right)$, which is a closed embedding onto
+\[\left\{(x,y)\in\AA^2:xy=1\right\}.\]
+Then we can give $\mathbb A_F^\times$ the subspace topology from $\AA^2$. In particular, inversion when passed through this embedding $j$ merely permutes the two coordinates, so it succeeds at being continuous, even for a general ring $R$! Here is the general result.
+\begin{theorem}
+	Fix a Hausdorff topological ring $R$. There is a unique way to give a topology on the collection of sets $X(R)$ as $X$ varies over the collection of finite type affine $R$-schemes satisfying the following.
+	\begin{listalph}
+		\item Functoriality: scheme maps $X\to Y$ produce continuous maps $X(R)\to Y(R)$.
+		\item Fiber products: given maps $X\to Z$ and $Y\to Z$, the topology on $(X\times_ZY)(R)$ is the topology induced by the fiber product $X(R)\times_{Z(R)}\times Y(R)$.
+		\item Closed embeddings: given a closed embedding $X\to Y$ of schemes, one gets a closed embedding $X(R)\to Y(R)$ of topological spaces.
+		\item Affine space: the topology on $\AA^1(R)$ is the topology on $R$.
+	\end{listalph}
+\end{theorem}
+\begin{proof}[Sketch]
+	We show uniqueness, but we won't show existence. For any affine $R$-scheme $X$ of finite type, we know that there is some $r>0$ and a closed embedding $X\into\AA^r$. Then the topology no $\AA^r(R)$ is fixed by the topology on $\AA$ and taking fiber products, so the topology on $X(R)\subseteq\AA^r(R)$ is fixed by having a closed embedding.
+\end{proof}
+\begin{example}
+	We see that the group $\op{GL}_n$ has a closed embedding into $M_n\times M_n$ via $g\mapsto\left(g,g^{-1}\right)$. This allows us to give a topology on $\op{GL}_n(R)$ for any topological ring $R$.
+\end{example}
+\begin{example} \label{ex:topology-on-g-adeles}
+	For any affine group $G$ of finite type, we can find a closed embedding $G\subseteq\op{GL}_n$ to produce a topology on $G(R)\subseteq\op{GL}_n(R)$. For the ad\'eles, one can check that the topology is given by
+	\[G(\AA_F)=\prod_{v\in V(K)}(G(F_v),G(F_v)\cap\op{GL}_n(\OO_v)).\]
+\end{example}
+
+\subsection{Hyperspecial Subgroups}
+We would like to understand the subgroups $G(F_v)\cap\op{GL}_n(\OO_v)$ of \Cref{ex:topology-on-g-adeles} in a way which is ambivalent to the embedding. This is a local object, so we begin by telling a local story.
+\begin{definition}[unramified]
+	Fix a reductive group $G$ over a nonarchimedean local field $F_v$. We say that $G$ is \textit{unramified} if and only if $G$ is quasi-split, and there is a finite unramified extension $E_w/F_v$ such that $G_{E_w}$ is split.
+\end{definition}
+\begin{theorem}
+	Fix a reductive group $G$ over a nonarchimedean local field $F_v$. Then $G$ is unramified if and only if there is a smooth model $\mc G$ of $G$ over $\OO_v$ such that $\mc G_s$ is reductive.
+\end{theorem}
+\begin{proof}[Sketch]
+	We sketch the backwards direction. If we have a model $\mc G$, then we basically pass to the special fiber to find our Borel subgroup and maximal torus; notably, the maximal torus may only split over a finite extension of the residue field, but then this will only require a finite unramified extension in order to split the torus back in $G$.
+\end{proof}
+The remarkable part of conclusion of the above theorem is not exactly the mere existence of the model but instead having the reductive special fiber. For example, given any embedding $G\subseteq\op{GL}_n$, one can look at the Zariski closure of the composite
+\[G\to{\op{GL}_{n,F_v}}\to{\op{GL}_{n,\OO_v}}\]
+to produce a model of $G$ over $\OO_v$; in fact, there is a way to smooth out this model as well. However, there is no reason why the special fiber of this thing would be controlled.
+
+This notion of models allows us to discuss subgroups like $G(F_v)\cap\op{GL}_n(\OO_v)$.
+\begin{definition}[hyperspecial]
+	Fix a reductive group $G$ over a nonarchimedean local field $F_v$. Then a subgroup $H\subseteq G(F_v)$ is \textit{hyperspecial} if and only if there is a smooth model $\mc G$ of $G$ over $\OO_v$ such that $\mc G$ has reductive special fiber, and $H=\mc G(\OO_v)$.
+\end{definition}
+In fact, we can even give an almost topological description.
+\begin{theorem}
+	Fix a reductive group $G$ over a nonarchimedean local field $F_v$.
+	\begin{listalph}
+		\item Every compact subgroup $K\subseteq G(F_v)$ is contained in some maximal compact subgroup.
+		\item Every maximal compact subgroup $K\subseteq G(F_v)$ equals $\mc G(\OO_v)$ for some smooth model $\mc G$ of $G$.
+		\item All maximal compact subgroups are open.
+	\end{listalph}
+\end{theorem}
+We now transition back to our global theory. The miracle is that we achieve being hyperspecial almost everywhere.
+\begin{theorem}
+	Fix a reductive group $G$ over a global field $F$, and find a smooth model $\mc G$ of $G$ over $\OO_F^S$ for some finite subset $S\subseteq V(K)$. Then the subgroup $\mc G(\OO_v)$ is hyperspecial for all but finitely many places $v\notin S$.
+\end{theorem}
+The main point is that $\mc G$ is reductive at the generic fiber, and it turns out that one can spread out the reductivity to a Zariski dense open subset of the special fibers.
+
+Being hyperspecial almost everywhere allows us to recast our topology on $G(\AA_F)$.
+\begin{proposition}
+	Fix an affine scheme $X$ over a global field $F$ with a smooth model $\mc X$ over $\OO_F^S$. Then there is a natural homeomorphism
+	\[X(\AA_F)\to\prod_{v\in V(K)}(X(F_v),\mc X(\OO_v)).\]
+\end{proposition}
+\begin{corollary}
+	Fix a reductive group $G$ over a global field $F$. For any compact open subgroup $K\subseteq G(\AA_F^S)$ for a finite subset $S\subseteq V(K)$, the projection of $K$ onto $G(F_v)$ is hyperspecial for all but finitely many places $v\notin S$.
+\end{corollary}
+\begin{proof}
+	We understand what (compact) open subsets of the restricted direct product look like once given a model, so this follows from the above proposition.
+\end{proof}
+
+\subsection{The Ad\'elic Quotient}
+For this subsection, take $F$ to be a number field. For this seminar, we are essentially interested in the representation theory of $G(\AA_F)$ for reductive groups $G$. To do number theory, we should really embed $G(F)\to G(\AA_F)$ via $F\into\AA_F$, so perhaps we are really interested in the quotient $G(F)\backslash G(\AA_F)$.
+
+Howver, $G(F)\backslash G(\AA_F)$ is much too large. For example, it will almost always fail to be compact due to the presence of characteres.
+\begin{example}
+	Take $G=\op{GL}_n$. Then there is a surective composite
+	\[\op{GL}_n(\AA_F)\stackrel\det\to\op{GL}_1(\AA_F)\stackrel{\left|\cdot\right|}\to\RR^+.\]
+	However, $\op{GL}_n(F)$ goes to the identity!
+\end{example}
+Thus, to make $G(F)\backslash G(\AA_F)$ smaller, we want to restrict $G(\AA_F)$ down to
+\[G(\AA_F)^1=\bigcap_{\chi\in X^*(G)}\ker(\left|\cdot\right|\circ\chi),\]
+where $X^*(G)$ is the set of characters $G\to\mathbb G_m$. Note that $\mathbb G_m(F)$ is trivial under $\left|\cdot\right|$, so $G(F)\subseteq G(\AA_F)^1$.
+
+Another reason the quotient $G(F)\backslash G(\AA_F)$ is too large due to the presence of the center. With this in mind, we define $A_G\subseteq G(F_\infty)$ as follows: consider a maximal $\QQ$-split torus in $\op{Res}_{F/\QQ}Z_G$; then we take the connected component of the identity of the $\RR$-points of this thing.
+\begin{example}
+	We can compute that the maximal $\QQ$-split torus of $\op{Res}_{F/\QQ}\mathbb G_{m,F}$ is $\QQ^\times\subseteq F^\times$. Thus, $A_{\mathbb G_m}=\RR^+$. More generally,
+	\[A_{\op{GL}_n}=\{c1_n:c>0\}\subseteq\op{GL}_n(F_\infty).\]
+\end{example}
+We are now ready to define the adelic quotient.
+\begin{definition}[adelic quotient]
+	Fix a reductive group $G$ over a global field $F$. Then the \textit{adelic quotient} is the set
+	\[[G]\coloneqq A_GG(F)\backslash G(\AA_F).\]
+	For a number field $F$, this is the same as $G(F)\backslash G(\AA_F)^1$.
+\end{definition}
+\begin{remark}[Tamagawa numbers]
+	It turns out that $G(F)\backslash G(\AA_F)^1$ may fail to be compact, but it will at least always have finite measure with respect to the Haar measure on $G(\AA_F)^1$.
 \end{remark}
 
 \end{document}
