@@ -175,4 +175,38 @@ With our larger ring, we can find relations add $[X]+[Y]=[X\cup Y]$ and $[X]\cdo
 \subsection{Stacky Birational Geometry}
 Given stacks $\mc X$ and $\mc Y$, a rational map $f\colon\mc X\to\mc Y$ is a morphism defined on a dense open subscheme of $\mc X$. Then an isomorphism on the dense opens is \textit{birational}; however, our definition of birationally equivalent requires that the birational map is proper (defined by valuative criterion) and representable (by schemes). One can tell a lot of the same story; for example, there are blow-ups. Now that we are looking at schemes, we can also take root stacks in a way that Professor Olsson described last week. The moral of the story is that one can prove an analogue of \Cref{thm:weak-factorization}, where we need to allow blow-ups and these root stacks.
 
+\section{September 27: Xiangru Zeng}
+Today we are discussing valuative criteria for the existence of moduli stacks. We will work over an algebraically closed field $k$ of characteristic $0$.
+
+\subsection{Valuative Criteria}
+Roughly speaking, one can frequently show that a moduli space is at least an algebraic stack. However, we will often want to upgrade this stack to a more geometric object, such as an algebraic space or scheme. Here is an example of one such result.
+\begin{theorem}[Keel--Mori]
+    Fix a Deligne--Mumford stack $\mf X$ of finite type and separated over $k$. Then there is a coarse moduli space $X$ equipped with a projection $\pi\colon\mf X\to X$; furthermore, one can guarantee that $\pi_*\OO_{\mf X}=\OO_X$ and that the functor $\pi_*\colon\mathrm{QCoh}(\mf X)\to\mathrm{QCoh}(X)$ is exact.
+\end{theorem}
+\begin{remark}
+    The conclusion the above theorem defines what is called a ``tame coarse moduli space.'' There is also a relative notion over a scheme $S$. The above theorem more or less says all our finite type separated moduli spaces are tame in characteristic $0$.
+\end{remark}
+To improve the above result, we would like to remove the requirement that the stack is separated, which more or less is a requirement of having finite automorphism groups.
+
+For example, if a linearly reductive group $G$ acts on some open quasiprojective variety $U\subseteq\PP^n$ semistably, then geometric invariant theory still permits us to produce a quotient
+\[U/G=\op{Proj}\bigoplus_{n\ge0}\Gamma(U,\OO_U(n))^G.\]
+Combining this example with the previous theorem, we produce the following definition.
+\begin{definition}
+    A map $\pi\colon\mf X\to X$ from an algebraic stack to an algebraic space is a \textit{good moduli space} if and only if the following hold.
+    \begin{itemize}
+        \item $\pi$ is quasiseparated and quasicompact.
+        \item $\pi_*\OO_{\mf X}\cong\OO_X$.
+        \item $\pi_*\colon\mathrm{QCoh}(\mf X)\to\mathrm{QCoh}(X)$ is exact.
+    \end{itemize}
+\end{definition}
+It is not clear that this is a good definition, but here are some properties.
+\begin{theorem}
+    Fix a good moduli space $\pi\colon\mf X\to X$.
+    \begin{listalph}
+        \item $\pi$ is surjective and universally closed.
+        \item For two points $\mf x_1,\mf x_2\in\mf X(k)$, we have $\pi(\mf x_1)=\pi(\mf x_2)$ if and only if $\overline{\{\mf x_1\}}\cap\overline{\{\mf x_2\}}\ne\emp$.
+        \item If $\mf X$ is Noetherian, then $\pi$ is universal (with respect to being a good moduli space).
+    \end{listalph}
+\end{theorem}
+
 \end{document}

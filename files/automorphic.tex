@@ -42,7 +42,7 @@ In order to not lose perspective in the Fourier analysis that makes up the body 
 \end{definition}
 For now, ``analytic properties'' means deriving a meromorphic continuation, which in practice means deriving a functional equation.
 \begin{remark}
-	There is a common generalization of the above two $L$-functions called a ``Hecke $L$-function,'' but streamlined definitions would require a discussion of the ad\'eles, which we are temporarily avoiding.
+	There is a common generalization of the above two $L$-functions called a ``Hecke $L$-function,'' but streamlined definitions would require a discussion of the adeles, which we are temporarily avoiding.
 \end{remark}
 In fact, Hecke had proven functional equations before Tate, but Tate's arguments modernize better, which is why we will talk about them.
 
@@ -74,7 +74,7 @@ We know that this should correspond to the archimedean place of $\QQ$, but we wo
 \end{itemize}
 To begin our generalizations, we recall the definition of a local field, which will place $\RR$ in the correct context.
 \begin{definition}[local field]
-	A \textit{local field} is a locally compact nondiscrete topological field. It turns out that local fields of characteristic zero are exactly the finite extensions of $\RR$ and $\QQ_p$.
+	A \textit{local field} is a locally compact nondiscrete topological field. (Here, a topological field is one that requires the addition, multiplication, and inversion to all be continuous.) It turns out that local fields of characteristic zero are exactly the finite extensions of $\RR$ and $\QQ_p$.
 \end{definition}
 Next up, to place $dt/t$ in the correct context, we should define a Haar measure.
 \begin{definition}[Haar measure]
@@ -199,12 +199,12 @@ Let's explain the sort of inputs that go into proving \Cref{thm:mult-one}, but w
 \end{itemize}
 
 \section{September 11: Reed Jacobs}
-Today we are talking about the global theory of Tate's thesis. This will mostly be an excuse to discuss the ad\'eles.
+Today we are talking about the global theory of Tate's thesis. This will mostly be an excuse to discuss the adeles.
 
-\subsection{Ad\'eles}
+\subsection{Adeles}
 For today, $K$ is a global field; in particular, it is a number field (in characteristic $0$) or a finite extension of $\FF_p(t)$ (in postive characteristic $p>0$). Here is our main character for today.
-\begin{definition}[ad\'ele ring]
-	Fix a global field $K$, and let $V_K$ denote the set of places of $K$. Then the \textit{ad\'ele ring $\AA_K$} is the restricted direct product
+\begin{definition}[adele ring]
+	Fix a global field $K$, and let $V_K$ denote the set of places of $K$. Then the \textit{adele ring $\AA_K$} is the restricted direct product
 	\[\AA_K\coloneqq\prod_{v\in V_K}(K_v,\OO_v).\]
 	Here, this notation means that $\AA_K$ consists of infinite tuples $(a_v)_v\in\prod_{v\in V_K}K_v$ where $a_v\in \OO_v$ for all but finitely many places $v\in V_K$.
 \end{definition}
@@ -228,7 +228,7 @@ Here are some quick properties of the topology.
 	where $B_v(0,1)$ is the open ball around $0\in K_v$. This is open by construction, and its closure $\prod_{v\in V_K}\overline{B_v(0,1)}$ is a product of compact sets and hence compact.
 \end{proof}
 \begin{remark}
-	Do note that $\prod_vK_v$ fails to be locally compact because the open subsets are too big! This is one reason why we want to work with the ad\'eles instead: once has a chance of doing some reasonable topology on $\AA_K$.
+	Do note that $\prod_vK_v$ fails to be locally compact because the open subsets are too big! This is one reason why we want to work with the adeles instead: once has a chance of doing some reasonable topology on $\AA_K$.
 \end{remark}
 To misquote Tate, we remark that one can really only extract arithmetic information from $\AA_K$ by putting $K$ inside it. Here is this embedding.
 \begin{proposition}
@@ -334,7 +334,7 @@ Riemann's original proof of \Cref{thm:riemann-fe} has the result more or less fo
 \begin{remark}
 	One can basically mimic the proof of \Cref{thm:riemann-fe} to prove a functional equation for ``global $Z$-integrals'' which look like
 	\[Z(f,\chi)\coloneqq\int_{\AA_K^\times}f(x)\chi(x)\,d^\times x,\]
-	where $d^\times x$ is some suitably defined Haar measure on $\AA_K^\times$. The key analytic input into the proof of \Cref{thm:riemann-fe} is a Poisson summation formula used to produce the symmetry; analogously, the key input into the global functional equation is the ``ad\'elic Poisson summation formula'' \Cref{thm:adelic-p-s} used to produce the symmetry.
+	where $d^\times x$ is some suitably defined Haar measure on $\AA_K^\times$. The key analytic input into the proof of \Cref{thm:riemann-fe} is a Poisson summation formula used to produce the symmetry; analogously, the key input into the global functional equation is the ``adelic Poisson summation formula'' \Cref{thm:adelic-p-s} used to produce the symmetry.
 \end{remark}
 
 \section{September 18th: Nir Elber}
@@ -347,9 +347,9 @@ I filled in for Saud Molaib, who has a last-minute cancellation.
 % \subsection{Borel Subgroups}
 
 \section{September 25th: Justin Wu}
-Today we are discussing how to put a topology on the ad\'eles and related groups.
+Today we are discussing how to put a topology on the adeles and related groups.
 
-We begin by fixing some notation. Today, $F$ will be a global field, and $V(F)$ is its set of places. Throughout, $S\subseteq V(K)$ will be a finite subset, usually including the finite set $\infty$ of infinite places. We define the ad\'ele ring as the usual restricted direct product
+We begin by fixing some notation. Today, $F$ will be a global field, and $V(F)$ is its set of places. Throughout, $S\subseteq V(K)$ will be a finite subset, usually including the finite set $\infty$ of infinite places. We define the adele ring as the usual restricted direct product
 \[\AA_F=\prod_{v\in V(K)}(F_v,\OO_v).\]
 For our finite set $S$, we define
 \begin{align*}
@@ -384,7 +384,7 @@ Then we can give $\mathbb A_F^\times$ the subspace topology from $\AA^2$. In par
 	We see that the group $\op{GL}_n$ has a closed embedding into $M_n\times M_n$ via $g\mapsto\left(g,g^{-1}\right)$. This allows us to give a topology on $\op{GL}_n(R)$ for any topological ring $R$.
 \end{example}
 \begin{example} \label{ex:topology-on-g-adeles}
-	For any affine group $G$ of finite type, we can find a closed embedding $G\subseteq\op{GL}_n$ to produce a topology on $G(R)\subseteq\op{GL}_n(R)$. For the ad\'eles, one can check that the topology is given by
+	For any affine group $G$ of finite type, we can find a closed embedding $G\subseteq\op{GL}_n$ to produce a topology on $G(R)\subseteq\op{GL}_n(R)$. For the adeles, one can check that the topology is given by
 	\[G(\AA_F)=\prod_{v\in V(K)}(G(F_v),G(F_v)\cap\op{GL}_n(\OO_v)).\]
 \end{example}
 
@@ -434,7 +434,7 @@ Being hyperspecial almost everywhere allows us to recast our topology on $G(\AA_
 	We understand what (compact) open subsets of the restricted direct product look like once given a model, so this follows from the above proposition.
 \end{proof}
 
-\subsection{The Ad\'elic Quotient}
+\subsection{The Adelic Quotient}
 For this subsection, take $F$ to be a number field. For this seminar, we are essentially interested in the representation theory of $G(\AA_F)$ for reductive groups $G$. To do number theory, we should really embed $G(F)\to G(\AA_F)$ via $F\into\AA_F$, so perhaps we are really interested in the quotient $G(F)\backslash G(\AA_F)$.
 
 Howver, $G(F)\backslash G(\AA_F)$ is much too large. For example, it will almost always fail to be compact due to the presence of characteres.
@@ -461,5 +461,181 @@ We are now ready to define the adelic quotient.
 \begin{remark}[Tamagawa numbers]
 	It turns out that $G(F)\backslash G(\AA_F)^1$ may fail to be compact, but it will at least always have finite measure with respect to the Haar measure on $G(\AA_F)^1$.
 \end{remark}
+
+\section{October 2nd: Nir Elber}
+We had another last-minute cancellation.
+
+\section{October 9th: Sam Goldberg}
+Today we're talking about more on the adeles. We will be giving a topological reason why the adeles are a natural object.
+
+\subsection{Characterizing the Adeles}
+Let's try to state a characterization. Recall that a topological field $k$ requires addition, multiplication, and inversion to be continuous; we also recall a notion of a topologial $k$-algebra $A$ which requires the scalar multiplication map $k\to A$ to be continuous.
+\begin{example}
+	Any field $k$ becomes a locally compact topological field by using the discrete topology.
+\end{example}
+Anyway, here is our theorem.
+\begin{theorem}[Iwasawa, Levin]
+	Let $F$ be a discrete topological field. Then the following are equivalent.
+	\begin{listalph}
+		\item $F$ is isomorphic to a global field as a field.
+		\item There exists a topological $F$-algebra $A_F$ such that the short exact sequence
+		\begin{equation}
+			0\to F\to A_F\to A_F/F\to0 \label{eq:adelic-ses}
+		\end{equation}
+		of topological abelian groups satisfies the following.
+		\begin{itemize}
+			\item The embedding $F\to A_F$ is a homeomorphism onto its image.
+			\item $A_F/F$ is compact.
+			\item The sequence \eqref{eq:adelic-ses} does not split.
+		\end{itemize}
+	\end{listalph}
+	In fact, it turns out that $A_F$ is unique up to unique topological $F$-algebra isomorphism and satisfies $A_F\cong\AA_F$.
+\end{theorem}
+This is a long theorem statement, so some remarks are in order.
+\begin{remark}
+	One can think of this statement as characterizing both global fields (algebraically!) and the adele ring $A_F$. Approximately speaking, we are claiming that the best topology on a global field $F$ is the discrete topology. To understand this claim, note that this is the only way to give a topology to $F$ so that all the completion maps $F\to F_v$ are continuous (for all places $v$).
+\end{remark}
+\begin{remark}
+	This result makes precise the way that $\ZZ\subseteq\RR$ is analogous to $F\subseteq\AA_F$: namely, $F$ sits inside $\AA_F$ as a discrete cocompact subgroup. In fact, the short exact sequence
+	\[0\to\ZZ\to\RR\to\RR/\ZZ\to0\]
+	fails to be exact, which provides some motivation for the last condition in (b). Intuitively, we are finding that global fields are precisely the fields which can behave like a lattice, which is why something like Tate's thesis (namely, the Poisson summation formula) can work!
+\end{remark}
+\begin{remark}
+	It is worth noting that providing a characterization (like this) provides an explanation for why number fields and function fields over a curve (over a finite field) are similar. One may hope to write topological proofs of all results downstream from characterizations like this, but of course this is hard.
+\end{remark}
+\begin{remark}
+	Let's explain why the non-splitting is required. Indeed, if we had a splitting, then we would find that $A_F\cong F\oplus M$ where $M$ is a compact $K$-algebra. But then it turns out that $F$ acts on $M$ by zero, which is rather uninteresting. Thus, the non-splitting basically asks that $A_F$ is at least a little interesting.
+\end{remark}
+\begin{remark}
+	The uniqueness here implies that $\AA_F$ has no nontrivial $F$-algebra automorphisms. In particular, the restricted product decomposition of it is the only way to do this.
+\end{remark}
+\begin{remark}
+	The uniqueness of the isomorphism for $A_F$ basically says that there is a unique morphism of short exact sequences. One may hope to upgrade this to a universal property in a category of short exact sequences, but Sam is not sure how to do this.
+\end{remark}
+Let's give an idea for the proof. Going from (a) to (b) has no content by taking $A_F=\AA_F$. The key is the structure theory of locally compact Hausdorff abelian groups. If $F$ has characteristic $0$, one merely needs to check that $[F:\QQ]<\infty$. If $F$ has positive characteristic, then the main point is finding the transcendental element. Anyway, let's provide the structure theorem we need.
+\begin{theorem}[Levin]
+	Let $M$ be a locally compact Hausdorff $\OO_F$-module, where $F$ is some global field (given the discrete topology). Then if $M$ has no ``trivial piece,'' then
+	\[M\cong R\oplus TM,\]
+	where $R$ is a finite sum of infinite completions, and $TM$ is topological torsion. In fact, one can further decompose $TM$ into a restricted direct product
+	\[TM=\prod_{\substack{v\in V(F)\\v<\infty}}(M^{\mf p},N\cap M^{\mf p}),\]
+	where $M^{\mf p}$ is topological $\mf p$-primary, and $N\subseteq TM$ is any compact open submodule.
+\end{theorem}
+\begin{remark}
+	There is another structure theorem which removes some trivial pieces from $A_F$.
+\end{remark}
+What is amazing here is that these restricted direct products come out of our structure theory of locally compact Hausdroff abelian groups!
+
+\section{October 16th: Alex Feiner}
+Today we are discussing the representation theory of affine algebraic groups.
+
+\subsection{The Regular Representation}
+We begin by setting some notation for today.
+\begin{itemize}
+	\item $G$ is a locally compact Hausdorff group.
+	\item If $V$ is a Hausdorff topological vector space, then $\op{End}(V)$ consists of the continuous endomorphisms, and $\op{GL}(V)$ consists of the continuous invertible linear maps.
+	\item If $V$ is also a Hilbert space with inner product $(-,-)$, we let the norm be $\norm\cdot_2$, and we let $U(V)\subseteq\op{GL}(V)$ be the subgroup of invertible isometries.
+\end{itemize}
+In this seminar, we are interested in studying representations of groups $G$, but when $G$ has some extra structure, we would like to ensure that our representaions remember this structure.
+\begin{definition}[representation]
+	A \textit{representation} of $G$ on $V$ is a continuous (left) group action $G\times V\to V$.
+\end{definition}
+\begin{remark}
+	For each $g\in G$, we thus produce a group homomorphism $\pi\colon G\to\op{GL}(V)$. In the finite-dimensional case, $\pi$ is continuous, but in general, it may fail to be continuous. (One needs to adjust the topology of $\op{GL}(V)$ in some way.)
+\end{remark}
+\begin{definition}[unitary]
+	A representation of $G$ on $V$ is \textit{unitary} if and only if the map $\pi(g)\colon V\to V$ is unitary for all $g\in G$.
+\end{definition}
+As usual, one can define $G$-equivariant maps between representations $(V,\pi)$ and $(V',\pi')$ as linear maps $\varphi\colon V\to W$ such that
+\[\varphi(\pi(g)v)=\pi'(g)\varphi(v)\]
+for all $g\in G$ and $v\in V$. This will form a category, so one can reasonably talk about isomorphisms of representations and subrepresentations.
+
+Let's describe a general way to build representations.
+\begin{proposition}[regular action] \label{prop:regular-action}
+	Suppose that $G$ has a continuous right action on a second-countable locally compact Hausdorff space $X$. Then $X$ has a Haar measure, and we further assume that the Haar measure $dx$ on $X$ is $G$-invariant. Then the space $L^2(X)$ of square-integrable functions on $X$ is a Hilbert space (in the usual way), and the action
+	\[(g\varphi)(x)\coloneqq\varphi(xg)\]
+	produces a unitary representation $G\times L^2(X,dx)\to L^2(X)$.
+\end{proposition}
+\begin{proof}
+	It is not hard to see that we have a group action, and it is unitary because
+	\[(g\varphi_1,g\varphi_2)=\int_G\varphi_1(xg)\overline{\varphi_2(xg)}\,dx\stackrel*=\int_G\varphi_1(x)\overline{\varphi_2(x)}\,dx=(\varphi_1,\varphi_2),\]
+	where the key point is that $\stackrel*=$ holds because $dx$ is $G$-invariant. We will not show that the action is continuous, but it is true.
+\end{proof}
+\begin{remark}
+	Because the action is continuous, we see that the collection of compactly supported functions $C_c(X)\subseteq L^2(X)$ is preserved by the given $G$-action.
+\end{remark}
+\begin{example}
+	Note $G$ acts on itself on the right by right multiplication, so we can take $X=G$ above. Notably, we must take a right Haar measure $d_rg$ on $G$ to make this work.
+\end{example}
+
+\subsection{The Modular Character}
+To produce other examples, we recall the following notion.
+\begin{definition}[unimodular]
+	A locally compact Hausdorff group $G$ is \textit{unimodular} if and only if its left Haar measures are also right Haar measures.
+\end{definition}
+\begin{example}
+	Fix a locally compact topological ring $R$. Then $\op{GL}_n(R)$ has Haar measure
+	\[\frac{dx_{11}\cdots dx_{nn}}{\left|\det(x_{ij})\right|}.\]
+	This is both a left and right Haar measure, so $\op{GL}_n(R)$ is unimodular.
+\end{example}
+\begin{example}
+	If $G$ is abelian, then of course left and right multiplications are the same, so $G$ is unimodular.
+\end{example}
+We will explain later how to check that $G(R)$ is unimodular for any reductive group $G$.
+
+Here is why we care about unimodularity (right now).
+\begin{example}
+	If $G$ is unimodular, and $H\subseteq G$ is some locally compact Hausdorff subgroup, then $H\backslash G$ gets a right $G$-action, and it even has a quotient measure which is $G$-invariant. Thus, we can also consider the representation $G\times L^2(H\backslash G)\to L^2(H\backslash G)$ from \Cref{prop:regular-action}.
+\end{example}
+As such, we would like some ways to detect if a group is unimodular.
+\begin{definition}[modular character]
+	Fix a locally compact group $G$. Fixing a right Haar measure $d_rg$ on $G$, we note that $d_r(gh)$ is still a right Haar measure for any $h\in G$, where $d_r(gh)$ is defined by $d_r(gh)(U)\coloneqq d_r g(Uh)$. Because Haar measures are unique up to scalar, there exists a scalar $\delta_G(h)\in\RR^+$ such that
+	\[d_r(gh)=\delta_G(h)\,d_rg.\]
+\end{definition}
+\begin{remark}
+	It turns out $\delta_G$ is a continuous character. Checking the continuity is a corollary of the proof of the existence of the Haar measure, so we will omit it. Checking that it is a character follows from its definition.
+\end{remark}
+\begin{remark}
+	Importantly, we see that
+	\[d_rg(hU)=\delta_G(h)d_rg(U)\]
+	for any $h$ and $U$, so $G$ is unimodular if and only if $\delta_G$ is the trivial character.
+\end{remark}
+\begin{example}
+	If $G$ is compact, then $\im\delta_G$ must be a compact subgroup of $\RR^+$. However, the only such subgroup is $\{1\}$, so $\delta_G$ is identically $1$, so $G$ is unimodular.
+\end{example}
+
+\subsection{Applications to Affine Groups}
+We now return to the setting where $G$ is a smooth affine algebraic group defined over a field $k$. Recall that there is a Lie algebra
+\[\mf g\coloneqq\op{Lie}G\coloneqq\ker\left(G\left(\frac{k\left[t\right]}{\left(t^2\right)}\to G(k)\right)\right),\]
+where the morphism is given by $t\mapsto0$. One can show that this in bijection with derivations at the identity of $\mf g$, so $\mf g$ is a vector space over $k$. Namely, one should think of $\mf g$ as the tangent space of $G$ at the identity.
+
+For example, the adjoint action $\op{Ad}_g\colon G\to G$ for each $g\in G$ (given by conjugation $h\mapsto ghg^{-1}$) to an action on the Lie algebra $\op{Ad}_g\colon\mf g\to\mf g$, so we get a representation of $G$ in $\mf g$. More explicitly, for each $k$-algebra $R$, we see that
+\[\mf g(R)\coloneqq\ker\left(G\left(\frac{R\left[t\right]}{\left(t^2\right)}\to G(R)\right)\right)\]
+is $\mf g\otimes_kR$. Now, $G(R)$ has an action on both the source and the target of our map by embedding $R\into R[t]/\left(t^2\right)$.
+\begin{example}
+	For $G=\op{GL}_n$, one finds (as expected) that $\mf g$ consists of $n\times n$ matrices, and the adjoint action is given by conjugation of matrices.
+\end{example}
+We now specialize to the case where $k\coloneqq F$ is a global field, and let $v$ be a place. Now, as in the study of Lie groups, one can use a left $G$-invariant top differential form $\omega\in\land^n\mf g^*$ to produce a left Haar measure on $G(F_v)$ via integrating compactly supported functions $f\in C_c^\infty(G(F_v))$ against $\omega$.
+
+The moral of the story is that this adjoint action lets us algebraically compute $\delta$!
+\begin{proposition} \label{prop:delta-by-adjoint}
+	Fix notation as above. For each $g\in G(F_v)$, we have
+	\[\delta_{G(F_v)}(g)=\left|\det{\op{Ad}_{g}}\in\op{GL}(\mf g(F_v))\right|.\]
+\end{proposition}
+\begin{proof}[Sketch]
+	The main point is that the modular character can be measured locally, so this will more or less arise from the fact that $\delta$ measures how much ``conjugation by $g$'' impacts a volume computation, which intuitively is the determinant.
+\end{proof}
+\begin{corollary}
+	If $G^\circ\subseteq G$ is reductive, then $G(F_v)$ is unimodular.
+\end{corollary}
+\begin{proof}
+	It is enough to check that $\delta$ vanishes on $G^\circ(F_v)$ (because the quotient $G(F_v)/G^\circ(F_v)$ is finite), so we may assume that $G$ is connected. Then reductive groups split into semisimple parts (which have no nontrivial characters, and hence $\delta=1$) and abelian (which has $\delta=1$ for free), so we are done.
+\end{proof}
+One can then glue this to see that $G(\AA_F)$ is also unimodular!
+\begin{corollary}
+	Any right Haar measure on $G(\AA_F)$ is left invariant for $G(F)$. In fact, $G(\AA_F)^1$ is unimodular.
+\end{corollary}
+\begin{proof}
+	We want to check that $\delta$ vanishes on $G(\AA_F)^1\supseteq G(F)$, for which we use the product formula applied to the formula in \Cref{prop:delta-by-adjoint}.
+\end{proof}
 
 \end{document}
