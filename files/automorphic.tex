@@ -638,4 +638,127 @@ One can then glue this to see that $G(\AA_F)$ is also unimodular!
 	We want to check that $\delta$ vanishes on $G(\AA_F)^1\supseteq G(F)$, for which we use the product formula applied to the formula in \Cref{prop:delta-by-adjoint}.
 \end{proof}
 
+\section{October 23: Chris Yao}
+Today we talk about archimedean representation theory.
+
+\subsection{Defining \texorpdfstring{$(\mf g,K)$}{ (g, K)}-modules}
+Today, $G$ will be an affine algebraic group over an archimedean field $F$, and $K$ will be a compact Lie subgroup of $G$. We will work with Hilbert spaces throughout, but there is no difficulty in passing to Frechet spaces. Let $\mf g$ be the Lie algebra of $G$. We begin by defining smooth vectors.
+\begin{definition}[smooth vector]
+	Let $(\pi,V)$ be a Hilbert space representation of $G(F)$. For $\varphi\in V$ and $X\in\mf g$, we define
+	\[\pi(X)\varphi\coloneqq\frac d{dt}\pi(\exp(tX))\varphi\bigg|_{t=0}=\lim_{t\to0}\frac{\pi(\exp(tX))\varphi-\varphi}t,\]
+	provided the limit exists. (We will abbreviate this to $X\varphi$ whenever possible.) If $X\varphi$ exists for all $X\in\mf g$, we say that $X$ is $C^1$. Recursively, if $X\varphi$ is in $C^k$ for all $X$, then we say that $\varphi$ is $C^{k+1}$. A vector is \textit{smooth} if and only if it is $C^\infty$; we let $V_{\mathrm{sm}}$ denote the collection of smooth vectors.
+\end{definition}
+\begin{remark}
+	One can check that $\varphi$ is smooth if and only if the map $g\mapsto\pi(g)\varphi$ is a smooth function $G(F)\to V$.
+\end{remark}
+\begin{remark}
+	By interchanging derivatives with actions, we find that the collection of smooth vectors is invariant under $G(F)$.
+\end{remark}
+\begin{remark}
+	From the construction, we see that the collection of smooth vectors grants a Lie algebra representation of $\mf g$.
+\end{remark}
+The other part of the definition of a $(\mf g,K)$-module comes from restriction to a compact subgroup.
+\begin{lemma}
+	Fix a locally compact Hausdorff group $G$, and let $K\subseteq G$ be a compact subgroup. For any Hilbert space representation $(\pi,V)$, there is a $K$-invariant Hermitian inner product on $V$.
+\end{lemma}
+\begin{proof}
+	Average the inner product over $K$ using the Haar measure to make sense of integration.
+\end{proof}
+The point is that compact groups can unitarize their representations. In particular, taking orthogonal complements allows us to see that any irreducible subrepresentation has a complement, which helps prove the following theorem.
+\begin{notation}
+	Fix a compact Hausdorff group $K$. Then we let $\widehat K$ denote the collection of irreducible representations of $K$, which we make unitary.
+\end{notation}
+\begin{theorem}[Peter--Weyl] \label{thm:peter-weyl}
+	Fix a compact Hausdorf group $K$.
+	\begin{listalph}
+		\item Any irreducible representation is finite-dimensional.
+		\item Any unitary representation decomposes into a Hilbert space direct sum of unitary representations in $\widehat K$.
+		\item There is an isomorphism
+		\[L^2(K)\to\widehat{\bigoplus_{\pi\in\widehat K}}\op{End}V_\pi.\]
+	\end{listalph}
+\end{theorem}
+We will not say more about this proof; it is rather hard.
+
+We now move directly towards defining a $(\mf g,K)$-module. Well, we would like to temper our representations; one reasonable way to do this is to ask for some kind of finiteness condition, but there are infinitely many elements of $\widehat K$ in general
+\begin{definition}
+	Fix a compact Hausdorff group $K$. Given a representation $(\pi,V)$ and $\sigma\in\widehat K$, we define
+	\[V(\sigma)=\{\varphi\in V:\{\pi(g)\varphi:g\in K\}\cong\sigma\}.\]
+	We call $V(\sigma)$ the \textit{$\sigma$-isotypic subspace}, and we say that $v\in V(\sigma)$ has $K$-type of $\sigma$; if $v\in V(\sigma)$ for any $\sigma$, we say that $v$ is \textit{$K$-finite} (because $\sigma$ is finite-dimensional), and we let $V_{\mathrm{fin}}$ denote the collection of these vectors.
+\end{definition}
+\begin{remark}
+	\Cref{thm:peter-weyl} implies that $V_{\mathrm{fin}}$ will be dense in $V$, so there are many of these vectors.
+\end{remark}
+\begin{definition}[admissible]
+	A representation $(\pi,V)$ of a compact Hausdorff group $K$ is \textit{admissible} if and only if $\dim V(\sigma)<\infty$ for all $\sigma\in\widehat K$.
+\end{definition}
+Admissible is flexible enough for our purposes, as the following theorem claims.
+\begin{theorem}
+	If $G$ is reductive, then the unitary representations of $G(F)$ are admissible.
+\end{theorem}
+We are now ready to define $(\mf g,K)$-modules.
+\begin{definition}[$(\mf g,K)$-module]
+	Fix a compact Lie subgroup $K$ of $G$ and Lie algebra $\mf g$ of $G$. Then a $(\mf g,K)$-module is a vector space $V$ equipped with representations $\pi\colon\mf g\to\mf{gl}(V)$ and $K\to\op{GL}(V)$ satisfying the following.
+	\begin{listalph}
+		\item $V$ is a countable direct sum of finite-dimensional $K$-invariant subrepresentations.
+		\item For all $X\in\mf k$ and $\varphi\in V$, the derivative $X\varphi$ exists.
+		\item For $k\in K$ and $X\in\mf g$, we have
+		\[\pi(k)\pi(X)\pi(k)^{-1}\varphi=\pi(\op{Ad}_kX)\varphi.\]
+	\end{listalph}
+	The $(\mf g,K)$-module is \textit{admissible} if and only if $V(\sigma)$ is finite-dimensional for all $\sigma\in\widehat K$.
+\end{definition}
+As usual, one can define morphisms as preserving the relevant $\mf g$- and $K$-actions. This allows us to define $(\mf g,K)$-submodules and irreducible $(\mf g,K)$-modules.
+\begin{example}
+	Any Hilbert space representation $(\pi,V)$ of $G(F)$ makes $V_{\mathrm{fin}}\cap V_{\mathrm{sm}}$ densse in $V$, and it provides an example of a $(\mf g,K)$-module. One shows this by convolution with a smooth function.
+\end{example}
+\begin{remark}
+	In fact, if $V$ is admissible, then $V_{\mathrm{fin}}\subseteq V_{\mathrm{sm}}$.
+\end{remark}
+The underlying $(\mf g,K)$-representation remembers quite a bit about the representation theory of $G$.
+\begin{theorem}
+	If $G$ is reductive, then an admissible Hilbert space representation $(\pi,V)$ is irreducible if and only if the underlying $(\mf g,K)$-representation is irreducible.
+\end{theorem}
+In fact, we can discuss some equivalence.
+\begin{definition}[infinitesimal equivalence]
+	Two admissible representations of $G(F)$ are \textit{infinitesimally equivalent} if and only if their $(\mf g,K)$-modules are isomorphic.
+\end{definition}
+\begin{theorem}
+	Two unitary representations of $G(F)$ are equivalent if and only if they are infinitesimally quivalent.
+\end{theorem}
+
+\subsection{\texorpdfstring{$(\mf g,K)$}{(g, K)}-modules for \texorpdfstring{$\op{GL}_2(\RR)$}{GL2(R)}}
+We now classify $(\mf g,K)$-modules for $\op{GL}_2(\RR)$. Take $G\coloneqq\op{GL}_2(\RR)$, and we note that $K\coloneqq\op O_2(\RR)$ is a maximal compact subgroup with $K^\circ=\op{SO}_2(\RR)$. We let $B\subseteq G$ be the Borel subgroup of upper-triangular matrices. We now define a few representations.
+\begin{definition}[principal series]
+	Given a character $\chi$ of $B$, we let the induced representation $\op{Ind}_B^G\chi$ be a \textit{principal series representation}.
+\end{definition}
+\begin{remark}
+	Technically, this induction should remember being integrable in some suitable sense, but we will ignore this.
+\end{remark}
+\begin{definition}[discrete series]
+	An irreducible unitary representation of $G$ is \textit{square-integrable} if and only if it is isomorphic to an irreducible subrepresentation of the regular representation $L^2(G,\chi)$, where $\chi$ is some character. We call these representations the \textit{discrete series}.
+\end{definition}
+The following theorem will be our key tool.
+\begin{theorem}[subrepresentation]
+	One has the following.
+	\begin{listalph}
+		\item Every irreducible $(\mf g,K)$-module arises from an irreducible admissible representation of $G$.
+		\item Every irreducible admissible representation of $G$ is infinitesimally equivalent to a subrepresentation of a principal series of $G$.
+	\end{listalph}
+\end{theorem}
+The moral of the story is that we are convinced to be interested in the $(\mf g,K)$-modules of $G$. We do this in steps.
+\begin{enumerate}
+	\item We classify representations of $K$. Well, $K=\op O_2(\RR)$ is an extension of $\op{SO}_2(\RR)\cong\RR/\ZZ$ by $\ZZ/2\ZZ$. Thus, we note that there is a determinant character $\det\colon\op O_2(\RR)\to\CC^\times$, and the only characters of $\op{SO}_2(\RR)$ are given by $\varepsilon_n(\kappa_\theta)\coloneqq e^{in\theta}$ where $\kappa_\theta\in\op{SO}_2(\RR)$ is rotation by $\theta$. One can then show that the only irreducible representations of $K$ are gien by the trivial character, $\det$, and
+	\[\tau_n\coloneqq\op{Ind}_{K^\circ}^K\varepsilon_n.\]
+	\item Next, we note that all characters of $B$ are given by characters of the diagonal because $[B,B]$ contains the upper-triangular matrices of the form $\begin{bsmallmatrix}
+		1 & b \\ 0 & 1
+	\end{bsmallmatrix}$. As such, our unitary characters $\chi\colon B\to\CC^\times$ look like
+	\[\chi\left(\begin{bmatrix}
+		a & b \\ 0 & d
+	\end{bmatrix}\right)=\chi_1(a)\chi_2(b),\]
+	where $\chi_1$ and $\chi_2$ take the form $x\mapsto\op{sgn}(x)^\varepsilon\left|x\right|^s$ where $\varepsilon\in\{0,1\}$ and $s$ is purely imaginary. (Namely, $s$ being purely imaginary is what gives being unitary.) We will say $\chi=\chi(\varepsilon_1,\varepsilon_2,s_1,s_2)$ where $\varepsilon_\bullet\in\{0,1\}$ and $s_\bullet\in\CC$ is purely imaginary.
+	\item We now induce from $B$ to $G$ to produce representations $V_\chi^\circ\coloneqq\op{Ind}_B^G\chi$, and we let $V_\chi$ be its completion with respect to the natural inner product. Technically speaking, to make sense of the inner product, one must be careful with the modular character of $B$, so $V_\chi^\circ$ contains the functions $f\colon G\to\CC$ satisfying
+	\[f(bg)=\chi(b)\sqrt{\left|a/b\right|}\cdot f(g)\]
+	for all $g\in G$ and $b\in B$. The point of this is that $\chi$ being unitary yields $V_\chi$ unitary.
+	\item From here, one needs to decompose the various $V_\chi$ into their $K$-components and look for what we found. For example, writing $\chi=\chi(\varepsilon_1,\varepsilon_2,s-1,s if $\varepsilon_1+\varepsilon_2$
+\end{enumerate}
+
 \end{document}
