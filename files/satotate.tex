@@ -704,9 +704,17 @@ We are now ready to generalize \Cref{ex:basic-fermat}.
 	
 	We will use \Cref{lem:rank-cm-type-character} for this computation. Let $G$ be the Galois group $\op{Gal}(\QQ(\zeta_p)/\QQ)$, and we want to show that there are $p+1$ characters such that $\chi(\Phi)\ne0$. Well, \Cref{rem:rank-cm-even-character} rules out nontrivial characters $\chi$ with $\chi(-1)=1$, so we are left trying to show that all $\chi$ with $\chi(-1)=-1$ have $\chi(\Phi)\ne0$.
 
-	This will use some algebraic number theory. For brevity, set $g\coloneqq\frac{p-1}2$. The key input is to use the class number formula for cyclotomic fields. Indeed, by using some form of the class number formula for $\QQ(\zeta_p)$, we find that
-	\[A\coloneqq\sum_{i=1}^gi\chi(i)\]
-	is nonzero. We will transform this nonvanishing result into the required one. We begin by defining the family of sums
+	This will use some algebraic number theory. For brevity, set $g\coloneqq\frac{p-1}2$. The key input is to use the class number formula for cyclotomic fields. Indeed, by using some form of the class number formula for $\QQ(\zeta_p)$, we will show that
+	\[A\coloneqq\sum_{i=1}^{p-1}i\chi(i)\]
+	is nonzero for any nontrivial character $\chi$. To see this, we begin by defining
+	\[L(s,\chi)\coloneqq\sum_{n=0}^\infty\frac{\chi(n)}{n^s}.\]
+	A computation with some contour integration shows that $L(s,\chi)$ analytically continues to $\CC$ provided that $\chi$ is nontrivial (otherwise, there is a simple pole at $s=1$). Further, one can compute that
+	\[L(0,\chi)=-\frac1p\sum_{i=1}^{p-1}i\chi(i),\]
+	so we would like to show that $L(0,\chi)$ is nonzero. On the other hand, $L(0,\chi)$ is nonzero because
+	\[\zeta_K(s)=\prod_{\chi'}L(s,\chi'),\]
+	where the product is taken over Dirichlet characters $\chi'\pmod p$, and $\zeta_K$ only has a simple pole at $s=0$ explained by the trivial character and no other zeroes or poles.
+	
+	We will transform this nonvanishing result into the required one. We begin by defining the family of sums
 	\begin{align*}
 		A_< &\coloneqq \sum_{i=1}^gi\chi(i), \\
 		A_> &\coloneqq \sum_{i=g+1}^{p-1}i\chi(i), \\
@@ -726,6 +734,15 @@ We are now ready to generalize \Cref{ex:basic-fermat}.
 	\[4\chi(2)A_<-p\chi(2)B_<=A=2\chi(2)A_<-p\chi(2)B_<\]
 	is a nonzero value. However, $B_<=0$ combined with the equality of the left and right sides would require $A_<=0$ and then $A=0$, which is a contradiction, as required.
 \end{proof}
+\begin{remark}
+	By extending the above argument and doing some rather intricate combinatorics, the following has recently been proven: suppose the curve $C\colon y^p=x^a(x-1)$ has $a$ not a primitive cubic root of unity (which is equivalent to $\op{Jac}C$ failing to be simple). Then $\dim\op{MT}(\op{Jac}C)<\frac{p+1}2$ if and only if the following conditions are met.
+	\begin{listalph}
+		\item The multiplicative orders $\op{ord}\left(-a^2-a\right)$ and $\op{ord}\left(a\right)$ are odd.
+		\item The three-adic valuations satisfy the inequality $v_3\left(\op{ord}\left(a^2+a\right)\right)<v_3(\op{ord}(a))$.
+	\end{listalph}
+	In fact,
+	\[\dim\op{MT}(\op{Jac}C)=\frac{p-1}2\left(1-\frac2{\lcm(\op{ord}\left(-a^2-a\right),\op{ord}(a))}\right).\]
+\end{remark}
 
 % \begin{itemize}
 % 	\item Combinatorial definition
