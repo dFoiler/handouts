@@ -22,7 +22,7 @@
 \maketitle
 
 \begin{abstract}
-	This is an expository note for two talks on the Sato--Tate conjecture. In the first talk, we will state the Sato--Tate conjecture for abelian varieties. In the second talk, we will discuss some results related to Sato--Tate groups of the so-called Fermat curves $x^m+y^m+z^m=0$.
+	This is an expository note for two talks on the Sato--Tate conjecture. In the first talk, we will state the Sato--Tate conjecture for abelian varieties. In the second talk, we will discuss some results related to Sato--Tate groups of the so-called Fermat curves $y^p=x^a(x-1)$, where $p$ is prime and $a\in\{1,2,\ldots,p-1\}$.
 \end{abstract}
 
 \tableofcontents
@@ -326,7 +326,7 @@ Here, being a group variety means that $A(R)$ is a group (in a functorial way) f
 Let's make explicit how the discussion of the previous two subsections generalizes to abelian varieties. Here is the generalization of \Cref{prop:torsion-of-ec}.
 \begin{proposition}
 	Fix an abelian vareity $A$ over a field $K$ of dimension $g$. For any $n$ which is nonzero in $K$, there is a non-canonical isomorphism
-	\[E(\overline K)[n]\cong(\ZZ/n\ZZ)^{2g}.\]
+	\[A(\overline K)[n]\cong(\ZZ/n\ZZ)^{2g}.\]
 \end{proposition}
 This allows us to define the Tate module as before.
 \begin{definition}[Tate module]
@@ -343,9 +343,9 @@ We can also generalize some of our discussion about the characteristic polynomia
 \end{proposition}
 Thus, our discussion defining $\op{ST}(E)$ can be generalized to build $\op{ST}(A)$, as follows.
 \begin{enumerate}
-	\item Let $G_\ell$ be the image of $\rho_\ell$ in $\op{GL}(V_\ell A)$, and let $G_\ell^{\mathrm{Zar}}$ be the smallest algebraic subgroup defined over $\QQ_\ell$ containing $G_\ell$.
-	\item By choosing a Weil pairing on $T_\ell A$ (which we will not define), it turns out that there is a non-degenerate symplectic form on $V_\ell A$, and $\rho_\ell({\op{Frob}_p})$ acts with multiplier $p$ with respect to this form. Thus, we let $G_\ell^{\mathrm{Zar},1}$ be the subgroup of $G_\ell^{\mathrm{Zar}}$ cut out by preserving the corresponding symplectic form.
-	\item Choose some embedding $\iota\colon\QQ_\ell\to\CC$. We now let $\op{ST}(A)$ be a maximal compact subgroup of the complex algebraic group $\iota\left(G_\ell^{\mathrm{Zar},1}\right)$.
+	\item Let $G_\ell(A)$ be the image of $\rho_\ell$ in $\op{GL}(V_\ell A)$, and let $G_\ell^{\mathrm{Zar}}(A)$ be the smallest algebraic subgroup defined over $\QQ_\ell$ containing $G_\ell$.
+	\item By choosing a Weil pairing on $T_\ell A$ (which we will not define), it turns out that there is a non-degenerate symplectic form on $V_\ell A$, and $\rho_\ell({\op{Frob}_p})$ acts with multiplier $p$ with respect to this form. Thus, we let $G_\ell^{\mathrm{Zar},1}(A)$ be the subgroup of $G_\ell^{\mathrm{Zar}}(A)$ cut out by preserving the corresponding symplectic form.
+	\item Choose some embedding $\iota\colon\QQ_\ell\to\CC$. We now let $\op{ST}(A)$ be a maximal compact subgroup of the complex algebraic group $\iota\left(G_\ell^{\mathrm{Zar},1}(A)\right)$.
 \end{enumerate}
 And here is the conjecture.
 \begin{conj}[Sato--Tate] \label{conj:st}
@@ -399,5 +399,340 @@ Thus, we expect computable (but perhaps complicated) equidistribution results fo
 		\includegraphics[height=2in]{hyper.png}
 	\end{center}
 \end{example}
+
+\section{CM Theory}
+In our second talk, we will use the theory of complex multiplication to discuss how to compute $\op{ST}(A)$ for certain abelian varieties $A$.
+
+\subsection{Algebraic Tori}
+In this subsection, we recall some facts about algebraic tori.
+\begin{definition}[algebraic torus]
+	Fix a field $k$ with separable closure $k^{\mathrm{sep}}$. Then an \textit{algebraic torus} is a connected algebraic group scheme $T$ over $k$ such that $T_{k^{\mathrm{sep}}}\cong\mathbb G_{m,k^{\mathrm{sep}}}^r$ for some $r\ge0$; we say that $r$ is the \textit{rank} of $T$, sometimes denoted $\op{rank}(T)$.
+\end{definition}
+\begin{remark}
+	Importantly, the isomorphism $T\cong\mathbb G_m^r$ need note be defined over $k$.
+\end{remark}
+\begin{example}[Deligne torus]
+	Consider the group $\mathbb S\coloneqq\op{Res}_{\CC/\RR}\mathbb G_{m,\CC}$, which is an algebraic group defined over $\RR$ such that $\mathbb S(\RR)\cong\CC^\times$. Explicitly, we can write
+	\[\mathbb S(R)=\left\{\begin{bmatrix}
+		a & -b \\
+		b & a
+	\end{bmatrix}\in M_2(R):a^2+b^2\in R^\times\right\},\]
+	for any $\RR$-algebra $R$. Then one can check that $\mathbb S(\CC)\cong\CC^\times\times\CC^\times$, which actually assembles into an isomorphism of algebraic groups
+	\[\mathbb S_\CC\cong\mathbb G_{m,\CC}\times\mathbb G_{m,\CC}.\]
+\end{example}
+\begin{example}
+	More generally, for any finite separable field extension $E/F$, one can define a torus $T_{E/F}\coloneqq\op{Res}_{E/F}\mathbb G_{m,E}$, and then one finds that $T_{E/F}\otimes_FE\cong\mathbb G_{m,E}^{[E:F]}$. Roughly speaking, one upgrades the isomorphism
+	\[E\otimes_FF^{\mathrm{sep}}\cong E^{\op{Hom}(E,F^{\mathrm{sep}})}\]
+	to an isomorphism of algebraic groups. (This isomorphism uses the primitive element theorem, which is why $E/F$ is required to be separable.)
+\end{example}
+Given a torus $T$, we define the groups
+\[X^*(T)\coloneqq\op{Hom}(T_{k^{\mathrm{sep}}},\mathbb G_m)\qquad\text{and}\qquad X_*(T)\coloneqq\op{Hom}(\mathbb G_m,T_{k^{\mathrm{sep}}}),\]
+which are the character and cocharacter groups, respectively. Because $T_{k^{\mathrm{sep}}}\cong\mathbb G_m^r$ for some $r\ge0$, we see that these are both free abelian groups with rank $r$. However, there is also an important Galois action by $\op{Gal}(k^{\mathrm{sep}}/k)$ on both of these groups via its action on $T_{k^{\mathrm{sep}}}$.
+\begin{example} \label{ex:char-s}
+	We can define two characters $\mathbb S_\CC\to\mathbb G_m$ given on points
+	\[\CC^\times=\mathbb S(\RR)\subseteq\mathbb S(\CC)\to\mathbb G_m(\CC)\]
+	by $z\mapsto z$ and $z\mapsto\overline z$. One can check that these two characters span $X^*(\mathbb S)$, and the nontrivial Galois action of complex conjugation in $\op{Gal}(\CC/\RR)$ simply swaps these two characters.
+\end{example}
+\begin{example}
+	Similarly, fix a number field $E$, and consider the torus $T_E\coloneqq\op{Res}_{E/\QQ}\mathbb G_m$. For each $\varphi\in\op{Hom}(E,\overline\QQ)$, define we define a character of $T_E$ given by projection onto the $\varphi$ coordinate in the isomorphism
+	\[E\otimes_\QQ\overline\QQ\cong\overline\QQ^{\op{Hom}(E,\overline\QQ)}\]
+	of algebras with Galois action. In this way, we find that $X^*(T_E)=\ZZ[\op{Hom}(E,\CC)]$, which is an isomorphism of Galois modules. Note that one can then construct a dual basis $\varphi^\lor$ of $X_*(T_E)$.
+\end{example}
+The importance of the character group is the following result.
+\begin{theorem}
+	Fix a field $k$. The contravariant functor $X_*$ defines an anti-equivalence of categories between the category of algebraic tori (over $k$) and free abelian groups of finite rank which are $\op{Gal}(k^{\mathrm{sep}}/k)$-modules.
+\end{theorem}
+\begin{remark}
+	There is an analogous result for the covariant functor $X_*$.
+\end{remark}
+Roughly speaking, the idea is that (over $k^{\mathrm{sep}}$) one can understand tori perfectly by their maps to $\mathbb G_m$ because one really only cares about rank. To descend to $k$, one then needs to keep track of the Galois action.
+
+\subsection{A Little Hodge Theory}
+Before doing anything too intense, we will discuss some Hodge theory.
+\begin{definition}[Hodge structure]
+	Fix an integer $n$. A \textit{Hodge structure} over $\QQ$ is a $\QQ$-vector space equipped with a decomposition
+	\[V_\CC=\bigoplus_{(p,q)\in\ZZ^2}V^{p,q}\]
+	such that $V^{p,q}=\overline{V^{q,p}}$. If $V^{p,q}\ne0$ only when $p+q=n$, then we say that $V$ is \textit{pure of weight $n$}.
+\end{definition}
+\begin{remark}
+	There is also a notion of an integral Hodge structure, where we make $\ZZ$ into a free $\ZZ$-module instead of a $\QQ$-vector space.
+\end{remark}
+Here is the key example.
+\begin{example}
+	Fix a smooth proper complex variety $X$ over $\CC$. Then the cohomology group $H^n(X(\CC),\QQ)$ admits a Hodge decomposition as
+	\[H^n(X(\CC),\QQ)\otimes_\QQ\CC=\bigoplus_{p+q=n}H^{p,q},\]
+	where $H^{q,p}=H^q(X(\CC),\Omega_{X/\CC}^p)$.
+\end{example}
+\begin{example}
+	We are interested in abelian varieties $A$. Then all cohomology is generated by $H^1$, so it will be enough to understand the Hodge structure there. Thus, for an abelian variety $A$, we note that there is a Hodge structure on $H_1(A,\QQ)$ of weight $-1$. (The weight negates because we are now looking at homology.)
+\end{example}
+Intuitively, Hodge theory is the extra structure on cohomology provided by complex geometry, in the same way that Galois theory is the extra structure on cohomology provided by the \'etale site.
+
+The reason we are bringing up this Hodge theory is that we will be able to compute the complex analytic version of the $\ell$-adic monodromy group $G_\ell(A)$. For this, we will need a representation-theoretic interpretation of a Hodge structure.
+\begin{lemma}
+	Fix a vector space $V$ defined over $\QQ$. The data of a Hodge structure on $V$ is equivalent to the data of a representation $\rho\colon\mathbb S\to\op{GL}(V_\RR)$.
+\end{lemma}
+\begin{proof}
+	The point is to describe what representations look like. Over $\mathbb S_\CC$, we see that the representation $\rho$ will diagonalize as a representation $\mathbb G_{m,\CC}^2\to\op{GL}(V_\CC)$. Thus, we can decompose
+	\[V_\CC=\bigoplus_{\chi\in X^*(\mathbb S)}V_\chi,\]
+	where $V_\chi$ is the $\chi$-eigenspace. Now, each character $\chi$ can be written as $z\mapsto z^{-p}\overline z^{-q}$ for some $(p,q)\in\ZZ^2$ where $z,\overline z\in X^*(\mathbb S)$ are the characters of \Cref{ex:char-s}, so we let $V^{p,q}$ be the eigenspace for this character. As such, we see that the nontrivial Galois action of complex conjugation in $\op{Gal}(\CC/\RR)$ will swap $V^{p,q}$ and $V^{q,p}$, so $V^{p,q}=\overline{V^{q,p}}$. Thus, we see that we have produced a Hodge structure on $V$; one can then reverse this construction to produce a representation of $\mathbb S$ from any given Hodge structure.
+\end{proof}
+Now that we have a representation, we can take monodromy.
+\begin{definition}[Mumford--Tate group]
+	Fix a Hodge structure over $\QQ$ on a vector space $V$. Then the \textit{Mumford--Tate group} $\op{MT}(V)$ is the smallest connected algebraic group defined over $\QQ$ containing the image of $h\colon\mathbb S\to\op{GL}(V_\RR)$. For brevity, given an abelian variety $A$ defined over $\CC$, we may write $\op{MT}(A)$ for the Mumford--Tate group of the Hodge structure on $H_1(A,\QQ)$.
+\end{definition}
+\begin{remark}
+	There is also an important Tannakian definition of $\op{MT}(V)$. In short, the category of Hodge structures over $\QQ$ is neutral Tannakian, so for any Hodge structure $V$, we can look at the Tannakian subcategory generated by $V$. Then $\op{MT}(V)$ is the algebraic group given by this category.
+\end{remark}
+\begin{remark}
+	Because an algebraic group can be described by the vectors it fixes, the above definition can be restated as follows: $\op{MT}(V)$ is the subgroup such that a rational subquotient $W$ of some sum of $V$s and $V^\lor$s is a Hodge substructure if and only if $W$. For example, this allows one to see that $\op{MT}(V)\subseteq\op{GL}(V)$ must contain the scalar matrices.
+\end{remark}
+\begin{remark}
+	For an abelian variety $A$, it turns out that $\op{MT}(A)$ is always reductive. Roughly speaking, this follows from the fact that $A$ has a polarization, so $H_1(A,\QQ)$ is a polarizable Hodge structure.
+\end{remark}
+It is at this point that one would expect me to write down some basic examples of Mumford--Tate groups, but this turns out to be a fairly difficult task. For example, because we are looking at the image of some torus $\mathbb S$, one may expect that $\op{MT}(V)$ is frequently a torus. In our application (in the CM theory), this will turn out to be the case, but this is exceptional: most of the time we expect $\op{MT}(V)$ to be large (largely because the algebraic group needs to descend all the way $\QQ$), though this is not always easy to prove.
+
+Nonetheless, let us give a couple remarks bounding $\op{MT}(A)$.
+\begin{remark} \label{rem:endo-mt-bound}
+	For brevity, set $V\coloneqq H_1(A,\QQ)$ and $D\coloneqq\op{End}(A)\otimes_\ZZ\QQ$, which one can show is a product of division algebras over $\QQ$. It turns out that endomorphisms of $A$ then correspond to endomorphisms of $V$ preserving the Hodge structure. However, an endomorphism of $V$ preserving the Hodge structure turns out to be the same data of an element of $V\otimes V^\lor$ which is fixed by the image of $h$, which of course is equivalent to being fixed by $\op{MT}(A)$. Thus, we see that
+	\[\op{End}(V)^{\op{MT}(A)}=\op{End}(A).\]
+	Thus, we see that we have a lower bound that $\op{MT}(A)$ will be contained with the subgroup of $\op{GL}(V)$ commuting with the action of $D$.
+\end{remark}
+\begin{remark} \label{rem:polarization-mt-bound}
+	Once again, set $V\coloneqq H_1(A,\QQ)$. Let $\psi\colon V\times V\to\CC$ be the polarization, which is some symplectic form. Then $\psi$ as a polarization actually defines a class in $(V\otimes V)^\lor$ preserved by the action of $h$. Thus, we see that $\op{MT}(A)$ must preserve this polarization, so we conclude that
+	\[\op{MT}(A)\subseteq\op{GSp}(V,\psi).\]
+\end{remark}
+We conclude with the following conjecture, which explains why we have introduced $\op{MT}(V)$.
+\begin{conj}[Mumford--Tate]
+	Fix an abelian variety $A$ defined over $\QQ$. For any auxiliary prime $\ell$, we have
+	\[\op{MT}(A)\otimes_\QQ\QQ_\ell=G_\ell(A)^\circ.\]
+\end{conj}
+\begin{remark}
+	This conjecture is known in many, many cases; for example, it is known when $A$ has complex multiplication, a notion we will review in the next subsection.
+\end{remark}
+The point of this is that one can compute $\op{MT}(A)$ instead of $G_\ell(A)^\circ$. This allows us to compute $\op{ST}(A)^\circ$ by taking a maximal compact subgroup of $\op{MT}(A)_\CC$. In order to get understand the full group $\op{ST}(A)$, one still needs to understand some Galois action which is only visible in the $\ell$-adic side, but computing $\op{ST}(A)^\circ$ is still a good start, and we will content ourselves with these computations for today.
+
+\subsection{Complex Multiplication}
+The key notion for today's talk is that of an abelian variety with complex multiplication.
+\begin{definition}[CM]
+	A \textit{CM field} is a number field $E$ is CM if and only if it is a totally imaginary quadratic extension of a totally real field. A \textit{CM algebra} is a product of CM fields.
+\end{definition}
+\begin{example}
+	Any imaginary quadratic field is CM, such as $\QQ(i)$.
+\end{example}
+\begin{example}
+	For any $n\ge3$, we see that the cyclotomic field $\QQ(\zeta_n)$ is a CM field because it is a totally imaginary quadratic extension of the totally real field $\QQ\left(\zeta_n+\zeta_n^{-1}\right)=\QQ\left(\cos\frac{2\pi}n\right)$.
+\end{example}
+\begin{remark}
+	One can show that the Galois closure of any CM algebra is still a CM algebra.
+\end{remark}
+\begin{definition}[CM abelian variety]
+	Fix an abelian variety $A$ defined over a number field. Then $A$ has \textit{CM} or \textit{complex multiplication} if and only if there is a CM algebra $E$ such that $[E:\QQ]=2\dim A$ and
+	\[\op{End}(A_\CC)\otimes_\ZZ\QQ=E.\]
+\end{definition}
+\begin{remark} \label{rem:lower-bound-cm}
+	It turns out that having CM is equivalent to
+	\[\dim_\QQ\op{End}(A_\CC)\otimes_\ZZ\QQ\ge 2g.\]
+	Namely, if this inequality is satisfied, then one can show that equality actually holds and that $\op{End}(A_\CC)\otimes_\ZZ\QQ$ is a CM algebra.
+\end{remark}
+\begin{example}
+	Consider the elliptic curve $E_1\colon y^2=x^3+1$. Then $(E_1)_\CC$ has an order-three endomorphism given on points by
+	\[(x,y)\mapsto(\zeta_3x,y).\]
+	In this way, we find that $\QQ(\zeta_3)\subseteq\op{End}(E_\CC)\otimes_\ZZ\QQ$, so $E_1$ has CM by $\QQ(\zeta_3)$.
+\end{example}
+\begin{example}
+	Fix a prime $p$ and integer $a\in\{1,2,\ldots,p-1\}$, and consider the superelliptic curve $C\colon y^p=x^a(x-1)$. (It turns out that this curve is a quotient of the curve $x^p+y^p=1$, so $C$ is sometimes called a ``Fermat curve.'') A computation with the Riemann--Hurwitz formula shows $\dim C=\frac{p-1}2$, so $\dim\op{Jac}(C)=\frac{p-1}2$. On the other hand, we see that $C$ has an automorphism of order $p$ given by
+	\[(x,y)\mapsto(x,\zeta_py),\]
+	so $\QQ(\zeta_p)\subseteq\op{End}(\op{Jac}(C)_\CC)\otimes_\ZZ\QQ$. Thus, $\op{Jac}(C)$ has CM by $\QQ(\zeta_p)$.
+\end{example}
+As in the story of toric varieties, it can be rather hard to believe that the given definition will actually have interesting (and computable) applications. One goal of the present talk is to present some of these results. For example, we begin by noting that $\op{MT}(A)$ is necessarily simple easy in our situation.
+\begin{proposition}
+	Fix an abelian variety $A$ defined over $\CC$. Then $A$ has complex multiplication if and only if $\op{MT}(A)$ is a torus.
+\end{proposition}
+\begin{proof}
+	We will use the bound of \Cref{rem:endo-mt-bound} to show our implications.
+	\begin{itemize}
+		\item Suppose that $A$ has CM by the CM algebra $E$. Then we see that $E$ has an action on $V$, so $V$ becomes a free module of rank $1$ over $E$. Now, $\op{MT}(A)$ needs to commute with this $E$-action, but after identifying $V$ with $E$ (by choosing a basis as a nonzero vector), we see that the available endomorphisms in $\op{GL}(V)$ are simmply given by $E^\times$. In this way, we find that $\op{MT}(A)$ is contained in the torus $T_E=\op{Res}_{E/\QQ}\mathbb G_{m,E}$. We conclude that $\op{MT}(A)$ is a torus.
+		\item Suppose that $\op{MT}(A)$ is a torus; choose a maximal torus $T\subseteq\op{GL}(V)$ containing $\op{MT}(A)$. Then
+		\[\op{End}(V)^T\subseteq\op{End}(V)^{\op{MT}(A)}=D,\]
+		so $D$ contains $\op{End}(V)^T$, which we see (by diagonalizing $T$) equals a $\QQ$-algebra with dimension $2g$. Thus, we are done by \Cref{rem:lower-bound-cm}.
+		\qedhere
+	\end{itemize}
+\end{proof}
+Importantly, if $A$ has CM by $E$, then the above proof has actually shown that $\op{MT}(A)$ is contained in the explicit torus $\op{Res}_{E/\QQ}\mathbb G_{m,E}$. We would like to understand the subgroup, so we make the following remark to show that it is not the entire torus, extending \Cref{rem:polarization-mt-bound}.
+\begin{lemma}
+	Fix an abelian variety $A$ defined over $\CC$ with complex multiplication by $E$. As usual, set $V\coloneqq H_1(A,\QQ)$, and let $\psi\colon V\times V\to\QQ$ be the polarization. For each $\varphi,\varphi'\in\op{Hom}(E,\CC)$, we have
+	\[\psi(V_{\varphi},V_{\varphi'})=0\]
+	unless $\varphi=\overline{\varphi'}$. Here, $V_\varphi$ is the $\varphi$-eigenspace for the $E$-action on $V_\CC$.
+\end{lemma}
+\begin{proof}
+	Quickly, recall that having CM means that $V$ is a free module of rank $1$ over $E$, so each $V_\CC\cong(E\otimes_\QQ\CC)$, so $\dim_\CC V_\varphi=1$ for each $\varphi$. Thus, $\psi(V_\varphi,V_\varphi)=0$ because $\psi$ is symplectic.
+
+	Now, suppose that $\varphi'\notin\{\varphi,\ov\varphi\}$. Then $\varphi'$ and $\varphi$ remain unequal upon restriction to the maximal totally real subfield of $E$, so choose some $e$ in this totally real subfield such that $\varphi(e)\ne\varphi'(e)$. Then any $v\in V_\varphi$ and $v'\in V_{\varphi'}$ has
+	\[\varphi(e)\psi(v,v')=\psi(\varphi(e)v,v')=\psi(ev,v')\stackrel*=\psi(v,ev')=\psi(v,\varphi'(e),v')=\varphi'(e)\psi(v,v'),\]
+	where $\stackrel*=$ holds because the polarization commutes with endomorphisms of $A$. We conclude $\psi(v,v')=0$.
+\end{proof}
+\begin{proposition} \label{prop:lefschetz-cm-mt}
+	Fix an abelian variety $A$ defined over $\CC$ with complex multiplication by $E$. By diagonalizing the action of $E$ on $H_1(A,\CC)$, choose an eigenbasis $\{v_\varphi:\varphi\in\op{Hom}(E,\CC)\}$. Then
+	\[\op{MT}(A)\subseteq\{\op{diag}(\{\lambda_\varphi:\varphi\in\op{Hom}(E,\CC)\}):\lambda_\varphi\lambda_{\ov\varphi}=\lambda_{{\varphi'}}\lambda_{\ov{\varphi'}}\}.\]
+	In particular, $\op{rank}\op{MT}(A)\le\dim A+1$, with equality holding if and only if the above inclusion is an equality.
+\end{proposition}
+\begin{proof}
+	To make sentence of the inclusion, we see that $\op{MT}(A)$ is embedded into $\op{Res}_{E/\QQ}\mathbb G_{m,E}$, and this group's action diagonalizes with the given eigenbasis $\{v_\varphi\}$ and eigenvalues $\{\varphi\}$.
+
+	Now, the main point here is to use a polarization $\psi$ of $V\coloneqq H_1(A,\QQ)$. Then we note that $\op{MT}(A)$ is a subset of $\op{GSp}(V,\psi)$ by \Cref{rem:polarization-mt-bound}. The above lemma explains that the symplectic space $(V,\psi)$ decomposes into a direct sum of symplectic subspaces $V_\varphi\oplus V_{\ov\varphi}$. Now, the given equations are simply asserting that a scalar matrix in $\op{Res}_{E/\QQ}\mathbb G_{m,E}$ is scaling all these symplectic spaces $V_\varphi\oplus V_{\ov\varphi}$ by the same scalar, which is exactly what it means to be in $\op{GSp}(V,\psi)$ upon applying the decomposition of the previous sentence.
+\end{proof}
+Generically speaking, one expects equality in \Cref{prop:lefschetz-cm-mt}, but exceptions abound.
+
+\subsection{Hodge Structures via CM Types}
+In order to compute the subgroup $\op{MT}(A)\subseteq T_E$, we need to understand the Hodge structure of $H_1(A,\QQ)$. This is the point of the CM type.
+\begin{definition}[CM type]
+	Fix an abelian variety $A$ with complex multiplication by $E$. Note the vector space $H^{10}=H^0(A(\CC),\Omega_{A/\CC})$ then has an $E$-action, so it diagonalizes as
+	\[H^{10}=\bigoplus_{\varphi\in\Phi}\CC_\varphi,\]
+	where $\Phi\subseteq\op{Hom}(E,\CC)$, and $E$ acts on $\CC_\varphi$ via the embedding $\varphi\colon E\to\CC$. The \textit{CM type} of $A$ is the subset $\Phi\subseteq\op{Hom}(E,\CC)$. We may say that $A$ has CM type $\Phi$ or $(E,\Phi)$.
+\end{definition}
+\begin{remark}
+	A priori, one may be worried that
+	\[H^{10}=\bigoplus_{\varphi\in\Phi}\CC_\varphi^{n_\varphi}\]
+	for some nonnegative integers $n_\varphi$, possibly bigger than $1$. However, the Hodge decomposition tells us $H^{10}\oplus\overline{H^{10}}$ is isomorphic to $H^1(A,\QQ)$, which is a vector space of $\QQ$-dimension $2\dim A$ and hence a free $E$-module of rank $1$. Thus, we see that $n_\varphi+n_{\overline\varphi}=1$ for each $\varphi$, so $n_\varphi\in\{0,1\}$. We also conclude that
+	\[\{\varphi:\varphi\in\Phi\}\sqcup\{\overline\varphi:\varphi\in\Phi\}=\op{Hom}(E,\CC),\]
+	where the bar denotes complex conjugation.
+\end{remark}
+The point is that $\Phi$ remembers everything about the Hodge decomposition by explaining what $H^{10}$ is. Let's see some examples.
+\begin{example}
+	Consider the elliptic curve $E_1\colon y^2=x^3+1$. Then $H^0(E_1,\Omega_{E_1})$ consits of the first-order holomorphic differentials on $E_1$, which we note is $dx/y$. Now, $\QQ(\zeta_3)$ acts on this differential by sending $dx/y$ to
+	\[\frac{d(\zeta_3x)}{y}=\zeta_3\cdot\frac{dx}y,\]
+	so the CM type consists of the single embedding $\QQ(\zeta_3)\to\CC$ given by $\zeta_3\mapsto\zeta_3$.
+\end{example}
+\begin{example} \label{ex:fermat-type}
+	Fix a prime $p$ and integer $a\in\{1,2,\ldots,p-1\}$, and consider the curve $C\colon y^p=x^a(x-1)$. Because $H^1(\op{Jac}C,\QQ)=H^1(C,\QQ)$, we can compute the CM type on $\op{Jac}C$ by computing $H^0(C,\Omega_C)$. Well, one can compute a basis of holomorphic differentials on this curve $C$. Letting $\varphi_r\in\op{Hom}(\QQ(\zeta_p),\CC)$ be the embedding given by $\varphi_r\colon\zeta_p\mapsto\zeta_p^r$, one finds that the CM type is
+	\[\{\varphi_r:\langle r\rangle+\langle ra\rangle<p\},\]
+	where $\langle\bullet\rangle$ refers to the$\pmod p$ representative in $\{0,1,\ldots,p-1\}$. For example, if $a=1$, our CM type is $\{\varphi_1,\ldots,\varphi_{(p-1)/2}\}$.
+\end{example}
+Because $\op{MT}(A)$ only depends on this Hodge structure, we can now profit.
+\begin{proposition} \label{prop:cm-type-to-mt}
+	Fix an abelian variety $A$ with CM type $(E,\Phi)$, and embed $\op{MT}(A)$ into $\op{Res}_{E/\QQ}\mathbb G_{m,E}$. Then $X_*(\op{MT}(A))$ is the smallest saturated $\op{Gal}(\overline\QQ/\QQ)$-invariant sublattice of $X_*(\op{Res}_{E/\QQ}\mathbb G_{m,E})$ containing
+	\[\sum_{\varphi\in\Phi}\varphi^\lor.\]
+\end{proposition}
+Here, a saturated sublattice means that the corresponding quotient is torsion-free.
+\begin{proof}
+	As usual, set $V\coloneqq H_1(A,\QQ)$. Note that $\op{MT}(A)$ is by definition the smallest algebraic subtorus of $\op{Res}_{E/\QQ}\mathbb G_{m,E}$ containing the image of the Hodge character $h\colon\mathbb S_\CC\to\op{GL}(V)_\CC$. For technical reasons, we define the character $\mu\colon\mathbb G_{m,\CC}\to\mathbb S_\CC$ given on $\CC$-points by $\mu(z)\coloneqq(z,1)\in\mathbb S(\CC)$. Because complex conjugation simply swaps the two coordinates, we see that $\op{MT}(A)$ is also the smallest algebraic subtorus of $\op{Res}_{E/\QQ}\mathbb G_{m,E}$ containing $h\circ\mu$.
+
+	The point of this technical step is that $(h\circ\mu)$ is a bona fide cocharacter $\mathbb G_{m,\CC}\to\op{MT}(A)\subseteq\op{Res}_{E/\QQ}\mathbb G_{m,E}$. To compute it, we note that $h(\mu(z))$ acts by multiplication-by-$z$ on $V^{(-1,0)}$ and trivially on $V^{(0,-1)}$, so
+	\[(\varphi\circ h\circ\mu)(z)=\begin{cases}
+		z & \text{if }\varphi\in\Phi, \\
+		1 & \text{if }\varphi\notin\Phi,
+	\end{cases}\]
+	for any $\varphi\in\op{Hom}(E,\CC)$ (which is identified with a projection character of $\op{Res}_{E/\QQ}\mathbb G_{m,E}$). Thus,
+	\[h\circ\mu=\sum_{\varphi\in\Phi}\varphi^\lor.\]
+	The equivalence of categories given by $X_*$ tells us that $X_*(\op{MT}(A))\subseteq X_*(\op{Res}_{E/\QQ}\mathbb G_{m,E})$ becomes the smallest saturated Galois-invariant sublattice containing the above cocharacter.
+\end{proof}
+It may look like we only have one element spanning $\op{MT}(A)$, but it is important to note that the Galois action will allow us to premute this into many rather different-looking vectors. Let's see an example.
+\begin{example} \label{ex:basic-fermat}
+	Consider the Jacobian of the curve $C\colon y^5=x(x-1)$. Then \Cref{ex:fermat-type} tells us that our CM type is $\{\varphi_1,\varphi_2\}$. Thus, on applying the Galois action, we see that $X_*(\op{MT}(A))$ is spanned by the vectors
+	\[\left\{\varphi_1^\lor+\varphi_2^\lor,\varphi_2^\lor+\varphi_4^\lor,\varphi_3^\lor+\varphi_1^\lor,\varphi_4^\lor+\varphi_3^\lor\right\}.\]
+	Thus, upon ordering our basis, we are interested in computing the kernel of the matrix
+	\[\begin{bmatrix}
+		1 &   & 1 &   \\
+		1 & 1 &   &   \\
+		  &   & 1 & 1 \\
+		  & 1 &   & 1
+	\end{bmatrix}.\]
+	This matrix has rank $3$ with kernel spanned by the vector $(1,-1,-1,1)$, so we see that
+	\[\op{MT}(A)=\{\op{diag}(\lambda_1,\lambda_2,\lambda_3,\lambda_4):\lambda_1\lambda_4=\lambda_2\lambda_3\}.\]
+	Note that this equation is explained by the polarization via \Cref{prop:lefschetz-cm-mt}.
+\end{example}
+\begin{example}
+	Consider the Jacobian of the curve $C\colon y^{67}=x^6(x-1)$. Then one can do a computation similar to the previous example to find that
+	\[\dim\op{MT}\op{Jac}(C)=66,\]
+	which is two smaller than the expected generic case described in \Cref{prop:lefschetz-cm-mt}.
+\end{example}
+We will generalize \Cref{ex:basic-fermat} in the next subsection.
+
+\subsection{The Rank of a CM Type}
+\Cref{prop:cm-type-to-mt} tells us that we can compute $\op{MT}(A)$ combinatorially from the CM type. In this subsection, we gather some tools to understand this combinatorics. We begin with a more general definition of CM type.
+\begin{definition}[CM type]
+	Fix a CM algebra $E$. Then a \textit{CM type} is a subset $\Phi\subseteq\op{Hom}(E,\CC)$ such that
+	\[\{\varphi:\varphi\in\Phi\}\sqcup\{\ov\varphi:\varphi\in\Phi\}=\op{Hom}(E,\CC).\]
+	We may call the pair $(E,\Phi)$ a CM type.
+\end{definition}
+\begin{definition}[rank]
+	Fix a CM type $(E,\Phi)$. Then the \textit{rank} of $(E,\Phi)$ is the $\QQ$-dimension of the image of the map $\op T_\Phi\colon E\to\CC$ given by
+	\[\op T_\Phi(\alpha)\coloneqq\sum_{\varphi\in\Phi}\varphi(\alpha).\]
+\end{definition}
+\begin{remark} \label{rem:galois-cm-type-rank}
+	Notably, the rank does not change upon passing to a CM field extension $E'/E$ (with suitably defined CM type $\Phi'$ extending $\Phi$) because $\op T_{\Phi'}$ will simply become ${\op T_\Phi}\circ\op T_{E'/E}$, and field traces of number fields are surjective.
+	
+	For example, one can pass to the Galois closure. Thus, in the event where $E/\QQ$ is Galois with $G\coloneqq\op{Gal}(E/\QQ)$, we note that the existence of a normal basis implies that
+	\[\op{rank}(E,\Phi)=\dim_\QQ\QQ[G]\Phi,\]
+	where we view $\Phi$ as an element of $\ZZ[G]$ given by the sum of its elements. Similarly, one can go down to $\op{rank}_\ZZ\ZZ[G]\Phi$ and even multiply by $\Phi$ on either side.
+\end{remark}
+The point of this definition is \Cref{prop:cm-type-to-mt}.
+\begin{proposition}
+	Fix an abelian variety $A$ with CM type $(E,\Phi)$. Then
+	\[\op{rank}\op{MT}(A)=\op{rank}(E,\Phi).\]
+\end{proposition}
+\begin{proof}
+	By \Cref{prop:cm-type-to-mt}, we see that $\op{rank}\op{MT}(A)$ is the rank of the lattice spanned by
+	\[\sum_{\varphi\in\Phi}(\sigma\varphi)^\lor\]
+	as $\sigma$ varies over $\op{Gal}(\overline\QQ/\QQ)$. Now, one can check that the rank of this lattice does not change if we pass from $E$ to a Galois closure, so we assume that $E/\QQ$ is Galois with Galois group $G$. Then we see that the above element is simply $\sigma\Phi$ for $\sigma\in G$, so we are indeed looking at the lattice $\ZZ[G]\Phi$, whose rank is simply the $\QQ$-dimension of $\QQ[G]\Phi$. Thus, we are done by \Cref{rem:galois-cm-type-rank}.
+\end{proof}
+Thus, we are motivated to understand ranks of these CM types. In the abelian case, one has the following character-theoretic result.
+\begin{lemma} \label{lem:rank-cm-type-character}
+	Let $(E,\Phi)$ be a CM type such that $E/\QQ$ is an abelian extension with Galois group $G$. Then $\op{rank}(E,\Phi)$ equals the number of characters $\chi\colon G\to\CC^\times$ such that
+	\[\chi(\Phi)\coloneqq\sum_{\varphi\in\Phi}\chi(\varphi)\]
+	is nonzero.
+\end{lemma}
+\begin{proof}
+	We will compute $\op{rank}(E,\Phi)$ as $\dim_\CC\CC[G]\Phi$. One can diagonalize the $G$-action on $\CC[G]$ into
+	\[\CC[G]\cong\bigoplus_\chi\CC_\chi,\]
+	where $G$ acts on $\CC_\chi$ by $\chi$. Thus, $\QQ[G]\Phi$ will equal the sum of the spaces $\CC_\chi\Phi$, but $\CC_\chi\Phi$ is nonzero if and only if $\chi(\Phi)\ne0$.
+\end{proof}
+\begin{remark} \label{rem:rank-cm-even-character}
+	Work in the setting of \Cref{lem:rank-cm-type-character}. Let $\iota\in G$ denote complex conjugation. If $\chi$ is a nontrivial character satisfying $\chi(\iota)=1$, then we see that
+	\[0=\sum_{g\in G}\chi(g)=\chi(\Phi+\iota\Phi)=2\chi(\Phi),\]
+	so $\chi(\Phi)=0$.
+\end{remark}
+We are now ready to generalize \Cref{ex:basic-fermat}.
+\begin{theorem}
+	Fix a prime $p$, and consider the Jacobian $A$ of the curve $C\colon y^p=x(x-1)$. Then
+	\[\op{rank}\op{MT}(A)=p+1.\]
+	In particular, equality holds in \Cref{prop:lefschetz-cm-mt}.
+\end{theorem}
+\begin{proof}
+	Recall from \Cref{ex:fermat-type} that $A$ is CM by $\QQ(\zeta_p)$ with CM type $\Phi\coloneqq\{\varphi_1,\ldots,\varphi_{(p-1)/2}\}$, where $\varphi_r\in\op{Hom}(\QQ(\zeta_p),\CC)$ sends $\varphi_r(\zeta_p)\coloneqq\zeta_p^r$.
+	
+	We will use \Cref{lem:rank-cm-type-character} for this computation. Let $G$ be the Galois group $\op{Gal}(\QQ(\zeta_p)/\QQ)$, and we want to show that there are $p+1$ characters such that $\chi(\Phi)\ne0$. Well, \Cref{rem:rank-cm-even-character} rules out nontrivial characters $\chi$ with $\chi(-1)=1$, so we are left trying to show that all $\chi$ with $\chi(-1)=-1$ have $\chi(\Phi)\ne0$.
+
+	This will use some algebraic number theory. For brevity, set $g\coloneqq\frac{p-1}2$. The key input is to use the class number formula for cyclotomic fields. Indeed, by using some form of the class number formula for $\QQ(\zeta_p)$, we find that
+	\[A\coloneqq\sum_{i=1}^gi\chi(i)\]
+	is nonzero. We will transform this nonvanishing result into the required one. We begin by defining the family of sums
+	\begin{align*}
+		A_< &\coloneqq \sum_{i=1}^gi\chi(i), \\
+		A_> &\coloneqq \sum_{i=g+1}^{p-1}i\chi(i), \\
+		A_0 &\coloneqq \sum_{i=1}^g2i\chi(2i), \\
+		A_1 &\coloneqq \sum_{i=1}^g(2i-1)\chi(2i-1), \\
+		B_< &\coloneqq \sum_{i=1}^g\chi(i), \\
+		B_1 &\coloneqq \sum_{i=1}^g\chi(2i-1).
+	\end{align*}
+	To continue, we describe some relations between these sums.
+	\begin{itemize}
+		\item One has $A=A_<+A_>=A_0+A_1$.
+		\item Because $\chi(-1)=-1$, we can see that $A_>=A_<-pB_<$ by sending $i\mapsto(p-i)$ in the sum. Combining with the previous point, we see that $A=2A_<-pB_<$.
+		\item On the other hand, considering $B_1$, we send $i\mapsto(p-i)$ to make the terms even and then factor out a factor of $2$ to show that $B_1=-\chi(2)B_<$.
+		\item Similarly, considering $A_1$, we send $i\mapsto(p-i)$ to make the terms even and then factor our a factor of $2$ to show that $A_1=2\chi(2)A_<-p\chi(2)B_<$. Summing, we see $A=A_1+A_2=4\chi(2)A_<-p\chi(2)B_<$.
+	\end{itemize}
+	In total, we are able to see that
+	\[4\chi(2)A_<-p\chi(2)B_<=A=2\chi(2)A_<-p\chi(2)B_<\]
+	is a nonzero value. However, $B_<=0$ combined with the equality of the left and right sides would require $A_<=0$ and then $A=0$, which is a contradiction, as required.
+\end{proof}
+
+% \begin{itemize}
+% 	\item Combinatorial definition
+% 	\item Rank of $\op{MT}(A)$
+% 	\item Odd prime dimension
+% 	\item The Fermat Jacobian
+% 	\item The Fit\'e result
+% \end{itemize}
 
 \end{document}

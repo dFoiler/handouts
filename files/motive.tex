@@ -188,7 +188,7 @@ Thus, we see that one has tensor products and duals of Hodge structures by track
 \subsection{The Mumford--Tate Group}
 We are now ready to define the main character of the present subsection, which is the Mumford--Tate group.\todo{}
 \begin{definition}[Mumford--Tate group]
-	For some $V\in\op{HS}_\QQ$, we define the \textit{Mumford--Tate group} $\op{MT}(V)$ as the smallest algebraic $\QQ$-group containing the image of the corresponding representation $h\colon\mathbb S\to\op{GL}(V)_\RR$.\todo{Fix}
+	For some $V\in\op{HS}_\QQ$, we define the \textit{Mumford--Tate group} $\op{MT}(V)$ as the smallest algebraic $\QQ$-group containing the image of the corresponding representation $h\colon\mathbb S\to\op{GL}(V)_\RR$.\todo{Fix} If $A$ is an abelian variety defined over $\CC$, then we define $\op{MT}(A)$ as the Mumford--Tate group of $H^1(A,\QQ)\in\op{HS}_{\QQ}$.
 \end{definition}
 \begin{remark}
 	Because $\mathbb S$ is connected, we see that $h$ is also connected. Namely, $\op{MT}(V)^\circ\subseteq\op{MT}(V)$ will be an algebraic $\QQ$-group containing the image of $h$ if $\op{MT}(V)$ does too, so equality is forced.
@@ -210,9 +210,20 @@ It will turn out that $\op{MT}(V)$ is the algebraic group corresponding the full
 \begin{proof}
 	\todo{}
 \end{proof}
-\begin{proposition} \label{prop:mt-cm-torus}
-	The Mumford--Tate group of an abelian variety with CM is a torus.
+For abelian varieties, we note that the presence of an endomorphism algebra gives us some information about $\op{MT}(A)$.
+\begin{proposition}
+	Fix an abelian variety $A$ defined over $\CC$ with endomorphism algebra $D\coloneqq\op{End}^0_\CC(A)$. Additionally, let $\varphi$ be a polarization on $A$ inducing the polarization on $H^1(A,\QQ)$. Then
+	\[\op{MT}(A)\subseteq\op{GSp}_D(\varphi).\]
 \end{proposition}
+\begin{proof}
+	Note $D$ needs to commute.\todo{}
+\end{proof}
+\begin{corollary} \label{prop:mt-cm-torus}
+	The Mumford--Tate group of an abelian variety with CM is a torus.
+\end{corollary}
+\begin{proof}
+	Fix our abelian variety $A$ with CM by the CM field $E\subseteq\op{End}^0_\CC(A)$. Then $H^1(A,\QQ)$ becomes an $E$-vector space, and $\op{MT}(A)$ needs to commute with the $E$-action, which is exactly the diagonal torus.
+\end{proof}
 Define the Hodge group via $\mathbb U$.\todo{}
 
 \subsection{The Rank of a CM Type}
@@ -329,8 +340,8 @@ It turns out that one can upgrade the argument in the left inequality as follows
 		is injective: some $g\in G$ fixes $\QQ[G]\Phi$ if and only if $g\sigma\Phi=\sigma\Phi$ for all $\sigma\in G$. However, this is equivalent to $\sigma^{-1}g\sigma\Phi=\Phi$, which we see is equivalent to $\sigma^{-1}g\sigma$ fixing $K_0$ for all $\sigma$! In other words, we need $g$ to fix all embeddings of $K_0$ into $K$, so because $K$ is a Galois closure of $K_0$, this is equivalent to $g$ being the identity.
 
 		\item This injectivity gets us most of the way: choose some $g\in G$ of order $p$ (which exists because $[K_0:\QQ]$ must divide the order of $G$), so we view $\QQ[G]\Phi$ as a $\langle g\rangle$-representation, which produces an eigenspace decomposition
-		\[\QQ[G]\cong A\oplus B,\]
-		where $g$ acts on $A$ nontrivially, and $g$ acts on $B$ nontrivially. Because $g$ acts on $\QQ[G]\Phi$ nontrivially, $A$ is nonzero, so $\dim_\QQ A\ge p-1$.
+		\[\QQ[G]\Phi\cong A\oplus B,\]
+		where $g$ acts on $A$ nontrivially, and $g$ acts on $B$ trivially. Because $g$ acts on $\QQ[G]\Phi$ nontrivially, $A$ is nonzero, so $\dim_\QQ A\ge p-1$.
 
 		\item It remains to show that $\dim_\QQ B\ge2$. Of course $\theta\coloneqq\sum_{\sigma\in G}\sigma$ is fixed by $G$, so the primary difficulty of the remainder of the proof is finding another vector fixed by $g$. It will turn out that $\left(1+g+\cdots+g^{p-1}\right)\Phi$ will do the trick, but this is not obvious. Undoing the arguments of \Cref{prop:mt-cm-torus}, we note that
 		\[\frac{\QQ[G]\Phi}{\QQ[G]\Phi\cap\QQ\theta}=\frac{\im(\Phi\colon\QQ[G]\to\QQ[G])}{\QQ[G]\Phi\cap\QQ\theta}\cong\frac{\QQ[G]}{\{x\in\QQ[G]:x\Phi\in\QQ\theta\}}.\]
@@ -411,6 +422,29 @@ Lastly, we check that $J_p$ is absolutely simple. It is enough to check that the
 	The CM type is primitive if and only if $\sigma\Phi=\Phi$ implies $\sigma=\id$ for any $\sigma\in\op{Gal}(\QQ(\zeta_p)/\QQ)$. Denoting the $\QQ(\zeta_p)\to\QQ(\zeta_p)$ defined by $\zeta_p\mapsto\zeta_p^i$ by $\sigma_i$, we see that we would like to show that $\sigma_i\Phi=\Phi$ implies $i=1$. In other words, for any $i\ne1$, we would like to show that
 	\[\left\{ai\pmod p:1\le a\le\frac{p-1}2\right\}\ne\left\{a\pmod p:1\le a\le\frac{p-1}2\right\}.\]
 	For this, we follow \cite[Lemma~4.2]{goodson-fermat-av-degeneracy}. For $i>\frac{p-1}2$, we see that $i$ lives in the left-hand set but not in the right-hand set, so there is nothing to do. Otherwise, $i\le\frac{p-1}2$, so $\frac{g-1}{2i}\le\frac{g-1}i+1$, so we can find an integer $j$ in the interval $\left(\frac{g-1}{2i},\frac{g-1}i\right]$. But then $\frac{p-1}2<ij\le p-1$, so $ij$ is in the left-hand set but not in the right-hand set.
+\end{proof}
+
+\section{Mumford--Tate Computations}
+In this section, we record some basic computations of Mumford--Tate groups.
+\begin{example}
+	Fix an elliptic curve $A$ defined over $\CC$.
+	\begin{listalph}
+		\item If $\op{End}^0(A)=\QQ$, then $\op{MT}(A)=\op{GL}_2(\QQ)$.
+		\item If $\op{End}^0(A)=E$, where $E$ is an imaginary quadratic field, then $\op{MT}(E)=\op{Res}_{E/\QQ}\mathbb G_{m,\QQ}$.
+	\end{listalph}
+\end{example}
+\begin{proof}
+	Quickly, note that the CM case has $\op{MT}(A)\subseteq\op{GL}_E(H_1(A,\QQ))=\op{Res}_{E/\QQ}\mathbb G_{m,\QQ}$, and the rank of torus must equal $2$ by \Cref{prop:cm-rank-bound}, so equality follows.
+
+	It remains to handle the case where $\op{End}^0(A)=\QQ$. A priori, we know that $\op{MT}(A)\subseteq\op{GL}_2(\QQ)$, so we just need to check that equality holds. It is enough to show that $\op{Hg}(A)=\op{SL}_2(\QQ)$. Thus, we begin by classifying connected subgroups of $\op{SL}_2(\QQ)$.
+	\begin{itemize}
+		\item In dimension $0$, the only connected subgroup is the trivial one. But then we violate
+		\[\op{End}^0(A)=\op{End}(H_1(A,\QQ))^{\op{MT}(A)}.\]
+		\item In dimension $1$, the only connected subgroups will have to come from the Lie algebra $\mf{sl}_2(\QQ)$, but the only one-dimensional subalgebras fail to be reductive or are the diagonal torus. If the Mumford--Tate group is a torus, then $A$ would have to be CM (for example, one can diagonalize the torus over $\CC$ and then find that $\op{End}^0(A)\ne\ZZ$).
+		\item In dimension $2$, one can do the Lie algebra with $\mf{sl}_2(\QQ)$ to see that there are no reductive subgroups here. Here's a more explicit argument: a proper reductive lie subalgebra $\mf g\subseteq\mf{sl}_2(\QQ)$ will have its semisimplification $\mf g_{\mathrm{ss}}$ trivial by an examination of the Dynkin diagram.
+		\item In dimension $3$, we see that we are looking at $\mf{sl}_2(\QQ)$, so $\op{Hg}(A)=\op{SL}_2(\QQ)$.
+		\qedhere
+	\end{itemize}
 \end{proof}
 
 % \section{Background on Motives}
