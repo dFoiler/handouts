@@ -470,10 +470,10 @@ Intuitively, Hodge theory is the extra structure on cohomology provided by compl
 
 The reason we are bringing up this Hodge theory is that we will be able to compute the complex analytic version of the $\ell$-adic monodromy group $G_\ell(A)$. For this, we will need a representation-theoretic interpretation of a Hodge structure.
 \begin{lemma}
-	Fix a vector space $V$ defined over $\QQ$. The data of a Hodge structure on $V$ is equivalent to the data of a representation $\rho\colon\mathbb S\to\op{GL}(V_\RR)$.
+	Fix a vector space $V$ defined over $\QQ$. The data of a Hodge structure on $V$ is equivalent to the data of a representation $h\colon\mathbb S\to\op{GL}(V_\RR)$.
 \end{lemma}
 \begin{proof}
-	The point is to describe what representations look like. Over $\mathbb S_\CC$, we see that the representation $\rho$ will diagonalize as a representation $\mathbb G_{m,\CC}^2\to\op{GL}(V_\CC)$. Thus, we can decompose
+	The point is to describe what representations look like. Over $\mathbb S_\CC$, we see that the representation $h$ will diagonalize as a representation $\mathbb G_{m,\CC}^2\to\op{GL}(V_\CC)$. Thus, we can decompose
 	\[V_\CC=\bigoplus_{\chi\in X^*(\mathbb S)}V_\chi,\]
 	where $V_\chi$ is the $\chi$-eigenspace. Now, each character $\chi$ can be written as $z\mapsto z^{-p}\overline z^{-q}$ for some $(p,q)\in\ZZ^2$ where $z,\overline z\in X^*(\mathbb S)$ are the characters of \Cref{ex:char-s}, so we let $V^{p,q}$ be the eigenspace for this character. As such, we see that the nontrivial Galois action of complex conjugation in $\op{Gal}(\CC/\RR)$ will swap $V^{p,q}$ and $V^{q,p}$, so $V^{p,q}=\overline{V^{q,p}}$. Thus, we see that we have produced a Hodge structure on $V$; one can then reverse this construction to produce a representation of $\mathbb S$ from any given Hodge structure.
 \end{proof}
