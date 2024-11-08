@@ -865,4 +865,94 @@ Let's end by explaining the use of the Hecke algebra.
 	Fix a nonarchimedean local field $F_v$, and let $G$ be a reductive group over $F_v$ with open compact subgroup $K\subseteq G$. Let $\mc G$ be a model, producing a hyperspecial subgroup $\mc G(\OO_v)$. For any smooth representation $V$, if $V^K$ is nonzero, then $\dim V^K=1$.
 \end{theorem}
 
+\section{November 6: Sam Mayo}
+Today we are talking about the Satake isomorphism. For today, $F$ is a nonarchimedean local field with ring of integers $\OO$, and $\pi\in\OO$ is a uniformizer. We let $q$ denote the size of the residue field. Lastly, we set $G\coloneqq\op{GL}_n$, and we let $T$ be the maximal split torus of diagonal matrices, and our Weyl group is $W\coloneqq S_n$ (which acts on $T$ by permuting the diagonal entries).
+
+\subsection{Spherical Representations}
+We are interested in smooth representations of $G(F)$. We begin with a special subclass.
+\begin{definition}[spherical, unramified]
+	Fix a split reductive group $G$ over $\OO$. A smooth irreducible representation $V$ of $G$ is \textit{spherical} or \textit{unramified} if and only if there is some $v\in V$ fixed by $G(\OO)$.
+\end{definition}
+The term ``spherical'' is supposed to be analogous to what happens in the archimedean case, where maximal compact subgroups (which $G(\OO)$ is supposed to be analogous to) look like spheres.
+
+We also have a notion of Hecke algebra.
+\begin{definition}[spherical Hecke algebra]
+	Fix a split reductive group $G$ over $\OO$. The \textit{spherical Hecke algebra} for $G$, denoted $\mc H^0(G)$ consists of the functions $G(F)\to\CC$ which are locally constant, compactly supported, and $G(\OO)$-invariant on the left and right.
+\end{definition}
+The hypotheses of $\mc H^0(G)$ work together to give it the structure of an algebra with multiplication given by the convolution operation
+\[(f*g)(x)\coloneqq\int_Gf(z)g\left(z^{-1}x\right)\,dz.\]
+Here is the point.
+\begin{theorem}
+	Fix a split reductive group $G$ over $\OO$. There is a bijection between irreducible spherical representations $V$ of $G$ and irreducible representations of $\mc H^0(G)$.
+\end{theorem}
+In the forward direction, one takes irreducible spherical representations $V$ to the subspace of $G(\OO)$-invar\-iants $V^{G(\OO)}$. Notably, $V^{G(\OO)}$ becomes a representation of $\mc H^0(G)$ by the action
+\[f\cdot v\coloneqq\int_Gf(g)(gv)\,dg.\]
+In fact, one can upgrade this construction to an equivalence of categories. The point is that one should think about $\mc H^0(G)$ as the group ring for spherical representations.
+
+\subsection{The Cartan Decomposition}
+Let's see what our Hecke algebra looks like for $T$.
+\begin{example}
+	Spherical representations of $T$ (which is abelian) are equvalent to representations of the quotient $T(F)/T(\OO)$ because having one $T(\OO)$-fixed vector means that everything is fixed by $T(\OO)$. However, $T$ is abelian, so we are really looking at representations of the double quotient
+	\[T(\OO)\backslash T(F)/T(\OO).\]
+	Let's try to understand this quotient. By splitting $T=\mathbb G_m^r$, we see that $T(F)/T(\OO)$ is isomorphic to $(F^\times/\OO^\times)^r=\ZZ^r$, where the second isomorphism is given by taking the norm. To avoid having to take a splitting, one should work with the full coweight lattice $X_*(T)$ of homomorphisms $\mathbb G_m\to T$, and then we have a short exact sequence
+	\[1\to T(\OO)\to T(F)\to X_*(T)\to1,\]
+	which is independent of any choices. As such, one finds that $\mc H^0(T)=\CC[X_*(T)]$.
+\end{example}
+For $G=\op{GL}_n$, we need the following linear algebra result.
+\begin{theorem}[Cartan decomposition]
+	One has
+	\[\op{GL}_n(F)=\bigsqcup_{\substack{k_1\le\cdots\le k_n\\k_1,\ldots,k_n\in\ZZ^n}}G(\OO)\begin{bmatrix}
+		\pi^{k_1} \\ & \ddots \\ && \pi^{k_n}
+	\end{bmatrix}G(\OO).\]
+\end{theorem}
+This is simply the Smith normal form for $\OO$; in particular, one can hope to do some explicit linear algebra to do the decomposition. In general, one has the following result, given by translating the notion of these increasing sequeneces into weights.
+\begin{theorem}[Cartan decomposition]
+	Fix a split reductive group $G$ over $\OO$. Then
+	\[G(F)=\bigsqcup_{\substack{\lambda\in X_*(T)\\\lambda\text{ dominant}}}G(\OO)\lambda(\pi)G(\OO).\]
+\end{theorem}
+The point is that $\mc H^0(G)$ has a basis given by indicators on these double cosets $G(\OO)\lambda(\pi)G(\OO)$. In fact, by computing the commutators explicitly, one can see that $\mc H^0(G)$ is commutative.
+\begin{corollary}
+	Fix a split reductive group $G$ over $\OO$. Then $\mc H^0(G)$ is commutative.
+\end{corollary}
+\begin{proof}
+	We write out the argument for $G=\op{GL}_n$. The point is that we have an anti-involution $(\cdot)^\intercal$ on $G$ (this is the transpose), so it extends to an anti-involution on the spherical Hecke algebra $\mc H^0({\op{GL}_n})$ via $f^\intercal(x)\coloneqq f(x^\intercal)$. Namely, we see that
+	\[(fg)^\intercal=g^\intercal f^\intercal\]
+	by a direct computation. However, by computing $(\cdot)^\intercal$ on the basis, we see that it is the identity, so we conclude that $\mc H^0(G)$ is commutative! For general $G$, one can use a similar involution called the Chevalley involution.
+\end{proof}
+\begin{corollary}
+	Fix a split reductive group $G$ over $\OO$. The irreducible representations of $\mc H^0(G)$ are one-dimensional. 
+\end{corollary}
+\begin{proof}
+	This is immediate from $\mc H^0(G)$ being commutative.
+\end{proof}
+\begin{corollary} \label{cor:towards-satake}
+	Fix a split reductive group $G$ over $\OO$ with maximal split torus $T$ and Weyl group $W$. There is an isomorphism $\mc H^0(G)\to\mc H^0(T)^W$ of vector spaces.
+\end{corollary}
+\begin{proof}
+	We know that $\mc H^0(G)$ has basis indexed by dominant coweights in $X_*(T)$, which can then be summed over $W$ to produce something in $\mc H^0(T)^W$.
+\end{proof}
+
+\subsection{The Satake Transform}
+\Cref{cor:towards-satake} is not trying to produce an isomorphism of algebras, which is false. To fix this, we will instead try to build a map $\mc H^0(G)\to\mc H^0(T)$ by restriction to $T$. This is a little funny to do, for the following somewhat vague reason: the torus $T$ should really be thought of as a quotient $B/N$ where $B\subseteq G$ is some Borel subgroup, and $N$ is its unipotent radical. Borel subgroups are somewhat more natural to look at from the perspective of representation theory.
+
+We are now ready to define the Satake transform. Given $f\in\mc H^0(G)$, we want to restrict along the diagram
+\[G\supseteq B\onto B/N\cong T.\]
+The inclusion $G\supseteq B$ should correspond to an actual restriction, but along $B\onto B/N$ one should be integrating along fibers. As such, we define
+\[Sf(t)\coloneqq\delta_B(t)^{1/2}\int_Nf(tn)\,dn,\]
+where $\delta_B$ is the modular character. (The modular character is needed to make sure that our integrals are suitably invariant.)
+\begin{theorem}[Satake]
+	Fix a split reductive group $G$ over $\OO$. Let $B$ be a Borel subgroup with unipotent radical $N$, and set $T\coloneqq B/N$ to be a maximal split torus. Then $S\colon\mc H^0(G)\to\mc H^0(T)^W$ is an isomorphism.
+\end{theorem}
+This is fairly difficult to show, though one can of course write everything out in sufficient detail for (say) $G=\op{SL}_2$. Roughly speaking, one sends the basis of indicator functions to the restriction with some correction terms coming from smaller coweights.
+
+\subsection{A Little Langlands}
+To end our discussion, we say something about the local Langlands correspondence. The classical theory of Lie algebras and Lie groups provides a bijection between finite-dimensional irreducible representations of a complex Lie group $\check G(\CC)$ with dominant weights (which are in bijection with $W$-orbits in $X^*(T)$).
+
+One can translate this into an isomorphism of the representation ring of $\check G(\CC)$ with $\CC[X^*(T)]^W$, which looks suspiciously similar to what we have done above in the nonarchimedean setting. However, the caveat is that the rest of our discussion has been working with $X_*(T)$ instead of $X^*(T)$. As such, one needs a notion of duality: given our nonarchimedean group $G$, one knows that there is a dual group $^LG$ whose torus $\check T$ canonically has $X_*(T)\cong X^*(\check T)$. Then Langlands duality should boil down to the observation
+\[\mc H^0(G)\stackrel S\cong\mc H^0(T)^W\cong\CC[X_*(T)]^W\cong\CC[X^*(\check T)]^W\cong\op{Rep}\check G(\CC).\]
+Thus, we have related nonarchimedean representation theory to complex representation theory! Explicitly, we see that irreducible smooth spherical represntations of $V$ are in bijection with irreducible modules of $\mc H^0(G)$, which are just one-dimensional and hence in bijection with maps $\mc H^0(G)\to\CC$. The above chain then puts this in bijection with maps $\op{Rep}\check G(\CC)\to\CC$, which classical representation theory argues is in bijection with semisimple conjugacy classes (given by some character theory).
+\begin{remark}
+	One can construct an inverse for this construction given by principal series!
+\end{remark}
+
 \end{document}
