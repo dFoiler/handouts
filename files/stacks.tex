@@ -209,4 +209,88 @@ It is not clear that this is a good definition, but here are some properties.
     \end{listalph}
 \end{theorem}
 
+\section{November 8: Drew Keisling}
+Today we are talking about the moduli space of vector bundles on a curve. As such, today we will work over a base field $k$ which is algebraically closed and of characteristic $0$, and $X$ is a smooth projective curve over $k$ with genus $g\ge2$.
+
+\subsection{Moduli of Semistable Vector Bundles}
+We begin by defining our stack.
+\begin{definition}
+    Fix a nonnegative integer $r$ and integer $d$. Then define $\mc M_X(r,d)\colon\mathrm{Sch}_k\to\mathrm{Grpd}$ by sending a test $k$-scheme $T$ to the collection of vector bundles $\mc E$ on $T\times X$ which are flat over $T$ and have rank $r$ and degree $d$. Recall that the degree is the degree of the line bundle $\det\mc E\coloneqq\land^r\mc E$.
+\end{definition}
+\begin{remark}
+    We want our vector bundles $\mc E$ to be flat over $T$ so that we have a reasonably continuous family of vector bundles.
+\end{remark}
+We now pick up some definitions.
+\begin{definition}
+    Fix a vector bundle $\mc E$ on $X$.
+    \begin{itemize}
+        \item The \textit{slope} of $\mc E$ equals
+        \[\mu(E)\coloneqq\frac{\deg\mc E}{\op{rank}\mc E}.\]
+        \item The vector bundle $\mc E$ is \textit{stable} if and only if there is a subbundle $\mc E'\subseteq\mc E$ such that $\mu(\mc E')<\mu (E)$.
+        \item The vector bundle $\mc E$ is \textit{semistable} if and only if there is a subbundle $\mc E'\subseteq\mc E$ such that $\mu(\mc E')\le\mu (E)$.
+        \item The vector bundle $\mc E$ is \textit{polystable} if and only if $\mc E$ is a direct sum $\bigoplus_i\mc E_i$ such that each $\mc E_\bullet$ is stable and satisfies $\mu(\mc E_\bullet)=\mu(\mc E)$.
+    \end{itemize}
+\end{definition}
+It is not hard to see that stable implies polystable implies semistable.
+
+Using slopes as above allows one to make inductive arguments, as follows.
+\begin{proposition} \label{prop:jordan-holder}
+    Fix a semistable vector bundle $\mc E$ on $X$. Then there is a filtration
+    \[0=\mc E_0\subseteq\mc E_1\subseteq\cdots\subseteq\mc E_{n-1}\subseteq\mc E_n=\mc E\]
+    of semistable vector bundles such that $\mc E_i/\mc E_{i-1}$ is stable with slope $\mu(\mc E)$. In fact, the summands $\mc E_i/\mc E_{i-1}$ are unique up to permutation (and isomorphism).
+\end{proposition}
+We are thus allowed to make the following definition.
+\begin{definition}[associated graded bundle]
+    Fix a semistable vector bundle $\mc E$ on $X$. Then the \textit{associated graded polystable bundle} is
+    \[\op{gr}\mc E\coloneqq\bigoplus_i\frac{\mc E_i}{\mc E_{i-1}},\]
+    where $\{\mc E_\bullet\}$ is the ascending filtration of \Cref{prop:jordan-holder}.
+\end{definition}
+We are now ready to state a theorem on the moduli space of semistable vector bundles.
+\begin{theorem}
+    Consider the functor $\mc M_X^{\mathrm{ss}}(r,d)$ of semistable vector bundles on $X$.
+    \begin{listalph}
+        \item It is an open subfunctor of $\mc M_X(r,d)$.
+        \item The functor $\mc M_X^{\mathrm{ss}}(r,d)$ is an algebraic stack of finite type over $k$. It has affine diagonal, and it is smooth and irreducible.
+        \item There exists a good moduli space $\pi\colon\mc M_X^{\mathrm{ss}}(r,d)\to M_X^{\mathrm{ss}}(r,d)$ such that the target is an irreducible, proper algebraic space over $k$ of dimension $r^2(g-1)+1$. In fact, $M_X^{\mathrm{ss}}(r,d)$ is the collection of equivalence classes of vector bundles on $X$, where the equivalence relation identifies semistable vector bundles with the same associated graded bundle.
+    \end{listalph}
+\end{theorem}
+\begin{proof}
+    For (a), roughly speaking, one can cut out the complement by proper $\mathrm{Quot}$ schemes. For (c), one uses valuative criteria.
+\end{proof}
+
+\subsection{Projectivity of the Moduli Space}
+Our main theorem is as follows.
+\begin{theorem}
+    The proper $k$-scheeme $M_X^{\mathrm{ss}}(r,d)$ is a projective variety.
+\end{theorem}
+\begin{proof}
+    Note that we already have properness, so this is really a matter of finding an ample line bundle.
+    
+    As such, we are on the hunt for line bundles. For this, we describe the construction of determinantal line bundles. Suppose we have a stack $\mc S$ over $k$, and let $\mc E$ be a vector bundle on $X\times\mc S$ flat over $\mc S$. We are going to play with the two projections for our construction. To start, note that one can find a resolution
+    \[0\to\mc E^{-1}\to\mc E^0\to\mc E\to0\]
+    such that $K^0\coloneqq R^1\op{pr}_{\mc S*}\mc E^{-1}$ and $K^1\coloneqq R^1\op{pr}_{\mc S*}\mc E^0$ are vector bundles on $\mc S$ making $R\op{pr}_{S*}\mc E$ the complex of maps from $K^0$ to $K^1$. We are now ready to make a definition.
+    \begin{definition}[determinental line bundle]
+        Fix notation as above with a stack $\mc S$ and vector bundle $\mc E$ on $X\times\mc S$. We now define
+        \[\det R\op{pr}_{\mc S*}\mc E\coloneqq\det K^0\otimes\left(\det K^1\right)^\lor.\]
+    \end{definition}
+    \begin{remark}
+        For example, if $\op{rank}K^0=\op{rank}K^1$ (for example, this is implied by $\op{rank}R\op{pr}_{\mc S*}\mc E=0$), then one can show that the induced map $K^0\to K^1$ from $\mc E^{-1}\to\mc E^0$ induces a map $\det K^0\to\det K^1$, giving a global section of $\det(R\op{pr}_{\mc S*}\mc E)^\lor$.
+    \end{remark}
+    We now specialize the discussion of the previous pargraph to $\mc S=\mc M^{\mathrm{ss}}_X(r,d)$, and $\mc E_{\mathrm{univ}}$ is the universal vector bundle on $X\times\mc M_X^{\mathrm{ss}}(r,d)$ such that the fiber over some $\mc E\in\mc M_X^{\mathrm{ss}}(r,d)$ is simple $\mc E$. Using the above construction, we note that any vector bundle $\mc V$ on $X$ produces a determinental line bundle
+    \[\mc L_{\mc V}\coloneqq\left(\det R\op{pr}_{\mc S*}(\op{pr}_X^*\mc V\otimes\mc E_{\mathrm{univ}})\right)^\lor,\]
+    which can somehow be thought of as (the determinant of) a Fourier transform. One can check that $\mc V\mapsto\mc L_{\mc V}$ produces a group homomorphism $K_0(X)\to\op{Pic}\mc M_X^{\mathrm{ss}}(r,d)$, so we are producing lots of line bundles in a nice functorial way, though the output only depends on the rank and degree.
+    
+    Now that we have a line bundle $\mc L_{\mc V}$, we are on the hunt for global sections. Notably, the construction given above was able to produce one global section on $\mc L_{\mc V}$, but the choice of global section depends on the choice of $\mc V$ (even though the isomorphism class of $\mc L_{\mc V}$ only depends on the rank and degree of $\mc V$!). Thus, we can imagine that we are able to produce lots of global sections on the single line bundle $\mc L_{\mc V}$, so it has good chances of being ample.
+    
+    Drew then recorded the meat of the argument, which I did not follow in detail.
+    % \begin{enumerate}
+    %     \item Suppose $\chi(X,\mc V\otimes\mc E)=0$ for all semistable $\mc E$ of rank $r$ and degree $d$. Then we claim that
+    %     \[\op{rank}R\op{pr}_{\mc S*}(\op{pr}_{X}^*\mc V\otimes\mc E_{\mathrm{univ}})=0.\]
+    %     For this, one does some computation, which I did not record in detail.
+    %     \item Letting $\pi\colon\mc M_X^{\mathrm{ss}}(r,d)\to M_X^{\mathrm{ss}}(r,d)$ be the projection, we claim that $\mc L_{\mc V}$ is the pullback of some unique line bundle $L_V$ on $M_X^{\mathrm{ss}}(r,d)$. For this, the point is to check that our automorphisms act trivially on the fibers of $\mc L_{\mc V}$ over every closed point of $\mc M_X^{\mathrm{ss}}(r,d)$. Well, closed points are polystable, so one can write out some computation.
+    %     \item For fixed $\mc E$ and generic $\mc V$, then $m$ large enough forces $H^0(X,\mc V\otimes\mc E)=0$. This is a very long and technical computation.
+    %     \item 
+    % \end{enumerate}
+\end{proof}
+
 \end{document}
