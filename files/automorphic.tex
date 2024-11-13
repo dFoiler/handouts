@@ -955,4 +955,69 @@ Thus, we have related nonarchimedean representation theory to complex representa
 	One can construct an inverse for this construction given by principal series!
 \end{remark}
 
+\section{November 13: Sam Goldberg}
+Today we have a sidequest talk about automorphic representations and quantum chaos.
+
+\subsection{Classical Chaos}
+Our motivation comes from physics. We have a Riemannian manifold $(M,g)$, which we will assume to be complete and a surface for ease. Then there is a ``geodesic flow'' $G$ on $T^*M$. Namely, for any position-velocity pair $(x,v)\in T^*M$, one has
+\[G^t(x,v)=(\gamma(t),\gamma'(t)),\]
+where $\gamma$ is a geodesic starting with $(x,v)$. Some computation shows that the unit cotangent (fiber) bundle $UT^*M$ is invariant under $G$.
+
+More specifically, today we will work Riemannian surfaces with constant curvature. Up to coverings, there are three of these: $\RR^2$ (which has $0$ curvature), $S^2$ (which has positive curvature), and $\HH^2$ (which has negative curvature). 
+\begin{remark}
+	Hyperbolic space kinda looks like a pringle chip. Sam does not want to draw a pringle chip.
+\end{remark}
+More precisely, any complete connected surface $M$ with constant curvature has one of $\RR^2$, $S^2$, or $\HH^2$ as a universal cover. In fact, we can see that the quotient map can be realized as a group quotient by some discrete subgroup of isometries.
+\begin{example}
+	The torus $T$ is a surface with constant curvature. It has universal cover $\RR^2\onto T$, and we can see we can realize $T$ as $\ZZ^2\backslash\RR^2$.
+\end{example}
+As such, we will be interested in dynamics on $\Gamma\backslash\HH^2$.
+\begin{theorem} \label{thm:classical-chaos}
+	Fix a connected hyperbolic surface $M$ of finite volume. Then the geodesic flow on $UT^*M$ is ergodic. For example, this implies that the geodesic flow applied to a point $(x,v)\in UT^*M$ equidistributes over $UT^*M$.
+\end{theorem}
+
+\subsection{Quantum Chaos}
+\Cref{thm:classical-chaos} is ``classical chaos.'' We would like a formulation in quantum mechanics. To do this mathematically, we begin with a $C^*$-algebra $\mc A$, which is a subalgebra of some bounded (i.e., continuous) operators on a Hilbert space, complete with respect to the norm and closed under the adjoint.
+\begin{example}
+	Bounded functions on a Hilbert space itself is a $C^*$-algebra.
+\end{example}
+\begin{example}
+	Complex continuous functions on a locally compact Hausdorff space $X$ make a $C^*$-alg\-ebra; adjoint becomes complex conjugation.
+\end{example}
+An observable in quantum mechanics amounts to functionals on our $C^*$-algebra $\mc A$, and a state should be a positive linear functional sending the identity of $\mc A$ to $1$, from which we get a probability by evaluating at the point. We further recover a notion of time evolution as automorphisms of $\mc A$.
+
+Concretely, revisiting our classical mechanics, the $C^*$-algebra will (roughly) be $L^2(M)$, where the measure is given by the Riemannian metric, and its states and observables are given by bounded continuous functions. And we have a time evolution given by some operator $e^{-it\Delta}$, where $\Delta$ is some generalization of the Laplacian to Riemannian manifolds. We would now like a notion of ``quantum ergodicity'' in this set-up.\footnote{This is predicted by the ``Bohr correspondence principle.''} Well, here is a theorem.
+\begin{theorem} \label{thm:quantum-chaos}
+	Fix a compact hyperbolic surface $\Gamma\backslash\HH$. Then the action of $\Delta$ on $L^2(\Gamma\backslash\Delta)$ as above has an orthonormal basis $\{\varphi_j\}_{j\in\NN}$ with discrete spectrum $\lambda_\bullet\to\infty$. Then we have a notion of equidistribution in the limit: for a bump function $\psi\in C^\infty(M)$, we have
+	\[\lim_{j\to\infty}\langle\psi\varphi_j,\varphi_j\rangle=\int_M\psi.\]
+\end{theorem}
+This was originally proven under the assumption that we can remove a natural density $0$ subset of ``exceptional'' eigenfunctions. To explain why this is hard, there is a geodesic on $\op{SL}_2(\ZZ)$ which more or less fails to equidistribute. %\todo{Why is exceptoinal helpful?}
+Here is some background, where much is known for arithmetic subgroups $\Gamma\subseteq\op{SL}_2(\ZZ)$.
+\begin{itemize}
+	\item Conditional under GRH, this was proven in 2002.
+	\item In the compact case, this was proven in 2006.
+	\item In the non-compact case, this was pveon in 2010.
+\end{itemize}
+% \begin{remark}
+% 	Let's give a physical interpretation of what's going on in the non-compact case. The cuspidal subspace of $L^2(\Gamma\backslash\HH)$ has a discrete spectrum. 
+% \end{remark}
+
+\subsection{Automorphic Forms}
+Automorphic forms will come from studying $\op{SL}_2(\ZZ)\backslash\HH$. We are hoping to understand eigenfunctions on this space. Number theory allows us to bring in the adeles: there is a homeomorphism
+\[\op{SL}_2(\ZZ)\backslash\HH\cong Z(\op{GL}_2(\AA_\QQ))\op{GL}_2(\QQ)\backslash\op{GL}_2(\AA_\QQ)/K,\]
+where $K\subseteq\op{GL}_2(\AA_\QQ)$ is some maximal compact subgroup.
+
+In higher dimensions, we recall $\op{GL}_n(\AA_\QQ)$ is locally compact, so it admits a Haar measure, so we get a space $L^2(\op{GL}_n(\AA_\QQ))$. Being careful about a quotient, we even get
+\[L^2\big(Z(\op{GL}_n(\AA_\QQ))\op{GL}_n(\QQ)\backslash\op{GL}_n(\AA_\QQ)\big).\]
+For us, our automorphic representations will be seen as irreducible unitary subrepresentations of the above space. For brevity, set $[G]\coloneqq Z(\op{GL}_n(\AA_\QQ))\op{GL}_n(\QQ)\backslash\op{GL}_n(\AA_\QQ)$. One finds that $L^2([G])$ decompses into the following pieces.
+\begin{itemize}
+	\item There are cuspidal and residual parts, which are completely reducible.
+	\item Then there is a continuous spectrum which (for example) includes Eisenstein series.
+\end{itemize}
+To recover ``classical'' modular forms, we note that we have an action by $\op{GL}_2(\RR)$, so we get a $(\mf g,K)$-module where $\mf g=\op{gl}_2(\RR)_\CC$ and $K=\op{SO}_2(\RR)$. We can further decompose this via the diagonalizable actions of $Z(U\mf g)$ and $K$ and the Hecke algebra, which eventually produces a classical automorphic form. Anyway, it will turn out that all these pieces will be able to produce an eigenbasis for our Laplacian $\Delta$.
+\begin{remark}
+	This decomposition was much earlier known to Selberg in the case of $\op{SL}_2(\ZZ)\backslash\HH$. This is notable because it allows us to prove something like Parseval's theorem for the non-compact space $\op{SL}_2(\ZZ)\backslash\HH$.
+\end{remark}
+The point is that one is able to use these sorts of decompositions (and in particular our Parseval's identity) to prove \Cref{thm:quantum-chaos} in our case.
+
 \end{document}
