@@ -1020,4 +1020,93 @@ To recover ``classical'' modular forms, we note that we have an action by $\op{G
 \end{remark}
 The point is that one is able to use these sorts of decompositions (and in particular our Parseval's identity) to prove \Cref{thm:quantum-chaos} in our case.
 
+\section{November 20: Sai Sanjeev Balakrishnan}
+Today we define an automorphic form.
+
+\subsection{Our Definitions}
+For today, $F$ is a number field; there are definitions for general global fields, but there are a few caveats. Here is our definition.
+\begin{definition}[automorphic form]
+	Fix an affine algeraic group $G$ over $F$. A function $\varphi\colon G(\AA_F)\to\CC$ is an \textit{automorphic form} if and only if it satisfies the following conditions.
+	\begin{listalph}
+		\item $\varphi$ is smooth.
+		\item $\varphi$ had moderate growth.
+		\item $\varphi$ is $G(F)$-invariant.
+		\item $\varphi$ is $K$-finite, where $K\subseteq G(\AA_F)$ is some subgroup factoring into $K_\infty\subseteq G(F_\infty)$ as a maximal compact subgroup, and $K^\infty\subseteq G(\AA_F^\infty)$ is compact open.
+		\item $\varphi$ is $Z(\mf g)$-finite.
+	\end{listalph}
+\end{definition}
+\begin{remark}
+	If it turns out that $\int_[N]\varphi(ng)\,dg=0$ for any unipotent radical $N$ of a parabolic subgroup $P$ of $G$, then the automorphic form is called cuspidal. Here, $[N]=N(F)\backslash N(\AA_F)$.
+\end{remark}
+\begin{remark}
+	It turns out that the choice of $K$ does not matter. The point is that $K$-finiteness is equivalent to being $K'$-invariant for some other subgroup $K'$. Thus, it is enough to note that the infinite part $K_\infty$ is unique up to conjugacy, and $K^\infty$ is well-understood as a subgroup of the finite part of the adeles (for example, frequently being hyperspecial).
+\end{remark}
+We will go through the various properties in an example: we will take $G=\op{GL}_2$ and $F=\QQ$. Consider a modular form $f\in S_k(N)$ for some weight $k$ and level $N$. To relate this to a function on $\op{GL}_2(\AA_F)$, we must do a little work. Define the subgroup
+\[\Gamma_0(N)\coloneqq\left\{\begin{bmatrix}
+	a & b \\ c & d
+\end{bmatrix}:c\equiv0\pmod N\right\}\]
+if $\op{GL}_2(\ZZ)$. Then one can define $K_0(N)_p$ as the corresponding subgroup of $\ZZ_p$, and we define $K_0(N)\subseteq\op{GL}_2(\AA_F)$ as the product over all $p$s.
+
+Now, by strong approximation, one has an isoorphism
+\[\HH/\Gamma_0(N)\cong\op O_2(\RR)\backslash\op{GL}_2(\RR)/\Gamma_0(N)\cong\Gamma_0(\op{GL}_2(\AA_\QQ)/K_0(N).\]
+As such, we will define $\varphi_f$ on $\op{GL}_2(\AA_F)$ as $f(g_\infty i)j(g_\infty i)^{-k}$, where $g_\infty$ is some matrix in $\op{GL}_2(\RR)$, and $j$ is the automorphy factor seen in modular forms.
+
+Let's now go through our definitions to check on $\varphi_f$.
+\begin{listalph}
+	\item To check that $\varphi$ is smooth, one remembers that we have a decomposition
+	\[C^\infty(G(\AA_F))=C^\infty(G(F_\infty))\otimes C^\infty(G(\AA_F^\infty)).\]
+	As such, we may view $\varphi$ as a function on pairs $(g_\infty,g^\infty)$, where $g_\infty$ is the infinite part, and $g^\infty$ is the finite part. Smoothness requires that $\varphi(g_\infty,\cdot)$ (as a function in the finite part $g^\infty$) to be locally constant and that $\varphi(\cdot,g^\infty)$ (as a function in the infinite part $g_\infty$) to be smooth in the usual analytic sense.
+
+	One checks this for $\varphi_f$ directly from its definition given above: the level provides locally constant in the finite part, and the definition is of course smooth in the infinite part.
+
+	\item To check that $\varphi$ has moderate growth, we give an embedding $\iota\colon G\to\op{GL}_n$ for some $n$, which then gives an embedding into $\op{SL}_{2n}$ via $g\mapsto\left(h,h^{-1}\right)$. Thus, for $g\in G(F_v)$, we can define $\norm g_v$ as the supremum norm of the element in $\op{SL}_{2n}(F_v)$, and we define the norm $\norm g$ for $g\in G(\AA_F)$ by taking the product of the local norms, which we note is finite because the product will only have finitely many terms not equal to $1$ by the integrality of the adeles. Moderate growth now asserts that
+	\[\left|\varphi(g)\right|\le C\norm g^R\]
+	for some $C$ and $R$. (One can check that this does not depend on the choice of embedding.)
+
+	For $\varphi_f$, one must recall the bound on modular forms given by
+	\[\left|y^{k/2}f(x+iy)\right|<C\]
+	for some $C>0$.
+
+	\item Left invariance by $G(F)$ is self-explanatory. One checks this for $\varphi_f$ by construction because we lifted the function on $\op{GL}_2(\RR)^+$ to $\op{GL}_2(\AA_F)$ by having a quotient on the left by $\op{GL}_2(\QQ)$.
+
+	\item Being $K$-finite is equivalent to asserting that the functions $k\varphi\in G(\AA_F)$ defined by $(k\varphi)(g)\coloneqq\varphi(gk)$ spans a finite-dimensional vector space over $\CC$.
+
+	In our example, our function $\varphi_f$ is invariant on $K_\infty=\op{SO}_2(\RR)$ by its construction, and we have taken a quotient by $\op{GL}_2(\QQ)$, so we will be fully invariant by $\op O_2(\RR)$. Also, it is invariant on $K_0(N)$ again by construction of the modular form and the automorphy factor. The $K$-finiteness follows.
+
+	\item For $Z\mf g$-finiteness, we begin by definining $\mf g_v$ as the Lie algebra of $\op{Res}_{F_v/\RR}G_{F_v}$ for each infinite place $v$, and then we set $\mf g_\infty\coloneqq\prod_{v\mid\infty}\mf g_v$. Then
+	\[Z\mf g\coloneqq Z(U(\mf g_\infty)_\CC),\]
+	and we are asking for finiteness exactly as in (d): the action of $Z(U\mf g_\CC)$ on $\varphi$ spans a finite-dimensional vector space over $\CC$. Let's recall what this aciton is: note that we have an action of $X\in\mf g$ on $\varphi$ in the usual way by
+	\[(X\varphi)(g)\coloneqq\lim_{t\to0}\frac{(\exp(tX)\varphi-\varphi)(g)}t.\]
+	It turns out that $K$-finiteness promises that $X\varphi$ exists, and in fact one check that it is an automorphic form.
+
+	In our example, we have $\mf g=\mf{gl}_2(\RR)$, and then we want to compute $Z(\mf{gl}_2(\CC))$, which turns out to be the $\CC$-algebra generated by $1_2$ and the Casimir element $C\coloneqq H^2+2RL+2LR$ (in $U\mf g$!), where $H\coloneqq-i\begin{bsmallmatrix}
+		& 1 \\ -1
+	\end{bsmallmatrix}$ and $L\coloneqq\frac12\begin{bsmallmatrix}
+		1 & -i \\ -i & -1
+	\end{bsmallmatrix}$ and $R\coloneqq\frac12\begin{bsmallmatrix}
+		i & i \\ i & -1
+	\end{bsmallmatrix}$. One can explicitly write down the action of these elements on $f$, which turns into some differential operators. In particular, it is enough to note that
+	\[C\cdot\varphi_f=\frac k2\left(1-\frac k2\right)\varphi_f.\]
+	In particular, we must use the holomorphicity of $f$ in order to do some of these computations, and the weight needs to appear somewhere in life in order to get the above.
+
+	\item Let's check that a cuspidal modular form produces a cuspidal automorphic form. It is enough to check this result for parabolic subgroups containing a fixed minimal parabolic subgroup because parabolic subgroups always contain a conjugate of the given fixed minimal parabolic subgroup.
+	
+	In our example, let's suppose for simplicity that we are in level $1$ so that we only have one cusp. In this case, we may take our minimal parabolic subgroup to be the Borel subgroup of upper-triangular matrices, which we note is also already maximal. Thus, we only have to work with the unipotent radical of matrices of the form $\begin{bsmallmatrix}
+		1 & * \\ & 1
+	\end{bsmallmatrix}$. As such, we are interested in computing
+	\begin{align*}
+		\int_{N(\QQ)\backslash N(\AA_\QQ)}\varphi_f(ng)\,dn &= \int_0^1\int_{\widehat\ZZ}\varphi_f\left(\left(\begin{bmatrix}
+			1 & t \\ & 1
+		\end{bmatrix}n'\right)g\right)\,dn'\,dt \\
+		&= \int_0^1f\left(\begin{bmatrix}
+			1 & t \\ & 1
+		\end{bmatrix}g_\infty i\right)j(g_\infty,-i)^{-k}\,dt,
+	\end{align*}
+	where $j$ is the automorphy factor.
+\end{listalph}
+With the time we have left, let's define an automorphic representation.
+\begin{definition}
+	Recall that there is an action of $(\mf g_\infty,K_\infty)\times G(\AA_F^\infty)$ action on the space of automorphic forms $\mc A$. An \textit{automorphic representation} is an irreducible admissible module over $(\mf g_\infty,K_\infty)\times G(\AA_F^\infty)$ which is isomorphic to a subquotient of $\mc A$.
+\end{definition}
+
 \end{document}
