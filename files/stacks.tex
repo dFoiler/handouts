@@ -293,4 +293,58 @@ Our main theorem is as follows.
     % \end{enumerate}
 \end{proof}
 
+\section{November 22: Joseph Stahl}
+Today we are resolving singularities on stacks. Throughout, we work over a field $k$ of characteristic $0$.
+
+\subsection{The Main Theorem}
+Here is our main theorem. Intuitively, it is a stacky form of resolution of singularities.
+\begin{theorem}
+    Let $\mc Y$ be a smooth toroidal Artin stack over a field $k$, and let $\mc X\subseteq\mc Y$ be a reduced, generically toroidal, closed substack. Then there exists a canoncail sequence of multi-weighted blow-ups
+    \[\mc Y_N\stackrel{\pi_N}\to\mc Y_{n-1}\to\cdots\to\mc Y_1\stackrel{\pi_1}\to\mc Y_0=\mc Y\]
+    with proper transforms $\mc X_i\subseteq\mc Y_i$ of $\mc X$ satisfying the following conditions.
+    \begin{listalph}
+        \item $\mc X_N$ is a smooth toroidal Artin stack over $k$.
+        \item The composite $\Pi$ is an isomorphism over the log smooth subset of $\mc X$.
+        \item The inverse image of the complement of the log smooth subset of $\mc X$ is a simple normal crossing divisor of $\mc X_N$.
+        \item Each $\pi_i$ is birational, surjeective, and universally closed. These $\pi_i$ also factor through some $Y_i$, where $\mc Y_i\to Y_i$ is a good moduli space.
+    \end{listalph}
+    Moreover, the construction sending the pair $\mc X\subseteq\mc Y$ to the sequence of blow-ups is functorial.
+\end{theorem}
+\begin{remark}
+    One can recover a scheme-theoretic resolution of singularties by de-stackifying the construction at the end.
+\end{remark}
+This statement requires some explanation, such as ``toroidal'' and ``multi-weighted blow-ups.'' For example, being toroidal adds the extra structure of a simple normal crossing divisor on $\mc Y$ (such as the empty divisor). Being generically toroidal requires something like being dense open with respect to this divisor.
+
+Roughly speaking, the idea is to ireatively blow up the $\mc Y_\bullet$s along the worst singular locus of $\mc X_i$. Here is an example of this process.
+\begin{example}
+    Let $X\subseteq\AA^3$ be the Whitney umbrella cut out by $x^2-y^2z$. It is singular along the $x$-axis, but the origin is the wost singularity. Thus, we begin by blowing up at the origin via $\pi\colon\op{Bl}_0\AA^3\to\AA^3$. The one finds that $\pi^{-1}(X\setminus\{0\})$ is $x^2-y^2z=z^2\left(t^2-u^2z\right)$ (where $[t:u:v]$ are the coordinates of the $\PP^2$ at the origin), so we still have the same kind of singularity!
+\end{example}
+To fix this, we need to not just do regular blow-ups but multi-weighted blow-ups.
+
+A key ingredient in the proof is a certain way to measure how bad a singularity is. This is a local invariant, so the ambient smoothness allows us to merely define this in the case that $\mc Y=Y$ and $\mc X=X$ are schemes. Now, given a point $p\in Y$, we will define $\op{inv}_p(X\subseteq Y)$ as a finite sequence of nondecreasing rational numbers (possibly empty or including $\infty$) that satisfies the following.
+\begin{listalph}
+    \item The values of $\op{inv}$ are well-ordered (lexicographically).
+    \item If $X=Y$, then $\op{inv}_p(X\subseteq Y)$ is empty.
+    \item Having $\op{inv}_p(X\subseteq Y)=\{0\}$ if and only if $p\notin X$.
+    \item For $p\in X$, one has $\op{inv}_p(X\subseteq Y)\ge(1,\ldots,1)$, where the number of $1$s is the codimension of $X$ contained in $Y$; equality holds if and only if $X$ is smooth and toroidal at $p$.
+    \item The first entry of $\op{inv}_p(X\subseteq Y)$ is the ``log'' order of the ideal $I$ defining $X$ in $Y$ at $p$. This ``log'' order is somehow analogous to a valuation.
+    \item $\op{inv}$ is upper semi-continuous on $Y$. In other words, this function is allowed to jump up on closed subsets.
+    \item There is some functoriality.
+\end{listalph}
+Now, the main theorem follows from iteratively applying the following claim.
+\begin{theorem}
+    Fix $\mc X\subseteq Y$ as before, and suppose that $\mc X$ is singular. Then there is a multi-weighted blow-up $\pi\colon\mc Y'\to\mc Y$ with proper transform $\mc X'\subseteq\mc Y'$ of $\mc X\subseteq\mc Y$ satisfying the following.
+    \begin{listalph}
+        \item $\mc Y'$ is a smooth toroidal Artin stack over $k$.
+        \item The maximum of $\op{inv}_p(\mc X'\subseteq\mc Y')$ is strictly smaller than the maximum of $\op{inv}_p(\mc X\subseteq\mc Y)$.
+        \item $\pi$ is an isomorphism away from the closed subset of $p\in Y$ such that $\op{inv}_p(\mc X\subseteq\mc Y)$ equals the maximum.
+    \end{listalph}
+\end{theorem}
+\begin{remark}
+    We are requiring that $\mc X$ be singular so that it is possible for the invariant to get strictly smaller.
+\end{remark}
+
+\subsection{Multi-Weighted Blow-Ups}
+For the last quarter of the talk, the speaker gave an example where $X\subseteq\AA^3$ is cut out by $x^2+y^2z+z^3=0$; the toroidal structure is given by the divisor cut out by $yz=0$. It turns out that the worst singularity is at $\left(x^2,y^2z,z^3\right)$; roughly speaking, the point is to take the monomials which appear in our equation. Then there is some recipe using the theory of toric varieties to produce a multi-weighted blow-up.
+
 \end{document}
