@@ -1,0 +1,111 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+
+\newcommand{\nirpdftitle}{Algebra and Number Theory Day}
+\usepackage{import}
+\inputfrom{../../notes}{nir}
+% \usepackage[backend=biber,
+%     style=alphabetic,
+%     sorting=ynt
+% ]{biblatex}
+% \addbibresource{bib.bib}
+\setcounter{tocdepth}{2}
+
+\pagestyle{contentpage}
+
+\title{Algebra and Number Theory Day}
+\author{Nir Elber}
+\date{23 November 2024}
+\usepackage{graphicx}
+\lhead{}
+\rhead{\textit{ALGEBRA AND NT DAY}}
+
+\begin{document}
+
+\maketitle
+
+\tableofcontents
+
+\section{Laura DeMarco: From Manin--Mumford to Dynamical Rigidity}
+I missed the first talk because my flight into Baltimore was delayed. Let's formulate our conjecture. It is supposed to contain as special cases a ``uniform'' Manin--Mumford conjecture bounding torsion points on Jacobians and dynamical rigidity on $\PP^1$.
+\begin{conj}
+	Let $V$ be a smooth quasiprojective algebraic variety over $\CC$, and let $F\colon V\times\PP^N\to V\times\PP^N$ be a family of endomorphisms of $\PP^N$ given by
+	\[F(v,z)\coloneqq(v,f_v(z)).\]
+	Then there exists an invariant $(1,1)$ current $\hat T_f$ given by pulling back the Fubini--Study metric on $\PP^N$ iterated along the currents of $F$ as $\lim\frac1{d^n}(F^n)^*\omega$. Given a family of subvarieties $\mc X\subseteq V\times\PP^N$ (over $V$), the following are equivalent.
+	\begin{listalph}
+		\item The $F$-preperiodic points in $\mc X$ are Zariski desnse in $\mc X$.
+		\item The current $\hat T_F^{\land r(F,\mc X)}|_{\mc X}$ is nonzero, where $r(F,\mc X)$ is the smallest relative dimension (over $V$) of some family of invariant subvarieties $\mc X\subseteq\mc Y\subseteq V\times\PP^N$.
+	\end{listalph}
+\end{conj}
+\begin{remark}
+	The current $\hat T_f$ is desirable because it vanishes along the (pre)periodic subvarieties
+	\[\{(v,z):F^n(v,z)=(v,z)\}\]
+	as $n\ge0$ varies. This more or less explains why we have defined a reasonable gluing of the currents $T_f$.
+\end{remark}
+\begin{remark}
+	In the typical case, one has $r(F,\mc X)=N$. The reason we need an $r(F,\mc X)$ is that sometimes we may find our $\mc X$ trapped in a smaller dimension.
+\end{remark}
+\begin{remark}
+	Here are some notable special cases.
+	\begin{itemize}
+		\item One can allow $V$ to be a point.
+		\item Our $\mc X$ can live inside a family of abelian varieties.
+		\item We can allow $F$ to be a constant family of maps.
+	\end{itemize}
+\end{remark}
+\begin{example}
+	In the case where $V$ is a point and $X$ is contained in an abelian variety $A$ and $F$ is multiplication by $2$, then we recover the Manin--Mumford conjecture. Here, $F$-preperiodic points are torsion points, which Manin--Mumford asserts is equivalent to being a translate of a subgroup. But now (b) of the conjecture implies $\dim\mc X\ge r(F,\mc X)$, from which one can conclude because invariant subvarieties are translates of subgroups!
+\end{example}
+\begin{example}
+	In the case where $\mc X$ is contained a family of abelian varieties $\mc A$, and $F$ restricts to a family of endomorphisms on $\mc A$, then this is known as the relative Manin--Mumford conjecture and due to Gao and Habegger. This generalizes the Manin--Mumford conjecture.
+\end{example}
+\begin{remark}
+	It is known that (b) implies (a). For the general case, this is hard. For the abelian varieties setting, this is relatively easy.
+\end{remark}
+\begin{example}
+	Suppose $r(F,\mc X)=N$, which is the generic case. If $\dim\mc X\ge N$, one expects that $\mc X$ should have lots of intersections with the (pre)periodic subvarieties of $V\times\PP^N$, which have codimension $N$. This is not quite good enough because $\mc X$ could ``follow along'' some of these subvarieties. The condition that $\hat T_F^{\land r(F,\mc X)}|_{\mc X}\ne0$ roughly promises that $\mc X$ intersects transversally.
+\end{example}
+\begin{remark}
+	Let's say something about how this relates to number theory. Consider the case where $V$ is a point so that we are looking at a single map $f\colon\PP^N\to\PP^N$ of degree $d$. Suppose that everything in sight is defined over $\overline\QQ$. Call and Silverman defiend a canonical height of $\hat h_f\colon\PP^N(\overline\QQ)\to\RR_{\ge0}$ as follows: starting with a standard (logarithmic) Weil height $h$, we define
+	\[\hat h_f(x)\coloneqq\lim_{n\to\infty}\frac1{d^n}h\left(f^{\circ n}(x)\right),\]
+	which is comparable to the original height $h$. In fact, one finds that $\hat h_f(x)=0$ if and only if $x$ is preperiodic. This defintion generalizes the N\'eron--Tate (canonical) height. One can relate this to part (b) of the conjecture because $\hat h_f$ will decompose locally, and the archimedean component relates to the current $\hat T_f$.
+\end{remark}
+
+\section{Sasha Petrov: Characteristic classes of \texorpdfstring{$p$}{p}-adic local systems}
+Let's begin by telling a story in differential geometry. Consider a topological space $M$ which is locally contractible, such as a manifold. For example, one could be interested in the cohomology and the homotopy groups. There is a notable property that $\op{Hom}(\pi_1(M),\ZZ)=H^1(M,\ZZ)$, but in general there is not so much more one can do to relate these invariants.
+
+Nonetheless, perhaps we are interested in studying $\pi_1(M)$, which we will do by studying its representations $\rho\colon\pi_1(M)\to\op{GL}_n(\CC)$, which are found to be local systems $\mathbb L_\rho$ on $M$.
+\begin{definition}[local system]
+	A \textit{local system} $\mathbb L$ on $M$ is a sheaf of $\CC$-vector spaces on $M$ (of fixed rank), which is locally isomorphic to the constant sheaf.
+\end{definition}
+The idea is that loops in $M$ produce automorphisms between trivializing charts of a local system. In order to bring cohomology back into our story, we introduce characteristic classes.
+\begin{example}
+	A complex vector bundle $E$ on $M$ has Chern classes $c_i(E)\in H^{2i}(M,\ZZ)$. In the case that $E$ is a line bundle, only $c_1(E)$ is interesting. To define this map, we note that there is a short exact sequence
+	\[0\to\underline{\ZZ}\to\OO_M\to\OO_M^\times\to0,\]
+	so it is enough to note that a line bundle amounts to an element of $H^1(M,\OO_M^\times)$ (because a line bundle is a $\mathbb G_m$-torsor), and $c_1(E)$ is then the induced element in $H^2(M,\ZZ)$.
+\end{example}
+We would now like to understand the characteristic class of a local system $\mathbb L$, which we do by consider the vector bundle $\mathbb L\otimes_\CC\OO_M$. The idea is that $\mathbb L$ is made of some transition maps, and we can use the exact same transition maps to define a vector bundle.
+\begin{example}
+	Suppose $M=BG$ for some finite group $G$, meaning that $\pi_1(M)=G$ but the higher homotopy groups vanish; one finds that $H^{2i}(M,\ZZ)=H^{2i}(G,\ZZ)$. Then a complex representation $\rho$ of $\pi_1(M)$ amounts to a complex representation $\rho$ of $G$, and it turns out that the characteristic classes $c_\bullet(\mathbb L_\rho\otimes\OO_M)$ (together with the rank) form a complete collection of invariants.
+\end{example}
+\begin{example}
+	Suppose $M$ is a finite CW-complex. Then it turns out that $c_i(\mathbb L\otimes\OO_M)\in H^{2i}(M,\ZZ)$ is torsion for any local system $\mathbb L$ and any $i>0$. Here's one way to see this in the case that $M$ is a manifold: it is enough to check that $c_i(\mathbb L\otimes\OO_M)$ vanishes in $H^{2i}(M,\CC)$, but this vector bundle has a flat connection induced by the local system, and one can use analytic theory of Chern--Weil theory to show that our class vanishes in $H^{2i}(M,\CC)$.
+\end{example}
+This last example is a bit disheartening, but it suggests that we should actually be looking at the induced class in $H^{2i-1}(M,\CC/\ZZ)$, and it turns out that there is a canonical way to choose a ``Cherns--Simons'' class $\hat c_i(\mathbb L)\in H^{2i-1}(M,\CC/\ZZ)$ going down to $c_i(\mathbb L\otimes\OO_M)$.
+\begin{example}
+	Given a representation $\rho\colon\pi_1(M)\to\op{GL}_1(\CC)$, one finds that $\hat c_1(\mathbb L_\rho)\in H^1(M,\CC/\ZZ)$ is simply the determinant class in $H^1(M,\CC^\times)$, where we identify $\CC/\ZZ$ with $\CC^\times$ via the exponential map.
+\end{example}
+Let's describe these classes $\hat c$ more explicitly. Given a representation $\rho\colon\pi_1(M)\to\op{GL}_n(\CC)$, the point is that one finds a class $\hat c_i\in H^{2i-1}(\op{GL}_n(\CC),\CC/\ZZ)$ (where $\op{GL}_n(\CC)$ is given the discrete topology!) such that the composite
+\[H^{2i-1}(\op{GL}_n(\CC),\CC/\ZZ)\stackrel\rho\to H^{2i-1}(\pi_1(M),\CC/\ZZ)\to H^{2i-1}(M,\CC/\ZZ)\]
+which produces $\hat c_i(\mathbb L_\rho)$ for each $\rho$.
+\begin{example}
+	Let $M=\HH^3/\Gamma$ be an orientable compact hyperbolic manifold. Then $\Gamma=\pi_1(M)$, and the embedding $\Gamma\subseteq\op{Isom}(\HH^3)$ induces a canonical representation $\rho\colon\pi_1(M)\to\op{PGL}_2(\CC)$. Then it turns out that $\hat c_2(\mathbb L_\rho)\in H^3(M,\CC/\ZZ)$ is actually just outputting a number in $\CC/\ZZ$. The imaginary part remembers the volume
+\end{example}
+In classical algebraic geometry, one has the following.
+\begin{theorem}[Reznikov]
+	Fix a smooth projective algebraic variety $X$ over $\CC$. Then all local systems $\mathbb L$ over $X(\CC)$ make $\hat c_i(\mathbb L)\in H^{2i-1}(\CC/\ZZ)$ is torsio for all $i>1$.
+\end{theorem}
+
+\subsection{Arithmetic Analogues}
+
+\end{document}
