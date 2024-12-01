@@ -1,0 +1,1041 @@
+% !TEX root = ../thesis.tex
+
+\documentclass[../thesis.tex]{subfiles}
+
+\begin{document}
+
+\chapter{A Little Hodge Theory}
+
+\epigraph{Once we explicitely know a Mumford-Tate group, we can let it work for us.}
+{---Moonen, \cite[(5.5)]{moonen-mumford-tate-intro}}
+
+In this chapter, we define the notion of a Hodge structure as well as some related groups (the Mumford--Tate group and the Hodge group). Our exposition follows Moonen's unpublished notes \cite{moonen-mumford-tate-intro,moonen-mumford-tate} and Lombardo's master's thesis \cite[Chapter~3]{lombardo-mumford-tate}. Throughout, we find motivation from geometry (and in particular the cohomology of complex varieties), but this discussion is not technically necessary.
+
+\section{Hodge Structures}
+Cohomology of a variety frequently comes with some extra structure. On the \'etale site, we will later get significant utility of the fact that \'etale cohomology is a Galois representaion. On the analytic site, the corresponding structure is called a ``Hodge structure.''
+
+\subsection{Definition and Basic Properties}
+Here is our defintion.
+% The previous subsection mentioned that the cohomology $H^\bullet(X,\CC)$ of a complex projective variety $X$ admits a ``Hodge structure'' meaning that one has a decomposition
+% \[H^n(X,\CC)\cong\bigoplus_{p+q=n}H^{p,q}\]
+% where $H^{p,q}=\ov{H^{q,p}}$. What is interesting about this situation is that we begin with a $\QQ$-vector space $H^n(X,\CC)$, which then inherits the above decomposition only after base-change to $\CC$. This structure is what makes our complex-analytic cohomology interesting, so we give it a name.
+\begin{definition}[Hodge structure]
+	A \textit{$\QQ$-Hodge structure} is a finite-dimensional vector space $V\in\op{Vec}_\QQ$ such that $V_\CC$ admits a decomposition
+	\[V_\CC=\bigoplus_{p,q\in\ZZ}V^{p,q}_\CC\]
+	where $V^{p,q}_\CC=\ov{V^{q,p}_\CC}$. For fixed $m\in\ZZ$, if $V^{p,q}_\CC\ne0$ unless $p+q=m$, we say that $V$ is \textit{pure of weight $m$}. We let $\op{HS}_\QQ$ denote the category of $\QQ$-Hodge structures, where a morphism of Hodge structures is a linear map preserving the decomposition over $\CC$. In the sequel, it may be helpful to note that one can bring this definition down to $\ZZ$ as well.
+\end{definition}
+\begin{example}
+	We give the ``Tate twist'' $\QQ(1)\coloneqq2\pi i\QQ$ a Hodge structure of weight $-2$ where the only nonzero entry is $\QQ(1)^{-1,-1}=\QQ(1)$.
+\end{example}
+\begin{example}
+	Given a complex projective smooth variety $X$, the Betti cohomology $\mathrm H^n_{\mathrm B}(X,\QQ)$ admits a Hodge structure via the comparison isomorphisms: we find that
+	\[\mathrm H^n_{\mathrm B}(X,\CC)\simeq\bigoplus_{p+q=n}\mathrm H^{p,q}(X),\]
+	where $\mathrm H^{p,q}(X)\coloneqq\mathrm H^q(X,\Omega_{X/\CC}^p)$. (For technical reasons, one wants to say that $\mathrm H^n_{\mathrm B}(X,\QQ)$ has weight $-n$.) This construction is even functorial: a morphism of complex projective smooth varieties $\varphi\colon X\to Y$ induces a morphism of Hodge structures $\varphi^*\colon\mathrm H^n_{\mathrm B}(Y,\QQ)\to\mathrm H^n_{\mathrm B}(X,\QQ)$.
+\end{example}
+% The category $\op{HS}_\QQ$ becomes a faithful rigid tensor abelian subcategory of $\op{Vec}_\QQ$, where the forgetful functor is able to act as a fiber functor. As such, Tannakian formalismso we expect $\op{HS}_\QQ$ should arise from representations of some group. Let's explain how this is done.
+Perhaps one would like to check that the category $\mathrm{HS}_\QQ$ is abelian. The quickest way to do this is to realize $\mathrm{HS}_\QQ$ as a category of representations of some group. The relevant group is the Deligne torus.
+\begin{notation}[Deligne torus]
+	Let $\mathbb S\coloneqq\op{Res}_{\CC/\RR}\mathbb G_{m,\CC}$ denote the Deligne torus. We also let $w\colon\mathbb G_{m,\RR}\to\mathbb S$ denote the \textit{weight cocharacter} given by $w(r)\coloneqq r\in\CC$ on $\RR$-points.
+\end{notation}
+\begin{remark} \label{rem:concrete-deligne-torus}
+	One can realize $\mathbb S$ more concretely as
+	\[\mathbb S(R)=\left\{\begin{bmatrix}
+		a & b \\ -b & a
+	\end{bmatrix}\in{\op{GL}_2(R)}:a^2+b^2\in R^\times\right\},\]
+	where $R$ is an $\mathbb R$-algebra. Indeed, there is a ring isomorphism from $R\otimes_\RR\CC$ to $\left\{\begin{bsmallmatrix}
+		a & b \\ -b & a
+	\end{bsmallmatrix}:a,b\in R\right\}$ by sending $1\otimes1\mapsto\begin{bsmallmatrix}
+		1 \\ & 1
+	\end{bsmallmatrix}$ and $1\otimes i\mapsto\begin{bsmallmatrix}
+		1 \\ & -1
+	\end{bsmallmatrix}$. For example, one can define two characters $z,\ov z\colon\mathbb S_\CC\to\mathbb G_{m,\CC}$ given by $z\colon\begin{bsmallmatrix}
+		a & b \\ -b & a
+	\end{bsmallmatrix}\mapsto a+bi$ and $\ov z\colon\begin{bsmallmatrix}
+		a & b \\ -b & a
+	\end{bsmallmatrix}\mapsto a-bi$ so that $(z,\ov z)$ is an isomorphism $\mathbb S_\CC\to\mathbb G_{m,\CC}^2$. Thus, the character group $X^*(\mathbb S)$ is a free $\ZZ$-module of rank $2$ with basis $\{z,\ov z\}$, and the action of complex conjugation $\iota\in\op{Gal}(\CC/\RR)$ simply swaps $z$ and $\ov z$.
+\end{remark}
+\begin{example}
+	The following cocharacters of $\mathbb S$ will be helpful.
+	\begin{itemize}
+		\item We define the \textit{weight cocharacter} $w\colon\mathbb G_{m,\RR}\to\mathbb S$ given by $w(r)\coloneqq r\in\CC$ on $\RR$-points.
+		\item We define $\mu\colon\mathbb G_{m,\CC}\to\mathbb S_\CC$ given by $\mu(z)\coloneqq(z,1)$ on $\CC$-points.
+	\end{itemize}
+\end{example}
+Here is the relevance of $\mathbb S$ to Hodge structures.
+\begin{lemma} \label{lem:hodge-by-s}
+	Fix some $V\in\op{Vec}_\QQ$. Then a Hodge structure on $V$ has equivalent data to a representation $h\colon\mathbb S\to\op{GL}(V)_\RR$.
+\end{lemma}
+\begin{proof}
+	\Cref{rem:concrete-deligne-torus} informs us that the character group $X^*(\mathbb S)$ of group homomorphisms $\mathbb S\to\mathbb G_m$ is a rank-$2$ free $\ZZ$-module generated by $z\colon\begin{bsmallmatrix}
+		a & b \\ -b & a
+	\end{bsmallmatrix}\mapsto a+bi$ and $\ov z\colon\begin{bsmallmatrix}
+		a & b \\ -b & a
+	\end{bsmallmatrix}\mapsto a-bi$ on $\CC$-points.\footnote{Alternatively, note one has an isomorphism $(\CC\otimes_\RR\CC)^\times\cong\CC^\times\times\CC^\times$ by sending $(z,w)\mapsto z\otimes w$. Then these two characters are $(z,w)\mapsto z$ and $(z,w)\mapsto w$.} Without too many details, upon passing to the Hopf algebra, one is essentially looking for units in $\RR\left[a,b,\left(a^2+b^2\right)^{-1}\right]$, of which there are not many. Note that there is a Galois action by $\op{Gal}(\CC/\RR)$ on these two characters $\{z,\ov z\}$, given by swapping them. Let $\iota\in\op{Gal}(\CC/\RR)$ denote complex conjugation, for brevity.
+
+	Now, a representation $h\colon\mathbb S\to\op{GL}(V)_\RR$ must have $V_\CC$ decompose into eigenspaces according to the characters $X^*(\mathbb S)$, so one admits a decomposition
+	\[V_\CC=\bigoplus_{\chi\in X^*(\mathbb S)}V_\CC^\chi.\]
+	However, one also needs $V_\CC^{\iota\chi}=\ov{V_\CC^\chi}$ because $\iota$ swaps $\{\chi,\iota\chi\}$. By Galois descent, this is enough data to (conversely) define a representation $h\colon\mathbb S\to\op{Gal}(V)_\RR$.
+
+	To relate the previous paragraph to Hodge structures, we recall that $X^*(\mathbb S)$ is a rank-$2$ free $\ZZ$-module, so write $\chi_{p,q}\coloneqq z^{-p}\ov z^{-q}$ so that $\iota\chi_{p,q}=\chi_{q,p}$. Setting $V_\CC^{p,q}\coloneqq V_\CC^{\chi_{p,q}}$ now explains how to relate the previous paragraph to a Hodge structure, as desired.
+\end{proof}
+\begin{remark}
+	The weight of a Hodge structure on some $V\in\op{HS}_\QQ$ can be read off of $h$ as follows: note the weight cocharacter $h\circ w$ equals the $(-m)$th power map if and only if the weight is $m$. 
+\end{remark}
+Thus, we see immediately the category $\mathrm{HS}_\QQ$ is abelian. Additionally, representation theory explains how to take tensor products and duals.
+\begin{example}
+	We see that $V\in\op{HS}_\QQ$ has $V^\lor$ inherit a Hodge structure by setting $(V^\lor)^{p,q}\coloneqq (V^{-p,-q})^\lor$.
+\end{example}
+\begin{example}
+	We are now able to define the Tate twists $\QQ(n)\coloneqq\QQ(1)^{\otimes n}$, where negative powers indicates taking a dual. In particular, one can check that $\QQ(n)\otimes\QQ(m)=\QQ(n+m)$ for any $n,m\in\ZZ$.
+\end{example}
+\begin{notation}
+	For any Hodge structure $V\in\op{HS}_\QQ$ and integer $m\in\ZZ$, we may write
+	\[V(m)\coloneqq V\otimes\QQ(m).\]
+\end{notation}
+
+\subsection{Hodge Classes}
+We conclude this section by explaining one important application of Hodge structures.
+\begin{definition}[Hodge class]
+	Fix a $\QQ$-Hodge structure $V$. A \textit{Hodge class} of $V$ is an element of $V\cap V^{0,0}$.
+\end{definition}
+\begin{remark} \label{rem:hodge-class-by-s}
+	Looking at the construction in the proof of \Cref{lem:hodge-by-s}, we see that $v\in V$ is a Hodge class if and only if it is fixed by the corresponding representation $h\colon\mathbb S\to\op{GL}(V)_\RR$.
+\end{remark}
+\begin{example}
+	Fix a complex projective smooth variety $X$ of dimension $n$ and some even nonnegative integer $2p\ge0$. Then one has Hodge classes given by elements of
+	\[\mathrm H^{2p}_{\mathrm B}(X,\QQ)\cap\mathrm H^{p,p}(X)(p).\]
+	Now, any algebraic subvariety $Z\subseteq X$ of codimension $k$ defines a linear functional on $\mathrm H^{2n-2k}_{\mathrm{dR}}(X,\CC)$ defined by
+	\[\omega\mapsto\int_Z\omega,\]
+	which one can check is supported on $\mathrm H^{k,k}$. Thus, by Poincar\'e duality, one finds that $Z$ produces a Hodge cycle in $\mathrm H^{2k}_{\mathrm B}(X,\QQ)$.
+\end{example}
+In light of the above example, one has the following conjecture.
+\begin{conj}[Hodge] \label{conj:hodge}
+	Fix a complex projective smooth variety $X$. Then any Hodge class can be written as a linear combination of classes arising from algebraic subvarieties.
+\end{conj}
+\begin{remark}
+	Here are some remarks on what is known about the Hodge conjecture, though it is admittedly little in this level of generality.
+	\begin{itemize}
+		\item The Hodge classes in $\mathrm H_{\mathrm B}^2(X)(1)$ come from algebraic subvarieties.
+		\item The cup product of any two classes arising from algebraic subvarieties continues to be Hodge and arises from algebraic subvarieties.
+	\end{itemize}
+	For example, if one can show that all Hodge classes are cup products of Hodge classes of codimension $1$ on a variety $X$, then one knows the Hodge conjecture for $X$.
+\end{remark}
+We are not interested in proving (cases of) the Hodge conjecture in this thesis, so we will not say much more.
+
+% \section{Polarizations}
+% In this section, we discuss polarizations of Hodge structures and give a few applications.
+
+\subsection{Polarizations}
+Here is an important example of a morphism of Hodge structures.
+\begin{definition}[polarization]
+	Fix a Hodge structure $V\in\mathrm{HS}_\QQ$ pure of weight $m$ given by the representation $h\colon\mathbb S\to\op{GL}(V)_\RR$. A \textit{polarization} on $V$ is a morphism $\varphi\colon V\otimes V\to\QQ(-m)$ of Hodge structures such that the induced bilinear form on $V_\RR$ given by
+	\[\langle v,w\rangle\coloneqq(2\pi i)^m\varphi(h(i)v\otimes w)\]
+	is symmetric and positive-definite. If $V$ admits a polarization, we may say that $V$ is \textit{polarizable}, and we let $\op{HS}_\QQ^{\mathrm{pol}}\subseteq\op{HS}_\QQ$ be the full subcategory of polarizable $\QQ$-Hodge structures.
+\end{definition}
+\begin{remark} \label{rem:polarization-non-degenerate}
+	The positive-definiteness condition on $\langle\cdot,\cdot\rangle$ implies that $\varphi$ is non-degenerate. Indeed, one may check non-degeneracy upon base-changing to $\RR$ (because this is equivalent to inducing an isomorphism of vector spaces $V\to V^\lor$, which can be checked by fixing some $\QQ$-bases and computing a determinant). Then we see that $\langle\cdot,\cdot\rangle$ being non-degenerate implies that
+	\[\varphi(v\otimes w)=(2\pi i)^{-m}\langle h(-i)v,w\rangle\]
+	is non-degenerate because $h(-i)\colon V\to V$ is an isomorphism of vector spaces (because $h(-i)^4=\id_V$).
+\end{remark}
+\begin{remark}
+	The symmetry condition on $\langle\cdot,\cdot\rangle$ implies a symmetry or alternating condition on $\varphi$. Indeed, we compute
+	\begin{align*}
+		\varphi(v\otimes w) &= (2\pi i)^{-m}\langle h(-i)v,w\rangle \\
+		&= (2\pi i)^{-m}\langle w,h(-i)v\rangle \\
+		&= \varphi(h(i)w\otimes h(-i)v) \\
+		&= h_{\QQ(-m)}(i)\varphi(w\otimes h(-1)v) \\
+		&= 1\varphi\left(w\otimes(-1)^mw\right) \\
+		&= (-1)^m\varphi(w\otimes v).
+	\end{align*}
+	Thus, $\varphi$ is symmetric when $m$ is even, and $\varphi$ is alternating when $m$ is odd.
+\end{remark}
+Let's give some constructions of polarizable Hodge structures.
+\begin{example} \label{ex:av-polarizable-hs}
+	It will turn out that $\mathrm H^1_{\mathrm B}(A,\QQ)$ of any abelian variety $A$ (over $\CC$) is polarizable, explaining the importance of this notion for our application. Because we are reviewing abelian varieties in \cref{chap:av}, we will not say more here.
+\end{example}
+\begin{example} \label{ex:polarize-subspace}
+	If $V$ is polarizable and pure of weight $m$, then any Hodge substructure $W\subseteq V$ is still polarizable (and pure of weight $m$). Indeed, one can simply restrict the polarization to $W$, and all the checks go through. For example, positive-definiteness of $\langle\cdot,\cdot\rangle$ means $\langle v,v\rangle>0$ for all nonzero $v\in V$, so the same will be true upon restricting to $W$.
+\end{example}
+\begin{example} \label{ex:polarize-sum}
+	If $V$ and $W$ are polarizable and pure of weight $m$, then $V\oplus W$ is also polarizable. Indeed, letting $\varphi$ and $\psi$ be polarizations on $V$ and $W$ respectively, we see that $(\varphi\oplus\psi)$ defined by
+	\[(\varphi\oplus\psi)((v,w),(v',w'))\coloneqq\varphi(v,v')+\psi(w,w')\]
+	succeeds at being a polarization: certainly it is a morphism of Hodge structures to $\QQ(-m-n)$, and one can check that the corresponding bilinear form on $V\oplus W$ simply splits into a sum of the forms on $V$ and $W$ and is therefore symmetric and positive-definite.
+\end{example}
+\begin{example}
+	If $V$ and $W$ are polarizable and pure of weights $m$ and $n$ respectively, then $V\otimes W$ is also polarizable. Indeed, as in \Cref{ex:polarize-sum}, let $\varphi$ and $\psi$ be polarizationson $V$ and $W$ respectively, and then we find that $(\varphi\otimes\psi)$ can be defined on pure tensors by
+	\[(\varphi\otimes\psi)(v\otimes w,v'\otimes w')\coloneqq\varphi(v,v')\psi(w,w').\]
+	One checks as before that this gives a polarization on $V\otimes W$: we certainly have a morphism of Hodge structures, and the corresponding bilinear form is the product of the bilinear forms on $V$ and $W$ and is therefore symmetric and positive-definite.
+\end{example}
+\begin{example} \label{ex:complement-hodge-structure}
+	If $V$ is polarizable and pure of weight $m$ with polarization $\varphi$, and $W\subseteq V$ is a Hodge substructure (which is polarizable by \Cref{ex:polarize-subspace}), then we claim $W^\perp$ (taken with respect to $\langle\cdot,\cdot\rangle$) is also a Hodge substructure and hence polarizable by \Cref{ex:polarize-subspace}. Well, for any $w'\in W_\RR^\perp$ and $z\in\mathbb S(\RR)$, we must check that $h(z)w'\in W_\RR^\perp$. For this, we note that any $w\in W$ has
+	\begin{align*}
+		\langle w,h(z)w'\rangle &= (2\pi i)^{-m}\varphi(h(i)w\otimes h(z)w') \\
+		&= h_{\QQ(-m)}(1/z)(2\pi i)^{-m}\varphi(h(i/z)w\otimes w') \\
+		&= h_{\QQ(-m)}(1/z)\langle h(i/z)w, w'\rangle \\
+		&= 0,
+	\end{align*}
+	where the last equality holds because $W\subseteq V$ is a Hodge substructure.
+\end{example}
+Note that one does not expect any Hodge substructure to have a complement, so \Cref{ex:complement-hodge-structure} is a very important property of polarizations.
+% Here is the key reason to introduce polarizations.
+% \begin{proposition} \label{prop:polarization-gives-reductive}
+% 	Fix a polarizable Hodge structure $V\in\op{HS}_\QQ$ pure of weight $m$. Then $\op{MT}(V)$ and $\op{Hg}(V)$ are both reductive.
+% \end{proposition}
+% \begin{proof}
+% 	There is a faithful semisimple representation.\todo{}
+% \end{proof}
+
+\subsection{The Albert Classification}
+The presence of a polarization places strong restrictions on the endomorphisms of a Hodge structure. To explain how this works, we begin by reducing to the irreducible case: given a polarizable Hodge structure $V\in\op{HS}_\QQ$, we begin by noting that $V$ can be decomposed into irreducible Hodge substructures
+\[V=\bigoplus_{i=1}^NV_i^{\oplus m_i},\]
+where $V_i$ is an irreducible Hodge structure (i.e., an irreducible representation of $\mathbb S$) and $m_i\ge0$ is some nonnegative integer. Then standard results on endomorphisms of representations tell us that
+\[\op{End}_{\op{HS}}(V)=\bigoplus_{i=1}^NM_{m_i}(\op{End}_{\op{HS}}(V_i)),\]
+and Schur's lemma implies that $\op{End}_{\op{HS}}(V_i)$ is a division algebra. The point of the above discussion is that we may reduce our discussion of endomorphisms to irreducible Hodge structures. We remark that polarizability of $V$ implies that irreducible Hodge substructures continue to be polarizable by \Cref{ex:polarize-subspace}.
+
+We are thus interested in classifying what algebras may appear as $\op{End}_{\op{HS}}(V)$ for irreducible Hodge structures $V\in\op{HS}_\QQ$. To this end, we note that $\op{End}_{\op{HS}}(V)$ comes with some extra structure.
+\begin{definition}[Rosati involution]
+	Let $\varphi$ be a polarization on a Hodge structure $V\in\op{HS}_\QQ$. The \textit{Rosati involu\-tion} is the function $(\cdot)^\dagger\colon\op{End}_{\QQ}(V)\to\op{End}_{\QQ}(V)$ defined by
+	\[\varphi(dv\otimes w)=\varphi(v\otimes d^\dagger w)\]
+	for all $d\in\op{End}_{\op{HS}}(V)$ and $v,w\in V$.
+\end{definition}
+\begin{remark} \label{rem:rosati-is-adjoint}
+	In light of \Cref{rem:polarization-non-degenerate}, we see that $d^\dagger$ is simply the adjoint of $d\colon V\to V$ associated to $\varphi$ viewed as a non-degenerate bilinear pairing. For example, we immediately see that $(\cdot)^\dagger$ induces a well-defined linear operator $\op{End}_\QQ(V)\to\op{End}_\QQ(V)$.
+	% Let $h\colon\mathbb S\to\op{GL}(V)_\RR$ be the representation associated to $V$. Equivalently, we see that we are asking for
+	% \[(2\pi i)^{-m}\langle h(i)dv,w\rangle=(2\pi i)^{-m}\langle h(i)v,d^\dagger w\rangle\]
+	% for all $d\in\op{End}_{\op{HS}}(V)$ and $v,w\in V_\RR$. This equality rearranges into
+	% \[\langle dv,w\rangle=\langle v,d^\dagger w\rangle\]
+	% because $d$ commutes with $h(i)$. We thus see that $d^\dagger$ is simply the adjoint of $d$ with respect to the symmetric positive-definite form $\langle\cdot,\cdot\rangle$. In particular, it is well-defined and linear, and $d^{\dagger\dagger}=d$.
+\end{remark}
+Here are the important properties of the Rosati involution.
+\begin{lemma}
+	Fix a Hodge structure $V\in\op{HS}_\QQ$ pure of weight $m$ with polarization $\varphi$ and associated Rosati involution $(\cdot)^\dagger$.
+	\begin{listalph}
+		\item If $d\in\op{End}_{\op{HS}}(V)$, then $d^\dagger\in\op{End}_{\op{HS}}(V)$.
+		\item Anti-involution: for any $d,e\in\op{End}_{\QQ}(V)$, we have $d^{\dagger\dagger}=d$ and $(de)^\dagger=e^\dagger d^\dagger$.
+		\item Positive: for any nonzero $d\in\op{End}_{\QQ}(V)$, we have $\tr dd^\dagger>0$.
+	\end{listalph}
+\end{lemma}
+\begin{proof}
+	We show the claims in sequence.
+	\begin{listalph}
+		\item This follows because $\varphi$ is a morphism of Hodge structures. Formally, we would like to check that $d^\dagger$ commutes with the action of $\mathbb S$. Let $h\colon\mathbb S\to\op{GL}(V)_\RR$ be the representation corresponding to the Hodge structure. Well, for any $g\in\mathbb S(\CC)$ and $v,w\in V$, we compute
+		\begin{align*}
+			\varphi(v\otimes d^\dagger h(g)w) &= \varphi(dv\otimes h(g)w) \\
+			&= h_{\QQ(-m)}(g)\varphi\left(h(g^{-1})dv\otimes w\right) \\
+			&\stackrel*= h_{\QQ(-m)}(g)\varphi\left(dh(g^{-1})v\otimes w\right) \\
+			&= h_{\QQ(-m)}(g)\varphi\left(h(g^{-1})v\otimes d^\dagger w\right) \\
+			&= \varphi(v\otimes h(g)d^\dagger w)
+		\end{align*}
+		where $\stackrel*=$ holds because $d$ is a morphism of Hodge structures. The non-degeneracy of $\varphi$ given in \Cref{rem:polarization-non-degenerate} now implies that $d^\dagger h(g)=h(g)d^\dagger$, so we are done.
+		\item This is a purely formal property of adjoints.
+		\item The point is to reduce this to the case where $V$ is a matrix algebra over $\RR$ and $(\cdot)^\dagger$ is the transpose. Indeed, this positivity can be checked after a base-change to $\RR$. As such, we let $\langle\cdot,\cdot\rangle$ be the symmetric positive-definite bilinear form assocated to $\varphi$ defined by
+		\[\langle v,w\rangle\coloneqq(2\pi i)^{-m}\varphi(h(i)v\otimes w)\]
+		for any $v,w\in V_\RR$. We thus see that $(\cdot)^\dagger$ is also the adjoint operator with respect to $\langle\cdot,\cdot\rangle$: we know
+		\[(2\pi i)^{-m}\langle h(i)dv,w\rangle=(2\pi i)^{-m}\langle h(i)v,d^\dagger w\rangle\]
+		for any $v,w\in V_\RR$, which is equivalent to always having $\langle dv,w\rangle=\langle v,d^\dagger w\rangle$. Now, we may fix an orthornomal basis of $V_\RR$ with respect to $\langle\cdot,\cdot\rangle$ so that $\op{End}_\RR(V_\RR)$ is identified with $M_n(\RR^{\dim V})$ and $(\cdot)^\dagger$ is identified with the transpose. Then $\tr dd^\intercal$ is the sum of the squares of the matrix entries of $d$ and is therefore positive when $d$ is nonzero.
+		\qedhere
+	\end{listalph}
+\end{proof}
+We are now ready to state the Albert classification, which classifies division algebras over $\QQ$ equipped with a positive anti-involution.
+\begin{theorem}[Albert classification] \label{thm:albert-classification}
+	Let $D$ be a division algebra over $\QQ$ equipped with a Rosati involution $(\cdot)^\dagger\colon D\to D$. Further, let $F$ be the center of $D$, and let $F^\dagger$ be the subfield fixed by $(\cdot)^\dagger$. Then $D$ admits exactly one of the following types.
+	\begin{itemize}
+		\item Type I: $D$ is a totally real number field so that $D=F=F^\dagger$, and $(\cdot)^\dagger$ is the identity.
+		\item Type II: $D$ is a totally indefinite quaternion division algebra over $F$ where $F=F^\dagger$, and $(\cdot)^\dagger$ corresponds to the transpose on $D\otimes_\QQ\RR\cong M_2(\RR)$.
+		\item Type III: $D$ is a totally definite quaternion division algebra over $F$ where $F=F^\dagger$, and $(\cdot)^\dagger$ corresponds to the canonical involution on $D\otimes_\QQ\RR\cong\HH$ (where $\HH$ is the quaternions).
+		\item Type IV: $D$ is a division algebra over $F$, where $F$ is a totally imaginary quadratic extension of $F^\dagger$, and $(\cdot)^\dagger$ is the complex conjugation automorphism of $F$.
+	\end{itemize}
+\end{theorem}
+\begin{proof}
+	This is a rather lengthy computaion. We refer to \cite[Section~21, Application I]{mumford-abelian-varieties}.
+\end{proof}
+% \todo{}
+% rosati involution
+% state albert classification
+
+\section{Monodromy Groups}
+In this section, we define the Mumford--Tate group and the Hodge group.
+
+\subsection{The Mumford--Tate Group}
+We are now ready to define the Mumford--Tate group. Intuitively, it is the monodromy group of the associated representation of a Hodge structure.
+\begin{definition}[Mumford--Tate group]
+	For some $V\in\op{HS}_\QQ$, the \textit{Mumford--Tate group} $\op{MT}(V)$ is the smallest algebraic $\QQ$-group containing the image of the corresponding representation $h\colon\mathbb S\to\op{GL}(V)_\RR$.
+\end{definition}
+\begin{remark} \label{rem:mt-connected}
+	Because $\mathbb S$ is connected, we see that $h$ is also connected. Namely, $\op{MT}(V)^\circ\subseteq\op{MT}(V)$ will be an algebraic $\QQ$-group containing the image of $h$ if $\op{MT}(V)$ does too, so equality is forced.
+\end{remark}
+\begin{example} \label{ex:mt-has-scalars}
+	Suppose that $V\in\op{HS}_\QQ$ is pure of weight $m$.
+	\begin{itemize}
+		\item If $m=0$, then we claim that $\op{MT}(V)\subseteq\op{SL}(V)$. It is enough to check that $h$ outputs into $\op{SL}(V)$. 
+		\item If $m\ne0$, then we claim that $\op{MT}(V)$ contains $\mathbb G_{m,\QQ}$. It is enough to check that $\op{MT}(V)_\CC$ contains $\mathbb G_{m,\CC}$. Well, for any $z\in\CC$ $h(z,\ov z)$ acts on the component $V^{p,q}\subseteq V_\CC$ by $z^{-p}z^{-q}=z^{-m}$, so $\op{MT}(V)_\CC$ must contain the scalar $z^{-m}$ for all $z\in\CC$. The conclusion follows.
+	\end{itemize}
+\end{example}
+Because Hodge structures are defined after passing to $\CC$, it will be helpful to have a definition of $\op{MT}(V)$ as a monodromy group corresponding to a morphism over $\CC$.
+\begin{lemma} \label{lem:mt-as-monodromy-c}
+	Fix $V\in\op{HS}_\QQ$, and let $h\colon\mathbb S\to\op{GL}(V)_\RR$ be the corresponding representation. Then $\op{MT}(V)$ is the smallest algebraic $\QQ$-subgroup of $\op{GL}(V)$ such that $\op{MT}(V)_\CC$ contains the image of $h_\CC\circ\mu$.
+\end{lemma}
+\begin{proof}
+	Let $M'$ be the smallest algebraic $\QQ$-subgroup of $\op{GL}(V)$ containing $h_\CC\circ\mu$. We want to show that $M'=M$.
+	\begin{itemize}
+		\item To show $M'\subseteq\op{MT}(V)$, we must show that $\op{MT}(V)_\CC$ contains the image of $h_\CC\circ\mu$. Well, $\op{MT}(V)_\RR$ contains the image of $h$, so $\op{MT}(V)_\CC$ contains the image of $h_\CC$, which contains the image of $h_\CC\circ\mu$.
+
+		\item Showing $\op{MT}(V)\subseteq M'$ is a little harder. We must show that $M'$ contains the image of $h\colon\mathbb S\to\op{GL}(V)_\RR$. It is enough to check that $M'$ contains the image of $h_\CC$ because then we can descend everything to $\RR$, and because $\CC$ is algebraically closed, we see that $\CC$-points are certainly dense enough so that it is enough to chek that $M'(\CC)$ contains the image $h(\mathbb S(\CC))$.
+		
+		The point is that $M'$ is defined over $\QQ$, so $M'_\CC$ is stable under the action of complex conjugation, which we denote by $\iota$. Similarly, $h$ being defined over $\RR$ guarantees that it commutes with complex conjugation. In particular, we already know that $M'$ contains the points of the form $h(z,1)$ for $(z,1)\in\mathbb S(\CC)$. Thus, we see that $M'$ also contains the points
+		\[\iota(h(z,1))=h(\iota(z,1))=h(1,z)\]
+		because everything is defined over $\RR$. (This last equality follows by tracking through the action of $\iota$ on $\mathbb S(\CC)$.) We conclude that $M'$ contains $h(z,w)$ for any $(z,w)\in\mathbb S(\CC)$, so we are done.
+		\qedhere
+	\end{itemize}
+\end{proof}
+Roughly speaking, the point of the group $\op{MT}(V)$ is that $\op{MT}(V)$ is an algebraic $\QQ$-group remembering everything one wants to know about the Hodge structure. One way to rigorize this is as follows.
+\begin{proposition} \label{prop:tensors-of-mt}
+	Fix $V\in\op{HS}_\QQ$. Suppose $T\in\op{HS}_\QQ$ can be written as
+	\[T=\bigoplus_{i=1}^N\left(V^{\otimes m_i}\otimes (V^\lor)^{\otimes n_i}\right),\]
+	where $m_i,n_i\ge0$ are nonnegative integers. Then $W\subseteq T$ is a Hodge substructure if and only if the action of $\op{MT}(V)$ on $T$ stabilizes $W$.
+\end{proposition}
+\begin{proof}
+	For each $W\in\op{HS}_\QQ$, we let $h_W$ denote the corresponding representation. In the backwards direction, we note that $\op{MT}(V)$ stabilizing $W$ implies that $h(s)$ stabilizes $W_\RR$ for any $s$. We can thus view $W_\RR\subseteq T_\RR$ as a subrepresentation of $\mathbb S$, so taking eigenspaces reveals that $W$ can be given the structure of a Hodge substructure of $T$.
+
+	The converse will have to use the construction of $T$. Indeed, suppose that $W\subseteq T$ is a Hodge substructure, and let $M\subseteq\op{GL}(V)$ be the smallest algebraic $\QQ$-group stabilizing $W\subseteq T$. We would like to show that $\op{MT}(V)\subseteq M$. By definition of $\op{MT}(V)$, it is enough to show that $h$ factors through $M_\RR$, meaning we must show that $h(s)$ stabilizes $W$ for each $s\in\mathbb S$. Well, $h(s)$ will act by characters on the eigenspaces $W^{p,q}_\CC\subseteq W_\CC$, so $h(s)$ does indeed stabilize $W$.
+\end{proof}
+\begin{corollary} \label{cor:hodge-classes-by-mt}
+	Fix $V\in\op{HS}_\QQ$. Suppose $T\in\op{HS}_\QQ$ can be written as
+	\[T=\bigoplus_{i=1}^N\left(V^{\otimes m_i}\otimes (V^\lor)^{\otimes n_i}\right),\]
+	where $m_i,n_i\ge0$ are nonnegative integers. Then $t\in T$ is a Hodge class if and only if it is fixed by $\op{MT}(V)$.
+\end{corollary}
+\begin{proof}
+	We apply \Cref{prop:tensors-of-mt} to $\QQ(0)\oplus T$. Then we note that $\op{span}_\QQ\{(1,t)\}\subseteq\QQ(0)\oplus T$ is a Hodge substructure if and only if it is preserved by $\op{MT}(V)$. We now tie each of these to the statement.
+	\begin{itemize}
+		\item On one hand, we see that being a one-dimensional Hodge substructure implies that $(1,t)$ must have bidegree $(p,p)$ for some $p\in\ZZ$, but we have to live in $(0,0)$ because our $1$ lives in $\QQ(0)$. Thus, this is equivalent to being a Hodge class.
+		\item On the other hand, being preserved by $\op{MT}(V)$ implies that $\op{MT}(V)$ acts by scalars on $(1,t)$, but $\op{MT}(V)$ acts trivially on $\QQ(0)$, so all the relevant scalars must be $1$. Thus, this is equivalent to being fixed by $\op{MT}(V)$.
+		\qedhere
+	\end{itemize}
+\end{proof}
+We thus see that understanding the Mumford--Tate group is important from the perspective of the Hodge conjecture (\Cref{conj:hodge}). It will be helpful to note that this characterizes $\op{MT}(V)$ in some cases.
+\begin{proposition} \label{prop:reductive-group-by-invariants}
+	Fix a field $k$ of characteristic $0$. Let $H\subseteq\op{GL}_{n,k}$ be a reductive subgroup. Suppose $H'$ is the algebraic $\QQ$-subgroup of $\op{GL}_{n,k}$ defined by fixing all $H$-invariants occuring in any tensor representation
+	\[T=\bigoplus_{i=1}^N\left(V^{\otimes m_i}\otimes (V^\lor)^{\otimes n_i}\right),\]
+	where $m_i,n_i\ge0$ are nonnegative integers. Then $H=H'$.
+\end{proposition}
+\begin{proof}
+	Note $H\subseteq H'$ is automatic, so the main content comes from proving the other inclusion. Proving this would step into the (rather deep) theory of algebraic groups, which we will avoid. Instead, we will mention that the key input is Chevalley's theorem, which asserts that any subgroup $H$ of $G$ is the stabilizer of some line in some representation of $G$. We refer to \cite[Proposition~3.1]{deligne-hodge}; see also \cite[Theorem~4.27]{milne-alg-groups}.
+\end{proof}
+\begin{corollary} \label{cor:mt-by-classes}
+	Fix $V\in\op{HS}_\QQ$ such that $\op{MT}(V)$ is reductive. Then $\op{MT}(V)$ is exactly the algebraic $\QQ$-subgroup of $\op{GL}(V)$ fixing all Hodge classes.
+\end{corollary}
+\begin{proof}
+	\Cref{cor:hodge-classes-by-mt} explains that the Hodge classes are exactly the vectors fixed by $\op{MT}(V)$, so this follows from \Cref{prop:reductive-group-by-invariants}.
+\end{proof}
+\begin{remark}
+	\Cref{cor:mt-by-classes} is true without a reductivity assumption (see \cite[Proposition~3.4]{deligne-hodge}), but we will not need this in our applications. (On the other hand, one does not expect \Cref{prop:reductive-group-by-invariants} to be true without any assumptions on $H$.) Namely, we will be interested in abelian varieties, whose Hodge structures are polarizable by \Cref{ex:av-polarizable-hs}, and we will shortly see that this implies that $\op{MT}(V)$ is reductive in \Cref{lem:mt-hg-reductive}.
+\end{remark}
+
+\subsection{The Hodge Group}
+In computational applications, it will be frequently be easier to compute a smaller monodromy group related to $\op{MT}(V)$.
+\begin{definition}[Hodge group]
+	Fix $V\in\op{HS}_\QQ$ of pure weight. Then the \textit{Hodge group} $\op{Hg}(V)$ is the smallest algebraic $\QQ$-subgroup $\op{GL}(V)$ containing the image of $h|_{\mathbb U}$, where $\mathbb U\subseteq\mathbb S$ is defined as the kernel of the norm character $z\ov z\colon\mathbb S\to\mathbb G_{m,\RR}$.
+\end{definition}
+\begin{remark}
+	Even though $z$ and $\ov z$ are only defined as characters $\mathbb S_\CC\to\mathbb G_{m,\CC}$, the norm character $z\ov z$ is defined as a character $\mathbb S\to\mathbb G_{m,\RR}$ because it is fixed by complex conjugation. For example, we see that
+	\[\mathbb U(\RR)=\{z\in\CC:\left|z\right|=1\}.\]
+	Thus, we see that $\mathbb U$ stands for ``unit circle.'' While we're here, we remark that $\mathbb U(\CC)\subseteq\mathbb S(\CC)$ is identified with the subset $\left\{(z,1/z):z\in\CC^\times\right\}$.
+\end{remark}
+\begin{remark} \label{rem:hg-connected}
+	The same argument as in \Cref{rem:mt-connected} shows that the connectivity of $\mathbb U$ implies the connectivity of $\op{Hg}(V)$.
+\end{remark}
+Intuitively, $\op{Hg}(V)$ removes the scalars that might live in $\op{MT}(V)$ by \Cref{ex:mt-has-scalars}. These scalars are an obstruction to $\op{MT}(V)$ being a semisimple group, and we will see in \Cref{prop:hodge-semisimple-not-type-iv} that $\op{Hg}(V)$ will thus frequently succeed at being semisimple. Let's rigorize this discusison.
+\begin{lemma} \label{lem:mt-by-hg}
+	Fix $V\in\op{HS}_\QQ$ pure of weight $m$, and let $h\colon\mathbb S\to\op{GL}(V)_\RR$ be the corresponding representation.
+	\begin{listalph}
+		\item We have $\op{Hg}(V)\subseteq\op{SL}(V)$.
+		% For $z\in\mathbb S(\RR)$, we have
+		% \[\det h(z)=(z\ov z)^{-\frac12m\dim V}.\]
+		% \item We have
+		% \[\op{Hg}(V)=\op{MT}(V)\cap\op{SL}(V).\]
+		\item Thus,
+		\[\op{MT}(V)=\begin{cases}
+			\op{Hg}(V) & \text{if }m=0, \\
+			\mathbb G_{m,\QQ}\op{Hg}(V) & \text{if }m\ne0,
+		\end{cases}\]
+		where the almost direct product in the second case is given by embedding $\mathbb G_{m,\QQ}\to\op{GL}(V)$ via scalars.
+	\end{listalph}
+\end{lemma}
+\begin{proof}
+	We show the claims in sequence.
+	\begin{listalph}
+		\item It is enough to check that $\op{SL}(V)$ contains the image of $h|_{\mathbb U}$. In other words, we want to check that $\det h(z)=1$ for all $z\in\mathbb U(\RR)$. By extending scalars, it is enough to compute the determinant as an operator on $V_\CC$. For this, we note that $h(z)$ acts on the component $V^{p,q}\subseteq V_\CC$ by the scalar $z^{-p}\ov z^{-q}$, so the determinant of $h(z)$ acting on $V^{p,q}\oplus V^{q,p}$ is
+		\[\left(z^{-p}\ov z^{-q}\right)^{\dim V^{p,q}}\cdot\left(z^{-q}\ov z^{-p}\right)^{\dim V^{q,p}}=(z\ov z)^{-(p+q)\dim V^{p,q}}\]
+		because $\dim V^{p,q}=\dim V^{q,p}$. This simplifies to $(z\ov z)^{-\frac12m\dim(V^{p,q}\oplus V^{q,p})}$ because $V$ is pure of weight $m$, so the result follows by summing over all pairs $(p,q)$.\footnote{If $m$ is even, this argument does not work verbatim for the component $(m/2,m/2)$. Instead, one can compute the determinant of $h(z)$ acting on $V^{m/2,m/2}$ directly as $(z\ov z)^{-\frac12m\dim V^{m/2,m/2}}$.}
+
+		\item Before doing anything serious, we remark that $\mathbb G_{m,\QQ}\op{Hg}(V)$ is in fact an almost direct product. Namely, we should check that the intersection $\mathbb G_{m,\QQ}\cap\op{Hg}(V)$ is finite (even over $\CC$). Well, by (a), $\op{Hg}(V)\subseteq\op{SL}(V)$. Thus, it is enough to notice that $\mathbb G_{m,\QQ}\cap\op{SL}(V)$ is finite because $V$ is finite-dimensional over $\CC$: over $\CC$, the intersection consisits of scalar matrices $\lambda\id_V$ such that $\lambda^{\dim V}=1$, so the intersefction is the finite algebraic group $\mu_{\dim V}$.
+		
+		We now proceed with the argument. Because $\mathbb U\subseteq\mathbb S$, we of course have $\op{Hg}(V)\subseteq\op{MT}(V)$, and if $m\ne0$, then \Cref{ex:mt-has-scalars} implies that $\mathbb G_{m,\QQ}\subseteq\op{MT}(V)$ so that $\mathbb G_{m,\QQ}\op{Hg}(V)\subseteq\op{MT}(V)$. It is therefore enough to check the given equalities after base-changing to $\RR$. Namely, using \Cref{lem:mt-as-monodromy-c}, we should check that $\op{Hg}(V)(\CC)$ contains the image of $h_\CC\circ\mu$ when $m=0$, and $\CC^\times\op{Hg}(V)(\CC)$ contains the image of $h_\CC\circ\mu$ when $m\ne0$. Well, for any $z\in\CC^\times$, we may write $z=re^{i\theta}$ where $r\in\RR^+$ and $\theta\in\RR$. Then we compute
+		\begin{align*}
+			h(\mu(z)) &= h(z,1) \\
+			&= h\left(re^{i\theta},1\right) \\
+			&= h\left(\sqrt re^{i\theta/2},\sqrt re^{-i\theta/2}\right)h\left(\sqrt re^{i\theta/2},\frac1{\sqrt re^{i\theta/2}}\right).
+		\end{align*}
+		Now, $h\left(\sqrt re^{i\theta/2},\sqrt re^{-i\theta/2}\right)$ is a scalar as computed in \Cref{ex:mt-has-scalars}, and $\left(\sqrt re^{i\theta/2},\frac1{\sqrt re^{i\theta/2}}\right)$ lives in $\mathbb U(\CC)=\{(z,w):zw=1\}$. Thus, we see that $h(\mu(z))$ is certainly contained in $\CC^\times\op{Hg}(V)(\CC)$, completing the proof in the case $m\ne0$. In the case where $m=0$, the scalar $h\left(\sqrt re^{i\theta/2},\sqrt re^{-i\theta/2}\right)$ is actually the identity, so we see that $h(\mu(z))\in\op{Hg}(V)(\CC)$.
+		\qedhere
+	\end{listalph}
+\end{proof}
+It is worthwhile to note that there is also a tensor characterization of $\op{Hg}(V)$.
+\begin{proposition} \label{prop:tensors-of-hg}
+	Fix $V\in\op{HS}_\QQ$ of pure weight. Suppose $T\in\op{HS}_\QQ$ is of pure weight $n$ and can be written as
+	\[T=\bigoplus_{i=1}^N\left(V^{\otimes m_i}\otimes (V^\lor)^{\otimes n_i}\right),\]
+	where $m_i,n_i\ge0$ are nonnegative integers. Then $W\subseteq T$ is a Hodge substructure if and only if the action of $\op{Hg}(V)$ on $T$ stabilizes $W$.
+\end{proposition}
+\begin{proof}
+	Of course, if $W\subseteq T$ is a Hodge substructure, then $W$ is preserved by the action of $\op{MT}(V)$, so $W$ will be preserved by the action of $\op{Hg}(V)\subseteq\op{MT}(V)$.
+	
+	Conversely, if $\op{Hg}(V)$ stabilizes $W$, then we would like to show that $W\subseteq T$ is a Hodge substructure, which by \Cref{prop:tensors-of-mt} is the same as showing that $\op{MT}(V)$ stabilizes $W$. For this, we use \Cref{lem:mt-by-hg}, which tells us that $\op{MT}(V)\subseteq\mathbb G_{m,\QQ}\op{Hg}(V)$. Namely, because $\op{Hg}(V)$ already stabilizes $W$, it is enough to note that of course the scalars $\mathbb G_{m,\QQ}$ stabilize the subspace $W\subseteq T$.
+\end{proof}
+\begin{corollary} \label{cor:irrep-hs-is-irrep-hg}
+	Fix an irreducible Hodge structure $V\in\op{HS}_\QQ$ of pure weight. Observe that the inclusion $\op{Hg}(V)\subseteq\op{GL}(V)$ makes $V$ into a representation of $\op{Hg}(V)$. Then $V$ is irreducible as a representation of $\op{Hg}(V)$.
+\end{corollary}
+\begin{proof}
+	By \Cref{prop:tensors-of-hg}, a $\op{Hg}(V)$-submodule is a Hodge substructure, but there are no nonzero proper Hodge substructures because $V$ is an irreducible Hodge structure.
+\end{proof}
+% \begin{corollary} \label{lem:mt-hg-reductive}
+% 	Fix a polarizable Hodge structure $V\in\op{HS}_\QQ$ of pure weight. Then $\op{Hg}(V)$ is reductive.
+% \end{corollary}
+% \begin{proof}
+% 	The same proof as in \Cref{lem:mt-hg-reductive} goes through, except we now must use \Cref{prop:tensors-of-hg} instead of \Cref{prop:tensors-of-mt}.
+% \end{proof}
+% While we're here, we remark that we also have the bound \Cref{lem:mt-fixes-endos}.
+% \begin{lemma} \label{lem:hg-fixes-endos}
+% 	Fix $V\in\op{HS}_\QQ$ of pure weight, and let $D\coloneqq\op{End}_{\op{HS}}(V)$ be the endomorphism algebra of $V$. Then
+% 	\[D=\op{End}_\QQ(V)^{\op{Hg}(V)}.\]
+% \end{lemma}
+% \begin{proof}
+% 	Note that the scalar subgroup $\mathbb G_{m,\QQ}\subseteq\op{GL}(V)$ acts trivially on $V\otimes V^\lor\cong\op{End}_\QQ(V)$. Thus, we combine \Cref{lem:mt-by-hg} with \Cref{lem:mt-fixes-endos} to compute
+% 	\begin{align*}
+% 		\op{End}_\QQ(V)^{\op{Hg}(V)} &= \op{End}_\QQ(V)^{\mathbb G_{m,\QQ}\op{Hg}(V)} \\
+% 		&= \op{End}_\QQ(V)^{\mathbb G_{m,\QQ}\op{MT}(V)} \\
+% 		&= \op{End}_\QQ(V)^{\op{MT}(V)} \\
+% 		&= D,
+% 	\end{align*}
+% 	as required.
+% \end{proof}
+
+\section{Computational Tools}
+In this section, we provide some discussion which will help the computations used later in this thesis.
+
+\subsection{Bounding with Known Classes}
+Here, we use endomorphisms and the polarization to bound the size of $\op{MT}(V)$ and $\op{Hg}(V)$.
+\begin{lemma} \label{lem:mt-hg-reductive}
+	Fix a polarizable Hodge structure $V\in\op{HS}_\QQ$ of pure weight. Then $\op{MT}(V)$ and $\op{Hg}(V)$ are reductive.
+\end{lemma}
+\begin{proof}
+	By \cite[Corollary~19.18]{milne-alg-groups}, it is enough to find faithful semisimple representations of $\op{MT}(V)$ and $\op{Hg}(V)$. We claim that the inclusions $\op{MT}(V)\subseteq\op{GL}(V)$ and $\op{Hg}(V)\subseteq\op{GL}(V)$ provide this representation: certainly this representation is faithful, and it is faithful because any subrepresentation is a Hodge substructure by \Cref{prop:tensors-of-mt,prop:tensors-of-hg}.
+\end{proof}
+\begin{lemma} \label{lem:mt-commutes-with-endo}
+	Fix $V\in\op{HS}_\QQ$. Let $D\coloneqq\op{End}_{\mathrm{HS}}(V)$ be the endomorphism algebra of $V$. Then $\op{MT}(V)$ is an algebraic $\QQ$-subgroup of
+	\[\op{GL}_D(V)\coloneqq\{g\in\op{GL}(V):g\circ d=d\circ g\text{ for all }d\in D\}.\]
+\end{lemma}
+\begin{proof}[Proof 1]
+	Noting that $\op{GL}_D(V)$ is an algebraic $\QQ$-group (it is a subgroup of $\op{GL}(V)$ cut out by the equations given by commuting with a basis of $D$), it is enough to show that $\op{GL}_D(V)$ contains the image of the representation $h\colon\mathbb S\to\op{GL}(V)_\RR$. Well, by definition $D$ consists of morphisms commuting with the action of $\mathbb S$, so the image of $h$ must commute with $D$.
+	% There is a canonical isomorphism $V\otimes V^\lor\to\op{End}_\QQ(V)$ of $\mathbb S$-representations, so by tracking through how representations of $\mathbb S$ correspond to Hodge structures, we see that $f\colon V\to V$ preserves the Hodge structure if and only if it is fixed by $\mathbb S$, which is equivalent to the corresponding element $f\in V\otimes V^\lor$ being fixed by $\mathbb S$, which is equivalent to $f$ being a Hodge class by \Cref{rem:hodge-class-by-s}. This completes the proof because $\op{MT}(V)$ fixes Hodge classes by \Cref{cor:hodge-classes-by-mt}. 
+\end{proof}
+\begin{proof}[Proof 2]
+	Motivated by \Cref{cor:mt-by-classes}, one expects to find Hodge classes corresponding to the condition of commuting with $D$. Well, there is a canonical isomorphism $V\otimes V^\lor\to\op{End}_\QQ(V)$ of $\mathbb S$-representations, so by tracking through how representations of $\mathbb S$ correspond to Hodge structures, we see that $f\colon V\to V$ preserves the Hodge structure if and only if it is fixed by $\mathbb S$, which is equivalent to the corresponding element $f\in V\otimes V^\lor$ being fixed by $\mathbb S$, which is equivalent to $f$ being a Hodge class by \Cref{rem:hodge-class-by-s}. This completes the proof of the lemma upon comparing with \Cref{cor:hodge-classes-by-mt}.
+\end{proof}
+\begin{remark}
+	Of course, we also have $\op{Hg}(V)\subseteq\op{GL}_D(V)$ because $\op{Hg}(V)\subseteq\op{MT}(V)$.
+\end{remark}
+% \begin{remark}
+% 	Motivated by \Cref{cor:mt-by-classes}, one expects to find Hodge classes corresponding to the condition of commuting with $D$. Well, there is a canonical isomorphism $V\otimes V^\lor\to\op{End}_\QQ(V)$ of $\mathbb S$-representations, so by tracking through how representations of $\mathbb S$ correspond to Hodge structures, we see that $f\colon V\to V$ preserves the Hodge structure if and only if it is fixed by $\mathbb S$, which is equivalent to the corresponding element $f\in V\otimes V^\lor$ being fixed by $\mathbb S$, which is equivalent to $f$ being a Hodge class by \Cref{rem:hodge-class-by-s}. This gives another proof of the lemma upon comparing with \Cref{cor:hodge-classes-by-mt}.
+% \end{remark}
+\begin{lemma} \label{lem:mt-commutes-polarization}
+	Fix $V\in\op{HS}_\QQ$ pure of weight $m$ with polarization $\varphi$. Then $\op{MT}(V)$ is an algebraic $\QQ$-subgroup of
+	\[\op{GSp}(\varphi)\coloneqq\{g\in\op{GL}(V):\varphi(gv\otimes gw)=\lambda(g)\varphi(v\otimes w)\text{ for fixed }\lambda(g)\in\QQ\}.\]
+\end{lemma}
+\begin{proof}[Proof 1]
+	Once again, we note that $\op{GSp}(\varphi)$ is an algebraic $\QQ$-group cut out by equations of the form
+	\[\varphi(gv\otimes gw)\varphi(v'\otimes w')=\varphi(v\otimes w)\varphi(gv'\otimes gw')\]
+	as $v,w,v',w'\in V$ varies over a basis. Thus, it is enough to check that $\op{GSp}(\varphi)$ contains the image of $h\colon\mathbb S\to\op{GL}(V)_\RR$. Well, for any $z\in\mathbb S(\RR)$, we note that
+	\[\varphi(h(z)\otimes h(z)w)=h_{\QQ(-m)}(z)\varphi(v\otimes w)\]
+	for any $v,w\in V_\RR$ because $\varphi$ is a morphism of Hodge structures.
+	% As in \Cref{lem:mt-commutes-with-endo}, we will show this by constructing a Hodge cycle and using \Cref{cor:hodge-classes-by-mt}. We remark that one can also show this more directly by showing that the image of $h$ lives in the algebraic $\QQ$-group $\op{GSp}(\varphi)$.
+\end{proof}
+\begin{proof}[Proof 2]
+	Once again, \Cref{cor:mt-by-classes} tells us to expect the polarization to produce a Hodge class corresponding to the above equations cutting out $\op{MT}(V)$.
+	
+	This construction is slightly more involved. We begin by constructing two Hodge classes.
+	\begin{itemize}
+		\item Note $\varphi\colon V\otimes V\to\QQ(-m)$ is a morphism of Hodge structrures, so it is an $\mathbb S$-invariant map and hence given by an $\mathbb S$-invariant element of $V^\lor\otimes V^\lor(-m)$. Thus, $\varphi\in V^\lor\otimes V^\lor(-m)$ is a Hodge class by \Cref{rem:hodge-class-by-s}.
+		\item Because $\varphi$ is non-degenerate, it induces an isomorphism $V(m)\to V^\lor$. Now, $\op{End}_\QQ(V)$ is canonically isomorphic to $V\otimes V^\lor$, which we now see is isomorphic (via $\varphi$) to $V\otimes V(m)$. We let $C\in V\otimes V(m)$ be the image of ${\id_V}\in\op{End}_\QQ(V)^{\mathbb S}$ in $V\otimes V(m)$, which we note is a Hodge class again by \Cref{rem:hodge-class-by-s}. (Here, $C$ stands for ``Casimir.'')
+	\end{itemize}
+	In total, we see that we have produced a Hodge class $C\otimes\varphi$. It remains to show that $g\in\op{GL}(V)$ fixing $C\otimes\varphi$ implies that $g\in\op{GSp}(\varphi)$, which will complete the proof by \Cref{cor:hodge-classes-by-mt}.
+
+	Well, suppose $g(C\otimes\varphi)=C\otimes\varphi$. Note $g(C\otimes\varphi)=gC\otimes g\varphi$, which can only equal $C\otimes\varphi\in(V\otimes V)\otimes_\QQ(V^\lor\otimes V^\lor)$ if there is a scalar $\lambda\in\QQ^\times$ such that $gC=\lambda C$ and $g\varphi=\lambda^{-1}\varphi$. This second condition amounts to requiring
+	\[\varphi\left(g^{-1}v\otimes g^{-1}w\right)=\lambda^{-1}\varphi(v\otimes w)\]
+	for any $v,w\in V$, which rearranges into $g\in\op{GSp}(\varphi)$.
+	% For this, we want a more explicit description of $C$. Let $\{v_1,\ldots,v_n\}$ be a basis of $V$, and $\{v_1^*,\ldots,v_n^*\}$ be the dual basis of $V(m)$ taken with respect to $\varphi$. Then ${\id_V}\in\op{End}_\QQ(V)$ corresponds to the element
+	% \[C=\sum_{i=1}^nv_i\otimes v_i^*\in V\otimes V(m).\]
+	% We now begin our compuation. Suppose $g\in\op{GL}(V)$ fixes $C\otimes\varphi$. 
+\end{proof}
+\begin{remark}
+	The construction given in the above proof is described in \cite[Remark~8.3.4]{ggl-fermat}. They also show the converse claim that any $g\in\op{GSp}(\varphi)$ fixes $C\otimes\varphi$.
+	
+	To see this, one has to do an explicit computation with $C$. For this, let $\{v_1,\ldots,v_n\}$ be a basis of $V$, and $\{v_1^*,\ldots,v_n^*\}$ be the dual basis of $V(m)$ taken with respect to $\varphi$. Then $C=\sum_{i=1}^nv_i\otimes v_i^*$. Similarly, we see that $\{gv_1,\ldots,gv_n\}$ is a basis of $V$ with a dual basis $\{(gv_1)^*,\ldots,(gv_n)^*\}$ so that $C=\sum_{i=1}^n(gv_i)\otimes(gv_i)^*$. Now, on one hand, if $g$ has multiplier $\lambda$, then $g\varphi=\lambda^{-1}\varphi$. On the other hand, $\varphi(gv_i,gv_j^*)=\lambda1_{i=j}$, so $(gv_i)^*=\lambda^{-1}gv_i^*$, which allows us to compute $gC=\lambda C$. In total, $g(C\otimes\varphi)=C\otimes\varphi$.
+\end{remark}
+\begin{remark}
+	One can check that $\op{GSp}(\varphi)$ does not depend on the choice of polarization. Roughly speaking, the point is that the choice of a different polarization amounts to some choice of an element in $D^\times$ which we can track through.%\todo{}
+\end{remark}
+In light of the above two lemmas, we pick up the following notation.
+\begin{notation}
+	Fix $V\in\op{HS}_\QQ$ pure of weight $m$ with $D\coloneqq\op{End}_{\op{HS}}(V)$ and polarization $\varphi$. Then we define
+	\[\op{GSp}_D(\varphi)\coloneqq\op{GL}_D(V)\cap\op{GSp}(\varphi).\]
+	By \Cref{lem:mt-commutes-with-endo,lem:mt-commutes-polarization}, we see that $\op{MT}(V)\subseteq\op{GSp}_D(\varphi)$.
+\end{notation}
+\begin{remark} \label{rem:generic-mt}
+	In ``most cases,'' we expect that generic Hodge structures $V$ should have the equality $\op{MT}(V)=\op{GL}_D(V)$, and if $V$ admits a polarization $\varphi$, then we expect the equality $\op{MT}(V)=\op{GSp}_D(\varphi)$. To rigorize this intuition, one must discuss Shimura varieties, which we will avoid doing for now.
+\end{remark}
+We can also apply \Cref{lem:mt-commutes-with-endo,lem:mt-commutes-polarization} to bound $\op{Hg}(V)$.
+\begin{notation}
+	Fix $V\in\op{HS}_\QQ$ pure of weight $m$ with $D\coloneqq\op{End}_{\op{HS}}(V)$ with polarization $\varphi$. Then we define
+	\[\op{Sp}(\varphi)\coloneqq\{g\in\op{GL}(V):\varphi(gv\otimes gw)=\varphi(v\otimes w)\},\]
+	and
+	\[\op{Sp}_D(\varphi)\coloneqq\op{GL}_D(V)\cap\op{Sp}(\varphi).\]
+\end{notation}
+\begin{remark} \label{rem:hg-commutes-polarization}
+	Let's explain why $\op{Hg}(V)\subseteq\op{Sp}_D(\varphi)$. By \Cref{lem:mt-commutes-with-endo}, we see that $\op{Hg}(V)\subseteq\op{MT}(V)\subseteq\op{GL}_D(V)$, so it remains to check that $\op{Hg}(V)\subseteq\op{Sp}(\varphi)$. Proceeding as in \Cref{lem:mt-commutes-polarization}, it is enough to check that the image of $h|_{\mathbb U}$ lives in $\op{Sp}(\varphi)_\RR$, for which we note that any $z\in\mathbb U(\RR)$ has
+	\[\varphi(h(z)v\otimes h(z)w)=h_{\QQ(-m)}(z)\varphi(v\otimes w),\]
+	but $h_{\QQ(-m)}(z)=\left|z\right|^{-2m}{\id_{\QQ(-m)}}$ is the identity because $z\in\mathbb U(\RR)$.
+\end{remark}
+Thus far, our tools have been upper-bounding $\op{MT}(V)$ and $\op{Hg}(V)$. Here is a tool which sometimes provides a lower bound.
+\begin{lemma} \label{lem:mt-hg-fixes-endos}
+	Fix $V\in\op{HS}_\QQ$, and let $D\coloneqq\op{End}_{\op{HS}}(V)$ be the endomorphism algebra of $V$. Then
+	\[D=\op{End}_\QQ(V)^{\op{MT}(V)}=\op{End}_\QQ(V)^{\op{Hg}(V)}.\]
+\end{lemma}
+\begin{proof}
+	As discussed in the second proof of \Cref{lem:mt-commutes-with-endo}, the Hodge calsses of $\op{End}_\QQ(V)\cong V\otimes V^\lor$ are exactly the endomorphisms of the Hodge structure, so the first equality follows from \Cref{cor:hodge-classes-by-mt}.
+
+	The second equality is purely formal: note that the scalar subgroup $\mathbb G_{m,\QQ}\subseteq\op{GL}(V)$ acts trivially on $V\otimes V^\lor\cong\op{End}_\QQ(V)$. Thus, we use \Cref{lem:mt-by-hg} to compute
+	\begin{align*}
+		\op{End}_\QQ(V)^{\op{Hg}(V)} &= \op{End}_\QQ(V)^{\mathbb G_{m,\QQ}\op{Hg}(V)} \\
+		&= \op{End}_\QQ(V)^{\mathbb G_{m,\QQ}\op{MT}(V)} \\
+		&= \op{End}_\QQ(V)^{\op{MT}(V)},
+	\end{align*}
+	as required.
+\end{proof}
+\begin{remark}
+	To understand \Cref{lem:mt-hg-fixes-endos} as providing a lower bound, note that if $\op{MT}(V)$ is ``too small,'' then there will be many invariant elements in $\op{End}_\QQ(V)^{\op{MT}(V)}$, perhaps exceeding $D$. On the other hand, the upper bound $\op{MT}(V)\subseteq\op{GL}_D(V)$ corresponds to the inequality $D\subseteq\op{End}_\QQ(V)^{\op{MT}(V)}$.
+\end{remark}
+
+\subsection{Sums}
+For later use in computations, it will be helpful to have a few remarks on computing the Mumford--Tate and Hodge groups of a sum. Here the Hodge group really shines: given two Hodge structures $V_1,V_2\in\op{MT}(V)$ pure of nonzero weight, \Cref{lem:mt-by-hg} tells us that $\op{MT}(V_1)$ and $\op{MT}(V_2)$ and $\op{MT}(V_1\oplus V_2)$ are all equal to some smaller group times scalars. It will turn out to be reasonable to hope that
+\[\op{Hg}(V_1\oplus V_2)\stackrel?=\op{Hg}(V_1)\times\op{Hg}(V_2),\]
+but then the introduction of scalars makes the hope $\op{MT}(V_1\oplus V_2)\stackrel?=\op{MT}(V_1)\times\op{MT}(V_2)$ unreasonable!
+
+With this in mind, let's begin to study Hodge groups of sums of Hodge structures.
+\begin{lemma} \label{lem:product-of-hg}
+	Fix Hodge structures $V_1,\ldots,V_k\in\op{Hg}_\QQ$ pure of the same weight.
+	\begin{listalph}
+		\item The subgroup $\op{Hg}(V_1\oplus\cdots\oplus V_k)\subseteq\op{GL}(V_1\oplus\cdots\oplus V_k)$ is contained in $\op{Hg}(V_1)\times\cdots\times\op{Hg}(V_k)\subseteq\op{GL}(V_1\oplus\cdots\oplus V_k)$.
+		\item For each $i$, the projection map $\op{pr}_i\colon\op{Hg}(V_1\oplus\cdots\oplus V_k)\to\op{Hg}(V_i)$ is surjective.
+	\end{listalph}
+\end{lemma}
+\begin{proof}
+	For each $i$, let $h_i$ denote the representations of $\mathbb S$ corresponding to the Hodge structures $V_i$, and let $h\coloneqq (h_1,\ldots,h_k)$ be the representation $\mathbb S\to\op{GL}(V)$ where $V\coloneqq V_1\oplus\cdots\oplus V_k$. We show the claims in sequence.
+	\begin{listalph}
+		\item We must show that $\op{Hg}(V_1)\times\cdots\times\op{Hg}(V_k)$ contains the image of $h|_{\mathbb U}$. Well, for any $z\in\mathbb U(\RR)$ and index $i$, we see that $h_i(z)\in\op{Hg}(V_i)$, so
+		\[h(z)=\op{diag}(h_1(z),\ldots,h_k(z))\]
+		lives in $\op{Hg}(V_1)\times\cdots\times\op{Hg}(V_k)$, as required.
+		\item Fix an index $i$. It is enough to show that smallest algebraic $\QQ$-group containing the image of $\op{pr}_i$ also contains the image of $h_i|_{\mathbb U}$. Well, by definition of $h$, we see that $h_i$ is equal to the composite
+		\[\mathbb S\stackrel{h}\to\op{GL}(V_1)\times\cdots\times\op{GL}(V_k)\stackrel{\op{pr}_i}\to\op{GL}(V_i),\]
+		from which the claim follows.
+		\qedhere
+	\end{listalph}
+\end{proof}
+\begin{remark}
+	All the claims in \Cref{lem:product-of-hg} are true if $\op{Hg}$ is replaced by $\op{MT}$ everywhere. One simply has to replace $\mathbb U$ with $\mathbb S$ in the proof.
+\end{remark}
+\Cref{lem:product-of-hg} makes $\op{Hg}(V_1\oplus V_2)\stackrel?=\op{Hg}(V_1)\times\op{Hg}(V_2)$ appear to be a reasonable expectation. However, we note that we cannot in general expect this to be true: roughly speaking, there may be Hodge cycles on $V_1\oplus V_2$ which are not seen on just $V_1$ or $V_2$. Here is a degenerate example.
+\begin{example} \label{ex:diagonal-hodge-group}
+	Fix a Hodge structure $V\in\op{HS}_\QQ$ of pure weight, and let $n\ge1$ be a positive integer. Letting $h\colon\mathbb S\to\op{GL}(V)_\RR$ be the corresponding representation, we get another Hodge structure $h^{n}\colon\mathbb S\to\op{GL}\left(V^{\oplus n}\right)$. We claim that the diagonal embedding of $\op{Hg}(V)$ into $\op{GL}(V)^n\subseteq\op{GL}\left(V^{\oplus n}\right)$ induces an isomorphism
+	\[\op{Hg}(V)\to\op{Hg}\left(V^{\oplus n}\right).\]
+	On one hand, we note that $\op{Hg}\left(V^{\oplus n}\right)$ lives inside the diagonal embedding of $\op{Hg}(V)$: note $\op{Hg}\left(V^{\oplus n}\right)\subseteq\op{Hg}(V)^n$ by \Cref{lem:product-of-hg}, and $\op{Hg}\left(V^{\oplus n}\right)$ must live inside the diagonal embedding of $\op{GL}(V)\subseteq\op{GL}\left(V^{\oplus n}\right)$ becuase all components of $h^n\colon\mathbb S\to\op{GL}\left(V^{\oplus n}\right)_\RR$ are equal. On the other hand, the surjectivity of the projections $\op{Hg}\left(V^{\oplus n}\right)\to\op{Hg}(V)$ from \Cref{lem:product-of-hg} implies that $\op{Hg}\left(V^{\oplus n}\right)$ must equal the diagonal embedding of $\op{Hg}(V)$ (instead of merely being contained in it).
+\end{example}
+One can upgrade this example as follows.
+\begin{lemma}
+	Fix Hodge structures $V_1,\ldots,V_k\in\op{Hg}_\QQ$ pure of the same weight, and let $m_1,\ldots,m_k\ge1$ be positive integers. Then the diagonal embeddings $\Delta_i\colon\op{GL}(V_i)\to\op{GL}\left(V_i^{\oplus m_i}\right)$ induce an isomorphism
+	\[\op{Hg}(V_1\oplus\cdots\oplus V_k)\to\op{Hg}\left(V_1^{\oplus m_1}\oplus\cdots\oplus V_k^{\oplus m_k}\right).\]
+\end{lemma}
+\begin{proof}
+	We proceed in steps. The proof is a direct generalization of the one given in \Cref{ex:diagonal-hodge-group}. For each $i$, let $h_i\colon\mathbb S\to\op{GL}(V_i)_\RR$ be the representation corresponding to the Hodge structure, and set $h\coloneqq\left(h_1^{m_1},\ldots,h_k^{m_k}\right)$.
+	\begin{enumerate}
+		\item We claim that $\op{Hg}\left(V_1^{\oplus m_1}\oplus\cdots\oplus V_k^{\oplus m_k}\right)$ lives in the image of $(\Delta_1,\ldots,\Delta_k)$. Indeed, the image is some algebraic $\QQ$-subgroup of $\op{GL}\left(V_1^{\oplus m_1}\oplus\cdots\oplus V_k^{\oplus m_k}\right)$, so we would like to check that this algebraic $\QQ$-subgroup contains the image of $h|_{\mathbb U}$. Well, for any $z\in\mathbb U(\RR)$, we see that
+		\[h(z)=(\Delta_1(h_1(z)),\ldots,\Delta_k(h_k(z)))\]
+		lives in the image of $(\Delta_1,\ldots,\Delta_k)$.
+		\item For each $i$, let $H_i$ be the projection of $\op{Hg}\left(V_1^{\oplus m_1}\oplus\cdots\oplus V_k^{\oplus m_k}\right)$ onto one of the $V_i$ components as in \Cref{lem:product-of-hg}; the choice of $V_i$ component does not matter by the previous step. By \Cref{lem:product-of-hg}, we see that $H_i=\op{Hg}(V_i)$. However, the previous step requires
+		\[\op{Hg}\left(V_1^{\oplus m_1}\oplus\cdots\oplus V_k^{\oplus m_k}\right)=H_1^{m_1}\times\cdots\times H_k^{m_k},\]
+		so we are done.
+		\qedhere
+	\end{enumerate}
+\end{proof}
+\begin{remark}
+	As usual, this statement continues to be true for $\op{MT}$ replacing $\op{Hg}$. One can either see this by applying \Cref{lem:mt-by-hg} or by redoing the proof with $\mathbb S$ replacing $\mathbb U$.
+\end{remark}
+The point of the lemma is that we can reduce our computation of Hodge groups to Hodge structures which are the sum of pairwise non-isomoprhic irreducible Hodge strucutures. Let's make a few remarks about this situation for completeness. Let $V_1,\ldots,V_k$ be pairwise non-isomorphic irreducuble Hodge structures which are pure of the same weight, and set $V\coloneqq V_1\oplus\cdots\oplus V_k$. Here are some remarks on $\op{Hg}(V_1\times\cdots\times V_k)$, summarizing everything we have done so far.
+\begin{itemize}
+	\item We know that $\op{Hg}(V)\subseteq\op{Hg}(V_1)\times\cdots\times\op{Hg}(V_k)$.
+	\item We know that the projections of $\op{Hg}(V)$ onto each factor $\op{Hg}(V_i)$ are surjective.
+	\item For each $i$, we may view $V_i$ as a representation of $\op{Hg}(V_i)$ via the inclusion $\op{Hg}(V_i)\subseteq\op{GL}(V_i)$. Then \Cref{cor:irrep-hs-is-irrep-hg} tells us that $V_i$ is an irreducible representation of $\op{Hg}(V_i)$.
+	\item One can also apply \Cref{lem:mt-hg-fixes-endos} to the full space $V$ to see that
+	\begin{align*}
+		\op{End}_{\op{Hg}(V)}(V) &= \op{End}_{\op{HS}}(V) \\
+		&= \prod_{i=1}^k\op{End}_{\op{HS}}(V_i) \\
+		&= \prod_{i=1}^k\op{End}_{\op{Hg}(V_i)}(V_i).
+	\end{align*}
+\end{itemize}
+The following results take the above situation and provides some criteria to have
+\[\op{Hg}(V)\stackrel?=\op{Hg}(V_1)\times\cdots\times\op{Hg}(V_k).\]
+Before stating the lemma, we remark that all groups in sight are connected by \Cref{rem:hg-connected}, and we already have one inclusion by \Cref{lem:product-of-hg}, so it suffices to pass to an algebraic closure and work with Lie algebras instead of the Lie groups. The following lemma is essentially due to Ribet \cite[pp.~790--791]{ribet-galois-action-rm}.
+\begin{lemma}[Ribet] \label{lem:ribet-product}
+	Work over an algebraically closed field of characteristic $0$. Let $V_1,\ldots,V_k$ be finite-dimensional vector spaces, and let $\mf g$ be a Lie subalgebra of $\mf{gl}(V_1)\times\cdots\times\mf{gl}(V_k)$. For each index $i$, let $\op{pr}_i\colon(\mf{gl}(V_1)\times\cdots\times\mf{gl}(V_k))\to\mf{gl}(V_i)$ be the $i$th projection, and set $\mf g_i\coloneqq\op{pr}_i(\mf g)$. Suppose the following.
+	\begin{listroman}
+		\item Each $\mf g_i$ is nonzero and simple.
+		\item For each pair $(i,j)$ of distinct indices, the projection map $({\op{pr}_i},{\op{pr}_j})\colon\mf g\to\mf g_i\times\mf g_j$ is surjective.
+	\end{listroman}
+	Then $\mf g=\mf g_1\times\cdots\times\mf g_k$.
+\end{lemma}
+\begin{proof}
+	We proceed by induction on $k$. If $k\in\{0,1\}$, then there is nothing to say. For the induction, we now assume that $k\ge2$ and proceed in steps.
+	\begin{enumerate}
+		\item For our set-up, we let $J$ be the kernel of $\op{pr}_k\colon\mf g\to\mf g_n$. By definition, $J\subseteq\mf g_1\times\cdots\times\mf g_k$ takes the form $I\oplus0$ for some subspace $I\subseteq\mf g_1\times\cdots\times\mf g_{k-1}$. Formally, one may let $I$ be the set of vectors $v$ such that $(v,0)\in J$ and argue for the equality $J=I\oplus0$ because all vectors in $J$ take the form $(v,0)$.
+
+		The main content of the proof goes into showing that $I$ is actually an ideal. To set ourselves up to prove this claim, let $\mf n\subseteq\mf g_1\times\cdots\times\mf g_{k-1}$ denote its normalizer. We would like to show that $\mf n=\mf g_1\times\cdots\times\mf g_{k-1}$, for which we use the inductive hypothesis.
+
+		% \item For each index $i<k$, we claim that the projections $\op{pr}_i\colon\mf n\to\mf g_i$ are surjective. In fact, we will show that the projections $\op{pr}_i\colon I\to\mf g_i$, which is sufficient because $I\subseteq\mf n$. For this, we use the hypothesis (ii): for any $X_i\in\mf g_i$, note that the projection map $({\op{pr}_i},{\op{pr}_n})\colon\mf g\to\mf g_i\times\mf g_n$ is surjective, so one may find $(X_1,\ldots,X_k)\in\mf g$ with the correct $X_i\in\mf g_i$ coordinate and $X_k=0$. We now note that $(X_1,\ldots,X_k)\in J$ and so $(X_1,\ldots,X_{k-1})\in I$ provides the needed element.
+		
+		\item For each pair of distinct indices $i,j<k$, we claim that the projection $({\op{pr}_i},{\op{pr}_j})\colon\mf n\to\mf g_i\times\mf g_j$ is surjective. Well, choose $X_i\in\mf g_i$ and $X_j\in\mf g_j$, and we need to find an element in $\mf n$ with $X_i$ and $X_j$ at the correct coordinates.
+
+		To begin, we note that (ii) yields some $(X_1,\ldots,X_k)\in\mf g$ such that with the correct $X_i\in\mf g_i$ and $X_j\in\mf g_j$ coordinates. We would like to show that $X\coloneqq(X_1,\ldots,X_{k-1})$ lives in $\mf n$, which will complete this step. Well, select any $Y\coloneqq(Y_1,\ldots,Y_{k-1})$ in $I$, and we see $(Y,0)\in J$, so
+		\[[(X,X_k),(Y,0)]=([X,Y],0)\]
+		lives in $J$ too (recall $J$ is an ideal), so we conclude $[X,Y]\in I$. We conclude that $X$ normalizes $I$, so $X\in\mf n$.
+
+		\item We take a moment to complete the proof that $I\subseteq\mf g_1\times\cdots\times\mf g_{k-1}$ is an ideal. It is enough to check that the normalizer $\mf n$ of $I$ in $\mf g_1\times\cdots\times\mf g_{k-1}$ equals all of $\mf g_1\times\cdots\times\mf g_{k-1}$. For this, we use the inductive hypothesis. The previous step shows that $\mf g_i=\op{pr}_i(\mf n)$ for each $i$, and we know by (i) that each $\mf g_i$ is already nonzero and simple. Lastly, the previous step actually checks condition (ii) for the inductive hypothesis, completing the proof that $\mf n=\mf g_1\times\cdots\times\mf g_{k-1}$.
+
+		\item We claim $I=\mf g_1\times\cdots\times\mf g_{k-1}$. Because $I\subseteq\mf g_1\times\cdots\times\mf g_{k-1}$ is an ideal of a sum of simple algebras, we know that
+		\[I=\bigoplus_{i\in S}\mf g_i\]
+		for some subset $S\subseteq\{1,\ldots,k-1\}$ of indices. Thus, to achieve the equality $I\stackrel?=\mf g_1\times\cdots\times\mf g_{k-1}$, it is enough to check that each projection $\op{pr}_i\colon I\to\mf g_{k-1}$ is surjective. Unravelling the definition of $I$, it is enough to check that each $X_i\in\mf g_i$ has some $(X_1,\ldots,X_k)\in\mf g$ with the correct $X_i$ coordinate and $X_k=0$. This last claim follows from hypothesis (ii) of $\mf g$!
+
+		\item We now finish the proof of the lemma. Certainly $\mf g\subseteq\mf g_1\times\cdots\times\mf g_k$, so it is enough to compute dimensions to prove the equality. By the short exact sequence
+		\[0\to J\to\mf g\to\mf g_n\to0,\]
+		it is enough to show that $\dim J=\dim\mf g_1+\cdots+\dim\mf g_{k-1}$. However, this follows from the previous step because $\dim J=\dim I$.
+		\qedhere
+	\end{enumerate}
+\end{proof}
+In practice, it is somewhat difficult to check (ii) of \Cref{lem:ribet-product}. Here is an automation.
+\begin{lemma}[Moonen--Zarhin] \label{lem:mz-product}
+	Work over an algebraically closed field of characteristic $0$. Let $V_1,\ldots,V_k$ be finite-dimensional vector spaces, and let $\mf g$ be a Lie subalgebra of $\mf{gl}(V_1)\times\cdots\times\mf{gl}(V_k)$. For each index $i$, let $\op{pr}_i\colon(\mf{gl}(V_1)\times\cdots\times\mf{gl}(V_k))\to\mf{gl}(V_i)$ be the $i$th projection, and set $\mf g_i\coloneqq\op{pr}_i(\mf g)$. Suppose the following.
+	\begin{listroman}
+		\item Each $\mf g_i$ is nonzero and simple.
+		\item Fix a simple Lie algebra $\mf l$, and define $I(\mf l)\coloneqq\{i:\mf g_i\cong\mf l\}$. If $\#I(\mf l)>1$, we require the following to hold.
+		\begin{itemize}
+			\item All automorphisms of $\mf l$ are inner.
+			\item One can choose isomorphisms $\mf l\to\mf g_i$ for each $i\in I(\mf l)$ such that the representations $\mf l\to\mf g_i\to\mf{gl}(V_i)$ are all isomorphic.
+			\item The diagonal inclusion
+			\[\prod_{i\in I(\mf l)}\op{End}_{\mf g_i}(V_i)\to\op{End}_{\mf g}\Bigg(\bigoplus_{i\in I(\mf l)}V_i\Bigg)\]
+			is surjective.
+		\end{itemize}
+	\end{listroman}
+	Then $\mf g=\mf g_1\times\cdots\times\mf g_k$.
+\end{lemma}
+\begin{proof}
+	We will show that (ii) in the above lemma implies (ii) of \Cref{lem:ribet-product}, which will complete the proof. We will proceed by contraposition in the following way. Fix a pair $(i,j)$ of distinct indices, and we are interested in the map $({\op{pr}_i},{\op{pr}_j})\colon\mf g\to\mf g_i\times\mf g_j$. Supposing that $({\op{pr}_i},{\op{pr}_j})$ fails to be surjective (which is a violation of (ii) of \Cref{lem:ribet-product}), we will show that (ii) cannot be true. In particular, we will assume the first two points of (ii) and show then that the third point of (ii) is false.
+	
+	Roughly speaking, we are going to use the first two points of (ii) to find an $\mathfrak h$ and then produce an endomorphism of $\bigoplus_{i\in I(\mf h)}V_i$ which does not come from gluing together endomorphisms of the $V_i$s. Having stated the outline, we proceed with the proof in steps.
+	\begin{enumerate}
+		\item We claim that the image $\mf h$ of the map $({\op{pr}_i},{\op{pr}_j})\colon\mf g\to\mf g_i\times\mf g_j$ is the graph of an isomorphism $\mf g_i\to\mf g_j$. For this, we use the hypothesis that $({\op{pr}_i},{\op{pr}_j})$ fails to be surjective. Well, we claim that the projections $\mf h\to\mf g_i$ and $\mf h\to\mf g_j$ are isomorphisms, which implies that $\mf h$ is the graph of the composite isomorphism
+		\[\mf g_i\from\mf h\to\mf g_j.\]
+		By symmetry, it is enough to merely check that $\mf h\to\mf g_i$ is an isomorphism. On one hand, $\mf h\to\mf g_i$ is surjective because $\op{pr}_i\colon\mf g\to\mf g_i$ is surjective by construction of $\mf g_i$. On the other hand, the kernel of the projection $\mf h\to\mf g_i$ will be an ideal of $\mf h$ of the form $0\oplus I$ where $I\subseteq\mf g_j$ is some subspace. In fact, becasue the projection $\mf h\to\mf g_j$ is also surjective, we see that $I\subseteq\mf g_j$ must be an ideal, so the simplicity of $\mf g_j$ grants two cases.
+		\begin{itemize}
+			\item If $I=0$, then $\op{pr}_i\colon\mf h\to\mf g_i$ becomes injective and is thus an isomorphism, completing this step.
+			\item If $I=\mf g_j$, then $\mf h$ fits into a short exact sequence
+			\[0\to(0\oplus\mf g_j)\to\mf h\to\mf g_i\to0,\]
+			so $\dim\mf h=\dim(\mf g_i\oplus\mf g_j)$, implying the inclusion $\mf h\subseteq\mf g_i\oplus\mf g_j$ is an equality. However, this cannot be the case because we assumed that $({\op{pr}_i},{\op{pr}_j})\colon\mf g\to\mf g_i\to\mf g_j$ fails to be surjective!
+		\end{itemize}
+
+		\item We construct an isomorphism of $\mf g$-representations $V_i\to V_j$. For this, we use the first two points of (ii). Let's begin by collecting some data.
+		\begin{itemize}
+			\item The previous step informs us that $\mf g_i\cong\mf g_j$. In fact, because this isomorphism is witnessed by the projections $\op{pr}_i\colon\mf g\to\mf g_i$ and $\op{pr}_j\colon\mf g\to\mf g_j$, we see that we are granted an isomorphism $f\colon\mf g_i\to\mf g_j$ such that ${\op{pr}_j}=f\circ\op{pr}_i$.
+			\item We now let $\mf l$ be a simple Lie algebra isomorphic to both(!) $\mf g_i$ and $\mf g_j$. The second point of (ii) grants isomorphisms $f_i\colon\mf l\to\mf g_i$ and $f_j\colon\mf l\to\mf g_j$ of Lie algebras and an isomorphism $d\colon V_i\to V_j$ of $\mf l$-representations.
+		\end{itemize}
+		We now construct our isomorphism from $d$. Because $d$ is only an isomorphism of $\mf l$-representations, we are only granted that $(X_1,\ldots,X_k)\in\mf g$ satisfies $f(X_i)=X_j$ and hence
+		\begin{align*}
+			d\left((f_if_j^{-1}f)(X_i) v_i\right) &= d\left(f_i\left(f_j^{-1}f(X_i)\right)v_i\right) \\
+			&= f_j\left(f_j^{-1}f(X_i)\right)d(v_i) \\
+			&= X_jd(v_i)
+		\end{align*}
+		for all $v_i\in V_i$. We would be done if we could remove the pesky automorphism $f_if_j^{-1}f\colon\mf g_i\to\mf g_i$. This is possible because all automorphisms of $\mf g_i\cong\mf l$ are inner (!), so one may simply ``change bases'' to remove the inner automorphism. Explicitly, find $a\in\op{GL}(V_i)$ such that $f_if_j^{-1}f(X)=aXa^{-1}$ for all $X\in\mf g_i$, and then we define $e\coloneqq d\circ a$. Then we find that any $v_i\in V_i$ has
+		\begin{align*}
+			e(X_iv_i) &= d\left(aX_ia^{-1}\cdot av\right) \\
+			&= d\left((f_if_j^{-1}f)(X_i)\cdot av\right) \\
+			&= X_jd(av) \\
+			&= X_je(v).
+		\end{align*}
+
+		\item We complete the proof. The previous step provides a morphism $e\colon V_i\to V_j$ of $\mf g$-representations. We thus note that the composite
+		\[\bigoplus_{k\in I(\mf l)}V_k\onto V_i\stackrel e\to V_j\into\bigoplus_{k\in I(\mf l)}V_k\]
+		is an endomorphism which does not come from the diagonal inclusion of $\prod_{i\in I(\mf l)}\op{End}_{\mf g_i}(V_i)$. This completes the proof by showing that the third point of (ii) fails to hold.
+		\qedhere
+	\end{enumerate}
+\end{proof}
+\begin{remark}
+	We should remark on some history. \Cref{lem:ribet-product} is due to Ribet \cite[pp.~790--791]{ribet-galois-action-rm}, but the given formulation is due to Moonen and Zarhin \cite[Lemma~2.14]{moonen-zarhin-fourfold}. In the same lemma, Moonen and Zarhin prove \Cref{lem:mz-product}, and they seem to be the first to recognize the utility of this lemma for computing Hodge groups. For example, Lombardo includes this result in his master's thesis \cite[Lemma~3.3.1]{lombardo-mumford-tate} and includes a generalized version in another paper as \cite[Lemma~3.7]{lombardo-ell-adic-product}, where it is used to compute Hodge groups of certain products of abelian varieties.
+\end{remark}
+\begin{remark}
+	Let's explain how \Cref{lem:mz-product} is typically applied, which is admittedly somewhat different from the application used in this thesis. In the generic case, one expects (i), for example if $\op{Hg}(V)=\op{Sp}_D(\varphi)^\circ$ for $D$ of types I--III as in \Cref{rem:generic-mt}. In this case, one can also check the first condition of (ii) by a direct computation, the second condition of (ii) has no content, and the third condition of (ii) comes from \Cref{lem:mt-hg-fixes-endos}. For more details, we refer to (for example) the applications given in \cite{lombardo-mumford-tate,lombardo-ell-adic-product}.
+\end{remark}
+
+\section{The Center}
+Our last computational tool concerns the center of $\op{Hg}(V)$. This discussion is somewhat more involved, so we will spend a full section here.
+
+Let's begin with some motivation. Fix a Hodge struture $V\in\op{HS}_\QQ$. In the application of this thesis, we will use \Cref{lem:mz-product} to compute $\op{Hg}(V)^{\mathrm{der}}$: note $\op{Hg}(V)^{\mathrm{der}}$ is semisimple and hence its Lie algebra can be written as the sum of simple Lie algebras which may be amenable to the lemma. Because $\op{Hg}(V)$ is reductive by \Cref{lem:mt-hg-reductive}, it remains to compute the center $Z(\op{Hg}(V))$; recall $\op{Hg}(V)$ is connected by \Cref{rem:hg-connected}, so we may as well compute the connected component $Z(\op{Hg}(V))^\circ$. As usual, the same discussion holds for $\op{MT}(V)$, but we note that $Z(\op{MT}(V))^\circ$ tends to be nontrivial because usually $\mathbb G_{m,\QQ}\subseteq\op{MT}(V)$ by \Cref{ex:mt-has-scalars}.
+
+In \Cref{prop:hodge-semisimple-not-type-iv}, we find that $Z(\op{Hg}(V))^\circ$ is trivial unless $V$ has irreducible factors of type IV in the sense of the Albert classification (\Cref{thm:albert-classification}). As such, we spend the rest of the section focusing on computations in type IV. Computations are well-understood when $V$ comes from an abelian variety with complex multiplication, so the main contribution here is that these arguments generalize with only slight modifications.
+
+\subsection{Generalities}
+The following lemma begins our discussion.
+\begin{lemma} \label{lem:hg-center-in-torus}
+	Fix $V\in\op{HS}_\QQ$ of pure weight, and set $D\coloneqq\op{End}_{\op{HS}}(V)$ with $F\coloneqq Z(D)$. Viewing $D$ as a $\QQ$-group, we have
+	\[Z(\op{Hg}(V))\subseteq\op{Res}_{F/\QQ}\mathbb G_{m,F},\]
+	where $\op{Res}_{F/\QQ}\mathbb G_{m,F}$ embeds into $\op{GL}(V)$ via the $D$-action on $V$.
+\end{lemma}
+\begin{proof}
+	Here, $F$ is a product of number fields because it is a commutative semisimple $\QQ$-algebra. Recall from \Cref{lem:mt-hg-fixes-endos} that
+	\[D=\op{End}_\QQ(V)^{\op{Hg}(V)},\]
+	which upgrades to an equality of algebraic subgroups of $\op{End}_\QQ(V)$ because $\QQ$-points are dense in these algebraic groups by combining \cite[Corollary~17.92]{milne-alg-groups} and \cite[Definition~12.59]{milne-alg-groups}. In particular, we see that $\op{Hg}(V)$ commutes with $D^\times$, so the double centralizer theorem enforces $Z(\op{Hg}(V))\subseteq D^\times$ even as algebraic groups. However, $Z(\op{Hg}(V))$ now commutes fully with $D^\times$, so in fact $Z(\op{Hg}(V))\subseteq Z(D)^\times$, which is what we wanted.
+\end{proof}
+\begin{remark} \label{rem:mt-center-in-torus}
+	One also has $Z(\op{MT}(V))\subseteq\op{Res}_{F/\QQ}\mathbb G_{m,F}$ because $\op{MT}(V)\subseteq\mathbb G_{m,\QQ}\op{Hg}(V)$ by \Cref{lem:mt-by-hg}, and the scalars $\mathbb G_{m,\QQ}$ already live in $\op{Res}_{F/\QQ}\mathbb G_{m,F}$.
+	% More generally, for any subfield $F'\subseteq F$, we can see that $V$ also becomes a vector space over $F'$, so we have inclusions
+	% \[\op{Res}_{F/\QQ}\mathbb G_{m,F}\subseteq\op{Res}_{F'/\QQ}\mathbb G_{m,F'}\subseteq\op{GL}(V).\]
+\end{remark}
+\Cref{lem:hg-center-in-torus} is that it places the center $Z(\op{Hg}(V))$ in an explicit torus $\op{Res}_{F/\QQ}\mathbb G_{m,F}$. Subgroups of tori are well-understood by (co)character groups, so this puts us in good shape. This torus will be important enough to have its own notation.
+\begin{notation}
+	Fix a commutative semisimple $\QQ$-algebra $F$ (i.e., a product of number fields). Then we define the torus
+	\[\mathrm T_F\coloneqq\op{Res}_{F/\QQ}\mathbb G_{m,F}.\]
+\end{notation}
+\begin{remark} \label{rem:tf-of-algebra}
+	Writing $F$ as a product of number fields $F_1\times\cdots\times F_k$, we find
+	\[\mathrm T_F=\mathrm T_{F_1}\times\cdots\times\mathrm T_{F_k}\]
+	because $F=F_1\times\cdots\times F_k$ is an equality of $\QQ$-algebras.
+\end{remark}
+\begin{remark}
+	Let's compute the character group $\mathrm X^*(\mathrm T_F)$. By \Cref{rem:tf-of-algebra}, it's enough to do this computation when $F$ is a field. The choice of a primitive element $\alpha\in F$ with minimal monic polynomial $f(x)$ yields an isomorphism $F\cong\QQ[x]/(f(x))$. Upon base-changing to $\ov\QQ$, we get a ring isomorphism
+	\[F\otimes_\QQ\ov\QQ\cong\prod_{i=1}^n\frac{\ov\QQ[x]}{(x-\alpha_i)},\]
+	where $\alpha_1,\ldots,\alpha_n\in\ov\QQ$ are the roots of $f(x)$ in $\ov\QQ$. Each root $\alpha_i$ provides a unique embedding $F\into\ov\QQ$, so we see that $(\mathrm T_F)_{\ov\QQ}\cong\mathbb G_{m,\ov\QQ}^n$, where the $n$ maps $(\mathrm T_F)_{\ov\QQ}\to\mathbb G_{m,\ov\QQ}$ are given by the embedding $\sigma_i\colon F\into\ov\QQ$ defined by $\sigma_i(\alpha)\coloneqq\alpha_i$. In total, we find that $\mathrm X^*(\mathrm T_F)$ is a free $\ZZ$-module spanned by the embeddings $\Sigma_F\coloneqq\{\sigma_1,\ldots,\sigma_n\}$, and it has the natural Galois action. Dually, $\mathrm X_*(\mathrm T_F)$ has the dual basis $\Sigma_F^\lor=\{\sigma_1^\lor,\ldots,\sigma_n^\lor\}$.
+\end{remark}
+In the light of the above remark, we will want the following notation.
+\begin{notation}
+	Given a number field $F$, we let $\Sigma_F$ denote the collection of embeddings $F\into\ov\QQ$. Given a product of number fields $F\coloneqq F_1\times\cdots\times F_k$, we define $\Sigma_F\coloneqq\Sigma_{F_1}\sqcup\cdots\sqcup\Sigma_{F_k}$.
+\end{notation}
+The point of the above notation is that $\mathrm X^*(\mathrm T_F)=\ZZ[\Sigma_F]$ as Galois modules.
+
+It is possible to upgrade \Cref{lem:hg-center-in-torus} in the presence of a polarization.
+\begin{lemma} \label{lem:hg-center-in-u-torus}
+	Fix a polarizable $V\in\op{HS}_\QQ$ of pure weight, and set $D\coloneqq\op{End}_{\op{HS}}(V)$ with $F\coloneqq Z(D)$. Then
+	\[Z(\op{Hg}(V))\subseteq\left\{g\in\mathrm T_F:gg^\dagger=1\right\},\]
+	where $(\cdot)^\dagger$ is the Rosati involution.
+\end{lemma}
+\begin{proof}
+	As usual, everything in sight upgrades to algebraic groups. Let $\varphi$ be a polarization. Fix some $g\in\op{Hg}(V)$; note that \Cref{lem:hg-center-in-torus} implies $g\in\mathrm T_F$, so it makes sense to write down $g^\dagger$.
+	
+	Now, by the non-degeneracy of $\varphi$, it is enough to show that
+	\[\varphi\left(gg^\dagger v\otimes w\right)\stackrel?=\varphi(v\otimes w)\]
+	for any $v,w\in V$. Well, the definition of $(\cdot)^\dagger$ tells us that the left-hand side equals $\varphi\left(g^\dagger v\otimes g^\dagger w\right)$, which equals $\varphi(v\otimes w)$ because $\op{Hg}(V)\subseteq\op{Sp}(\varphi)$ by \Cref{rem:hg-commutes-polarization}.
+\end{proof}
+Once again, this torus is important enough to earn its own notation.
+\begin{notation}
+	Fix a commutative semisimple $\QQ$-algebra $F$ with involution $(\cdot)^\dagger$. Then we define the torus
+	\[\mathrm U_F\coloneqq\left\{g\in\mathrm T_F:xx^\dagger=1\right\}.\]
+\end{notation}
+Here is an application of \Cref{lem:hg-center-in-u-torus}.
+\begin{proposition} \label{prop:hodge-semisimple-not-type-iv}
+	Fix polarizable $V\in\op{HS}_\QQ$ of pure weight. Suppose that $V$ has no irreducible Hodge substructures with endomorphism algebra of type IV in the sense of the Albert classification (\Cref{thm:albert-classification}). Then $Z(\op{Hg}(V))$ is finite, and $\op{Hg}(V)$ is semisimple.
+\end{proposition}
+\begin{proof}
+	Quickly, recall from \Cref{lem:mt-hg-reductive} that $\op{Hg}(V)$ is reductive, so the finitness of $Z(\op{Hg}(V))$ implies that $Z(\op{Hg}(V))^\circ=1$ and thus $\op{Hg}(V)=\op{Hg}(V)^{\mathrm{der}}$, making $\op{Hg}(V)$ is semisimple. (See also \cite[Proposition~19.10]{milne-alg-groups}.) As such, we will focus on the first claim.
+	
+	Set $D\coloneqq\op{End}_{\op{HS}}(V)$ with $F\coloneqq Z(D)$ so that $\op{Hg}(V)\subseteq\mathrm U_F$ by \Cref{lem:hg-center-in-u-torus}. It is therefore enough to check that $\mathrm U_F$ is finite. Well, $F$ is a product of number fields, and upon comparing with \Cref{thm:albert-classification}, we see that avoiding type IV implies that $F$ is a product of totally real fields. Totally real fields have only two units, so finiteness of $\mathrm U_F$ follows.
+\end{proof}
+Thus, we see that we have pretty good control outside of type IV factors, so we will spend the rest of this subsection on type IV. For some applications outside type IV, see (for example) \cite{lombardo-ell-adic-product}.
+
+\subsection{Type IV: The Signature}
+The arguments in this subsection are motivated by the computation of \cite[Lemma~4.2]{yu-mumford-tate-cm} and \cite[Proposition~1.1]{yanai-degenerate-cm-type}. For this subsection, $V\in\op{HS}_\QQ$ is a Hodge structure of type IV in the sense of the Albert classification (\Cref{thm:albert-classification}). For brevity, we may say that $V$ is simply ``irreducible of type IV.'' In our application, it will also be enough to assume that the Hodge structure of $V$ is concentrated in $V^{0,1}$ and $V^{1,0}$, so we do so.
+
+By assumption, we know that $D\coloneqq\op{End}_{\op{HS}}(V)$ is a division algebra over its center $F\coloneqq Z(D)$, where $F$ is a CM algebra, and the Rosati involution $(\cdot)^\dagger$ restricts to complex conjugation on $F$. In particular, $F^\dagger$ is the product of the maximal totally real subfields of $F$.
+% For simplicity, we will assume that
+% \[D=F\]
+% in the sequel.
+
+The basic approach of this subsection is that \Cref{lem:hg-center-in-torus} requires $Z(\op{Hg}(V))^\circ\subseteq\mathrm T_F$, and one can compute subtori using the machinery of (co)character groups. In particular, we recall that $\mathrm X^*(\Sigma_F)=\ZZ[\Sigma_F]$ and $\mathrm X_*(\Sigma_F)=\ZZ[\Sigma_F^\lor]$ as Galois modules.
+% \begin{remark}
+% 	It is worth noting that much of the literature uses character groups; for example, see \cite[Lemma~4.1]{lombardo-non-isgo-av} or \cite[Section~4.1]{ggl-fermat}. However, these arguments do not generalize as well, so we will use cocharacter groups following \cite{yu-mumford-tate-cm}.
+% \end{remark}
+% We will reduce the computation of $Z(\op{Hg}(V))^\circ$ to some explicit computations with matrices.
+We will need a way to work directly with the Hodge structure on $V$. It will be described by the following piece of combinatorial data.
+\begin{definition}[signature]
+	Fix a CM algebra $F$, and recall that $\Sigma_F$ is the set of homomorphisms $F\into\ov\QQ$. Then a \textit{signature} is a function $\Phi\colon\Sigma_F\to\ZZ_{\ge0}$ such that the sum
+	\[\Phi(\sigma)+\Phi(\ov\sigma)\]
+	is constant with respect to $\sigma\in\Sigma_F$; here, $\ov\sigma$ denotes the complex conjugate embedding to $\sigma$. We may call the pair $(F,\Phi)$ a \textit{CM signature}.
+\end{definition}
+\begin{remark}
+	One can also view $\Phi$ as an element of $\ZZ[\Sigma_F]$ as
+	\[\Phi\coloneqq\sum_{\sigma\in\Phi}\Phi(\sigma)\sigma.\]
+\end{remark}
+\begin{remark}
+	The case that $\Phi(\sigma)+\Phi(\ov\sigma)$ always equals $1$ corresponds to $\Phi$ being a CM type.
+\end{remark}
+\begin{remark}
+	If we expand $F$ as a product of CM fields $F=F_1\times\cdots\times F_k$, then $\Sigma_F=\Sigma_{F_1}\sqcup\cdots\sqcup\Sigma_{F_k}$. Thus, we see that a signature of $F$ has only a little more data than a signature on each of the $\Sigma_{F_\bullet}$s individually; in particular, one should make sure that $\Phi(\sigma)+\Phi(\ov\sigma)$ remains equal across the different fields.
+\end{remark}
+The idea is that we can keep track of a signature with a Hodge structure.
+\begin{lemma} \label{lem:hodge-to-signature}
+	Fix $V\in\op{HS}_\QQ$ with $V_\CC=V^{0,1}\oplus V^{1,0}$ such that $\op{End}_{\op{HS}}(V)$ contains a CM algebra $F$. Then the function $\Phi\colon\Sigma_F\to\ZZ_{\ge0}$ defined by
+	\[V^{1,0}\cong\bigoplus_{\sigma\in\Sigma_F}\CC_\sigma^{\Phi(\sigma)}\]
+	is a signature, which we will call the induced signature. This is an isomorphism of $F$-representations, where $\CC_\sigma$ is a complex $F$-representa\-tion via the embedding $\sigma$.
+\end{lemma}
+\begin{proof}
+	In short, the condition that $\Phi(\sigma)+\Phi(\ov\sigma)$ is constant comes from the condition $V^{0,1}=\overline{V^{1,0}}$. To see this, note that $V$ is a free module over $F$, so $V_\CC$ is a free module over $F\otimes\CC$ of finite rank. As such, we may set $d\coloneqq[V:F]$ so that $V\cong F^d$ as $F$-representations, and then we find
+	\[V_\CC\cong\bigoplus_{\sigma\in\Sigma_F}\CC_\sigma^d.\]
+	Now, $V_\CC=V^{1,0}\oplus V^{0,1}$, and because $F$ acts by endomorphisms of Hodge structures, we get a well-defined action of $F$ on $V^{1,0}$ and $V^{0,1}$ individually. In particular, the definition of $\Phi$ also grants
+	\[V^{0,1}\cong\bigoplus_{\sigma\in\Sigma_F}\CC_\sigma^{d-\Phi(\sigma)}\]
+	as $F$-representations, so
+	\[\overline{V^{0,1}}\cong\bigoplus_{\sigma\in\Sigma_F}\CC_{\ov\sigma}^{d-\Phi(\sigma)}\]
+	To complete the proof, we note that $V^{0,1}=\overline{V^{1,0}}$ continues to be true as $F$-representations, so we must have $\Phi(\sigma)=d-\Phi(\ov\sigma)$ for all $\sigma$. The result follows.
+\end{proof}
+Of course, we cannot expect this signature $\Phi$ to remember everything about the Hodge structure. For example, if $\op{End}_{\op{HS}}(V)$ contains a larger CM algebra $F'$ than $F$, then the signature induced by $F'$ knows more about the Hodge structure than the one induced by $F$. However, in ``generic cases,'' this signature is expected to suffice. For our purposes, we will take generic to mean that there are no more endomorphisms than the ones promised by $F$; i.e., this explains why we will assume $Z(\op{End}_{\op{HS}}(V))=F$ in the sequel.
+
+We now relate our signature to cocharacters of $Z(\op{Hg}(V))^\circ$. For this, it will be helpful to realize $Z(\op{Hg}(V))$ as some kind of monodromy group. The trick is to consider the determinant.
+\begin{lemma} \label{lem:z-hg-as-det-monodromy}
+	Fix $V\in\op{HS}_\QQ$ of pure weight such that $Z(\op{End}_{\op{HS}}(V))$ equals an algebra $F$. Then $Z(\op{Hg}(V))^\circ$ equals the largest algebraic $\QQ$-subgroup of $\mathrm T_F$ containing the image of $({\det_F}\circ h)\colon\mathbb U\to(\mathrm T_F)_\RR$.
+\end{lemma}
+\begin{proof}
+	The point is that taking the determinant will kill $\op{Hg}(V)^{\mathrm{der}}$ because $\op{Hg}(V)\subseteq\op{GL}_F(V)$. There are two inclusions we must show.
+	\begin{itemize}
+		\item We show that $Z(\op{Hg}(V))^\circ$ contains the image of $({\det F}\circ h|_{\mathbb U})$. Well, $\op{Hg}(V)$ contains the image of $h|_{\mathbb U}$, so it is enough to show that $Z(\op{Hg}(V))^\circ$ contains the image of $\det_F\colon\op{Hg}(V)\to\mathrm T_F$. For this, we recall that $\op{Hg}(V)$ is connected (by \Cref{rem:hg-connected}), so
+		\[\op{Hg}(V)=Z(\op{Hg}(V))^\circ\op{Hg}(V)^{\mathrm{der}}.\]
+		Note that $\det_F$ is simply $(\cdot)^{\dim_FV}$ on the torus $Z(\op{Hg}(V))^\circ$, so that piece surjects onto $Z(\op{Hg}(V))^\circ$! Thus, it is enough to check that $\det_F\colon\op{Hg}(V)^{\mathrm{der}}\to\mathrm T_F$ is trivial, which is true by the definition of the derived subgroup upon noting that $\det_F$ is a homomorphism with abelian target.
+		\item Suppose that $T\subseteq\mathrm T_F$ contains the image of $({\det_F}\circ h|_{\mathbb U})$. Then we claim that $T$ contains $Z(\op{Hg}(V))^\circ$. Let $H\subseteq\op{GL}_F(V)$ be the pre-image of $T$ under $\det_F\colon\op{GL}_F(V)\to\mathrm T_F$. Then $H$ must contain the image of $h|_{\mathbb U}$, so it contains $\op{Hg}(V)$ by defintion. In particular, $H$ contains $Z(\op{Hg}(V))^\circ$! Now, $T$ contains $\det_F(H)$, so $T$ contains $\det_F(Z(\op{Hg}(V))^\circ)$, but the previous point check remarked that this simply equals $Z(\op{Hg}(V))^\circ$, so we are done.
+		\qedhere
+	\end{itemize}
+\end{proof}
+% \begin{proposition} \label{prop:signature-to-z-hg}
+% 	Fix $V\in\op{HS}_\QQ$ with $V_\CC=V^{0,1}\oplus V^{1,0}$ such that $Z(\op{End}_{\op{HS}}(V))$ equals a CM field $F$. Let $\Phi\colon\Sigma_F\to\ZZ_{\ge0}$ be the signature defined in \Cref{lem:hodge-to-signature}. Then the induced representation $({\det_F}\circ h)\colon\mathbb U\to(\mathrm T_F)_\RR$ sends the basis vector $\sigma\in\Sigma_F$ of $\mathrm X^*(\mathrm T_F)$ to
+% 	\[-(\Phi(\sigma)-\Phi(\ov\sigma)),\]
+% 	upon identifying $\mathrm X^*(\mathbb U)$ with $\ZZ$.
+% \end{proposition}
+% \begin{proof}
+% 	This boils down to computing the map ${\det_F}\circ h|_{\mathbb U}$. We proceed in steps.
+% 	\begin{enumerate}
+% 		\item To set ourselves up, recall that
+% 		\[\mathbb U_\CC=\{(z,1/z):z\in\mathbb G_{m,\CC}\},\]
+% 		so one has an isomorphism cocharacter $z^\lor\colon\mathbb G_{m,\CC}\to\mathbb U_\CC$ given by $z^\lor\mapsto z\mapsto(z,1/z)$. Thus, we have left to show that
+% 		\[\sigma\circ{\det}_F\circ h_\CC\circ z^\lor\stackrel?=-(\Phi(\sigma)-\Phi(\ov\sigma)).\]
+% 		We may check this equality on geometric points.
+% 		\item We describe the map $h_\CC\colon\mathbb S_\CC\to\op{GL}(V)_\CC$. By definition, $h(z,w)\in\op{GL}(V)$ acts by $z^{-1}$ on $V^{1,0}$ and by $w^{-1}$ on $V^{0,1}$. Thus, the definition of $\Phi$ grants that $h(z,w)$ diagonalizes. To be more explicit, for each $\sigma\in\Sigma_F$, we define $V^{p,q}_\sigma$ to be the $\sigma$-eigenspace for the $F$-action on $V^{p,q}\subseteq V_\CC$. Then we see that $h(z,w)$ acts on $V^{1,0}_\sigma$ by the scalar $z^{-1}$ and on $V^{0,1}$ by the scalar $w^{-1}$.
+% 		\item We describe the map $({\det_F}\circ h_\CC)\colon\mathbb S_\CC\to(\mathrm T_F)_\CC$. Realizing geometric points in $(\mathrm T_F)_\CC$ as tuples in $\CC^{\sigma_F}$, we see that ${\det_F}$ simply takes the determinant of the matrix $h_\CC(z,w)|_{V_\sigma}$ to the $\sigma$-component in $(\mathrm T_F)_\CC$. (One finds this by tracking through the definition of $\det_F$ as a morphism of algebraic groups.) As such, we see that
+% 		\[\det h_\CC(z,w)|_{V_\sigma}=z^{-\Phi(\sigma)}w^{-\Phi(\ov\sigma)}\]
+% 		because $\Phi$ is a signature.
+% 		\item We complete the proof. The previous step shows that $({\det_F}\circ h_\CC\circ z^\lor)(z)$ goes to the element
+% 		\[\left(z^{-\Phi(\sigma)+\Phi(\ov\sigma)}\right)_{\sigma\in\Sigma(F)}\in\CC^{\Sigma_F}.\]
+% 		This completes the proof upon noting that the character $\sigma\colon\mathrm T_F\to\mathbb G_{m,\CC}$ simply projects onto the $\sigma$-component of $\CC^{\Sigma_F}$ on geometric points.
+% 		\qedhere
+% 	\end{enumerate}
+% \end{proof}
+% \begin{remark}
+% 	Notably, the given element sums to $0$, which corresponds to the fact that $\op{Hg}(V)\subseteq\op{SL}(V)$ as seen in \Cref{lem:mt-by-hg}. Indeed, by diagonalizing the $F$-action on $V$, we see that $(\mathrm T_F\cap\op{SL}(V))^\circ$ consists of the $g\in\mathrm T_F$ such that the product of the elements in $g$ equals $1$.
+% \end{remark}
+% In the next few results, saturated simply means that the induced quotient is torsion-free.
+% \begin{corollary} \label{cor:compute-z-hg}
+% 	Fix $V\in\op{HS}_\QQ$ with $V_\CC=V^{0,1}\oplus V^{1,0}$ such that $Z(\op{End}_{\op{HS}}(V))$ equals a CM field $F$. Let $\Phi\colon\Sigma_F\to\ZZ_{\ge0}$ be the signature defined in \Cref{lem:hodge-to-signature}. Then $Z(\op{Hg}(V))^\circ\subseteq\mathrm T_F$ has cocharacter group equal to the smallest saturated Galois submodule of $\mathrm X_*(\mathrm T_F)=\ZZ[\Sigma_F^\lor]$ containing
+% 	\[\sum_{\sigma\in\Sigma_F}(\Phi(\sigma)-\Phi(\ov\sigma))\sigma^\lor.\]
+% \end{corollary}
+% \begin{proof}
+% 	This is immediate from combining \Cref{lem:z-hg-as-det-monodromy} and \Cref{prop:signature-to-z-hg} with the equivalence of categories $\mathrm X_*$ between algebraic tori and Galois modules. See \cite[Theorem~12.23]{milne-alg-groups} for the proof that $\mathrm X^*$ is an equivalence, which is similar.
+% \end{proof}
+% \begin{corollary} \label{cor:compute-z-mt}
+% 	Fix $V\in\op{HS}_\QQ$ with $V_\CC=V^{0,1}\oplus V^{1,0}$ such that $Z(\op{End}_{\op{HS}}(V))$ equals a CM field $F$. Let $\Phi\colon\Sigma_F\to\ZZ_{\ge0}$ be the signature defined in \Cref{lem:hodge-to-signature}. Then $Z(\op{MT}(V))^\circ\subseteq\mathrm T_F$ has cocharacter group equal to the smallest saturated Galois submodule of $\mathrm X_*(\mathrm T_F)=\ZZ[\Sigma_F^\lor]$ containing
+% 	\[\sum_{\sigma\in\Sigma_F}\Phi(\sigma)\sigma^\lor.\]
+% \end{corollary}
+% \begin{proof}
+% 	This follows from \Cref{cor:compute-z-hg}. By \Cref{lem:mt-by-hg}, it is enough to add in the cocharacter given by the scalars $\mathbb G_{m,\QQ}\to\mathrm T_F$, which is $\sum_{\sigma\in\Sigma_F}\sigma^\lor$. Thus, the fact that $\Phi$ is a signature implies that
+% 	\[\sum_{\sigma\in\Sigma_F}\Phi(\sigma)\sigma^\lor\]
+% 	certainly lives in $\mathrm X_*(\op{MT}(V))\subseteq\mathrm X_*(\mathrm T_F)$.
+	
+% 	Conversely, if $X$ is some saturated Galois submodule containing $\sum_{\sigma\in\Sigma_F}\Phi(\sigma)\sigma^\lor$, then we would like to show that $\mathrm X_*(\op{MT}(V))\subseteq X$. Well, $X$ is a Galois submodule, so it must contain the complex conjugate element $\sum_{\sigma\in\Sigma_F}\Phi(\ov\sigma)\sigma^\lor$. On one hand, this then sums with the given element to produce
+% 	\[\sum_{\sigma\in\Sigma_F}\sigma^\lor\in X\]
+% 	because $X$ is saturated. On the other hand, we can take a difference to see that
+% 	\[\sum_{\sigma\in\Sigma_F}(\Phi(\sigma)-\Phi(\ov\sigma))\sigma^\lor\in X.\]
+% 	We conclude that $X$ contains the cocharacter of the scalars $\mathbb G_{m,\QQ}\subseteq\mathrm T_F$ and the cocharacter lattice of $Z(\op{Hg}(V))^\circ\subseteq\mathrm T_F$, so we conclude that $X$ must also contain the cocharacter lattice of $Z(\op{MT}(V))^\circ$.
+% \end{proof}
+% \begin{remark}
+% 	One can also prove the above corollary by following the proof of \Cref{cor:compute-z-hg}. For example, this approach provides a monodromy interpretation of $Z(\op{MT}(V))^\circ$ analogous to \Cref{lem:z-hg-as-det-monodromy}.
+% \end{remark}
+\begin{proposition} \label{prop:signature-to-z-hg}
+	Fix $V\in\op{HS}_\QQ$ with $V_\CC=V^{0,1}\oplus V^{1,0}$ such that $Z(\op{End}_{\op{HS}}(V))$ equals a CM algebra $F$. Let $\Phi\colon\Sigma_F\to\ZZ_{\ge0}$ be the induced signature. Then the induced representation $({\det_F}\circ h)\colon\mathbb U\to(\mathrm T_F)_\RR$ sends the generator of $\mathrm X_*(\mathbb U)$ to
+	\[-\sum_{\sigma\in\Sigma_F}(\Phi(\sigma)-\Phi(\ov\sigma))\sigma^\lor.\]
+\end{proposition}
+\begin{proof}
+	This boils down to computing the map ${\det_F}\circ h|_{\mathbb U}$. We proceed in steps.
+	\begin{enumerate}
+		\item To set ourselves up, recall that
+		\[\mathbb U_\CC=\{(z,1/z):z\in\mathbb G_{m,\CC}\},\]
+		so one has an isomorphism cocharacter $z^\lor\colon\mathbb G_{m,\CC}\to\mathbb U_\CC$ given by $z^\lor\mapsto z\mapsto(z,1/z)$. Thus, we have left to show that
+		\[{\det}_F\circ h_\CC\circ z^\lor\stackrel?=-\sum_{\sigma\in\Sigma_F}(\Phi(\sigma)-\Phi(\ov\sigma))\sigma^\lor.\]
+		We may check this equality on geometric points.
+		\item We describe the map $h_\CC\colon\mathbb S_\CC\to\op{GL}(V)_\CC$. By definition, $h(z,w)\in\op{GL}(V)$ acts by $z^{-1}$ on $V^{1,0}$ and by $w^{-1}$ on $V^{0,1}$. Thus, the definition of $\Phi$ grants that $h(z,w)$ diagonalizes. To be more explicit, for each $\sigma\in\Sigma_F$, we define $V^{p,q}_\sigma$ to be the $\sigma$-eigenspace for the $F$-action on $V^{p,q}\subseteq V_\CC$. Then we see that $h(z,w)$ acts on $V^{1,0}_\sigma$ by the scalar $z^{-1}$ and on $V^{0,1}$ by the scalar $w^{-1}$.
+		\item We describe the map $({\det_F}\circ h_\CC)\colon\mathbb S_\CC\to(\mathrm T_F)_\CC$. Realizing geometric points in $(\mathrm T_F)_\CC$ as tuples in $\CC^{\Sigma_F}$, we see that ${\det_F}$ simply takes the determinant of the matrix $h_\CC(z,w)|_{V_\sigma}$ to the $\sigma$-component in $(\mathrm T_F)_\CC$. (One finds this by tracking through the definition of $\det_F$ as a morphism of algebraic groups.) As such, we see that
+		\[\det h_\CC(z,w)|_{V_\sigma}=z^{-\Phi(\sigma)}w^{-\Phi(\ov\sigma)}\]
+		because $\Phi$ is a signature.
+		\item We complete the proof. The previous step shows that $({\det_F}\circ h_\CC\circ z^\lor)(z)$ goes to the element
+		\[\left(z^{-\Phi(\sigma)+\Phi(\ov\sigma)}\right)_{\sigma\in\Sigma(F)}\in\CC^{\Sigma_F}.\]
+		This completes the proof upon noting that the cocharacter $\sigma^\lor\colon\mathbb G_{m,\CC}\to\mathrm T_F$ simply maps into the $\sigma$-component of $\CC^{\Sigma_F}$ on geometric points.
+		\qedhere
+	\end{enumerate}
+\end{proof}
+\begin{remark}
+	Notably, the given element sums to $0$, which corresponds to the fact that $\op{Hg}(V)\subseteq\op{SL}(V)$ as seen in \Cref{lem:mt-by-hg}. Indeed, by diagonalizing the $F$-action on $V$, we see that $(\mathrm T_F\cap\op{SL}(V))^\circ$ consists of the $g\in\mathrm T_F$ such that the product of the elements in $g$ equals $1$.
+\end{remark}
+\Cref{prop:signature-to-z-hg} easily translates into a computation of the cocharacter group $\mathrm X_*(\op{Hg}(V))^\circ$. In the next few results, saturated simply means that the induced quotient is torsion-free.
+\begin{corollary} \label{cor:compute-z-hg}
+	Fix $V\in\op{HS}_\QQ$ with $V_\CC=V^{0,1}\oplus V^{1,0}$ such that $Z(\op{End}_{\op{HS}}(V))$ equals a CM algebra $F$. Let $\Phi\colon\Sigma_F\to\ZZ_{\ge0}$ be the induced signature. Then $Z(\op{Hg}(V))^\circ\subseteq\mathrm T_F$ has cocharacter group equal to the smallest saturated Galois submodule of $\mathrm X_*(\mathrm T_F)=\ZZ[\Sigma_F^\lor]$ containing
+	\[\sum_{\sigma\in\Sigma_F}(\Phi(\sigma)-\Phi(\ov\sigma))\sigma^\lor.\]
+\end{corollary}
+\begin{proof}
+	This is immediate from combining \Cref{lem:z-hg-as-det-monodromy} and \Cref{prop:signature-to-z-hg} with the equivalence of categories $\mathrm X_*$ between algebraic tori and Galois modules. See \cite[Theorem~12.23]{milne-alg-groups} for the proof that $\mathrm X^*$ is an equivalence, which is similar.
+\end{proof}
+\begin{corollary} \label{cor:compute-z-mt}
+	Fix $V\in\op{HS}_\QQ$ with $V_\CC=V^{0,1}\oplus V^{1,0}$ such that $Z(\op{End}_{\op{HS}}(V))$ equals a CM algebra $F$. Let $\Phi\colon\Sigma_F\to\ZZ_{\ge0}$ be the signature defined in \Cref{lem:hodge-to-signature}. Then $Z(\op{MT}(V))^\circ\subseteq\mathrm T_F$ has cocharacter group equal to the smallest saturated Galois submodule of $\mathrm X_*(\mathrm T_F)=\ZZ[\Sigma_F^\lor]$ containing
+	\[\sum_{\sigma\in\Sigma_F}\Phi(\sigma)\sigma^\lor.\]
+\end{corollary}
+\begin{proof}
+	This follows from \Cref{cor:compute-z-hg}. By \Cref{lem:mt-by-hg}, it is enough to add in the cocharacter given by the scalars $\mathbb G_{m,\QQ}\to\mathrm T_F$, which is $\sum_{\sigma\in\Sigma_F}\sigma^\lor$. Thus, the fact that $\Phi$ is a signature implies that
+	\[\sum_{\sigma\in\Sigma_F}\Phi(\sigma)\sigma^\lor\]
+	certainly lives in $\mathrm X_*(\op{MT}(V))\subseteq\mathrm X_*(\mathrm T_F)$.
+	
+	Conversely, if $X$ is some saturated Galois submodule containing $\sum_{\sigma\in\Sigma_F}\Phi(\sigma)\sigma^\lor$, then we would like to show that $\mathrm X_*(\op{MT}(V))\subseteq X$. Well, $X$ is a Galois submodule, so it must contain the complex conjugate element $\sum_{\sigma\in\Sigma_F}\Phi(\ov\sigma)\sigma^\lor$. On one hand, this then sums with the given element to produce
+	\[\sum_{\sigma\in\Sigma_F}\sigma^\lor\in X\]
+	because $X$ is saturated. On the other hand, we can take a difference to see that
+	\[\sum_{\sigma\in\Sigma_F}(\Phi(\sigma)-\Phi(\ov\sigma))\sigma^\lor\in X.\]
+	We conclude that $X$ contains the cocharacter of the scalars $\mathbb G_{m,\QQ}\subseteq\mathrm T_F$ and the cocharacter lattice of $Z(\op{Hg}(V))^\circ\subseteq\mathrm T_F$, so we conclude that $X$ must also contain the cocharacter lattice of $Z(\op{MT}(V))^\circ$.
+\end{proof}
+\begin{remark} \label{rem:z-mt-as-det-monodromy}
+	One can also prove the above corollary by following the proof of \Cref{cor:compute-z-hg}. For example, this approach provides a monodromy interpretation of $Z(\op{MT}(V))^\circ$ analogous to \Cref{lem:z-hg-as-det-monodromy}. Here, one replaces the generator of $\mathrm X_*(\mathbb U)$ with the cocharacter $\mu\in\mathrm X_*(\mathbb S)$, and one finds that ${\det_F}\circ h_\CC$ sends $\mu$ to $\sum_{\sigma\in\Sigma_F}\Phi(\sigma)\sigma^\lor$. One is then able to prove statements analogous to \Cref{prop:signature-to-z-hg} and \Cref{cor:compute-z-hg}.
+\end{remark}
+Let's pause for a moment with an explanation of how one can use \Cref{cor:compute-z-mt} to compute $Z(\op{MT}(V))^\circ\subseteq\mathrm T_F$. The approach for $Z(\op{Hg}(V))^\circ$ is similar but only a little more complicated.
+
+We will only compute over a Galois extension $L/\QQ$ containing all factors of $F$. In this case, the $F$-action on $V_L$ diagonalizes, so one can identify $(\mathrm T_F)_L\subseteq\op{GL}(V)_L$ as the diagonal torus for some basis of $V_L$. In particular, for each $\sigma\in\Sigma_F$, the cocharacter $\sigma^\lor$ corresponds to one of the standard cocharacters for the diagonal torus of $\op{GL}(V)_L$. Now, \Cref{cor:compute-z-mt} tells us that $\mathrm X_*(Z(\op{MT}(V))^\circ)\subseteq\mathrm X_*(\mathrm T_F)$ equals the saturation of the sublattice spanned by the vectors
+\[g\Bigg(\sum_{\sigma\in\Sigma_F}\Phi(\sigma)\sigma^\lor\Bigg)=\sum_{\sigma\in\Sigma_F}\Phi(\sigma)(g\sigma)^\lor,\]
+where $g$ varies over $\op{Gal}(L/F)$. By computing a basis of the saturation of this sublattice, we get a family of $1$-parameter subgroups of the diagonal torus of $\op{GL}(V)_L$ which together generate $Z(\op{MT}(V))^\circ$. This more or less computes $Z(\op{MT}(V))^\circ$.
+
+\subsection{Type IV: The Reflex}
+In the sequel, we will be most interested in equations cutting out $Z(\op{MT}(V))^\circ\subseteq\mathrm T_F$. One could imagine proceeding as above to compute $Z(\op{MT}(V))^\circ\subseteq\mathrm T_F$ via $1$-parameter subgroups and then afterwards finding the desired equations. This is somewhat computationally intensive, so instead we will turn our attention to computing character groups. As in \cite[Lemma~4.2]{yu-mumford-tate-cm}, this will require a discussion of the reflex.
+\begin{definition}[reflex signature]
+	Fix CM fields $F$ and $F^*$ and CM signatures $(F,\Phi)$ and $(F^*,\Phi^*)$. We say that these CM signatures are \textit{reflex} if and only if there is a Galois extension $L/\QQ$ containing $F$ and $F^*$ such that each $\sigma\in\op{Gal}(L/\QQ)$ has
+	\[\Phi(\sigma|_F)=\Phi^*\left(\sigma^{-1}|_{F^*}\right).\]
+	In this situation, we may call $(F^*,\Phi^*)$ a \textit{reflex signature} for $(F,\Phi)$.
+\end{definition}
+\begin{remark}
+	We check that $(F,\Phi)$ and $(F^*,\Phi^*)$ does not depend on the choice of Galois extension $L$. Indeed, suppose that we have another Galois extension $L'/\QQ$ containing $F$ and $F^*$; let $L''$ be a Galois extension containing both $L$ and $L'$. By symmetry, it is enough to check that $(F,\Phi)$ are reflex with respect to $L$ if and only if they are reflex with respect to $L''$. Well, for any $\sigma\in\op{Gal}(L''/\QQ)$, we see that $\Phi(\sigma|_F)=\Phi^*\left(\sigma^{-1}|_{F^*}\right)$ is equivalent to $\sigma|_L\in\op{Gal}(L/\QQ)$ satisfying $\Phi(\sigma|_L|_F)=\Phi^*\left(\sigma|_L^{-1}|_{F^*}\right)$, so we are done after remarking that restriction $\op{Gal}(L''/\QQ)\to\op{Gal}(L/\QQ)$ is surjective.
+\end{remark}
+\begin{remark}
+	We check that reflex signatures certainly exist: one can choose any Galois closure $L$ of $F$ and then define $\Phi^*\colon\op{Gal}(L/\QQ)\to\ZZ_{\ge0}$ by $\Phi^*(\sigma)\coloneqq\Phi\left(\sigma^{-1}|_L\right)$.
+\end{remark}
+\begin{remark}
+	In the theory of abelian varieties with complex multiplication, it is customary to make $F^*$ as small as possible, which makes it unique. This is useful for moduli problems. However, this is not our current interest, and we are not requiring that the reflex signature be unique because it will be convenient later to take large extensions.
+\end{remark}
+The point of introducing the reflex is that it provides another monodromy interpretation of $Z(\op{MT}(V))^\circ$. To achieve this, we need the reflex norm.
+\begin{definition}[reflex norm]
+	Fix CM fields $F$ and $F^*$ and reflex CM signatures $(F,\Phi)$ and $(F^*,\Phi^*)$. Then we define the \textit{reflex norm} as the map $\op N_{\Phi^*}\colon F^*\to\ov\QQ$ by
+	\[\op N_{\Phi^*}(x)\coloneqq\prod_{\sigma\in\Sigma_{F^*}}\sigma(x)^{\Phi^*(\sigma)}.\]
+	Note that this is a character in $\mathrm X^*(\mathrm T_{F^*})$.
+\end{definition}
+Technically, this definition does not require us to remember that $(F^*,\Phi^*)$ is reflex to $(F,\Phi)$, but we will want to know this in the following checks.
+\begin{lemma} \label{lem:reflex-norm-descends}
+	Fix CM fields $F$ and $F^*$ and reflex CM signatures $(F,\Phi)$ and $(F^*,\Phi^*)$.
+	\begin{listalph}
+		\item If $(F_1^*,\Phi^*_1)$ is a CM signature restricting to $(F^*,\Phi^*)$, then $(F,\Phi)$ and $(F_1^*,\Phi_1^*)$ are still reflex, and
+		\[{\op N_{\Phi_1^*}}={\op N_{\Phi^*}}\circ{\op N_{F_1^*/F^*}}.\]
+		\item The image of $\op N_{\Phi^*}$ lands in $F$.
+	\end{listalph}
+\end{lemma}
+\begin{proof}
+	Here, ``restricting'' simply means that $F_1^*$ contains $F^*$ and $\Phi_1^*(\sigma)=\Phi^*(\sigma|_{F^*})$ for all $\sigma\in\Sigma_{F_1^*}$.
+	\begin{listalph}
+		\item That $(F,\Phi)$ and $(F_1^*,\Phi_1^*)$ are still reflex follows from the definition: choose a Galois extension $L$ containing $F$ and $F_1^*$, and then each $\sigma\in\op{Gal}(L/\QQ)$ has
+		\begin{align*}
+			\Phi(\sigma|_F) &= \Phi^*\left(\sigma^{-1}|_{F^*}\right) \\
+			&= \Phi_1^*\left(\sigma^{-1}|_{F_1^*}\right).
+		\end{align*}
+		To check the equality of reflex norms, we extend each $\sigma\in\Sigma_{F^*}$ to some $\widetilde\sigma\in\op{Gal}(\ov\QQ/\QQ)$, and then we directly compute
+		\begin{align*}
+			\op N_{\Phi^*}\left(\op N_{F_1^*/F^*}(x)\right) &= \prod_{\sigma\in\Sigma_{F^*}}\sigma\left(\op N_{F_1^*/F^*}(x)\right)^{\Phi^*(\sigma)} \\
+			&= \prod_{\substack{\sigma\in\Sigma_F^*\\\tau\in\op{Hom}_{F^*}(F_1^*,\ov\QQ)}}\widetilde\sigma\tau(x)^{\Phi^*(\sigma)} \\
+			&= \prod_{\substack{\sigma\in\Sigma_F^*\\\tau\in\op{Hom}_{F^*}(F_1^*,\ov\QQ)}}\widetilde\sigma\tau(x)^{\Phi^*_1(\widetilde\sigma\tau)} \\
+			% &= \prod_{\sigma\in\Sigma_{F_1^*}}\sigma(x)^{\Phi^*_1(\sigma)} \\
+			&= \op N_{\Phi_1^*}(x),
+		\end{align*}
+		where the last step holds by noting that $\widetilde\sigma\circ\tau$ parameterizes $\Sigma_{F^*}$.
+
+		\item We begin by reducing to the case where $F^*/\QQ$ is Galois. Indeed, the previous step tells us that extending $F^*$ merely passes to a norm subgroup of $F^*$, but norm subgroups are Zariski dense in $\mathrm T_{F^*}$, so it suffices to check the result on such norm subgroups. Thus, we may assume that $F^*/\QQ$ is Galois, contains $F$, and thus $\Phi^*(\sigma)=\Phi\left(\sigma^{-1}|_F\right)$. Now, for any $g\in\op{Gal}(F^*/F)$, we see $\Phi^*(\sigma)=\Phi^*\left(g^{-1}\sigma\right)$, so
+		\begin{align*}
+			g\left(\op N_{\Phi^*}(x)\right) &= \prod_{\sigma\in\op{Gal}(F^*/\QQ)}g\sigma(x)^{\Phi^*(\sigma)} \\
+			&= \prod_{\sigma\in\op{Gal}(F^*/\QQ)}\sigma(x)^{\Phi^*\left(g^{-1}\sigma\right)} \\
+			&= \op N_{\Phi^*}(x),
+		\end{align*}
+		as required.
+		\qedhere
+	\end{listalph}
+\end{proof}
+At long last, we move towards our monodromy interepretation using the reflex. The following argument generalizes \cite[Lemma~4.2]{yu-mumford-tate-cm}.
+\begin{lemma} \label{lem:reflex-norm-cochar}
+	Fix reflex CM signatures $(F,\Phi)$ and $(F^*,\Phi^*)$. Suppose that $F^*$ contains $F$ and is Galois over $\QQ$. For each $g\in\op{Gal}(F^*/\QQ)$, the reflex norm $\op N_{\Phi^*}\colon\mathrm T_{F^*}\to\mathrm T_F$ sends the cocharacter $g^\lor\in\mathrm X_*(\mathrm T_{F^*})$ to
+	\[\mathrm X_*\left(\op N_{\Phi^*}\right)(g^\lor)=\sum_{\sigma\in\Sigma_F}\Phi(\sigma)(g\sigma)^\lor.\]
+\end{lemma}
+\begin{proof}
+	Notably, $\op N_{\Phi^*}$ outputs to $\mathrm T_F$ by \Cref{lem:reflex-norm-descends}. To begin, we expand
+	\[\mathrm X_*\left(\op N_{\Phi^*}\right)(g^\lor)=\sum_{\sigma\in\Sigma_{F^*}}\Phi^*(\sigma)\mathrm X_*(\sigma)(g^\lor).\]
+	We now check $\mathrm X_*(\sigma)(g^\lor)=\left(g\sigma^{-1}\right)^\lor$: for any $\tau\in\mathrm X^*(\mathrm T_{F^*})$, we compute the perfect pairing
+	\[\langle\tau,\mathrm X_*(\sigma)(g^\lor)\rangle=\langle\tau\sigma,g^\lor\rangle,\]
+	which is the indicator function for $\tau\sigma=g$ and hence equals $\left\langle\cdot,(g\sigma^{-1})^\lor\right\rangle$. We are now able to write
+	\[\mathrm X_*\left(\op N_{\Phi^*}\right)(g^\lor)=\sum_{\sigma\in\Sigma_{F^*}}\Phi^*(\sigma)\left(g\sigma^{-1}\right)^\lor.\]
+	Replacing $\sigma$ with $\sigma^{-1}$, we are done upon recalling $\Phi^*\left(\sigma^{-1}\right)=\Phi(\sigma|_F)$ and collecting terms which together restrict to the same embedding of $F$.
+\end{proof}
+\begin{proposition} \label{prop:z-mt-as-reflex-monodromy}
+	Fix $V\in\op{HS}_\QQ$ with $V_\CC=V^{0,1}\oplus V^{1,0}$ such that $Z(\op{End}_{\op{HS}}(V))$ equals a CM algebra $F=F_1\times\cdots\times F_k$. Let $\Phi\colon\Sigma_F\to\ZZ_{\ge0}$ be the induced signature, which we decompose as $\Phi=\Phi_1\sqcup\cdots\sqcup\Phi_k$ where $(F_\bullet,\Phi_\bullet)$ is a CM signature for all $F_\bullet$. Suppose $F^*$ is a CM field equipped with CM signatures $\Phi_1^*,\ldots,\Phi_k^*$ such that $(F_i,\Phi_i)$ and $(F^*,\Phi_i^*)$ are reflex for all $i$. Then $Z(\op{MT}(V))^\circ\subseteq\mathrm T_F$ is the image of
+	\[({\op N_{\Phi^*_1}},\ldots,{\op N_{\Phi_k^*}})\colon\mathrm T_{F^*}\to\mathrm T_F.\]
+\end{proposition}
+\begin{proof}
+	Note that norms are surjective on these algebraic tori, so \Cref{lem:reflex-norm-descends} tells us that the image of $\op N_{\Phi^*}$ will not change if we pass to an extension of $F^*$. As such, we will go ahead and assume that $F^*$ contains $F$ and is Galois over $\QQ$.
+
+	In light of \Cref{cor:compute-z-mt}, it is enough to show that the image of $\mathrm X_*({\op N_{\Phi^*}})$ (which we note is already a Galois submodule) has saturation equal to the smallest saturated Galois submodule of $\mathrm X_*(\mathrm T_F)$ containing $\sum_{\sigma\in\Sigma_F}\Phi(\sigma)\sigma^\lor$. This follows from the computation of \Cref{lem:reflex-norm-cochar} upon letting $g$ vary over $\op{Gal}(F^*/\QQ)$. 
+\end{proof}
+Let's explain how \Cref{prop:z-mt-as-reflex-monodromy} is applied to compute equations cutting out $Z(\op{MT}(V))^\circ\subseteq\mathrm T_F$, where $F=F_1\times\cdots\times F_k$ is a CM algebra. As before, we will only compute over an extension $L=F^*$ of $F$ which is Galois over $\QQ$; let $\Phi^*_1,\ldots,\Phi_k^*$ be the signatures on $L$ making $(L,\Phi^*_i)$ and $(F_i,\Phi_i)$ reflex for each $i$. Note, we know that $(\mathrm T_F)_L\subseteq\op{GL}(V)_L$ may embed as a diagonal torus.
+
+An equation cutting out $Z(\op{MT}(V))^\circ_L$ in the (subtorus of the) diagonal torus $(\mathrm T_F)_L\subseteq\op{GL}(V)_L$ then becomes a character of $(\mathrm T_F)_L$ which is trivial on $Z(\op{MT}(V))^\circ$. In other words, these equations are given by the kernel of
+\[\mathrm X^*(\mathrm T_F)\to\mathrm X^*(Z(\op{MT}(V))^\circ).\]
+We now use \Cref{prop:z-mt-as-reflex-monodromy}. We know that $Z(\op{MT}(V))^\circ\subseteq\mathrm T_F$ is the image of $({\op N_{\Phi^*_1}},\ldots,{\op N_{\Phi_k^*}})\colon\mathrm T_L\to\mathrm T_F$, so the kernel of the above map is the same as the kernel of
+\[\mathrm X^*\left(({\op N_{\Phi^*_1}},\ldots,{\op N_{\Phi_k^*}})\right)\colon\mathrm X^*(\mathrm T_F)\to\mathrm X^*(\mathrm T_L).\]
+To compute this kernel cleanly, note \Cref{lem:reflex-norm-cochar} computes $\mathrm X_*\left(\op N_{\Phi_i^*}\right)$ for each $i$, so we see $\mathrm X^*\left(\op N_{\Phi^*_i}\right)$ can be computed as the transpose of the matrix of $\mathrm X_*\left(\op N_{\Phi^*}\right)$. Attaching these matrices together gives a matrix representation for the above map, and we get our equations by computing the kernel of this matrix.
+\begin{remark}
+	In practice, one can expand $V=V_1\oplus\cdots\oplus V_k$ into irreducible Hodge substructures and then work with $E\coloneqq F_1\times\cdots\times F_k$ where $F_i\coloneqq Z(\op{End}_{\op{HS}}(V_i))$ for each $i$. Technically speaking, $F$ may only embed into $E$ ``diagonally'' because some $V_\bullet$s may be isomorphic to each other. However, this does not really affect anything we do because we may as well work with the image of $Z(\op{MT}(V))^\circ$ under the inclusion $\mathrm T_F\subseteq\mathrm T_E$. Working with $\mathrm T_E$ is more convenient because it can actually be identified with the diagonal torus of $\op{GL}(V)_E$ instead of merely a diagonally embedded subtorus.
+\end{remark}
+
+% \subsection{Reducible Type IV} \label{subsec:reducible-iv}
+% For the rest of this subsection, $V\in\op{HS}_\QQ$ is the sum of irreducible Hodge structures of type IV in the sense of the Albert classification (\Cref{thm:albert-classification}). Say
+% \[V=V_1^{\oplus m_1}\oplus\cdots\oplus V_k^{\oplus m_k},\]
+% where $V_1,\ldots,V_k$ are pairwise non-isomorphic, and $m_1,\ldots,m_k$ are positive integers. Then $D\coloneqq\op{End}_{\op{HS}}(V)$ equals
+% \[\bigoplus_{i=1}^kM_{m_i}(\op{End}_{\op{HS}}(V_i)),\]
+% where $D_i\coloneqq\op{End}_{\op{HS}}(V_i)$ is a division algebra over its center $F_i\coloneqq Z(D_i)$, and $F_i$ is a CM field. We know $F\coloneqq Z(D)$ equals $F_1\times\cdots\times F_k$, and the Rosati involution $(\cdot)^\dagger$ induces complex conjugation on $F$; set $F_i\coloneqq F_i^\dagger$ to be the totally real subfield, and $F^\dagger\coloneqq F_1^\dagger\times\cdots\times F_k^\dagger$.
+
+
+% type iv discussion
+
+\end{document}

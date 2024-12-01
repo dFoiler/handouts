@@ -1,0 +1,84 @@
+% LTeX: enabled=false
+
+\documentclass[openany]{book}
+\usepackage[utf8]{inputenc}
+
+\newcommand{\nirpdftitle}{Senior Thesis}
+\usepackage{import}
+\inputfrom{.}{nir}
+% \usepackage{mathabx}
+
+\pagestyle{contentpage}
+
+\title{Sato--Tate Groups of Generic Superelliptic Curves}
+\author{Nir Elber}
+\date{Fall 2024}
+\rhead{\textit{SATO--TATE GROUPS OF GENERIC CURVES}}
+
+\begin{document}
+
+\maketitle
+
+\nirtableofcontents
+
+\newpage
+
+\chapter{Introduction}
+\section{Notation}
+Elements.
+\begin{itemize}
+	\item $V$ and $W$ are vector spaces, frequently $\QQ$-Hodge structures.
+	\item $\QQ(n)$ is the Tate twist.
+	\item $\mathrm H_{\mathrm B}^\bullet$ is Betti cohomology, $\mathrm H_{\mathrm{dR}}^\bullet$ is de Rham cohomology, and $\mathrm H_{\mathrm{\acute et}}^\bullet$ is \'etale cohomology.
+	\item $\mf g$ and $\mf h$ are Lie algebras.
+\end{itemize}
+Groups.
+\begin{itemize}
+	\item If $V$ is a $\QQ$-Hodge structure, then $\op{MT}(V)$ and $\op{Hg}(V)$ are the Mumford--Tate and Hodge groups, respectively.
+	\item $\mathbb S$ is the Deligne torus $\op{Res}_{\CC/\RR}\mathbb G_{m,\RR}$.
+	\item Given a number field $F$, we define the torus $\mathrm T_F\coloneqq\op{Res}_{F/\QQ}\mathbb G_{m,\QQ}$.
+	\item Given a CM or totally real number field $F$, we define the subtorus $\mathrm U_F\subseteq\mathrm T_F$ by
+	\[\mathrm U_F\coloneqq\{x\in\mathrm T_F:x\ov x=1\},\]
+	where $\ov x$ is complex conjugation when $F$ is CM and the identity when $F$ is totally real.
+	\item Given an algebraic group $G$, $G^\circ$ denotes the connected component, $Z(G)$ denotes its center, and $G^{\mathrm{der}}$ denotes the derived subgroup.
+\end{itemize}
+Categories.
+\begin{itemize}
+	\item For a field $F$, $\op{Vec}_F$ is the category of vector spaces over $F$.
+	\item $\op{HS}_\QQ$ is the category of $\QQ$-Hodge structures.
+\end{itemize}
+% notation
+
+\subfile{chaps/hodge}
+
+\chapter{Review of Abelian Varieties} \label{chap:av}
+% tate module
+% weil pairing/polarizations
+% riemann's theorem
+% albert classification: divisibility constraints
+% mumford--tate conjecture
+% proof of MT for CM?
+
+\chapter{Absolute Hodge Cycles}
+% go through deligne 82 maybe
+% review of cohomology
+% definition of absolute hodge cycles
+% maybe explain how we get a category of motives
+
+\subfile{chaps/satotate}
+
+\subfile{chaps/fermat}
+
+\chapter{Families of Curves}
+% cadoret--aoki on finiteness of cm points
+% work out y^9 = x(x-1)(x-lambda)
+% clutching
+% work out y^11 = x(x-1)(x-lamda)^2
+
+\nirprintbib
+\nirprintindex
+
+\end{document}
+
+% y^11 = x^2(x^2-1) is a quotient of x^22 + y^22 = 1: indeed, y^11 = x(x-1) is a quotient of x^11 + y^11 = 1, so we should be able to square the relevant variables
+% Jac(y^11 = x(x-1)(x-t)^2) has endomorphism algebra of type iv, relative dimension 2, so any larger endomorphism algebra => CM; conversely, CM of course makes the endomorphism algebra larger. the point is that non-CM is equivalent to having the generic endomorphism algebra.

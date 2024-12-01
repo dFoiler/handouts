@@ -1,0 +1,267 @@
+% !TEX root = ../thesis.tex
+
+\documentclass[../thesis.tex]{subfiles}
+
+\begin{document}
+
+\chapter{The Fermat Curve}
+In ths chapter, we will study the Galois representation attached to the projective $\QQ$-curve $X^1_N\subseteq\PP^1_\QQ$ cut out by the equation
+\[X_N\colon X^N+Y^N+Z^N=0,\]
+where $N\ge3$ is some nonnegative integer. %\footnote{It is not difficult to relax the condition that $N$ is odd, but it introduces some casework in a couple places.}
+For the rest of this chapter, we will fix $N$ and thus denote this curve by $X\subseteq\PP^1_\QQ$. It is worthwhile to summarize the basic steps of the computation.\todo{}
+% \begin{enumerate}
+% 	\item 
+% \end{enumerate}
+% For this subsection, we define $\ell$ to be a prime which is totally split in $\QQ(\zeta)$. In the sequel, we may also ask for $\ell$ to be totally split in a larger number field, which we will specify when we need it.
+
+\section{Homology and Cohomology}
+The exposition of this section follows \cite[Sections~2 and~3]{otsubo-fermat}. We will spend this section setting up some notation and proving basic facts about how these objects relate to each other.
+
+\subsection{The Group Action} \label{subsec:fermat-group-action}
+Throughout, it will be helpful to note that the finite alegbraic $\QQ$-group
+\[G_N\coloneqq\frac{\mu_N\times\mu_N\times\mu_N}{\Delta\mu_N}\]
+acts on $X_N$; here, $\Delta\mu_N\subseteq\mu_N\times\mu_N\times\mu_N$ refers to the diagonally embedded copy of $\mu_N$. As with $X_N$, we will denote this group by $G$ for the rest of the chapter, and we will let $\zeta\coloneqq\zeta_N$ be a primitive $N$th root of unity.
+
+Notably, the action map $G\times X\to X$ is defined over $\QQ$ even though $G(\QQ)$ is trivial. For brevity, we will denote elements of $G$ by $g_{[r:s:t]}\coloneqq\left[\zeta^r:\zeta^s:\zeta^t\right]$. We will also have occasion to study the character group $\widehat G\coloneqq\widehat G_N$, which we identify with
+\[\widehat G_N=\left\{(a,b,c)\in(\ZZ/N\ZZ)^3:a+b+c=0\right\}.\]
+Explicitly, given a triple $(a,b,c)$, we let $\alpha_{(a,b,c)}$ denote the corresponding character, which sends $g_{[r:s:t]}\mapsto\zeta^{ra+bs+tc}$.
+
+In the sequel, we will have many vector spaces induced by $X$ via (co)homology, which therefore have a $G$-action by functoriality. With this in mind, we make the following definition.
+\begin{definition}
+	Given a $\QQ(\zeta)$-vector space $\mathrm{H}$ with a $G$-action, we define
+	\[\mathrm{H}_\alpha\coloneqq\{v\in\mathrm{H}:g\cdot v=\alpha(g)v\}\]
+	to be the $\alpha$-eigenspace for each $\alpha\in\widehat G$.
+\end{definition}
+One inconvenience of this definition is that the vector spaces $\mathrm H$ of interest are frequently defined over $\QQ$, but $\mathrm{H}_\alpha$ is not.
+
+Thus, we note that some $\tau\in\op{Gal}(\overline\QQ/\QQ)$ acts on $\widehat G$ as follows: say $\tau(\zeta)=\zeta^u$ for some $u\in(\ZZ/N\ZZ)^\times$, and then
+\[(\tau\alpha)([\zeta^r:\zeta^s:\zeta^t])=\alpha\left([\zeta^{u^{-1}r},\zeta^{u^{-1}s}:\zeta^{u^{-1}t}]\right),\]
+so we see that $\tau\alpha=u^{-1}\alpha$, where the multiplication $u^{-1}\alpha$ is understood to happen where $\alpha$ is a triple in $(\ZZ/N\ZZ)^3$. With this in mind, given $\alpha\in\widehat G$, we let $[\alpha]\subseteq\widehat G$ be the collection of characters of the form $u\alpha$ as $u\in(\ZZ/N\ZZ)^\times$ varies; for example, $-\alpha\in[\alpha]$. The point of this discussion is that we are able to build a decomposition
+\[\QQ[G]\cong\prod_{[\alpha]\in G/(\ZZ/N\ZZ)^\times}\QQ([\alpha]),\]
+where $\QQ([\alpha])$ is the image of the map $\QQ[G]\to\CC$ given by the characters in $[\alpha]$. We are now ready to make the following definition.
+\begin{definition}
+	Given some $\QQ$-vector space $\mathrm H$ with a $G$-action, we are now ready to define
+	\[\mathrm H_{[\alpha]}\coloneqq\Bigg\{v\in\mathrm H:v\otimes1\in\bigoplus_{\beta\in[\alpha]}(\mathrm H\otimes_\QQ\overline\QQ)_\alpha\Bigg\}.\]
+\end{definition}
+The discussion of the Galois action of the previous paragraph implies that $\mathrm H_{[\alpha]}$ is a generalized eigenspace of the $G$-action on $\mathrm H$. In particular, we find that $\mathrm H_{[\alpha]}\otimes\overline\QQ=\bigoplus_{\beta\in[\alpha]}\mathrm H_\beta$, so $\mathrm H=\bigoplus_{[\alpha]}\mathrm H_{[\alpha]}$.
+
+\subsection{Differential Forms}
+In this subsection, we will define a few differential forms. A reasonable reference for this subsection is \cite[Section~1.7]{lang-cm}. A computation with the Riemann--Hurwitz formula shows that the genus of $X$ is $\frac{(N-1)(N-2)}2$, so we know that there are many holomorphic differential forms. On the other hand, we know that the space of differential forms lives in $\mathrm H^1_{\mathrm{dR}}(X(\CC),\CC)$, which is equipped with a $G$-action. Anyway, we are now ready to define our differential form.
+\begin{definition}
+	Fix notation as above. For $a\in\ZZ/N\ZZ$, let $[a]$ be a representative in $\{0,1,\ldots,N-1\}$. For any $\alpha_{(a,b,c)}\in\widehat G$, we define the differential form
+	\[\omega_{\alpha_{(a,b,c)}}\coloneqq x^{[a]}y^{[b]-N}\,\frac{dx}x\]
+	in the affine patch $x^N+y^N+1=0$ of $X$. In the sequel, we may also denote this differential form by $\omega_{(a,b,c)}$.
+\end{definition}
+\begin{remark} \label{rem:omega-a-b-c-patches}
+	Because $x^N+y^N+1=0$ implies $x^{N-1}\,dx=-y^{N-1}\,dy$, we also see that
+	\[\omega_{(a,b,c)}=-x^{[a]-N}y^{[b]}\,\frac{dy}y.\]
+	Further, we can pass to the affine patch $1+v^N+u^N=0$ of $X$ by substituting $(x,y)=(1/u,v/u)$, for which we note $d(1/u)/(1/u)=-du/u$ so that
+	\[\omega_{(a,b,c)}=-u^{N-[a]-[b]}v^{[b]-N}\,\frac{du}u.\]
+\end{remark}
+From \Cref{rem:omega-a-b-c-patches}, we see that $\omega_{(a,b,c)}$ always succeeds at being meromorphic with poles only at points of the form $[X:Y:0]$, and it is closed (i.e., has vanishing residues) if and only if $0\notin\{a,b,c\}$. Further, we see that $\omega_{(a,b,c)}$ succeeds at being holomorphic provided that we also have $[a]+[b]<N$, which we note is equivalent to $[a]+[b]+[c]=N$.
+
+We have now provided $\frac{(N-1)(N-2)}2$ holomorphic differentials of $X$, so we would like to check that we have actually found a basis of $\mathrm H^0(X(\CC),\Omega^1_{X/\CC})$. Well, these differential forms are nonzero by construction,\footnote{Later, \Cref{rem:nonzero-form-period} will give another way to prove this via periods.} and they are linearly independent because they are all eigenvectors for the $G$-action.
+\begin{lemma}
+	Fix notation as above. For each $\alpha\in\widehat G$, the differential form $\omega_\alpha$ is an eigenvector for the $G$-action with eigenvalue $\alpha$.
+\end{lemma}
+\begin{proof}
+	Say $\alpha=\alpha_{(a,b,c)}$ for some $a,b,c\in\ZZ/N\ZZ$. Then for any $g_{[r:s:0]}\in G$, we note
+	\begin{align*}
+		(g_{[r:s:0]})^*\omega_{(a,b,c)} &= (\zeta^rx)^{[a]}(\zeta^sy)^{[b]-N}\,\frac{d(\zeta^rx)}{(\zeta^rx)} \\
+		&= \zeta^{ar+bs}\cdot x^{[a]}y^{[b]-N}\,\frac{dx}x \\
+		&= \alpha_{(a,b,c)}(g_{[r:s:0]})\omega_{(a,b,c)}.
+	\end{align*}
+	The reason to $g_{[r:s:0]}$ in the above computation is that we need the $G$-action to stay in the affine patch of points of the form $[X:Y:1]$.
+\end{proof}
+\begin{remark} \label{rem:diagonalize-de-rham}
+	Thus, we see that our differential forms must be linearly independent because they are eigenvectors with different eigenvalues. As such, we have constructed eigenbases of $\mathrm H^1_{\mathrm{dR}}(X(\CC),\CC)$ and $\mathrm H^0(X(\CC),\Omega^1_{X/\CC})$.
+\end{remark}
+While we're here, we compute the Poincar\'e pairing of our basis of differential forms. 
+\begin{lemma}
+	Fix notation as above. Choose $\alpha,\alpha'\in\widehat G$ such that $\alpha=(a,b,c)$ and $\alpha'=(a',b',c')$ have nonzero entries. Then the Poincar\'e pairing
+	\[P\colon\mathrm H^1_{\mathrm{dR}}(X(\CC),\CC)\times\mathrm H^1_{\mathrm{dR}}(X(\CC),\CC))\to\CC\]
+	given by $(\omega,\eta)\mapsto\frac1{2\pi i}\int_X(\omega\land\eta)$ sends $(\omega_\alpha,\omega_{\alpha'})$ to
+	\[P(\omega_\alpha,\omega_{\alpha'})=\begin{cases}
+		0 & \text{if }\alpha\ne-\alpha', \\
+		(-1)^N\frac N{N-[a]-[b]} & \text{if }\alpha=-\alpha'.
+	\end{cases}\]
+\end{lemma}
+\begin{proof}
+	We use the Poincar\'e residue, which implies that
+	\[P(\omega,\eta)=\sum_{x\in X(\CC)}\op{Res}_x\left(\eta\int\omega\right),\]
+	where the sum is over poles, and $\int\omega$ refers to any choice of local primitive for $\omega$ in the neighborhood of $x$. To use this, we note that the computation of \Cref{rem:omega-a-b-c-patches} implies that $\omega_{\alpha}$ and $\omega_{\alpha'}$ can only have poles at the points $[1:-\zeta^s:0]$ for some $s\in\ZZ/N\ZZ$, and in this neighborhood, we may write
+	\[\omega_\alpha=-u^{N-[a]-[b]}v^{[b]-N}\,\frac{du}u\]
+	and similarly for $\omega_{\alpha'}$. In particular, we see that
+	\[-\frac1{N-[a]-[b]}u^{N-[a]-[b]}v^{[b]-N}\]
+	makes a reasonable primitive for $\omega_\alpha$, so the Poincar\'e residue yields
+	\[P(\omega_\alpha,\omega_{\alpha'}) = \sum_{s\in\ZZ/N\ZZ}\op{Res}_{(-\zeta^s,0)}\left(-\frac1{N-[a]-[b]}u^{N-[a]-[b]}v^{[b]-N}\cdot-u^{N-[a']-[b']}v^{[b']-N}\,\frac{du}u\right).\]
+	Now, if $\alpha\ne\alpha'$, then we see that we are computing the residues of some monomial times $du/u$, but the power of $u$ in the monomial is nonzero, so the residues all vanish. Lastly, we need to discuss what happens with $\alpha=-\alpha'$, where we see
+	\begin{align*}
+		P(\omega_\alpha,\omega_{-\alpha}) &= \sum_{s\in\ZZ/N\ZZ}\op{Res}_{(-\zeta^s,0)}\left(-\frac1{N-[a]-[b]}u^{N-[a]-[b]}v^{[b]-N}\cdot-u^{N-[-a]-[-b]}v^{[-b]-N}\,\frac{du}u\right) \\
+		&= \sum_{s\in\ZZ/N\ZZ}\op{Res}_{(-\zeta^s,0)}\left(-\frac1{N-[a]-[b]}u^{N-[a]-[b]}v^{[b]-N}\cdot u^{[a]+[b]-N}v^{-[b]}\,\frac{du}u\right) \\
+		&= \frac1{N-[a]-[b]}\sum_{s\in\ZZ/N\ZZ}\op{Res}_{(-\zeta^s,0)}\left(v^{-N}\,\frac{du}u\right) \\
+		&= \frac1{N-[a]-[b]}\sum_{s\in\ZZ/N\ZZ}(-\zeta^s)^{-N} \\
+		&= (-1)^N\frac N{N-[a]-[b]},
+	\end{align*}
+	as desired.
+\end{proof}
+
+\subsection{Some Group Elements}
+In this subsection, we define a few elements of $\QQ[G]$ which we will then use in the next subsection. We begin with the three elements
+\[t\coloneqq\sum_{g\in G}g,\qquad v\coloneqq\sum_{s\in\ZZ/N\ZZ}g_{[0:s:0]},\qquad\text{and}\qquad h\coloneqq\sum_{r\in\ZZ/N\ZZ}g_{[r:0:0]}.\]
+We take a moment to note that these elements satisfy the relations $tg=gt=t$ for any $g\in G$, and $t=hv=vh$, and $v^2=Nv$ and $h^2=Nh$. In the sequel, we will get a lot of mileage out of the idempotent
+\[p\coloneqq\frac1{N^2}\sum_{r,s\in\ZZ/N\ZZ}(1-g_{[r:0:0]})(1-g_{[0:s:0]}).\]
+Let's check that $p$ is idempotent.
+\begin{lemma} \label{lem:}
+	Fix notation as above.
+	\begin{listalph}
+		\item Then $p$ is idempotent.
+		\item For any $r,s\in\ZZ/N\ZZ$, we have $(1-g_{[r:0:0]})(1-g_{[0:s:0]})p=(1-g_{[r:0:0]})(1-g_{[0:s:0]})$.
+	\end{listalph}
+\end{lemma}
+\begin{proof}
+	Both claims hinge upon the fact that a direct expansion of $(1-g_{[r:0:0]})(1-g_{[0:s:0]})$ implies
+	\[p=\frac1{N^2}\left(N^2-Nh-Nv+t\right).\]
+	We now show the claims separately.
+	\begin{listalph}
+		\item This is a direct computation: write
+		\begin{align*}
+			p^2 &= \frac1{N^4}\left(N^2-Nh-Nv+t\right)\left(N^2-Nh-Nv+t\right) \\
+			&= \frac1{N^4}\left(N^4+N^2h^2+N^2v^2+t^2-2N^3h-2N^3v+2N^2t+N^2hv-2Nht-2Nvt\right) \\
+			&= \frac1{N^4}\left(N^4+N^3h+N^3v+N^2t-2N^3h-2N^3v+2N^2t+N^2t-2N^2t-2N^2t\right) \\
+			&= \frac1{N^4}\left(N^4-N^3h-N^3v+N^2t\right) \\
+			&= p.
+		\end{align*}
+		\item We will compute as in (a): note $h(1-g_{[r:0:0]})=0$ and $v(1-g_{[0:s:0]})=0$, so
+		\begin{align*}
+			(1-g_{[r:0:0]})(1-g_{[0:s:0]})p &= (1-g_{[r:0:0]})(1-g_{[0:s:0]})\cdot\frac1{N^2}\left(N^2-Nh-Nv+hv\right) \\
+			&= (1-g_{[r:0:0]})(1-g_{[0:s:0]})\cdot\frac{N^2}{N^2}+0+0+0 \\
+			&= (1-g_{[r:0:0]})(1-g_{[0:s:0]}),
+		\end{align*}
+		as required.
+		\qedhere
+	\end{listalph}
+\end{proof}
+
+\subsection{Homology}
+In this subsection, we will study $\mathrm H_1^{\mathrm B}(X(\CC),\QQ)$. By the end, we will define a $1$-cycle $\gamma\coloneqq\gamma_N$ such that $\mathrm H_1^{\mathrm B}(X(\CC),\QQ)=\QQ[G]\cdot[\gamma]$. Morally, this means that we can understand our homology by focusing on this one cycle.
+
+To begin, we need some path in $X(\CC)$, so we define $\delta\colon[0,1]\to X(\CC)$ by
+\[\delta(t)\coloneqq\left[t^{1/N}:(1-t)^{1/N}:\zeta_{2N}^{-1}\right].\]
+Notably, $\delta(0)=[0:1:\zeta_{2N}^{-1}]$ and $\delta(1)=[1:0:\zeta_{2N}^{-1}]$, so $g=[\zeta^r:\zeta^s:1]$ has $g_*\delta(0)=[0:\zeta^s:\zeta_{2N}^{-1}]$ and $g_*\delta(1)=[\zeta^r:0:\zeta_{2N}^{-1}]$. The point of this computation is that we see
+\[(1-g_{[r:0:0]}-g_{[0:s:0]}+g_{[r:s:0]})_*\delta\in\mathrm Z^{\mathrm B}_1(X(\CC),\QQ).\]
+We are now ready to define $\gamma$.
+\begin{definition}
+	Fix notation (and in particular $\delta$) as above. Then we define
+	\[\gamma\coloneqq\frac1{N^2}\sum_{r,s\in\ZZ/N\ZZ}(1-g_{[r:0:0]})(1-g_{[0:s:0]})_*\delta.\]
+	Note $\gamma=p_*\delta$.
+\end{definition}
+The above computation shows that $\gamma\in\mathrm Z^{\mathrm B}_1(X(\CC),\QQ)$. We will want to know to its periods later. Note that the following result is essentially a special case of \cite[Lemma~7.12]{deligne-hodge}.
+\begin{lemma} \label{lem:gamma-periods}
+	Fix notation as above. Suppose $(a,b,c)\in(\ZZ/N\ZZ)^3$ has no nonzero entries. Then
+	\[\int_\gamma\omega_{(a,b,c)} = \zeta_{2N}^{[a]/N+[b]/N-1}\frac{\Gamma\left(\frac{[a]}N\right)\Gamma\left(\frac{[b]}N\right)}{\Gamma\left(\frac{[a]}N+\frac{[b]}N\right)}.\]
+\end{lemma}
+\begin{proof}
+	This is a direct computation. Denote the integral by $P(\gamma,\omega_{(a,b,c)})$. By adjunction, $\int_{p_*\delta}\omega_{(a,b,c)}=\int_\delta p^*\omega_{(a,b,c)}$. This allows us to compute
+	\begin{align*}
+		P(\gamma,\omega_{(a,b,c)}) &= \frac1{N^2}\int_\delta\sum_{r,s\in\ZZ/N\ZZ}(1-g_{[r:0:0]})(1-g_{[0:s:0]})^*\omega_{(a,b,c)} \\
+		&= \frac1{N^2}\int_\delta\sum_{r,s\in\ZZ/N\ZZ}\left(1-\zeta^{ar}\right)\left(1-\zeta^{bs}\right)\omega_{(a,b,c)} \\
+		&= \Bigg(\frac1{N^2}\sum_{r,s\in\ZZ/N\ZZ}\left(1-\zeta^{ar}\right)\left(1-\zeta^{bs}\right)\Bigg)\int_\delta\omega_{(a,b,c)} \\
+		&= \Bigg(\frac1{N^2}\sum_{r,s\in\ZZ/N\ZZ}\left(1-\zeta^{ar}\right)\left(1-\zeta^{bs}\right)\Bigg)\zeta_{2N}^{[a]/N+[b]/N-1}\int_0^1t^{[a]/N}(1-t)^{[b]/N-1}\,\frac{dt}t.
+	\end{align*}
+	The last integral (famously) equals the Beta function, and it evaluates to $\Gamma\left(\frac{[a]}N\right)\Gamma\left(\frac{[b]}N\right)\Gamma\left(\frac{[a]+[b]}N\right)^{-1}$. We take a moment to check that
+	\[\sum_{r,s\in\ZZ/N\ZZ}\left(1-\zeta^{ar}\right)\left(1-\zeta^{bs}\right)\stackrel?=N^2.\]
+	Well, $\left(1-\zeta^{ar}\right)\left(1-\zeta^{bs}\right)=1-\zeta^{ar}-\zeta^{bs}+\zeta^{ar+bs}$, and because $a,b\ne0$, we see that summing over $r$ and $s$ causes the terms not equal to $0$ to vanish. Thus, we are left with $N^2$.
+\end{proof}
+\begin{remark} \label{rem:nonzero-form-period}
+	Because the right-hand side is nonzero, \Cref{lem:gamma-periods} implies that the differential forms $\omega_{(a,b,c)}$ are nonzero.
+\end{remark}
+We are now ready to show that $\mathrm H_1^{\mathrm B}(X(\CC),\QQ)=\QQ[G]\cdot[\gamma]$.
+\begin{lemma}
+	Fix notation as above. Then $\mathrm H_1^{\mathrm B}(X(\CC),\QQ)=\QQ[G]\cdot[\gamma]$.
+\end{lemma}
+\begin{proof}
+	It is enough to show that $\mathrm H_1^{\mathrm B}(X(\CC),\CC)=\CC[G]\cdot[\gamma]$. Note that there is a canonical pairing
+	\[\arraycolsep=1.4pt\begin{array}{ccc}
+		\mathrm H_1^{\mathrm B}(X(\CC),\CC) \times \mathrm H^1_{\mathrm{dR}}(X(\CC),\CC) &\to& \CC \\
+		(c,\omega) &\mapsto& \int_c\omega
+	\end{array}\]
+	which is perfect by the de~Rham theorem. We already have a basis $\{\omega_{(a,b,c)}\}_{a,b,c\ne0}$ of $\mathrm H^1_{\mathrm{dR}}(X(\CC),\CC)$, so we will find a dual basis for $\mathrm H_1^{\mathrm B}(X(\CC),\CC)$ inside $\CC[G]\cdot[\gamma]$. Well, for $g\in G$ and $\alpha\in\widehat G$, we see
+	\[\int_{g^*\gamma}\omega_\alpha=\int_{\gamma}g^*\omega_\alpha\]
+	equals $\alpha(g)P(\gamma,\omega_\alpha)$, where $P(\gamma,\omega_\alpha)\coloneqq\int_\gamma\omega_\alpha$ is the (nonzero!) period computed in \Cref{lem:gamma-periods}. With this in mind, we define
+	\[c_\alpha\coloneqq\frac1{N^2P(\gamma,\omega_\alpha)}\sum_{g\in G}\alpha(g)^{-1}g^*[\gamma]\]
+	for each $\alpha=\alpha_{(a,b,c)}$ with $a,b,c\ne0$. Then we see that $\int_{c_\alpha}\omega_\beta=1_{\alpha=\beta}$ by the orthogonality relations, so $\{c_\alpha\}$ is a dual basis of $\mathrm H_1^{\mathrm B}(X(\CC),\CC)$, and it lives in $\CC[G]\cdot[\gamma]$ by its construction.
+\end{proof}
+
+\section{Galois Action}
+We now use the notation set up in the previous section to write out the Galois action on the space of some absolute Hodge cycles attached to $X$. Throughout this section, $p$ is a nonnegative index. We take a moment to note that the action of $G$ on $X$ upgrades into an action of $G^{2p}$ on $X^{2p}$. Our exposition closely follows \cite[Subsection~8.5]{ggl-fermat}. As in \cref{subsec:fermat-group-action}, we will identify $\widehat G^{2p}$ with some subset of tuples in $(\ZZ/N\ZZ)^{6p}$. And for a vector space $\mathrm H$ defined over $\QQ(\zeta)$ (respectively, $\QQ$) and character $\alpha\in\widehat G^{2p}$, we define $\mathrm H_\alpha$ (respectively, $\mathrm H_{[\alpha]}$) as the corresponding $\alpha$-eigenspace (respectively, $[\alpha]$-generalized eigenspace).
+
+\subsection{Hodge Cycles on \texorpdfstring{$X^{2p}$}{ X2p}}
+To understand the geometry of $X$, we will only be interested in tensor powers of $\mathrm H^1(X)$ (for a choice of cohomology theory $\mathrm H$), which by the K\"unneth formula embed as
+\[\mathrm H^1(X)^{\otimes 2p}\subseteq\mathrm H^{2p}\left(X^{2p}\right).\]
+When $\mathrm H$ is de Rham cohomology $\mathrm H_{\mathrm{dR}}$, we thus see we are interested in when the image of an element in $\mathrm H^1_{\mathrm{dR}}(X)^{\otimes p}$ succeeds at being a Hodge cycle. Well, note that the action of $G$ on $\mathrm H^1_{\mathrm{dR}}(X,\CC)$ extends to an action of $G^{2p}$ on $\mathrm H^1_{\mathrm{dR}}\left(X,\CC\right)^{\otimes2p}$. This action diagonalizes with one-dimensional eigenspaces by extending \Cref{rem:diagonalize-de-rham}. We will use properties of the diagonalization to read off when we have an element of bidegree $(p,p)$ in $\mathrm H^{2p}_{\mathrm{dR}}\left(X^{2p},\CC\right)$.
+
+Following \cite[Proposition~7.6]{deligne-hodge}, it will be useful to have the following definition.
+\begin{definition}[weight]
+	Given a function $f\colon\ZZ/N\ZZ\to\ZZ$, we define its \textit{weight map} as the function $\langle f\rangle\colon(\ZZ/N\ZZ)^\times\to\QQ$ defined by
+	\[\langle f\rangle\coloneqq\frac1N\sum_{a\in\ZZ/N\ZZ}f(ua)[a]\]
+	For $p\ge0$, we note that we may identify $\widehat G^{2p}$ with a tuple in $(\ZZ/m\ZZ)^{2p}$, and then we define the \textit{weight} $\langle\alpha\rangle$ of a character $\alpha\in\widehat G^{2p}$ as $\langle1_\alpha\rangle(1)$, where $1_\alpha\colon\ZZ/N\ZZ\to\ZZ$ is the multiplicity of an element in $\ZZ/N\ZZ$ in the tuple $\alpha$. 
+\end{definition}
+\begin{remark} \label{rem:deg-by-weight-curve}
+	The point of this definition is as follows: given $\alpha\in\widehat G$ with $\alpha=(a,b,c)$ having nonzero entries, we note that $\omega_{\alpha}$ has two possible cases.
+	\begin{itemize}
+		\item If $[a]+[b]+[c]=N$ so that $\langle\alpha\rangle=1$, then $\omega_{(a,b,c)}$ is holomorphic so that $\omega_{\alpha}\in\mathrm H^{10}(X)$.
+		\item If $[a]+[b]+[c]=2N$ so that $\langle\alpha\rangle=2$, then $\omega_{\alpha}$ is not holomorphic so that $\omega_{\alpha}\in\mathrm H^{01}(X)$.
+	\end{itemize}
+	In all cases, we find $\omega_{\alpha}\in\mathrm H^{2-\langle\alpha\rangle,\langle\alpha\rangle-1}(X)$.
+\end{remark}
+We now upgrade \Cref{rem:deg-by-weight-curve} to $\mathrm H^1_{\mathrm{dR}}(X,\CC)^{\otimes2p}$.
+\begin{lemma} \label{lem:deg-by-weight-curve-power}
+	Choose $\alpha\in\widehat G^{2p}$ as $\alpha=(\alpha_1,\ldots,\alpha_{2p})$ having nonzero entries. Then
+	\[\omega_{\alpha}\coloneqq\omega_{\alpha_1}\otimes\cdots\otimes\omega_{\alpha_{2p}}\]
+	embedded in $\mathrm H^{2p}_{\mathrm{dR}}\left(X^{2p},\CC\right)$ is of bidegree $(4p-\langle\alpha\rangle,\langle\alpha\rangle-2p)$.
+\end{lemma}
+\begin{proof}
+	Because the K\"unneth isomorphism upgrades to an isomorphism of Hodge structures, it is enough to note that $\omega_{\alpha_i}\in H^{\langle\alpha_\bullet}$ (see \Cref{rem:deg-by-weight-curve}) implies $\omega_\alpha$ has bidegree
+	\[\Bigg(4p-\sum_{i=1}^{2p}\langle\alpha_i\rangle,\sum_{i=1}^{2p}\langle\alpha_i\rangle-2p\Bigg).\]
+	The proposition follows because weight is additive.
+\end{proof}
+\begin{proposition}
+	Choose $\alpha\in\widehat G^{2p}$ as $\alpha=(\alpha_1,\ldots,\alpha_{2p})$ having nonzero entries. Then $\mathrm H_{\mathrm B}^{2p}\left(X^{2p}\right)_{[\alpha]}$ is one-dimensional over $\QQ([\alpha])$, and the following are equivalent.
+	\begin{listalph}
+		% \item $\mathrm H_{\mathrm B}^{2p}\left(X^{2p}\right)_{[\alpha]}$ has any nonzero Hodge classes.
+		\item $\mathrm H_{\mathrm B}^{2p}\left(X^{2p}\right)_{[\alpha]}(p)$ consists entirely of Hodge classes.
+		\item We have $\langle u\alpha\rangle=3p$ for all $u\in(\ZZ/N\ZZ)^\times$.
+	\end{listalph}
+\end{proposition}
+\begin{proof}
+	We begin by embedding
+	\[\mathrm H_{\mathrm B}^{2p}\left(X^{2p},\QQ\right)_{[\alpha]}\otimes_\QQ\CC=\bigoplus_{u\in(\ZZ/N\ZZ)^\times}\mathrm H_{\mathrm B}^{2p}\left(X^{2p},\CC\right)_{u\alpha}\]
+	into
+	\[\mathrm H_{\mathrm{dR}}^{2p}\left(X^{2p},\CC\right)=\bigoplus_{\substack{q_1,\ldots,q_{2p}\\q_1+\cdots+q_{2p}=2p}}\mathrm H_{\mathrm{dR}}^{q_1}(X,\CC)\otimes\cdots\otimes\mathrm H_{\mathrm{dR}}^{q_{2p}}(X,\CC),\]
+	where this last equality holds by the K\"unneth isomorphism. Quickly, we reduce to the case where $q_1=\cdots=q_{2p}=1$: for each $u\in(\ZZ/N\ZZ)^\times$, we note that $u\alpha$ has nonzero entries. On the other hand, the $G$-action on $\mathrm H^0(X)=\CC$ is always trivial, so we note that if any of the $q_\bullet$s are not equal to $1$, then one of them must equal $0$, meaning that
+	\[\left(\mathrm H_{\mathrm{dR}}^{q_1}(X,\CC)\otimes\cdots\otimes\mathrm H_{\mathrm{dR}}^{q_{2p}}(X,\CC)\right)_{u\alpha}=\mathrm H_{\mathrm{dR}}^{q_1}(X,\CC)_{u\alpha_1}\otimes\cdots\otimes\mathrm H_{\mathrm{dR}}^{q_{2p}}(X,\CC)_{u\alpha_{2p}}\]
+	is the zero vector space. Thus, we see that
+	\[\mathrm H^{2p}_{\mathrm{dR}}\left(X^{2p},\CC\right)_{[\alpha]}=\bigoplus_{u\in(\ZZ/N\ZZ)^\times}\left(\mathrm H^1_{\mathrm{dR}}(X,\CC)^{\otimes2p}\right)_{u\alpha}.\]
+	The comparison isomorphism now implies that $\mathrm H_{\mathrm B}^{2p}\left(X^{2p},\QQ\right)_{[\alpha]}$ has dimension $[\QQ([\alpha]):\QQ]$ over $\QQ$ and thus one dimension over $\QQ([\alpha])$.
+	
+	It remains to show that (a) and (b) are equivalent. Well, the $\QQ$-vector space $\mathrm H_{\mathrm B}^{2p}\left(X^{2p},\QQ\right)_{[\alpha]}(p)$ will consist of Hodge classes if and only if $\left(\mathrm H^1_{\mathrm{dR}}(X,\CC)^{\otimes2p}\right)_{u\alpha}$ is of bidegree $(p,p)$, which is equivalent to $\langle u\alpha\rangle=3p$ by \Cref{lem:deg-by-weight-curve-power}.
+\end{proof}
+
+\subsection{An Absolute Hodge Cycle}
+
+\subsection{Computations on de Rham Component}
+
+\subsection{End of the Computation}
+% S8.5 of GGL
+% use kunneth to discuss how we get a Hodge cycle
+% build the abs Hodge cycle from the Hodge cycle => this should allow me to describe the Hodge cycles on X^2p without too much pain, notably avoiding Deligne 82
+% gamma^q_{[alpha]} should be in the image of Kunneth and has the correct eigenvalue
+% image of Kunneth should be fully diagonalizable
+% actually image of Kunneth consists of the alpha-eigenspaces of H^2p(X^2p) which have nonzero entries in their tuple, which is something we can see on the level of de Rham cohomology
+% I think it is worthwhile to point out exactly where we use the space has abs Hodge cycles: the diagonal Betti subspace is not stable under Galois
+
+\section{Fermat Hypersurfaces}
+We would be remiss without mentioning something about Fermat hypersurfaces. Thus, we will state (but not prove) a few facts about what is known for Fermat hypersurfaces. There is much known here, but the proofs tend to be somewhat harder than what one does with the Fermat curves, which is why we have avoided the theory.\todo{}
+
+\end{document}

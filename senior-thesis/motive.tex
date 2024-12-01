@@ -1,0 +1,699 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+
+\newcommand{\nirpdftitle}{Motives}
+\usepackage{import}
+\inputfrom{../../notes}{nir}
+\usepackage[backend=biber,
+    style=alphabetic,
+    sorting=ynt
+]{biblatex}
+\setcounter{tocdepth}{2}
+
+\pagestyle{contentpage}
+
+\title{Motives}
+\author{Nir Elber}
+\date{Spring 2024}
+\usepackage{graphicx}
+
+\begin{document}
+
+\maketitle
+
+\tableofcontents
+
+\section{Introduction}
+Here is the statement of the conjecture.
+\begin{conj} \label{conj:desired-conjecture}
+	Fix an abelian motive $A$ over a number field $K$, and let $G(A)$ denote the motivic Galois group of $A$. Suppose $A$ has good reduction at a prime $\mf p$ of $K$. Then there exists a class $F\in\op{Conj}G(A)(\QQ)$ such that
+	\[F=[\rho_\ell(\mathrm{Frob}_\mf p)]\]
+	for each rational prime $\ell\nmid\mf p$, where $\rho_\ell\colon\op{Gal}(\ov K/K)\to\op{GL}\left(H^1_{\mathrm{\acute et}}(A;\QQ_\ell)\right)$ is the $\ell$-adic Galois representation.
+\end{conj}
+
+\subsection{Notation}
+In this subsection, we review the notation which will be in place for the article.
+\begin{itemize}
+	\item $k$, $K$, $E$, are all fields.
+	\item For number fields $E$, we let $E^+$ denote the field of totally real elements.
+	\item $D$ is a division algebra.
+	\item $X,Y,Z$ are projective varieties defined over $K$.
+	\item $A,B,C$ are abelian varieties defined over $K$.
+	\item $\op{End}_K(A)$ denotes the endomorphisms of $A$ defined over $k$.
+	\item $\op{End}_K^0(A)\coloneqq\op{End}_K(A)\otimes_\ZZ\QQ$.
+	\item $H^\bullet$ denotes a cohomology theory valued in $k$-vector spaces.
+	\item For abelian variety $A$, we set $V(A)\coloneqq H^1(A)\otimes_\ZZ\QQ$.
+	\item For a polarized abelian variety $A$, we let $\langle\cdot,\cdot\rangle_A$ denote the Weil pairing on $V(A)$, and we let $(\cdot)^\dagger$ denote the adjoint endomorphism for elements in $\op{End}_K(V(A))$. Note that $(\cdot)^\dagger$ restricted to $\op{End}_K^0(A)$ is the Rosati involution.
+\end{itemize}
+
+\section{Background on Motives}
+Throughout, $X$ denotes a smooth proper variety over a field $k$, which is possibly but not definitely algebraically closed.
+
+\subsection{Tannakian Formalism}
+Approximately speaking, the theory of (pure) motives takes the category of smooth proper varieties and attempts to give this category a long list of desirable properties. Tannakian formalism enumerates the desiderata. Our exposition follows \cite{milne-tannakian} and \cite[Chapters~2 and~6]{andre-motive}.
+\begin{warn}
+	We will not need any proofs from the theory of Tannakian formalism, so we will not provide them.
+\end{warn}
+Intuitively, a Tannakian category is one that looks like the category $\op{Rep}_k(G)$ of finite-dimensional representations of an affine $k$-group $G$. An important property of $\op{Rep}_k(G)$ is the ability to take tensor products, so we codify how useful tensor products are.
+\begin{definition}[monoidal]
+	A \textit{monoidal category} or \textit{$\otimes$-category} is a category $\mc C$ equipped with a bifunctor $\otimes\colon\mc C\times\mc C\to\mc C$ and identity object $1\in\mc C$ with the following identities.
+	\begin{itemize}
+		\item Associativity: there is a natural isomorphism $\alpha\colon((-\otimes-)\otimes-)\Rightarrow(-\otimes(-\otimes-))$.
+		\item Identity: there are natural isomorphisms $(1\otimes-)\Rightarrow-$ and $(-\otimes1)\Rightarrow1$.
+	\end{itemize}
+	These isomorphisms satisfy certain coherence properties ensuring that one can associate and apply identity naturally in any suitable situation.
+\end{definition}
+In fact, $\op{Rep}_k(G)$ has a symmetry property.
+\begin{definition}[symmetric monoidal]
+	A \textit{symmetric monoidal category} is a monoidal category $\mc C$ further equipped with a symmetry isomorphism $(-\otimes-)\Rightarrow(-\otimes-)$ such that the composite
+	\[(A\otimes B)\to(B\otimes A)\to(A\otimes B)\]
+	is the identity.
+\end{definition}
+The reason we restricted $\op{Rep}_k(G)$ to finite-dimensional representations is so that we can take duals.
+\begin{definition}[rigid]
+	A rigid symmetric monoidal category is a symmetric monoidal category $\mc C$ further equipped with a natural isomorphism $(-)^\lor\colon\mc C\to\mc C\opp$ such that each $A\in\mc C$ makes $(-\otimes A^\lor)$ is left adjoint to $(-\otimes A)$, and $(A^\lor\otimes-)$ is right adjoint to $(A\otimes-)$.
+\end{definition}
+\begin{remark}
+	Rigidity permits a notion of dimension of an object $A\in\mc C$ as the composite
+	\[1\to A^\lor\otimes A\to A\otimes A^\lor\to1.\]
+\end{remark}
+Lastly, $\op{Rep}_k(G)$ has a forgetful functor to $\op{Vec}_k$, akin to the forgetful functor $\op{Set}(G)\to\op{Set}$ which appears in Grothendieck's Galois theory (used to define the \'etale fundamental group).
+\begin{definition}[fiber functor]
+	Fix an abelian rigid symmetric monoidal category $\mc C$ such that $F\coloneqq\op{End}(1)$ is a field. A \textit{fiber functor} is a faithful exact $\otimes$-functor $\omega\colon\mc C\to\op{Vec}_k$ for some finite field extension $k$ of $F$. If $k=F$, then we say that $\mc C$ is \textit{neutral Tannakian over $k$}.
+\end{definition}
+What is remarkable is that it turns out that one can recover the affine $k$-group $G$ from the (forgetful) fiber functor $\omega\colon\op{Rep}_k(G)\to\op{Vec}_k$ as ``$\underline{\op{Aut}}^\otimes(\omega)$.'' Explicitly, for a $k$-algebra $R$, an element of $\underline{\op{Aut}}^\otimes(\omega)(R)$ is a collection of automorphisms $(g_X)_{X\in\op{Rep}_k(G)}$ where $g_X$ is an $R$-linear automorphism of $\omega(X)\otimes_kR$, and these automorphisms are natural in $G$-linear maps $X\to Y$.
+
+This process can in general recover a group $G$ from a neutral Tannakian category.
+\begin{theorem}
+	Fix a neutral Tannakian category $\mc C$ over a field $k$ equipped with fiber functor $\omega\colon\mc C\to\op{Vec}_k$.
+	\begin{listalph}
+		\item The functor $\underline{\op{Aut}}^\otimes(\omega)$ (defined analogously as above) is represented by an affine $k$-group $G$.
+		\item The fiber functor $\omega$ then upgrades to a $\otimes$-equivalence $\mc C\to\op{Rep}_k(G)$.
+	\end{listalph}
+\end{theorem}
+\begin{proof}
+	See \cite[Theorem~2.11]{milne-tannakian}.
+\end{proof}
+It will be helpful to have some more concrete ways to understand $G$ from its Tannakian category. For example, if the Tannakian category is small, then $G$ should also be small. The following two propositions examine two versions of smallness.
+\begin{definition}[$\otimes$-subcategory]
+	Fix an abelian rigid symmetric monoidal category $\mc C$. Then the \textit{full $\otimes$-subcat\-egory} generated by a subset $S\subseteq\mc C$ of objects, denoted $\langle S\rangle^{\otimes}$ is the smallest abelian rigid monoidal subcategory.
+\end{definition}
+\begin{proposition}
+	Fix an affine $k$-group $G$.
+	\begin{listalph}
+		\item Then $G$ is finite if and only if there is an object $X$ such that every object of $\op{Rep}_k(G)$ is a subquotient of $X^{\oplus n}$ for some nonnegative $n$.
+		\item Then $G$ is algebraic (namely, finite type over $k$) if and only if $\op{Rep}_k(G)$ equals $\langle X\rangle^{\otimes}$ for some object $X$.
+	\end{listalph}
+\end{proposition}
+\begin{proof}
+	See \cite[Proposition~2.20]{milne-tannakian}.
+\end{proof}
+\begin{proposition}
+	Fix a field $k$ of characteristic $0$ and an affine $k$-group $G$. Then $G^\circ\subseteq G$ is a projective limit of reductive $k$-groups if and only if $\op{Rep}_k(G)$ is semisimple.
+\end{proposition}
+\begin{proof}
+	See \cite[Remark~2.28]{milne-tannakian}.
+\end{proof}
+Lastly, we will also want some functoriality. Approximately speaking, we expect surjections/injections of groups to correspond to ``surjections/injections'' of categories.
+\begin{proposition}
+	Fix a morphism $f\colon G\to G'$ of affine $k$-groups $G$, and let $\omega\colon\op{Rep}_k(G')\to\op{Rep}_k(G)$ be the corresponding functor.
+	\begin{listalph}
+		\item Suppose $\op{Rep}_k(G)$ is semisimple and that $k$ has characteristic $0$. Then $f$ is faithfully flat if and only if the following holds: for given $X'\in\op{Rep}_k(G')$, every subobject of $\omega(X')$ is isomorphic to $\omega(Y')$ for some subobject $Y'$ of $X'$.
+		\item Then $f$ is a closed embedding if and only if every object $X\in\op{Rep}_k(G)$ is isomorphic to a subquotient of $\omega(X')$ for some $X'\in\op{Rep}_k(G')$.
+	\end{listalph}
+\end{proposition}
+\begin{proof}
+	Combine \cite[Remark~2.29]{milne-tannakian} with \cite[Proposition~2.21]{milne-tannakian}.
+\end{proof}
+
+\subsection{Review of Cohomology}
+In this subsection, we review various cohomology theories, approximately following \cite[Section~1]{deligne-hodge}. We begin by discussing what is expected from a cohomology theory.
+\begin{definition}[Weil cohomology]
+	Let $\mc P(k)$ denote the category of smooth proper $k$-varieties. \todo{}
+\end{definition}
+
+\subsection{Hodge Structures}
+The previous subsection mentioned that the cohomology $H^\bullet(X,\CC)$ of a complex projective variety $X$ admits a ``Hodge structure'' meaning that one has a decomposition
+\[H^n(X,\CC)\cong\bigoplus_{p+q=n}H^{p,q}\]
+where $H^{p,q}=\ov{H^{q,p}}$. What is interesting about this situation is that we begin with a $\QQ$-vector space $H^n(X,\CC)$, which then inherits the above decomposition only after base-change to $\CC$. This structure is what makes our complex-analytic cohomology interesting, so we give it a name.
+\begin{definition}[Hodge structure]
+	A \textit{$\QQ$-Hodge structure} of weight $m\in\ZZ$ is a finite-dimensional vector space $V\in\op{Vec}_\QQ$ such that $V_\CC$ admits a decomposition
+	\[V_\CC=\bigoplus_{p+q=m}V^{p,q}_\CC\]
+	where $V^{p,q}_\CC=\ov{V^{q,p}_\CC}$. We let $\op{HS}_\QQ$ denote the category of $\QQ$-Hodge structures, where a morphism of Hodge structures is a linear map preserving the decomposition over $\CC$.
+\end{definition}
+\begin{example}
+	Give the Tate twist $\QQ(1)=2\pi i\QQ$ a Hodge structure of weight $-2$ where $\QQ(1)^{-1,-1}=\QQ(1)$ is nonzero.
+\end{example}
+The category $\op{HS}_\QQ$ becomes a faithful rigid tensor abelian subcategory of $\op{Vec}_\QQ$, where the forgetful functor is able to act as a fiber functor. As such, so we expect $\op{HS}_\QQ$ should arise from representations of some group. Let's explain how this is done.
+\begin{notation}[Deligne torus]
+	Let $\mathbb S\coloneqq\op{Res}_{\CC/\RR}\mathbb G_{m,\CC}$ denote the Deligne torus. We also let $w\colon\mathbb G_{m,\RR}\to\mathbb S$ denote the \textit{weight cocharacter} given by $w(r)\coloneqq r\in\CC$ on $\RR$-points.
+\end{notation}
+\begin{remark} \label{rem:concrete-deligne-torus}
+	One can realize $\mathbb S$ more concretely as
+	\[\mathbb S(R)=\left\{\begin{bmatrix}
+		a & b \\ -b & a
+	\end{bmatrix}\in{\op{GL}_2(R)}:a^2+b^2\in R^\times\right\},\]
+	where $R$ is an $\mathbb R$-algebra. Indeed, there is a ring isomorphism from $R\otimes_\RR\CC$ to $\left\{\begin{bsmallmatrix}
+		a & b \\ -b & a
+	\end{bsmallmatrix}:a,b\in R\right\}$ by sending $1\otimes1\mapsto\begin{bsmallmatrix}
+		1 \\ & 1
+	\end{bsmallmatrix}$ and $1\otimes i\mapsto\begin{bsmallmatrix}
+		1 \\ & -1
+	\end{bsmallmatrix}$.
+\end{remark}
+We now explain how a representation of $\mathbb S$ converts to a Hodge structure.
+\begin{lemma} \label{lem:hodge-by-s}
+	Fix some $V\in\op{Vec}_\QQ$. Then a Hodge structure on $V$ has equivalent data to a representation $h\colon\mathbb S\to\op{GL}(V)_\RR$.
+\end{lemma}
+\begin{proof}
+	\Cref{rem:concrete-deligne-torus} informs us that the character group $X^*(\mathbb S)$ of group homomorphisms $\mathbb S\to\mathbb G_m$ is a rank-$2$ free $\ZZ$-module generated by $z\colon\begin{bsmallmatrix}
+		a & b \\ -b & a
+	\end{bsmallmatrix}\mapsto a+bi$ and $\ov z\colon\begin{bsmallmatrix}
+		a & b \\ -b & a
+	\end{bsmallmatrix}\mapsto a-bi$ on $\CC$-points.\footnote{Alternatively, note one has an isomorphism $(\CC\otimes_\RR\CC)^\times\cong\CC^\times\times\CC^\times$ by sending $(z,w)\mapsto z\otimes w$. Then these two characters are $(z,w)\mapsto z$ and $(z,w)\mapsto w$.} Without too many details, upon passing to the Hopf algebra, one is essentially looking for units in $\RR\left[a,b,\left(a^2+b^2\right)^{-1}\right]$, of which there are not many. Note that there is a Galois action by $\op{Gal}(\CC/\RR)$ on these two characters $\{z,\ov z\}$, given by swapping them. Let $\iota\in\op{Gal}(\CC/\RR)$ denote complex conjugation, for brevity.
+
+	Now, a representation $h\colon\mathbb S\to\op{GL}(V)_\RR$ must have $V_\CC$ decompose into eigenspaces according to the characters $X^*(\mathbb S)$, so one admits a decomposition
+	\[V_\CC=\bigoplus_{\chi\in X^*(\mathbb S)}V_\CC^\chi.\]
+	However, one also needs $V_\CC^{\iota\chi}=\ov{V_\CC^\chi}$ because $\iota$ swaps $\{\chi,\iota\chi\}$. By Galois descent, this is enough data to (conversely) define a representation $h\colon\mathbb S\to\op{Gal}(V)_\RR$.
+
+	To relate the previous paragraph to Hodge structures, we recall that $X^*(\mathbb S)$ is a rank-$2$ free $\ZZ$-module, so write $\chi_{p,q}\coloneqq z^{-p}\ov z^{-q}$ so that $\iota\chi_{p,q}=\chi_{q,p}$. Setting $V_\CC^{p,q}\coloneqq V_\CC^{\chi_{p,q}}$ now explains how to relate the previous paragraph to a Hodge structure, as desired.
+\end{proof}
+\begin{remark}
+	The weight of a Hodge structure on some $V\in\op{HS}_\QQ$ can be read off of $h$ as follows: note the weight cocharacter $h\circ w$ equals the $(-m)$th power map if and only if the weight is $m$. 
+\end{remark}
+Thus, we see that one has tensor products and duals of Hodge structures by tracking through the representation of $h$. For example, if $V\in\op{HS}_\QQ$ has $V^\lor$ inherit a Hodge structure by $(V^\lor)^{p,q}\coloneqq (V^{-p,-q})^\lor$. In particular, $\op{HS}_\QQ$ becomes Tannakian.\todo{}
+
+% polarizable HS
+
+\subsection{The Mumford--Tate Group}
+We are now ready to define the main character of the present subsection, which is the Mumford--Tate group.\todo{}
+\begin{definition}[Mumford--Tate group]
+	For some $V\in\op{HS}_\QQ$, we define the \textit{Mumford--Tate group} $\op{MT}(V)$ as the smallest algebraic $\QQ$-group containing the image of the corresponding representation $h\colon\mathbb S\to\op{GL}(V)_\RR$.\todo{Fix} If $A$ is an abelian variety defined over $\CC$, then we define $\op{MT}(A)$ as the Mumford--Tate group of $H^1(A,\QQ)\in\op{HS}_{\QQ}$.
+\end{definition}
+\begin{remark}
+	Because $\mathbb S$ is connected, we see that $h$ is also connected. Namely, $\op{MT}(V)^\circ\subseteq\op{MT}(V)$ will be an algebraic $\QQ$-group containing the image of $h$ if $\op{MT}(V)$ does too, so equality is forced.
+\end{remark}
+It will turn out that $\op{MT}(V)$ is the algebraic group corresponding the full Tannakian subcategory $\langle V\rangle^{\otimes}$ of $\op{HS}_\QQ$. Unraveling the formalism, the key point is the following proposition.
+\begin{proposition}
+	Fix $V\in\op{HS}_\QQ$. Suppose $T\in\op{HS}_\QQ$ can be written as
+	\[T=\bigoplus_{i=1}^N\left(V^{\otimes m_i}\otimes (V^\lor)^{\otimes n_i}\right)(p_i),\]
+	where $m_i,n_i\ge0$ are nonnegative integers and $p_i\in\ZZ$. Then $W\subseteq T$ is a Hodge substructure if and only if the action of $\op{MT}(V)$ on $T$ stabilizes $W$.
+\end{proposition}
+\begin{proof}
+	For each vector space in $\op{HS}_\QQ$, we let $h_\bullet$ denote the corresponding representation. Quickly, note that $h_T$ In the backwards direction, we note that $\op{MT}(V)$ stabilizing $W$ implies that $h(s)$ stabilizes $W_\RR$ for any $s$. We can thus view $W_\RR\subseteq T_\RR$ as a subrepresentation of $\mathbb S$, so taking eigenspaces reveals that $W$ can be given the structure of a Hodge substructure of $T$.
+
+	The converse will have to use the construction of $T$. Indeed, suppose that $W\subseteq T$ is a Hodge substructure, and let $M\subseteq\op{GL}(V)$ be the smallest algebraic $\QQ$-group stabilizing $W\subseteq T$. We would like to show that $\op{MT}(V)\subseteq M$. By definition of $\op{MT}(V)$, it is enough to show that $h$ factors through $M_\RR$, meaning we must show that $h(s)$ stabilizes $W$ for each $s\in\mathbb S$. Well, $h(s)$ will act by characters on the eigenspaces $W^{p,q}_\CC\subseteq W_\CC$, so $h(s)$ does indeed stabilize $W$.
+\end{proof}
+\begin{corollary}
+	Fix $V\in\op{HS}_\QQ$. Then $\op{MT}(V)$ is the group corresponding to the Tannakian subcategory $\langle V\rangle^{\otimes}$ of $\op{HS}_\QQ$.
+\end{corollary}
+\begin{proof}
+	\todo{}
+\end{proof}
+For abelian varieties, we note that the presence of an endomorphism algebra gives us some information about $\op{MT}(A)$.
+\begin{proposition}
+	Fix an abelian variety $A$ defined over $\CC$ with endomorphism algebra $D\coloneqq\op{End}^0_\CC(A)$. Additionally, let $\varphi$ be a polarization on $A$ inducing the polarization on $H^1(A,\QQ)$. Then
+	\[\op{MT}(A)\subseteq\op{GSp}_D(\varphi).\]
+\end{proposition}
+\begin{proof}
+	Note $D$ needs to commute.\todo{}
+\end{proof}
+\begin{corollary} \label{prop:mt-cm-torus}
+	The Mumford--Tate group of an abelian variety with CM is a torus.
+\end{corollary}
+\begin{proof}
+	Fix our abelian variety $A$ with CM by the CM field $E\subseteq\op{End}^0_\CC(A)$. Then $H^1(A,\QQ)$ becomes an $E$-vector space, and $\op{MT}(A)$ needs to commute with the $E$-action, which is exactly the diagonal torus.
+\end{proof}
+Define the Hodge group via $\mathbb U$.\todo{}
+
+\subsection{The Rank of a CM Type}
+\Cref{prop:mt-cm-torus} explains that the Mumford--Tate group of an abelian variety with CM is a torus, so it is a natural question to ask about the rank of this torus. In this subsection, we will discuss a little about what is known about this rank. Our exposition largely follows \cite[Section~6.1]{lang-cm}.
+
+Throughout this subsection, $A$ is an absolutely simple abelian variety defined over a number field with CM type $(K,\Phi)$. We let $(K^*,\Phi^*)$ denote the reflex field and reflex CM type and pick up the following definition.
+\begin{definition}[rank]
+	Fix a CM type $(K,\Phi)$. Then the \textit{rank} $\op{rank}(K,\Phi)$ of $(K,\Phi)$ is the $\QQ$-dimension of the image of the map $\op T_\Phi\colon K\to K^*$ given by
+	\[\op T_\Phi(\alpha)\coloneqq\sum_{\varphi\in\Phi}\varphi(\alpha).\]
+\end{definition}
+\begin{remark} \label{rem:combinatorial-cm-rank}
+	Notably, the rank does not change upon passing to a Galois closure $L$ of $K/\QQ$ because $\op T_\Phi$ will simply become ${\op T_\Phi}\circ\op T_{L/K}$, and field traces of number fields are surjective. In the event where $K/\QQ$ is Galois with $G\coloneqq\op{Gal}(K/\QQ)$, we note that the existence of a normal basis implies that
+	\[\op{rank}(K,\Phi)=\dim_\QQ\Phi\QQ[G],\]
+	where we view $\Phi$ as an element of $\ZZ[G]$ given by the sum of its elements. Similarly, one can go down to $\op{rank}_\ZZ\Phi\ZZ[G]$ and even multiply by $\Phi$ on either side.
+\end{remark}
+\begin{remark} \label{rem:reduce-to-primitive-cm-rank}
+	Notably, because the discussion in \Cref{rem:combinatorial-cm-rank} is largely independent of $L$ (except for requiring $L/K$ to be Galois), we see that
+	\[\op{rank}(K,\Phi)=\op{rank}(L,\Phi_L)=\op{rank}(K_0,\Phi_0)\]
+	where $(L,\Phi_L)$ is the extension of $(K,\Phi)$ to $L$, and $(K_0,\Phi_0)$ is the primitive CM type extending to $(K,\Phi)$.
+\end{remark}
+\begin{remark} \label{rem:dual-cm-rank}
+	Using \Cref{rem:combinatorial-cm-rank}, we note that $\op{rank}(K,\Phi)=\op{rank}(K^*,\Phi^*)$ because, upon passing all ranks and types to a Galois closure, sending $\sigma\mapsto\sigma^{-1}$ will map $\Phi\QQ[G]$ to $\QQ[G]\Phi^*$, showing that the $\QQ$-dimen\-sions of these spaces are equal.
+\end{remark}
+The importance of this definition is as follows.
+\begin{proposition}
+	Fix an abelian variety $A$ defined over a number field with CM type $(K,\Phi)$. Then
+	\[\dim\op{MT}(A)=\op{rank}(K,\Phi).\]
+\end{proposition}
+\begin{proof}
+	We follow the argument of \cite[Proposition~1.1]{yanai-degenerate-cm-type}.
+	\begin{enumerate}
+		\item To set up our discussion, we set some notation. Given a number field $F$, we set $T_F\coloneqq\op{Res}_{F/\QQ}\mathbb G_m$ and $X_F\coloneqq X^*(T_F)$; note that $X_F$ is the free abelian group generated by the set $\Gamma_F\coloneqq\op{Hom}(F,\CC)$. For example, the reflex norm $\op N_{\Phi^*}\colon (K^*)^\times\to K^\times$ (note $K^{**}\subseteq K$) can actually be viewed as a map $\op N_{\Phi^*}\colon T_{K^*}\to T_K$ of $\QQ$-tori and hence induces a map $\op T_{\Phi^*}\colon X_K\to X_{K^*}$ on character groups defined by
+		\[\op T_{\Phi^*}(x)\coloneqq\sum_{\tau\in\Phi^*}x\tau=x\Phi^*.\]
+		To properly understand the product $\tau x$ (and ones similar to it in the following argument), one should extend all embeddings to $\op{Gal}(\ov\QQ/\QQ)$, but the above construction of $\op T_{\Phi^*}$ explains why the definition is independent of these choices of liftings.
+
+		\item With this notation in place, we take a moment to describe $\op{MT}(A)$ in terms of these tori. By the proof of \Cref{prop:mt-cm-torus}, we see that the Hodge structure $h\colon\mathbb S\to\op{GL}\left(H^1_B(A;\QQ)\right)$ factors through $T_K$. In fact, by definition of the CM type $(K,\Phi)$, we see that
+		\[H^{10}\cong\bigoplus_{\varphi\in\Phi}\CC_\varphi,\]
+		so the Hodge structure $h$ is given by the torus map $X^*(h)\colon X_K\to X^*(\mathbb S)$ defined by
+		\[\varphi\mapsto\begin{cases}
+			z^{-1} & \text{if }\varphi\in\Phi, \\
+			\ov z^{-1} & \text{if }\varphi\notin\Phi,
+		\end{cases}\]
+		where $z,\ov z\colon X^*(\mathbb S)$ are the two characters of \Cref{lem:hodge-by-s}. (Namely, the map $X^*(h)$ is intended to provide an $\mathbb S$-action on $H^1_B(A;\QQ)$ from which the Hodge structure $H^{01}\oplus H^{10}$ upon base-changing to $\CC$. But we already understand the decomposition via the eigenspaces of $\Gamma_K$!) Now, identifying $X^*(\mathbb U)$ with $\ZZ$ via $z^{-1}\mapsto1$, we see that $\op{Hg}(A)$ is the smallest algebraic $\QQ$-group containing the image of the torus map $\mathbb U\to T_K$ defined on characters by
+		\[\varphi\mapsto\begin{cases}
+			+1 & \text{if }\varphi\in\Phi, \\
+			-1 & \text{if }\varphi\notin\Phi.
+		\end{cases}\]
+
+		\item The main claim is that $x\in X_K$ is trivial on $\op{Hg}(A)$ if and only if $\op T_{\Phi^*}(x)$ is an integral multiple of
+		\[\theta\coloneqq\sum_{\tau\in\Gamma_{K^*}}\tau.\]
+		To see how this claim completes the proof, we note that it implies that we may carry out the computation
+		\begin{align*}
+			\dim\op{MT}(A) &= 1+\dim\op{Hg}(A) \\
+			&= 1+\op{rank}_\ZZ X^*(\op{Hg}(A)) \\
+			&= 1+\op{rank}_\ZZ X_K-\op{rank}_\ZZ\{x\in X_K:x|_{\mathrm{Hg}(A)}=1\} \\
+			&= 1+\op{rank}_\ZZ X_K-\op{rank}_\ZZ\op T_{\Phi^*}^{-1}(\ZZ\theta) \\
+			&= \op{rank}_\ZZ X_K-\op{rank}_\ZZ\ker\op T_{\Phi^*} \\
+			&= \op{rank}_\ZZ\im \op T_{\Phi^*} \\
+			&= \op{rank}_\ZZ\ZZ[\Gamma_{K^*}]\Phi^*,
+		\end{align*}
+		which is what we wanted upon comparing with \Cref{rem:combinatorial-cm-rank,rem:dual-cm-rank}.
+
+		\item It remains to show the main claim. To begin, note that $x=\sum_{\sigma\in\Gamma_K}n_\sigma\sigma$ is trivial on $\op{Hg}(A)$ if and only if $gx$ is trivial on $\im h|_{\mathbb U}$ for all $g\in\op{Gal}(\ov\QQ/\QQ)$. (Without the extra $g$, we would be trivial on the smallest $\ov\QQ$-subgroup of $T_K$ containing $\im h|_{\mathbb U}$, so we add in the $\op{Gal}(\ov\QQ/\QQ)$-action to allow for our Galois descent to $\op{Hg}(A)$.) Continuing, $xg$ is trivial on $\im h|_{\mathbb U}$ if and only if $xg\circ h|_{\mathbb U}$ is trivial, which is equivalent to $X^*(h|_{\mathbb U})(gx)$ being trivial, which we can compute is equivalent to
+		\[\sum_{g\sigma\in\Phi}n_\sigma=\sum_{g\sigma\notin\Phi}n_\sigma.\]
+		Of course, we note that these sums being equal is equivalent to either of them being equal to $\frac12\sum_\sigma n_\sigma$.
+
+		On the other hand, setting $x=\sum_{\sigma\in\Gamma_K}n_\sigma\sigma$ allows us to compute $\op T_{\Phi^*}(x)$ as
+		\[\op T_{\Phi^*}(x)=\sum_{\substack{\tau\in\Phi^*\\\sigma\in\Gamma_K}}n_\sigma\sigma\tau.\]
+		Now, we see that $\op T_{\Phi^*}(x)$ is a multiple of $\theta$ if and only if the sum
+		\[\sum_{\substack{\tau\in\Phi^*\\\sigma\in\Gamma_K\\\sigma\tau=\mu}}n_\sigma\]
+		does not depend on $\mu\in\Gamma_{K^*}$.\footnote{The equality $\sigma\tau=\mu$ is understood to be an equality of embeddings on $K^*$, despite our aforementioned convention that all these elements in fact live in $\op{Gal}(\ov\QQ/\QQ)$. If one is concerned with rigor, feel free to pass all automorphisms up to a fixed Galois closure $L$ of $K$ over $\QQ$ and replace all sums with sums over all possible extensions to automorphisms $L\to L$.} However, we see
+		\[\sum_{\substack{\tau\in\Phi^*\\\sigma\in\Gamma_K\\\sigma\tau=\mu}}n_\sigma=\sum_{\substack{\tau\in\Phi^*\\\sigma\in\Gamma_K\\\mu^{-1}\sigma=\tau^{-1}}}n_\sigma=\sum_{\substack{\mu^{-1}\sigma\in\Phi}}n_\sigma\]
+		having value of independent of $\mu$ means that the sum for $\mu^{-1}$ and $\iota\mu^{-1}$ have the same value, which we noted above is equivalent for this sum to equal $\frac12\sum_\sigma n_\sigma$. A comparison with our discussion at the end of the previous paragraph completes the proof.
+		\qedhere
+	\end{enumerate}
+\end{proof}
+The point is that we have achieved a combinatorial description of $\dim\op{MT}(A)$. For example, if we are able to show that $\op{rank}(K,\Phi)=\dim A+1$, then we are able to conclude that $\op{MT}(A)$ must be equal to the maximal torus inside $\op{GSp}_{2\dim A}(\QQ)$.
+
+Here are some quick bounds on the rank; for example, for large degrees, we expect the rank to be relatively large.
+\begin{proposition} \label{prop:cm-rank-bound}
+	Fix a CM type $(K,\Phi)$ which is an extension of the primitive CM type $(K_0,\Phi_0)$. Then
+	\[1+\log_2[K_0:\QQ]\le\op{rank}(K,\Phi)\le\frac12[K_0:\QQ]+1.\]
+\end{proposition}
+\begin{proof}
+	We follow \cite[Theorem~1.2]{lang-cm}; we show the inequalities separately.
+	\begin{itemize}
+		\item For the right inequality, we may as well take $K=K_0$ by \Cref{rem:reduce-to-primitive-cm-rank}. Letting $K_0^+$ be the totally real subfield of $K_0$, the main point is that
+		\[{\op T_{K/K^+}}\circ{\op T_\Phi}=\op T_{K/\QQ}\]
+		because $(K,\Phi)$ is a CM type. Thus, $\dim_\QQ\op T_{K/K^+}(T_\Phi(K))=1$, but $\op T_{K/K^+}\colon K\to K^+$ is surjective with kernel of dimension $\frac12[K:\QQ]$, so the result follows. 
+		\item For the left inequality, we may as well assume that $K/\QQ$ is Galois by \Cref{rem:combinatorial-cm-rank,rem:reduce-to-primitive-cm-rank}. Set $G\coloneqq\op{Gal}(K/\QQ)$, and let $H\subseteq G$ consist of those automorphisms $\sigma$ such that $\Phi\sigma=\Phi$; note $H$ is the subgroup fixing $K^*$. By taking the reflex field (which is legal by \Cref{rem:dual-cm-rank}), it suffiees to show that
+		\[\dim_{\FF_2}\Phi\FF_2[G]\stackrel?\ge1+\log_2[K^*:\QQ],\]
+		for which we will actually show
+		\[\#\Phi\FF_2[G]\stackrel?\ge2[K^*:\QQ].\]
+		For this, we need to exhibit at least $2[K_0:\QQ]=2\cdot\#\left(H\backslash G\right)$ elements in $\#\Phi\FF_2[G]$, so we choose the elements
+		\[\{\Phi\sigma:\sigma\in H\backslash G\}\sqcup\{\Phi+\Phi\sigma:\sigma\in H\backslash G\}.\]
+		It is enough to show that these elements are distinct in $\FF_2[G]$. For example, $\Phi\sigma\equiv\Phi\sigma'$ would imply $\Phi\sigma'\sigma^{-1}\equiv\Phi$ and hence $\sigma'\sigma^{-1}\in H$ and hence $\sigma=\sigma'$ by definition of $H$. Similarly, one sees that the elements $\Phi+\Phi\sigma$ are pairwise distinct. Lastly, we see that we can never have $\Phi\sigma\equiv\Phi+\Phi\sigma'$ because this would imply
+		\[\Phi+\Phi\iota\equiv\Phi+\Phi\iota+\underbrace{\Phi\sigma'+\Phi\sigma'\iota}_{=\Phi+\Phi\iota}\equiv0,\]
+		where $\iota$ denotes complex conjugation; this is a contradiction.
+		\qedhere
+	\end{itemize}
+\end{proof}
+\begin{example}
+	If $A$ is an absolutely simple abelian variety with CM type $(K,\Phi)$ of dimension $g\in\{1,2,3\}$, then the bounds of \Cref{prop:cm-rank-bound} imply $\op{rank}(K,\Phi)=g+1$.
+\end{example}
+It turns out that one can upgrade the argument in the left inequality as follows.
+\begin{proposition}
+	Let $(K_0,\Phi_0)$ be a primitive CM type such that $[K_0:\QQ]=2p$ for an odd prime $p$. Then $\op{rank}(K_0,\Phi_0)=p+1$.
+\end{proposition}
+\begin{proof}
+	We follow \cite[Theorem~2]{ribet-mt-av}. Let $K$ be a Galois closure of $K_0$ over $\QQ$, and set $G\coloneqq\op{Gal}(K/\QQ)$. We are interested in computing $\dim_\QQ\QQ[G]\Phi$, so we note \Cref{prop:cm-rank-bound} immediately upper-bounds this dimension by $p+1$. For the lower bound, we proceed in steps.
+	\begin{enumerate}
+		\item The key is to view $\QQ[G]\Phi$ as a $G$-module where $G$ acts on the left by multiplication. In particular, we claim that this map
+		\[G\to\op{Aut}_\QQ\QQ[G]\Phi\]
+		is injective: some $g\in G$ fixes $\QQ[G]\Phi$ if and only if $g\sigma\Phi=\sigma\Phi$ for all $\sigma\in G$. However, this is equivalent to $\sigma^{-1}g\sigma\Phi=\Phi$, which we see is equivalent to $\sigma^{-1}g\sigma$ fixing $K_0$ for all $\sigma$! In other words, we need $g$ to fix all embeddings of $K_0$ into $K$, so because $K$ is a Galois closure of $K_0$, this is equivalent to $g$ being the identity.
+
+		\item This injectivity gets us most of the way: choose some $g\in G$ of order $p$ (which exists because $[K_0:\QQ]$ must divide the order of $G$), so we view $\QQ[G]\Phi$ as a $\langle g\rangle$-representation, which produces an eigenspace decomposition
+		\[\QQ[G]\Phi\cong A\oplus B,\]
+		where $g$ acts on $A$ nontrivially, and $g$ acts on $B$ trivially. Because $g$ acts on $\QQ[G]\Phi$ nontrivially, $A$ is nonzero, so $\dim_\QQ A\ge p-1$.
+
+		\item It remains to show that $\dim_\QQ B\ge2$. Of course $\theta\coloneqq\sum_{\sigma\in G}\sigma$ is fixed by $G$, so the primary difficulty of the remainder of the proof is finding another vector fixed by $g$. It will turn out that $\left(1+g+\cdots+g^{p-1}\right)\Phi$ will do the trick, but this is not obvious. Undoing the arguments of \Cref{prop:mt-cm-torus}, we note that
+		\[\frac{\QQ[G]\Phi}{\QQ[G]\Phi\cap\QQ\theta}=\frac{\im(\Phi\colon\QQ[G]\to\QQ[G])}{\QQ[G]\Phi\cap\QQ\theta}\cong\frac{\QQ[G]}{\{x\in\QQ[G]:x\Phi\in\QQ\theta\}}.\]
+		Now, the arguments of \Cref{prop:mt-cm-torus} tell us that we have a well-defined map on this quotient defined by $\QQ[G]\to\QQ$ where $\sigma\mapsto1$ if $\sigma\in\Phi$ and $\sigma\mapsto-1$ otherwise. As such, $\left(1+g+\cdots+g^{p-1}\right)\Phi\notin\QQ\theta$ because $1+g+\cdots+g^{p-1}$ is nonzero in the quotient above because it is nonzero under the aforementioned map $\QQ[G]\to\QQ$. (Importantly, here we have used the fact that $p$ is odd!)
+		\qedhere
+	\end{enumerate}
+\end{proof}
+As a last example, we work with abelian extensions.
+\begin{lemma} \label{lem:rank-cm-type-character}
+	Let $(K,\Phi)$ be a CM type such that $K/\QQ$ is an abelian extension with Galois group $G$. Then $\op{rank}(K,\Phi)$ equals the number of characters $\chi\colon G\to\CC^\times$ such that $\chi(\Phi)\ne0$.
+\end{lemma}
+\begin{proof}
+	We will compute $\op{rank}(K,\Phi)$ as $\dim_\CC\CC[G]\Phi$. One can diagonalize the $G$-action on $\CC[G]$ into
+	\[\CC[G]\cong\bigoplus_\chi\CC_\chi,\]
+	where $G$ acts on $\CC_\chi$ by $\chi$. Thus, $\QQ[G]\Phi$ will equal the sum of the spaces $\CC_\chi\Phi$, but $\CC_\chi\Phi$ is nonzero if and only if $\chi(\Phi)\ne0$.
+\end{proof}
+\begin{remark} \label{rem:rank-cm-even-character}
+	Work in the setting of \Cref{lem:rank-cm-type-character}. Let $\iota\in G$ denote complex conjugation. If $\chi$ is a nontrivial character satisfying $\chi(\iota)=1$, then we see that
+	\[0=\sum_{g\in G}\chi(g)=\chi(\Phi+\iota\Phi)=2\chi(\Phi),\]
+	so $\chi(\Phi)=0$.
+\end{remark}
+\begin{example} \label{ex:p-cyclo-cm-rank}
+	Fix a prime $p$, and define the CM type $\Phi$ on $\QQ(\zeta_p)$ by $\Phi=\left\{\zeta_p\mapsto\zeta_p^i:1\le i\le\frac{p-1}2\right\}$. We will show that $\op{rank}(\QQ(\zeta_p),\Phi)=p$ by following \cite[Section~4]{kubota-cm-type}. We use \Cref{lem:rank-cm-type-character}. In view of \Cref{rem:rank-cm-even-character}, it is enough to check that $\chi(\Phi)\ne0$ for each of the $\frac{p-1}2$ characters $\chi$ satisfying $\chi(\iota)=-1$. By identifying $\op{Gal}(\QQ(\zeta_p)/\QQ)$ with $(\ZZ/p\ZZ)^\times$, this reduces to computing sums of the form $\sum_{i=1}^{(p-1)/2}\chi(i)$ for characters $\chi$ satisfying $\chi(-1)=-1$. We relegate these computations to \Cref{lem:class-number-formula-chi} below.
+\end{example}
+\begin{lemma} \label{lem:class-number-formula-chi}
+	Fix a character $\chi\colon(\ZZ/p\ZZ)^\times\to\CC^\times$ satisfying $\chi(-1)=-1$. Then
+	\[\sum_{i=1}^{(p-1)/2}\chi(i)\ne0.\]
+\end{lemma}
+\begin{proof}
+	We follow \cite[Lemma~4.3]{kubota-cm-type}. For brevity, define $g\coloneqq\frac{p-1}2$. The key input is to use the class number formula for cyclotomic fields. Indeed, by combining \cite[Proposition~4.1, Theorem~4.2, Corollary~4.4]{washington-cyclotomic-field}, we see that
+	\[A\coloneqq\sum_{i=1}^gi\chi(i)\]
+	is nonzero. We will transform this nonvanishing result into the required one. We begin by defining the family of sums
+	\begin{align*}
+		A_< &\coloneqq \sum_{i=1}^gi\chi(i), \\
+		A_> &\coloneqq \sum_{i=g+1}^{p-1}i\chi(i), \\
+		A_0 &\coloneqq \sum_{i=1}^g2i\chi(2i), \\
+		A_1 &\coloneqq \sum_{i=1}^g(2i-1)\chi(2i-1), \\
+		B_< &\coloneqq \sum_{i=1}^g\chi(i), \\
+		B_1 &\coloneqq \sum_{i=1}^g\chi(2i-1).
+	\end{align*}
+	To continue, we describe some relations between these sums.
+	\begin{itemize}
+		\item One has $A=A_<+A_>=A_0+A_1$.
+		\item Because $\chi(-1)=-1$, we can see that $A_>=A_<-pB_<$ by sending $i\mapsto(p-i)$ in the sum. Combining with the previous point, we see that $A=2A_<-pB_<$.
+		\item On the other hand, considering $B_1$, we send $i\mapsto(p-i)$ to make the terms even and then factor out a factor of $2$ to show that $B_1=-\chi(2)B_<$.
+		\item Similarly, considering $A_1$, we send $i\mapsto(p-i)$ to make the terms even and then factor our a factor of $2$ to show that $A_1=2\chi(2)A_<-p\chi(2)B_<$. Summing, we see $A=A_1+A_2=4\chi(2)A_<-p\chi(2)B_<$.
+	\end{itemize}
+	In total, we are able to see that
+	\[4\chi(2)A_<-p\chi(2)B_<=A=2\chi(2)A_<-p\chi(2)B_<\]
+	is a nonzero value. However, $B_<=0$ combined with the equality of the left and right sides would require $A_<=0$ and then $A=0$, which is a contradiction, as required.
+\end{proof}
+
+\subsection{A Nondegenerate Jacobian}
+In this subsection, fix an odd prime $p$, and we study the Jacobian $J_p$ of the $\QQ$-curve $C_p\colon y^2=x^p-1$. The goal of the present subsection is to establish some basic facts about $J_p$. In particular, we will show that $J_p$ is absolutely simple of dimension $\frac{p-1}2$ and $\op{rank}J_p=\frac{p+1}2$.
+
+A computation with the Riemann--Hurwitz formula (for general hyperelliptic curves) explains that the genus $g$ of $C_p$ is $\frac{p-1}2$, so we see $\dim J_p=\frac{p-1}2$. Note that $\langle\zeta_p\rangle$ acts on $C_p$ by $\zeta_p\cdot(x,y)\coloneqq(\zeta_px,y)$, so $J_p$ has an endomorphism of order $p$, so $\ZZ[\zeta_p]\subseteq\op{End}J_p$, so $J_p$ has complex multiplication by $\QQ(\zeta_p)$. Let's compute the CM type of $J_p$.
+\begin{remark}
+	If we were to work with $C_m\colon y^2=x^m-1$ for a general positive integer $m$, it still turns out that $J_m\coloneqq\op{Jac}C_m$ admits complex multiplication, but it is no longer enough for $\QQ(\zeta_m)\subseteq\op{End}^0J_m$ because $[\QQ(\zeta_m):\QQ]=\varphi(m)$ is less than $2\dim J_m=m-1$ when $m$ fails to be prime.
+\end{remark}
+\begin{lemma}
+	The CM type of $J_p$ is given by $(\QQ(\zeta_p),\Phi)$, where
+	\[\Phi\coloneqq\left\{\zeta_p\mapsto\zeta_p^i:1\le i\le\frac{p-1}2\right\}.\]
+\end{lemma}
+\begin{proof}
+	We need to diagonalize the action of $\langle\zeta_p\rangle$ on $H^{10}(J_p)=H^0(J_p,\Omega^1_{J_p})$. It is a property of the Jacobian that
+	\[H^0(J_p,\Omega^1_{J_p})\cong H^0(C_p,\Omega^1_{C_p}),\]
+	so we may diagonalize the action of $\langle\zeta_p\rangle$ on the space of differentials on $C_p$. Well, one can check that $C_p\colon y^2=x^p-1$ has a basis of differentials given by $x^i\,dx/y$ where $i\in\left\{0,\ldots,\frac{p-3}2\right\}$; importantly, one ought to check that these differentials do not have poles at the points at infinity, which can be done by passing to the corresponding affine chart via $(x,y)\mapsto\left(1/u,v/u^{(p+1)/2}\right)$. Anyway, we conclude by noting that
+	\[\zeta_p\cdot\frac{x^i\,dx}y=\zeta_p^{i+1}\frac{x^i\,dx}y,\]
+	so the given $\Phi$ does in fact describe the diagonalization of our action on $H^{10}$.
+\end{proof}
+Thus, \Cref{ex:p-cyclo-cm-rank} explains that $\dim\op{MT}(A)=\op{rank}(\QQ(\zeta_p),\Phi)=p$, which forces $\op{MT}(A)=\op{Res}_{\QQ(\zeta_p)/\QQ}\mathbb G_m$.
+
+Lastly, we check that $J_p$ is absolutely simple. It is enough to check that the CM type $(\QQ(\zeta_p),\Phi)$ is primitive.
+\begin{lemma}
+	The CM type $(\QQ(\zeta_p),\Phi)$ is primitive.
+\end{lemma}
+\begin{proof}
+	The CM type is primitive if and only if $\sigma\Phi=\Phi$ implies $\sigma=\id$ for any $\sigma\in\op{Gal}(\QQ(\zeta_p)/\QQ)$. Denoting the $\QQ(\zeta_p)\to\QQ(\zeta_p)$ defined by $\zeta_p\mapsto\zeta_p^i$ by $\sigma_i$, we see that we would like to show that $\sigma_i\Phi=\Phi$ implies $i=1$. In other words, for any $i\ne1$, we would like to show that
+	\[\left\{ai\pmod p:1\le a\le\frac{p-1}2\right\}\ne\left\{a\pmod p:1\le a\le\frac{p-1}2\right\}.\]
+	For this, we follow \cite[Lemma~4.2]{goodson-fermat-av-degeneracy}. For $i>\frac{p-1}2$, we see that $i$ lives in the left-hand set but not in the right-hand set, so there is nothing to do. Otherwise, $i\le\frac{p-1}2$, so $\frac{g-1}{2i}\le\frac{g-1}i+1$, so we can find an integer $j$ in the interval $\left(\frac{g-1}{2i},\frac{g-1}i\right]$. But then $\frac{p-1}2<ij\le p-1$, so $ij$ is in the left-hand set but not in the right-hand set.
+\end{proof}
+
+\section{Mumford--Tate Computations}
+In this section, we record some basic computations of Mumford--Tate groups.
+\begin{example}
+	Fix an elliptic curve $A$ defined over $\CC$.
+	\begin{listalph}
+		\item If $\op{End}^0(A)=\QQ$, then $\op{MT}(A)=\op{GL}_2(\QQ)$.
+		\item If $\op{End}^0(A)=E$, where $E$ is an imaginary quadratic field, then $\op{MT}(E)=\op{Res}_{E/\QQ}\mathbb G_{m,\QQ}$.
+	\end{listalph}
+\end{example}
+\begin{proof}
+	Quickly, note that the CM case has $\op{MT}(A)\subseteq\op{GL}_E(H_1(A,\QQ))=\op{Res}_{E/\QQ}\mathbb G_{m,\QQ}$, and the rank of torus must equal $2$ by \Cref{prop:cm-rank-bound}, so equality follows.
+
+	It remains to handle the case where $\op{End}^0(A)=\QQ$. A priori, we know that $\op{MT}(A)\subseteq\op{GL}_2(\QQ)$, so we just need to check that equality holds. It is enough to show that $\op{Hg}(A)=\op{SL}_2(\QQ)$. Thus, we begin by classifying connected subgroups of $\op{SL}_2(\QQ)$.
+	\begin{itemize}
+		\item In dimension $0$, the only connected subgroup is the trivial one. But then we violate
+		\[\op{End}^0(A)=\op{End}(H_1(A,\QQ))^{\op{MT}(A)}.\]
+		\item In dimension $1$, the only connected subgroups will have to come from the Lie algebra $\mf{sl}_2(\QQ)$, but the only one-dimensional subalgebras fail to be reductive or are the diagonal torus. If the Mumford--Tate group is a torus, then $A$ would have to be CM (for example, one can diagonalize the torus over $\CC$ and then find that $\op{End}^0(A)\ne\ZZ$).
+		\item In dimension $2$, one can do the Lie algebra with $\mf{sl}_2(\QQ)$ to see that there are no reductive subgroups here. Here's a more explicit argument: a proper reductive lie subalgebra $\mf g\subseteq\mf{sl}_2(\QQ)$ will have its semisimplification $\mf g_{\mathrm{ss}}$ trivial by an examination of the Dynkin diagram.
+		\item In dimension $3$, we see that we are looking at $\mf{sl}_2(\QQ)$, so $\op{Hg}(A)=\op{SL}_2(\QQ)$.
+		\qedhere
+	\end{itemize}
+\end{proof}
+
+% \section{Background on Motives}
+% Throughout, $X$ denotes a smooth proper variety over a field $k$, which is possibly but not definitely algebraically closed.
+
+\section{Basic Cases}
+In this subsection, we work out some basic cases.
+\begin{proposition} \label{prop:cm}
+	Fix an abelian variety $A$ over a number field $K$ with CM by $E$. Then \Cref{conj:desired-conjecture} holds for $A$.
+\end{proposition}
+\begin{proof}
+	The main point is that we are able to lift $\op{Frob}_\mf p$ to become an endomorphism of $A$.
+
+	Let $\mc A$ be the N\'eron model of $A$ over $\OO_{K_\mf p}$, and let $\kappa\coloneqq\OO_K/\mf p$ be the residue field. The N\'eron mapping property implies $\op{End}_E(A)^\circ=\op{End}_E^\circ(\mc A)$, which then has a natural reduction map to $\op{End}_E^\circ(\mc A_\kappa)$. An argument on the Tate module tells us that
+	\[\op{End}_E^\circ(A)\to\op{End}_E^\circ(\mc A_\kappa)\]
+	is injective, but we see that both sides are free $E$-modules of rank $1$. Thus, this reduction map is an isomorphism, so $\op{Frob}_\mf p$ lifts from an endomorphism on $\mc A_\kappa$ to an endomorphism on $A$.
+
+	We now note that the diagram
+	% https://q.uiver.app/#q=WzAsNCxbMCwwLCJIXjFfQihBO1xcUVEpXFxvdGltZXNfXFxRUVxcUVFfXFxlbGwiXSxbMSwwLCJIXjFfQihBO1xcUVEpXFxvdGltZXNfXFxRUVxcUVFfXFxlbGwiXSxbMCwxLCJIXjFfe1xcbWF0aHJte1xcYWN1dGUgZXR9fShBO1xcUVFfXFxlbGwpIl0sWzEsMSwiSF4xX3tcXG1hdGhybXtcXGFjdXRlIGV0fX0oQTtcXFFRX1xcZWxsKSJdLFswLDEsIkheMV9CKEYpIl0sWzIsMywiXFxyaG9fXFxlbGwoXFxvcHtGcm9ifV9cXG1mIHApIl0sWzAsMl0sWzEsM11d&macro_url=https%3A%2F%2Fraw.githubusercontent.com%2FdFoiler%2Fnotes%2Fmaster%2Fnir.tex
+	\[\begin{tikzcd}
+		{H^1_B(A;\QQ)\otimes_\QQ\QQ_\ell} & {H^1_B(A;\QQ)\otimes_\QQ\QQ_\ell} \\
+		{H^1_{\mathrm{\acute et}}(A;\QQ_\ell)} & {H^1_{\mathrm{\acute et}}(A;\QQ_\ell)}
+		\arrow["{H^1_B(F)}", from=1-1, to=1-2]
+		\arrow[from=1-1, to=2-1]
+		\arrow[from=1-2, to=2-2]
+		\arrow["{\rho_\ell(\mathrm{Frob}_\mf p)}", from=2-1, to=2-2]
+	\end{tikzcd}\]
+	commutes by the functoriality of the applied comparison isomorphism (and the definition of $F$), so the result follows. Perhaps one should check that $H^1_B(F)\in G(A)$, but this follows because endomorphisms must preserve the Hodge structure, so $F$ will send Hodge cycles to Hodge cycles (and thus send absolute Hodge cycles to absolute Hodge cycles).
+\end{proof}
+\begin{proposition}
+	Fix an elliptic curve $A$ over a number field. Then \Cref{conj:desired-conjecture} holds for $A$.
+\end{proposition}
+\begin{proof}
+	If $A$ has complex multiplication, we are done by \Cref{prop:cm}. This leaves us with two cases.
+	\begin{itemize}
+		\item Suppose $A_\CC$ still has no complex multiplication. Then $\mathrm{MT}(A)$ is $\op{GL}_{2,\QQ}$, so the result follows from classical considerations.
+		\item Suppose $A_\CC$ is CM so that $A$ has potential CM. For brevity, define $V\coloneqq H^1(A;\QQ)$. Note that $A_L$ has CM for some quadratic extension $L$ of $K$, so we produce a short exact sequence
+		\[1\to\op{MT}(A)\to G(A)\to\op{Gal}(L/K)\to1.\]
+		Note $\op{MT}(A)$ is a torus, so $V_\CC$ decomposes into two eigenspaces $V_\CC=V^1_\CC\oplus V^2_\CC$; considering the rank of $\op{MT}(A)$, we see that $\sigma\in\op{MT}(A)$ if and only if $\sigma_\CC\colon V_\CC\to V_L$ sends $V^1_\CC$ and $V^2_\CC$ to themselves. Thus, choosing some $c\in G(A)$ to lift the generator of $\op{Gal}(L/K)$, we see that $c$ must normalize $\op{MT}(A)$ while not actually living in $\op{MT}(A)$, and the only way for this to happen is for $c_\CC$ to swap $V^1_\CC$ and $V^2_\CC$ (possibly adding a scalar in the process to ensure that $c$ is defined over $\QQ$).
+		
+		This will be enough to complete the proof. Letting $q$ be the cardinality of $\OO_K/\mf p$, we know that $\rho_\ell(\mathrm{Frob}_\mf p)$ is semisimple with characteristic polynomial $P_\mf p(x)\in\QQ[x]$ not depending on $\ell$. The point is that the eigenvalues $\alpha_{1,\ell}$ and $\alpha_{2,\ell}$ of $\rho_\ell(\op{Frob}_\mf p)$ on $V^1_\CC$ and $V^2_\CC$ may not be determined up to order, but the set of eigenvalues $\{\alpha_{1,\ell},\alpha_{2,\ell}\}$ is independent of $\ell$. Conjugation by $c$ is able to swap the two eigenspaces, so we see that the conjugacy class of $\rho_\ell(\op{Frob}_\mf p)$ is now independent of $\ell$.
+		\qedhere
+	\end{itemize}
+\end{proof}
+\begin{remark}
+	It may appear that one can upgrade this second proof to work for arbitrary abelian varieties with potential CM, but this is not the case. Indeed, the given proof only functions because $\op{Gal}(L/K)$ acts simply transitively on the eigenspaces of $\op{MT}(A)$ acting on $V_\CC$. However, $G(A)\subseteq\op{GSp}_{2\dim A}(\QQ)$, so one cannot hope for the normalizer of a torus to be large enough in general.
+\end{remark}
+
+% \section{Hi}
+% Fix an abelian variety $A$ defined over a number field $K$, and fix some finite prime $\mf p$ of $\OO_K$. For each rational prime $\ell$ not dividing $\mf p$, we may define the group element
+% \[g_\ell\coloneqq\rho_\ell({\op{Frob}_{\mf p}})\in G^{\mathrm{mot}}(A)(\QQ_\ell)\]
+% corresponding to the Galois action of $\op{Gal}(\ov\QQ/K)$ on $A$.
+
+% For distinct primes $\ell$ and $\ell'$ as above, we will show that $g_\ell$ and $g_{\ell'}$ are $\ov\QQ$-conjugate in $G^{\mathrm{mot}}(A)$, under an assumption on the eigenvalues of $g_\ell$ and $g_{\ell'}$. This is based on combining two observations.
+% \begin{itemize}
+% 	\item We claim $g_\ell$ and $g_{\ell'}$ live in the same connected component of $G^{\mathrm{mot}}(A)$. Indeed, one has the exact sequence
+% 	\[1\to\op{MT}(A)\to G^{\mathrm{mot}}(A)\to\op{Gal}(K'/K)\to1,\]
+% 	where $K'$ is some finite Galois extension of $K$. This last map simply takes $g_\ell$ and $g_\ell'$ both to $\op{Frob}_{\mf p}$.
+% 	\item We claim $g_\ell^n$ is conjugate to $g_{\ell'}^n$ for some $n$ large enough. Indeed, for $n$ large enough, $\op{Frob}_{\mf p}^n$ lives in the identity component of $G^{\mathrm{mot}}(A)$, and then $\op{Frob}_{\mf p}^n$ equals $\op{Frob}_{\mf P}$ for some prime $\mf P$ living above $\mf p$ in a field extension of $K$ large enough. The result is already known for $\op{Frob}_{\mf P}$, so we are done.
+% \end{itemize}
+% Now, choose some representative $w$ of the connected component of $g_\ell$ (and $g_{\ell'}$) such that $w$ has only roots of unity among its eigenvalues. (I suspect that we can choose $w$ so that $w$ is a permutation matrix corresponding to permuting Hodge cycles.)\todo{} Now, $w^{-1}g_\ell$ and $w^{-1}g_{\ell'}$ will be semisimple because $g_\ell$ and $g_{\ell'}$ are semisimple, so we force (up to $\ov\QQ$-conjugacy) to have that $g_\ell$ and $g_{\ell'}$ are diagonal.
+
+% As our requirement on the eigenvalues, we require that $d_\ell\coloneqq w^{-1}g_\ell$ and $d_{\ell'}\coloneqq w^{-1}g_\ell$ be neat. (That is, the ratio of the eigenvalues cannot be a root of unity other than $1$.) Up to conjugation, we may require that $g_\ell^n=g_{\ell'}^n$, so a cycle decomposition of $w$ then forces $g_\ell=g_{\ell'}$ by comparing what eigenvalues correspond to which columns.
+% \begin{remark}
+% 	I am really only sure of this argument working in the potential CM case. The point is that $\op{MT}(A)$ is an actual torus where we can properly write things as a diagonal matrix (up to $\ov\QQ$-conjugacy), and $w$ is an actual Weyl element. When $\op{MT}(A)$ is larger, I am a little unsure.
+% \end{remark}
+% I conjecture that these Hodge cycles can be seen as eigenvectors. I do not know how to make this rigorous, but I would quite like to.
+
+\section{The Lefschetz Group}
+In this section, we define the Lefschetz group and compute it for all abelian varieties. We follow \cite{milne-lefschetz-group}.
+
+\subsection{Basic Properties of the Lefschetz Group}
+Roughly speaking, the Lefschetz group is $\mathrm{MT}(A)$ under the assumption that all Hodge classes are generated by endomorphisms and polarizations, which is indeed the case for wide classes of abelian varieties. To begin with, we deal with endomorphisms.
+\begin{definition}
+	Fix a polarized abelian variety $A$ defined over $K$. Then we define
+	\[C(A)\coloneqq\op{End}_{\op{End}^0_K(A)\otimes_\QQ k}(V(A)).\]
+	In other words, $C(A)$ consists of the $k$-linear endomorphisms $f\colon V(A)\to V(A)$ which commute with $V(\alpha)$ for all $\alpha\in\op{End}^0_K(A)$.
+\end{definition}
+To account for the polarization, we need to know that $(\cdot)^\dagger$ behaves on $C(A)$.
+\begin{remark}
+	The Rosati involution $(\cdot)^\dagger$ extends to a positive involution on $C(A)$. Namely, if $f\colon V(A)\to V(A)$ commutes with $V(\alpha)$ for all $\alpha\in\op{End}^0_K(A)$, then we want to show that the adjoint $f^\dagger$ does too. Well, for any $\alpha\in\op{End}^0_K(A)$, we see that
+	\[\langle x,f^\dagger V(\alpha)y\rangle=\langle V(\alpha^\dagger)fx,y\rangle=\langle fV(\alpha^\dagger)x,y\rangle=\langle x,V(\alpha)f^\dagger y\rangle\]
+	for any $x,y\in V(A)$. Non-degeneracy of the Weil pairing then requires $f^\dagger V(\alpha)=V(\alpha)f^\dagger$.
+\end{remark}
+We are now able to define the Lefschetz group; note that our definition differs from \cite{milne-lefschetz-group} because we require $\op L(A)$ to be connected.
+\begin{definition}[Lefschetz group]
+	Fix a polarized abelian variety $A$ defined over $K$. Then we define the \textit{Lefschetz group} $\op L(A)$ as the algebraic $k$-group given by
+	\[\op L(A)(R)\coloneqq\left\{g\in C(A)\otimes_kR:g^\dagger g=1\right\}^\circ.\]
+	In other words, $\op L(A)(k)$ is the connected component of the $k$-linear automorphisms of $V(A)$ commuting with endomorphisms and preserving the Weil pairing.
+\end{definition}
+We would like to compute $\op L(A)$ for various abelian varieties $A$. We will use the isogeny decomposition of $A$, so we should check that $C(A)$ does not depend on the isogney decomposition.
+\begin{remark}
+	An isogeny $\varphi\colon A\to B$ of polarized abelian varieties defined over $K$ induces isomorphisms $V(\varphi)\colon V(A)\to V(B)$ and $\op{End}_K^0(A)\cong\op{End}_K^0(B)$ (by $\alpha\mapsto\varphi\alpha\varphi^{-1}$). Thus, we produce an isomorphism $C(A)\cong C(B)$ (by $f\mapsto V(\varphi) fV(\varphi)^{-1}$). The fact that $\varphi$ should preserve the Weil pairing implies that the isomorphism $C(A)\cong C(B)$ of $k$-algebras with involution restricts to an isomorphism $\op L(A)\cong\op L(B)$.
+\end{remark}
+\begin{lemma} \label{lem:prod-av-lefschetz}
+	Fix polarized abelian varieties $A$ and $B$ defined over $K$. Suppose $\op{Hom}_K(A,B)=0$. Then
+	\[\op L(A\times B)\cong\op L(A)\times\op L(B).\]
+\end{lemma}
+\begin{proof}
+	In fact, we claim that we have an isomorphism $C(A\times B)\cong C(A)\times C(B)$ of $k$-algebras with involution, which will complete the proof. Well, we certainly have a map $C(A\times B)\to C(A)$ given by $f\mapsto V(\pi_A)\circ f\circ V(\iota_A)$, where $\pi_A\colon A\times B\to A$ and $\iota_A\colon A\to A\times B$ are the projection and inclusion respectively. Defining $\pi_B$ and $\iota_B$ analogously, we get a map $C(A\times B)\to C(B)$, so we may glue these maps together into a larger map
+	\[C(A\times B)\to C(A)\times C(B).\]
+	Note that everything in sight commutes with polarizations because the polarization on $A\times B$ is implicitly given by the polarizations on $A$ and $B$. Thus, it only remains to check that above $k$-linear map is bijective.
+	\begin{itemize}
+		\item Injective: if $f\in C(A\times B)$ satisfies $V(\pi_A)\circ f\circ V(\iota_A)=0$ and $V(\pi_B)\circ f\circ V(\iota_B)=0$, then we would like to show that $f=0$. Well, for $(x,y)\in V(A\times B)$ where $x\in V(A)$ and $y\in V(B)$, we must show $f(x,y)=f(x,0)+f(0,y)$ vanishes. Thus, by symmetry, it will be enough to show that $V(\pi_B)\circ f\circ V(\iota_A)=0$.
+
+		The point is to define the endomorphism $\varphi\colon A\times B\to A\times B$ by $\varphi(a,b)\coloneqq(0,b)$. Then $f$ needs to commute with $V(\varphi)$, which in practice means that
+		\begin{align*}
+			(0,V(\pi_B)(f(x,0))) &= (V(\varphi)\circ f)(x,0) \\
+			&= (f\circ V(\varphi))(x,0) \\
+			&= f(0,0) \\
+			&= (0,0)
+		\end{align*}
+		for any $x\in V(A)$, so $V(\pi_B)\circ f\circ V(\iota_A)=0$.
+
+		\item Surjective: choose $f_A\in C(A)$ and $f_B\in C(B)$. Now, define $f\colon V(A\times B)\to V(A\times B)$ by
+		\[f(x,y)\coloneqq(f_A(x),f_B(y)).\]
+		Certainly $f$ is $k$-linear. As soon as we can show that $f\in C(A\times B)$, we will be able to say that $f$ projects onto $(f_A,f_B)$ through the map $C(A\times B)\to C(A)\times C(B)$, proving surjectivity.
+
+		Thus, it remains to check that $f$ commutes with endomorphisms of $\op{End}_K(A\times B)$. Well, $\op{Hom}_K(A,B)=0$ implies that $\op{End}_K(A\times B)\cong\op{End}_K(A)\times\op{End}_K(B)$, and in particular, we know that any endomorphism $\varphi\in\op{End}_K(A\times B)$ takes the form $\varphi(a,b)\coloneqq(\varphi_A(a),\varphi_B(b))$ where $\varphi_A\in\op{End}_K(A)$ and $\varphi_B\in\op{End}_K(B)$. We now see that
+		\begin{align*}
+			(f\circ V(\varphi))(x,y) &= ((f_A\circ V(\varphi_A))(x),(f_B\circ V(\varphi_B))(y)) \\
+			&= ((V(\varphi_A)\circ f_A)(x),(V(\varphi_B)\circ f_B)(y)) \\
+			&= (V(\varphi)\circ f)(x,y),
+		\end{align*}
+		for any $(x,y)\in V(A\times B)$. Thus, $f\in C(A\times B)$.
+		\qedhere
+	\end{itemize}
+\end{proof}
+\begin{remark}
+	Without the hypothesis $\op{Hom}_K(A,B)=0$, the above proof gives an injection $C(A\times B)\to C(A)\times C(B)$.
+\end{remark}
+\begin{lemma} \label{lem:power-av-lefschetz}
+	Fix a polarized abelian variety $A$ and a positive integer $m$. Then
+	\[\op L(A)\cong\op L(A^m).\]
+\end{lemma}
+\begin{proof}
+	In fact, we claim that we have an isomorphism $C(A)\cong C(A^m)$ of $k$-algebras with involution, which will complete the proof. The beginning of the proof of \Cref{lem:prod-av-lefschetz} (applied inductively) implies that there is an injection
+	\[C(A^m)\to\underbrace{C(A)\times\cdots\times C(A)}_m\]
+	given by $f\mapsto(V(\pi_i)\circ f\circ V(\iota_i))_{1\le i\le m}$, where $\pi_i$ and $\iota_i$ are the $i$th projection and inclusion, respectively.
+	
+	We claim that the image of this map is the image of the diagonal inclusion of $C(A)$ into $C(A)^m$, which will complete the proof.
+	\begin{itemize}
+		\item On one hand, certainly the diagonal subspace is contained in our image because any $f\in C(A)$ can define $\widetilde f\in C(A^m)$ by $\widetilde f\coloneqq(f,\ldots,f)$. To see that $\widetilde f\in C(A^m)$, we note that certainly $\widetilde f$ is $k$-linear. To see that $\widetilde f$ commutes with endomorphisms, we note that any $\alpha\in\op{End}_K(A^m)$ can be expanded out into a matrix $(\alpha_{ij})_{1\le i,j\le m}$ where $\alpha_{ij}\in\op{End}_K(A)$. Then we compute
+		\begin{align*}
+			\left(\widetilde f\circ V(\alpha)\right)(x_1,\ldots,x_n) &= \widetilde f\Bigg(\sum_{i=1}^mV(\alpha_{1i})(x_i),\ldots,\sum_{i=1}^mV(\alpha_{mi})(x_i)\Bigg) \\
+			&= \Bigg(\sum_{i=1}^m(f\circ V(\alpha_{1i}))(x_i),\ldots,\sum_{i=1}^m(f\circ V(\alpha_{mi}))(x_i)\Bigg) \\
+			&\stackrel*= \Bigg(\sum_{i=1}^mV(\alpha_{1i})(f(x_i)),\ldots,\sum_{i=1}^m V(\alpha_{mi})(f(x_i))\Bigg) \\
+			&= V(\alpha)(f(x_1),\ldots,f(x_m)) \\
+			&= \left(V(\alpha)\circ\widetilde f\right)(x_1,\ldots,x_m),
+		\end{align*}
+		where $\stackrel*=$ holds because $f$ already commutes with endomorphisms $x_{ij}$.
+		\item On the other hand, suppose $f\in C(A)^m$, and we want to show that $V(\pi_i)\circ f\circ V(\iota_i)=V(\pi_j)\circ f\circ V(\pi_j)$ for any (distinct) indices $i$ and $j$. Well, consider the involution $\op{sw}_{ij}\colon A^m\to A^m$ which swaps entries $i$ and $j$ and fixes everything else. Then we know that $V({\op{sw}_{ij}})\circ f\circ V({\op{sw}_{ij}})=V({\op{sq}_{ij}})\circ f$, so
+		\[V(\pi_i)\circ f\circ V(\iota_i) = V(\pi_i)\circ V({\op{sw}_{ij}}) \circ f\circ V({\op{sw}_{ij}})\circ V(\iota_i) = V(\pi_j)\circ f\circ V(\iota_j),\]
+		as required.
+		\qedhere
+	\end{itemize}
+\end{proof}
+\begin{proposition} \label{prop:lefschetz-by-isog-decomp}
+	Fix a polarized abelian variety $A$ defined over $K$ with an isogeny decomposition $A\cong\bigoplus_{i=1}^tA_i^{m_i}$. Then
+	\[\op L(A)\cong\prod_{i=1}^t\op L(A_i).\]
+\end{proposition}
+\begin{proof}
+	Combine \Cref{lem:prod-av-lefschetz,lem:power-av-lefschetz}.
+\end{proof}
+
+\subsection{Computation of the Lefschetz Group}
+In this subsection, we compute $\op L(A)$ for many abelian varieties $A$. \Cref{prop:lefschetz-by-isog-decomp} explains that we should focus on the case where $A$ is simple.
+
+Glancing at the Albert classification, we thus see that $\op{End}_K^0(A)$ frequently contains a rather large field. As such, the following decomposition result will be useful.
+\begin{lemma} \label{lem:field-action-on-tate-module}
+	Fix an abelian variety $A$ defined over a field $K$ of dimension $g\coloneqq\dim A$. Suppose that $L$ is a subfield of the $\QQ$-algebra $\op{End}^0_K(A)$. Then $V(A)$ is free over $L\otimes_\QQ k$ of rank $2g/[L:\QQ]$.
+\end{lemma}
+\begin{proof}
+	A decomposition of $L\otimes_\QQ k$ into a product of fields $\prod_{i=1}^tL_i$ grants us a collection of $t$ orthogonal idempotents $e_1+\cdots+e_t=1$ of $L\otimes_\QQ k$, where $e_i$ is the projection of $L\otimes\QQ k$ onto $L_i$. Then we define $V_i\coloneqq e_iV(A)$ so that
+	\[V=V_1\oplus\cdots\oplus V_t,\]
+	and $V_i$ is an $L_i$-vector space for each $i$.\footnote{We can also define $V_i$ as $V_i\coloneqq V(A)\otimes_{L\otimes_\QQ k}L_i$.} Thus, we fix an isomorphism $V_i=L_i^{\oplus m_i}$ for each $i$, where $m_i\ge0$ is some nonnegative integer.
+
+	We would like to show that all the $m_i$ are equal, which for dimension reasons will require them to all equal $2g/[L:\QQ]$. The proof of this claim will require some extra geometric input. Choose some $\alpha\in L$ such that $L=\QQ(\alpha)$. We now compute the characteristic polynomial $P_{\alpha,A}$ of $\alpha$ acting on $V(A)$ in two different ways.
+	\begin{itemize}
+		\item On one hand, the decomposition $V(A)\cong\bigoplus_{i=1}^tL_i^{\oplus m_i}$ tells us that
+		\[P_{\alpha,A}(T)=\prod_{i=1}^tP_{\alpha,L_i/k}(T)^{m_i},\]
+		where $P_{\alpha,L_i/k}(T)$ is the characteristic polynomial of $\alpha$ acting on $L_i$.
+		\item On the other hand, we see that the characteristic polynomial $P_{\alpha,L/\QQ}$ of $\alpha$ acting on $L$ satisfies
+		\[P_{\alpha,L/\QQ}(T)=\prod_{i=1}^tP_{\alpha,L_i/k}(T)\]
+		because we have a product decomposition $L\otimes_\QQ k=\prod_{i=1}^tL_i$.
+
+		The point is that $P_{\alpha,L/\QQ}(T)\in\QQ[T]$ is the minimal polynomial for $\alpha$, but each root of $P_{\alpha,A}(T)\in\QQ[T]$ is a root of some $P_{L_i/k}(T)$ and hence of $P_{\alpha,L/\QQ}(T)$. Unique factorization of $\QQ[T]$ now requires $P_{\alpha,A}=P_{\alpha,L/\QQ}^m$ for some nonnegative integer $m\ge0$.
+	\end{itemize}
+	Combining the above two points completes the proof.
+\end{proof}
+
+\subsubsection{Type I}
+For this subsection, fix a simple abelian variety $A$ defined over a field $K$ of dimension $g$. Suppose that $A$ is of type I so that $\op{End}^0_K(A)=E$ for some totally real field $E$ of dimension $e$.
+
+Now, the action of $E$ on $V(A)$ implies by \Cref{lem:field-action-on-tate-module} that we have decomposition $E\otimes_\QQ k=\prod_{i=1}^tE_i$ inducing a decomposition
+\[V(A)=\bigoplus_{i=1}^tV_i\]
+where $V_i$ is an $E_i$-vector space of rank $2g/e$. Further, viewing $V_i$ as $V(A)\otimes_{E\otimes_k\QQ}E_i$ allows us to ``extend'' the Weil pairing on $V(A)$ to $V_i$, upgrading the above into a decomposition of symplectic spaces.\footnote{In practice, passing to an algebraic closure allows us to simultaneously diagonalize the self-adjoint operators $E$, from which Galois descent explains that the $V_i$ make sense as symplectic spaces.} Thus, $C(A)$ decomposes into a product of $M_n(E_i)$s, and
+\[\op L(A)\cong\prod_{i=1}^t\op{Res}_{E_i/\QQ}\op{Sp}_{2g/e}.\]
+In particular, passing to the algebraic closure allows us to loop over all embeddings $E\into\ov k$ instead of grouping them by $E_i$s, so
+\[\op L(A)_{\ov k}\cong\left(\op{Sp}_{2g/e}\right)^e.\]
+
+\subsubsection{Type II}
+For this subsection, fix a simple abelian variety $A$ defined over a field $K$ of dimension $g$. Suppose that $A$ is of type II.\todo{}
+
+\subsubsection{Type III}
+For this subsection, fix a simple abelian variety $A$ defined over a field $K$ of dimension $g$. Suppose that $A$ is of type III.\todo{}
+
+\subsubsection{Type IV}
+For this subsection, fix a simple abelian variety $A$ defined over a field $K$ of dimension $g$. Suppose that $A$ is of type IV.\todo{}
+
+\subsection{Conjugacy Classes in the Lefschetz Group}
+\begin{remark}
+	It should be possible to prove the result for the twisted Lefschetz group.
+\end{remark}
+We will prove the following theorem.
+\begin{theorem} \label{thm:under-hodge-is-lefschetz}
+	Fix an absolutely simple abelian variety $A$ defined over a number field $K$ of types I or II, and let $G^{\mathrm{mot}}_A$ be its motivic Galois group. Suppose that the Hodge group $\op{Hg}(A)$ equals the Lefshetz group $\op L(A)$. Then there is a Zariski open and dense subset $U\subseteq G^{\mathrm{mot}}(A)$ such that the following holds: for a fixed finite prime $\mf p$ of $K$ and two rational primes $\ell$ and $\ell'$ not lying under $\mf p$, if $\rho_\ell(\mathrm{Frob}_{\mf p})$ and $\rho_{\ell'}(\mathrm{Frob}_{\mf p})$ lie in $U$, then $\rho_{\ell}(\mathrm{Frob}_{\mf p})$ and $\rho_{\ell'}(\mathrm{Frob}_{\mf p})$ are $\ov\QQ$-conjugate.
+\end{theorem}
+Roughly speaking, we will use the hypothesis $\op{Hg}(A)=\op L(A)$ in order to compute $\op{MT}(A)=G^{\mathrm{mot}}(A)^\circ$; from here, it really only remains to control the component group $G^{\mathrm{mot}}(A)/G^{\mathrm{mot}}(A)^\circ$, which is understood to be a Galois group.
+\begin{proof}[Proof of \Cref{thm:under-hodge-is-lefschetz}]
+	For brevity, set $g\coloneqq\dim A$. In \cite[Section~2]{milne-lefschetz-group}, Milne computes $\op L(A)\subseteq\op{GSp}_{2g,\QQ}$ as $G^f$ for some classical group $G$. To use this computation, we break up our proof into cases depending on the endomorphism ring of $A$.
+	\begin{itemize}
+		\item Suppose $A$ is of Type I so that $\op{End}_\CC^0(A)=E$ for some totally real field $E$ of degree $e$. Then $\op{Hg}(A)=({\op{Sp}_{2g/e}})^e$, so $\op{MT}(A)=\mathbb G_m({\op{Sp}_{2g/e}})^e$.
+
+		Now, for any $g\in G^{\mathrm{mot}}(A)$, we take a moment to put $g$ into some kind of normal form. We want to write $g=dw$ for some $d\in\op{MT}(A)$ and $w\in G^{\mathrm{mot}}(A)$, where we have reasonable control over both $d$ and $w$. (Such a decomposition is certainly possible by setting $d=1$.) Now, the conjugation map $\sigma_w\colon x\mapsto wxw^{-1}$ induces an automorphism of $\op{MT}(A)$. By multiplying $w$ by an element of $\op{MT}(A)$, we can adjust this automorphism by an inner automorphism of $\op{MT}(A)$, meaning that $w$ may be adjusted to any element in its coset in the outer automorphism group. As such, we note that a computation with the root datum of $\op{MT}(A)$ reveals that its outer automorphism group is simply $S_e$. Thus, we may assume that $\sigma_w$ is a permutation of the entries of $(\op{Sp}_{2g/e})^e$.\footnote{Perhaps we need signs in various places, but I will omit these.}
+
+		The conclusion of the previous paragraph is that we may assume that $g_\ell\coloneqq\rho_\ell({\op{Frob}_{\mf p}})$ and $g_{\ell'}\coloneqq\rho_{\ell'}({\op{Frob}_{\mf p}})$ take the form $d_\ell w$ and $d_{\ell'}w$, respectively, where $d_\ell,d_{\ell'}\in\op{MT}(A)$ and $w\in G^{\mathrm{mot}}(A)$ has $\sigma_w$ equal to some permutation. The key input we will use to achieve $g_\ell\sim g_{\ell'}$ is that we already know $g_\ell^N$ and $g_{\ell'}^N$ live in $\op{MT}(A)$ and are conjugate to each other in $\op{MT}(A)$, for sufficiently divisible $N$.
+		
+		For concreteness, we rearrange the factors of $\op{MT}(A)$ to put $\sigma_w$ into a cycle decomposition
+		\[\sigma_w=(1,2,\ldots,a_1)(a_1+1,a_1+2,\ldots,a_1+a_2)\cdots(a_1+\cdots+a_{m-1},\ldots,a_1+\cdots+a_{m-1}+a_m).\]
+		Then we can see that conjugating $g_\ell$ by an element of $\op{MT}(A)$ allows us to assume that $d_\ell$ takes the form
+		\[d_\ell=\op{diag}(\underbrace{1_e,\ldots,1_e,X_{\ell1}}_{a_1},\ldots,\underbrace{1_e,\ldots,1_e,X_{\ell m}}_{a_m}),\]
+		where we have $X_i\in\op{GSp}_{2g/e}$ for each $i$. In fact, we claim that the $X_{\ell i}$ are all semisimple. Well, we know that $g_\ell$ is semisimple, so $g_\ell^N=(d_\ell w)^N$ is semisimple for sufficiently divisible $N$, which we can compute as implying that $X_{\ell i}^{N'}$ is semisimple for some sufficiently divisible $N'$, so $X_{\ell i}$ must also be semisimple. Quickly, note that we can do the same construction for $d_{\ell'}$.
+		
+		We are now ready to define our open set $U\subseteq G^{\op{mot}}(A)$ as requiring that the set of all eigenvalues of all the $X_\bullet$s be such that no two has a ratio which is an $M$th root of unity for some sufficiently large $M$ to be determined later (but depending only on $e$ and $N$).
+
+		The current state is that we have some $s\in\op{MT}(A)$ such that $g_\ell^N=sg_{\ell'}^Ns^{-1}$ for sufficiently divisible $N$. To finish proving that $g_\ell\sim g_{\ell'}$, it will be enough to know that $X_{\ell i}\sim X_{\ell'i}$ for each $i$. Being given that $g_\ell^N=sg_{\ell'}^Ns^{-1}$ actually promises that $X_{\ell i}^N\sim X_{\ell'i}^N$ (in $\op{GSp}_{2g/e}$) for sufficiently divisible $N$, so we achieve $X_{\ell i}\sim X_{\ell'i}$ by \cite[Proposition~3.2]{noot-neat-class}.\footnote{This proposition applies to the $X$s but not to the $g$s directly because $\op{GSp}$ is connected while $G^{\mathrm{mot}}(A)$.}
+
+		\item Suppose $A$ is of Type II so that $\op{Hg}(A)_\CC=({\op{Sp}_{g/e}})^e$ for some positive integer $e$. Then the argument as above goes through verbatim, replacing $2g$ with $g$ as is necessary.
+		\qedhere
+	\end{itemize}
+\end{proof}
+\begin{remark}
+	One should be able to relax the ``absolutely simple'' hypothesis somewhat. For example, if $A_\CC$ is a product of absolutely simple abelian varieties $B$ of types I and II satisfying $\op{Hg}(B)=\op L(B)$, we see know that $\op{Hg}(A)$ becomes the product of the Hodge groups of the factors, so it is relatively easy to understand our conjugacy classes.
+\end{remark}
+
+\end{document}
+
+% now that we know the frobenii live in the same connected component, one might be able to upgrade noot's weakly neat to merely require that some prescribed power is weakly neat
+
+% galois commutes with complex multiplication only over the reflex field
+% reason: complex multiplication is defined over the reflex field, so conjugating by Galois won't do anything!
