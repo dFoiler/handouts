@@ -1,0 +1,550 @@
+% !TEX root = ../thesis.tex
+
+\documentclass[../thesis.tex]{subfiles}
+
+\begin{document}
+
+\chapter{Abelian Varieties} \label{chap:av}
+
+In this chapter, we gather together all the results about abelian varieties we need. Many of the results in the earlier sections discussed here can be found in any reasonable text on abelian varieties such as \cite{mumford-abelian-varieties,milne-av,egm-av}. Results in the later sections are more specialized, and we will provide references when appropriate. Ultimately, our goal is to define $\ell$-adic monodromy groups, explain why one might care about them, and indicate how one might compute them.
+
+\section{Definitions and Constructions}
+In this section, we set up the theory of abelian varieties rather quickly. We will usually only indicate proofs that work in the complex analytic situation because the general theory usually requires intricate algebraic geometry.
+
+\subsection{Starting Notions}
+Let's begin with a definition.
+\begin{definition}[abelian variety] \nirindex{abelian scheme}
+	Fix a ground scheme $S$. An \textit{abelian scheme} $A$ over $S$ is a smooth projective geometrically integral group scheme over $S$. An \textit{abelian variety} $A$ is an abelian scheme over a field.
+\end{definition}
+\begin{remark}
+	Throughout, we will work with abelian varieties instead of abelian schemes as much as possible. However, one should be aware that many of the results generalize.
+\end{remark}
+Here, a group variety refers to a group object in the category of varieties over $K$.
+\begin{remark}
+	With quite a bit of work, one can weaken the hypotheses of being an abelian variety quite significantly. For example, arguments involving group varieties are able to show that being connected and geometrically reduced implies geometrically integral, and it is a theorem that one can replace projectivity with properness. See \cite[Remark~0H2U]{stacks} for details.
+\end{remark}
+Here are the starting examples.
+\begin{example}[elliptic curves] \label{ex:ec}
+	Any (smooth) cubic equation cuts out a genus-$1$ curve in $\PP^2$. If the curve has points defined over $K$, this defines an elliptic curve, which can be shown to be an abelian variety. The interesting part comes from defining the group structure. One way to do this is to show that the map $E\to\op{Pic}^0_{E/K}$ given by $x\mapsto[x]-[\infty]$ is an isomorphism of schemes and then give $E$ the group structure induced by $\op{Pic}^0_{E/K}$. (Here, $\op{Pic}^0_{E/K}$ is the moduli space of line bundles over $E$ of degree $0$. Smoothness of the curve makes this in bijection with divisors of degree $0$.)
+\end{example}
+\begin{example} \label{ex:complex-av}
+	Fix a positive integer $g\ge0$. If $\Lambda\subseteq\CC^g$ is a polarizable sublattice, then $\CC^g/\Lambda$ defines an abelian variety over $\CC$. Here, polarizable means that there is an alternating map $\varphi\colon\Lambda\times\Lambda\to\ZZ$ such that the pairing
+	\[\langle x,y\rangle\coloneqq\psi_\RR(x,iy)\]
+	on $\Lambda_\RR$ is symmetric and positive-definite. (As worked out in \cite[Section~I.2]{milne-cm}, this is equivalent data to a polarization on the Hodge structure $\Lambda=\mathrm H_1^{\mathrm B}(A,\ZZ)$.) The requirement of polarizability is used to show that the quotient $\CC^g/\Lambda$ is actually projective; see \cite[Section~3,~Theorem]{mumford-abelian-varieties}.
+\end{example}
+It is notable that we have not required our abelian varieties $A$ to actually be abelian even though (notably) both examples above are abelian. Indeed, abelian varieties are always abelian groups, which follows from an argument using the Rigidity theorem. We will not give this argument in full because we will not use it, but we state a useful corollary.
+\begin{proposition} \label{prop:av-map-is-homo}
+	Let $\varphi\colon A\to B$ be a smooth map of abelian varieties over a field $K$. Then $\varphi$ is the composition of a homomorphism and a translation.
+\end{proposition}
+\begin{proof}
+	By composing with a translation, we may assume that $\varphi(0)=0$. Then one applies the Rigidity theorem to the map $\widetilde\varphi\colon A\times A\to B$ defined by
+	\[\widetilde\varphi(a,a')\coloneqq\varphi(a+a')-\varphi(a)-\varphi(a')\]
+	to find that $\widetilde\varphi$ is constantly $0$, completing the proof. See \cite[Corollary~I.1.2]{milne-av} for details.
+\end{proof}
+\begin{corollary}
+	The group law on an abelian variety $A$ is commutative.
+\end{corollary}
+\begin{proof}
+	The inversion map $i\colon A\to A$ on an abelian variety sends the identity to itself, so \Cref{prop:av-map-is-homo} tells us that $i$ must be a homomorphism. It follows that the group law is commutative.
+\end{proof}
+In particular, we find that morphisms between abelian varieties are rather strutured: we are allowed to basically only ever consider homomorphisms!
+
+It will turn out that considering abelian varieties up to isomorphism is too strong for most purposes, so we introduce the following definition.
+\begin{definition}[isogeny]
+	A morphism $\varphi\colon A\to B$ of abelian varieties over a field $K$ is an \textit{isogeny} if and only if it is a homomorphism satisfying any one of the following equivalent conditions.
+	\begin{listalph}
+		\item $\varphi$ is surjective with finite kernel.
+		\item $\dim A=\dim B$, and $\varphi$ is surjective.
+		\item $\dim A=\dim B$, and $\varphi$ has finite kernel.
+		\item $\varphi$ is finite, flat, and surjective.
+	\end{listalph}
+	The \textit{degree} of the isogeny is $\#\ker\varphi$ (thought of as a group scheme).
+\end{definition}
+\begin{remark}
+	Let's briefly indicate why (a)--(d) above are equivalent; see \cite[Proposition~7.1]{milne-av} for details. A spreading out argument combined with the homogeneity of abelian varieties implies that
+	\[\dim B=\dim A+\dim\varphi^{-1}(\{b\})\]
+	for any $b$ in the image of $\varphi$; this gives the equivalence of (a)--(c). Of course (d) implies (a) (one only needs the finiteness and surjectivity); to show (a) implies (d), we note flatness follows by ``miracle flatness'' because all fibers have equal dimension, and finiteness follows because finite kernel upgrades to quasi-finiteness.
+\end{remark}
+Intuitively, an isogeny is a ``squishy isomorphism.''
+\begin{example}
+	Any dominant morphism of elliptic curves sending the identity to the identity is an iso\-geny.
+\end{example}
+\begin{example}
+	In the complex analytic setting, an isogeny of two abelian varieties $A=\CC^g/\Lambda$ and $B=\CC^g/\Lambda'$ amounts (up to change of basis) an inclusion of lattices $\Lambda'\subseteq\Lambda$.
+\end{example}
+\begin{example}
+	Fix any abelian variety $A$. For any nonzero integer $n$, the multiplication-by-$n$ endomorphism $[n]_A\colon A\to A$ is an isogeny. To see this, note that it is enough to check that $A[n]\coloneqq\ker[n]_A$ is finite. In the complex analytic situation where $A=\CC^g/\Lambda$, this follows because $\frac1n\Lambda/\Lambda$ is finite; in general, one must show that $A[n]\coloneqq\ker[n]_A$ is zero-dimensional, which is somewhat tricky. See \cite[Lemma~0BFG]{stacks} for details. We remark that one can compute $\deg[n]_A=d^{2\dim A}$, which is again not so hard to see in the complex analytic situation.
+\end{example}
+Motivated by the complex analytic setting (and the ``squishy isomorphism'' intuition), one might hope that one can recover weak-ish inverses for isogenies. This turns into an important property of abelian varieties.
+\begin{lemma} \label{lem:dual-isogeny}
+	Fix an isogeny $\varphi\colon A\to B$ of abelian varieties of degree $d$. Then there exists an ``inverse isogeny'' $\beta\colon B\to A$ such that
+	\[\begin{cases}
+		\alpha\circ\beta=[d]_B, \\
+		\beta\circ\alpha=[d]_A.
+	\end{cases}\]
+\end{lemma}
+\begin{proof}
+	By some theory regrading group scheme quotients, it is enough to check that $\varphi$ factors through $[d]_A$, which holds because $\ker\varphi$ has order $d$ as a group scheme and thus vanishes under $[d]_A$.
+\end{proof}
+\begin{remark}
+	As usual, we remark that the above lemma is easier to see in the complex analytic situation, but the key point of trying to factor through $[d]_A$ remains the same.
+\end{remark}
+\Cref{lem:dual-isogeny} motivates the following definition, and it codifies our intuition viewing isogenies as squishy isomorphisms.
+\begin{definition}[isogeny category]
+	Fix a field $K$. We define the \textit{isogeny category} of abelian varieties over $K$ as having objects which are abelian varieties over $K$, and a morphism $A\to B$ in the isogeny category is an element of $\op{Hom}_K(A,B)_\QQ$.
+\end{definition}
+We close our discussion of isogenies with one last remark on the size of kernels.
+\begin{remark} \label{rem:count-fiber-separable}
+	If $\varphi\colon X\to Y$ is a finite separable morphism of varieties, then a spreading out argument shows that the number of geometric points in a general fiber of $\varphi$ equals the degree of $\varphi$. Applied to isogenies, the homogeneity of abelian varieties is able to show that the number of geometric points in the fiber of any separable isogeny equals the degree.
+\end{remark}
+\begin{example} \label{ex:count-torsion-av}
+	Here is an application of \Cref{rem:count-fiber-separable}: if $\op{char}K\nmid n$, then one can show that $A[n]$ has $n^{2\dim A}$ geometric points. Again, this is not so hard to see in the complex analytic setting. The hypothesis $\op{char}K\nmid n$ is needed to show that $[n]_A$ is separable; in general, the argument is trickier and can (for example) use some intersection theory \cite[Theorem~I.7.2]{milne-av}.
+\end{example}
+Now that we have a reasonable category, one can ask for decompositions. Here is the relevant result and definition.
+\begin{theorem}[Poincar\'e reducibility] \label{thm:poincare-reducibility}
+	Fix an abelian subvariety $B$ of an abelian variety $A$ defined over a field $K$. Then there is another abelian subvariety $B'\subseteq A$ such that the multiplication map induces an isogeny $B\times B'\to A$.
+\end{theorem}
+\begin{proof}
+	As usual, we argue only in the complex analytic case. Here write $A=V/\Lambda$ for complex affine space $V$, and we find that $B=W/(\Lambda\cap W)$ for some subspace $W\subseteq V$. Now, the polarization induces a Hermitian form on $V$, so we can define $W'\coloneqq W^\perp$ so that $B'\coloneqq W'/(\Lambda\cap W')$ will do the trick. For more details, see \cite[Theorem~2.12]{milne-cm} for more details.
+\end{proof}
+\begin{definition}[simple]
+	Fix a field $K$. An abelian variety $A$ over $K$ is \textit{simple} if and only if it is irreducible in the isogeny category.
+\end{definition}
+\begin{remark}
+	\Cref{thm:poincare-reducibility} implies that any abelian variety can be decomposed uniquely into a product of simple abelian varieties, of course up to isogeny and permutation of factors.
+\end{remark}
+
+\subsection{The Jacobian}
+In this thesis, the abelian varieties of interest to us will be Jacobians. There are a few approaches to their definition, which we will not show are equivalent, but we refer to \cite[Chapter~III]{milne-av} for details. The most direct definition is as a moduli space.
+\begin{definition}[Jacobian]
+	Fix a smooth proper curve $C$ over a field $K$ such that $C(K)$ is nonempty. Then the \textit{Jacobian} $\op{Jac}C$ is the group variety $\op{Pic}^0_{C/K}$, where $\op{Pic}^0_{C/K}$ is the moduli space of line bundles on $C$ with degree $0$.
+\end{definition}
+\begin{remark}
+	We will not check that we have defined an abelian variety, nor that we have even defined a scheme. There are interesting questions regarding the representability of moduli spaces, which we are omitting a discussion of. Milne provides a reasonably direct construction in \cite[Section~III.1]{milne-av}, but we should remark that one expects representability to be true in a broader context. In particular, there are formal ways to check (say) properness of $\op{Pic}^0_{C/K}$, from which it does follow that we have defined an abelian variety.
+\end{remark}
+\begin{remark}
+	One can actually weaken the smoothness assumption on $C$ to merely being ``compact type.'' This is occasionally helpful when dealing with moduli spaces because it allows us to work a little within the boundary of the moduli space of curves.
+\end{remark}
+\begin{remark}
+	Notably, \Cref{ex:ec} tells us that the Jacobian of a curve is $E$ itself.
+\end{remark}
+Note that the assumption $C(K)\ne\emp$ allows us to choose some point $\infty\in C(K)$ and then define a map $C(K)\to\op{Jac}C$ by $p\mapsto[p]-[\infty]$. This map turns out to be a regular closed embedding \cite[Proposition~2.3]{milne-av}. It is psychologically grounding to see that this map is universal in some sense.
+\begin{proposition}
+	Fix a smooth proper curve $C$ over a field $K$ such that $C(K)\ne\emp$. Choose $\infty\in C(K)$, and consider the map $\iota\colon C\to\op{Jac}C$ given by $\iota(p)\coloneqq[p]-[\infty]$. For any abelian variety $A$ over $K$ and smooth map $\varphi\colon C\to A$ such that $\varphi(\infty)=0$, there exists a unique map $\widetilde\varphi\colon\op{Jac}C\to A$ making the following diagram commute.
+	% https://q.uiver.app/#q=WzAsMyxbMCwwLCJDIl0sWzEsMCwiXFxvcHtKYWN9QyJdLFsxLDEsIkEiXSxbMCwxLCJcXGlvdGEiXSxbMCwyLCJcXHZhcnBoaSIsMl0sWzEsMiwiXFx3aWRldGlsZGVcXHZhcnBoaSIsMCx7InN0eWxlIjp7ImJvZHkiOnsibmFtZSI6ImRhc2hlZCJ9fX1dXQ==&macro_url=https%3A%2F%2Fraw.githubusercontent.com%2FdFoiler%2Fnotes%2Fmaster%2Fnir.tex
+	\[\begin{tikzcd}
+		C & {\op{Jac}C} \\
+		& A
+		\arrow["\iota", from=1-1, to=1-2]
+		\arrow["\varphi"', from=1-1, to=2-2]
+		\arrow["{\widetilde\varphi}", dashed, from=1-2, to=2-2]
+	\end{tikzcd}\]
+\end{proposition}
+\begin{proof}
+	We will not need this, so we won't even point in a direction of a proof. We refer to \cite[Proposition~III.6.1]{milne-av}.
+\end{proof}
+It is worthwhile to provide a complex analytic construction of the Jacobian. Given a curve $C$, line bundles are in bijection with divisor classes, and divisor classes of degree $0$ can all be written in the form $\sum_{i=1}^k([P_i]-[Q_i])$ for some points $P_1,Q_1,\ldots,P_k,Q_k\in C(\CC)$. One can take such a divisor and define a linear functional on $\mathrm H^1(C,\Omega^1_C)$ by
+\[\omega\mapsto\sum_{i=1}^k\int_{Q_i}^{P_i}\omega.\]
+The construction of this linear functional is not technically well-defined up to divisor class; instead, one can check that changing the divisor class adjusts the linear functional exactly by the choice of a cycle in $\mathrm H_1^{\mathrm B}(C,\ZZ)$ embedded into $\mathrm H^1(C,\Omega^1_C)^\lor$ via the integration pairing. In this one way, one finds that
+\[\op{Jac}C(\CC)=\frac{\mathrm H^1(C,\Omega^1_C)^\lor}{\mathrm H_1^{\mathrm B}(C,\ZZ)}.\]
+In particular, we have realized $\op{Jac}C$ explicitly as a complex affine space modulo some lattice, exactly as in \Cref{ex:complex-av}. (One sees that $\op{rank}_\ZZ\mathrm H_1^{\mathrm B}(C,\ZZ)=\dim_\RR\mathrm H^1(C,\Omega^1_C)^\lor$ by the Betti-to-de~Rham comparison isomorphism.) This construction makes it apparent that
+\[\mathrm H_1^{\mathrm B}(\op{Jac}C(\CC),\ZZ)\cong\mathrm H_1^{\mathrm B}(C,\ZZ).\]
+This is in fact a general property.
+\begin{proposition} \label{prop:embed-cohom}
+	Fix a smooth proper curve $C$ over a field $K$ such that $C(K)\ne\emp$. Choose $\infty\in C(K)$, and consider the map $\iota\colon C\to\op{Jac}C$ given by $\iota(p)\coloneqq[p]-[\infty]$. Then the induced map
+	\[\iota^*\colon\mathrm H^1(\op{Jac}C)\to\mathrm H^1(C)\]
+	is an isomorphism, where $\mathrm H$ is any of the Weil cohomology theories of \cref{sec:review-cohom}.
+\end{proposition}
+\begin{proof}
+	The proof requires analyzing each cohomology theory individually. Above we outlined the proof when $\mathrm H$ is Betti cohomology, and we note that the result follows for de~Rham cohomology by the comparison isomorphism.
+\end{proof}
+\begin{corollary}
+	Fix a smooth proper curve $C$ over a field $K$ such that $C(K)\ne\emp$. Then $\dim\op{Jac}C$ equals the genus of the curve $C$.
+\end{corollary}
+\begin{proof}
+	Again, this is easy to see in the complex analytic case from the explicit construction. In general, one can read off the dimension of an abelian variety $A$ from $\dim\mathrm H^1(A)$ and then apply \Cref{prop:embed-cohom}.
+\end{proof}
+
+\subsection{The Dual}
+Even though we will technically not need it, we take a moment to discuss duality and polarizations of abelian varieties; we do want to understand these notions so that we can make sense of the Weil pairing. Motivated by the utility of the Picard group in defining the Jacobian, we make the following definition.
+\begin{definition}[dual abelian variety]
+	Fix an abelian variety $A$ over a field $K$. Then we define the \textit{dual abelian variety} $A^\lor$ as the group scheme $\op{Pic}^\circ_{A/K}$ over $K$.
+\end{definition}
+\begin{remark}
+	As usual, we will not check that $A^\lor$ is an abelian variety or even a scheme, but it is. (The ingredients that go into these arguments will not be relevant for us.) We refer to \cite[Chapter~6]{egm-av} for these arguments, in addition to the useful fact that $\dim A=\dim A^\lor$.
+\end{remark}
+% \begin{remark}
+% 	Note that $A^\lor$ is not the full moduli space of line bundles. In computations, one typically shows that $A^\lor$ is instead a moduli space of rigidified line bundles: for a test $F$-scheme $T$, a point in $A^\lor(T)$ is a line bundle $\mc L$ on $A\times T$
+% \end{remark}
+\begin{remark} \label{rem:dual-torus}
+	It is worthwhile to note that, in the complex analytic situation, there already is a notion of a dual abelian variety. If $A=V/\Lambda$ is an abelian variety, then $A^\lor=V^*/\Lambda^*$, where $V^*$ is the vector space of conjugation-semilinear functionals $V^*\to\CC$, and $\Lambda^*$ consists of the functionals which are integral on $\Lambda$. It is rather tricky to explain how this definition relates to the one above, so we will not do so and instead refer to \cite[Section~4]{rosen-av-over-c}.
+\end{remark}
+It is worth our time to explain why this is called duality. To begin, there is a duality for morphisms.
+\begin{lemma}
+	Fix a homomorphism $f\colon A\to B$ of abelian varieties over a field $K$. Then there is a dual homomorphism $f^\lor\colon B^\lor\to A^\lor$.
+\end{lemma}
+\begin{proof}
+	We define the homomorphism on geometric points. Then a point of $B^\lor(\ov K)$ is a line bundle $\mc L$ on $B_{\ov K}$, which we can pull back to a line bundle $f^*\mc L$ on $A_{\ov K}$, which is a point of $A^\lor(\ov K)$.
+\end{proof}
+\begin{lemma}
+	Fix an abelian variety $A$ over a field $K$. Then there is a canonical isomorphism $A\to A^{\lor\lor}$.
+\end{lemma}
+\begin{proof}
+	We sketch the construction of the map and refer to \cite[Theorem~7.9]{egm-av} for details. Because $A^\lor$ is a moduli space of line bundles, there is a universal Poincar\'e line bundle $\mc P_A$ on $A\times A^\lor$. Unravelling the definition of $A^\lor$, we see that morphisms $S\to A^\lor$ correspond to line bundles on $A\times S$. Turning this around, we thus see that we can view $\mc P_A$ as a family of line bundles on $A^\lor$ parameterized by $A$ and thus providing a map $A\to A^{\lor\lor}$. This map is the required isomorphism.
+\end{proof}
+Most of the utility one achieves from the dual is that it allows us to the complex-analytic notion of a polarization into algebraic geometry. As in \Cref{rem:dual-torus}, we view $A=V/\Lambda$ as a complex torus, and the dual abelian variety $A^\lor$ can be realized concretely as some $V^*/\Lambda^*$. Now, a polarization of $A$ refers to a polarization of $\Lambda=\mathrm H_1^{\mathrm B}(A,\ZZ)$, which as mentioned in \Cref{ex:complex-av} has equivalent data to an alternating form $\psi\colon\Lambda\otimes\Lambda\to\ZZ$ such that the bilinear form
+\[\langle x,y\rangle\coloneqq\psi_\RR(x,iy)\]
+on $\Lambda_\RR$ is symmetric and positive-definite. But now we see that this choice of $\psi$ determines a map $A\to A^\lor$ given by $v\mapsto\psi(v,\cdot)$.
+
+Thus, we would like our polarizations some kind of map $A\to A^\lor$. However, we need to keep track of all the adjectives that $\psi$ had in order to make this an honest definition. For example, perhaps we want to keep track of the constraint that $\psi$ is alternating. To do so, we use cohomology. We will shortly explain in \Cref{prop:cohom-ring-av} that the cup product provides an isomorphism $\land^2\mathrm H^1(A,\ZZ)\to\mathrm H^2(A,\ZZ)$, which induces an isomorphism
+\[\op{Hom}_\ZZ\left(\land^2\Lambda,\ZZ\right)\cong\mathrm H^2(A,\ZZ)\]
+upon taking duals. Thus, $\psi$ being an alternating form can be traced backed to it coming from a class in $\mathrm H^2(A,\ZZ)$.
+
+Continuing, perhaps we want to keep track of the constaint that $\langle\cdot,\cdot\rangle$ is symmetric. This is equivalent to having $\psi_\RR(ix,iy)=\psi(x,y)$, which turns out to be equivalent to $\psi_\CC\in\mathrm H^2(A,\CC)$ living in the $(1,1)$ component. Well, it turns out that the exponential short exact sequence
+\[0\to\ZZ\stackrel{2\pi i}\to\OO_A\stackrel{\exp}\to\OO_A^\times\to0\]
+induces a (first Chern class) map $c_1\colon\mathrm H^1(A,\OO_A^\times)\to\mathrm H^2(A,\ZZ)$, which is an isomorphism onto the $(1,1)$ component. Thus, the condition that $\langle\cdot,\cdot\rangle$ is symmetric can be traced back to $\psi_\CC$ coming from a class in $\mathrm H^1(A,\OO_A^\times)$, which has equivalent data to a line bundle $\mc L$.
+
+Lastly, it turns out that positive-definiteness of $\langle\cdot,\cdot\rangle$ corresponds to the $\mc L$ being ample. On the other hand, given a line bundle $\mc L$ on $A$, we remark that there already is a natural way to construct a map $A\to A^\lor$ from a line bundle. This gives our definition.
+\begin{definition}[polariaztion]
+	Fix an abelian variety $A$ over a field $K$. A \textit{polarization} is a morphism $\varphi\colon A\to A^\lor$ such that there is an ample line bundle $\mc L$ on $A_{\ov K}$ giving the equality
+	\[\varphi(x)=t_x^*\mc L\otimes\mc L^{-1}\]
+	for any $x\in A_{\ov K}$. We say that $\varphi$ is \textit{principal} if and only if it is an isomorphism, and we say that $A$ is a \textit{pricipally polarized}.
+\end{definition}
+\begin{remark}
+	It turns out that the construction of the above map does correspond to the map $A\to A^\lor$ defined complex-analytically.
+\end{remark}
+\begin{remark}
+	It turns out that polarizations are isogenies.
+\end{remark}
+\begin{remark} \label{rem:polarize-endos-av}
+	Here is the sort of thing that one can do with this definition. One may also want to define a Rosati involution on $\op{End}(A)_\QQ$, analogous to the Rosati involution on polarized Hodge structures. Well, given a (principal) polarization $\varphi\colon A\to A^\lor$, we can define a Rosati involution $(\cdot)^\dagger$ on $\op{End}(A)_\QQ$ by sending any $f\in\op{End}(A)_\QQ$ to
+	\[f^\dagger\coloneqq \varphi^{-1}\circ f^\lor\circ\varphi.\]
+	If $\lambda$ is a principal polarization, then this Rosati involution descends to $\op{End}(A)$. One can check that $(\cdot)^\dagger$ continues to be a positive anti-involution, but it is not easy; see for example \cite[Theorem~12.26]{egm-av}. This allows us to apply the Albert classification \Cref{thm:albert-classification} to our situation.
+\end{remark}
+\begin{example}
+	For any smooth proper curve $C$ such that $C(K)\ne\emp$, it turns out that the Jacobian $\op{Jac}C$ is principally polarized. It is not too hard to describe the line bundle which gives the polarization: let $\iota\colon C\to\op{Jac}(C)$ be an embedding given be one of the points in $C(K)$, and then the line bundle is given by the divisor
+	\[\underbrace{f(C)+\cdots+f(C)}_{g-1},\]
+	where $g$ is the genus of $C$. See \cite[Theorem~14.23]{egm-av} or \cite[Theorem~6.6]{milne-av} for more details.
+\end{example}
+Analogous to the complex-analytic setting $A=V/\Lambda$, we may still want to be able to define an alternating form on $\Lambda=\mathrm H_1^{\mathrm B}(A,\ZZ)$. We will achieve a satisfying version of this in \Cref{lem:weil-pairing-h1}, but for now, let us point that this is not immediately obvious how to do this because we currently have no analogue for $\Lambda$ in the general setting. However, we note that the alternating form $\Lambda$ is able to induce an alternating form on $V$, and we can access a dense subset of $V$ by taking torsion. Thus, for now, we will aim to provide a pairing
+\[A[n](K^{\mathrm{sep}})\times A[n](K^{\mathrm{sep}})\to \ZZ/n\ZZ\]
+for each integer $n$ such that $\op{char}K\nmid n$. Unwinding how we took a polarization to a map $A\to A^\lor$, we note that we may as well define the above map using a polarization $\varphi\colon A\to A^\lor$ by instead defining a pairing
+\[A[n](K^{\mathrm{sep}})\times A^\lor[n](K^{\mathrm{sep}})\to \ZZ/n\ZZ\]
+and then pre-composing with $A\to A^\lor$. More generally, given an isogeny $f\colon A\to B$, we will be able to show that there is a perfect pairing
+\[(\ker f)\times(\ker f^\lor)\to\mathbb G_m,\]
+upon which we find the desired pairing by taking $f=[n]_A$ and taking $K^{\mathrm{sep}}$-points.
+\begin{proposition}[Weil pairing] \label{prop:weil-pairing}
+	Fix an isogeny $f\colon A\to B$ of abelian varieties over $K$. Then there is a perfect pairing
+	\[(\ker f)\times(\ker f^\lor)\to\mathbb G_m.\]
+\end{proposition}
+\begin{proof}
+	We provide an explicit construction of the pairing on $K^{\mathrm{sep}}$-points, but we will not check that it is perfect, for which we refer to \cite[Theorem~8.1.3]{conrad-av}. Select $x\in(\ker f)(K^{\mathrm{sep}})$ and $y^\lor\in(\ker f^\lor)(K^{\mathrm{sep}})$. The point $y^\lor$ corresponds to a line bundle $\mc L$ on $B^\lor_{K^{\mathrm{sep}}}$. Being in the kernel of $f$ grants a trivialization $\sigma\colon f^*\mc L\to\OO_{A_{K^{\mathrm{sep}}}}$, which is unique up to a scalar. Now, note that $t_a^*f^*\mc L=f^*t_{f(a)}^*\mc L=f^*\mc L$ because $a\in\ker f$, so there is another trivialization of $f^*\mc L$ given by $t_a^*\beta\colon\mc L\to\OO_{A_{K^{\mathrm{sep}}}}$. We now define our Weil pairing as $t_a^*\beta\circ\beta^{-1}$, which we realize as an element of $\mathbb G_m(K^{\mathrm{sep}})$ by noting that $t_a^*\beta\circ\beta^{-1}$ is an automorphism of $\OO_{A_{K^{\mathrm{sep}}}}$ and is therefore a scalar.
+\end{proof}
+\begin{corollary} \label{cor:weil-pairing-torsion}
+	Fix an abelian variety $A$ over a field $K$, and let $\varphi\colon A\to A^\lor$. For each positive integer $n$, there is a Galois-invariant perfect symplectic pairing
+	\[e_\varphi\colon A[n](K^{\mathrm{sep}})\times A[n](K^{\mathrm{sep}})\to\mu_n.\]
+	Furthermore, for any positive integer $m$, the following diagram commutes.
+	% https://q.uiver.app/#q=WzAsNixbMCwxLCJBW25dKEZee1xcbWF0aHJte3NlcH19KSJdLFsxLDEsIkFbbl0oRl57XFxtYXRocm17c2VwfX0pIl0sWzAsMCwiQVtubV0oRl57XFxtYXRocm17c2VwfX0pIl0sWzEsMCwiQVtubV0oRl57XFxtYXRocm17c2VwfX0pIl0sWzIsMCwiXFxtdV97bW59Il0sWzIsMSwiXFxtdV9uIl0sWzIsMCwibSIsMl0sWzMsMSwibSIsMl0sWzIsMywiXFx0aW1lcyIsMSx7InN0eWxlIjp7ImJvZHkiOnsibmFtZSI6Im5vbmUifSwiaGVhZCI6eyJuYW1lIjoibm9uZSJ9fX1dLFswLDEsIlxcdGltZXMiLDEseyJzdHlsZSI6eyJib2R5Ijp7Im5hbWUiOiJub25lIn0sImhlYWQiOnsibmFtZSI6Im5vbmUifX19XSxbMyw0LCJlX1xcdmFycGhpIl0sWzEsNSwiZV9cXHZhcnBoaSJdLFs0LDUsIm0iXV0=&macro_url=https%3A%2F%2Fraw.githubusercontent.com%2FdFoiler%2Fnotes%2Fmaster%2Fnir.tex
+	\[\begin{tikzcd}
+		{A[nm](K^{\mathrm{sep}})} & {A[nm](K^{\mathrm{sep}})} & {\mu_{mn}} \\
+		{A[n](K^{\mathrm{sep}})} & {A[n](K^{\mathrm{sep}})} & {\mu_n}
+		\arrow["\times"{description}, draw=none, from=1-1, to=1-2]
+		\arrow["m"', from=1-1, to=2-1]
+		\arrow["{e_\varphi}", from=1-2, to=1-3]
+		\arrow["m"', from=1-2, to=2-2]
+		\arrow["m", from=1-3, to=2-3]
+		\arrow["\times"{description}, draw=none, from=2-1, to=2-2]
+		\arrow["{e_\varphi}", from=2-2, to=2-3]
+	\end{tikzcd}\]
+\end{corollary}
+\begin{proof}
+	We described above how to construct the pairing from the one given in \Cref{prop:weil-pairing} by setting $f=[n]_A$ and then using the polarization $\varphi$. The remaining properties of $e_\varphi$ (such as Galois-invariance) can be checked using the explicit construction given in \Cref{prop:weil-pairing}.
+\end{proof}
+
+\subsection{Applying Hodge Theory}
+We now explain the utility of \cref{chap:hodge} to our application. Here is the main result.
+\begin{theorem}[Riemann] \label{thm:riemann}
+	The functor $A\mapsto\mathrm H^1_{\mathrm B}(A,\QQ)$ provides an equivalence of categories between the isogeny category of abelian varieties defined over $\CC$ and the category of polarizable $\QQ$-Hodge structures $V$ such that $V_\CC=V^{0,1}\oplus V^{1,0}$.
+\end{theorem}
+\begin{proof}
+	Writing $A=\CC^g/\Lambda$ for a polarizable lattice $\Lambda$, we see that the given functor takes $A$ to $\Lambda\otimes_\ZZ\QQ$. It is thus not hard to see that this functor is fully faithful. To see that it is essentially surjective, we begin with any polarizable $\QQ$-Hodge structure $V$ and find a polarizable sublattice $\Lambda$ in order to produce the desired abelian variety $A/\Lambda$. Admittedly, most of the work for this theorem was already done in \Cref{ex:av-polarizable-hs} when we showed that the previous sentence actually gives an abelian variety!
+\end{proof}
+The moral of the story is that we can keep track of abelian varieties $A$ over $\CC$ by only keeping track of their Hodge structures $\mathrm H^1_{\mathrm B}(A,\QQ)$. With this in mind, we allow ourselves the following notation.
+\begin{notation}
+	Fix an abelian variety $A$ over $\CC$. Then we define the \textit{Mumford--Tate group} of $A$ to be
+	\[\op{MT}(A)\coloneqq\op{MT}\left(\mathrm H^1_{\mathrm B}(A,\QQ)\right).\]
+\end{notation}
+Here is the main corollary of \Cref{thm:riemann} that we will want.
+\begin{corollary} \label{cor:mt-fixes-av-endos}
+	Fix an abelian variety $A$ over $\CC$. Then the natural map
+	\[\op{End}_\CC(A)\otimes_\ZZ\QQ\to\op{End}_{\QQ}\left(\mathrm H^1_{\mathrm B}(A,\QQ)\right)^{\op{MT}(A)}\]
+	is an isomorphism.
+\end{corollary}
+\begin{proof}
+	By \Cref{lem:mt-hg-fixes-endos}, we see that the right-hand side is simply $\op{End}_{\op{HS}}\left(\mathrm H^1_{\mathrm B}(A,\QQ)\right)$. The result now follows from \Cref{thm:riemann}.
+\end{proof}
+As another aside, we go ahead and restate the Albert classification (\Cref{thm:albert-classification}) for our abelian varieties.
+\begin{proposition} \label{prop:albert-av}
+	Fix a simple abelian variety $A$ of dimension $g$, defined over a field $K$ of characteristic $0$, and set $D\coloneqq\op{End}_K(A)_\QQ$ and $F\coloneqq Z(D)$. Letting $(\cdot)^\dagger$ be the Rosati involution on $D$, we also let $F^\dagger$ be the $(\cdot)^\dagger$-invariants of $F$. Further, set $d\coloneqq\sqrt{[D:F]}$ and $e\coloneqq[F:\QQ]$ and $e_0\coloneqq[F^\dagger:\QQ]$. Then we have the following table of restrictions on $(g,d,e,e_0)$.
+	\begin{center}
+		\begin{tabular}{cccc}
+			Type & $e$ & $d$ & Restriction \\\hline
+			I & $e_0$ & $1$ & $e\mid g$ \\
+			II & $e_0$ & $2$ & $2e\mid g$ \\
+			III & $e_0$ & $2$ & $2e\mid g$ \\
+			IV & $2e_0$ & $d$ & $e_0d^2\mid g$
+		\end{tabular}
+	\end{center}
+\end{proposition}
+\begin{proof}
+	Recall that $D$ is amenable to the Albert classification as discussed in \Cref{rem:polarize-endos-av}. The middle two columns follow from the discussion of the various types; for example, in Type I, we see $d=1$ because $D=F$, and $e=e_0$ because $F$ is totally real. To receive the dimension restrictions, we note that some descent argument allows us to reduce to the case where $K=\CC$, where we receive an inclusion $D\subseteq\op{End}(\mathrm H^1_{\mathrm B}(A,\QQ))$ by \Cref{thm:riemann}.\footnote{It is still possible to get an inclusion like this in general. It requires a discussion of the $\ell$-adic representations, which we engage in later.} This is an inclusion of division $\QQ$-algebras, so we see that $\dim_\QQ D\mid 2g$; this implies
+	\[d^2e\mid2g,\]
+	which rearranges into the required restrictions.
+\end{proof}
+\begin{remark}
+	The requirement that $\op{char}F=0$ is necessary in the table; the restrictions are somewhat different (and weaker!) in positive characteristic.
+\end{remark}
+While we're here, we state the main theorem of \cite{deligne-hodge} on absolutely Hodge cycles.
+\begin{theorem}[Deligne]
+	Fix an abelian vareity $A$ defined over a number field $K$. Then all Hodge classes on $A$ are absolutely Hodge.
+\end{theorem}
+We will not attempt a proof of this result, but we will remark that \Cref{thm:principle-b} allows us to reduce this result to the case of abelian varieties with many endomorphisms, which is more amenable. There is still much work to be done!
+
+\subsection{Complex Multiplication}
+Even though it is not strictly necessary for our exposition, we take a moment to discuss some theory surrounding complex multiplication. We refer to \cite{milne-cm} throughout for more details. The relevance of this discussion to us mostly arises because we have defined analogous notions in \cref{subsec:signature,subsec:reflex}.
+
+Intuitively, complex multiplication simply means that an abelian variety has many endomorphisms. To explain this properly, we note that the endomorphism algebra of a simple abelian variety $A$ is a division $\QQ$-algebra described in \Cref{prop:albert-av}; if we drop the assumption that $A$ is simple, then it could be a product of matrix algebras of such division $\QQ$-algebras. This motivates the following definition to properly account for such matrix algebras.
+\begin{definition}[reduced degree]
+	Write a semisimple algebra $D$ over a field $K$ as a product $D_1\times\cdots\times D_k$ of simple algebras. Then we define the \textit{reduced degree} as
+	\[[D:K]_{\mathrm{red}}\coloneqq\sum_{i=1}^k\sqrt{[D_i:F_i]}\cdot[D_i:K],\]
+	where $F_i\coloneqq Z(B_i)$ for each $i$
+\end{definition}
+\begin{remark}
+	It is not technically obvious that $[D_i:F_i]$ is a square, but this follows from the theory of central simple algebras. Roughly speaking, one can show that $D_i\otimes\overline{D_i}\cong M_n(\overline{D_i})$ for some $n\ge0$, from which the result follows; see \cite[Corollary~IV.2.16]{milne-cft}.
+\end{remark}
+\begin{remark} \label{rem:upper-bound-reduced-deg}
+	Given an inclusion $B\subseteq\op{End}_K(V)$, one receives a bound
+	\[[B:K]_{\mathrm{red}}\le[V:K].\]
+	Roughly speaking, this follows by breaking up $B$ into simple pieces (which are matrix algebras of division algebras) and then looking for these pieces in $\op{End}_K(V)$. See \cite[Proposition~I.1.2]{milne-cm}
+\end{remark}
+In light of the previous remark, we are now able to make a definition.
+\begin{definition}[complex multiplication]
+	Fix an abelian variety $A$ over a field $K$. Then $A$ has \textit{complex multiplication over $K$} if and only if
+	\[[\op{End}_K(A)_\QQ:\QQ]_{\mathrm{red}}=2\dim A.\]
+\end{definition}
+Namely, we see that $2\dim A$ is as large as possible by \Cref{rem:upper-bound-reduced-deg}, by taking $V$ to be $\mathrm H^1$ for some Weil cohomology $\mathrm H$.\footnote{Outside the complex-analytic case, it may look like one wants to use the $\ell$-adic result \Cref{thm:faltings} over a general field. However, it turns out to be enough to merely achieve the injectivity of the map \Cref{thm:faltings}, which is easier.}
+\begin{remark} \label{rem:red-deg-is-additive}
+	The key benefit of the reduced degree is that it is additive: given abelian varieties $A$ and $A'$, we claim
+	\[[\op{End}(A\oplus A')_\QQ:\QQ]_{\mathrm{red}}\stackrel?=[\op{End}(A)_\QQ:\QQ]_{\mathrm{red}}+[\op{End}(A')_\QQ:\QQ]_{\mathrm{red}}.\]
+	Indeed, by breaking everything into simple pieces, we may assume that $A$ and $A'$ are both powers of a simple abelian variety. If they are powers of different simple abelian varieties, then this is a direct computation. Otherwise, they are powers of the same simple abelian variety, in which case all central simple algebras in sight are matrix algebras over the same division algebra, and the result follows by another computation.
+\end{remark}
+\begin{remark}
+	A computation with \Cref{prop:albert-av} shows that a simple abelian variety $A$ has complex multiplication only in Type IV when $d=1$; i.e., we require $\op{End}_K(A)$ to be a CM field. Combining this with \Cref{rem:red-deg-is-additive}, we find that an abelian variety $A$ has complex multiplication if and only if each of its factors does.
+\end{remark}
+\begin{remark} \label{rem:cm-large-field}
+	If an abelian variety $A$ with complex multiplication is a sum of non-isomorphic simple abelian varieties, then its endomorphism algebra is simply a product of CM fields. In general, one can show that it is still the case that any abelian variety $A$ with complex multiplication has a CM algebra of degree $2\dim A$ contained in its endomorphism algebra. However, this requires a little structure theory of semisimple algebras; see \cite[Proposition~3.6]{milne-cm}.
+\end{remark}
+Complex multiplication places strong constraints on the Mumford--Tate group.
+\begin{proposition} \label{prop:cm-is-mt-torus}
+	Fix an abelian variety $A$ over $\CC$. Then $A$ has complex multiplication if and only if $\op{MT}(A)$ is a torus.
+\end{proposition}
+\begin{proof}
+	We show the two implications separately.
+	\begin{itemize}
+		\item In one direction, if $A$ has complex multiplication, then \Cref{rem:cm-large-field} grants a CM algebra $E\subseteq\op{End}_\CC(A)_\QQ$ with $[E:\QQ]=2\dim A$. Then $\mathrm H^1_{\mathrm B}(A,\QQ)$ is a free module over $E$ of rank $1$, so we see that $\op{GL}_F\left(\mathrm H^1_{\mathrm B}(A,\QQ)\right)$ is isomorphic to $\mathrm T_F$. We conclude by \Cref{lem:mt-commutes-with-endo}.
+		\item In the other direction, suppose $\op{MT}(A)$ is a torus. Find a maximal torus $T$ containing $\op{MT}(A)$. Then \Cref{cor:mt-fixes-av-endos} tells us that
+		\[\op{End}_\CC(A)_\QQ=\op{End}_\QQ\left(\mathrm H^1_{\mathrm B}(A,\QQ)\right)^{\op{MT}(A)},\]
+		which then contains $\op{End}_\QQ\left(\mathrm H^1_{\mathrm B}(A,\QQ)\right)^T$. However, the latter is a commutative semisimple $\QQ$-algebra of dimension $2g$: it suffices to check this after base-changing to $\CC$, whereupon we may identify $T$ with the diagonal torus, from which the claim follows. This completes the proof.
+		\qedhere
+	\end{itemize}
+\end{proof}
+One benefit of complex multiplication is that it lets move difficult geometric questions into combinatorial ones. To see this, we need to define the following combinatorial gadget.
+\begin{definition}
+	Fix an abelian variety $A$ with complex multiplication defined over $\CC$. Choose a CM algebra $E\subseteq\op{End}_\CC(A)_\QQ$ with $\dim E=2\dim A$. Then we define the \textit{CM type} of $A$ to be the CM signature $(E,\Phi)$ given by \Cref{lem:hodge-to-signature}. Note that $\mathrm H^1_{\mathrm B}(A,\QQ)$ is then a one-dimensional $E$-vector space, so $\im\Phi\subseteq\{0,1\}$, so we can realize $\Phi$ as a subset of $\op{Hom}(E,\CC)$.
+\end{definition}
+\begin{remark}
+	Note that we are not requiring $E=Z(\op{End}_\CC(A)_\QQ)$, though this is automatically the case when the simple components of $A$ all have multiplicity $1$. Of course, there still is a CM signature coming from the case $E=Z(\op{End}_\CC(A)_\QQ)$.
+\end{remark}
+\begin{remark}
+	There is a still a way to recover the CM type even when $A$ is not defined over $\CC$. For example, one can note that $\mathrm H^{10}$ is supposed to be the Lie algebra $\op{Lie}A$, so one can instead recover $\Phi$ from the $E$-action on $\op{Lie}A$.
+\end{remark}
+\begin{remark} \label{rem:cm-by-type}
+	It turns out that there is (essentially) exactly one abelian variety with CM type $(E,\Phi)$, up to isogeny over the algebraic closure. See \cite[Proposition~3.12]{milne-cm}.
+\end{remark}
+\Cref{rem:cm-by-type} tells us that we are basically allowed to only pay attention to the CM type in the theory of complex multiplication.
+
+\section{The \texorpdfstring{$\ell$}{l}-Adic Representation}
+In this subsection, we now define the $\ell$-adic representation and give some of its basic properties.
+
+\subsection{The Construction}
+A priori, an abelian variety $A$ gives rise to many $\ell$-adic Galois representations via each of its cohomology groups $\mathrm H^\bullet_{\mathrm{\acute et}}(A_{K^{\mathrm{sep}}},\QQ_\ell)$. However, it turns out that we are allowed to only care about one of them.
+\begin{proposition} \label{prop:cohom-ring-av}
+	Fix an abelian variety $A$ over a field $K$, and let $\mathrm H$ be a Weil cohomology theory. Then the cup product defines an isomorphism between the exterior algebra $\land\mathrm H^1(A)$ and the cohomology ring $\mathrm H^*(A)$.
+\end{proposition}
+\begin{proof}
+	In the complex analytic case, we proceed as in \cite[Proposition~2.6]{milne-cm}. Write $A=\CC^g/\Lambda$ for a lattice $\Lambda$. Fixing some index $p$, we will show that the cup product defines an isomorphism
+	\[\land^p\mathrm H^1_{\mathrm B}(A,\ZZ)\to\mathrm H^p_{\mathrm B}(A,\ZZ).\]
+	Well, we note that $A$ is homeomorphic to $\left(S^1\right)^{2g}$, so the K\"unneth formula allows us to reduce the question to $S^1$, where the result is true by a direct computation. In the general case, one notes that the group structure on $A$ induces a Hopf bialgebra structure on both $\land\mathrm H^1(A)$ and $\mathrm H^*(A)$; then one can appeal to some structure theory to deduce the equality. See \cite[Corollary~6.13]{egm-av} or more precisely \cite[Corollary~13.32]{egm-av}.
+\end{proof}
+Thus, in $\ell$-adic cohomology (where $\op{char}K\nmid\ell$ in $K$), we see that one can understand all cohomology groups of $A$ by merely understanding $\mathrm H^1_{\mathrm{\acute et}}(A_{K^{\mathrm{sep}}},\ZZ_\ell)$. Analogous to the complex analytic case, we will be able to work with the dual ``homology group'' more concretely.
+
+Let's spend some time giving a more elementary description of $\mathrm H^1_{\mathrm{\acute et}}(A_{K^{\mathrm{sep}}},\ZZ_\ell)^\lor$. We refer to \cite[Corollary~10.38]{egm-av} and the surrounding discussion for more details. We will do this by passing to the fundamental group. In particular, note that there is a Galois-invariant isomorphism
+\[\mathrm H^1(A_{K^{\mathrm{sep}}},\ZZ_\ell)\cong\op{Hom}\left(\pi_1(A_{K^{\mathrm{sep}}},a),\ZZ_\ell\right),\]
+where $a\in A(K^{\mathrm{sep}})$ is some basepoint. We will go ahead and choose $a=0$.
+\begin{remark}
+	Let's take a moment to explain this isomorphism. By taking limits, it is enough to show this isomorphism with $\ZZ_\ell$ replaced by $\mu_n$ where $\op{char}K\nmid n$. Then one knows that $\mathrm H^1(A_{K^{\mathrm{sep}}},\mu_n)$ is in bijection with Galois coverings with Galois group $\mu_n$ by using the short exact sequence
+	\[1\to\mu_n\to\mathbb G_m\stackrel n\to\mathbb G_m\to1.\]
+	This completes the proof upon unravelling the definition of $\pi_1$ on the right-hand side.
+\end{remark}
+We now use the fact that $A$ is an abelian variety to compute $\pi_1(A_{K^{\mathrm{sep}}},0)$: one can show that any \'etale covering of $A$ is still an abelian variety and hence is an isogeny onto $A$ (for suitable choice of group law). Thus, \Cref{lem:dual-isogeny} promises that the multiplication-by-$n$ maps $[n]_A\colon A\to A$ provide a cofinal sequence of Galois \'etale coverings of $A$ (at least when $\op{char}K\nmid n$), allowing us to compute that the $\ell$-part of $\pi_1(A_{K^{\mathrm{sep}}},0)$ equals
+\[\limit A\left[\ell^\bullet\right](K^{\mathrm{sep}}).\]
+In conclusion, we see that $\mathrm H^1(A_{K^{\mathrm{sep}}},\ZZ_\ell)$ is naturally isomorphic to
+\[\left(\limit A\left[\ell^\bullet\right](K^{\mathrm{sep}})\right)^\lor\]
+as Galois representations. We are now allowed to define the Tate module.
+\begin{definition}[Tate module]
+	Fix an abelian variety $A$ over a field $K$, and suppose $\ell$ is a prime such that $\op{char}K\nmid\ell$. Then we define the $\ell$-adic Tate module as
+	\[T_\ell A\coloneqq\limit A\left[\ell^\bullet\right](K^{\mathrm{sep}}),\]
+	and we define the rational $\ell$-adic Tate module as $V_\ell A\coloneqq T_\ell A\otimes_\ZZ\QQ$.
+\end{definition}
+\begin{remark}
+	Intuitively, $T_\ell A$ should be thought of as an $\ell$-adic stand-in for $\mathrm H_1(A)$.
+\end{remark}
+The discussion above suggesets that $T_\ell A$ should be a free $\ZZ_\ell$-module of rank $2$. Let's check this directly. By taking limits, it is enough to show the following.
+\begin{lemma}
+	Fix an abelian variety $A$ over a field $K$, and suppose $\ell$ is a prime such that $\op{char}K\nmid\ell$. For each $\nu\ge0$, there is a group isomorphism
+	\[A\left[\ell^\nu\right](K^{\mathrm{sep}})\cong\ZZ/\ell^{2\nu\dim A}\ZZ.\]
+\end{lemma}
+\begin{proof}
+	The two groups have the same size by \Cref{ex:count-torsion-av}, so the result follows for $\nu\in\{0,1\}$ automatically. For $\nu\ge2$, we induct using the short exact sequence
+	\[0\to A[\ell](K^{\mathrm{sep}})\to A\left[\ell^{\nu+1}\right](K^{\mathrm{sep}})\stackrel\ell\to A\left[\ell^\nu\right](K^{\mathrm{sep}})\to0\]
+	and some cardinality arguments. For example, one can finish by applying the classification of finite abelian groups.
+\end{proof}
+One benefit of a more concrete object is that it is easier to work with directly. For example, we can now find a perfect pairing on $\mathrm H^1_{\mathrm{\acute et}}(A_{K^{\mathrm{sep}}},\ZZ_\ell)$.
+\begin{lemma} \label{lem:weil-pairing-h1}
+	Fix an abelian variety $A$ over a field $K$, and suppose $\ell$ is a prime such that $\op{char}K\nmid\ell$. Choose a polarization $\varphi\colon A\to A^\lor$. Then the Weil pairing induces a Galois-invariant perfect symplectic pairing
+	\[e_\varphi\colon\mathrm H^1_{\mathrm{\acute et}}(A_{K^{\mathrm{sep}}},\ZZ_\ell)\otimes_{\QQ_\ell} \mathrm H^1_{\mathrm{\acute et}}(A_{K^{\mathrm{sep}}},\ZZ_\ell)\to\ZZ_\ell(-1).\]
+\end{lemma}
+\begin{proof}
+	By taking duals, it is enough to induce a Galois-invariant perfect symplectic pairing
+	\[e_\varphi\colon T_\ell A\otimes_{\QQ_\ell}T_\ell A\to\ZZ_\ell(1).\]
+	This follows by taking a limit of the Weil pairing given in \Cref{cor:weil-pairing-torsion}. Recall that $\ZZ_\ell(1)$ is the Galois representation $\limit\mu_{\ell^\bullet}$.
+\end{proof}
+One can also see the Galois action more explicitly: being careful about the Galois action on cohomology and the Tate module, we see that the induced Galois representation
+\[\rho_\ell\colon\op{Gal}(K^{\mathrm{sep}}/K)\to\op{GL}(T_\ell A)\]
+is simply given by the Galois action on the points in the limit $A\left[\ell^\bullet\right](K^{\mathrm{sep}})$.
+
+\subsection{The \texorpdfstring{$\ell$}{l}-Adic Monodromy Group}
+Now that we have a representation, we may as well define a monodromy group.
+\begin{defihelper}[$\ell$-adic monodromy group] \nirindex{L-adic monodromy group@$\ell$-adic monodromy}
+	Fix an abelian $A$ over a field $K$, and suppose $\ell$ is a prime such that $\op{char}K\nmid\ell$. Then the \textit{$\ell$-adic monodromy group} $G_\ell(A)$ is the smallest algebraic $\QQ_\ell$-group containing the image of the Galois representation
+	\[\op{Gal}(K^{\mathrm{sep}}/K)\to\op{GL}\left(\mathrm H^1_{\mathrm{\acute et}}(A_{K^{\mathrm{sep}}},\QQ_\ell)\right).\]
+\end{defihelper}
+\begin{remark}
+	By taking duals, we see that one produces an isomorphic Galois representation by working with $T_\ell A$ instead. Note that this dual is not very expensive: by using the Weil pairing of \Cref{lem:weil-pairing-h1}, we can remove the dual in exchange for a twist, writing
+	\[\mathrm H^1_{\mathrm{\acute et}}(A_{K^{\mathrm{sep}}},\ZZ_\ell)\cong T_\ell A(-1).\]
+\end{remark}
+\begin{remark} \label{rem:k-conn-a}
+	Unlike $\op{MT}(V)$ and $\op{Hg}(V)$, we do not expect $G_\ell(A)$ to be connected in general. However, being an algebraic $\QQ_\ell$-group, it will only have finitely many connected components. Thus, we see that the pre-image of $G_\ell(A)^\circ$ in $\op{Gal}(K^{\mathrm{sep}}/K)$ is an open subgroup of finite index, so there is a unique minimal field extension $K^{\mathrm{conn}}_A/K$ such that $G_\ell(A_{K^{\mathrm{conn}}_A})=G_\ell(A)^\circ$. Thus, our group becomes connected, only at the cost of a field extension.
+\end{remark}
+The interesting geometric objects arising from Hodge theory were the Hodge classes, which \Cref{rem:hodge-class-by-s} explains were exactly the vectors fixed by the group action. Analagously, we pick up the following definition.
+\begin{definition}[Tate class]
+	Fix an abelian $A$ over a field $K$, and suppose $\ell$ is a prime such that $\op{char}K\nmid\ell$. Then a \textit{Tate class} is a vector of some tensor construction
+	\[\bigoplus_{i=1}^k\mathrm H^1_{\mathrm{\acute et}}(A_{K^{\mathrm{sep}}},\QQ_\ell)^{\otimes n_i}\otimes \mathrm H^1_{\mathrm{\acute et}}(A_{K^{\mathrm{sep}}},\QQ_\ell)^{\lor\otimes m_i}(p_i),\]
+	where the $n_\bullet$s, $m_\bullet$s, and $p_\bullet$s are some nonnegative integers, fixed by the action of $\op{Gal}(K^{\mathrm{sep}}/K)$
+\end{definition}
+\begin{remark} \label{rem:tate-class-by-monodromy}
+	We remark as in \Cref{cor:hodge-classes-by-mt} that a vector $v$ as above is a Tate class if and only if it is fixed by the indcued action by $G_\ell(A)$. Indeed, the subset of $\op{GL}\left(\mathrm H^1_{\mathrm{\acute et}}(A_{K^{\mathrm{sep}}},\QQ_\ell)\right)$ fixing $v$ is some algebraic $\QQ_\ell$-subgroup, so if it contains the image of $\op{Gal}\left(K^{\mathrm{sep}}/K\right)$, then it contains $G_\ell(A)$. We also take a moment to note that \Cref{prop:reductive-group-by-invariants} explains that one can now cut out $G_\ell(A)$ by requiring it to hold all the Tate classes invariant, as discussed in \Cref{cor:mt-by-classes}.
+\end{remark}
+Analogous to \Cref{conj:hodge}, one has a Tate class, which we will only state for abelian varieties.
+\begin{conj}[Tate] \label{conj:tate}
+	Fix an abelian variety $A$ over a number field $K$, and fix a prime number $\ell$. Then any Tate class can be written as a $\QQ_\ell$-linear combination of classes arising from algebraic subvarieties of powers of $A$.
+\end{conj}
+\begin{remark}
+	Of course, there are Tate classes and there is a Tate conjecture for more general varieties.
+\end{remark}
+We conclude this section with a few bounds on the $\ell$-adic monodromy group, analogous to the discussion for Mumford--Tate groups in \cref{subsec:mt-class-bounds}. Let's begin with endomorphisms.
+\begin{lemma} \label{lem:l-adic-monodromy-commutes-with-endo}
+	Fix an abelian variety $A$ over a field $K$, and suppose $\ell$ is a prime such that $\op{char}K\nmid\ell$. Set $D\coloneqq\op{End}_K(A)\otimes_\ZZ\QQ$. Then
+	\[G_\ell(A)\subseteq\left\{g\in\op{GL}\left(\mathrm H^1_{\mathrm{\acute et}}(A_{K^{\mathrm{sep}}},\QQ_\ell)\right):g\circ d=d\circ g\text{ for all }d\in D\right\}.\]
+\end{lemma}
+\begin{proof}
+	We proceed as in \Cref{lem:mt-commutes-with-endo}. The right-hand group is an algebraic $\QQ_\ell$-group, so it suffices to check that it contains the image of $\op{Gal}(K^{\mathrm{sep}}/K)$. Well, for any $g\in\op{Gal}(K^{\mathrm{sep}}/K)$, we see that
+	\[g\circ d=d\circ g\]
+	is an equality which holds on the level of endomorphisms of $A$ because $d$ is defined over $K$ (which $g$ fixes).
+\end{proof}
+\begin{lemma} \label{lem:l-adic-monodromy-commutes-polarization}
+	Fix an abelian variety $A$ over a field $K$, and suppose $\ell$ is a prime such that $\op{char}K\nmid\ell$. Choose a polarization $\varphi\colon A\to A^\lor$. Then there is a perfect symplectic pairing $e_\varphi$ such that
+	\[G_\ell(A)\subseteq\left\{g\in\op{GL}\left(\mathrm H^1_{\mathrm{\acute et}}(A_{K^{\mathrm{sep}}},\QQ_\ell)\right):e_\varphi(gv\otimes gw)=\lambda(g)e_\varphi(v\otimes w)\text{ for fixed }\lambda(g)\in\QQ_\ell\right\}.\]
+\end{lemma}
+\begin{proof}
+	We proceed as in \Cref{lem:mt-commutes-polarization}. The right-hand group is an algebraic $\QQ_\ell$-group, so it suffices to check that it contains the image of $\op{Gal}(K^{\mathrm{sep}}/K)$. Well, for any $g\in\op{Gal}(K^{\mathrm{sep}}/K)$, we see that
+	\[e_\varphi(gv\otimes gw)=ge_\varphi(v\otimes w)\]
+	by the Galois-invariance of \Cref{lem:weil-pairing-h1}. Now, we note that $\op{Gal}(K^{\mathrm{sep}}/K)$ acts on $\QQ_\ell(-1)$ through the cyclotomic character, so the right-hand side equals a scalar $\lambda(g)$ times $e_\varphi(v\otimes w)$, so we are done.
+\end{proof}
+\begin{remark}
+	There are of course alternate proofs of \Cref{lem:l-adic-monodromy-commutes-with-endo,lem:l-adic-monodromy-commutes-polarization} by finding Tate classes and then appealing to \Cref{rem:tate-class-by-monodromy}. One uses the same classes constructed in the alternate proofs of \Cref{lem:mt-commutes-with-endo,lem:mt-commutes-polarization}.
+\end{remark}
+Lastly, we would like to recover the bound of \Cref{cor:mt-fixes-av-endos} on endomorphisms, sharpening \Cref{lem:l-adic-monodromy-commutes-with-endo}. However, the proof is not so easy: the proof of \Cref{cor:mt-fixes-av-endos} had to translate endomorphisms of the Hodge structure back to endomorphisms of the abelian variety via \Cref{thm:riemann}. Recovering the equivalence of \Cref{thm:riemann} is rather difficult: this result is due to Faltings \cite[Theorem~3]{faltings-mordell}, in his proof of Mordell's conjecture.
+\begin{theorem}[Faltings] \label{thm:faltings}
+	Fix an abelian variety $A$ over a number field $K$, and suppose $\ell$ is a prime. Then the induced map
+	\[\op{End}_K(A)\otimes_\ZZ\QQ_\ell\to\op{End}_{\op{Gal}(\ov K/K)}\left(\mathrm H^1_{\mathrm{\acute et}}(A_{\ov K},\QQ_\ell)\right)\]
+	is an isomorphism.
+\end{theorem}
+We will definitely not attempt to summarize a proof here, but we will remark that it is not even totally obvious that this map is injective! Speaking from experience, this makes for a reasonable topic for a final term paper in a first course in algebraic geometry.
+\begin{remark} \label{rem:faltings-is-tate-conj}
+	Via the isomorphism
+	\[\op{End}_{\QQ_\ell}\left(\mathrm H^1_{\mathrm{\acute et}}(A_{\ov K},\QQ_\ell)\right)\cong\mathrm H^1_{\mathrm{\acute et}}(A_{\ov K},\QQ_\ell)\otimes\mathrm H^1_{\mathrm{\acute et}}(A_{\ov K},\QQ_\ell)^\lor,\]
+	we see that \Cref{thm:faltings} can be viewed as asserting that all the Tate classes in the above space arise from endomorphisms of $A$. This verifies \Cref{conj:tate}.
+\end{remark}
+\begin{remark}
+	We have snuck in the hypothesis that $K$ is a number field into the statement of \Cref{thm:faltings}. It is also true for finite fields, where it is due to Tate \cite{tate-endomorphisms}. However, it is not expected to be true in general!
+\end{remark}
+We are now able to provide a satisfying analogue to \Cref{lem:mt-hg-fixes-endos}.
+\begin{corollary}
+	Fix an abelian variety $A$ over a number field $K$, and suppose $\ell$ is a prime. Then the natural map
+	\[\op{End}_K(A)\otimes_\ZZ\QQ_\ell\to\op{End}_{G_\ell(A)}\left(\mathrm H^1_{\mathrm{\acute et}}(A_{\ov K},\QQ_\ell)\right)\]
+	is an isomorphism.
+\end{corollary}
+\begin{proof}
+	\Cref{rem:faltings-is-tate-conj} explains that the endomorphisms of $A$ are exactly the Tate classes, so the result follows from the discussion in \Cref{rem:tate-class-by-monodromy}.
+\end{proof}
+\begin{remark}
+	The above corollary allows us to prove the following analogue of \Cref{prop:cm-is-mt-torus} (by the same proof!): $A$ has CM defined over a number field $K$ if and only if $G_\ell(A)$ is a torus.
+\end{remark}
+% main theorem of cm?
+
+\subsection{The Mumford--Tate Conjecture}
+Over the next two subsections, we will explain some tools used to compute $G_\ell(A)$. In this subsection, we will discuss $G_\ell(A)^\circ$. Suppose that $A$ is defined a number field $K$.
+
+A motivic perspective would have us hope that all the monodromy groups attached to $A$ are essentially the same. However, as explained in \Cref{rem:k-conn-a}, we only expect $G_\ell(A)$ to be connected after an extension $K$. Thus, for example, one can only hope that $\op{MT}(A)$ knows about $G_\ell(A)^\circ$. We may now state the following conjecture.
+\begin{conj}[Mumford--Tate] \label{conj:mt}
+	Fix an abelian variety $A$ defined over a number field $K$. For all primes $\ell$, we have
+	\[\op{MT}(A)_{\QQ_\ell}=G_\ell(A)^\circ\]
+	as subgroups of $\op{GL}\left(\mathrm H^1_{\mathrm{\acute et}}(A,\QQ_\ell)\right)$. Here, $\op{MT}(A)$ is embedded into this group by the Betti-to-\'etale comparison isomorphism.
+\end{conj}
+Our work in \cref{chap:hodge} provides many tools for computing $\op{MT}(A)$, so \Cref{conj:mt} would allow us to translate this knowledge into a computation of $G_\ell(A)^\circ$. Even though \Cref{conj:mt} is not fully proven, there is a lot known. For example, \Cref{thm:faltings} provides a suitable analogue of \Cref{thm:riemann}, telling us that both groups $\op{MT}(A)$ and $G_\ell(A)$ cut out endomorphisms in $\op{End}(A)$.
+% mumford--tate conjecture
+% some of what is known: dims <= 3, products, equal centers, independence of l, inclusion
+% proof of MT for CM?
+% proof of MT for type iv rel dim 2 (cite equality of centers)
+
+\subsection{Computing \texorpdfstring{$\ell$}{l}-Adic Monodromy} \label{subsec:compute-gl-from-gl0}
+% spaces of tate classes
+% S8.2 of GGL
+
+\section{The Sato--Tate Conjecture}
+
+\subsection{The Sato--Tate Group}
+% define the sato--tate group
+% state the conjecture
+% discuss some of what is known
+% mtc implies astc?
+
+\subsection{Some Examples}
+% work out y^9 = x(x-1)(x-lambda) for both generic and some special lambda
+
+\subsection{Some Moment Sequences}
+% elliptic curves
+% y^9 = x(x-1)(x-lambda) first few moments
+
+\end{document}

@@ -1048,7 +1048,7 @@ We will go through the various properties in an example: we will take $G=\op{GL}
 if $\op{GL}_2(\ZZ)$. Then one can define $K_0(N)_p$ as the corresponding subgroup of $\ZZ_p$, and we define $K_0(N)\subseteq\op{GL}_2(\AA_F)$ as the product over all $p$s.
 
 Now, by strong approximation, one has an isoorphism
-\[\HH/\Gamma_0(N)\cong\op O_2(\RR)\backslash\op{GL}_2(\RR)/\Gamma_0(N)\cong\Gamma_0(\op{GL}_2(\AA_\QQ)/K_0(N).\]
+\[\HH/\Gamma_0(N)\cong\op O_2(\RR)\backslash\op{GL}_2(\RR)/\Gamma_0(N)\cong\Gamma_0(N)\op{GL}_2(\AA_\QQ)/K_0(N).\]
 As such, we will define $\varphi_f$ on $\op{GL}_2(\AA_F)$ as $f(g_\infty i)j(g_\infty i)^{-k}$, where $g_\infty$ is some matrix in $\op{GL}_2(\RR)$, and $j$ is the automorphy factor seen in modular forms.
 
 Let's now go through our definitions to check on $\varphi_f$.
@@ -1108,5 +1108,67 @@ With the time we have left, let's define an automorphic representation.
 \begin{definition}
 	Recall that there is an action of $(\mf g_\infty,K_\infty)\times G(\AA_F^\infty)$ action on the space of automorphic forms $\mc A$. An \textit{automorphic representation} is an irreducible admissible module over $(\mf g_\infty,K_\infty)\times G(\AA_F^\infty)$ which is isomorphic to a subquotient of $\mc A$.
 \end{definition}
+
+\section{December 4: Andrew Cheng Jr}
+Today we are talking about Eisenstein series.
+
+\subsection{Parabolic Subgroups}
+Throughout today, $G$ is a connected reductive group over a field $K$. In the sequel, $K$ is typically a number field, but we will not ask for this for now.
+\begin{definition}[parabolic]
+	Fix a connected reductive group $G$ over a field $K$, and let $B_{\ov K}\subseteq G_{\ov K}$ be a Borel subgroup. An algebraic subgroup $P\subseteq G$ is \textit{parabolic} if and only if $P_{\ov K}$ contains $B_{\ov K}$.
+\end{definition}
+Notably, parabolic subgroups are not required to be reductive. However, a Levi decomposition recovers reductivity.
+\begin{definition}[Levi subgroup]
+	Fix a parabolic subgroup $P$ of a connected reductive group $G$ over a field $K$. Let $U\subseteq P$ be the unipotent radical. Then there is a reductive subgroup $M\subseteq P$ such that there is an almost direct product
+	\[P=MU.\]
+	We call $M$ the \textit{Levi subgroup}. Also, we may write $A_M$ for the maximal split torus in $M$.
+\end{definition}
+We will not show that $M$ exists. Lastly, we will want the following terminology.
+\begin{definition}[cuspidal]
+	Fix a connected reductive group $G$ over a field $K$. For a parabolic subgroup $P\subseteq G$, we will call $P(K)\subseteq G(K)$ a \textit{cuspidal subgroup}. We may then call the pair $(P(K),A_M)$ a \textit{cuspidal pair} of $G(K)$. We may say that two cuspidal pairs $(P(K),A_M)$ and $(P'(K),A_{M'})$ are \textit{associate} if and only if $A_M$ and $A_{M'}$ are conjugate in $G(K)$.
+\end{definition}
+\begin{remark}
+	The relevance of these definitions for us is that an automorphic form $\varphi$ is cuspidal if and only if we have
+	\[\int_U\varphi(xu)\,du=0\]
+	for all $x\in G(K)$, where $U$ varies over the unipotent radicals of the parabolic subgroups of $G$.
+\end{remark}
+Let's see an example. Take $G=\op{SL}_2(\RR)$. Then one has an Iwasawa decomposition $G=KAU$ with $K=\op{SO}_2(\RR)$, and
+\[A\coloneqq\left\{\begin{bmatrix}
+	e^t \\ & e^{-t}
+\end{bmatrix}:t\in\RR\right\},\]
+and
+\[U\coloneqq\left\{\begin{bmatrix}
+	1 & x \\ & 1
+\end{bmatrix}:u\in\RR\right\}.\]
+Namely, we may write any element of $G$ uniquely as $r(\theta)e(t)u(x)$, where $r(\theta)$ is rotation by $\theta$, and $e(t)$ and $u(x)$ are defined as above.
+
+\subsection{Eisenstein Series}
+Let's begin with a quick-and-dirty definition of the Eisenstein series. Fix a discrete arithmetically defined subgroup $\Gamma$ of $G(K)$, and choose a cuspidal pair $(P(K),A_M)$.
+\begin{example}
+	Continuing with $G=\op{SL}_2$, one can take $K=\QQ$ and $\Gamma=\op{SL}_2(\ZZ)$.
+\end{example}
+Our Eisenstein series is
+\[E(g,\varphi,\Lambda)\coloneqq\sum_{\gamma\in\Gamma/\Gamma\cap P(k)}\varphi(\gamma g)\exp\big(\Lambda(H(\gamma g))+\rho(H(\gamma g))\big).\]
+Here, $\Lambda$ is a linear functional on $\op{Lie}A_M$, $H\colon G(\AA_F)\to A_M$ is some function, and $\rho$ is the half sum of the positive roots appearing in $P$. The definition of $H$ is somewhat technical, so we are omitting it.
+\begin{example}
+	Take $G=\op{SL}_2(\RR)$ and $\Gamma=\op{SL}_2(\ZZ)$. In this case, $H$ sends $r(\theta)e(t)u(x)$ to $t$, and our Eisenstein series collapses into
+	\[\frac12\sum_{\gamma\in\Gamma/(\Gamma\cap U(K))}e^{(\lambda-1)H(x\gamma)}.\]
+	Writing out $x$ and $\gamma$ out as $2\times2$ matrices, one finds that this equals
+	\[\frac12\sum_{\gamma\in\Gamma/(U\cap\Gamma)}\left|(x\gamma)_1\right|^{\lambda-1},\]
+	where $(g)_1=\left(a^2+c^2\right)^{1/2}$ when $g=\begin{bsmallmatrix}
+		a & b \\ c & d
+	\end{bsmallmatrix}$. The punchline is that this is the usual Eisenstein series. For example, there is a way to give this a meromorphic continuation, and there is a functional equation.
+\end{example}
+Here is a quick application, which tells us at least that our definition knows a little about group theory.
+\begin{proposition}
+	Fix cuspidal pairs $(P(K),A_M)$ and $(P'(K),A_{M'})$. Then they are associate if and only if there are $(g,\varphi,\Lambda)$ as above such that
+	\[\int_{U'/(\Gamma\cap U')}E(ug,\varphi,\Lambda)\,du\ne0.\]
+\end{proposition}
+Let's close with another applications: the Eisenstein series produces the continuous spectrum.
+\begin{theorem}
+	Let $G$ be a connected reductive group over a number field $K$, and suppose that there all split tori in $G$ are trivial. Then $[G]=G(K)\backslash G(\AA_K)$. Note that $G(\AA_K)$ acts on $L^2([G])$ be right translation. Then spectral theory providesa decomposition
+	\[L^2([G])=L^2_{\mathrm{disc}}([G])\oplus L^2_{\mathrm{cont}}([G]).\]
+	In this case, $L^2_{\mathrm{cont}}([G])$ contains integrals parameterized by Eisenstein series, and $L^2_{\mathrm{disc}}([G])$ is conjecturally spanned by a cuspidal part and residues of some Eisenstein series.
+\end{theorem}
 
 \end{document}

@@ -4,12 +4,12 @@
 
 \begin{document}
 
-\chapter{A Little Hodge Theory}
+\chapter{A Little Hodge Theory} \label{chap:hodge}
 
 \epigraph{Once we explicitely know a Mumford-Tate group, we can let it work for us.}
 {---Moonen, \cite[(5.5)]{moonen-mumford-tate-intro}}
 
-In this chapter, we define the notion of a Hodge structure as well as some related groups (the Mumford--Tate group and the Hodge group). Our exposition follows Moonen's unpublished notes \cite{moonen-mumford-tate-intro,moonen-mumford-tate} and Lombardo's master's thesis \cite[Chapter~3]{lombardo-mumford-tate}. Throughout, we find motivation from geometry (and in particular the cohomology of complex varieties), but this discussion is not technically necessary.
+In this chapter, we define the notion of a Hodge structure as well as some related groups (the Mumford--Tate group and the Hodge group). Our exposition follows Moonen's unpublished notes \cite{moonen-mumford-tate-intro,moonen-mumford-tate} and Lombardo's master's thesis \cite[Chapter~3]{lombardo-mumford-tate}. Throughout, we find motivation from geometry (and in particular the cohomology of complex varieties), but we will review cohomology only later.
 
 \section{Hodge Structures}
 Cohomology of a variety frequently comes with some extra structure. On the \'etale site, we will later get significant utility of the fact that \'etale cohomology is a Galois representaion. On the analytic site, the corresponding structure is called a ``Hodge structure.''
@@ -30,7 +30,7 @@ Here is our defintion.
 \begin{example}
 	Given a complex projective smooth variety $X$, the Betti cohomology $\mathrm H^n_{\mathrm B}(X,\QQ)$ admits a Hodge structure via the comparison isomorphisms: we find that
 	\[\mathrm H^n_{\mathrm B}(X,\CC)\simeq\bigoplus_{p+q=n}\mathrm H^{p,q}(X),\]
-	where $\mathrm H^{p,q}(X)\coloneqq\mathrm H^q(X,\Omega_{X/\CC}^p)$. (For technical reasons, one wants to say that $\mathrm H^n_{\mathrm B}(X,\QQ)$ has weight $-n$.) This construction is even functorial: a morphism of complex projective smooth varieties $\varphi\colon X\to Y$ induces a morphism of Hodge structures $\varphi^*\colon\mathrm H^n_{\mathrm B}(Y,\QQ)\to\mathrm H^n_{\mathrm B}(X,\QQ)$.
+	where $\mathrm H^{p,q}(X)\coloneqq\mathrm H^q(X,\Omega_{X/\CC}^p)$. This construction is even functorial: a morphism of complex projective smooth varieties $\varphi\colon X\to Y$ induces a morphism of Hodge structures $\varphi^*\colon\mathrm H^n_{\mathrm B}(Y,\QQ)\to\mathrm H^n_{\mathrm B}(X,\QQ)$.
 \end{example}
 % The category $\op{HS}_\QQ$ becomes a faithful rigid tensor abelian subcategory of $\op{Vec}_\QQ$, where the forgetful functor is able to act as a fiber functor. As such, Tannakian formalismso we expect $\op{HS}_\QQ$ should arise from representations of some group. Let's explain how this is done.
 Perhaps one would like to check that the category $\mathrm{HS}_\QQ$ is abelian. The quickest way to do this is to realize $\mathrm{HS}_\QQ$ as a category of representations of some group. The relevant group is the Deligne torus.
@@ -93,7 +93,7 @@ Thus, we see immediately the category $\mathrm{HS}_\QQ$ is abelian. Additionally
 	\[V(m)\coloneqq V\otimes\QQ(m).\]
 \end{notation}
 
-\subsection{Hodge Classes}
+% \subsection{Hodge Classes}
 We conclude this section by explaining one important application of Hodge structures.
 \begin{definition}[Hodge class]
 	Fix a $\QQ$-Hodge structure $V$. A \textit{Hodge class} of $V$ is an element of $V\cap V^{0,0}$.
@@ -127,7 +127,7 @@ We are not interested in proving (cases of) the Hodge conjecture in this thesis,
 
 \subsection{Polarizations}
 Here is an important example of a morphism of Hodge structures.
-\begin{definition}[polarization]
+\begin{definition}[polarization] \label{def:polarization}
 	Fix a Hodge structure $V\in\mathrm{HS}_\QQ$ pure of weight $m$ given by the representation $h\colon\mathbb S\to\op{GL}(V)_\RR$. A \textit{polarization} on $V$ is a morphism $\varphi\colon V\otimes V\to\QQ(-m)$ of Hodge structures such that the induced bilinear form on $V_\RR$ given by
 	\[\langle v,w\rangle\coloneqq(2\pi i)^m\varphi(h(i)v\otimes w)\]
 	is symmetric and positive-definite. If $V$ admits a polarization, we may say that $V$ is \textit{polarizable}, and we let $\op{HS}_\QQ^{\mathrm{pol}}\subseteq\op{HS}_\QQ$ be the full subcategory of polarizable $\QQ$-Hodge structures.
@@ -243,7 +243,7 @@ We are now ready to state the Albert classification, which classifies division a
 		\item Type I: $D$ is a totally real number field so that $D=F=F^\dagger$, and $(\cdot)^\dagger$ is the identity.
 		\item Type II: $D$ is a totally indefinite quaternion division algebra over $F$ where $F=F^\dagger$, and $(\cdot)^\dagger$ corresponds to the transpose on $D\otimes_\QQ\RR\cong M_2(\RR)$.
 		\item Type III: $D$ is a totally definite quaternion division algebra over $F$ where $F=F^\dagger$, and $(\cdot)^\dagger$ corresponds to the canonical involution on $D\otimes_\QQ\RR\cong\HH$ (where $\HH$ is the quaternions).
-		\item Type IV: $D$ is a division algebra over $F$, where $F$ is a totally imaginary quadratic extension of $F^\dagger$, and $(\cdot)^\dagger$ is the complex conjugation automorphism of $F$.
+		\item Type IV: $D$ is a division algebra over $F$, where $F$ is a totally imaginary quadratic extension of $F^\dagger$, and $(\cdot)^\dagger$ is the complex conjugation automorphism of $F$. In other words, $F$ is a CM field, and $F^\dagger$ is the maximal totally real subfield.
 	\end{itemize}
 \end{theorem}
 \begin{proof}
@@ -422,7 +422,7 @@ It is worthwhile to note that there is also a tensor characterization of $\op{Hg
 \section{Computational Tools}
 In this section, we provide some discussion which will help the computations used later in this thesis.
 
-\subsection{Bounding with Known Classes}
+\subsection{Bounding with Known Classes} \label{subsec:mt-class-bounds}
 Here, we use endomorphisms and the polarization to bound the size of $\op{MT}(V)$ and $\op{Hg}(V)$.
 \begin{lemma} \label{lem:mt-hg-reductive}
 	Fix a polarizable Hodge structure $V\in\op{HS}_\QQ$ of pure weight. Then $\op{MT}(V)$ and $\op{Hg}(V)$ are reductive.
@@ -570,8 +570,8 @@ One can upgrade this example as follows.
 		\item We claim that $\op{Hg}\left(V_1^{\oplus m_1}\oplus\cdots\oplus V_k^{\oplus m_k}\right)$ lives in the image of $(\Delta_1,\ldots,\Delta_k)$. Indeed, the image is some algebraic $\QQ$-subgroup of $\op{GL}\left(V_1^{\oplus m_1}\oplus\cdots\oplus V_k^{\oplus m_k}\right)$, so we would like to check that this algebraic $\QQ$-subgroup contains the image of $h|_{\mathbb U}$. Well, for any $z\in\mathbb U(\RR)$, we see that
 		\[h(z)=(\Delta_1(h_1(z)),\ldots,\Delta_k(h_k(z)))\]
 		lives in the image of $(\Delta_1,\ldots,\Delta_k)$.
-		\item For each $i$, let $H_i$ be the projection of $\op{Hg}\left(V_1^{\oplus m_1}\oplus\cdots\oplus V_k^{\oplus m_k}\right)$ onto one of the $V_i$ components as in \Cref{lem:product-of-hg}; the choice of $V_i$ component does not matter by the previous step. By \Cref{lem:product-of-hg}, we see that $H_i=\op{Hg}(V_i)$. However, the previous step requires
-		\[\op{Hg}\left(V_1^{\oplus m_1}\oplus\cdots\oplus V_k^{\oplus m_k}\right)=H_1^{m_1}\times\cdots\times H_k^{m_k},\]
+		\item For each $i$, let $H_i$ be the projection of $\op{Hg}\left(V_1^{\oplus m_1}\oplus\cdots\oplus V_k^{\oplus m_k}\right)$ onto one of the $V_i$ components as in \Cref{lem:product-of-hg}; the choice of $V_i$ component does not matter by the previous step. By \Cref{lem:product-of-hg}, we see that $H_i=\op{Hg}(V_i)$. However, the previous step now requires
+		\[\op{Hg}\left(V_1^{\oplus m_1}\oplus\cdots\oplus V_k^{\oplus m_k}\right)=\Delta_1(H_1)\times\cdots\times \Delta_k(H_k),\]
 		so we are done.
 		\qedhere
 	\end{enumerate}
@@ -680,7 +680,7 @@ In practice, it is somewhat difficult to check (ii) of \Cref{lem:ribet-product}.
 		\end{align*}
 
 		\item We complete the proof. The previous step provides a morphism $e\colon V_i\to V_j$ of $\mf g$-representations. We thus note that the composite
-		\[\bigoplus_{k\in I(\mf l)}V_k\onto V_i\stackrel e\to V_j\into\bigoplus_{k\in I(\mf l)}V_k\]
+		\[\bigoplus_{i'\in I(\mf l)}V_{i'}\onto V_i\stackrel e\to V_j\into\bigoplus_{i'\in I(\mf l)}V_{i'}\]
 		is an endomorphism which does not come from the diagonal inclusion of $\prod_{i\in I(\mf l)}\op{End}_{\mf g_i}(V_i)$. This completes the proof by showing that the third point of (ii) fails to hold.
 		\qedhere
 	\end{enumerate}
@@ -699,7 +699,7 @@ Let's begin with some motivation. Fix a Hodge struture $V\in\op{HS}_\QQ$. In the
 
 In \Cref{prop:hodge-semisimple-not-type-iv}, we find that $Z(\op{Hg}(V))^\circ$ is trivial unless $V$ has irreducible factors of type IV in the sense of the Albert classification (\Cref{thm:albert-classification}). As such, we spend the rest of the section focusing on computations in type IV. Computations are well-understood when $V$ comes from an abelian variety with complex multiplication, so the main contribution here is that these arguments generalize with only slight modifications.
 
-\subsection{Generalities}
+\subsection{General Comments}
 The following lemma begins our discussion.
 \begin{lemma} \label{lem:hg-center-in-torus}
 	Fix $V\in\op{HS}_\QQ$ of pure weight, and set $D\coloneqq\op{End}_{\op{HS}}(V)$ with $F\coloneqq Z(D)$. Viewing $D$ as a $\QQ$-group, we have
@@ -764,12 +764,12 @@ Here is an application of \Cref{lem:hg-center-in-u-torus}.
 	
 	Set $D\coloneqq\op{End}_{\op{HS}}(V)$ with $F\coloneqq Z(D)$ so that $\op{Hg}(V)\subseteq\mathrm U_F$ by \Cref{lem:hg-center-in-u-torus}. It is therefore enough to check that $\mathrm U_F$ is finite. Well, $F$ is a product of number fields, and upon comparing with \Cref{thm:albert-classification}, we see that avoiding type IV implies that $F$ is a product of totally real fields. Totally real fields have only two units, so finiteness of $\mathrm U_F$ follows.
 \end{proof}
-Thus, we see that we have pretty good control outside of type IV factors, so we will spend the rest of this subsection on type IV. For some applications outside type IV, see (for example) \cite{lombardo-ell-adic-product}.
+Thus, we see that we have pretty good control outside of type IV factors, so we will spend the rest of this section on type IV. For some applications outside type IV, see (for example) \cite{lombardo-ell-adic-product}.
 
-\subsection{Type IV: The Signature}
-The arguments in this subsection are motivated by the computation of \cite[Lemma~4.2]{yu-mumford-tate-cm} and \cite[Proposition~1.1]{yanai-degenerate-cm-type}. For this subsection, $V\in\op{HS}_\QQ$ is a Hodge structure of type IV in the sense of the Albert classification (\Cref{thm:albert-classification}). For brevity, we may say that $V$ is simply ``irreducible of type IV.'' In our application, it will also be enough to assume that the Hodge structure of $V$ is concentrated in $V^{0,1}$ and $V^{1,0}$, so we do so.
+\subsection{Type IV: The Signature} \label{subsec:signature}
+The arguments in the next two subsections are motivated by the computation of \cite[Lemma~4.2]{yu-mumford-tate-cm} and \cite[Proposition~1.1]{yanai-degenerate-cm-type}. For this subsection, $V\in\op{HS}_\QQ$ is a Hodge structure whose irreducible factors are of type IV in the sense of the Albert classification (\Cref{thm:albert-classification}). In our application to abelian varieties, it will also be enough to assume that the Hodge structure of $V$ is concentrated in $V^{0,1}$ and $V^{1,0}$, so we do so.
 
-By assumption, we know that $D\coloneqq\op{End}_{\op{HS}}(V)$ is a division algebra over its center $F\coloneqq Z(D)$, where $F$ is a CM algebra, and the Rosati involution $(\cdot)^\dagger$ restricts to complex conjugation on $F$. In particular, $F^\dagger$ is the product of the maximal totally real subfields of $F$.
+By assumption, we know that $D\coloneqq\op{End}_{\op{HS}}(V)$ is a division algebra over its center $F\coloneqq Z(D)$, where $F$ is a CM algebra (i.e., a product of CM fields), and the Rosati involution $(\cdot)^\dagger$ restricts to complex conjugation on $F$. In particular, $F^\dagger$ is the product of the maximal totally real subfields of $F$.
 % For simplicity, we will assume that
 % \[D=F\]
 % in the sequel.
@@ -779,8 +779,8 @@ The basic approach of this subsection is that \Cref{lem:hg-center-in-torus} requ
 % 	It is worth noting that much of the literature uses character groups; for example, see \cite[Lemma~4.1]{lombardo-non-isgo-av} or \cite[Section~4.1]{ggl-fermat}. However, these arguments do not generalize as well, so we will use cocharacter groups following \cite{yu-mumford-tate-cm}.
 % \end{remark}
 % We will reduce the computation of $Z(\op{Hg}(V))^\circ$ to some explicit computations with matrices.
-We will need a way to work directly with the Hodge structure on $V$. It will be described by the following piece of combinatorial data.
-\begin{definition}[signature]
+We will need a way to work directly with the Hodge structure on $V$. It will be described by the following piece of combinatorial data. Recall that a CM algebra is a product of CM fields.
+\begin{definition}[signature] \label{def:signature}
 	Fix a CM algebra $F$, and recall that $\Sigma_F$ is the set of homomorphisms $F\into\ov\QQ$. Then a \textit{signature} is a function $\Phi\colon\Sigma_F\to\ZZ_{\ge0}$ such that the sum
 	\[\Phi(\sigma)+\Phi(\ov\sigma)\]
 	is constant with respect to $\sigma\in\Sigma_F$; here, $\ov\sigma$ denotes the complex conjugate embedding to $\sigma$. We may call the pair $(F,\Phi)$ a \textit{CM signature}.
@@ -935,7 +935,7 @@ We will only compute over a Galois extension $L/\QQ$ containing all factors of $
 \[g\Bigg(\sum_{\sigma\in\Sigma_F}\Phi(\sigma)\sigma^\lor\Bigg)=\sum_{\sigma\in\Sigma_F}\Phi(\sigma)(g\sigma)^\lor,\]
 where $g$ varies over $\op{Gal}(L/F)$. By computing a basis of the saturation of this sublattice, we get a family of $1$-parameter subgroups of the diagonal torus of $\op{GL}(V)_L$ which together generate $Z(\op{MT}(V))^\circ$. This more or less computes $Z(\op{MT}(V))^\circ$.
 
-\subsection{Type IV: The Reflex}
+\subsection{Type IV: The Reflex} \label{subsec:reflex}
 In the sequel, we will be most interested in equations cutting out $Z(\op{MT}(V))^\circ\subseteq\mathrm T_F$. One could imagine proceeding as above to compute $Z(\op{MT}(V))^\circ\subseteq\mathrm T_F$ via $1$-parameter subgroups and then afterwards finding the desired equations. This is somewhat computationally intensive, so instead we will turn our attention to computing character groups. As in \cite[Lemma~4.2]{yu-mumford-tate-cm}, this will require a discussion of the reflex.
 \begin{definition}[reflex signature]
 	Fix CM fields $F$ and $F^*$ and CM signatures $(F,\Phi)$ and $(F^*,\Phi^*)$. We say that these CM signatures are \textit{reflex} if and only if there is a Galois extension $L/\QQ$ containing $F$ and $F^*$ such that each $\sigma\in\op{Gal}(L/\QQ)$ has

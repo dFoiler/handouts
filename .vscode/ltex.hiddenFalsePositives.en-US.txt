@@ -67,3 +67,8 @@
 {"rule":"PREPOSITION_VERB","sentence":"^\\QHere, \\E(?:Dummy|Ina|Jimmy-)[0-9]+\\Q-preperiodic points are torsion points, which Manin–Mumford asserts is equivalent to being a translate of a subgroup.\\E$"}
 {"rule":"IF_IS","sentence":"^\\QThus, \\E(?:Dummy|Ina|Jimmy-)[0-9]+\\Q if \\E(?:Dummy|Ina|Jimmy-)[0-9]+\\Q if \\E(?:Dummy|Ina|Jimmy-)[0-9]+\\Q, where the almost direct product in the second case is given by embedding \\E(?:Dummy|Ina|Jimmy-)[0-9]+\\Q via scalars.\\E$"}
 {"rule":"VARIETIES_IN_OF","sentence":"^\\QBecause we are reviewing abelian varieties in \\E(?:Dummy|Ina|Jimmy-)[0-9]+\\Q, we will not say more here.\\E$"}
+{"rule":"ADVERB_OR_HYPHENATED_ADJECTIVE","sentence":"^\\QThis map turns out to be a regular closed embedding \\E(?:Dummy|Ina|Jimmy-)[0-9]+\\Q.\\E$"}
+{"rule":"UPPERCASE_SENTENCE_START","sentence":"^\\Ql-adic monodromy group@\\E(?:Dummy|Ina|Jimmy-)[0-9]+\\Q-adic monodromy\\E$"}
+{"rule":"CONFUSION_OF_DECENT_DESCENT","sentence":"^\\QTo receive the dimension restrictions, we note that some descent argument allows us to reduce to the case where \\E(?:Dummy|Ina|Jimmy-)[0-9]+$"}
+{"rule":"CONFUSION_OF_DECENT_DESCENT","sentence":"^\\QTo receive the dimension restrictions, we note that some descent argument allows us to reduce to the case where \\E(?:Dummy|Ina|Jimmy-)[0-9]+\\Q, where we receive an inclusion \\E(?:Dummy|Ina|Jimmy-)[0-9]+\\Q.\\E$"}
+{"rule":"CONFUSION_OF_DECENT_DESCENT","sentence":"^\\QTo receive the dimension restrictions, we note that some descent argument allows us to reduce to the case where \\E(?:Dummy|Ina|Jimmy-)[0-9]+\\Q, where we receive an inclusion \\E(?:Dummy|Ina|Jimmy-)[0-9]+\\Q by \\E(?:Dummy|Ina|Jimmy-)[0-9]+\\Q.\\E$"}

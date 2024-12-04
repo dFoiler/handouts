@@ -23,6 +23,7 @@
 
 \newpage
 
+\setcounter{chapter}{-1}
 \chapter{Introduction}
 \section{Notation}
 Elements.
@@ -47,25 +48,16 @@ Categories.
 	\item For a field $F$, $\op{Vec}_F$ is the category of vector spaces over $F$.
 	\item $\op{HS}_\QQ$ is the category of $\QQ$-Hodge structures.
 \end{itemize}
+Organization is thematic. As such, dependencies are not always strictly linear, though we do our best to not require any content from a later chapter; at times, it is motivational to mention some content from a later chapter, but this is kept to a minimum. Additionally, some omitted proofs may require content from later chapters even if not mentioned.
 % notation
 
 \subfile{chaps/hodge}
 
-\chapter{Review of Abelian Varieties} \label{chap:av}
-% tate module
-% weil pairing/polarizations
-% riemann's theorem
-% albert classification: divisibility constraints
-% mumford--tate conjecture
-% proof of MT for CM?
+\subfile{chaps/abshodge}
 
-\chapter{Absolute Hodge Cycles}
-% go through deligne 82 maybe
-% review of cohomology
-% definition of absolute hodge cycles
-% maybe explain how we get a category of motives
+\subfile{chaps/av}
 
-\subfile{chaps/satotate}
+% \subfile{chaps/satotate}
 
 \subfile{chaps/fermat}
 
