@@ -1173,7 +1173,7 @@ Here is our application.
 	Let $A$ be the Jacobian of the normalization of the proper curve with affine chart $y^9=x(x-1)(x-\lambda)$, where $\lambda$ lives in a number field. Suppose that $A$ does not have complex multiplication. We compute a Haar measure on $\op{ST}(A_K)$ whenever $K$ contains $K_A^{\mathrm{conn}}$.
 \end{proposition}
 \begin{proof}
-	Then the Sato--Tate computation of \Cref{prop:generic-fermat-st} (combined with the conjugacy class computation of \Cref{lem:measure-conj-su2}) reveals that an element of $\op{Conj}(\op{ST}(A))$ can be written as
+	The Sato--Tate computation of \Cref{prop:generic-fermat-st} (combined with the conjugacy class computation of \Cref{lem:measure-conj-su2}) reveals that an element of $\op{Conj}(\op{ST}(A))$ can be written as
 	\begin{align*}
 		&\op{diag}\Bigg(\begin{bmatrix}
 			e^{i\alpha_0} \\ & e^{-i\alpha_0}
@@ -1207,7 +1207,7 @@ Here is our application.
 	Let $A$ be the Jacobian of the normalization of the proper curve with affine chart $y^9=x^3-1$. Suppose that $A$ does not have complex multiplication. We compute a Haar measure on $\op{ST}(A_K)$ whenever $K$ contains $K_A^{\mathrm{conn}}$.
 \end{proposition}
 \begin{proof}
-	Then the Sato--Tate computation of \Cref{prop:special-fermat-st-1} reveals that an element of $\op{Conj}(\op{ST}(A))$ can be written as
+	The Sato--Tate computation of \Cref{prop:special-fermat-st-1} reveals that an element of $\op{Conj}(\op{ST}(A))$ can be written as
 	\begin{align*}
 		&\op{diag}\left(e^{i\alpha_2-i\alpha_1-\alpha_4},e^{i\alpha_1+i\alpha_4-i\alpha_2},e^{-i\alpha_4},e^{i\alpha_1},e^{i\alpha_2},e^{-\alpha_2},e^{-\alpha_1},e^{i\alpha_4},e^{i\alpha_1},e^{i\alpha_2},e^{i\alpha_4},e^{-i\alpha_4},e^{-i\alpha_2},e^{-i\alpha_1}\right)
 	\end{align*}
@@ -1231,11 +1231,9 @@ for various primes $\mf p$ and then compare it with what is expected from
 \[\int_{\op{Conj}(\op{ST}(A))}\tr g\,dg,\]
 where $dg$ refers to the pushforward of the Haar measure from $\op{Conj}(\op{ST}(A))$. One usually expects the above integral to vanish, so one can either look at other coefficients of the characteristic polynomial or at powers of $\tr g$. In the sequel, we will compute with only powers of $\tr g$ for simplicity, but we do remark that one can typically recover the other coefficients via a combination of Vieta's formulae and Newton's sums.
 
-As usual, let's begin with elliptic curves. Here, are explicit formulae are possible.
+As usual, let's begin with elliptic curves. Here, explicit formulae are possible.
 \begin{example}[no complex multiplication]
-	We continue with the elliptic curve $E\colon y^2=x^3+x+1$ over $\QQ$ studied in \Cref{ex:ec-no-cm-st,ex:ec-no-cm-measure}. Fix some integer $m\ge0$. Using the given Haar measure (from \Cref{rem:better-su2-haar-measure}), we find that one expects the average of
-	\[\left\{\left(\tr\frac1{\sqrt{\op N(\mf p)}}\iota\rho_\ell(\mathrm{Frob}_{\mf p})\right)^m\right\}_{\mf p\text{ prime}}\]
-	to be
+	We continue with the elliptic curve $E\colon y^2=x^3+x+1$ over $\QQ$ studied in \Cref{ex:ec-no-cm-st,ex:ec-no-cm-measure}. Fix some integer $m\ge0$. Using the given Haar measure (from \Cref{rem:better-su2-haar-measure}), we find that one expects the average of $\left\{\left(\tr\frac1{\sqrt{\op N(\mf p)}}\iota\rho_\ell(\mathrm{Frob}_{\mf p})\right)^m\right\}_{\mf p\text{ prime}}$ to be
 	\[\int_0^\pi(2\cos\theta)^m\frac2\pi\sin^2\theta\,d\theta=\begin{cases}
 		\frac1{m/2+1}\binom{m}{m/2} & \text{if }m\text{ is even}, \\
 		0 & \text{if }m\text{ is odd},
@@ -1243,9 +1241,7 @@ As usual, let's begin with elliptic curves. Here, are explicit formulae are poss
 	where the last equality is verified by expanding $2\cos\theta=e^{i\theta}+e^{-i\theta}$ and $4\sin^2\theta=2-e^{2i\theta}-e^{-2i\theta}$.
 \end{example}
 \begin{example}[complex multiplication]
-	We continue with the elliptic curve $E\colon y^2=x^3+1$ over $\QQ(\zeta_3)$ studied in \Cref{ex:cm-ec-st,ex:cm-ec-st-measure}. Fix some integer $m\ge0$. Using the given Haar measure, we find that one expects the average of
-	\[\left\{\left(\tr\frac1{\sqrt{\op N(\mf p)}}\iota\rho_\ell(\mathrm{Frob}_{\mf p})\right)^m\right\}_{\mf p\text{ prime}}\]
-	to be
+	We continue with the elliptic curve $E\colon y^2=x^3+1$ over $\QQ(\zeta_3)$ studied in \Cref{ex:cm-ec-st,ex:cm-ec-st-measure}. Fix some integer $m\ge0$. Using the given Haar measure, we find that one expects the average of $\left\{\left(\tr\frac1{\sqrt{\op N(\mf p)}}\iota\rho_\ell(\mathrm{Frob}_{\mf p})\right)^m\right\}_{\mf p\text{ prime}}$ to be
 	\[\int_0^{2\pi}(2\cos\theta)^m\frac1{2\pi}\,d\theta=\begin{cases}
 		\binom{m}{m/2} & \text{if }m\text{ is even}, \\
 		0 & \text{if }m\text{ is odd},
@@ -1253,10 +1249,8 @@ As usual, let's begin with elliptic curves. Here, are explicit formulae are poss
 	where the last equality is verified by expanding $2\cos\theta=e^{i\theta}+e^{-i\theta}$.
 \end{example}
 \begin{example}[complex multiplication]
-	We continue with the elliptic curve $E\colon y^2=x^3+1$ over $\QQ$ studied in \Cref{ex:pot-cm-ec-st,ex:pot-cm-ec-st-measure}. Fix some integer $m\ge0$. Using the given Haar measure, we find that one expects the average of
-	\[\left\{\left(\tr\frac1{\sqrt{\op N(\mf p)}}\iota\rho_\ell(\mathrm{Frob}_{\mf p})\right)^m\right\}_{\mf p\text{ prime}}\]
-	to be
-	\[\int_0^{4\pi}(2\cos\theta)^m\frac1{2\pi}\,d\theta=\begin{cases}
+	We continue with the elliptic curve $E\colon y^2=x^3+1$ over $\QQ$ studied in \Cref{ex:pot-cm-ec-st,ex:pot-cm-ec-st-measure}. Fix some integer $m\ge0$. Using the given Haar measure, we find that one expects the average of $\left\{\left(\tr\frac1{\sqrt{\op N(\mf p)}}\iota\rho_\ell(\mathrm{Frob}_{\mf p})\right)^m\right\}_{\mf p\text{ prime}}$ to be
+	\[\int_0^{2\pi}(2\cos\theta)^m\frac1{4\pi}\,d\theta=\begin{cases}
 		\frac12\binom{m}{m/2} & \text{if }m\text{ is even}, \\
 		0 & \text{if }m\text{ is odd},
 	\end{cases}\]
@@ -1279,7 +1273,7 @@ We now return to $y^9=x(x-1)(x-\lambda)$. Here, we do not attempt to give explic
 		\text{expected} & 1 & 0 & 26 & 0 & 2118 & 0 & 239300 \\
 		\text{actual} & 1.0 & 0.0 & 25 & 6.0 & 2000 & 890 & 220000
 	\end{array}\]
-	Here, the ``actual'' amounts have been rounded to two significant digits, and they were computed by averaging over primes $p<216289$ which were $1\pmod9$; the condition $p\equiv1\pmod9$ corresponds to splitting completely in $\QQ(\zeta_9)$ (see \Cref{rem:only-use-split-complete-st}). These ``actual'' amounts suggest that $K_A^{\mathrm{conn}}=\QQ(\zeta_9)$, a fact which we will verify in the next chapter.
+	Here, the ``actual'' amounts have been rounded to two significant digits, and they were computed by averaging over primes $p<100000$ which were $1\pmod9$; the condition $p\equiv1\pmod9$ corresponds to splitting completely in $\QQ(\zeta_9)$ (see \Cref{rem:only-use-split-complete-st}). These ``actual'' amounts suggest that $K_A^{\mathrm{conn}}=\QQ(\zeta_9)$, a fact which we will verify in the next chapter.
 \end{example}
 \begin{remark}
 	If one runs the same computation as in the previous example with $y^9=x\left(x^2+1\right)$, one should further restrict primes past $p\equiv1\pmod9$ in order to see the correct moment statistics. This is because now $K_A^{\mathrm{conn}}\ne\QQ(\zeta_9)$.

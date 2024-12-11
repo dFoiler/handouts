@@ -1171,4 +1171,103 @@ Let's close with another applications: the Eisenstein series produces the contin
 	In this case, $L^2_{\mathrm{cont}}([G])$ contains integrals parameterized by Eisenstein series, and $L^2_{\mathrm{disc}}([G])$ is conjecturally spanned by a cuspidal part and residues of some Eisenstein series.
 \end{theorem}
 
+\section{December 11: CJ Dowd}
+Today is the last seminar of the semester! We are talking about the Rankin--Selberg method. We are going to define Rankin--Selberg $L$-functions, which generalizes the construction of $L$-functions for modular forms and the Hecke $L$-functions seen in Tate's thesis. Throughout, we will omit smoothness assumptions and the like.
+
+\subsection{Whittaker Models}
+We begin with a local situation. Let $G$ be a quasi-split reductive group over a nonarchimedean local field $F$. Fix an irreducible admissible unitary representation $V$ of $G$. To set ourselves up, we choose a Borel subgroup $B$ of $G$, we let $N\subseteq B$ be the unipotent radical, and we let $\psi$ be character of $N(F)$. For technical reasons, we want the following notion.
+\begin{definition}[generic]
+	Fix everything above. Then the character $\psi$ is \textit{generic} if and only if $\psi$ is nontrivial on $N_\alpha(F)$ for all simple roots $\alpha$.
+\end{definition}
+We are now ready to move towards Whittaker models.
+\begin{definition}[Whittaker functional]
+	Fix everything above. Then a \textit{$\psi$-Whittaker functional} is a functional $\lambda\colon V\to V$ such that
+	\[\lambda(n\varphi)=\psi(n)\lambda(\varphi)\]
+	for all $n\in N(F)$ and $\varphi\in V$. We then say that $V$ is \textit{$\psi$-generic} if and only if there is a nonzero $\psi$-Whittaker functional.
+\end{definition}
+Note we have two different notions of generic, so let's see how they interact.
+\begin{theorem}
+	Fix everything as above. If $\psi$ is generic, then the space of $\psi$-Whittaker functionals is at most $1$-dimensional.
+\end{theorem}
+The point of $\psi$-genericity, then, is that it ensures that there is an in fact a Whittaker functional.
+\begin{definition}[Whittaker function, Whittaker model]
+	Fix everything as above. Then the space of \textit{$\psi$-Whittaker functions} $\mc W(\psi)$ consists of the smooth functions $W\colon G(F)\to\CC$ such that
+	\[W(ng)=\psi(n)W(g).\]
+	A \textit{$\psi$-Whittaker model} is an embedding $\Lambda\colon V\to\mc W(\psi)$ of $G(F)$-representations, and we let $\mc W(\pi,\psi)$ denotes its image.
+\end{definition}
+\begin{remark}
+	The embedding $\Lambda\colon V\to\mc W(\psi)$ gives rise to a Whittaker functional $\lambda\colon\varphi\mapsto\Lambda(\varphi)(1)$. This in fact forms a bijection between Whittaker functionals and Whittaker models: given a Whittaker functional $\lambda$, we can define $\Lambda$ by sending $\varphi$ to the Whittaker function $g\mapsto\lambda(g\varphi)$.
+\end{remark}
+We now transition to the global situation. This time, $G$ is a quasi-split reductive group over a global field $F$, and we choose $V$ to be a cuspidal automorphic form. We continue letting $B$ be a Borel subgroup, $N\subseteq G$ is its unipotent radical, and $\psi$ is a generic character on $N(\AA_F)$.
+\begin{definition}[global Whittaker function]
+	Fix everything as above. Then a \textit{global $\psi$-Whittaker function} consists of the functions defined by
+	\[W_\psi^\varphi(g)\coloneqq\int_{[N]}\varphi(ng)\ov\psi(n)\,dn\]
+	as $\varphi$ varies over $V$. This has some $N$-invariance baked into it. A \textit{Whittaker model} can be defined analogously to the local situation. We say that $V$ is \textit{$\psi$-generic} if the map $\varphi\mapsto W_\psi^\varphi$ is nonzero.
+\end{definition}
+\begin{example}
+	For $G=\op{GL}_n$, cuspidal implies generic.
+\end{example}
+Here is more explanation of the above.
+\begin{theorem}
+	Consider the group $\op{GL}_n$ over a global field $F$. If $\pi$ is a cuspidal automorphic representation, and $\psi$ is generic, then we have the expansion
+	\[\varphi(g)=\sum_{\gamma\in N_{n-1}(F)\backslash\op{GL}_{n-1}(F)}W_\psi^\varphi\left(\begin{bmatrix}
+		\gamma & 0 \\ 0 & 1
+	\end{bmatrix}g\right).\]
+\end{theorem}
+\begin{example}
+	For $n=2$, this approximately yields the Fourier expansion.
+\end{example}
+\begin{remark}
+	Morally, the point of a Whittaker model is able to give an explicit construction of a representation, permitting computations. For example, for $\op{GL}_1$, then everything comes down to characters, so we are already able to do computations, but higher dimensions require us to do something more complicated like this.
+\end{remark}
+
+\subsection{Rankin--Selberg \texorpdfstring{$L$}{L}-Functions}
+For the remainder of the talk, we will let $G=\op{GL}_n$; it is possible to run constructions like this in more generality (for example, if $\pi$ and $\pi'$ come from different general linear groups), but we will not. Returning to the local theory, $F$ is a nonarchimedean local field, and we will let $\pi$ and $\pi'$ be smooth admissible unitary irreducible representations of $\op{GL}_n$. As usual, we let $\OO_F$ denote the ring of integers, $\mf p$ its maximal ideal, and $q\coloneqq\#(\OO_F/\mf p)$.
+\begin{definition}[local Rankin--Selberg integral]
+	Given $W\in\mc W(\pi,\psi)$ and $\mc W(\pi',\ov\psi)$ and a Schwarz test function $\Phi$ on $F^n$, we define
+	\[\Psi(s,W,W,\Phi)\coloneqq\int_{N_n(F)\backslash\op{GL}_n(F)}W(g)W'(g)\Phi(e_ng)\left|\det g\right|^s\,dg.\]
+	As usual, $e_n\in F^n$ is the last basis vector.
+\end{definition}
+\begin{remark}
+	This integral is analogous to the integrals we saw in Tate's thesis. There, we had a local $\zeta$-function on $G=\op{GL}_1$ equal to
+	\[\int_{F^\times}\chi(x)\Phi(x)\left|x\right|^s\,d^\times x,\]
+	which we see generalizes the above construction. Recall that we showed that when $\chi$ is unramified and $\Phi=1_{\OO_F}$, we found that the integral equals $\left(1-\chi(\mf p)q^{-s}\right)^{-1}$, where $\mf p\subseteq\OO_F$ is the maximal ideal. This was promising because it gave us an Euler factor which we could hope to multiply out to yield a global $\zeta$-function.
+\end{remark}
+And here is our corresponding theorem.
+\begin{theorem}
+	Fix everything as above.
+	\begin{listalph}
+		\item The local Rankin--Selberg integral coverges absolutely for $\Re s>0$.
+		\item $\Psi$ is a rational function of $q^{-s}$.
+		\item There exists a unique polynomial $P_{\pi,\pi'}$ such that $P_{\pi,\pi'}(0)=1$ and
+		\[\langle\Psi(s,W,W',\Phi)\rangle=P_{\pi,\pi'}\left(q^{-s}\right)\CC\left[q^s,q^{-s}\right].\]
+	\end{listalph}
+\end{theorem}
+Morally, we then see that $P_{\pi,\pi'}\left(q^{-s}\right)$ is the greatest common divisor. It is analogous to the local factor we saw in our unramified computation, so we make the following definition.
+\begin{definition}[local $L$-function]
+	Fix everything as above. Then we define the \textit{local $L$-function} as
+	\[L(s,\pi\times\pi')=P_{\pi,\pi'}\left(q^{-s}\right)^{-1}.\]
+\end{definition}
+\begin{remark}
+	We see that $L(s,\pi\times\pi')$ is meromorphic, and one can see that it is holomorphic and non-vanishing for $\Re s\ge1$.
+\end{remark}
+\begin{remark}
+	As usual, one can do a computation when $\pi$ and $\pi'$ are unramified, but we will not do it.
+\end{remark}
+\begin{remark}
+	As one would expect, there is a functional equation: namely, there is some $\gamma(s,\pi\times\pi',\psi)$ such that
+	\[\Psi(1-s,\widetilde W,\widetilde W',\widehat\Phi)=\gamma(s,\pi\times\pi',\psi)\Psi(s,W,W',\Phi),\]
+	where $\widetilde W(g)\coloneqq W(w_ng^{-\intercal})$, where $w_n$ is the long Weyl element. This is essentially the local functional equation we saw in Tate's thesis! One can even define local $\varepsilon$-factors as in Tate's thesis, but we will not do this for time reasons.
+\end{remark}
+We end this talk by returning to the global case. Once again, $G=\op{GL}_n$, but we are now over a global field $F$, and $\pi$ and $\pi'$ are cuspidal unitary representations on $\op{GL}_n(\AA_F)$.
+\begin{definition}[global Rankin--Selberg $L$-function]
+	Fix everything as above. Then the \textit{global Rankin--Selberg $L$-function} is given by
+	\[L(s,\pi\times\pi')\coloneqq\prod_vL(s,\pi_v\times\pi_v),\]
+	where the product is taken over all places $v$ of $F$.
+\end{definition}
+As in Tate's thesis, one is able to prove meromorphic continuation and functional equation; further, the continuation succeeds at being holomorphic unless $\pi'=\pi^\lor$, in which case we can control the poles to be at $s\in\{0,1\}$.
+\begin{remark}
+	From this discussion, one can prove a ``strong multipicity $1$'' result: if $\pi$ and $\pi'$ agree at all but finitely many places, then $\pi=\pi'$. To see this, one notes that $L(\pi^\lor\times\pi,s)$ and $L((\pi')^\lor\times\pi,s)$ equal at all but finitely many places, so one has a pole if and only if the other has a pole! But the first one of course has a pole, so the second one will have a pole at $s=1$, so we must have $\pi'=\pi$.
+\end{remark}
+
 \end{document}
