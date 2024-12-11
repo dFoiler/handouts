@@ -495,7 +495,7 @@ In light of the above two lemmas, we pick up the following notation.
 \end{remark}
 We can also apply \Cref{lem:mt-commutes-with-endo,lem:mt-commutes-polarization} to bound $\op{Hg}(V)$.
 \begin{notation}
-	Fix $V\in\op{HS}_\QQ$ pure of weight $m$ with $D\coloneqq\op{End}_{\op{HS}}(V)$ with polarization $\varphi$. Then we define
+	Fix $V\in\op{HS}_\QQ$ pure of weight $m$ with $D\coloneqq\op{End}_{\op{HS}}(V)$ and polarization $\varphi$. Then we define
 	\[\op{Sp}(\varphi)\coloneqq\{g\in\op{GL}(V):\varphi(gv\otimes gw)=\varphi(v\otimes w)\},\]
 	and
 	\[\op{Sp}_D(\varphi)\coloneqq\op{GL}_D(V)\cap\op{Sp}(\varphi).\]
@@ -507,7 +507,7 @@ We can also apply \Cref{lem:mt-commutes-with-endo,lem:mt-commutes-polarization} 
 \end{remark}
 Thus far, our tools have been upper-bounding $\op{MT}(V)$ and $\op{Hg}(V)$. Here is a tool which sometimes provides a lower bound.
 \begin{lemma} \label{lem:mt-hg-fixes-endos}
-	Fix $V\in\op{HS}_\QQ$, and let $D\coloneqq\op{End}_{\op{HS}}(V)$ be the endomorphism algebra of $V$. Then
+	Fix $V\in\op{HS}_\QQ$ of pure weight, and let $D\coloneqq\op{End}_{\op{HS}}(V)$ be the endomorphism algebra of $V$. Then
 	\[D=\op{End}_\QQ(V)^{\op{MT}(V)}=\op{End}_\QQ(V)^{\op{Hg}(V)}.\]
 \end{lemma}
 \begin{proof}
@@ -560,7 +560,7 @@ With this in mind, let's begin to study Hodge groups of sums of Hodge structures
 	On one hand, we note that $\op{Hg}\left(V^{\oplus n}\right)$ lives inside the diagonal embedding of $\op{Hg}(V)$: note $\op{Hg}\left(V^{\oplus n}\right)\subseteq\op{Hg}(V)^n$ by \Cref{lem:product-of-hg}, and $\op{Hg}\left(V^{\oplus n}\right)$ must live inside the diagonal embedding of $\op{GL}(V)\subseteq\op{GL}\left(V^{\oplus n}\right)$ becuase all components of $h^n\colon\mathbb S\to\op{GL}\left(V^{\oplus n}\right)_\RR$ are equal. On the other hand, the surjectivity of the projections $\op{Hg}\left(V^{\oplus n}\right)\to\op{Hg}(V)$ from \Cref{lem:product-of-hg} implies that $\op{Hg}\left(V^{\oplus n}\right)$ must equal the diagonal embedding of $\op{Hg}(V)$ (instead of merely being contained in it).
 \end{example}
 One can upgrade this example as follows.
-\begin{lemma}
+\begin{lemma} \label{lem:hg-isotypic}
 	Fix Hodge structures $V_1,\ldots,V_k\in\op{Hg}_\QQ$ pure of the same weight, and let $m_1,\ldots,m_k\ge1$ be positive integers. Then the diagonal embeddings $\Delta_i\colon\op{GL}(V_i)\to\op{GL}\left(V_i^{\oplus m_i}\right)$ induce an isomorphism
 	\[\op{Hg}(V_1\oplus\cdots\oplus V_k)\to\op{Hg}\left(V_1^{\oplus m_1}\oplus\cdots\oplus V_k^{\oplus m_k}\right).\]
 \end{lemma}
@@ -689,15 +689,89 @@ In practice, it is somewhat difficult to check (ii) of \Cref{lem:ribet-product}.
 	We should remark on some history. \Cref{lem:ribet-product} is due to Ribet \cite[pp.~790--791]{ribet-galois-action-rm}, but the given formulation is due to Moonen and Zarhin \cite[Lemma~2.14]{moonen-zarhin-fourfold}. In the same lemma, Moonen and Zarhin prove \Cref{lem:mz-product}, and they seem to be the first to recognize the utility of this lemma for computing Hodge groups. For example, Lombardo includes this result in his master's thesis \cite[Lemma~3.3.1]{lombardo-mumford-tate} and includes a generalized version in another paper as \cite[Lemma~3.7]{lombardo-ell-adic-product}, where it is used to compute Hodge groups of certain products of abelian varieties.
 \end{remark}
 \begin{remark}
-	Let's explain how \Cref{lem:mz-product} is typically applied, which is admittedly somewhat different from the application used in this thesis. In the generic case, one expects (i), for example if $\op{Hg}(V)=\op{Sp}_D(\varphi)^\circ$ for $D$ of types I--III as in \Cref{rem:generic-mt}. In this case, one can also check the first condition of (ii) by a direct computation, the second condition of (ii) has no content, and the third condition of (ii) comes from \Cref{lem:mt-hg-fixes-endos}. For more details, we refer to (for example) the applications given in \cite{lombardo-mumford-tate,lombardo-ell-adic-product}.
+	Let's explain how \Cref{lem:mz-product} is typically applied, which is admittedly somewhat different from the application used in this thesis. In the generic case, one expects (i), for example if $\op{Hg}(V)=\op{Sp}_D(\varphi)^\circ$ for $D$ of Types I--III as in \Cref{rem:generic-mt}. In this case, one can also check the first condition of (ii) by a direct computation, the second condition of (ii) has no content, and the third condition of (ii) comes from \Cref{lem:mt-hg-fixes-endos}. For more details, we refer to (for example) the applications given in \cite{lombardo-mumford-tate,lombardo-ell-adic-product}.
 \end{remark}
+
+\subsection{The Lefschetz Group}
+For motivational reasons, we mention the Lefschetz group $\op L(V)$, which contains $\op{Hg}(V)$ but is more controlled. Here is our definition.
+\begin{definition}[Lefschetz group]
+	Fix a polarizable Hodge structure $V\in\op{HS}_\QQ$ of pure weight. Then we define
+	\[\op L(V)\coloneqq\op{Sp}_D(\varphi),\]
+	where $D\coloneqq\op{End}_{\op{HS}}(V)$, and $\varphi$ is a polarization.
+\end{definition}
+Thus, \Cref{rem:hg-commutes-polarization} that $\op{Hg}(V)\subseteq\op L(V)$.
+\begin{remark}
+	Let's interpret $\op L(V)$ geometrically. Roughly speaking, $\op L(V)$ is a form of $\op{Hg}(V)$ which only keeps track of endomorphisms and the polarization instead of keeping track of all Hodge classes. As such, we generically expect $\op{Hg}(V)=\op L(V)$ to hold, but we do not expect it to hold always. (Technically, there are generic cases when we do not expect this equality; for example, if $V$ is irreducible of Type III in ths sense of the Albert classificaiotn \Cref{thm:albert-classification}, then $\op L(V)$ is not connected, so we cannot have equality.) Furthermore, when $\op{Hg}(V)=\op L(V)$, we expect to have strong control on the Hodge classes of $V$; for example, the Hodge conjecture is known in many such cases \cite[Theorem~3.1]{murty-exceptional}.
+\end{remark}
+Computationally, one reason why $\op L(V)$ is more controlled is that it is much easier to compute. For example, $\op L$ behaves well in sums.
+\begin{lemma} \label{lem:lefschetz-sums}
+	Fix pairwise non-isomorphic irreducible polarizable Hodge structures $V_1,\ldots,V_k$ of the same pure weight, and let $m_1,\ldots,m_k\ge1$ be integers. Then the diagonal embeddings $\Delta_i\colon\op{GL}(V_i)\to\op{GL}\left(V_i^{\oplus m_i}\right)$ induce an isomorphism
+	\[\op L(V_1)\times\cdots\times\op L(V_k)\to\op L\left(V_1^{\oplus m_1}\oplus\cdots\oplus V_k^{\oplus m_k}\right).\]
+\end{lemma}
+\begin{proof}
+	The main idea is to compute some endomorphism algebras and polarizations. We proceed in steps. Set $V\coloneqq V_1^{\oplus m_1}\oplus\cdots\oplus V_k^{\oplus m_k}$ for brevity.
+	\begin{enumerate}
+		\item We work with endomorphisms. We may view Hodge structures as $\mathbb S$-representations, whereupon we find that
+		\[\op{End}_{\op{HS}}\left(V\right)=\op{End}_{\op{HS}}(V_1)^{m_1\times m_1}\times\cdots\times\op{End}_{\op{HS}}(V_k)^{m_k\times m_k}.\]
+		In particular, we see that any $f$ commuting with $\op{End}_{\op{HS}}(V)$ implies that $f$ must preserve each $V_i^{\oplus m_i}$ (because there is a separate algebra $\op{End}_{\op{HS}}\left(V_i^{\oplus m_i}\right)$ for each $i$). Further, $f|_{V_i^{\oplus m_i}}$ must come from the diagonal embedding $\op{End}_{\op{HS}}(V_i)\to\op{End}_{\op{HS}}\left(V_i^{\oplus m_i}\right)$ because $\op{End}_{\op{HS}}(V_i)^{m_i\times m_i}$ may swap any of the $m_i$ copies of $V_i$.
+		
+		We conclude that $f$ commutes with endomorphisms implies that
+		\[f=(\Delta_1f_1,\ldots,\Delta_kf_k),\]
+		where $\Delta_i\colon\op{End}(V_i)\to\op{End}\left(V_i^{\oplus m_i}\right)$ is the diagonal embedding, and each $f_i$ commutes with $\op{End}_{\op{HS}}(V_i)$. Conversely, the computation of $\op{End}_{\op{HS}}(V)$ above allows us to conclude that any $f$ in the above form commutes with $\op{End}_{\op{HS}}(V)$.
+
+		\item We work with the polarization. Choose polarizations $\varphi_1,\ldots,\varphi_k$ on $V_1,\ldots,V_k$ (respectively), and we note that these polarizations glue into a polarization $\varphi$ on $V$. With this choice of polarization, we see that $f=(\Delta_1f_1,\ldots,\Delta_kf_k)$ as in the previous step preserves $\varphi$ if and only if each factor $\Delta_if_i$ preserves the polarization $\varphi|_{V_i^{\oplus m_i}}$, which is equivalent to $f_i$ preserving the polarization $\varphi_i$. In total, we thus see that $f\in\op L(V)$ if and only $f_i\in\op L(V_i)$ for each $i$, so we are done.
+		\qedhere
+	\end{enumerate}
+\end{proof}
+\Cref{lem:lefschetz-sums} tells us that we can always reduce the computation of the Lefschetz group to irreducible components. In this way, it now suffices to compute $\op L(V)$ by working with $V$ according to the Albert classification (\Cref{thm:albert-classification}). All these computations are recorded in \cite[Section~2]{milne-lefschetz-group}. Because we will only be interested in Type IV in the sequel, we will only record the part of this computation we need for completeness.
+\begin{lemma} \label{lem:lefschetz-type-iv-1}
+	Fix $V\in\op{HS}_\QQ$ of pure weight with $D\coloneqq\op{End}_{\op{HS}}(V)$ and polarization $\varphi$. Suppose $D=F$ is a CM field. Then
+	\[\op L(V)_\CC\cong\op{GL}_{[V:F]}(\CC)^{\frac12[F:\QQ]}.\]
+\end{lemma}
+\begin{proof}
+	We proceed in steps. Let $F^\dagger\subseteq F$ be the maximal totally real subfield, and choose embeddings $\rho_1,\ldots,\rho_{e_0}\colon F^\dagger\into\RR$, where $e_0\coloneqq\frac12[F:\QQ]$. For each $i$, we will let $\sigma_i$ and $\tau_i$ be complex conjugate embeddings $F\into\CC$ restricting to $\rho_i$.
+	\begin{enumerate}
+		\item We begin by explaining the exponent $e_0=\frac12[F:\QQ]$. Note $V$ is a free $F^\dagger$-module of rank $[V:F]$, so $V_\RR$ is a free module over
+		\[F^\dagger\otimes\RR=\prod_{i=1}^{e_0}F_{\rho_i}^\dagger,\]
+		where $F_{\rho}^\dagger=\RR$ refers to the $F^\dagger\otimes\RR$ module where $F$ acts by $\rho$. The above decomposition of $F\otimes\RR$ implies a decomposition
+		\[V_\RR=V_1\oplus\cdots\oplus V_{e_0},\]
+		where each $V_i$ of a vector space over $F^\dagger_{\rho_i}$, all the same dimension.
+		
+		We now understand the effect of endomorphisms and the polariaztion on our decomposition. Thus, we see that $f\colon V_\RR\to V_\RR$ commutes with $F^\dagger\otimes\RR$ if and only if $f$ preserves each factor $V_i$ (due to the decomposition of $F^\dagger\otimes\RR$) and commute with the action of $F^\dagger_{\rho_i}$ on each $V_i$. Similarly, we see that the polarization $\varphi$ makes the $V_i$s orthogonal: for each $d\in F^\dagger$, we see that any $v_i\in V_i$ and $v_j\in V_j$ has
+		\begin{align*}
+			\rho_i(d)\varphi(v_i,v_j) &= \varphi(dv_i,v_j) \\
+			&= \varphi(v_i,\ov dv_j) \\
+			&= \varphi(v_i,dv_j) \\
+			&= \rho_j(d)\varphi(v_i,v_j),
+		\end{align*}
+		so $i\ne j$ implies that $\varphi(v_i,v_j)=0$. Thus, we see that $\varphi$  must restrict to non-degenerate skew-symmetric bilinear forms on each $V_i$ individually. In total, $f\colon V_\RR\to V_\RR$ preserves $\varphi$ if and only if $f|_{V_i}$ preserves $\varphi|_{V_i}$ for each $i$. In total, we see that
+		\[\op L(V)_\RR=\op{Sp}_{F\otimes_{\rho_1}\RR}(\varphi|_{V_1})\times\cdots\times\op{Sp}_{F\otimes_{\rho_k}\RR}(\varphi|_{V_{e_0}}).\]
+
+		\item It remains to show that $\op{Sp}_{F\otimes_{\rho_i}\RR}(\varphi|_{V_i})_\CC$ is isomorphic to $\op{GL}_{[V:F]}(\CC)$; here, note $[V:F]=[V_i:F_{\rho_i}^\dagger]$. For this, we abstract the situation somewhat: suppose that a vector space $V$ over $\RR$ has been equipped with an action by $\CC\subseteq\op{End}_{\RR}(V)$, and furthermore, $\varphi$ is a skew-Hermitian form on $V$. Then we want to show $\op{Sp}_{\CC}(\varphi)_\CC\cong\op{GL}_{[V:\RR]}(\CC)$. 
+
+		The trick is that we can keep track of commuting with the action of $\CC$ on $V$ by merely commuting with the action of $i\in\CC$. Thus, let $J\colon V\to V$ be this map, which satisfies $J^2=-1$. Now, the action of $J_\CC$ on $V_\CC$ must diagonalize into eigenspaces $V_i\oplus V_{-i}$ with eigenvalues $i$ and $-i$ respectively; note that we must have $\dim V_i=\dim V_{-i}$ in order for the characateristic polynomial of $J$ to have real coefficients. The point is that $f\in\op{End}(V_\CC)$ commutes with the action of $\CC$ if and only if it commutes with the action of $J$, which we can see is equivalent to $f$ preserving the decomposition $V_i\oplus V_{-i}$.
+
+		We now study the polarization $\varphi$. Note that $\varphi$ vanishes on $V_{\pm i}\oplus V_{\pm i}$: for any $v,v'\in V_{\pm i}$, we see that
+		\begin{align*}
+			\pm i\varphi(v,v') &= \varphi(Jv,v') \\
+			&= \varphi(v,-Jv') \\
+			&= \mp i\varphi(v,v'),
+		\end{align*}
+		from which $\varphi(v,v')=0$ follows. For example, this implies that any $f\in\op{End}(V_\CC)$ commuting with the $J$-action will automatically preserve $\varphi$ on $V_{\pm i}\times V_{\pm i}$. Additionally, we see that $\varphi$ must restrict to a non-degenerate bilinear form on $V_i\times V_{-i}$.
+		
+		We are now ready to claim that restriction defines an isomorphism $\op{Sp}_\CC(\varphi)_\CC\to\op{GL}_\CC(V_i)$. This restriction does actually output to $\op{GL}_\CC(V_i)$ because $g\in\op{Sp}_\CC(\varphi)_\CC$ must preserve the decomposition $V_i\oplus V_{-i}$. To see the injectivity, we note that preserving $\varphi$ requires
+		\[\varphi(v,gw)=\varphi\left(g^{-1}v,w\right)\]
+		for all $v\in V_i$ and $w\in V_{-i}$; thus, the non-degeneracy of $\varphi$ implies that $g\in\op{Sp}_\CC(\varphi)_\CC$ is uniquely determined by its action on $V_i$. Conversely, for the surjectivity, we see that we can take any element in $\op{GL}(V_i)$ and use the previous sentence to extend it uniquely to an element of $\op{Sp}_\CC(\varphi)_\CC$.
+		\qedhere
+	\end{enumerate}
+\end{proof}
 
 \section{The Center}
 Our last computational tool concerns the center of $\op{Hg}(V)$. This discussion is somewhat more involved, so we will spend a full section here.
 
 Let's begin with some motivation. Fix a Hodge struture $V\in\op{HS}_\QQ$. In the application of this thesis, we will use \Cref{lem:mz-product} to compute $\op{Hg}(V)^{\mathrm{der}}$: note $\op{Hg}(V)^{\mathrm{der}}$ is semisimple and hence its Lie algebra can be written as the sum of simple Lie algebras which may be amenable to the lemma. Because $\op{Hg}(V)$ is reductive by \Cref{lem:mt-hg-reductive}, it remains to compute the center $Z(\op{Hg}(V))$; recall $\op{Hg}(V)$ is connected by \Cref{rem:hg-connected}, so we may as well compute the connected component $Z(\op{Hg}(V))^\circ$. As usual, the same discussion holds for $\op{MT}(V)$, but we note that $Z(\op{MT}(V))^\circ$ tends to be nontrivial because usually $\mathbb G_{m,\QQ}\subseteq\op{MT}(V)$ by \Cref{ex:mt-has-scalars}.
 
-In \Cref{prop:hodge-semisimple-not-type-iv}, we find that $Z(\op{Hg}(V))^\circ$ is trivial unless $V$ has irreducible factors of type IV in the sense of the Albert classification (\Cref{thm:albert-classification}). As such, we spend the rest of the section focusing on computations in type IV. Computations are well-understood when $V$ comes from an abelian variety with complex multiplication, so the main contribution here is that these arguments generalize with only slight modifications.
+In \Cref{prop:hodge-semisimple-not-type-iv}, we find that $Z(\op{Hg}(V))^\circ$ is trivial unless $V$ has irreducible factors of Type IV in the sense of the Albert classification (\Cref{thm:albert-classification}). As such, we spend the rest of the section focusing on computations in Type IV. Computations are well-understood when $V$ comes from an abelian variety with complex multiplication, so the main contribution here is that these arguments generalize with only slight modifications.
 
 \subsection{General Comments}
 The following lemma begins our discussion.
@@ -757,17 +831,17 @@ Once again, this torus is important enough to earn its own notation.
 \end{notation}
 Here is an application of \Cref{lem:hg-center-in-u-torus}.
 \begin{proposition} \label{prop:hodge-semisimple-not-type-iv}
-	Fix polarizable $V\in\op{HS}_\QQ$ of pure weight. Suppose that $V$ has no irreducible Hodge substructures with endomorphism algebra of type IV in the sense of the Albert classification (\Cref{thm:albert-classification}). Then $Z(\op{Hg}(V))$ is finite, and $\op{Hg}(V)$ is semisimple.
+	Fix polarizable $V\in\op{HS}_\QQ$ of pure weight. Suppose that $V$ has no irreducible Hodge substructures with endomorphism algebra of Type IV in the sense of the Albert classification (\Cref{thm:albert-classification}). Then $Z(\op{Hg}(V))$ is finite, and $\op{Hg}(V)$ is semisimple.
 \end{proposition}
 \begin{proof}
 	Quickly, recall from \Cref{lem:mt-hg-reductive} that $\op{Hg}(V)$ is reductive, so the finitness of $Z(\op{Hg}(V))$ implies that $Z(\op{Hg}(V))^\circ=1$ and thus $\op{Hg}(V)=\op{Hg}(V)^{\mathrm{der}}$, making $\op{Hg}(V)$ is semisimple. (See also \cite[Proposition~19.10]{milne-alg-groups}.) As such, we will focus on the first claim.
 	
-	Set $D\coloneqq\op{End}_{\op{HS}}(V)$ with $F\coloneqq Z(D)$ so that $\op{Hg}(V)\subseteq\mathrm U_F$ by \Cref{lem:hg-center-in-u-torus}. It is therefore enough to check that $\mathrm U_F$ is finite. Well, $F$ is a product of number fields, and upon comparing with \Cref{thm:albert-classification}, we see that avoiding type IV implies that $F$ is a product of totally real fields. Totally real fields have only two units, so finiteness of $\mathrm U_F$ follows.
+	Set $D\coloneqq\op{End}_{\op{HS}}(V)$ with $F\coloneqq Z(D)$ so that $\op{Hg}(V)\subseteq\mathrm U_F$ by \Cref{lem:hg-center-in-u-torus}. It is therefore enough to check that $\mathrm U_F$ is finite. Well, $F$ is a product of number fields, and upon comparing with \Cref{thm:albert-classification}, we see that avoiding Type IV implies that $F$ is a product of totally real fields. Totally real fields have only two units, so finiteness of $\mathrm U_F$ follows.
 \end{proof}
-Thus, we see that we have pretty good control outside of type IV factors, so we will spend the rest of this section on type IV. For some applications outside type IV, see (for example) \cite{lombardo-ell-adic-product}.
+Thus, we see that we have pretty good control outside of Type IV factors, so we will spend the rest of this section on Type IV. For some applications outside Type IV, see (for example) \cite{lombardo-ell-adic-product}.
 
 \subsection{Type IV: The Signature} \label{subsec:signature}
-The arguments in the next two subsections are motivated by the computation of \cite[Lemma~4.2]{yu-mumford-tate-cm} and \cite[Proposition~1.1]{yanai-degenerate-cm-type}. For this subsection, $V\in\op{HS}_\QQ$ is a Hodge structure whose irreducible factors are of type IV in the sense of the Albert classification (\Cref{thm:albert-classification}). In our application to abelian varieties, it will also be enough to assume that the Hodge structure of $V$ is concentrated in $V^{0,1}$ and $V^{1,0}$, so we do so.
+The arguments in the next two subsections are motivated by the computation of \cite[Lemma~4.2]{yu-mumford-tate-cm} and \cite[Proposition~1.1]{yanai-degenerate-cm-type}. For this subsection, $V\in\op{HS}_\QQ$ is a Hodge structure whose irreducible factors are of Type IV in the sense of the Albert classification (\Cref{thm:albert-classification}). In our application to abelian varieties, it will also be enough to assume that the Hodge structure of $V$ is concentrated in $V^{0,1}$ and $V^{1,0}$, so we do so.
 
 By assumption, we know that $D\coloneqq\op{End}_{\op{HS}}(V)$ is a division algebra over its center $F\coloneqq Z(D)$, where $F$ is a CM algebra (i.e., a product of CM fields), and the Rosati involution $(\cdot)^\dagger$ restricts to complex conjugation on $F$. In particular, $F^\dagger$ is the product of the maximal totally real subfields of $F$.
 % For simplicity, we will assume that
