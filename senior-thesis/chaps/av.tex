@@ -517,7 +517,7 @@ We are now able to provide a satisfying analogue to \Cref{lem:mt-hg-fixes-endos}
 \begin{remark} \label{rem:cm-is-l-adic-torus}
 	The above corollary allows us to prove the following analogue of \Cref{prop:cm-is-mt-torus} (by the same proof!): $A$ has CM defined over a number field $K$ if and only if $G_\ell(A)$ is a torus.
 \end{remark}
-While we're here, we remark enough property of $G_\ell(A)$ due to Faltings.
+While we're here, we remark on another property of $G_\ell(A)$ due to Faltings.
 \begin{theorem}[Faltings] \label{thm:monodromy-reductive}
 	Fix an abelian variety $A$ over a number field $K$, and suppose $\ell$ is a prime. Then $G_\ell(A)$ is reductive.
 \end{theorem}
@@ -558,6 +558,12 @@ Our work in \cref{chap:hodge} provides many tools for computing $\op{MT}(A)$, so
 
 Even though \Cref{conj:mt} is not fully proven, there is a lot known. Let's review a small amount. For example, both groups are reductive by \Cref{lem:mt-hg-reductive} and \Cref{thm:monodromy-reductive}. Additionally, \Cref{thm:faltings} provides a suitable analogue of \Cref{thm:riemann}, telling us that both groups $\op{MT}(A)$ and $G_\ell(A)$ cut out endomorphisms in $\op{End}(A)$.
 
+As a philosophical check, one can show that $G_\ell(A)^\circ$ ``contains'' the Hodge structure morphism; the following result is due to Sen \cite[Theorem~1]{sen-operator}.
+\begin{theorem}[Sen] \label{thm:sen-operator}
+	Fix an abelian variety $A$ over a number field $K$. Define the operator $\Phi$ as acting by mutltiplication-by-$i$ on each eigenspace
+	\[\mathrm H^1_{\mathrm{\acute et}}(A_{\ov K},\QQ_\ell)_{\CC_\ell}(i),\]
+	where the $(i)$th eigenspace acts by $i$th power of the cyclotomic character. Then $\op{Lie}G_\ell(A)^\circ$ is the smallest Lie algebra containing $\Phi$.
+\end{theorem}
 Continuing, one inclusion of \Cref{conj:mt} is known, due to Deligne \cite[Corollary~6.2]{deligne-hodge}.
 \begin{theorem}[Deligne]
 	Fix an abelian variety $A$ over a number field $K$. For all primes $\ell$, we have
@@ -584,42 +590,59 @@ Continuing, by combining \cite{ichikawa-alg-groups-av,lombardo-ell-adic-product}
 \end{theorem}
 To give a taste for how some of these results are proven, we show the following, which follows from \cite[Theorem~1.3.4]{vaisu-mt-conjecture}.
 \begin{proposition} \label{prop:mtc-reldim-2}
-	Fix an abelian variety $A$ over a number field $K$. Suppose that $A=A_1\times\cdots\times A_k$, where the $A_i$s are simple abelian varieties such that $\op{End}_{\ov K}(A_i)$ equals a CM field $F_i$ such that $\dim A_i=\dim F_i$ for each $i$. Set $F\coloneqq\op{End}_{\ov K}(A)$, and then we claim the Mumford--Tate conjecture holds for $A$, and
+	Fix a geometrically simple abelian variety $A$ over a number field $K$. Suppose that $F=Z(\op{End}_{\ov K}(A)$ equals a CM field such that $\dim A=\dim F$. Letting $\Phi$ be the corresponding signature, we further suppose that $\Phi(\sigma)=1$ for exactly two $\sigma\in\Sigma_F$. Then we claim the Mumford--Tate conjecture holds for $A$, and
 	\[\op{Hg}(A)^{\mathrm{der}}=\op L(A)^{\mathrm{der}}.\]
 \end{proposition}
 \begin{proof}
-	For special $\ell$, we will actually compute $\op{MT}(A)^{\mathrm{der}}$ and $G_\ell(A)^{\circ,\mathrm{der}}$ ``simultaneously'' to show that they are equal to the suitable version of $\op{GSp}_F(\varphi)^{\mathrm{der}}$ or $\op{GSp}_F(e_\varphi)^{\mathrm{der}}$. By adding in what we know about the centers from \Cref{thm:mtc-torus} (and the independence of $\ell$ given in \Cref{thm:lp-mtc-independence}), the Mumford--Tate conjecture follows for $A$. The outline is to base-change to $\CC$, where the Lie algebra of $\op L(A)^{\mathrm{der}}$ becomes a product of $\mf{sl}_2(\CC)$s, from which we can appeal to \Cref{lem:mz-product}. We proceed in steps
-	\begin{enumerate}
-		\item In practice, it will be convenient to only write down the computation for $\op{MT}(A)^{\mathrm{der}}$, but we will indicate along the way the changes that need to be made for $G_\ell(A)^{\circ,\mathrm{der}}$. Quickly, we note that we may assume that the $A_\bullet$s are pairwise non-isomorphic because all groups involved are immune to adding a factor which already appears (see \Cref{lem:hg-isotypic} for $\op{MT}$, \Cref{lem:lefschetz-sums} for $\op L$, and \Cref{lem:monodromy-isotypic} for $G_\ell$).
-	
-		Now, for brevity, set $V\coloneqq\mathrm H^1_{\mathrm B}(A,\QQ)$ so that $\op{Hg}(A)=\op{Hg}(V)$ and $\op L(A)=\op L(V)$; we remark that $V$ is a free module over $F\coloneqq F_1\times\cdots\times F_k$ of rank $2$. Similarly, we write $V_i\colon\mathrm H^1_{\mathrm B}(A_i,\QQ)$ for each $i$. Recall that $\op{Hg}(V)\subseteq\op{L}(V)$ by \Cref{lem:mt-commutes-polarization} (the $\ell$-adic case uses \Cref{lem:l-adic-monodromy-commutes-polarization}). Thus, to achieve the equality of the derived subgroups, it is enough to achieve the equality after base-changing to an algebraic closure.
+	For special $\ell$, we will actually compute $\op{MT}(A)^{\mathrm{der}}$ and $G_\ell(A)^{\circ,\mathrm{der}}$ ``simultaneously'' to show that they are equal to the suitable version of $\op{GSp}_F(\varphi)^{\mathrm{der}}$ or $\op{GSp}_F(e_\varphi)^{\mathrm{der}}$. By adding in what we know about the centers from \Cref{thm:mtc-torus} (and the independence of $\ell$ given in \Cref{thm:lp-mtc-independence}), the Mumford--Tate conjecture follows for $A$. The outline is to base-change to $\CC$, where the Lie algebra of $\op L(A)^{\mathrm{der}}$ becomes a product of $\mf{sl}_2(\CC)$s, from which we can appeal to \Cref{lem:mz-product}.
 
-		\item We recall some part of the computation from \Cref{lem:lefschetz-type-iv-1}. Fix a polarization $\varphi$ on $V$. For each $i$, let $\rho_{i1},\ldots,\rho_{i,e_{0i}}$ be the embeddings of $F_i^\dagger$ into $\RR$. Then each $i$ finds a decomposition of $V_i$ into
-		\[V_i=V_{i1}\oplus\cdots\oplus V_{ie_{0i}}\]
-		so that
-		\[\op L(V_i)_\RR=\op{Sp}_{F_i\otimes_{\rho_{i1}}\RR}(\varphi|_{V_{i1}})\times\cdots\times\op{Sp}_{F_i\otimes_{\rho_{ie_{0i}}}\RR}(\varphi|_{V_{ie_{0i}}}).\]
-		Thus, \Cref{lem:lefschetz-sums} allows us to expand
-		\[\op L(V)_\RR=\prod_{i=1}^k\op{Sp}_{F_i\otimes_{\rho_{i1}}\RR}(\varphi|_{V_{i1}})\times\cdots\times\op{Sp}_{F_i\otimes_{\rho_{ie_{0i}}}\RR}(\varphi|_{V_{ie_{0i}}}).\]
-		We now also recall from \Cref{lem:lefschetz-type-iv-1} that each $\op{Sp}_{F_i\otimes_{\rho_{ij}}\RR}(\varphi|_{V_{ij}})_\CC$ is isomorphic to $\op{GL}_2(\CC)$; in particular, this group is connected.
+	Before beginning the computation, we set up some notation. In practice, it will be convenient to only write down the computation for $\op{MT}(A)^{\mathrm{der}}$, but we will indicate along the way the changes that need to be made for $G_\ell(A)^{\circ,\mathrm{der}}$. Now, for brevity, set $V\coloneqq\mathrm H^1_{\mathrm B}(A,\QQ)$ so that $\op{Hg}(A)=\op{Hg}(V)$ and $\op L(A)=\op L(V)$; we remark that $V$ is a free module over $F$ of rank $2$.
 
-		\item We would like to show that the inclusion
-		\[\op{Hg}(V)_\CC^{\mathrm{der}}\subseteq\prod_{i=1}^k\op{Sp}_{F_i\otimes_{\rho_{i1}}\RR}(\varphi|_{V_{i1}})_\CC^{\mathrm{der}}\times\cdots\times\op{Sp}_{F_i\otimes_{\rho_{ie_{0i}}}\RR}(\varphi|_{V_{ie_{0i}}})_\CC^{\mathrm{der}}\]
-		is an isomorphism. All groups involved are connected, so we may check this inclusion on the level of the Lie algebra, so we would like for the inclusion
-		\[\op{Lie}\op{Hg}(V)_\CC^{\mathrm{der}}\subseteq\prod_{i=1}^k\op{Lie}\op{Sp}_{F_i\otimes_{\rho_{i1}}\RR}(\varphi|_{V_{i1}})_\CC^{\mathrm{der}}\times\cdots\times\op{Lie}\op{Sp}_{F_i\otimes_{\rho_{ie_{0i}}}\RR}(\varphi|_{V_{ie_{0i}}})_\CC^{\mathrm{der}}\]
-		is surjective. For this, we use \Cref{lem:mz-product}. Here are our checks; for brevity, set $\mf{hg}(V)\coloneqq\op{Lie}\op{Hg}(V)_\CC^{\mathrm{der}}$, and let $\mf{sl}_2(\CC)_{ij}$ be the factor $\op{Lie}\op{Sp}_{F_i\otimes_{\rho_{ij}}\RR}(\varphi|_{V_{ij}})_\CC^{\mathrm{der}}$, which we note is isomorphic to $\mf{sl}_2(\CC)$.
-		\begin{listroman}
-			\item We claim that $\mf{hg}(V)$ surjects onto $\mf{sl}_2(\CC)_{ij}$, which we note is nonzero and simple. Because the $\mf{hg}(V)$ is semisimple, its image in $\mf{sl}_2(\CC)_{ij}$ continues to be reductive. Now, reductive subgroups of $\mf{sl}_2(\CC)$ are either tori of all of $\mf{sl}_2(\CC)$, so we merely need to check that the image cannot be a torus. If the image in some $\mf{sl}_2(\CC)_{ij}$ is a torus, then because the Galois action $\op{Gal}(\CC/\QQ)$ permutes the set $\{V_{ij}\}_j$ (but will fix $\op{Hg}(V)$), we see that the image in $\mf{sl}_2(\CC)_{ij}$ will continue to be a torus for all $j$. Explicitly, we note that the image of $\op{Hg}(V)$ in $\prod_j\op{Sp}_{F_i\otimes_{\rho_{ij}}\RR}(\varphi|_{V_{ij}})_\CC$ needs to be preserved under $\op{Gal}(\CC/\QQ)$, so if the projection is commutative in one factor, then it is commutative in all factors because the $\QQ$-points are dense.\todo{There is no Galois action. This doesn't make sense.}
-			
-			But then we note that $\op{Hg}(V)$ projects onto $\op{Hg}(V_i)$ by \Cref{lem:product-of-hg}, which then has an inclusion into $\op L(V_i)_\CC=\prod_j\op{Sp}_{F_i\otimes_{\rho_{ij}}\RR}(\varphi|_{V_{ij}})_\CC$, where we see it must have commutative image by the preceding paragraph. In particular, $\op{Hg}(V_i)$ must be a torus, so $A_i$ has complex multiplication by \Cref{prop:cm-is-mt-torus}, which is a contradiction to its definition.
+	Continuing with the set-up, we recall some part of the computation from \Cref{lem:lefschetz-type-iv-1}. Fix a polarization $\varphi$ on $V$. Then let $\rho_{1},\ldots,\rho_{e_0}$ be the embeddings of $F_i^\dagger$ into a Galois closure $E^\dagger$, which is the totally real subfield of the Galois closure $E$ of $F$. Then we admit a decomposition
+	\[V_{E^\dagger}=V_1\oplus\cdots\oplus V_{e_0}\]
+	so that
+	\[\op L(V)_{E^\dagger}=\op{Sp}_{F\otimes_{\rho_{1}}E^\dagger}(\varphi|_{V_{1}})\times\cdots\times\op{Sp}_{F\otimes_{\rho_{e_{0}}}E^\dagger}(\varphi|_{V_{e_{0}}}).\]
+	% Thus, \Cref{lem:lefschetz-sums} allows us to expand
+	% \[\op L(V)_{E^\dagger}=op{Sp}_{F_i\otimes_{\rho_{i1}}E^\dagger}(\varphi|_{V_{1}})\times\cdots\times\op{Sp}_{F_i\otimes_{\rho_{ie_{0i}}}E^\dagger}(\varphi|_{V_{ie_{0i}}}).\]
+	We now also recall from \Cref{lem:lefschetz-type-iv-1} that each $\op{Sp}_{F\otimes_{\rho_{i}}E^\dagger}(\varphi|_{V_{i}})_E$ is isomorphic to $\op{GL}_2(E)$; in particular, this group is connected. In particular, to achieve this decomposition, we diagonalize the induced action of $E$ on $V_i$ and then projects onto one of the eigenspaces.
 
-			\item The first point of (ii) is automatic from the construction. The second point follows because all the $\mf{sl}_2(\CC)_{ij}$s include as the standard representation into $\mf{gl}(V_{ij})$. The last point amounts to checking that
-		\end{listroman}
-	\end{enumerate}
+	Now, we would like to show that the inclusion
+	\[\op{Hg}(V)_E^{\mathrm{der}}\subseteq\op{Sp}_{F\otimes_{\rho_{1}}E^\dagger}(\varphi|_{V_{1}})_E\times\cdots\times\op{Sp}_{F\otimes_{\rho_{e_{0}}}E^\dagger}(\varphi|_{V_{e_{0}}})_E\]
+	is an isomorphism, where the last group is embedded in $\op{GL}(V)_E$. All groups involved are connected, so we may check this inclusion on the level of the Lie algebra, so we would like for the inclusion
+	\[\op{Lie}\op{Hg}(V)_E^{\mathrm{der}}\subseteq\op{Sp}_{F\otimes_{\rho_{1}}E^\dagger}(\varphi|_{V_{1}})_E\times\cdots\times\op{Sp}_{F\otimes_{\rho_{e_{0}}}E^\dagger}(\varphi|_{V_{e_{0}}})_E\]
+	is surjective. For this, we use \Cref{lem:mz-product}. Here are our checks; for brevity, set $\mf{hg}(V)\coloneqq\op{Lie}\op{Hg}(V)_E$, and let $\mf{sl}_2(E)_{i}$ be the factor $\op{Lie}\op{Sp}_{F\otimes_{\rho_{i}}E^\dagger}(\varphi|_{V_{i}})_E^{\mathrm{der}}$, which we note is isomorphic to $\mf{sl}_2(E)$.
+	\begin{listroman}
+		\item We claim that $\mf{hg}(V)^{\mathrm{der}}$ surjects onto $\mf{sl}_2(E)_{i}$, which we note is nonzero and simple. Because the $\mf{hg}(V)$ is semisimple, its image in $\mf{sl}_2(E)_{i}$ continues to be reductive.
+		
+		Now, reductive subgroups of $\mf{sl}_2(E)$ are either tori of all of $\mf{sl}_2(E)$, so we merely need to check that the image cannot be a torus. If the image in some $\mf{sl}_2(E)_{i}$ is a torus, then because the Galois action $\op{Gal}(E/\QQ)$ permutes the decomposition of $V$ into $\{V_{i}\}_i$ (but will fix $\op{Hg}(V)$), so we see that the image in $\mf{sl}_2(E)_{i}$ will continue to be a torus for all $i$. Explicitly, we note that the image of $\op{Hg}(V)$ in $\op{Sp}_{F\otimes_{\rho_{i}}E^\dagger}(\varphi|_{V_{i}})_E$ needs to be preserved under $\op{Gal}(E/\QQ)$, so if the projection is commutative in one factor, then it is commutative in all factors because the $\QQ$-points are dense. %\todo{There is no Galois action. This doesn't make sense.}
+		% But then we note that $\op{Hg}(V)$ projects onto $\op{Hg}(V_i)$ by \Cref{lem:product-of-hg}, which then has an inclusion into $\op L(V_i)_E=\prod_j\op{Sp}_{F_i\otimes_{\rho_{ij}}E^\dagger}(\varphi|_{V_{ij}})_E$, where we see it must have commutative image by the preceding paragraph.
+		In particular, $\op{Hg}(V)$ must be a torus, so $A$ has complex multiplication by \Cref{prop:cm-is-mt-torus}, which is a contradiction to its definition.
 
-	In practice, it will be convenient to only write down the computation for $\op{MT}(A)^{\mathrm{der}}$, but we will indicate along the way the changes that need to be made for $G_\ell(A)^{\circ,\mathrm{der}}$. Quickly, we note that we may assume that the $A_\bullet$s are pairwise non-isomorphic because all groups involved are immune to adding a factor which already appears (see \Cref{lem:hg-isotypic} for $\op{MT}$, \Cref{lem:lefschetz-sums} for $\op L$, and \Cref{lem:monodromy-isotypic} for $G_\ell$).
-	
-	Now, for brevity, set $V\coloneqq\mathrm H^1_{\mathrm B}(A,\QQ)$ so that $\op{MT}(A)=\op{MT}(V)$ and $\op L(A)=\op L(V)$; we remark that $V$ is a free module over $F\coloneqq F_1\times\cdots\times F_k$ of rank $2$. Similarly, we set $V_i\coloneqq\mathrm H^1_{\mathrm B}(A_i,\QQ)$. Recall that $\op{MT}(V)\subseteq\op{L}(V)$ by \Cref{lem:mt-commutes-polarization} (the $\ell$-adic case uses \Cref{lem:l-adic-monodromy-commutes-polarization}). Thus, to achieve the equality of the derived subgroups, it is enough to achieve the equality after base-changing to an algebraic closure.
+		\item The first point of (ii) is automatic from the construction. The second point follows because all the $\mf{sl}_2(E)_{i}$s include as the standard representation into $\mf{gl}(V_{i})$.
+		
+		For the last point, we use the Galois action together with the hypothesis on the signature. Arguing as in the proof of \Cref{lem:mz-product}, it is really enough to check the $(V_i)_E$s are non-isomorphic as $\mf{hg}(V)^{\mathrm{der}}_E$-modules. To make sense of the signature, we choose an embedding $\varepsilon\colon E\to\CC$, and then \Cref{lem:hodge-to-signature} grants a signature $\Phi_\varepsilon$ from the decomposition of $V_\varepsilon$ into $F\otimes_\varepsilon\CC$-eigenspaces: explicitly, for each embedding $\sigma\in\op{Hom}(F,E)$, we find
+		\[\Phi_\varepsilon(\sigma)=\dim (V_\sigma)_\varepsilon^{1,0},\]
+		where $(\cdot)^{1,0}$ signifies that we are taking the eigenspace where $i\in\CC$ acts by $i^{-1}$. However, the choice of a different embedding $\varepsilon$ will permute the $V_\sigma$s in sight.
+
+		To explain how the signature is now used, we note that if $\{\Phi_\varepsilon(\sigma),\Phi_\varepsilon(\ov\sigma)\}\ne\{\Phi_\varepsilon(\tau),\Phi_\varepsilon(\ov\tau)\}$ for two embeddings $\sigma,\tau\in\op{Hom}(F,E)$ where $\rho_i=\sigma|_{F^\dagger}$ and $\rho_j=\tau|_{F^\dagger}$, then we must have $V_i\not\cong V_j$ as $\mf{hg}(V)^{\mathrm{der}}_\varepsilon$-modules. Indeed, unwrapping the definition of the signature, we know that the projection of $\mf{hg}(V)_\RR$ (where the embedding $E^\dagger\into\RR$ is given by the restriction of $\varepsilon$) into $\mf{gl}_4(\RR)$ is
+		\[\mf{so}(\Phi_\varepsilon(\sigma),\Phi_\varepsilon(\ov\sigma)).\]
+		To see this, note that this a semisimple algebra of the correct rank, so it is enough remark that the image of $\mf{hg}(V)^{\mathrm{der}}$ must land in the above Lie subalgebra by tracking the action of $h(i)$. (One should use \Cref{thm:sen-operator} in the $\ell$-adic computation.) Thus, we are now able to remark that $\mf{so}(\Phi_\varepsilon(\sigma),\Phi_\varepsilon(\ov\sigma))\not\cong\mf{so}(\Phi_\varepsilon(\tau),\Phi_\varepsilon(\ov\tau))$.
+
+		To complete the proof, we note that there exists exactly one pair $\{\sigma_0,\ov\sigma_0\}$ of embeddings $F\into\CC$ such that $\Phi_\varepsilon(\sigma_0)=\Phi_\varepsilon(\ov\sigma_0)=1$. Thus, for any two distinct embeddings $\sigma,\tau\in\op{Hom}(F,E)$, we can choose $\varepsilon$ so that $\varepsilon\sigma=\sigma_0$ but $\varepsilon\tau\ne\sigma_0$ and apply the previous paragraph.
+		\qedhere
+	\end{listroman}
+	% Similarly, we write $V_i\coloneqq\mathrm H^1_{\mathrm B}(A_i,\QQ)$ for each $i$. Recall that $\op{Hg}(V)\subseteq\op{L}(V)$ by \Cref{lem:mt-commutes-polarization} (the $\ell$-adic case uses \Cref{lem:l-adic-monodromy-commutes-polarization}). Thus, to achieve the equality of the derived subgroups, it is enough to achieve the equality after base-changing to an algebraic closure.
+	% \begin{enumerate}
+	% 	\item We would like 
+	% \end{enumerate}
+	%
+	% In practice, it will be convenient to only write down the computation for $\op{MT}(A)^{\mathrm{der}}$, but we will indicate along the way the changes that need to be made for $G_\ell(A)^{\circ,\mathrm{der}}$. Quickly, we note that we may assume that the $A_\bullet$s are pairwise non-isomorphic because all groups involved are immune to adding a factor which already appears (see \Cref{lem:hg-isotypic} for $\op{MT}$, \Cref{lem:lefschetz-sums} for $\op L$, and \Cref{lem:monodromy-isotypic} for $G_\ell$).
+	%
+	% Now, for brevity, set $V\coloneqq\mathrm H^1_{\mathrm B}(A,\QQ)$ so that $\op{MT}(A)=\op{MT}(V)$ and $\op L(A)=\op L(V)$; we remark that $V$ is a free module over $F\coloneqq F_1\times\cdots\times F_k$ of rank $2$. Similarly, we set $V_i\coloneqq\mathrm H^1_{\mathrm B}(A_i,\QQ)$. Recall that $\op{MT}(V)\subseteq\op{L}(V)$ by \Cref{lem:mt-commutes-polarization} (the $\ell$-adic case uses \Cref{lem:l-adic-monodromy-commutes-polarization}). Thus, to achieve the equality of the derived subgroups, it is enough to achieve the equality after base-changing to an algebraic closure.
 \end{proof}
+\begin{remark}
+	This argument is inspired by \cite[Remark~1.9.4]{zarhin-hg-k3}, where ``changing the embedding'' is used similarly to conclude that the Hodge group is large.
+\end{remark}
 % proof of MT for CM?
 % proof of MT for type iv rel dim 2 (cite equality of centers)
 
@@ -631,6 +654,10 @@ The previous subsection explains that one expects to be able to compute $G_\ell(
 	% For any subset $S$ of nonnegative integers, we write $W_S\coloneqq\bigoplus_{n\in S}W_n$.
 	We also write $W\coloneqq\bigoplus_{n\ge0}W_n$ for brevity.
 \end{notation}
+\begin{remark}
+	Because $A$ is an abelian variety, one has a polarization $V\otimes V\to\QQ_\ell(1)$, so we see that one can replace $W_n$ with
+	\[\left(V^{\otimes 2n}(n)\right)^{G_\ell(A)^\circ}.\]
+\end{remark}
 Roughly speaking, the point is that the spaces $W_\bullet$ of Tate classes are able to keep track of $G_\ell(A)^\circ$.
 \begin{lemma} \label{lem:monodromy-fixes-tate-classes}
 	Fix an abelian variety $A$ defined over a field $K$, and let $\ell$ be a prime such that $\op{char}K\nmid\ell$, and define $V$ and $W_\bullet$ as in \Cref{not:tate-classes}.
@@ -691,7 +718,7 @@ This faithful representation allows us to compute $G_\ell(A)$: we are looking fo
 	A careful reading of the above proof shows that we only needed the following facts about $W$: it is stable under $G_\ell(A)$, and $g\in\op{GL}\left(V\right)$ lives in $G_\ell(A)^\circ$ if and only if it fixes $W$. Thus, we see that we can replace $W$ with any $G_\ell(A)$-subrepresentation $W'\subseteq W$ which cuts out $G_\ell(A)^\circ$ in the sense of \Cref{lem:monodromy-preserves-tate-classes}. This allows us to make $W'$ quite small (e.g., finite-dimensional).
 \end{remark}
 \begin{remark}
-	It is worth comparing \Cref{prop:galois-computes-monodromy} with the definition of the twisted Lefschetz group, defined in \cite[Definition~5.2]{bk-algebraic-st}. Roughly speaking, the twisted Lefschetz group is simply the construction of \Cref{prop:galois-computes-monodromy} with $W$ replaced by the subspace of $W$ generated by endomorphisms and the polarization; see \cite[Remark~8.3.5]{ggl-fermat} for precise discussion of the relation. In this way, one expects the twisted Lefschetz group to equal $G_\ell(A)$ in generic cases, but \Cref{rem:galois-computes-monodromy-finite} explains that one may need to remember more Hodge classes in exceptional cases.
+	It is worth comparing \Cref{prop:galois-computes-monodromy} with the twisted Lefschetz group, defined in \cite[Definition~5.2]{bk-algebraic-st}. Roughly speaking, the twisted Lefschetz group is simply the construction of \Cref{prop:galois-computes-monodromy} with $W$ replaced by the subspace of $W$ generated by endomorphisms and the polarization; see \cite[Remark~8.3.5]{ggl-fermat} for precise discussion of the relation. In this way, one expects the twisted Lefschetz group to equal $G_\ell(A)$ in generic cases, but \Cref{rem:galois-computes-monodromy-finite} explains that one may need to remember more Hodge classes in exceptional cases.
 \end{remark}
 \Cref{prop:galois-computes-monodromy} suggests that one can find representatives of each connected component in $G_\ell(A)$ by looping over all $\sigma\in\op{Gal}(\ov K/K)$ and finding some $g\in\op{GL}(V)$ such that $g|_W=\sigma|_W$. This is currently not so computable because $\op{Gal}(\ov K/K)$ is an infinite group, and $W$ is an infinite-dimensional vector space. \Cref{rem:galois-computes-monodromy-finite} explains how to replace $W$ with a finite-dimensional subrepresentation, so it remains to explain how to reduce $\op{Gal}(\ov K/K)$ to a finite quotient.
 \begin{definition}[connected monodromy field]

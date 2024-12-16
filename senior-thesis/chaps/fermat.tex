@@ -194,7 +194,25 @@ We are now ready to show that $\mathrm H_1^{\mathrm B}(X(\CC),\QQ)=\QQ[G]\cdot[\
 \end{proof}
 
 \section{Galois Action}
-We now use the notation set up in the previous section to write out the Galois action on the space of some absolute Hodge cycles attached to $X$. Throughout this section, $p$ is a nonnegative index. We take a moment to note that the action of $G$ on $X$ upgrades into an action of $G^{2p}$ on $X^{2p}$. Our exposition closely follows \cite[Subsection~8.5]{ggl-fermat}. As in \cref{subsec:fermat-group-action}, we will identify $\widehat G^{2p}$ with some subset of tuples in $(\ZZ/N\ZZ)^{6p}$. And for a vector space $\mathrm H$ defined over $\QQ(\zeta)$ (respectively, $\QQ$) and character $\alpha\in\widehat G^{2p}$, we define $\mathrm H_\alpha$ (respectively, $\mathrm H_{[\alpha]}$) as the corresponding $\alpha$-eigenspace (respectively, $[\alpha]$-generalized eigenspace).
+We now use the notation set up in the previous section to write out the Galois action on the space of some absolute Hodge cycles attached to $X$. Roughly speaking, we will be interested in computing $\ell$-adic monodromy groups of (quotients of) $X$, which requires us to have some understanding of the Galois representation
+\[\rho\colon\op{Gal}(\ov\QQ/\QQ)\to\op{GL}\left(\mathrm H^1_{\mathrm{\acute et}}(X_{\ov\QQ},\QQ_\ell)\right).\]
+In particular, we recall from \cref{subsec:compute-gl-from-gl0} that it will really suffice to be able to compute the Galois action on cetain Tate classes living in
+\[\mathrm H^1_{\mathrm{\acute et}}(X_{\ov\QQ},\QQ_\ell)^{\otimes p}\otimes\mathrm H^1_{\mathrm{\acute et}}(X_{\ov\QQ},\QQ_\ell)^{\lor\otimes p}\cong\mathrm H^1_{\mathrm{\acute et}}(X_{\ov\QQ},\QQ_\ell)^{\otimes2p}(p),\]
+for some nonnegative index $p\ge0$, which is the main point of this section. In particular, the K\"unneth theorem tells us that we will be interested in the cohomology group $\mathrm H^{2p}_{\mathrm{\acute et}}(X^{2p}_{\ov\QQ},\QQ_\ell)(p)$.
+
+Roughly speaking, the outline will be to pass to absolute Hodge cycles. Indeed, by the Mumford--Tate conjecture, one is able to correspond Tate classes to Hodge classes, and Hodge classes are known to be absolutely Hodge, and our construction of absolute Hodge cycles makes it clear how they should specialize to a Tate class. In this way, we find that we can attempt to compute Galois action on Tate classes by instead computing Galois action on absolute Hodge classes. This is useful because absolute Hodge cycles have a de Rham component, so we can run our computations on the de Rham component, which is the only place where we can hope to have a basis.
+
+Throughout this section, $p$ is a nonnegative index. We take a moment to note that the action of $G$ on $X$ upgrades into an action of $G^{2p}$ on $X^{2p}$. Our exposition closely follows \cite[Subsection~8.5]{ggl-fermat}. As in \cref{subsec:fermat-group-action}, we will identify $\widehat G^{2p}$ with some subset of tuples in $(\ZZ/N\ZZ)^{6p}$. And for a vector space $\mathrm H$ defined over $\QQ(\zeta)$ (respectively, $\QQ$) and character $\alpha\in\widehat G^{2p}$, we define $\mathrm H_\alpha$ (respectively, $\mathrm H_{[\alpha]}$) as the corresponding $\alpha$-eigenspace (respectively, $[\alpha]$-generalized eigenspace). In the sequel, we will find utility out of the following two subsets of $\widehat G^{2p}$.
+\begin{definition}
+	Fix notation as above.
+	\begin{itemize}
+		\item We define the subset $\mf A^{2p}$ to be equal to the subset of $\alpha\in\widehat G^{2p}$ having nonzero entries as a tuple in $(\ZZ/N\ZZ)^{6p}$.
+		\item We define the subset $\mf B^{2p}$ to be equal to the subset of $\alpha\in\mf A^{2p}$ such that $\alpha=(a_1,\ldots,a_{6p})$ satisfies
+		\[\frac1N\sum_{i=1}^{6p}[ua_i]=3p\]
+		for all $u\in(\ZZ/N\ZZ)^\times$.
+	\end{itemize}
+\end{definition}
+Morally, the characters in $\mf A_{2p}$ correspond to basis vectors of $\mathrm H^1_{\mathrm{\acute et}}(X_{\ov\QQ},\QQ_\ell)^{\otimes p}$, and the characters in $\mc B_{2p}$ correspond to Hodge classes (see \Cref{prop:find-hodge-classes}).
 
 \subsection{Hodge Cycles on \texorpdfstring{$X^{2p}$}{ X2p}}
 To understand the geometry of $X$, we will only be interested in tensor powers of $\mathrm H^1(X)$ (for a choice of cohomology theory $\mathrm H$), which by the K\"unneth formula embed as
@@ -204,7 +222,7 @@ When $\mathrm H$ is de Rham cohomology $\mathrm H_{\mathrm{dR}}$, we thus see we
 Following \cite[Proposition~7.6]{deligne-hodge}, it will be useful to have the following definition.
 \begin{definition}[weight]
 	Given a function $f\colon\ZZ/N\ZZ\to\ZZ$, we define its \textit{weight map} as the function $\langle f\rangle\colon(\ZZ/N\ZZ)^\times\to\QQ$ defined by
-	\[\langle f\rangle\coloneqq\frac1N\sum_{a\in\ZZ/N\ZZ}f(ua)[a]\]
+	\[\langle f\rangle(u)\coloneqq\frac1N\sum_{a\in\ZZ/N\ZZ}f(ua)[a]\]
 	For $p\ge0$, we note that we may identify $\widehat G^{2p}$ with a tuple in $(\ZZ/m\ZZ)^{2p}$, and then we define the \textit{weight} $\langle\alpha\rangle$ of a character $\alpha\in\widehat G^{2p}$ as $\langle1_\alpha\rangle(1)$, where $1_\alpha\colon\ZZ/N\ZZ\to\ZZ$ is the multiplicity of an element in $\ZZ/N\ZZ$ in the tuple $\alpha$. 
 \end{definition}
 \begin{remark} \label{rem:deg-by-weight-curve}
@@ -216,18 +234,20 @@ Following \cite[Proposition~7.6]{deligne-hodge}, it will be useful to have the f
 	In all cases, we find $\omega_{\alpha}\in\mathrm H^{2-\langle\alpha\rangle,\langle\alpha\rangle-1}(X)$.
 \end{remark}
 We now upgrade \Cref{rem:deg-by-weight-curve} to $\mathrm H^1_{\mathrm{dR}}(X,\CC)^{\otimes2p}$.
+\begin{notation}
+	Choose $\alpha\in\widehat G^{2p}$ as $\alpha=(\alpha_1,\ldots,\alpha_{2p})$ having nonzero entries. Then we set
+	\[\omega_{\alpha}\coloneqq\omega_{\alpha_1}\otimes\cdots\otimes\omega_{\alpha_{2p}}.\]
+\end{notation}
 \begin{lemma} \label{lem:deg-by-weight-curve-power}
-	Choose $\alpha\in\widehat G^{2p}$ as $\alpha=(\alpha_1,\ldots,\alpha_{2p})$ having nonzero entries. Then
-	\[\omega_{\alpha}\coloneqq\omega_{\alpha_1}\otimes\cdots\otimes\omega_{\alpha_{2p}}\]
-	embedded in $\mathrm H^{2p}_{\mathrm{dR}}\left(X^{2p},\CC\right)$ is of bidegree $(4p-\langle\alpha\rangle,\langle\alpha\rangle-2p)$.
+	Choose $\alpha\in\widehat G^{2p}$ as $\alpha=(\alpha_1,\ldots,\alpha_{2p})$ having nonzero entries (i.e., $\alpha\in\mf A_{2p}$). Then $\omega_\alpha$ embedded in $\mathrm H^{2p}_{\mathrm{dR}}\left(X^{2p},\CC\right)$ is of bidegree $(4p-\langle\alpha\rangle,\langle\alpha\rangle-2p)$.
 \end{lemma}
 \begin{proof}
 	Because the K\"unneth isomorphism upgrades to an isomorphism of Hodge structures, it is enough to note that $\omega_{\alpha_i}\in H^{\langle\alpha_\bullet}$ (see \Cref{rem:deg-by-weight-curve}) implies $\omega_\alpha$ has bidegree
 	\[\Bigg(4p-\sum_{i=1}^{2p}\langle\alpha_i\rangle,\sum_{i=1}^{2p}\langle\alpha_i\rangle-2p\Bigg).\]
 	The proposition follows because weight is additive.
 \end{proof}
-\begin{proposition}
-	Choose $\alpha\in\widehat G^{2p}$ as $\alpha=(\alpha_1,\ldots,\alpha_{2p})$ having nonzero entries. Then $\mathrm H_{\mathrm B}^{2p}\left(X^{2p}\right)_{[\alpha]}$ is one-dimensional over $\QQ([\alpha])$, and the following are equivalent.
+\begin{proposition} \label{prop:find-hodge-classes}
+	Choose $\alpha\in\mf A^{2p}$. Then $\mathrm H_{\mathrm B}^{2p}\left(X^{2p}\right)_{[\alpha]}$ is one-dimensional over $\QQ([\alpha])$, and the following are equivalent.
 	\begin{listalph}
 		% \item $\mathrm H_{\mathrm B}^{2p}\left(X^{2p}\right)_{[\alpha]}$ has any nonzero Hodge classes.
 		\item $\mathrm H_{\mathrm B}^{2p}\left(X^{2p}\right)_{[\alpha]}(p)$ consists entirely of Hodge classes.
@@ -235,7 +255,7 @@ We now upgrade \Cref{rem:deg-by-weight-curve} to $\mathrm H^1_{\mathrm{dR}}(X,\C
 	\end{listalph}
 \end{proposition}
 \begin{proof}
-	We begin by embedding
+	Expand $\alpha=(\alpha_1,\ldots,\alpha_{2p})$. We begin by embedding
 	\[\mathrm H_{\mathrm B}^{2p}\left(X^{2p},\QQ\right)_{[\alpha]}\otimes_\QQ\CC=\bigoplus_{u\in(\ZZ/N\ZZ)^\times}\mathrm H_{\mathrm B}^{2p}\left(X^{2p},\CC\right)_{u\alpha}\]
 	into
 	\[\mathrm H_{\mathrm{dR}}^{2p}\left(X^{2p},\CC\right)=\bigoplus_{\substack{q_1,\ldots,q_{2p}\\q_1+\cdots+q_{2p}=2p}}\mathrm H_{\mathrm{dR}}^{q_1}(X,\CC)\otimes\cdots\otimes\mathrm H_{\mathrm{dR}}^{q_{2p}}(X,\CC),\]
@@ -250,7 +270,7 @@ We now upgrade \Cref{rem:deg-by-weight-curve} to $\mathrm H^1_{\mathrm{dR}}(X,\C
 
 \subsection{An Absolute Hodge Cycle}
 
-\subsection{Computations on de Rham Component}
+\subsection{Computations on the de Rham Component}
 
 \subsection{End of the Computation}
 % S8.5 of GGL
