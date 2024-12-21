@@ -4,11 +4,14 @@
 
 \begin{document}
 
-\chapter{The Fermat Curve}
+\chapter{The Fermat Curve} \label{chap:fermat}
+
+\epigraph{Usually mathematicians have to shoot somebody to get this much publicity.}{---Thomas R. Nicely}
+
 In ths chapter, we will study the Galois representation attached to the projective $\QQ$-curve $X^1_N\subseteq\PP^1_\QQ$ cut out by the equation
 \[X_N\colon X^N+Y^N+Z^N=0,\]
 where $N\ge3$ is some nonnegative integer. %\footnote{It is not difficult to relax the condition that $N$ is odd, but it introduces some casework in a couple places.}
-For the rest of this chapter, we will fix $N$ and thus denote this curve by $X\subseteq\PP^1_\QQ$. It is worthwhile to summarize the basic steps of the computation.\todo{}
+For the rest of this chapter, we will fix $N$ and thus denote this curve by $X\subseteq\PP^1_\QQ$. %It is worthwhile to summarize the basic steps of the computation.\todo{}
 % \begin{enumerate}
 % 	\item 
 % \end{enumerate}
@@ -58,6 +61,13 @@ In this subsection, we will define a few differential forms. A reasonable refere
 	Further, we can pass to the affine patch $1+v^N+u^N=0$ of $X$ by substituting $(x,y)=(1/u,v/u)$, for which we note $d(1/u)/(1/u)=-du/u$ so that
 	\[\omega_{(a,b,c)}=-u^{N-[a]-[b]}v^{[b]-N}\,\frac{du}u.\]
 \end{remark}
+\begin{remark} \label{rem:coleman-differentials}
+	Following \cite[Section~VI]{coleman-g-k-formula}, we remark that it will be numerically convenient to work with a rational multiple of the $\omega_\bullet$s for some computations in the sequel. Namlely, we define $\nu_\alpha\coloneqq K(\alpha)\omega_{\alpha}$ when $\alpha=(a,b,c)$ has nonzero entries, where
+	\[K(a,b,c)\coloneqq\begin{cases}
+		\frac{N-[a]-[b]}N & \text{if }[a]+[b]>N, \\
+		1 & \text{if }[a]+[b]<N.
+	\end{cases}\]
+\end{remark}
 From \Cref{rem:omega-a-b-c-patches}, we see that $\omega_{(a,b,c)}$ always succeeds at being meromorphic with poles only at points of the form $[X:Y:0]$, and it is closed (i.e., has vanishing residues) if and only if $0\notin\{a,b,c\}$. Further, we see that $\omega_{(a,b,c)}$ succeeds at being holomorphic provided that we also have $[a]+[b]<N$, which we note is equivalent to $[a]+[b]+[c]=N$.
 
 We have now provided $\frac{(N-1)(N-2)}2$ holomorphic differentials of $X$, so we would like to check that we have actually found a basis of $\mathrm H^0(X(\CC),\Omega^1_{X/\CC})$. Well, these differential forms are nonzero by construction,\footnote{Later, \Cref{rem:nonzero-form-period} will give another way to prove this via periods.} and they are linearly independent because they are all eigenvectors for the $G$-action.
@@ -77,9 +87,9 @@ We have now provided $\frac{(N-1)(N-2)}2$ holomorphic differentials of $X$, so w
 	Thus, we see that our differential forms must be linearly independent because they are eigenvectors with different eigenvalues. As such, we have constructed eigenbases of $\mathrm H^1_{\mathrm{dR}}(X(\CC),\CC)$ and $\mathrm H^0(X(\CC),\Omega^1_{X/\CC})$.
 \end{remark}
 While we're here, we compute the Poincar\'e pairing of our basis of differential forms. 
-\begin{lemma}
+\begin{lemma} \label{lem:fermat-poincare-pairing}
 	Fix notation as above. Choose $\alpha,\alpha'\in\widehat G$ such that $\alpha=(a,b,c)$ and $\alpha'=(a',b',c')$ have nonzero entries. Then the Poincar\'e pairing
-	\[P\colon\mathrm H^1_{\mathrm{dR}}(X(\CC),\CC)\times\mathrm H^1_{\mathrm{dR}}(X(\CC),\CC))\to\CC\]
+	\[P\colon\mathrm H^1_{\mathrm{dR}}(X(\CC),\CC)\times\mathrm H^1_{\mathrm{dR}}(X(\CC),\CC)\to\CC\]
 	given by $(\omega,\eta)\mapsto\frac1{2\pi i}\int_X(\omega\land\eta)$ sends $(\omega_\alpha,\omega_{\alpha'})$ to
 	\[P(\omega_\alpha,\omega_{\alpha'})=\begin{cases}
 		0 & \text{if }\alpha\ne-\alpha', \\
@@ -105,6 +115,11 @@ While we're here, we compute the Poincar\'e pairing of our basis of differential
 	\end{align*}
 	as desired.
 \end{proof}
+\begin{remark} \label{rem:coleman-differentials-dual}
+	Following \Cref{rem:coleman-differentials}, we see that $\alpha\in\widehat G$ with nonzero entries will have
+	\[P(\nu_\alpha,\nu_{-\alpha})=(-1)^N\]
+	because exactly one of $K(\alpha)$ or $K(-\alpha)$ will absorb the given rational constant. This is essentially the reason for working with the $\nu_\bullet$s instead of the $\omega_\bullet$s. 
+\end{remark}
 
 \subsection{Some Group Elements}
 In this subsection, we define a few elements of $\QQ[G]$ which we will then use in the next subsection. We begin with the three elements
@@ -159,7 +174,7 @@ We are now ready to define $\gamma$.
 The above computation shows that $\gamma\in\mathrm Z^{\mathrm B}_1(X(\CC),\QQ)$. We will want to know to its periods later. Note that the following result is essentially a special case of \cite[Lemma~7.12]{deligne-hodge}.
 \begin{lemma} \label{lem:gamma-periods}
 	Fix notation as above. Suppose $(a,b,c)\in(\ZZ/N\ZZ)^3$ has no nonzero entries. Then
-	\[\int_\gamma\omega_{(a,b,c)} = \zeta_{2N}^{[a]/N+[b]/N-1}\frac{\Gamma\left(\frac{[a]}N\right)\Gamma\left(\frac{[b]}N\right)}{\Gamma\left(\frac{[a]}N+\frac{[b]}N\right)}.\]
+	\[\int_\gamma\omega_{(a,b,c)} = \zeta_{2N}^{[a]+[b]-N}\frac{\Gamma\left(\frac{[a]}N\right)\Gamma\left(\frac{[b]}N\right)}{\Gamma\left(\frac{[a]}N+\frac{[b]}N\right)}.\]
 \end{lemma}
 \begin{proof}
 	This is a direct computation. Denote the integral by $P(\gamma,\omega_{(a,b,c)})$. By adjunction, $\int_{p_*\delta}\omega_{(a,b,c)}=\int_\delta p^*\omega_{(a,b,c)}$. This allows us to compute
@@ -167,7 +182,7 @@ The above computation shows that $\gamma\in\mathrm Z^{\mathrm B}_1(X(\CC),\QQ)$.
 		P(\gamma,\omega_{(a,b,c)}) &= \frac1{N^2}\int_\delta\sum_{r,s\in\ZZ/N\ZZ}(1-g_{[r:0:0]})(1-g_{[0:s:0]})^*\omega_{(a,b,c)} \\
 		&= \frac1{N^2}\int_\delta\sum_{r,s\in\ZZ/N\ZZ}\left(1-\zeta^{ar}\right)\left(1-\zeta^{bs}\right)\omega_{(a,b,c)} \\
 		&= \Bigg(\frac1{N^2}\sum_{r,s\in\ZZ/N\ZZ}\left(1-\zeta^{ar}\right)\left(1-\zeta^{bs}\right)\Bigg)\int_\delta\omega_{(a,b,c)} \\
-		&= \Bigg(\frac1{N^2}\sum_{r,s\in\ZZ/N\ZZ}\left(1-\zeta^{ar}\right)\left(1-\zeta^{bs}\right)\Bigg)\zeta_{2N}^{[a]/N+[b]/N-1}\int_0^1t^{[a]/N}(1-t)^{[b]/N-1}\,\frac{dt}t.
+		&= \Bigg(\frac1{N^2}\sum_{r,s\in\ZZ/N\ZZ}\left(1-\zeta^{ar}\right)\left(1-\zeta^{bs}\right)\Bigg)\zeta_{2N}^{[a]+[b]-N}\int_0^1t^{[a]/N}(1-t)^{[b]/N-1}\,\frac{dt}t.
 	\end{align*}
 	The last integral (famously) equals the Beta function, and it evaluates to $\Gamma\left(\frac{[a]}N\right)\Gamma\left(\frac{[b]}N\right)\Gamma\left(\frac{[a]+[b]}N\right)^{-1}$. We take a moment to check that
 	\[\sum_{r,s\in\ZZ/N\ZZ}\left(1-\zeta^{ar}\right)\left(1-\zeta^{bs}\right)\stackrel?=N^2.\]
@@ -175,6 +190,13 @@ The above computation shows that $\gamma\in\mathrm Z^{\mathrm B}_1(X(\CC),\QQ)$.
 \end{proof}
 \begin{remark} \label{rem:nonzero-form-period}
 	Because the right-hand side is nonzero, \Cref{lem:gamma-periods} implies that the differential forms $\omega_{(a,b,c)}$ are nonzero.
+\end{remark}
+\begin{remark} \label{rem:coleman-periods}
+	Following \Cref{rem:coleman-differentials}, it will be helpful to also compute $\int_\gamma\nu_{(a,b,c)}$. We claim that
+	\[\int_\gamma\nu_{(a,b,c)}\stackrel?=(-1)^{\floor{([a]+[b])/N}}\zeta_{2N}^{[a]+[b]-N}\Gamma\left(\frac{[a]}N\right)\Gamma\left(\frac{[b]}N\right)\Gamma\left(\frac{[a+b]}N\right)^{-1}.\]
+	We have two cases. If $[a]+[b]<N$, then $\nu_{(a,b,c)}=\omega_{(a,b,c)}$, so this is immediate from \Cref{lem:gamma-periods}. Otherwise, if $[a]+[b]>N$, then $\nu_{(a,b,c)}=\frac{N-[a]-[b]}{N}\omega_{(a,b,c)}$, so this follows from \Cref{lem:gamma-periods} as soon as we compute
+	\[\frac{N-[a]-[b]}{N}\Gamma\left(\frac{[a]+[b]}N\right)^{-1}\stackrel?=-\Gamma\left(\frac{[a+b]}N\right)^{-1}.\]
+	This follows because $\Gamma\left(\frac{[a]+[b]}N\right)=\frac{[a]+[b]-N}N\Gamma\left(\frac{[a+b]}N\right)$.
 \end{remark}
 We are now ready to show that $\mathrm H_1^{\mathrm B}(X(\CC),\QQ)=\QQ[G]\cdot[\gamma]$.
 \begin{lemma}
@@ -193,7 +215,7 @@ We are now ready to show that $\mathrm H_1^{\mathrm B}(X(\CC),\QQ)=\QQ[G]\cdot[\
 	for each $\alpha=\alpha_{(a,b,c)}$ with $a,b,c\ne0$. Then we see that $\int_{c_\alpha}\omega_\beta=1_{\alpha=\beta}$ by the orthogonality relations, so $\{c_\alpha\}$ is a dual basis of $\mathrm H_1^{\mathrm B}(X(\CC),\CC)$, and it lives in $\CC[G]\cdot[\gamma]$ by its construction.
 \end{proof}
 
-\section{Galois Action}
+\section{Galois Action} \label{sec:fermat-galois-action}
 We now use the notation set up in the previous section to write out the Galois action on the space of some absolute Hodge cycles attached to $X$. Roughly speaking, we will be interested in computing $\ell$-adic monodromy groups of (quotients of) $X$, which requires us to have some understanding of the Galois representation
 \[\rho\colon\op{Gal}(\ov\QQ/\QQ)\to\op{GL}\left(\mathrm H^1_{\mathrm{\acute et}}(X_{\ov\QQ},\QQ_\ell)\right).\]
 In particular, we recall from \cref{subsec:compute-gl-from-gl0} that it will really suffice to be able to compute the Galois action on cetain Tate classes living in
@@ -202,7 +224,9 @@ for some nonnegative index $p\ge0$, which is the main point of this section. In 
 
 Roughly speaking, the outline will be to pass to absolute Hodge cycles. Indeed, by the Mumford--Tate conjecture, one is able to correspond Tate classes to Hodge classes, and Hodge classes are known to be absolutely Hodge, and our construction of absolute Hodge cycles makes it clear how they should specialize to a Tate class. In this way, we find that we can attempt to compute Galois action on Tate classes by instead computing Galois action on absolute Hodge classes. This is useful because absolute Hodge cycles have a de Rham component, so we can run our computations on the de Rham component, which is the only place where we can hope to have a basis.
 
-Throughout this section, $p$ is a nonnegative index. We take a moment to note that the action of $G$ on $X$ upgrades into an action of $G^{2p}$ on $X^{2p}$. Our exposition closely follows \cite[Subsection~8.5]{ggl-fermat}. As in \cref{subsec:fermat-group-action}, we will identify $\widehat G^{2p}$ with some subset of tuples in $(\ZZ/N\ZZ)^{6p}$. And for a vector space $\mathrm H$ defined over $\QQ(\zeta)$ (respectively, $\QQ$) and character $\alpha\in\widehat G^{2p}$, we define $\mathrm H_\alpha$ (respectively, $\mathrm H_{[\alpha]}$) as the corresponding $\alpha$-eigenspace (respectively, $[\alpha]$-generalized eigenspace). In the sequel, we will find utility out of the following two subsets of $\widehat G^{2p}$.
+Throughout this section, $p$ is a nonnegative index. We take a moment to note that the action of $G$ on $X$ upgrades into an action of $G^{2p}$ on $X^{2p}$. Our exposition closely follows \cite[Subsection~8.5]{ggl-fermat}. As in \cref{subsec:fermat-group-action}, we will identify $\widehat G^{2p}$ with some subset of tuples in $(\ZZ/N\ZZ)^{6p}$. And for a vector space $\mathrm H$ defined over $\QQ(\zeta)$ (respectively, $\QQ$) and character $\alpha\in\widehat G^{2p}$, we define $\mathrm H_\alpha$ (respectively, $\mathrm H_{[\alpha]}$) as the corresponding $\alpha$-eigenspace (respectively, $[\alpha]$-generalized eigenspace). Then given a vector $v\in\mathrm H$, we may also write $v_\alpha$ for the component in $\mathrm H_\alpha$.
+
+In the sequel, we will find utility out of the following two subsets of $\widehat G^{2p}$.
 \begin{definition}
 	Fix notation as above.
 	\begin{itemize}
@@ -214,7 +238,7 @@ Throughout this section, $p$ is a nonnegative index. We take a moment to note th
 \end{definition}
 Morally, the characters in $\mf A_{2p}$ correspond to basis vectors of $\mathrm H^1_{\mathrm{\acute et}}(X_{\ov\QQ},\QQ_\ell)^{\otimes p}$, and the characters in $\mc B_{2p}$ correspond to Hodge classes (see \Cref{prop:find-hodge-classes}).
 
-\subsection{Hodge Cycles on \texorpdfstring{$X^{2p}$}{ X2p}}
+\subsection{Hodge Cycles on \texorpdfstring{$X^{2p}$}{ X2p}} \label{subsec:classes-on-fermat-curve-power}
 To understand the geometry of $X$, we will only be interested in tensor powers of $\mathrm H^1(X)$ (for a choice of cohomology theory $\mathrm H$), which by the K\"unneth formula embed as
 \[\mathrm H^1(X)^{\otimes 2p}\subseteq\mathrm H^{2p}\left(X^{2p}\right).\]
 When $\mathrm H$ is de Rham cohomology $\mathrm H_{\mathrm{dR}}$, we thus see we are interested in when the image of an element in $\mathrm H^1_{\mathrm{dR}}(X)^{\otimes p}$ succeeds at being a Hodge cycle. Well, note that the action of $G$ on $\mathrm H^1_{\mathrm{dR}}(X,\CC)$ extends to an action of $G^{2p}$ on $\mathrm H^1_{\mathrm{dR}}\left(X,\CC\right)^{\otimes2p}$. This action diagonalizes with one-dimensional eigenspaces by extending \Cref{rem:diagonalize-de-rham}. We will use properties of the diagonalization to read off when we have an element of bidegree $(p,p)$ in $\mathrm H^{2p}_{\mathrm{dR}}\left(X^{2p},\CC\right)$.
@@ -237,14 +261,15 @@ We now upgrade \Cref{rem:deg-by-weight-curve} to $\mathrm H^1_{\mathrm{dR}}(X,\C
 \begin{notation}
 	Choose $\alpha\in\widehat G^{2p}$ as $\alpha=(\alpha_1,\ldots,\alpha_{2p})$ having nonzero entries. Then we set
 	\[\omega_{\alpha}\coloneqq\omega_{\alpha_1}\otimes\cdots\otimes\omega_{\alpha_{2p}}.\]
+	We define $\nu_\alpha$ similarly.
 \end{notation}
 \begin{lemma} \label{lem:deg-by-weight-curve-power}
 	Choose $\alpha\in\widehat G^{2p}$ as $\alpha=(\alpha_1,\ldots,\alpha_{2p})$ having nonzero entries (i.e., $\alpha\in\mf A_{2p}$). Then $\omega_\alpha$ embedded in $\mathrm H^{2p}_{\mathrm{dR}}\left(X^{2p},\CC\right)$ is of bidegree $(4p-\langle\alpha\rangle,\langle\alpha\rangle-2p)$.
 \end{lemma}
 \begin{proof}
-	Because the K\"unneth isomorphism upgrades to an isomorphism of Hodge structures, it is enough to note that $\omega_{\alpha_i}\in H^{\langle\alpha_\bullet}$ (see \Cref{rem:deg-by-weight-curve}) implies $\omega_\alpha$ has bidegree
+	Because the K\"unneth isomorphism upgrades to an isomorphism of Hodge structures, it is enough to note that $\omega_{\alpha_i}\in\mathrm H^{2-\langle\alpha_i\rangle,\langle\alpha_i\rangle-1}$ (see \Cref{rem:deg-by-weight-curve}) implies $\omega_\alpha$ has bidegree
 	\[\Bigg(4p-\sum_{i=1}^{2p}\langle\alpha_i\rangle,\sum_{i=1}^{2p}\langle\alpha_i\rangle-2p\Bigg).\]
-	The proposition follows because weight is additive.
+	The lemma follows because weight is additive.
 \end{proof}
 \begin{proposition} \label{prop:find-hodge-classes}
 	Choose $\alpha\in\mf A^{2p}$. Then $\mathrm H_{\mathrm B}^{2p}\left(X^{2p}\right)_{[\alpha]}$ is one-dimensional over $\QQ([\alpha])$, and the following are equivalent.
@@ -269,10 +294,186 @@ We now upgrade \Cref{rem:deg-by-weight-curve} to $\mathrm H^1_{\mathrm{dR}}(X,\C
 \end{proof}
 
 \subsection{An Absolute Hodge Cycle}
+Thus far, we have access to classes $\omega_\alpha$, and we know how to compute their periods against the Betti cycle $\gamma$. We will be able to compute the Galois action on $\gamma$ because it already comes from a Betti cycle, but we then need to know how to translate this into a Galois action on the $\omega_\alpha$; importantly, note that $\omega_\alpha$s have no obvious Galois action, and indeed, they cannot because they may not even be defined over a number field. To do this, we need a way to put $\gamma$ and the $\omega_\alpha$ on the same footing; following \cite[Section~8.5]{ggl-fermat}, we use absolute Hodge classes.
 
-\subsection{Computations on the de Rham Component}
+For example, the machinery of cohomology tells us how to take $\gamma$ and then apply some cycle class maps to produce an absolute Hodge class. Let's be more explicit: we may pass the class $\gamma^{2p}\otimes(2\pi i)^{-p}$ through the maps
+\[\mathrm H^{\mathrm B}_{2p}\left(X^{2p},\CC\right)(-p)\cong\mathrm H^{2p}_{\mathrm B}\left(X^{2p},\CC\right)(p)\subseteq\mathrm H^{2p}_\AA(X)(p),\]
+where the last map is the cycle class map. In order to ensure that we output an absolute Hodge cycle, we apply \Cref{prop:find-hodge-classes}: we see that the generalized eigenspace for $[\alpha]$ contains all Hodge classes if and only if $\alpha\in\mf B^{2p}$, we simply define $\gamma^{2p}_{[\alpha]}\in\mathrm H^{\mathrm B}_{2p}\left(X^{2p},\QQ\right)$ to be the projection to the $[\alpha]$-component, and we now know that its image $\gamma^{2p}_{[\alpha],\mathrm{AH}}$ is a Hodge class, hence an absolute Hodge class by \Cref{thm:hodge-to-abs-hodge}.
+\begin{remark} \label{rem:fermat-lift-hodge-to-abs-hodge}
+	We remark that this last paragraph actually argues that the projection
+	\[C^p_{\mathrm{AH}}(X)_{[\alpha]}\onto\mathrm H^{2p}_{\mathrm{dR}}\left(X^{2p},\CC\right)(p)_{[\alpha]}\]
+	is an isomorphism for any $\alpha\in\mf B^{2p}$. In particular, both spaces are $1$-dimensional vector spaces over $\QQ([\alpha])$. %In this way, we can take any Hodge class $\omega_\alpha$ where $\alpha\in\mf B^{2P}$ (see \Cref{prop:find-hodge-classes}) and lift it to an absolute Hodge class $\omega_{\alpha,\mathrm{AH}}\in\mathrm H^{2p}_\AA\left(X^{2p}\right)(p)$.
+\end{remark}
+Perhaps we should check that $\gamma_{[\alpha],\mathrm{AH}}^{2p}$ is nonzero. Roughly speaking, we expect this to hold by the period computations of \Cref{lem:gamma-periods}.
+\begin{proposition} \label{prop:fermat-abs-hodge-in-hodge-basis}
+	Choose $\alpha\in\mf B^{2p}$. Then
+	\[\pi_\infty\left(\gamma_{[\alpha],\mathrm{AH}}^{2p}\right)=\sum_{\substack{\beta\in[\alpha]\\\beta=(a_1,b_1,c_1,\ldots,a_{2p},b_{2p},c_{2p})}}\Bigg((2\pi i)^{-p}\prod_{i=1}^{2p}\frac{N-[a_i]-[b_i]}{N}\int_{\gamma}\omega_{(-a_i,-b_i,-c_i)}\Bigg)\omega_{\beta}.\]
+	% where $\omega_{\beta,\mathrm{AH}}$ is the absolute Hodge class discussed in \Cref{rem:fermat-lift-hodge-to-abs-hodge}.
+\end{proposition}
+\begin{proof}
+	We know that the $\omega_{\beta}$ form an eigenbasis of $\mathrm H^{2p}_{\mathrm{dR}}\left(X^{2p},\CC\right)(p)_{[\alpha]}$ by restricting \Cref{rem:diagonalize-de-rham} to the $[\alpha]$-generalized eigenspace. Thus, we know that $\pi_\infty(\gamma_{[\alpha],\mathrm{AH}})$ is certainly a linear combination of the $\omega_\beta$s, so we write
+	\[\pi_\infty\left(\gamma_{[\alpha],\mathrm{AH}}^{2p}\right)=\sum_{\beta\in[\alpha]}z_\beta\omega_\beta,\]
+	and it remains to compute the coefficients $z_\beta$. For this, we use the computation of the Poincar\'e pairing computation from \Cref{lem:fermat-poincare-pairing} (iterated $2p$ times), whereupon we see that
+	\[P\left(\pi_\infty\left(\gamma_{[\alpha],\mathrm{AH}}^{2p}\right),\omega_{-\beta}\right)=z_\beta\prod_{i=1}^{2p}(-1)^N\frac N{N-[a_i]-[b_i]},\]
+	where $\beta=(a_1,b_1,c_1,\ldots,a_{2p},b_{2p},c_{2p})$. Thus, to get the correct answer for $z_\beta$, we would like to show that
+	\[P\left(\pi_\infty\left(\gamma_{[\alpha],\mathrm{AH}}^{2p}\right),\omega_{-\beta}\right)\stackrel?=(2\pi i)^{-p}\int_\gamma\omega_{-\beta}.\]
+	(Note that the sign has disappeared because $(-1)^{N\cdot2p}=1$.) To compute this Poincar\'e pairing, we would like to remember that $\gamma_{[\alpha],\mathrm{AH}}$ comes from a Betti class. As such, we remark that the composite
+	\[\mathrm H^{\mathrm B}_{2p}\left(X^{2p},\CC\right)(-p)\cong\mathrm H_{\mathrm B}^{2p}\left(X^{2p},\CC\right)(p)\subseteq\mathrm H^{2p}_\AA\left(X^{2p}\right)(p)\onto\mathrm H^{2p}_{\mathrm{dR}}\left(X^{2p},\CC\right)\]
+	is just the usual cycle class map from Betti to de Rham cohomology. Thus, we see that the Poincar\'e pairing with $\gamma_{[\alpha],\mathrm{AH}}^{2p}$ may be computed as the integration pairing
+	\[P\left(\pi_\infty\left(\gamma_{[\alpha],\mathrm{AH}}^{2p}\right),\omega_{-\beta}\right)=(2\pi i)^{-p}\int_{\gamma_{[\alpha]}^{2p}}\omega_{-\beta}.\]
+	To complete the proof, we note that we may pass from integrating over $\gamma_{[\alpha]}^{2p}$ to $\gamma^{2p}$ because the adjunctive property of the integration pairing allows us to pass the projection onto the $[\alpha]$-component to $-\beta$, but $\omega_{-\beta}$ already lives in the $[\alpha]$-generalized eigenspace.
+\end{proof}
+Thus, we see that $\gamma_{[\alpha],\mathrm{AH}}$ is nonzero because we have found nonzero coefficients: the integrals are nonzero by \Cref{lem:gamma-periods}. While we're here, we translate this into a statement with $\nu_\bullet$s.
+\begin{corollary} \label{cor:fermat-abs-hodge-to-coleman-hodge}
+	Choose $\alpha\in\mf B^{2p}$. Then
+	\[\pi_\infty\left(\gamma_{[\alpha],\mathrm{AH}}^{2p}\right)=\sum_{\substack{\beta\in[\alpha]\\\beta=(a_1,b_1,c_1,\ldots,a_{2p},b_{2p},c_{2p})}}\Bigg((2\pi i)^{-p}\prod_{i=1}^{2p}\int_{\gamma}\nu_{(-a_i,-b_i,-c_i)}\Bigg)\nu_{\beta}.\]
+\end{corollary}
+\begin{proof}
+	The same proof as in \Cref{prop:fermat-abs-hodge-in-hodge-basis} applies when combined with \Cref{rem:coleman-differentials-dual}.
+	% shows
+	% \[\pi_\infty\left(\gamma_{[\alpha],\mathrm{AH}}^{2p}\right)=\sum_{\substack{\beta\in[\alpha]\\\beta=(a_1,b_1,c_1,\ldots,a_{2p},b_{2p},c_{2p})}}\Bigg((2\pi i)^{-p}\prod_{i=1}^{2p}\int_{\gamma}\nu_{(-a_i,-b_i,-c_i)}\Bigg)\nu_{\beta}.\]
+	% It remains to compute the integrals, which \Cref{rem:coleman-periods} tells us yields
+	% \[\prod_{i=1}^{2p}(-1)^{\floor{([-a_i]+[-b_i])/N}}\zeta_{2N}^{[-a_i]+[-b_i]-N}\Gamma\left(\frac{[-a_i]}N\right)\Gamma\left(\frac{[-b_i]}N\right)\Gamma\left(\frac{[c_i]}N\right)^{-1}\]
+	% The statement now follows once we remark that $\floor{\frac{[-a_i]+[-b_i]}N}\in\{0,1\}$ equals $0$ exactly $p$ times and equals $1$ exactly $p$ times because $\alpha\in\mf B^{2p}$.
+\end{proof}
+\begin{remark}
+	Following \Cref{rem:coleman-differentials-dual}, it will be computationally helpful to rewrite our formula in terms of the $\nu_\bullet$s because this will make the mysterious rational constant disappear.
+\end{remark}
+% \begin{remark}
+% 	One can move the $\Gamma$s entirely into the numerator with only minor cost. Indeed, the reflection formula yields
+% 	\[\Gamma\left(\frac{[c_i]}N\right)\Gamma\left(\frac{[-c_i]}N\right)=\frac{2\pi i}{\zeta_{2N}^{[-c_i]}-\zeta_{2N}^{-[-c_i]}}.\]
+% 	Now, noting that $\zeta_{2N}^{[-a_i]+[-b_i]+[-c_i]-N}(-1)^{\floor{([-a_i]+[-b_i])/N}}$, we see that the extra sign will also disappear, leaving us with
+% 	\[(2\pi i)^p\prod_{i=1}^{2p}\]
+% \end{remark}
+In order to hide these integrals for now, we introduce the following notation.
+\begin{notation}
+	For $\alpha\in\mf B^{2p}$ such that $\alpha=(\alpha_1,\ldots,\alpha_{2p})$, we define
+	\[\op{Per}\left(\gamma^{2p},\nu_{\alpha}\right)\coloneqq(2\pi i)^{-p}\prod_{i=1}^{2p}\int_\gamma\nu_{\alpha_i}.\]
+	Note that this number is algebraic by \Cref{prop:find-hodge-classes} because it is the integral of a differential against an absolute Hodge class. (See the end of the proof of \Cref{prop:fermat-abs-hodge-in-hodge-basis}.)
+\end{notation}
+\begin{remark} \label{rem:iterated-coleman-period}
+	In order to compute these integrals, we note \Cref{rem:coleman-periods} grants the product of the integrals equals
+	\[\prod_{i=1}^{2p}(-1)^{\floor{([a_i]+[b_i])/N}}\zeta_{2N}^{[a_i]+[b_i]-N}\Gamma\left(\frac{[a_i]}N\right)\Gamma\left(\frac{[b_i]}N\right)\Gamma\left(\frac{[-c_i]}N\right)^{-1}.\]
+	We quickly note that $\floor{\frac{[a_i]+[b_i]}N}\in\{0,1\}$ equals $0$ exactly $p$ times and equals $1$ exactly $p$ times because $\alpha\in\mf B^{2p}$; additionally, $\zeta_{2N}^{-N\cdot2p}=1$, so that power vanishes. Thus, our period equals
+	\[(-2\pi i)^{-p}\prod_{i=1}^{2p}\zeta_{2N}^{[a_i]+[b_i]}\frac{\Gamma\left(\frac{[a_i]}N\right)\Gamma\left(\frac{[b_i]}N\right)}{\Gamma\left(\frac{[-c_i]}N\right)}.\]
+\end{remark}
+We will also want to express the $\nu_\bullet$s in terms of $\gamma$.
+\begin{corollary} \label{cor:fermat-hodge-basis-by-abs-hodge}
+	Choose $\alpha\in\mf B^{2p}$. For any $\beta\in[\alpha]$, we have
+	\[\nu_{\beta}=\frac1{\#G^{2p}(\ov\QQ)\op{Per}\left(\gamma^{2p},\nu_{-\alpha}\right)}\sum_{g\in G^{2p}(\ov\QQ)}\beta(g)^{-1}\cdot\pi_\infty\left(g^*\gamma^{2p}_{[\alpha],\mathrm{AH}}\right).\]
+\end{corollary}
+\begin{proof}
+	By the orthogonality of characters applied to \Cref{cor:fermat-abs-hodge-to-coleman-hodge}, we find that
+	\[\frac1{\#G^{2p}(\ov\QQ)}\sum_{g\in G^{2p}(\ov\QQ)}\beta(g)^{-1}\cdot \pi_\infty\left(g^*\gamma^{2p}_{[\alpha],\mathrm{AH}}\right)=\op{Per}\left(\gamma^{2p},\nu_{-\alpha}\right)\nu_{\beta,\mathrm{AH}},\]
+	so the result follows.
+\end{proof}
 
-\subsection{End of the Computation}
+% Thus, \Cref{prop:find-hodge-classes} upgrades to assert that $\gamma_{[\alpha]}^{\mathrm{AH}}$ is a basis of the one-dimensional vector space $\mathrm H^{2p}_\AA\left(X^{2p},\CC\right)(p)_{[\alpha]}$ over $\QQ([\alpha])$. In particular, $\gamma_{[\alpha]}^{\mathrm{AH}}$
+
+\subsection{Computation of the Galois Action}
+In this subsection, we compute the Galois action on our absolute Hodge cycles.
+To ground ourselves, we begin by noting that we are expecting a permutation matrix.
+\begin{lemma}
+	Choose $\alpha\in\mf A^{2p}$ and a prime $\ell$ such that $\ell\equiv1\pmod N$. Given $\sigma\in\op{Gal}(\ov\QQ/\QQ)$ such that $\sigma(\zeta_N)=\zeta_N^u$ for some $u\in(\ZZ/N\ZZ)^\times$, we find that $\sigma$ maps
+	\[\mathrm H^{2p}_{\mathrm{\acute et}}\left(X_{\ov\QQ}^{2p},\QQ_\ell\right)_\alpha\to\mathrm H^{2p}_{\mathrm{\acute et}}\left(X_{\ov\QQ}^{2p},\QQ_\ell\right)_{u^{-1}\alpha}.\]
+\end{lemma}
+\begin{proof}
+	Choose $v\in \mathrm H^{2p}_{\mathrm{\acute et}}\left(X_{\ov\QQ}^{2p},\QQ_\ell\right)_\alpha$. Then for any $g\in G^{2p}(\QQ_\ell)$, we find that
+	\[\sigma(g\cdot v)=\sigma(g)\cdot\sigma(v)\]
+	because the action of $G^{2p}$ is defined over $\QQ$ and hence Galois-invariant. Rearranging, we see that
+	\begin{align*}
+		g\cdot\sigma(v) &= \sigma\left(\sigma^{-1}(g)\right)\cdot\sigma(v) \\
+		&= \sigma\left(\sigma^{-1}(g)\cdot v\right) \\
+		&= \sigma\left(\alpha\left(\sigma^{-1}(g)\right)\cdot v\right) \\
+		&= \alpha\left(\sigma^{-1}(g)\right)\sigma(v),
+	\end{align*}
+	where the last equality holds because the Galois action is $\QQ_\ell$-linear. A direct computation then shows $\alpha\left(\sigma^{-1}(g)\right)=\sigma^{-1}(\alpha(g))$ and then $\sigma^{-1}(\alpha(g))=\left(u^{-1}\alpha\right)(g)$.
+\end{proof}
+We now move towards the computation of the Galois action on absolute Hodge classes. This requires a warning. Our computation will be able to succeed by using de~Rham classes as representatives for absolute Hodge classes. However, de~Rham classes have no Galois action: only absolute Hodge classes have Galois action (through the $\ell$-adic components). The key to keeping track of the differences between these elements is to keep track of our base-changes. In particular, for any prime $\ell$, we may specify an embedding $\iota\colon\QQ_\ell\into\CC$ and note the ``comparison'' isomorphisms
+\begin{align*}
+	\mathrm H^{2p}_{\mathrm{dR}}(X,\CC)(p)_{[\alpha]} &= C^p_{\mathrm{AH}}\left(X^{2p}_{\ov\QQ}\right)_{[\alpha]}\otimes_\QQ\CC \\
+	&= C^p_{\mathrm{AH}}\left(X^{2p}_{\ov\QQ}\right)_{[\alpha]}\otimes_\QQ\QQ_\ell\otimes_\iota\CC \\
+	&= \mathrm H^{2p}_{\mathrm{\acute et}}\left(X^{2p}_{\ov\QQ},\QQ_\ell\right)(p)_{[\alpha]}\otimes_\iota\CC,
+\end{align*}
+where the last isomorphism is given by the Betti-to-\'etale comparison isomorphism. (We remark that these identifications are all $G^{2p}$-invariant.) For example, in the sequel, we may write bizzarre things such as
+\[\gamma^{2p}_{[\alpha],\mathrm{AH}}\otimes1\in C^p_{\mathrm{AH}}\left(X^{2p}_{\ov\QQ}\right)\otimes_\QQ\ov\QQ\qquad\text{or}\qquad\nu_\alpha\otimes1\in\mathrm H^{2p}_{\mathrm{dR}}\left(X^{2p},\QQ\right)\otimes_\QQ\ov\QQ\]
+and then pretend that these elements live in the same vector space.
+
+% For the rest of this subsection, unless otherwise specified, we choose $\ell$ to be $1\pmod N$ and so that $\QQ_\ell$ contains all the periods
+% \[\op{Per}\left(\gamma_{[\alpha]}^{2p},\nu_{\alpha}\right).\]
+As promised in the previous section, we are able to compute the Galois action on $\gamma$. Explicitly, this amounts to the following.
+\begin{lemma} \label{lem:fermat-galois-action-abs-hodge}
+	Choose $\alpha\in\mf B^{2p}$.
+	\begin{listalph}
+		\item There is a function $\lambda\colon\op{Gal}(\ov\QQ/\QQ)\to\QQ([\alpha])^\times$ such that
+		\[\sigma\left(\gamma_{[\alpha],\mathrm{AH}}^{2p}\right)=\lambda(\sigma)\gamma_{[\alpha],\mathrm{AH}}^{2p}.\]
+		\item For any $\sigma\in\op{Gal}(\ov\QQ/\QQ)$ and $g\in G^{2p}(\ov\QQ)$, we have
+		\[\sigma\left(g^*\gamma_{[\alpha],\mathrm{AH}}^{2p}\right)=\lambda(\sigma)\cdot\sigma(g)^*\gamma_{[\alpha],\mathrm{AH}}^{2p}.\]
+		\item For any $\sigma\in\op{Gal}(\ov\QQ/\QQ)$, we compute $\iota_\alpha(\lambda(\sigma))\in\QQ(\zeta_{2N})$ as
+		\[\iota_\alpha(\lambda(\sigma))=\frac{\sigma\left(\op{Per}\left(\gamma^{2p},\nu_{-\alpha}\right)\right)}{\op{Per}\left(\gamma^{2p},\nu_{-\alpha}\right)}.\]
+	\end{listalph}
+\end{lemma}
+\begin{proof}
+	Here, (a) follows because $C^{p}_{\mathrm{AH}}\left(X^{2p}\right)_{[\alpha]}$ is a one-dimensional vector space over $\QQ([\alpha])$ which is stable under the Galois action (because its Betti component is defined over $\QQ$); thus, we see that $\gamma_{[\alpha],\mathrm{AH}}^{2p}$ is a basis vector of this space, so (a) follows. Continuing, (b) follows because the action of $G^{2p}$ on $X^{2p}$ is defined over $\QQ$, implying that
+	\begin{align*}
+		\sigma\left(g^*\gamma_{[\alpha],\mathrm{AH}}^{2p}\right) &= \sigma(g)^*\sigma\left(\gamma_{[\alpha],\mathrm{AH}}^{2p}\right) \\
+		&= \sigma(g)^*\left(\lambda(\sigma)\gamma_{[\alpha],\mathrm{AH}}^{2p}\right) \\
+		&= \lambda(\sigma)\cdot\sigma(g)^*\gamma_{[\alpha],\mathrm{AH}}^{2p},
+	\end{align*}
+	where the last equality holds because $\sigma(g)^*$ is linear.
+
+	Lastly, (c) will require a computation. We will work in the de~Rham component; the idea is to project onto the $\alpha$-component. Working in $C^p_{\mathrm{AH}}\left(X^{2p}\right)\otimes_\QQ\CC$, one has the equalities
+	\[\left(\lambda(\sigma)\gamma^{2p}_{[\alpha],\mathrm{AH}}\otimes1\right) = \left(\sigma\gamma^{2p}_{[\alpha],\mathrm{AH}}\otimes1\right).\]
+	We now project onto the $\alpha$-eigenspace; because the $G^{2p}$-action is defined over $\QQ$, the projection commutes with the Galois action, leaving us with
+	\[\left(\lambda(\sigma)\gamma^{2p}_{[\alpha],\mathrm{AH}}\otimes1\right)_\alpha = \sigma\left(\gamma^{2p}_{[\alpha],\mathrm{AH}}\otimes1\right)_\alpha.\]
+	On one hand, by definition of $\iota_\alpha$, we see that the left-hand side will equal $\iota_\alpha(\lambda(\sigma))\left(\gamma^{2p}_{[\alpha],\mathrm{AH}}\otimes1\right)$; then projecting onto the de~Rham component leaves us with
+	\[\pi_\infty\left(\left(\lambda(\sigma)\gamma^{2p}_{[\alpha],\mathrm{AH}}\otimes1\right)_\alpha\right)=\lambda(\sigma)\op{Per}\left(\gamma^{2p},\nu_{-\alpha}\right)\nu_\alpha\]
+	by \Cref{cor:fermat-abs-hodge-to-coleman-hodge}. On the other hand, for the right-hand side, we will want to project onto the de~Rham component first (which commutes with Galois action by our identifications). To complete the proof, we now run computations in $\mathrm H^{2p}_{\mathrm{dR}}\left(X^{2p},\CC\right)=\mathrm H^{2p}_{\mathrm{dR}}\left(X^{2p},\QQ\right)\otimes_\QQ\CC$, for which we use \Cref{cor:fermat-abs-hodge-to-coleman-hodge} to see
+	\begin{align*}
+		\pi_\infty\left(\sigma\left(\gamma^{2p}_{[\alpha],\mathrm{AH}}\otimes1\right)_\alpha\right) &= \sigma\left(\pi_\infty\left(\gamma^{2p}_{[\alpha],\mathrm{AH}}\otimes1\right)_\alpha\right) \\
+		&= \sigma\left(\nu_\alpha\otimes\op{Per}\left(\gamma^{2p},\nu_{-\alpha}\right)\right) \\
+		&= \sigma\left(\op{Per}\left(\gamma^{2p},\nu_{-\alpha}\right)\right)\nu_\alpha,
+	\end{align*}
+	where the last equality holds because the Galois action on $\mathrm H^{2p}_{\mathrm{dR}}\left(X^{2p},\QQ\right)$ is trivial. Comparing the previous two computations completes the proof.
+\end{proof}
+We are now ready for our main theorem.
+\begin{theorem} \label{thm:fermat-galois}
+	Choose $\alpha\in\mf B^{2p}$. For any $\sigma\in\op{Gal}(\ov\QQ/\QQ)$ such that $\sigma(\zeta_N)=\zeta_N^u$ for $u\in(\ZZ/N\ZZ)^\times$, we have
+	\[\sigma(\nu_\alpha\otimes1)=\nu_{u^{-1}\alpha}\otimes\frac{\sigma\left(\op{Per}(\gamma^{2p},\nu_{-u^{-1}\alpha})\right)}{\op{Per}(\gamma^{2p},\nu_{-\alpha})},\]
+	where this Galois action takes place in $\mathrm H^{2p}_{\mathrm{dR}}\left(X^{2p},\QQ\right)(p)_{[\alpha]}\otimes_\QQ\ov\QQ=C^p_{\mathrm{AH}}\left(X^{2p}\right)_{[\alpha]}\otimes_\QQ\ov\QQ$.
+\end{theorem}
+\begin{proof}
+	We combine the computed Galois action in \Cref{lem:fermat-galois-action-abs-hodge} with the change-of-basis results \Cref{cor:fermat-abs-hodge-to-coleman-hodge,cor:fermat-hodge-basis-by-abs-hodge}. To begin, \Cref{cor:fermat-hodge-basis-by-abs-hodge} lets us write
+	\begin{align*}
+		\sigma(\nu_\alpha\otimes1) &= \sigma\Bigg(\frac1{\#G^{2p}(\ov\QQ)}\sum_{g\in G^{2p}(\ov\QQ)}g^*\gamma^{2p}_{\mathrm{AH}}\otimes\frac1{\alpha(g)\op{Per}\left(\gamma^{2p},\nu_{-\alpha}\right)}\Bigg) \\
+		&= \frac1{\#G^{2p}(\ov\QQ)}\sum_{g\in G^{2p}(\ov\QQ)}\sigma\left(g^*\gamma^{2p}_{\mathrm{AH}}\otimes\frac1{\alpha(g)\op{Per}\left(\gamma^{2p},\nu_{-\alpha}\right)}\right) \\
+		&= \frac1{\#G^{2p}(\ov\QQ)}\sum_{g\in G^{2p}(\ov\QQ)}\sigma\left(g^*\gamma^{2p}_{\mathrm{AH}}\right)\otimes\frac1{\alpha(g)\op{Per}\left(\gamma^{2p},\nu_{-\alpha}\right)},
+	\end{align*}
+	where the last equality takes place in $C^p_{\mathrm{AH}}\left(X^{2p}\right)\otimes_\QQ\ov\QQ$ so that the Galois action is happening in the left component. Continuing, \Cref{lem:fermat-galois-action-abs-hodge} tells us that
+	\[\sigma\left(g^*\gamma_{[\alpha],\mathrm{AH}}^{2p}\right)=\sigma(g)\lambda(\sigma)\cdot\sigma(g)^*\gamma_{[\alpha],\mathrm{AH}}^{2p},\]
+	so
+	\[\sigma(\nu_\alpha\otimes1)=\frac1{\#G^{2p}(\ov\QQ)}\sum_{g\in G^{2p}(\ov\QQ)}\lambda(\sigma)\cdot\sigma(g)^*\gamma_{[\alpha],\mathrm{AH}}^{2p}\otimes\frac1{\alpha(g)\op{Per}\left(\gamma^{2p},\nu_{-\alpha}\right)}.\]
+	(We will wait to evaluate $\lambda(\sigma)$ until the end because a trick is required to move it through the tensor product.) We now go back to the basis of $\nu_\bullet$s via \Cref{cor:fermat-abs-hodge-to-coleman-hodge}, writing
+	\[\sigma(\nu_\alpha\otimes1)=\frac1{\#G^{2p}(\ov\QQ)}\sum_{\substack{g\in G^{2p}(\ov\QQ)\\\beta\in[\alpha]}}\lambda(\sigma)\cdot\sigma(g)^*\nu_\beta\otimes\frac{\op{Per}(\gamma^{2p},\nu_{-\beta})}{\alpha(g)\op{Per}\left(\gamma^{2p},\nu_{-\alpha}\right)}.\]
+	Now, $\sigma(g)^*\nu_\beta\otimes1=\nu_\beta\otimes\beta(\sigma(g))$, where the equality is now taking place in $\mathrm H^{2p}_{\mathrm{dR}}\left(X^{2p},\QQ\right)\otimes_\QQ\ov\QQ$. Continuing, we see $\beta(\sigma(g))=\sigma(\beta(g))=\beta(g)^u$ because evaluating a character is Galois-invariant. Rearranging the sums, we now see that we can isolate the sum
+	\[\frac1{\#G^{2p}(\ov\QQ)}\sum_{g\in G^{2p}(\ov\QQ)}\frac{(u\beta)(g)}{\alpha(g)},\]
+	which orthogonality of characters tells us is the indicator for $\beta=u^{-1}\alpha$. Thus, we are left with
+	\[\sigma(\nu_\alpha\otimes1)=\lambda(\sigma)\nu_{u^{-1}\alpha}\otimes\frac{\op{Per}(\gamma^{2p},\nu_{-u^{-1}\alpha})}{\op{Per}\left(\gamma^{2p},\nu_{-\alpha}\right)}.\]
+	It remains to move $\lambda(\sigma)$ through the tensor product. Note that this is not totally trivial because the tensor product only lets us move rational numbers through. Anyway, it is enough to check the required equality in the de~Rham component, allowing us to use the proof of \Cref{lem:fermat-galois-action-abs-hodge} to note
+	\[\lambda(\sigma)\nu_{u^{-1}\alpha}\otimes \op{Per}\left(\gamma^{2p},\nu_{-u^{-1}\alpha}\right)=\nu_{u^{-1}\alpha}\otimes \sigma\left(\op{Per}\left(\gamma^{2p},\nu_{-u^{-1}\alpha}\right)\right),\]
+	from which the required result follows after some rearranging.
+	% Anyway, it is enough to check the required equality in some $\ell$-adic component, so we choose $\ell$ so that $\QQ_\ell$ has $\zeta_N$ and all periods in sight; by adding enough transcednece degree (and maybe more algebraic elements), we may assume that $\nu_\alpha$ and $\nu_{u^{-1}\alpha}$ are defined over $\QQ_\ell$. Then choosing an embedding $\iota\colon\QQ_\ell\into\CC$ produces an identification
+	% \[C^p_{\mathrm{AH}}\left(X^{2p}\right)\otimes_\QQ\QQ_\ell\otimes_\iota\CC\cong\mathrm H^{2p}\left(X^{2p}_{\ov\QQ},\QQ_\ell\right)(p)\otimes_\iota\CC,\]
+	% and now we can run all of our computations with coefficients in $\QQ_\ell$. Because $\lambda(\sigma)$ now lives in $\QQ_\ell$, we are now allowed to move it through the tensor product, letting us conclude that
+	% \[\sigma(\nu_\alpha\otimes1)=\lambda(\sigma)\nu_{u^{-1}\alpha}\otimes\frac{\op{Per}(\gamma^{2p},\nu_{-u^{-1}\alpha})}{\op{Per}\left(\gamma^{2p},\nu_{-\alpha}\right)}\cdot\nu_{u^{-1}\alpha}.\]
+	% The result now follows from the proof of \Cref{lem:fermat-galois-action-abs-hodge} and some rearranging. Namely, we see that 
+\end{proof}
+\begin{remark}
+	Because the $G^{2p}$-action commutes with the Galois action, it is not difficult to directly check that an $\alpha$-eigenvector should go to a $u^{-1}\alpha$-eigenvector.
+\end{remark}
+\begin{remark}
+	As a sanity check, it is not hard to see that \Cref{thm:fermat-galois} actually defines a group representation.
+\end{remark}
 % S8.5 of GGL
 % use kunneth to discuss how we get a Hodge cycle
 % build the abs Hodge cycle from the Hodge cycle => this should allow me to describe the Hodge cycles on X^2p without too much pain, notably avoiding Deligne 82
@@ -280,8 +481,213 @@ We now upgrade \Cref{rem:deg-by-weight-curve} to $\mathrm H^1_{\mathrm{dR}}(X,\C
 % image of Kunneth should be fully diagonalizable
 % actually image of Kunneth consists of the alpha-eigenspaces of H^2p(X^2p) which have nonzero entries in their tuple, which is something we can see on the level of de Rham cohomology
 % I think it is worthwhile to point out exactly where we use the space has abs Hodge cycles: the diagonal Betti subspace is not stable under Galois
+Let's see an example.
+\begin{corollary} \label{cor:fermat-galois-polarization}
+	Choose $\alpha\coloneqq(a,b,c)\in\mf A^1$, and set $\alpha'\coloneqq(a',b',c')$ to be $-\alpha$. Then $(\alpha,\alpha')\in\mf B^2$, and for any $\sigma\in\op{Gal}(\ov\QQ/\QQ)$ such that $\sigma(\zeta_N)=\zeta_N^u$ for $u\in(\ZZ/N\ZZ)^\times$, we have
+	\[\sigma(\nu_{(\alpha,\alpha')}\otimes1)=\nu_{u^{-1}(\alpha,\alpha')}\otimes(-1)^{\langle u^{-1}\alpha\rangle-\langle\alpha\rangle}.\]
+	In particular, $\sigma$ fixes $\nu_{(\alpha,\alpha')}\otimes1$ if and only if $u-1$ is divisible by $N/\gcd(a,b,c,N)$.
+\end{corollary}
+\begin{proof}
+	To see that $(\alpha,\alpha')\in\mf B^2$, we note that any $u\in(\ZZ/N\ZZ)^\times$ still has $u\alpha=-u\alpha'$, so $\{\langle u\alpha\rangle,\langle-u\alpha\rangle\}=\{1,2\}$.
 
-\section{Fermat Hypersurfaces}
-We would be remiss without mentioning something about Fermat hypersurfaces. Thus, we will state (but not prove) a few facts about what is known for Fermat hypersurfaces. There is much known here, but the proofs tend to be somewhat harder than what one does with the Fermat curves, which is why we have avoided the theory.\todo{}
+	Looking at \Cref{thm:fermat-galois}, we see the main part of proof will be computing our periods. The main point is that the reflection formula for $\Gamma$ reassures us that
+	\[\Gamma\left(\frac{[a]}N\right)\Gamma\left(\frac{[-a]}N\right)=\frac\pi{\sin\frac{a\pi}N}.\]
+	We now combine this with the computation in \Cref{rem:iterated-coleman-period} to achieve
+	\[\op{Per}\left(\gamma^{2p},\nu_{-(\alpha,\alpha')}\right) = -(2\pi i)^{-1}\cdot\zeta_{2N}^{[-a]+[-b]+[a]+[b]}\cdot\frac\pi{\sin\frac{[a]\pi}N}\cdot\frac\pi{\sin\frac{[b]\pi}N}\cdot\frac{\sin\frac{[c]\pi}N}\pi.\]
+	Note that $[a]+[-a]=N$, so the power of $\zeta_{2N}$ disappears. Continuing, we expand $\sin z=\frac1{2i}\left(z+z^{-1}\right)$, which yields
+	\[\op{Per}\left(\gamma^{2p},\nu_{-(\alpha,\alpha')}\right) = -\frac{\left(\zeta_{2N}^c-\zeta_{2N}^{-c}\right)}{\left(\zeta_{2N}^a-\zeta_{2N}^{-a}\right)\left(\zeta_{2N}^b-\zeta_{2N}^{-b}\right)}.\]
+	Continuing, we factor $\zeta_{2N}^{c}/\zeta_{2N}^{-a-b}=\zeta_{2N}^{N\langle\alpha\rangle}=(-1)^{\langle\alpha\rangle}$, leaving us with
+	\[\op{Per}\left(\gamma^{2p},\nu_{-(\alpha,\alpha')}\right) = -(-1)^{\langle\alpha\rangle}\cdot\frac{\left(1-\zeta_{N}^{-c}\right)}{\left(\zeta_{N}^a-1\right)\left(\zeta_{N}^b-1\right)}.\]
+	We now plug into \Cref{thm:fermat-galois} to reveal
+	\[\sigma(\nu_{(\alpha,\alpha')}\otimes1)=\nu_{u^{-1}(\alpha,\alpha')}\otimes\frac{\sigma\left((-1)^{\langle u^{-1}\alpha\rangle}\cdot\frac{\left(1-\zeta_{N}^{-u^{-1}c}\right)}{\left(\zeta_{N}^{u^{-1}a}-1\right)\left(\zeta_{N}^{u^{-1}b}-1\right)}\right)}{(-1)^{\langle\alpha\rangle}\cdot\frac{\left(1-\zeta_{N}^{-c}\right)}{\left(\zeta_{N}^a-1\right)\left(\zeta_{N}^b-1\right)}},\]
+	which rearranges into the desired expression because $\sigma\left(\zeta_N^{u^{-1}}\right)=\zeta_N$.
+	
+	It now remains the last sentence. Well, we see that $\sigma$ fixes $\nu_{(\alpha,\alpha')}$ if and only if $u^{-1}\alpha=\alpha$, which is equivalent to $u\alpha=\alpha$. By taking $\ZZ$-linear combinations, it is equivalent to asking for $(u-1)\gcd(a,b,c)\equiv0\pmod N$, from which the claim follows.
+\end{proof}
+
+% \section{Some Examples}
+% In this section, we compute some $\ell$-adic monodromy groups.
+
+\subsection{Some Examples}
+We begin with the superelliptic curve $C\colon y^9=x^3-1$.
+\begin{proposition} \label{prop:special-fermat-st-full}
+	Define $A$ to be the Jacobian of the proper curve $C$ with affine chart $y^9=x^3-1$. Then we show $K^{\mathrm{conn}}_A=\QQ(\zeta_9)$, and we compute $\op{ST}(A)$.
+\end{proposition}
+\begin{proof}
+	We will freely use the computation executed in \Cref{prop:special-fermat-st-1}. Thoughout, $A\coloneqq\op{Jac}C$, and we recall that we have a decomposition $A=C_0\times A_1\times A_2$ (over $\QQ$) into geometrically simple abelian varieties. We proceed in steps.
+	\begin{enumerate}
+		\item Even though this is not a Fermat curve, it is a quotient of the Fermat curve $X_N$ with $N\coloneqq9$: this is witnessed by the quotient map from the affine patch $x^9+y^9+1=0$ to $C$ given by $\psi(x,y)\coloneqq\left(-x^3,y\right)$. Thus, we will be able to use the Galois-invariant embedding $\psi\colon\mathrm H^1_{\mathrm{\acute et}}(C_{\ov\QQ},\QQ_\ell)\into\mathrm H^1_{\mathrm{\acute et}}(X_{N,\ov\QQ},\QQ_\ell)$ to use \Cref{thm:fermat-galois} by restricting to the Galois submodule. To make this explicit, we recall that we have a basis
+		\[\left\{\frac{dx}{y^4},\frac{dx}{y^5},\frac{dx}{y^6},\frac{dx}{y^7},\frac{dx}{y^8},\frac{x\,dx}{y^7},\frac{x\,dx}{y^8}\right\}\]
+		of $\mathrm H^{10}(C)$, we see that we can pass this basis through $\psi^*$ to see that $\mathrm H^{10}(C)\subseteq\mathrm H^{10}(X)$ has basis
+		\[\left\{\nu_{351},\nu_{342},\nu_{333},\nu_{324},\nu_{315},\nu_{621},\nu_{612}\right\}.\]
+		Combining with the conjugate differentials yeilds a full basis of $\mathrm H^1_{\mathrm{dR}}(C,\QQ)\subseteq\mathrm H^1_{\mathrm{dR}}(X,\QQ)$.
+
+		\item We now explain how to pass the \'etale site. By \Cref{conj:ast}, which is known in this case by \Cref{thm:mtc-implies-astc}, we may choose any $\ell$, so we choose $\ell$ so that $\QQ_\ell$ contains any algebraic numbers we will need in the sequel (most notably, we want $\zeta_N$ and our periods). For each $p\ge0$, we recall that any $\alpha\in\mf B^{2p}$ produces idenitifications
+		\[\mathrm H^{2p}_{\mathrm{dR}}\left(X^{2p},\QQ\right)_{[\alpha]}\otimes_\QQ\CC=C^p_{\mathrm{AH}}\left(X^{2p}\right)_{[\alpha]}\otimes_\QQ\CC\into\mathrm H^{2p}_{\mathrm{\acute et}}\left(X^{2p},\QQ_\ell\right)(p)_{[\alpha]}\otimes_\iota\CC,\]
+		where $\iota\colon\QQ_\ell\into\CC$ is some fixed embedding. In this way, we see that we are allowed to treat an expression like $\nu_{351}\otimes1$ as an element of $\mathrm H^{2p}_{\mathrm{\acute et}}\left(X^{2p},\QQ_\ell\right)\otimes_\iota\CC$; for carefully chosen $\ell$, a Galois descent argument is even able to reassure us that the basis vectors $\nu_\alpha\otimes1$ produces from the previous step can be found in $\mathrm H^{2p}_{\mathrm{\acute et}}\left(X^{2p},\QQ_\ell\right)(p)_{[\alpha]}$.
+
+		Thus, in the notation of \Cref{prop:special-fermat-st-1}, we see that $\psi^*$ pulls the basis vectors $\{u_1\otimes1,v_1\otimes1,v_2\otimes1,v_4\otimes1,w_1\otimes1,w_2\otimes1,w_5\otimes1\}$ to
+		\[\{\nu_{333}\otimes1,\quad\nu_{315}\otimes1,\nu_{621}\otimes1,\nu_{342}\otimes1,\quad\nu_{612}\otimes1,\nu_{324}\otimes1,\nu_{351}\otimes1\},\]
+		and one can recover $\psi^*$ on the rest of the basis by taking conjugates.
+
+		\item We are now ready to begin executing \Cref{prop:galois-computes-monodromy}; for this, \Cref{rem:galois-computes-monodromy-finite} informs us that we need to build a space of $W'$ of Tate classes cutting out $G_\ell(A)^\circ\subseteq\op{GL}_{14,\QQ_\ell}$. We begin by adding $W_1$, made up of the endomorphisms, which ensures (for example) that $G_\ell(A)^\circ$ is diagonal. Then \Cref{prop:special-fermat-st-1} computed that we also have the ``polarization equations''
+		\begin{align*}
+			\mu_1\mu_2 &= \kappa_1\kappa_8, \\
+			\kappa_1\kappa_8 &= \kappa_2\kappa_7, \\
+			\kappa_1\kappa_8 &= \kappa_4\kappa_5,
+		\end{align*}
+		and the exceptional equation
+		\begin{align*}
+			\mu_1\kappa_7 &= \kappa_5\kappa_8.
+		\end{align*}
+		We remark that the polarization equations translate into a Tate class like $\nu_{(\alpha,-\alpha,\beta,-\beta)}\otimes1$ understood as an element in $\mathrm H^4_{\mathrm{\acute et}}(X_{\ov\QQ},\QQ_\ell)(2)\otimes_\QQ\QQ_\ell$, but this Tate class actually already come from a class in $W_1$ (see \Cref{cor:fermat-galois-polarization}), so we may safely ignore it. Thus, we only have to translate the exceptional equation into the tensor
+		\[\nu_{333,675,648,612}\otimes1\in\mathrm H^4_{\mathrm{\acute et}}(X_{\ov\QQ},\QQ_\ell)(2)\otimes_\QQ\QQ_\ell\]
+		and its Galois orbit.
+
+		\item We claim that $K^{\mathrm{conn}}_A=\QQ(\zeta_N)$. By \Cref{rem:galois-computes-monodromy-finite}, it is enough to know that $\op{Gal}(\QQ(\zeta_N)/\QQ)$ is the largest subgroup of $\op{Gal}(\ov\QQ/\QQ)$ fixing $W'$. We already know that our endomorphisms are defined over $\QQ(\zeta_N)$, and conversely, \Cref{cor:fermat-galois-polarization} has found some Tate classes that are only fixed by $\op{Gal}(\QQ(\zeta_N)/\QQ)$. It remains to check that $\sigma\in\op{Gal}(\QQ(\zeta_N)/\QQ)$ fixes the Galois orbit of $\nu_{333,675,648,612}\otimes1$. Well, looking at \Cref{thm:fermat-galois}, it is enough to check that $\sigma$ fixes
+		\[\op{Per}\left(\gamma^4,\nu_{u(333,675,648,612)}\right)\]
+		for any $u\in(\ZZ/N\ZZ)^\times$. Well, by \Cref{rem:coleman-periods}, we see this equals
+		\[(-2\pi i)^{-2}\zeta_{2N}^{u(3+3+6+7+6+4+6+1)}\cdot\frac{\Gamma\left(\frac{[3u]}9\right)\Gamma\left(\frac{[3u]}9\right)}{\Gamma\left(\frac{[6u]}9\right)}\cdot\frac{\Gamma\left(\frac{[6u]}9\right)\Gamma\left(\frac{[7u]}9\right)}{\Gamma\left(\frac{[4u]}9\right)}\cdot\frac{\Gamma\left(\frac{[6u]}9\right)\Gamma\left(\frac{[4u]}9\right)}{\Gamma\left(\frac{[u]}9\right)}\cdot\frac{\Gamma\left(\frac{[6u]}9\right)\Gamma\left(\frac{[u]}9\right)}{\Gamma\left(\frac{[7u]}9\right)}.\]
+		After the dust settles, we are left with
+		\[(-2\pi i)^{-2}\cdot\Gamma\left(\frac39\right)^2\Gamma\left(\frac69\right)^2.\]
+		Now, the reflection formula yields $\Gamma\left(\frac39\right)\Gamma\left(\frac69\right)=\frac\pi{\sin\frac\pi3}$, so we see that this period lives in $\QQ(\zeta_N)$ and hence is fixed by $\sigma$; in fact, it is rational!
+
+		\item Choose $\sigma\in\op{Gal}(\QQ(\zeta_N)/\QQ)$ to satisfy $\sigma(\zeta_N)=\zeta_N^u$. We compute the action of $\sigma$ on $W'$. For example, the previous step actually shows that $\sigma$ fixes the Galois orbit of $\nu_{333,675,648,612}\otimes1$, so it remains to compute the action on $W_1$. Note that $G$ acts on the $\CC$-vector space, so the action can be diagonalized. Given some character $(\alpha,\beta)\in\mf A^2$, we note that $(W_1)_{(\alpha,\beta)}$ is at most one-dimensional spanned by $\nu_{(\alpha,\beta)}\otimes1$, and this element being a Tate class is equivalent to $\mathrm H^{2}_{\mathrm B}(X,\QQ)(1)_{[\alpha]}$ has Hodge cycles by the Mumford--Tate conjecture (known in this case by \Cref{rem:mtc-cm}), which is equivalent to $(\alpha,\beta)\in\mf B^2$ by \Cref{prop:find-hodge-classes}. With the aide of a computer, we can enumerate all such $(\alpha,\beta)$, and we see that they come in two forms.
+		\begin{itemize}
+			\item We could have $\alpha=(a,b,c)$ and $\beta=-\alpha$. In this case, \Cref{cor:fermat-galois-polarization} explains that
+			\[\sigma(\nu_{(\alpha,\beta)}\otimes1)=\nu_{u^{-1}(\alpha,\beta)}\otimes(-1)^{\langle u^{-1}\alpha\rangle-\langle\alpha\rangle}.\]
+			\item We could have $\alpha=(a,b,c)$ and $\beta=(-a,-c,-b)$. As in \Cref{cor:fermat-galois-polarization}, the main point is to compute our periods. Well, by \Cref{rem:coleman-periods}, we find
+			\[\op{Per}\left(\gamma^{2p},\nu_{-(\alpha,\beta)}\right)=-(2\pi i)^{-1}\zeta^{[a]+[-a]+[-b]+[c]}_{2N}\cdot\frac{\Gamma\left(\frac{[-a]}N\right)\Gamma\left(\frac{[-b]}N\right)}{\Gamma\left(\frac{[c]}N\right)}\cdot\frac{\Gamma\left(\frac{[a]}N\right)\Gamma\left(\frac{[c]}N\right)}{\Gamma\left(\frac{[-b]}N\right)},\]
+			which after an appliation of the reflection formula gives
+			\begin{align*}
+				\op{Per}\left(\gamma^{2p},\nu_{-(\alpha,\beta)}\right) &= (2\pi i)^{-1}\zeta_{2N}^{[-b]+[c]}\cdot\frac\pi{\sin\frac{a\pi}N} \\
+				&= \frac{\zeta_{2N}^{[-b]+[c]}}{\zeta_{2N}^a-\zeta_{2N}^{-a}} \\
+				&= \frac{\zeta_{2N}^{[-b]+[c]+[a]}}{\zeta_{N}^a-1}.
+			\end{align*}
+			It will be convenient to write this entirely in terms of $\zeta_N$, so we note that $N$ being odd forces $\zeta_{2N}=-\zeta_N^{(N+1)/2}$, so this equals $(-1)^{[a]+[-b]+[c]}\zeta_N^{(a-b+c)(N+1)/2}$. The purpose of this rewrite is that all $\zeta_N$s will go away in the computation
+			\[\sigma(\nu_{(\alpha,\beta)}\otimes1)=\nu_{u^{-1}(\alpha,\beta)}\otimes\frac{\sigma\left(\op{Per}\left(\gamma^{2p},\nu_{-u^{-1}(\alpha,\beta)}\right)\right)}{\op{Per}\left(\gamma^{2p},\nu_{-(\alpha,\beta)}\right)}\]
+			because $\sigma\left(\zeta_N^{u^{-1}}\right)=1$, so we are left with
+			\[\sigma(\nu_{(\alpha,\beta)}\otimes1)=\nu_{u^{-1}(\alpha,\beta)}\otimes(-1)^{[u^{-1}a]+[-u^{-1}b]+[u^{-1}c]+[a]+[-b]+[c]}.\]
+		\end{itemize}
+
+		\item Now choose $\sigma\in\op{Gal}(\QQ(\zeta_N)/\QQ)$ to satisfy $\sigma(\zeta_N)=\zeta_N^5$, which we note is a generator. We now compute
+		\[\{g\in{\op{GL}_{14,\QQ_\ell}}:g|_{W'}=\sigma|_{W'}\}.\]
+		For this, we recall from \Cref{prop:galois-computes-monodromy} that we are looking at the component of $G_\ell(A)$ containing the image of $\sigma$. In particular, we know that $\sigma$ is a permutation matrix sending $(\nu_\alpha\otimes1)\mapsto(\nu_{2\alpha}\otimes1)$ (up to scalar), so we need $g$ to also be a permutation matrix also sending $(\nu_\alpha\otimes1)\mapsto(\nu_{2\alpha}\otimes1)$ (again up to scalar). Well, for each available $\alpha$, we will compute relations among scalars $\{\lambda_\alpha\}$ defined to satisfy $g(\nu_\alpha\otimes1)=(\nu_{2\alpha}\otimes\lambda_\alpha)$. Because $G_\ell(A)^\circ$ is a torus of rank $4$, we are expecting to be able to write all $\lambda_\bullet$s in terms of four of them.
+
+		With this in mind, we use the previous step as follows to produce the required relations. For brevity, let $\lambda$ be the multiplier of $g$ with respect to the pairing induced by the polarization; this multiplier becomes the action of $g$ on $\QQ_\ell(1)$.
+		\begin{itemize}
+			\item We need $g$ to satisfy
+			\[g(\nu_{(\alpha,-\alpha)}\otimes1)=\nu_{2(\alpha,-\alpha)}\otimes(-1)^{\langle2\alpha\rangle-\langle\alpha\rangle},\]
+			so $\lambda_\alpha\lambda_{-\alpha}=(-1)^{\langle2\alpha\rangle-\langle\alpha\rangle}\lambda$.
+			\item For available $(a,b,c)$, we need $g$ to satisfy
+			\[g(\nu_{(a,b,c,-a,-c,-b)})=\nu_{(2a,2b,2c,-2a,-2c,-2b)}\otimes(-1)^{[2a]+[-2b]+[2c]+[a]+[-b]+[c]},\]
+			so $\lambda_{(a,b,c)}\lambda_{(-a,-c,-b)}=\lambda(-1)^{[2a]+[-2b]+[2c]+[a]+[-b]+[c]}$. For convenience, we note that$\pmod2$ computations have
+			\[[2a]+[-2b]+[2c]+[a]+[-b]+[c]\equiv[2a]+[2b]+[2c]+[a]+[b]+[c]\equiv\langle2\alpha\rangle-\langle\alpha\rangle,\]
+			so we are seeing the same sign as before.
+			\item We need $g$ to fix $\nu_{u(333,675,648,612)}$, so $\lambda_{u(333)}\lambda_{u(675)}\lambda_{u(648)}\lambda_{u(612)}=\lambda^2$.
+		\end{itemize}
+		The above points tell us that we can determine $g$ uniquely by choosing $(\kappa_1,\kappa_2,\kappa_4)=(\lambda_{612},\lambda_{324},\lambda_{648})$ and $\lambda$. Explicitly, we get the matrix
+		\[\left[\begin{array}{cc|cccccc|cccccc}
+			& -\kappa_1\kappa_4/\kappa_2 &&&&&&& \\
+			\lambda\kappa_2/\kappa_1\kappa_4 &&&&&&&&\\\hline
+			&& &&& \lambda/\kappa_2 &&&&&& \\
+			&& \lambda/\kappa_4 &&&&&& \\
+			&& & \kappa_1 &&&&&& \\
+			&& &&&& \lambda/\kappa_1 &&&&&& \\
+			&& &&&&& \kappa_4 &&&&&& \\
+			&& && -\kappa_2 &&&&&& \\\hline
+			&& &&&&&& &&& -\lambda/\kappa_4 \\
+			&& &&&&&& \kappa_1 \\
+			&& &&&&&& & \kappa_2 \\
+			&& &&&&&& &&&& \lambda/\kappa_2 \\
+			&& &&&&&& &&&&& \lambda/\kappa_1 \\
+			&& &&&&&& && \kappa_4
+		\end{array}\right]\]
+		as representing $g$.
+		% implies that $C^1_{\mathrm{AH}}(X)_{[\alpha]}$ is nonempty, which implies that $\mathrm H^{2}_{\mathrm B}(X,\QQ)(1)_{[\alpha]}$ has Hodge cycles, which implies $(\alpha,\beta)\in\mf B^2$.
+	\end{enumerate}
+	Thus, upon enforcing the multiplier to equal $1$ and base-changing to $\CC$, we see that $\op{ST}(A)$ is generated by $\op{ST}(A)^\circ$ (computed in \Cref{prop:special-fermat-st-1}) and the matrix
+	\[\begin{bsmallmatrix}
+		& -1 &&&&&&& \\
+		1 &&&&&&&&\\
+		&& &&& 1 &&&&&& \\
+		&& 1 &&&&&& \\
+		&& & 1 &&&&&& \\
+		&& &&&& 1 &&&&&& \\
+		&& &&&&& 1 &&&&&& \\
+		&& && -1 &&&&&& \\
+		&& &&&&&& &&& -1 \\
+		&& &&&&&& 1 \\
+		&& &&&&&& & 1 \\
+		&& &&&&&& &&&& 1 \\
+		&& &&&&&& &&&&& 1 \\
+		&& &&&&&& && 1
+	\end{bsmallmatrix}.\]
+	This completes our computation.
+\end{proof}
+% \subsection{The Family \texorpdfstring{$y^9=\left(x^2+x+1\right)(x-\lambda)$}{y9 = (x2+x+1)(x-lambda)}}
+We now use the above computation of the previous subsection to compute the Sato--Tate group of some generic superelliptic curves.
+\genericfullst
+\begin{proof}
+	As usual, we proceed in steps. Throughout, we freely use the computation of \Cref{prop:generic-fermat-st}.
+	\begin{enumerate}
+		\item We lift our situation to an abelian scheme. Let $S$ be $\AA^1_\QQ\setminus\{0,1\}$, and we let $\mc C\to S$ be the curve cut out by the equation $y^9=\left(x^2+x+1\right)(x-\lambda)$ as $\lambda$ varies over $S$; then we can normalize and complete $C$ to produce a family of smooth projective curves $\widetilde{\mc C}\to S$. Then $\mc A\coloneqq\op{Pic}^0{\mc C/S}$ is an abelian scheme over $S$. In particular, for each $\lambda\in\QQ\setminus\{0,1\}$, we can specialize to $\lambda\in S$ to produce $A_\lambda\coloneqq\mc A_\lambda$ as the Jacobian of the curve $\widetilde C_\lambda\coloneqq\widetilde{\mc C}_\lambda$.
+
+		While we're here, we set up a family of Galois representations. In order to avoid any difficult \'etale cohomology, we will do this cheaply using the Tate module. For each $n\ge1$, we have a finite flat group scheme $\mc A[n]\to S$, so each $\lambda\in S(\QQ)$ gets a natural Galois-invariant pullback square as follows.
+		% https://q.uiver.app/#q=WzAsNCxbMCwwLCJBX1xcbGFtYmRhW25dIl0sWzEsMCwiXFxtYyBBW25dIl0sWzEsMSwiUyJdLFswLDEsIlxcbGFtYmRhIl0sWzMsMl0sWzAsM10sWzAsMV0sWzEsMl1d&macro_url=https%3A%2F%2Fraw.githubusercontent.com%2FdFoiler%2Fnotes%2Fmaster%2Fnir.tex
+		\[\begin{tikzcd}
+			{A_\lambda[n]} & {\mc A[n]} \\
+			\lambda & S
+			\arrow[from=1-1, to=1-2]
+			\arrow[from=1-1, to=2-1]
+			\arrow[from=1-2, to=2-2]
+			\arrow[from=2-1, to=2-2]
+		\end{tikzcd}\]
+		Taking limits over $n$, we get Galois-invariant inclusions $V_\ell A\to V_\ell\mc A$, where $V_\ell\mc A$ can be interpreted as a sheaf with stalks given by $V_\ell A$. The moral of the story is that we will be able to a special point in $S$ in order to compute the Galois action for generic $\lambda\in S$.
+
+		\item As before, we will use \Cref{prop:galois-computes-monodromy} in order to compute $G_\ell(A_\lambda)$ when $A_\lambda$ does not have complex multiplication. Thus, \Cref{rem:galois-computes-monodromy-finite} asks us to find a space $W'$ of Tate classes cutting out $G_\ell(A)^\circ$. We may as well work with $\op{MT}(A)$ by the Mumford--Tate conjecture, which is known in our case by \Cref{prop:mtc-reldim-2}. As before, we go ahead and add in $W_1$ to account for the endomorphisms of $A$. We also add the class of the polarization to $W'$. Thus, our Tate classes so far cut out $\op L(A)$. The computation of \Cref{prop:generic-fermat-st} tells us that $\op{MT}(A)$ is $\op L(A)$ cut out by one additional equation from the center, given by
+		\[\lambda_1\lambda_4\lambda_7=\lambda_2\lambda_5\lambda_8.\]
+		Writing $g\in\op{MT}(A)\subseteq\op L(A)$ as $\op{diag}(g_0,g_1,g_2,g_4,g_5,g_7,g_8)$ as in \Cref{prop:generic-fermat-st}, we see that the above equation corresponds to the equation
+		\[\det g_1g_4g_7=\det g_2g_5g_8,\]
+		which we see corresponds to the exceptional Tate class
+		\[(v_1\land v_1')\otimes(v_4\land v_4')\otimes(v_7\land v_7')\otimes1\in\mathrm H^{6}_{\mathrm{\acute et}}(A_{\ov\QQ},\QQ_\ell)(3),\]
+		where $v\land v'=\frac12(v\otimes v'-v'\otimes v)$. Explicitly, the computation of \Cref{prop:generic-fermat-st} tells us that $g\in G_\ell(A)$ acts on $(v_1\land v_1')\otimes(v_4\land v_4')\otimes(v_7\land v_7')$ by some power of the multiplier, which is then cancelled out some by the Tate twist.
+
+		\item We claim that $K_{A_\lambda}^{\mathrm{conn}}=\QQ(\zeta_9)$ for generic $\lambda$. Our endomorphisms come from the automorphisms of the curve, which are all defined over $\QQ(\zeta_9)$. Additionally, the polarization is certainly defined over $\QQ(\zeta_9)$.
+		
+		It remains to handle the Galois orbit of the exceptional class given in the previous step. By the discussion at the end of the first step, it is enough to compute the Galois action at a single $\lambda$ where this Tate class can be found. Well, we take $\lambda=1$ so that we can appeal to the computations of \Cref{prop:special-fermat-st-full}. To explicate our basis, we will take $\{v_1,\ldots,v_8\}=\{v_1,\ldots,v_8\}$ and $\{v_1',\ldots,v_8'\}=\{w_1,\ldots,w_8\}$. Unravelling the Tate class, we see that it is a linear combination of the Tate classes given by permuting the triples in the subscript of the Tate class
+		\[\nu_{315,612,342,648,378,675}.\]
+		(We also need to consider $\nu_{2(315,612,342,648,378,675)}$ for the full Galois orbit, but the computation is essentially the same.) We would like to check that this Tate class is defined over $\QQ(\zeta_9)$. Well, by \Cref{thm:fermat-galois}, it is enough to check that the period
+		\[\op{Per}\left(\gamma^6,\nu_{315,612,342,648,378,675}\right)\]
+		lives in $\QQ(\zeta_9)$. After expanding the $\Gamma$s, we are eventually left with some power of $\zeta_9$ multiplied by
+		\[\left((2\pi i)^{-1}\Gamma\left(\frac39\right)\Gamma\left(\frac 69\right)\right)^3,\]
+		which we see is in $\QQ(\zeta_9)$.
+		
+		\item We compute $G_\ell(A_\lambda)$ for generic $\lambda$. Above we computed that the Tate classes cutting out $G_\ell(A_\lambda)$ for generic $\lambda$ are a strict subset of those needed for $\lambda=1$, so one finds that $G_\ell(A_1)\subseteq G_\ell(\lambda)$ for generic $\lambda$. In particular, \Cref{prop:special-fermat-st-full} tells us that $G_\ell(A_\lambda)$ must contain
+		\[\begin{bsmallmatrix}
+			& -1 \\
+			1 \\
+			&& &&&&&& 1 \\
+			&& &&&&&& & -1 \\
+			&& 1 \\
+			&& & 1 \\
+			&& && 1 \\
+			&& && & 1 \\
+			&& &&&&&&&& 1 \\
+			&& &&&&&&&& & 1 \\
+			&& &&&&&&&&&& 1 \\
+			&& &&&&&&&&&& & 1 \\
+			&& &&&& -1 \\
+			&& &&&& & 1
+		\end{bsmallmatrix},\]
+		where we have reordered the basis. However, having $K_{A_\lambda}^{\mathrm{conn}}=\QQ(\zeta_9)$ implies by \Cref{prop:galois-computes-monodromy} that $[G_\ell(A_\lambda):G_\ell(A_\lambda)^\circ]=9$, and we can see that the group generated by $G_\ell(A)^\circ$ and the above matrix also has $G_\ell(A_\lambda)^\circ$ as an index-$9$ subgroup. Thus, we conclude that $G_\ell(A_\lambda)$ is generated by $G_\ell(A)^\circ$ (computed in \Cref{prop:generic-fermat-st}) and the above matrix.
+
+		\item We conclude that $\op{ST}(A)$ equals is generated by $\op{ST}(A)^\circ$ (computed in \Cref{prop:generic-fermat-st}) and the matrix given in the previous step. This completes the computation.
+		\qedhere
+	\end{enumerate}
+\end{proof}
+
+% \section{Fermat Hypersurfaces}
+% We would be remiss without mentioning something about Fermat hypersurfaces. Thus, we will state (but not prove) a few facts about what is known for Fermat hypersurfaces. There is much known here, but the proofs tend to be somewhat harder than what one does with the Fermat curves, which is why we have avoided the theory.\todo{}
 
 \end{document}

@@ -7,7 +7,7 @@
 \chapter{A Little Hodge Theory} \label{chap:hodge}
 
 \epigraph{Once we explicitely know a Mumford-Tate group, we can let it work for us.}
-{---Moonen, \cite[(5.5)]{moonen-mumford-tate-intro}}
+{---Moonen \cite[(5.5)]{moonen-mumford-tate-intro}}
 
 In this chapter, we define the notion of a Hodge structure as well as some related groups (the Mumford--Tate group and the Hodge group). Our exposition follows Moonen's unpublished notes \cite{moonen-mumford-tate-intro,moonen-mumford-tate} and Lombardo's master's thesis \cite[Chapter~3]{lombardo-mumford-tate}. Throughout, we find motivation from geometry (and in particular the cohomology of complex varieties), but we will review cohomology only later.
 
@@ -766,7 +766,7 @@ Computationally, one reason why $\op L(V)$ is more controlled is that it is much
 	\end{enumerate}
 \end{proof}
 
-\section{The Center}
+\section{The Center} \label{sec:center}
 Our last computational tool concerns the center of $\op{Hg}(V)$. This discussion is somewhat more involved, so we will spend a full section here.
 
 Let's begin with some motivation. Fix a Hodge struture $V\in\op{HS}_\QQ$. In the application of this thesis, we will use \Cref{lem:mz-product} to compute $\op{Hg}(V)^{\mathrm{der}}$: note $\op{Hg}(V)^{\mathrm{der}}$ is semisimple and hence its Lie algebra can be written as the sum of simple Lie algebras which may be amenable to the lemma. Because $\op{Hg}(V)$ is reductive by \Cref{lem:mt-hg-reductive}, it remains to compute the center $Z(\op{Hg}(V))$; recall $\op{Hg}(V)$ is connected by \Cref{rem:hg-connected}, so we may as well compute the connected component $Z(\op{Hg}(V))^\circ$. As usual, the same discussion holds for $\op{MT}(V)$, but we note that $Z(\op{MT}(V))^\circ$ tends to be nontrivial because usually $\mathbb G_{m,\QQ}\subseteq\op{MT}(V)$ by \Cref{ex:mt-has-scalars}.
@@ -985,10 +985,7 @@ We now relate our signature to cocharacters of $Z(\op{Hg}(V))^\circ$. For this, 
 \begin{proof}
 	This is immediate from combining \Cref{lem:z-hg-as-det-monodromy} and \Cref{prop:signature-to-z-hg} with the equivalence of categories $\mathrm X_*$ between algebraic tori and Galois modules. See \cite[Theorem~12.23]{milne-alg-groups} for the proof that $\mathrm X^*$ is an equivalence, which is similar.
 \end{proof}
-\begin{corollary} \label{cor:compute-z-mt}
-	Fix $V\in\op{HS}_\QQ$ with $V_\CC=V^{0,1}\oplus V^{1,0}$ such that $Z(\op{End}_{\op{HS}}(V))$ equals a CM algebra $F$. Let $\Phi\colon\Sigma_F\to\ZZ_{\ge0}$ be the signature defined in \Cref{lem:hodge-to-signature}. Then $Z(\op{MT}(V))^\circ\subseteq\mathrm T_F$ has cocharacter group equal to the smallest saturated Galois submodule of $\mathrm X_*(\mathrm T_F)=\ZZ[\Sigma_F^\lor]$ containing
-	\[\sum_{\sigma\in\Sigma_F}\Phi(\sigma)\sigma^\lor.\]
-\end{corollary}
+\computezmt
 \begin{proof}
 	This follows from \Cref{cor:compute-z-hg}. By \Cref{lem:mt-by-hg}, it is enough to add in the cocharacter given by the scalars $\mathbb G_{m,\QQ}\to\mathrm T_F$, which is $\sum_{\sigma\in\Sigma_F}\sigma^\lor$. Thus, the fact that $\Phi$ is a signature implies that
 	\[\sum_{\sigma\in\Sigma_F}\Phi(\sigma)\sigma^\lor\]
@@ -1111,5 +1108,124 @@ To compute this kernel cleanly, note \Cref{lem:reflex-norm-cochar} computes $\ma
 
 
 % type iv discussion
+
+\section{Absolute Hodge Classes}
+We now discuss the main application of Hodge structures: cohomology. This will allow us to discuss absolute Hodge classes. Our exposition an abbreviated form \cite{deligne-hodge}.
+
+\subsection{Some Cohomology Theories} \label{subsec:review-cohom}
+In this subsection, we will give a lighting introduction to the cohomology theories that we will use. We begin with sheaf cohomology.
+\begin{defihelper}[sheaf cohomology] \nirindex{cohomology!sheaf cohomology}
+	Fix a topological space $X$. Then the category $\op{Ab}(X)$ of abelian sheaves on $X$ has enough injectives. Given a sheaf $\mc F$ on $X$, we then may define the \textit{sheaf cohomology} as the abelian groups
+	\[\mathrm H^i(X,\mc F)\coloneqq\mathrm R^i\Gamma(X,\mc F),\]
+	where $\Gamma\colon\op{Ab}(X)\to\op{Ab}$ is the global-sections functor. Explicitly, one can compute these cohomology groups by taking the cohomology of an acyclic resolution of $\mc F$.
+\end{defihelper}
+This allows us a quick definition of Betti cohomology.
+\begin{defihelper}[Betti cohomology] \nirindex{cohomology!Betti cohomology}
+	Fix a topological space $X$ and a ring $R$. Then we define the \textit{Betti cohomology} of $X$ with coefficients in $R$ as $\mathrm H^i(X,\underline R)$, where $\underline R$ denotes the constant sheaf $R$.
+\end{defihelper}
+It will be helpful to a more geometric description of $\mathrm H^\bullet_{\mathrm B}$.
+\begin{defihelper}[singular homology, singular cohomology] \nirindex{singular homology} \nirindex{cohomology!singular cohomology}
+	Fix a topological space $X$ and a ring $R$. For each $n\ge0$, we define the $n$-simplex $\Delta^n\subseteq\RR^{n+1}$ as the set of points $(t_0,\ldots,t_n)\subseteq[0,1]^{n+1}$ summing to $1$. Then we define the complex $S_\bullet(X,R)$ as having entries which are the free $R$-module with basis given by the maps $\Delta_\bullet\to X$ and boundary morphism given by $\del\colon S_{n}(X,R)\to S_{n-1}(X,R)$ given by
+	\[\del(\sigma)\coloneqq\sum_{i=0}^n(-1)^i\sigma([0,\ldots,\widehat i,\ldots,n])\]
+	for $\sigma\colon\Delta_n\to X$, where $[0,\ldots,\widehat i,\ldots,n]$ denotes the $(n-1)$-simplex with vertices $\{0,\ldots,\widehat i,\ldots,n\}$. Then we define the \textit{singular homology} $\mathrm H^{\mathrm B}_i(X,R)$ as the homology of this complex. We now define \textit{singular cohomology} as the cohomology of the dual cocomplex $S^\bullet(X,R)$.
+\end{defihelper}
+\begin{remark}
+	The universal coefficient theorem shows that singular homology and cohomology are dual if $R$ is a principal ideal domain, such as $\ZZ$ or a field.
+\end{remark}
+Our notation suggests that singular cohomology should be Betti cohomology, so we check this.
+\begin{theorem}
+	Fix a topological manifold $X$. For any field $K$, there is a canonical isomorphism
+	\[\mathrm H^i(S^\bullet(X,K))\to\mathrm H^i(X,\underline K).\]
+\end{theorem}
+\begin{proof}
+	The idea is to replace $S^\bullet(X,K)$ with a complex of sheaves $\mc S^\bullet(X,K)$, and then one finds that this complex is an acyclic resolution of $\underline K$. The requirement that $X$ be a topological manifold helps because it allows us to reduce local checks on $X$ to the case of a unit ball.
+\end{proof}
+We now add smoothness to our manifolds, which allows us to define de~Rham cohomology.
+\begin{defihelper}[de Rham cohomology] \nirindex{cohomology!de Rham cohomology}
+	Fix a smooth manifold $X$ of dimension $n$. For each $i\ge0$, we let $\Omega_{X_\infty}^i$ be the sheaf of smooth differential $n$-forms on $X$. Then we define \textit{de Rham cohomology} $\mathrm H^i_{\mathrm{dR}}(X,\RR)$ to be the cohomology of the complex
+	\[0\to\Omega_{X_\infty}^0\stackrel d\to\Omega_{X_\infty}^2\stackrel d\to\cdots\stackrel d\to\Omega_{X_\infty}^n\to0,\]
+	where $d$ denotes the de Rham differential.
+\end{defihelper}
+We once again have a comparison isomorphism.
+\begin{theorem}
+	Fix a smooth manifold $X$. For each $i$, there is a functorial perfect paring $\mathrm H_i^{\mathrm B}(X,\RR)\times\mathrm H^i_{\mathrm{dR}}(X,\RR)\to\RR$ given by
+	\[\langle\sigma,\omega\rangle\coloneqq\int_\sigma\omega\]
+	for each smooth map $\sigma\colon\Delta^i\to X$.
+\end{theorem}
+We next upgrade to complex K\"ahler manifolds. For example, one can upgrade our de Rham cohomology to use holomorphic differential forms instead of smooth differential forms, and the cohomology does not change. The key benefit of the complex manifold situation is that the de Rham cohomology gains a Hodge structure.
+\begin{theorem}
+	Fix a compact complex K\"aholer manifold $X$. For each $n\ge0$, there is a decomposition
+	\[\mathrm H^i_{\mathrm{dR}}(X,\CC)=\bigoplus_{p+q=n}\mathrm H^{pq}(X),\]
+	where $\mathrm H^{pq}(X)\coloneqq\mathrm H^p(X,\Omega^q_X)$.
+\end{theorem}
+For our last setting, let $X$ be a smooth projective variety over a field $K$. Here, there are multiple ways to form Betti cohomology.
+\begin{notation}
+	Fix a smooth projective variety over a field $K$. For any embedding $\sigma\colon K\into\CC$, we define Betti cohomology relative to $\sigma$ as
+	\[\mathrm H^i_\sigma(X,R)\coloneqq\mathrm H^i_{\mathrm B}(X_\sigma(\CC),R)\]
+	forany ring $R$. Frequently, we will have fixed once and for all an embedding of $K$ into $\CC$, so we may abbreviate $\mathrm H^i_\sigma(X,R)$ to just $\mathrm H^i_{\mathrm B}(X,R)$.
+\end{notation}
+Similarly, one is now able to define de Rham cohomology for $X$, though we do make a moment to remark that there is a theory of algebraic de Rham cohomology that is able to work in greater generality.
+
+Working with varieties gives access to the last cohomology theory we will need.
+\begin{defihelper} \nirindex{cohomology!etale cohomology@cohomology!\'etale cohomology}
+	Fix a smooth projective variety $X$ over a field $K$. For some \'etale sheaf $\mc F$, we are able to define the \'etale cohomology $\mathrm H^i(X,\mc F)$ in the same way as sheaf cohoomology. In particular, for any prime $\ell$ which is nonzero in $K$, we define the \textit{$\ell$-adic cohomology} by
+	\[\mathrm H^i_{\mathrm{\acute et}}(X_{\ov K},\QQ_\ell)\coloneqq\left(\limit\mathrm H^i_{\mathrm{\acute et}}(X_{\ov K},\underline{\ZZ/\ell^\bullet\ZZ})\right)\otimes_\ZZ\QQ\]
+\end{defihelper}
+Importantly, we note that \'etale cohomology has the natural action by $\op{Gal}(\ov K/K)$. As usual, there is a comparison isomorphism.
+\begin{theorem}
+	Fix a smooth projective variety $X$ over $\CC$. Then there is a natural isomorphism
+	\[\mathrm H^i_{\mathrm B}(X,\QQ_\ell)\to\mathrm H^i_{\mathrm{\acute et}}(X_{\ov K},\QQ_\ell).\]
+\end{theorem}
+For convenience, we may find it convenient to glue our cohomology theories together.
+\begin{notation}
+	Fix a smooth projective variety $X$ over a field $K$ with an embedding $\sigma\colon K\into\CC$. Then we define
+	\[\mathrm H^i_{\AA}(X)\coloneqq\mathrm H^i_{\mathrm{dR}}(X,\RR)\times\left(\limit_n\mathrm H^i_{\mathrm{\acute et}}(X_{\ov K},\underline{\ZZ/n\ZZ})\otimes_\ZZ\QQ\right).\]
+	We note that there are natural projections $\pi_\infty$ onto $\mathrm H^i_{\mathrm{dR}}(X,\RR)$ and $\pi_\ell$ onto $\mathrm H^i_{\mathrm{\acute et}}(X_{\ov K},\QQ_\ell)$.
+\end{notation}
+\begin{remark}
+	One can realize this as a restricted direct product
+	\[\mathrm H^i_{\mathrm{dR}}(X,\RR)\times\prod_\ell\left(\mathrm H^i_{\mathrm{\acute et}}(X_{\ov K},\QQ_\ell),\mathrm H^i_{\mathrm{\acute et}}(X_{\ov K},\ZZ_\ell)\right),\]
+	which provides some motivation for the $\AA$ in the notation.
+\end{remark}
+
+\section{The Definition}
+To define absolute Hodge classes following \cite{deligne-hodge}, we must first discuss Tate twists. These change depending on our cohomology theory.
+\begin{definition}[Tate twist]
+	We define our Tate twists as follows.
+	\begin{itemize}
+		\item If $X$ is a topological manifold, then the Tate twist $\QQ_{\mathrm B}(1)$ is the $\QQ$-vector space $2\pi i\QQ$.
+		\item If $X$ is a smooth manifold, then the Tate twist $\RR_{\mathrm{dR}}(1)$ is simply $\RR$. It has a Hodge structure of pure of weight $-2$ concentrated in bidegree $(-1,-1)$.
+		\item If $X$ is a smooth projective variety over a field $K$, then the Tate twist $\QQ_\ell(1)$ for any prime $\ell$ (nonzero in $K$) is the Galois representation $(\limit\mu_{\ell^\bullet})\otimes_\ZZ\QQ$.
+	\end{itemize}
+\end{definition}
+\begin{notation}
+	For any cohomology theory $\mathrm H$ defined on a space $X$, we may write
+	\[\mathrm H^i(X)(n)\coloneqq\mathrm H^i(X)\otimes\mathrm T^{\otimes n},\]
+	where $\mathrm T$ denotes the Tate twist, and $i\ge0$ and $n\in\ZZ$. If $n\le0$, then we take the dual.
+\end{notation}
+As an example application, we want the Hodge classes on a complex K\"ahler manifold $X$ to be elements of the cohomology group $\mathrm H^{2p}_{\mathrm{dR}}(X,\CC)(p)$ of bidegree $(0,0)$ and satisfying some rationality condition. The definition of an absolute Hodge class comes from trying to be agnostic about the embedding of the base field of $X$.
+\begin{definition}[absolute Hodge class]
+	Fix a smooth projective variety $X$ over a number field $K$. An \textit{absolute Hodge class} is an element $t$ of some $\mathrm H^{2p}_\AA(X_{\ov K})(p)$ if and only if it satisfies the following properties.
+	\begin{itemize}
+		\item $\pi_\infty(t)$ lives in the component $(0,0)$ of $\mathrm H^{2p}_{\mathrm{dR}}(X,\CC)$.
+		\item For each embedding $\sigma\colon K\into\CC$, the element $t$ is in the image of the embedding $\mathrm H^{2p}_{\mathrm B}(X,\QQ)(p)$ into $\mathrm H^{2p}_\AA(X)(p)$.
+	\end{itemize}
+	We denote the collection of these absolute Hodge classes by $C^p_{\mathrm{AH}}(X_{\ov K})$ or $C^p_{\mathrm{AH}}(X)$.
+\end{definition}
+\begin{remark}
+	Deligne \cite[Section~2]{deligne-hodge} gives a definition for smooth projective varieties defined over a general field of characteristic $0$. The above definition makes sense essentially verbatim for any field $K$ of characteristic $0$ and finite transcendence degree because then one has access to embeddings into $\CC$. For the general case, one must argue that any class with sufficient rationality properties will descend to a field of finite transcendence degree and that the choice of this descent does not matter.
+\end{remark}
+% While we're here, we give an application of absolute Hodge classes.
+% definition of absolute hodge cycles
+% construction works
+% \begin{theorem}[Deligne] \label{thm:hodge-to-abs-hodge}
+	
+% \end{theorem}
+% \begin{theorem}[Principle B] \label{thm:principle-b}
+	
+% \end{theorem}
+% \begin{proposition} \label{prop:construct-abs-hodge}
+% 	Construction of absolute Hodge cycle. \cite[Proposition~7.1]{deligne-hodge}.
+% \end{proposition}
 
 \end{document}

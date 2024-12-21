@@ -6,9 +6,12 @@
 
 \chapter{Abelian Varieties} \label{chap:av}
 
+\epigraph{Hold tight to your geometric motivation as you learn the formal structures which have proved to be so effective in studying fundamental questions}
+{---Ravi Vakil \cite{rising-sea}}
+
 In this chapter, we gather together all the results about abelian varieties we need. Many of the results in the earlier sections discussed here can be found in any reasonable text on abelian varieties such as \cite{mumford-abelian-varieties,milne-av,egm-av}. Results in the later sections are more specialized, and we will provide references when appropriate. Ultimately, our goal is to define $\ell$-adic monodromy groups, explain why one might care about them, and indicate how one might compute them.
 
-\section{Definitions and Constructions}
+\section{Definitions and Constructions} \label{sec:av-def}
 In this section, we set up the theory of abelian varieties rather quickly. We will usually only indicate proofs that work in the complex analytic situation because the general theory usually requires intricate algebraic geometry.
 
 \subsection{Starting Notions}
@@ -153,7 +156,7 @@ This is in fact a general property.
 \begin{proposition} \label{prop:embed-cohom}
 	Fix a smooth proper curve $C$ over a field $K$ such that $C(K)\ne\emp$. Choose $\infty\in C(K)$, and consider the map $\iota\colon C\to\op{Jac}C$ given by $\iota(p)\coloneqq[p]-[\infty]$. Then the induced map
 	\[\iota^*\colon\mathrm H^1(\op{Jac}C)\to\mathrm H^1(C)\]
-	is an isomorphism, where $\mathrm H$ is any of the Weil cohomology theories of \cref{sec:review-cohom}.
+	is an isomorphism, where $\mathrm H$ is any of the Weil cohomology theories of \cref{subsec:review-cohom}.
 \end{proposition}
 \begin{proof}
 	The proof requires analyzing each cohomology theory individually. Above we outlined the proof when $\mathrm H$ is Betti cohomology, and we note that the result follows for de~Rham cohomology by the comparison isomorphism.
@@ -306,10 +309,10 @@ As another aside, we go ahead and restate the Albert classification (\Cref{thm:a
 	The requirement that $\op{char}F=0$ is necessary in the table; the restrictions are somewhat different (and weaker!) in positive characteristic.
 \end{remark}
 While we're here, we state the main theorem of \cite{deligne-hodge} on absolutely Hodge cycles.
-\begin{theorem}[Deligne]
+\begin{theorem}[Deligne] \label{thm:hodge-to-abs-hodge}
 	Fix an abelian vareity $A$ defined over a number field $K$. Then all Hodge classes on $A$ are absolutely Hodge.
 \end{theorem}
-We will not attempt a proof of this result, but we will remark that \Cref{thm:principle-b} allows us to reduce this result to the case of abelian varieties with many endomorphisms, which is more amenable. There is still much work to be done!
+% We will not attempt a proof of this result, but we will remark that \Cref{thm:principle-b} allows us to reduce this result to the case of abelian varieties with many endomorphisms, which is more amenable. There is still much work to be done!
 
 \subsection{Complex Multiplication}
 Even though it is not strictly necessary for our exposition, we take a moment to discuss some theory surrounding complex multiplication. We refer to \cite{milne-cm} throughout for more details. The relevance of this discussion to us mostly arises because we have defined analogous notions in \cref{subsec:signature,subsec:reflex}.
@@ -379,7 +382,7 @@ One benefit of complex multiplication is that it lets move difficult geometric q
 \end{remark}
 \Cref{rem:cm-by-type} tells us that we are basically allowed to only pay attention to the CM type in the theory of complex multiplication.
 
-\section{The \texorpdfstring{$\ell$}{l}-Adic Representation}
+\section{The \texorpdfstring{$\ell$}{l}-Adic Representation} \label{sec:l-adic}
 In this subsection, we now define the $\ell$-adic representation and give some of its basic properties.
 
 \subsection{The Construction}
@@ -589,10 +592,7 @@ Continuing, by combining \cite{ichikawa-alg-groups-av,lombardo-ell-adic-product}
 	Fix abelian varieties $A$ and $B$ over a number field $K$. If the Mumford--Tate conjecture holds for both $A$ and $B$, then it holds for $A\times B$.
 \end{theorem}
 To give a taste for how some of these results are proven, we show the following, which follows from \cite[Theorem~1.3.4]{vaisu-mt-conjecture}.
-\begin{proposition} \label{prop:mtc-reldim-2}
-	Fix a geometrically simple abelian variety $A$ over a number field $K$. Suppose that $F=Z(\op{End}_{\ov K}(A)$ equals a CM field such that $\dim A=\dim F$. Letting $\Phi$ be the corresponding signature, we further suppose that $\Phi(\sigma)=1$ for exactly two $\sigma\in\Sigma_F$. Then we claim the Mumford--Tate conjecture holds for $A$, and
-	\[\op{Hg}(A)^{\mathrm{der}}=\op L(A)^{\mathrm{der}}.\]
-\end{proposition}
+\mtcreldimtwo
 \begin{proof}
 	For special $\ell$, we will actually compute $\op{MT}(A)^{\mathrm{der}}$ and $G_\ell(A)^{\circ,\mathrm{der}}$ ``simultaneously'' to show that they are equal to the suitable version of $\op{GSp}_F(\varphi)^{\mathrm{der}}$ or $\op{GSp}_F(e_\varphi)^{\mathrm{der}}$. By adding in what we know about the centers from \Cref{thm:mtc-torus} (and the independence of $\ell$ given in \Cref{thm:lp-mtc-independence}), the Mumford--Tate conjecture follows for $A$. The outline is to base-change to $\CC$, where the Lie algebra of $\op L(A)^{\mathrm{der}}$ becomes a product of $\mf{sl}_2(\CC)$s, from which we can appeal to \Cref{lem:mz-product}.
 
@@ -628,7 +628,7 @@ To give a taste for how some of these results are proven, we show the following,
 		\[\mf{so}(\Phi_\varepsilon(\sigma),\Phi_\varepsilon(\ov\sigma)).\]
 		To see this, note that this a semisimple algebra of the correct rank, so it is enough remark that the image of $\mf{hg}(V)^{\mathrm{der}}$ must land in the above Lie subalgebra by tracking the action of $h(i)$. (One should use \Cref{thm:sen-operator} in the $\ell$-adic computation.) Thus, we are now able to remark that $\mf{so}(\Phi_\varepsilon(\sigma),\Phi_\varepsilon(\ov\sigma))\not\cong\mf{so}(\Phi_\varepsilon(\tau),\Phi_\varepsilon(\ov\tau))$.
 
-		To complete the proof, we note that there exists exactly one pair $\{\sigma_0,\ov\sigma_0\}$ of embeddings $F\into\CC$ such that $\Phi_\varepsilon(\sigma_0)=\Phi_\varepsilon(\ov\sigma_0)=1$. Thus, for any two distinct embeddings $\sigma,\tau\in\op{Hom}(F,E)$, we can choose $\varepsilon$ so that $\varepsilon\sigma=\sigma_0$ but $\varepsilon\tau\ne\sigma_0$ and apply the previous paragraph.
+		To complete the proof, the hypothesis implies there exists exactly one pair $\{\sigma_0,\ov\sigma_0\}$ of embeddings $F\into\CC$ such that $\Phi_\varepsilon(\sigma_0)=\Phi_\varepsilon(\ov\sigma_0)=1$. Thus, for any two distinct embeddings $\sigma,\tau\in\op{Hom}(F,E)$, we can choose $\varepsilon$ so that $\varepsilon\sigma=\sigma_0$ but $\varepsilon\tau\ne\sigma_0$ and apply the previous paragraph.
 		\qedhere
 	\end{listroman}
 	% Similarly, we write $V_i\coloneqq\mathrm H^1_{\mathrm B}(A_i,\QQ)$ for each $i$. Recall that $\op{Hg}(V)\subseteq\op{L}(V)$ by \Cref{lem:mt-commutes-polarization} (the $\ell$-adic case uses \Cref{lem:l-adic-monodromy-commutes-polarization}). Thus, to achieve the equality of the derived subgroups, it is enough to achieve the equality after base-changing to an algebraic closure.
@@ -737,7 +737,7 @@ Thus, we see that the Galois reprentation to $\op{GL}(W)$ factors through the fi
 % spaces of tate classes
 % S8.2 of GGL
 
-\section{The Sato--Tate Conjecture}
+\section{The Sato--Tate Conjecture} \label{sec:sato-tate}
 Now that we have a good handle on monodromy groups, we describe one of their applications: the Sato--Tate conjecture. These notions are not central for the results we want to prove, so we will be somewhat sketchy throughout.
 
 \subsection{The Weil Conjectures}
@@ -819,7 +819,7 @@ One obnoxious defect of \Cref{conj:st} is that we must make choices regarding $\
 \end{conj}
 This conjecture, being similar in spirit to the Mumford--Tate conjecture, has quite a bit known. For example, Banaszak and Kedlaya have shown this conjecture for products of abelian varieties of dimensions at most $3$ \cite[Theorem~6.11]{bk-algebraic-st}. Roughly speaking, their proof boils down to the fact that one has $\op{Hg}(A)=\op L(A)^\circ$ in these small dimensions, which permits a direct computation of $\op{AST}(A)$ along the lines of \Cref{prop:galois-computes-monodromy} (see \Cref{rem:galois-computes-monodromy-finite}).
 
-Remarkably, Farf\'an and Commelin have shown that the Algebraic Sato--Tate conjecture implies the Mumford--Tate conjecture in \cite{farfan-commelin-mtc-astc}.
+Remarkably, Farf\'an and Commelin have shown that the Algebraic Sato--Tate conjecture is implied by the Mumford--Tate conjecture in \cite{farfan-commelin-mtc-astc}.
 \begin{theorem}[Farf\'an--Commelin] \label{thm:mtc-implies-astc}
 	Fix an abelian variety $A$ defined over a number field $K$. If $A$ satisfies the Mumford--Tate conjecture (\Cref{conj:mt}) that $G_\ell(A)^\circ=\op{MT}(A)$ for all primes $\ell$, then $A$ satisfies the Algebraic Sato--Tate conjecture (\Cref{conj:ast}) that there exists an algebraic group $\op{AST}(A)\subseteq\op{GL}_{2g}(\QQ)$ such that $\op{AST}(A)_{\QQ_\ell}=G_\ell^1(A)$ for all primes $\ell$.
 \end{theorem}
@@ -895,7 +895,7 @@ We now introduce the main example of the present thesis.
 
 		\item We compute $Z(\op{MT}(A))^\circ_\CC$. We use \Cref{prop:z-mt-as-reflex-monodromy} and in particular the discussion following the proof. Indeed, set $L\coloneqq\QQ(\zeta_9)$, which we note is a Galois extension of $\QQ$ containing $F_0F_1$. Then we note that $Z(\op{MT}(A))^\circ\subseteq\mathrm T_F$, where $F\coloneqq F_0\times F_1$ has $(\mathrm T_F)_L$ embedded into $\op{GL}\left(\mathrm H^1_{\mathrm B}(A,L)\right)$ as a subtorus of the diagonal torus. Explicitly, we can choose an $F$-eigenbasis of $\mathrm H^1_{\mathrm B}(A,L)=\mathrm H^1_{\mathrm B}(C_0,L)\oplus\mathrm H^1_{\mathrm B}(A_1,L)$ as
 		\[\{u_1,u_2,v_1,v_1',v_2,v_2',v_4,v_4',v_5,v_5',v_7,v_7',v_8,v_8'\},\]
-		where the subscript partially indicates the $F$-eigenvalue. Then we see that $(\op T_F)_L\subseteq\op{GL}\left(\mathrm H^1_{\mathrm B}(A,L)\right)$ embeds as
+		where the subscript partially indicates the $F$-eigenvalue. (For technical reasons, we will want to know that $\{v_i,v_i'\}$ is a dual basis for $\{v_{9-i},v_{9-i}'\}$ according to the polarization.) Then we see that $(\op T_F)_L\subseteq\op{GL}\left(\mathrm H^1_{\mathrm B}(A,L)\right)$ embeds as
 		\[\left\{\op{diag}(\mu_1,\mu_2,\lambda_1,\lambda_1,\lambda_2,\lambda_2,\lambda_4,\lambda_4,\lambda_5,\lambda_5,\lambda_7,\lambda_7,\lambda_8,\lambda_8):\mu_\bullet,\lambda_\bullet\in\mathbb G_{m,L}\right\}.\]
 		The discussion following \Cref{prop:z-mt-as-reflex-monodromy} explains that equations cutting out $Z(\op{MT}(A))^\circ_L\subseteq(\mathrm T_F)_L$ can be viewed as elements of the kernel of the map
 		\[\mathrm X^*\left(({\op N_{\Phi_0^*}},{\op N_{\Phi_1^*}})\right)\colon\mathrm X^*(\mathrm T_F)\to\mathrm X^*(\mathrm T_L).\]
@@ -942,6 +942,9 @@ We now introduce the main example of the present thesis.
 \begin{remark}
 	Note that $\op MT(A)\ne\op L(A)$ because the centers are different! This continues to be visible in the Sato--Tate group: the first four equations $\mu_1\mu_2=\lambda_1\lambda_8=\lambda_2\lambda_7=\lambda_4\lambda_5=1$ can be explained by the polarization (see \Cref{lem:hg-center-in-u-torus}), but the last equation $\lambda_2=\lambda_1\lambda_4$ corresponds to an exceptional Hodge class not generated by endomorphisms or the polarization.
 \end{remark}
+\begin{remark}
+	Up to squaring, one can replace the equation $\mu_1\mu_2\lambda_7=\lambda_5\lambda_8$ with the equation $\lambda_1\lambda_8=\mu_1^2\mu_2^2$, thus making it clear that it arises from the polarization. Note this squaring is not too much of an issue because we had to take a determinant in \Cref{rem:z-mt-as-det-monodromy} anyway; in particular, by looking at the end result of the computation, we do see that $\op{MT}(A)$ contains the diagonalizable group cut out by our equations where we have done the replacement with $\lambda_1\lambda_8=\mu_1^2\mu_2^2$.
+\end{remark}
 The hypothesis that $A$ fails to have CM is necessary, as we will see in the following two examples.
 \begin{proposition} \label{prop:special-fermat-st-1}
 	Define $A$ to be the Jacobian of the proper curve $C$ with affine chart $y^9=x^3-1$. Then $\op{MT}(A)_\CC$ is a torus isomorphic to $\mathbb G_{m,\CC}^4$. We use this to compute $\op{ST}(A_K)$ where $K$ contains $K_A^{\mathrm{conn}}$.
@@ -980,7 +983,7 @@ The hypothesis that $A$ fails to have CM is necessary, as we will see in the fol
 			\end{cases}\]
 			One can check that $\Phi_1$ satisfies the check of \Cref{rem:simple-by-type}, proving that $A_1$ is simple.
 			
-			\item On $C_1$, we see that $\mathrm H^{10}$ has basis given by $\left\{x\,dx/y^8,dx/y^7,dx/y^4\right\}$. Thus, with $\mu_9$ acting on $y$, we get the signature
+			\item On $C_2$, we see that $\mathrm H^{10}$ has basis given by $\left\{x\,dx/y^8,dx/y^7,dx/y^4\right\}$. Thus, with $\mu_9$ acting on $y$, we get the signature
 			\[\Phi_2(\sigma_i)=\begin{cases}
 				0 & \text{if }i\in\{4,7,8\}, \\
 				1 & \text{if }i\in\{1,2,5\}.
@@ -1082,14 +1085,14 @@ The hypothesis that $A$ fails to have CM is necessary, as we will see in the fol
 			\item On $C_0$, we look at the $\mu_9$-eigenbasis of $\mathrm H^{10}$ to conclude that our signature has $\Phi_0(\tau_1)=1$ and $\Phi_0(\tau_2)$.
 			\item On $C_1$, we look at the $\mu_9$-eigenbasis of $\mathrm H^{10}$ to conclude that our signature is
 			\[\Phi_1(\sigma_i)=\begin{cases}
-				0 & \text{if }i\in\{4,7,8\}, \\
-				1 & \text{if }i\in\{1,2,5\}.
+				0 & \text{if }i\in\{5,7,8\}, \\
+				1 & \text{if }i\in\{1,2,4\}.
 			\end{cases}\]
 			One can check that $\Phi_1$ satisfies the check of \Cref{rem:simple-by-type}, proving that $A_1$ is simple.
 			\item On $A_2$, we take the remaining differentials from $A$ to find that our signature is
 			\[\Phi_2(\sigma_i)=\begin{cases}
-				0 & \text{if }i\in\{5,7,8\}, \\
-				1 & \text{if }i\in\{1,2,4\}.
+				0 & \text{if }i\in\{4,7,8\}, \\
+				1 & \text{if }i\in\{1,2,5\}.
 			\end{cases}\]
 			Again, one checks that $\Phi_2$ satisfies the check of \Cref{rem:simple-by-type}
 		\end{itemize}
@@ -1099,13 +1102,13 @@ The hypothesis that $A$ fails to have CM is necessary, as we will see in the fol
 		To be explicit, we give $\mathrm H^1_{\mathrm B}(A,L)=\mathrm H^1_{\mathrm B}(C_0,L)\oplus\mathrm H^1_{\mathrm B}(A_1,L)\oplus\mathrm H^1_{\mathrm B}(A_2,L)$ a basis
 		\[\{u_1,u_2,v_1,v_2,v_4,v_5,v_7,v_8,w_1,w_2,w_4,w_5,w_7,w_8\},\]
 		where the subscript partially indicates the $F$-eigenvalue, where $F\coloneqq F_0\times F_1\times F_2$. Then we set $L\coloneqq\QQ(\zeta_9)$, and we see $(\mathrm T_F)_L\subseteq\op{GL}\left(\mathrm H^1_{\mathrm B}(A,L)\right)$ embeds as
-		\[\left\{\op{diag}(\mu_1,\mu_2,\kappa_1,\kappa_2,\kappa_4,\kappa_5,\kappa_7,\kappa_8,\lambda_1,\lambda_2,\lambda_4,\lambda_5,\lambda_7,\lambda_8):\mu_\bullet,\kappa_\bullet,\lambda_\bullet\in\mathbb G_{m,L}\right\}.\]
+		\[\left\{\op{diag}(\mu_1,\mu_2,\lambda_1,\lambda_2,\lambda_4,\lambda_5,\lambda_7,\lambda_8,\kappa_1,\kappa_2,\kappa_4,\kappa_5,\kappa_7,\kappa_8):\mu_\bullet,\kappa_\bullet,\lambda_\bullet\in\mathbb G_{m,L}\right\}.\]
 		With this choice of lettering, the equations that end up cutting out $\op{MT}(A)_L\subseteq(\mathrm T_F)_L$ are exactly the same, so $\op{MT}(A)_L\cong\mathbb G_{m,L}^4$ via the cocharacters $(\kappa_1,\kappa_2,\kappa_4,\kappa_8)$.
 
 		One is now able to compute $G_\ell^1(A)$ in the case where $\ell$ splits completely in $K\coloneqq K_A^{\mathrm{conn}}$. One finds the exact same equations via the same computation, so we find $G_\ell^1(A_K)\subseteq\op{GL}_{14}$ is given by
-		\[\left\{\op{diag}\left(\frac{\kappa_2}{\kappa_1\kappa_4},\frac{\kappa_1\kappa_4}{\kappa_2},\kappa_1,\kappa_2,\kappa_4,\kappa_4^{-1},\kappa_2^{-1},\kappa_1^{-1},\kappa_4^{-1},\kappa_1,\kappa_2,\kappa_2^{-1},\kappa_1^{-1},\kappa_4\right):\kappa_\bullet\in\mathbb G_{m,\QQ_\ell}\right\}.\]
+		\[\left\{\op{diag}\left(\frac{\kappa_2}{\kappa_1\kappa_4},\frac{\kappa_1\kappa_4}{\kappa_2},\kappa_4^{-1},\kappa_1,\kappa_2,\kappa_2^{-1},\kappa_1^{-1},\kappa_4,\kappa_1,\kappa_2,\kappa_4,\kappa_4^{-1},\kappa_2^{-1},\kappa_1^{-1}\right):\kappa_\bullet\in\mathbb G_{m,\QQ_\ell}\right\}.\]
 		Base-changing to $\CC$ and taking a maximal compact subgroup, we find $\op{ST}(A_K)$ is
-		\[\left\{\op{diag}\left(\frac{\kappa_2}{\kappa_1\kappa_4},\frac{\kappa_1\kappa_4}{\kappa_2},\kappa_1,\kappa_2,\kappa_4,\kappa_4^{-1},\kappa_2^{-1},\kappa_1^{-1},\kappa_4^{-1},\kappa_1,\kappa_2,\kappa_2^{-1},\kappa_1^{-1},\kappa_4\right):\kappa_\bullet\in\mathrm U_1\right\},\]
+		\[\left\{\op{diag}\left(\frac{\kappa_2}{\kappa_1\kappa_4},\frac{\kappa_1\kappa_4}{\kappa_2},\kappa_4^{-1},\kappa_1,\kappa_2,\kappa_2^{-1},\kappa_1^{-1},\kappa_4,\kappa_1,\kappa_2,\kappa_4,\kappa_4^{-1},\kappa_2^{-1},\kappa_1^{-1}\right):\kappa_\bullet\in\mathrm U_1\right\},\]
 		as required.
 		\qedhere
 	\end{enumerate}
