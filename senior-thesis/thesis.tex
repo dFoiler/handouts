@@ -77,7 +77,7 @@ As such, to the author's knowledge, the literature does not have an example comp
 
 As an example difficulty, let's focus on computing $\op{MT}(A)$. Recall that $\op{MT}(A)$ is a connected reductive algebraic group defined over $\QQ$, so we can split up its computation into computing the derived subgroup $\op{MT}(A)^{\mathrm{der}}$ and the neutral component $Z(\op{MT}(A))^\circ$ of the torus. In \cref{sec:center}, we explain how the current arguments used to understand $\op{MT}(A)$ for $A$ with complex multiplication can be used to compute $Z(\op{MT}(A))^\circ$. To explain this result, we pick up some notation: set $F\coloneqq Z(\op{End}(A))$, and then one can diagonalize the action of $F$ on $V\coloneqq\mathrm H^1_{\mathrm B}(A(\CC),\CC)$ to produce a piece of combinatorial data called the ``signature'' $\Phi\colon\op{Hom}(F,\CC)\to\ZZ_{\ge0}$; for brevity, we will set $\Sigma_F\coloneqq\op{Hom}(F,\CC)$. It turns out that one can embed $Z(\op{MT}(A))^\circ$ into the torus $\mathrm T_F\coloneqq\op{Res}_{F/\QQ}\mathbb G_{m,F}$, and our first main result explains how to recover this subtorus.
 \begin{restatable*}{corollary}{computezmt} \label{cor:compute-z-mt}
-	Fix $V\in\op{HS}_\QQ$ with $V_\CC=V^{0,1}\oplus V^{1,0}$ such that $Z(\op{End}_{\op{HS}}(V))$ equals a CM algebra $F$. Let $\Phi\colon\Sigma_F\to\ZZ_{\ge0}$ be the signature defined in \Cref{lem:hodge-to-signature}. Then $Z(\op{MT}(V))^\circ\subseteq\mathrm T_F$ has cocharacter group equal to the smallest saturated Galois submodule of $\mathrm X_*(\mathrm T_F)=\ZZ[\Sigma_F^\lor]$ containing
+	Fix an abelian variety $A$ over $\CC$ such that $Z(\op{End}(A))$ equals a CM algebra $F$, and define $V\coloneqq\mathrm H^1_{\mathrm B}(A,\QQ)$. Let $\Phi\colon\Sigma_F\to\ZZ_{\ge0}$ be the signature defined in \Cref{lem:hodge-to-signature}. Then $Z(\op{MT}(V))^\circ\subseteq\mathrm T_F$ has cocharacter group equal to the smallest saturated Galois submodule of $\mathrm X_*(\mathrm T_F)=\ZZ[\Sigma_F^\lor]$ containing
 	\[\sum_{\sigma\in\Sigma_F}\Phi(\sigma)\sigma^\lor.\]
 \end{restatable*}
 \begin{remark}
@@ -164,7 +164,7 @@ There are also ennumerable people who have helped the author get to where he is 
 
 \subfile{chaps/av}
 
-% \subfile{chaps/satotate}
+\subfile{chaps/satotate}
 
 \subfile{chaps/fermat}
 
