@@ -1209,9 +1209,9 @@ Thus, we begin with the abelian case. As promised, this is essentially class fie
 \end{proof}
 We are now in a position to prove equidistribution of Frobenius elements in $\op{Gal}(K^{\mathrm{ab}}/K)$, from which one can prove the general case by a clever reduction argument. However, we will be honest to our discussion of equidistribution and prove nonvanishing holomorphic continuation to $\{s:\Re s=1\}$ for $L(s,\rho)$ for all nontrivial irreducible continuous representations $\rho$.
 
-We begin with the meromorphic continuation. The idea is to write $\rho$ as a ``linear combination'' of inductions of characters. Then the result will follow from the abelian case combined with our properties about $L$-functions. One almost achieves the full holomorphic nonvanishing as well, but it would be technically possible to see the trivial character in our linear combination, thus possibly introducing a pole or zero.
+The idea is to write $\rho$ as a ``linear combination'' of inductions of characters. Then the result will follow from the abelian case combined with our properties about $L$-functions. One almost achieves the full holomorphic nonvanishing as well, but it would be technically possible to see the trivial character in our linear combination, thus possibly introducing a pole or zero.
 
-Of course, it does not a priori make sense to talk about linear combination of representations, so we must pass to their linearization: characters. Thus, we will want to define the Artin $L$-function of a class function. To motivate, use \Cref{lem:artin-finite-image} to descend $\rho$ to some representation $\op{Gal}(L/K)\to\CC^\times$. For some $g\in\op{Gal}(L/K)$, we let $\lambda_1,\ldots,\lambda_d$ denote the eigenvalues of $g$ (with algebraic multiplicities), so we see that
+Of course, it does not a priori make sense to talk about linear combination of representations, so we must pass to their linearization: virtual characters. Thus, we will want to define the Artin $L$-function of a class function. To motivate, use \Cref{lem:artin-finite-image} to descend $\rho$ to some representation $\op{Gal}(L/K)\to\CC^\times$. For some $g\in\op{Gal}(L/K)$, we let $\lambda_1,\ldots,\lambda_d$ denote the eigenvalues of $g$ (with algebraic multiplicities), so we see that
 \[\log\left(\det(1-\rho(g)T)^{-1}\right)=\sum_{i=1}^d-\log(1-\lambda_iT).\]
 Now, expanding out the Taylor series reveals that
 \[\frac1{\det(1-\rho(g)T)}=\exp\Bigg(\sum_{k=1}^\infty\frac{\tr\rho\left(g^k\right)T^k}k\Bigg).\]
@@ -1265,20 +1265,26 @@ The suitable analogue of \Cref{lem:artin-ind} on induction remains true, but we 
 \end{proof}
 In order to allow us to stop talking about $L$-functions as quickly as possible, let's go ahead and explicate the inductive approach to meromorphic continuation via Brauer's theorem. We begin with the following non-standard definition.
 \begin{definition}[Brauer]
-	Fix a finite group $G$. Then $G$ is \textit{Brauer} if and only if, for any finite-dimensional complex irreducible representation $\rho$, there is a sequence of pairs $\{(a_i,H_i,\psi_i)\}_{i=1}^n$ where $a_i\in\ZZ$ and $H_i\subseteq G$ is a subgroup and $\psi_i\colon H_i\to\CC^\times$ is a one-dimensional representation such that
+	Fix a finite group $G$. Then $G$ is \textit{Brauer} if and only if, for any finite-dimensional complex irreducible representation $\rho$, there is a sequence of pairs $\{(a_i,H_i,\psi_i)\}_{i=1}^n$ where $a_i\in\ZZ$ and $H_i\subseteq G$ is a subgroup and $\psi_i\colon H_i\to\CC^\times$ is a representation such that
 	\[{\tr}\circ\rho=\sum_{i=1}^na_i\op{Ind}_{H_i}^G\psi_i.\]
 \end{definition}
 \begin{lemma} \label{lem:brauer-to-artin}
-	Fix a Galois extension $L/K$ of number fields with Galois group $G$. Suppose that $G$ is Brauer. For any finite-dimensional complex representaion $\rho$ of $G$, the function $L(s,\rho)$ admits a meromorphic continuation to $\{s:\Re s=1\}$ with no poles or zeroes except possibly a pole or zero at $s=1$.
+	Fix a Galois extension $L/K$ of number fields with Galois group $G$. Suppose that $G$ is Brauer. For any finite-dimensional complex representaion $\rho$ of $G$, the function $L(s,\rho)$ admits a meromorphic continuation to $\{s:\Re s=1\}$ with no poles or zeroes except possibly a pole or zero at $s=1$. Further, the order of the pole at $s=1$ is $\langle{\tr}\circ\rho,1\rangle$.
 \end{lemma}
 \begin{proof}
-	By the additivity of \Cref{lem:artin-add}, we may assume that $\rho$ is irreducible. By \Cref{ex:artin-l-func-rep-to-char}, it is enough to check the result for $L(s,{\tr}\circ\rho)$. Because $G$ is Brauer, we receive an expansion ${\tr}\circ\rho=\sum_{i=1}^n\op{Ind}_{H_i}^G\psi_i$ of ${\tr}\circ\rho$ into a $\ZZ$-linear combination of inductions of characters, which implies that
+	By the additivity of \Cref{lem:artin-add}, we may assume that $\rho$ is irreducible. By \Cref{ex:artin-l-func-rep-to-char}, it is enough to check the result for $L(s,{\tr}\circ\rho)$. Because $G$ is Brauer, we receive an expansion ${\tr}\circ\rho=\sum_{i=1}^na_i\op{Ind}_{H_i}^G\psi_i$ of ${\tr}\circ\rho$ into a $\ZZ$-linear combination of inductions of characters, which implies that
 	\[L(s,{\tr}\circ\rho)=\prod_{i=1}^nL\left(s,\op{Ind}_{H_i}^G\psi_i\right)^{a_i}\]
-	by \Cref{lem:artin-class-basic}. By \Cref{ex:artin-l-func-rep-to-char}, we may now think of each $L(s,\op{Ind}_{H_i}^G\psi_i)$ as an Artin $L$-function of a representation (up to finitely many Euler factors), so \Cref{lem:artin-ind} tells us that this $L$-function is $L(s,\psi_i)$.
+	by \Cref{lem:artin-class-basic}. By \Cref{ex:artin-l-func-rep-to-char}, we may now think of each $L\left(s,\op{Ind}_{H_i}^G\psi_i\right)$ as an Artin $L$-function of a representation (up to finitely many Euler factors), so \Cref{lem:artin-ind} tells us that this $L$-function is $L(s,\psi_i)$.
 	
-	The result now essentially follows from \Cref{cor:abelian-artin-nonvanish}, which tells us each nontrivial $\psi_i$ grants a nonvanishing holomorphic continuation of $L(s,\psi_i)$ to $\{s:\Re s\ge1\}$. Note the same is true for trivial $\psi_i$ except at the point $s=1$ where we find a pole in $L(s,\psi_i)$ because this is a Dedekind $\zeta$-function by \Cref{ex:artin-gives-dedekind}; see \Cref{thm:hecke-continue,prop:hecke-nonvanish}. Taking the appropriate product of these contributions proves the statement.
+	The meromorphic continuatoin now essentially follows from \Cref{cor:abelian-artin-nonvanish}, which tells us each nontrivial $\psi_i$ grants a nonvanishing holomorphic continuation of $L(s,\psi_i)$ to $\{s:\Re s\ge1\}$. Note the same is true for trivial $\psi_i$ except at the point $s=1$ where we find a pole in $L(s,\psi_i)$ because this is a Dedekind $\zeta$-function by \Cref{ex:artin-gives-dedekind}; see \Cref{thm:hecke-continue,prop:hecke-nonvanish}. Taking the appropriate product of these contributions proves the statement.
+
+	It remains to prove the last sentence. This will require a trick. On one hand, by the discussion in the previous paragraph, we see that the order of the pole is
+	\[\sum_{\substack{1\le i\le n\\\psi_i=1_{H_i}}}a_i.\]
+	On the other hand, we see $\langle{\tr}\circ\rho,1\rangle$ equals
+	\[\sum_{i=1}^na_i\left\langle\op{Ind}_{H_i}^G\psi_i,1_G\right\rangle=\sum_{i=1}^na_i\left\langle\psi_i,1_{H_i}\right\rangle\]
+	by Frobenius reciprocity. The last sentence now follows.
 \end{proof}
-Thus, we will achieve our meromorphic continuation as soon as we check that all finite groups are Brauer; we will complete the nonvanishing later by a careful analysis of $s=1$.
+Thus, we will achieve our nonvanishing holomorphi continuation as soon as we check that all finite groups are Brauer; we will complete the nonvanishing later by a careful analysis of $s=1$.
 
 Our current goal is to prove Brauer's theorem that all finite groups are Brauer; our exposition follows \cite[Chapter~10]{serre-rep-theory}. We begin by creating a large supply of Brauer groups.
 \begin{lemma} \label{lem:nilpotent-is-brauer}
@@ -1303,20 +1309,20 @@ Our current goal is to prove Brauer's theorem that all finite groups are Brauer;
 		\qedhere
 	\end{enumerate}
 \end{proof}
-Thus, to show that any group $G$ is Brauer, one may simply show that any character for an irreducible complex representation is a $\ZZ$-linear combination of ones induced from nilpotent subgroups. Now that we are working with more general characters than one-dimensional ones, we pick up the following notation.
+Thus, to show that any group $G$ is Brauer, one may simply show that any virtual character for an irreducible complex representation is a $\ZZ$-linear combination of ones induced from nilpotent subgroups. Now that we are working with virtual characters than one-dimensional ones, we pick up the following notation.
 \begin{definition}[virtual character]
-	Fix a finite group $G$. Then we let $R(G)$ denote the free $\ZZ$-module of class functions $G\to\CC$ generated by the characters ${\tr}\circ\rho$ as $\rho$ varies over finite-dimensional complex representations of $G$. One frequently calls $R(G)$ the \textit{ring of virtual characters}.
+	Fix a finite group $G$. Then we let $R(G)$ denote the free $\ZZ$-module of class functions $G\to\CC$ generated by the virtual characters ${\tr}\circ\rho$ as $\rho$ varies over finite-dimensional complex representations of $G$. One frequently calls $R(G)$ the \textit{ring of virtual characters}.
 \end{definition}
 \begin{remark}
 	By taking tensor products of representations, we see that $R(G)$ is a subring of the set of functions $G\to\CC$. By induction and restriction of representations, we see that $\op{Res}^G_H$ and $\op{Ind}^G_H$ induce ring homomorphisms $R(G)\to R(H)$ and $R(H)\to R(G)$, respectively.
 \end{remark}
 Thus, to check that a group $G$ is Brauer, it will be enough to show that the map
 \[\op{Ind}\colon\bigoplus_{\substack{H\subseteq G\\H\text{ Brauer}}}R(H)\to R(G)\]
-is surjective, for any element of one of the $R(H)$s can be expanded into a sum of characters induced from linear characters. For example, we will eventually show that one can restrict this direct sum to nilpotent subgroups.
+is surjective, for any element of one of the $R(H)$s can be expanded into a sum of virtual characters induced from linear characters. For example, we will eventually show that one can restrict this direct sum to nilpotent subgroups.
 \begin{remark}
 	While we're here, we remark that one can check the surjectivity of this map after tensoring with any free $\ZZ$-module because this essentially takes both sides to a finite power. In particular, in the sequel, we will frequently work with $R(G)_{\ZZ[\zeta_n]}$ where $n=\left|G\right|$, which is conveneint because the functions in $R(G)$ output to the ring $\ZZ[\zeta_n]$. (Indeed, for any $g\in G$ and representation $\rho$, because $g^n=1$, the eigenvalues of $g$ are all $n$th roots of unity, so $\tr\rho(g)\in\ZZ[\zeta_n]$.)
 \end{remark}
-Most of our work in eventually proving that all finite groups are Brauer will come from a construction of many characters. We begin with a couple preliminary lemmas.
+Most of our work in eventually proving that all finite groups are Brauer will come from a construction of many virtual characters. We begin with a couple preliminary lemmas.
 \begin{lemma} \label{lem:divisible-char-is-induced}
 	Fix a finite group $G$ of order $n$, and choose a class function $f\colon G\to\ZZ[\zeta_n]$. Then $nf$ is in the image of the map
 	\[\op{Ind}\colon\bigoplus_{\substack{H\subseteq G\\H\text{ cyclic}}}R(H)_{\ZZ[\zeta_n]}\to R(G)_{\ZZ[\zeta_n]}.\]
@@ -1396,53 +1402,53 @@ Now is as good a time as any to begin our main argument.
 	\end{enumerate}
 \end{proof}
 
-We are now done checking for our meromorphic continuation. It remains to verify our holomorphy and nonvanishing on $\{s:\Re s=1\}$. Recall from \Cref{lem:brauer-to-artin} that we only care about $s=1$. Following \cite[Section~11.4]{murty-alg-nt}, we pick up the following item.
-\begin{definition}[Heilbronn character]
-	Fix a Galois extension $L/K$ of number fields with Galois group $G$. For a finite-dimensional complex representation $\rho\colon G\to\op{GL}(V)$, we write $n(\rho)$ for the order of the pole of $L(s,\rho)$ at $s=1$. Then we define the \textit{Heilbronn character} $\theta_G$ of $G$ by
-	\[\theta_G\coloneqq\sum_{\rho\in\op{IrRep}(G)}n(\rho)({\tr}\circ\rho),\]
-	where the sum is over irreducible representations $\rho$ of $G$.
-\end{definition}
-% \begin{remark}
-% 	Technically, the notation $L(s,\rho)$ is a little ambiguous because it could refer to the Artin $L$-function attached to the representation $\op{Gal}(L/K)\to\op{GL}(V)$ or the inflated representation $\op{Gal}(\ov K/K)\to\op{GL}(V)$. Luckily, $n(\rho)$ is the same for both
+% We are now done checking for our meromorphic continuation. It remains to verify our holomorphy and nonvanishing on $\{s:\Re s=1\}$. Recall from \Cref{lem:brauer-to-artin} that we only care about $s=1$. Following \cite[Section~11.4]{murty-alg-nt}, we pick up the following item.
+% \begin{definition}[Heilbronn character]
+% 	Fix a Galois extension $L/K$ of number fields with Galois group $G$. For a finite-dimensional complex representation $\rho\colon G\to\op{GL}(V)$, we write $n(\rho)$ for the order of the pole of $L(s,\rho)$ at $s=1$. Then we define the \textit{Heilbronn character} $\theta_G$ of $G$ by
+% 	\[\theta_G\coloneqq\sum_{\rho\in\op{IrRep}(G)}n(\rho)({\tr}\circ\rho),\]
+% 	where the sum is over irreducible representations $\rho$ of $G$.
+% \end{definition}
+% % \begin{remark}
+% % 	Technically, the notation $L(s,\rho)$ is a little ambiguous because it could refer to the Artin $L$-function attached to the representation $\op{Gal}(L/K)\to\op{GL}(V)$ or the inflated representation $\op{Gal}(\ov K/K)\to\op{GL}(V)$. Luckily, $n(\rho)$ is the same for both
+% % \end{remark}
+% \begin{remark} \label{rem:use-heilbronn}
+% 	Of course, we expect to have $\theta_G=1$. Indeed, by the orthogonality of characters, we see that $\theta_G=1$ is equivalent to having $n(\rho)=0$ for all nontrivial irreducible representations $\rho$ of $G$. But now we recall that $n(\rho)=0$ is equivalent to holomorphy and nonvanishing of $L(s,\rho)$ at $s=1$.
 % \end{remark}
-\begin{remark} \label{rem:use-heilbronn}
-	Of course, we expect to have $\theta_G=1$. Indeed, by the orthogonality of characters, we see that $\theta_G=1$ is equivalent to having $n(\rho)=0$ for all nontrivial irreducible representations $\rho$ of $G$. But now we recall that $n(\rho)=0$ is equivalent to holomorphy and nonvanishing of $L(s,\rho)$ at $s=1$.
-\end{remark}
-The utility we will get out of $\theta_G$ is that it will let us efficiently reduce to subgroups.
-\begin{lemma}[Heilbronn--Stark] \label{lem:restrict-heilbronn}
-	Fix a Galois extension $L/K$ of number fields with Galois group $G$, and choose a subgroup $H\subseteq G$. Then $\theta_G|_H=\theta_H$.
-\end{lemma}
-\begin{proof}
-	This follows from Frobenius reciprocity. By the orthogonality of characters, it is enough to check that $\langle\theta_G|_H,\sigma\rangle=n(\sigma)$ for any irreducible representation $\sigma$ of $H$. We do this in two steps.
-	\begin{enumerate}
-		\item For any representation $\rho_0$ of $G$, we claim that $n(\rho_0)=\langle\theta_G,{\tr}\circ\rho_0\rangle$. Indeed, upon expanding $\rho_0$ into a sum of irreducible representations as $\rho_0=\bigoplus_\rho\rho^{\nu_\rho}$, we see that $L(s,\rho_0)=\prod_\rho L(s,\rho)^{\nu_\rho}$ by \Cref{lem:artin-add}, so
-		\[n(\rho_0)=\sum_{\rho\in\op{IrRep}(G)}\nu_\rho n(\rho),\]
-		so we complete this step upon noticing $\nu_\rho=\langle\rho_0,\rho\rangle$.
-		\item We complete the proof. By Frobenius reciprocity, we see that $\langle\theta_G|_H,\sigma\rangle$ equals $\left\langle\theta_G,\op{Ind}_H^G\sigma\right\rangle$. But the previous step tells us that this equals $n(\op{Ind}_H^G\sigma)$, which we note equals $n(\sigma)$ because $L(s,\op{Ind}_H^G\sigma)=L(s,\sigma)$ by \Cref{lem:artin-ind}.
-		\qedhere
-	\end{enumerate}
-\end{proof}
-\begin{proposition} \label{prop:artin-nonvanish}
-	Fix a number field $K$, and let $\rho\colon\op{Gal}(\ov K/K)\to\op{GL}(V)$ be a nontrivial irreducible finite-dimensional complex representation. Then $L(s,\rho)$ is holomorphic and nonvanishing at $s=1$.
-\end{proposition}
-\begin{proof}
-	By \Cref{lem:artin-finite-image}, there is a finite Galois extension $L$ of $K$ with Galois group $G$ such that $\rho$ descends to a representation of $G$. Then \Cref{rem:use-heilbronn} explains that it is enough to check that $\theta_G=1$. We will do this by computing $\langle\theta_G,\theta_G\rangle$ in two ways.
-	\begin{itemize}
-		\item On one hand, by the orthogonality of characters, this equals
-		\[\sum_{\rho_0\in\op{IrRep}(G)}n(\rho)^2.\]
-		Because the trivial character $1$ has $n(1)=1$ already by \Cref{thm:hecke-continue}, we see $1$ is in the support of $\theta_G$, so $\langle\theta_G,\theta_G\rangle=1$ if and only if $n(\rho)=0$ for all nontrivial irreducible representations $\rho$ of $G$.
-		\item On the other hand, using \Cref{lem:restrict-heilbronn}, we see $\langle\theta_G,\theta_G\rangle$ satisfies
-		\[\langle\theta_G,\theta_G\rangle=\frac1{\left|G\right|}\sum_{g\in G}\theta_{\langle g\rangle}(g).\]
-		However, we already know that $\theta_{\langle g\rangle}=1$ because $\langle g\rangle$ is abelian by using \Cref{rem:use-heilbronn} with \Cref{cor:abelian-artin-nonvanish}. Thus, $\langle\theta_G,\theta_G\rangle=1$.
-	\end{itemize}
-	Combining the above two points completes the proof.
-\end{proof}
+% The utility we will get out of $\theta_G$ is that it will let us efficiently reduce to subgroups.
+% \begin{lemma}[Heilbronn--Stark] \label{lem:restrict-heilbronn}
+% 	Fix a Galois extension $L/K$ of number fields with Galois group $G$, and choose a subgroup $H\subseteq G$. Then $\theta_G|_H=\theta_H$.
+% \end{lemma}
+% \begin{proof}
+% 	This follows from Frobenius reciprocity. By the orthogonality of characters, it is enough to check that $\langle\theta_G|_H,\sigma\rangle=n(\sigma)$ for any irreducible representation $\sigma$ of $H$. We do this in two steps.
+% 	\begin{enumerate}
+% 		\item For any representation $\rho_0$ of $G$, we claim that $n(\rho_0)=\langle\theta_G,{\tr}\circ\rho_0\rangle$. Indeed, upon expanding $\rho_0$ into a sum of irreducible representations as $\rho_0=\bigoplus_\rho\rho^{\nu_\rho}$, we see that $L(s,\rho_0)=\prod_\rho L(s,\rho)^{\nu_\rho}$ by \Cref{lem:artin-add}, so
+% 		\[n(\rho_0)=\sum_{\rho\in\op{IrRep}(G)}\nu_\rho n(\rho),\]
+% 		so we complete this step upon noticing $\nu_\rho=\langle\rho_0,\rho\rangle$.
+% 		\item We complete the proof. By Frobenius reciprocity, we see that $\langle\theta_G|_H,\sigma\rangle$ equals $\left\langle\theta_G,\op{Ind}_H^G\sigma\right\rangle$. But the previous step tells us that this equals $n(\op{Ind}_H^G\sigma)$, which we note equals $n(\sigma)$ because $L(s,\op{Ind}_H^G\sigma)=L(s,\sigma)$ by \Cref{lem:artin-ind}.
+% 		\qedhere
+% 	\end{enumerate}
+% \end{proof}
+% \begin{proposition} \label{prop:artin-nonvanish}
+% 	Fix a number field $K$, and let $\rho\colon\op{Gal}(\ov K/K)\to\op{GL}(V)$ be a nontrivial irreducible finite-dimensional complex representation. Then $L(s,\rho)$ is holomorphic and nonvanishing at $s=1$.
+% \end{proposition}
+% \begin{proof}
+% 	By \Cref{lem:artin-finite-image}, there is a finite Galois extension $L$ of $K$ with Galois group $G$ such that $\rho$ descends to a representation of $G$. Then \Cref{rem:use-heilbronn} explains that it is enough to check that $\theta_G=1$. We will do this by computing $\langle\theta_G,\theta_G\rangle$ in two ways.
+% 	\begin{itemize}
+% 		\item On one hand, by the orthogonality of characters, this equals
+% 		\[\sum_{\rho_0\in\op{IrRep}(G)}n(\rho)^2.\]
+% 		Because the trivial character $1$ has $n(1)=1$ already by \Cref{thm:hecke-continue}, we see $1$ is in the support of $\theta_G$, so $\langle\theta_G,\theta_G\rangle=1$ if and only if $n(\rho)=0$ for all nontrivial irreducible representations $\rho$ of $G$.
+% 		\item On the other hand, using \Cref{lem:restrict-heilbronn}, we see $\langle\theta_G,\theta_G\rangle$ satisfies
+% 		\[\langle\theta_G,\theta_G\rangle=\frac1{\left|G\right|}\sum_{g\in G}\theta_{\langle g\rangle}(g).\]
+% 		However, we already know that $\theta_{\langle g\rangle}=1$ because $\langle g\rangle$ is abelian by using \Cref{rem:use-heilbronn} with \Cref{cor:abelian-artin-nonvanish}. Thus, $\langle\theta_G,\theta_G\rangle=1$.
+% 	\end{itemize}
+% 	Combining the above two points completes the proof.
+% \end{proof}
 At long last, we may prove the Chebotarev density theorem.
 \begin{theorem}[Chebotarev density]
 	Fix a number field $K$. For each prime $\mf p$ of $K$, choose a prime $\mf P$ of $\ov K$ above $\mf p$, and let $x_{\mf p}$ be the conjugacy class of $\op{Frob}_{\mf P}$ in $\op{Gal}(\ov K/K)$. Then the sequence $\{x_{\mf p}\}_{\mf p}$ equidistributes in $\op{Conj}(\op{Gal}(\ov K/K))$.
 \end{theorem}
 \begin{proof}
-	By \Cref{prop:equi-by-l-func}, it is enough to check that the $L$-functions $L(s,\rho)$ have nonvanishing holomorphic continuation to $\{s:\Re s\ge1\}$ for each nontrivial complex irreducible representation $\rho$ of $\op{Gal}(\ov K/K)$. Well, fix some such $\rho$. By \Cref{lem:artin-finite-image}, we can find a finite Galois extension $L$ of $K$ with Galois group $G$ such that $\rho$ descends to $\op{Gal}(L/K)$. Now, $G$ is Brauer by \Cref{thm:brauer}, so \Cref{lem:brauer-to-artin} provides a meromorphic continuation to $\{s:\Re s\ge1\}$ which is holomorphic and nonvanishing for $s\ne1$. Lastly, we get the result for $s=1$ by \Cref{prop:artin-nonvanish}.
+	By \Cref{prop:equi-by-l-func}, it is enough to check that the $L$-functions $L(s,\rho)$ have nonvanishing holomorphic continuation to $\{s:\Re s\ge1\}$ for each nontrivial complex irreducible representation $\rho$ of $\op{Gal}(\ov K/K)$. Well, fix some such $\rho$. By \Cref{lem:artin-finite-image}, we can find a finite Galois extension $L$ of $K$ with Galois group $G$ such that $\rho$ descends to $\op{Gal}(L/K)$. Now, $G$ is Brauer by \Cref{thm:brauer}, so \Cref{lem:brauer-to-artin} provides a meromorphic continuation to $\{s:\Re s\ge1\}$ which is holomorphic and nonvanishing for $s\ne1$. Furthermore, $\langle{\tr}\circ\rho,1\rangle=0$ because $\rho$ is nontrivial and irreducible, so holomorphy and nonvanishing follows.
 \end{proof}
 % elliptic curves
 % y^9 = x(x-1)(x-lambda) first few moments
