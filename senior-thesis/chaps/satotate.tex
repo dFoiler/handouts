@@ -1264,9 +1264,10 @@ The suitable analogue of \Cref{lem:artin-ind} on induction remains true, but we 
 	\end{enumerate}
 \end{proof}
 In order to allow us to stop talking about $L$-functions as quickly as possible, let's go ahead and explicate the inductive approach to meromorphic continuation via Brauer's theorem. We begin with the following non-standard definition.
-\begin{definition}[Brauer]
+\begin{definition}[Brauer] \nirindex{monomial}
 	Fix a finite group $G$. Then $G$ is \textit{Brauer} if and only if, for any finite-dimensional complex irreducible representation $\rho$, there is a sequence of pairs $\{(a_i,H_i,\psi_i)\}_{i=1}^n$ where $a_i\in\ZZ$ and $H_i\subseteq G$ is a subgroup and $\psi_i\colon H_i\to\CC^\times$ is a representation such that
-	\[{\tr}\circ\rho=\sum_{i=1}^na_i\op{Ind}_{H_i}^G\psi_i.\]
+	\[{\tr}\circ\rho=\sum_{i=1}^na_i\op{Ind}_{H_i}^G\psi_i\]
+	as virtual character. A representation of the form $\op{Ind}_{H_i}^G\psi_i$ is said to be \textit{monomial}.
 \end{definition}
 \begin{lemma} \label{lem:brauer-to-artin}
 	Fix a Galois extension $L/K$ of number fields with Galois group $G$. Suppose that $G$ is Brauer. For any finite-dimensional complex representaion $\rho$ of $G$, the function $L(s,\rho)$ admits a meromorphic continuation to $\{s:\Re s=1\}$ with no poles or zeroes except possibly a pole or zero at $s=1$. Further, the order of the pole at $s=1$ is $\langle{\tr}\circ\rho,1\rangle$.
@@ -1456,5 +1457,13 @@ At long last, we may prove the Chebotarev density theorem.
 % CM + Chebotarev does not seem to give potential CM
 % the problem is that ST is requiring equidistribution of some very strange composite, and I am quite unconvinced that it is continuous (namely, the non-canonical embedding Q_l to C is discontinuous)
 % this explains why johansson works harder
+
+% ST for abelian surfaces needs the full L-function theory for GLm x GLn, due to Shahidi
+% indeed, potential automorphy takes the symmetric powers Sym^m rho1 otimes Sym^n rho2 and then produces an automorphic form of GL(m+1) x GL(n+1)
+% so we need nonvanishing of automorphic forms of GL(m+1) x GL(n+1)
+
+% so in my application, I need a result for triple products of GL
+% I do not know if such things exist
+% the automorphy results suggest that one may have the needed L-functions from the Galois side in some meaningful way? (cor 5.4.2 of [blggt])
 
 \end{document}

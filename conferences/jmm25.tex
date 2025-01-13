@@ -1,0 +1,1625 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+
+\newcommand{\nirpdftitle}{JMM 2025}
+\usepackage{import}
+\inputfrom{../../notes}{nir}
+% \usepackage[backend=biber,
+%     style=alphabetic,
+%     sorting=ynt
+% ]{biblatex}
+% \addbibresource{bib.bib}
+\setcounter{tocdepth}{2}
+
+\pagestyle{contentpage}
+
+\title{Some JMM Talks}
+\author{Nir Elber}
+\date{January 2025}
+\usepackage{graphicx}
+\lhead{}
+\rhead{\textit{SOME JMM TALKS}}
+
+\begin{document}
+
+\maketitle
+
+\tableofcontents
+
+\section{Arithmetic Dynamics}
+This session happened on Wednesday the 8th of January. This session is an advertisement for an AIM workshop in November on dynamics of multiple maps.
+
+\subsection{Specializeations of Iterated Galois Groups of PCF Rational Functions}
+This talk was given by Jamie Juul. Throughout, $k$ is a number field, $f\in k(x)$ is a polynomial of degree $d$, and we let $K_{\alpha,n}$ denote $k$ adjoined with $f^{-n}(\alpha)$. We define $K_{\alpha,\infty}$ as the union and $G_{\alpha,n}$ as the Galois group; there are ways to guarantee that $K_{\alpha,n}/k$ is Galois. For transcedental $t$ over $k$, one can do the same process, but we may write $K_n\coloneqq K_{t,n}$ and $G_n\coloneqq G_{n,t}$; to keep track of algebraicity, we will define $k_n\coloneqq\ov k\cap K_n$.
+
+One can think about $t$ as a generic case: one can realize $G_{\alpha,\infty}$ inside $G_\infty$ for any $\alpha$. Thus, we are interested in when we get equality. For example, Hilbert's irreducibility theorem grants $[G_n:G_{\alpha,n}]=1$ for generic $\alpha$ (depending on $n$); one expects $[G_\infty:G_{\alpha,\infty}]<\infty$ generically.
+
+Note that $f$ provides a natural tree structure to the set
+\[\bigsqcup_{n\ge0}f^{-n}(\alpha),\]
+and $G_{\alpha,\infty}$ will permute the tree. This produces an ``arboreal'' Galois representation. One can check that this representation is injective by construction of $G_{\alpha,n}$ for each $n$. We remark that this grants an exact sequence
+\[1\to\op{Gal}(K_\infty/k_\infty(t))\to\op{Gal}(K_\infty/k(t))\to\op{Gal}(k_\infty/k)\to1,\]
+where one can think about the left part as being transcendental/geometric and the right part as being algebraic.
+
+We will look at the following class of functions.
+\begin{definition}[post-critically finite]
+	A map $f\in k(x)$ is \textit{post-critcally finite} (PCF) if and only if each critical point is preperiodic.
+\end{definition}
+And here are our theorems.
+\begin{theorem}
+	Suppose $f\in k(x)$ is PCF and that $\op{Gal}(K_1/k_1(t))$ is a $p$-group. Then there is $m(f,k)\ge1$ such that $G_{\alpha,\infty}\cong G_\infty$ if and only if $G_{\alpha,m(f,k)}\cong G_m$.
+\end{theorem}
+\begin{theorem}
+	Choose $f(x)=x^{p^n}+c$ to be PCF, and let $N$ be the size of the orbit of $0$, and let $k'$ be the compositum of degree $p$ extensions of $k_1$ in $k_\infty$. Then $G_{\alpha,\infty}\cong G_\infty$ if and only if $\left|\op{Gal}(K_{\alpha,N}k'/k)\right|=\left|G_n\right|[k':k]$.
+\end{theorem}
+Morally, the second theorem is asking for some Galois group to be the correct size.
+
+The key input is the following notion.
+\begin{definition}[Frattini]
+	Fix a profinite group $G$. Then the \textit{Frattini subgroup} $F$ is the intersection of all closed maximal subgroups.
+\end{definition}
+So here is the sketch.
+\begin{enumerate}
+	\item Because $G_\infty$ is a profinite $p$-group, maximal subgroups have index equal to $p$ and hence correspond to degree $p$ extensions of $k(t)$.
+	\item Then one checks that there are only finitely many such extensions. Roughly speaking, one finds that $K_\infty\ov k$ has only finitely many extensions of $\ov k(t)$ of degree $p$ and then specialize $t$. This uses the PCF assumption.
+	\item The point is that $K_\infty^F$ becomes some finite extensions of $k$ and thus lives in some $K_m$. The result now follows with this $m$.
+\end{enumerate}
+
+\subsection{Profinite Iterated Monodromy Groups of PCF Unicritical Polynomials}
+This talk was given by Trevor Hyde.
+
+We maintain the notation of the previous talk, though we let $k$ be a general field and let $\widehat k$ be $k_\infty$. Let $\rho$ be the arboreal representation. We are intereseted in studying the group $\mathrm{Arb}=\rho(\op{Gal}(\ov {k(y)}/k(y)))$; it may be helpful to understand $\overline{\op{Arb}}=\rho(\op{Gal}(\ov{k(y)}/\ov k(y)))$. It turns out that the short exact sequence
+\[1\to\overline{\mathrm{Arb}}\to\mathrm{Arb}\to\op{Gal}(\widehat k/k)\to1\]
+splits, so it suffices to understand $\overline{\mathrm{Arb}}$, the extension $\widehat k/k$, adn the Galois action on $\overline{\mathrm{Arb}}$. The general expectation is that $\mathrm{Arb}=\overline{\mathrm{Arb}}$ is the full automorphism group of the tree; a special case to study is when $f$ is PCF, and we frequently expect these equalities to fail; for example, in this case, $\overline{\mathrm{Arb}}$ is topologically finitely generated.
+\begin{remark}
+	Richard Pink studied the case of $\deg f=2$ in 2013. He found that $\overline{\mathrm{Arb}}$ only depends on some combinatorics having to do with $f$ either being critically periodic or not. Further, he finds $\widehat k\subseteq k(\zeta_{2^\infty})$, with equality holding if $f$ is critically periodic; else, $\widehat k/k$ is uniformly bounded (!) unless $f$ is Chebychev.
+\end{remark}
+Pink's work does a case-by-case analysis of the combinatorics, and it takes something like 90 pages. We are interested in higher-degree generalizations, which are potentially complicated. We specialize to unicritical polynomials to make the combinatorics as tractable as the quadratic case.
+\begin{theorem}
+	Suppose $f(x)=x^d+c$ is unicritical (at $0$) and PCF, and assume $\op{char}k\nmid d$. Say that the orbit of $0$ has $n$ elements.
+	\begin{listalph}
+		\item There is an explicit recursive construction of $\overline{\mathrm{Arb}}$.
+		\item If $0$ is periodic, then $\overline{\mathrm{Arb}}$ only depends on $n$.
+		\item If $0$ is strictly preperiodic, then write $f^{m+1}(0)=f^{n+1}(0)$ for $m<n$ so that $f^n(0)=\zeta_d^\omega f^m(0)$ for some $\omega$. Then $\overline{\mathrm{Arb}}$ only depends on $(m,n,\omega)$.
+	\end{listalph}
+\end{theorem}
+This $\omega$ is not seen in degree $2$, and it says that the group depends not just on the pure tree combinatoris of $0$.
+\begin{remark}
+	Let's indicate some ideas of the proof. The post-critical combinatorics provide a recursive description of the conjugacy classes of the inertia subgroups. Then one shows some group-theoretic result that these conjugacy classes determine $\ov{\mathrm{Arb}}$ up to conjugacy.
+\end{remark}
+Here are some applications.
+\begin{itemize}
+	\item One can calculate the order of $\op{Gal}(\ov k(f^{-\ell}(y))/\ov k(y))$ for all $\ell\ge0$.
+	\item One can compute $\ov{\mathrm{Arb}}^{\mathrm{ab}}$.
+	\item Importantly, one can explicitly compute $\widehat k$. In particular, if $f$ is a polynomial of degree $d$ with $\op{char}k\nmid d$, then $\widehat k\subseteq k(\zeta_{d^\infty})$. (The idea is to use the totally ramified point at $\infty\in\PP^1_k$.)
+\end{itemize}
+For example, one has the following computations of $\widehat k$.
+\begin{theorem}
+	Suppose $f(x)=x^d+c$ is unicritical (at $0$) and PCF, and assume $\op{char}k\nmid d$.
+	\begin{listalph}
+		\item If $0$ is periodic, then $\widehat k=k(\zeta_{d^\infty})$.
+		\item If $0$ is strictly periodic, then either $d=2$ and $f$ is Chebychev, or $k(\zeta_d)\subseteq\widehat k\subseteq k(\zeta_{4d^2})$.
+	\end{listalph}
+\end{theorem}
+
+\subsection{Square Patterns in Dynamical Orbits}
+This talk was given by Vefa Goksel. For now, $K$ is a field, and $f\in K[x]$ of degree $d\ge2$. For $a\in K$, we let $\OO_f(a)$ denote the forward orbit. We are interested in the following two notions.
+\begin{definition}
+	Choose $f\in K[x]$ of degree $d\ge2$. Then $f$ is \textit{dstable} if and only if $f^n$ is irreducible over $K$ for all $n\ge1$. We say $f$ is \textit{eventually stable} if and only if the number of irreducible factors of $f^n$ is bounded as $n\to\infty$.
+\end{definition}
+If $K$ is global, one expects stability to be generic. We will be interested in the case where $K$ is finite, where these notions are rare. For example, one has the following.
+\begin{lemma}[Boston--Jones]
+	Let $\FF_q$ be a finite field with $q$ odd, and let $f\in\FF_q[x]$ be monic and quadratic with critical point $\gamma$. Then $f$ is stable if and only if the set
+	\[\left\{-f(\gamma),f^2(\gamma),f^3(\gamma),\ldots\right\}\]
+	has no squares.
+\end{lemma}
+\begin{lemma}[Ostafe--Shparlinski]
+	Let $\FF_q$ be a finite field with $q$ odd, and let $f\in\FF_q[x]$ be monic and quadratic with critical point $\gamma$. Then $\#\OO_f(\gamma)$ is $O(q^{3/4})$.
+\end{lemma}
+The second lemma is shown by doing some character summing of $\chi(f^i(\gamma))$, where $\chi\colon\FF_q^\times\to\CC^\times$ is the nontrivial quadratic character. We are interested in improving some of these character sums. Let's add some hypotheses.
+\begin{definition}
+	A polynomial $f$ is \textit{dynamically ordinary} if and only if each $n$ has an irreducible factor $g_n$ of $f^n$ not found in any prior $f^\bullet$. We say that $f$ is \textit{dynamically $2$-ordinary} if and only if there is such a $g_n$ with odd multiplicity.
+\end{definition}
+There is a classification of such dynamically ordinary polynomials. 
+\begin{proposition}
+	Choose $f$ as above. Then $f$ is not dynamically ordinary if and only if $f$ takes the form $f(x)=A(x-B)^{p^e}$.
+\end{proposition}
+There is also a rather more complicated classification of dynamically $2$-ordinary polynomials.
+
+Anyway, here is our main result.
+\begin{theorem}
+	Fix an odd prime power $q$, and choose $f\in\FF_q[x]$ to be dynamically $2$-ordinary of degree $d$. For $a\in\FF_q$, suppose the sequence $\{\chi(f^\bullet(a))\}$ is periodic of period $m$. Then $\#\OO_f(a)$ is $O\left(mq^{\frac{2\log_2d+1}{2\log_2d+1}}\right)$.
+\end{theorem}
+The idea is to expand out $\#\OO_f(a)$ as some character sum and then bound it using the Weil conjectures. Note being dynamically $2$-ordinary comes in because the Weil conjectures require some smoothness assumption on a product of some $f^\bullet$s; in particular, one needs to know this product is non-square, which is where the odd multiplicity requirement comes from.
+
+\subsection{Bad Reduction of PCF Maps}
+This talk was given by Patrick Ingram. There is an analogy between elliptic curves with complex multiplication and PCF maps. Let $E$ be an elliptic curve over a number field $K$, and choose a prime $\mf p$. Having good reduction at $\mf p$ means that $E$ has an integral model over $\OO_{\mf p}$, which grants an elliptic curve over $\FF_{\mf p}$. Sometimes having good reduction is not possible over $K$, so we recall that having potentially good reduction means that $E$ has good reduction after extending the field. We now recall the following.
+\begin{theorem}
+	Choose an elliptic curve $E$ with complex multiplication. Then $E$ has potentially good reduction everywhere.
+\end{theorem}
+One can show this for elliptic curves by instead showing $j(E)$ is an algebraic integer.
+
+We now return to dynamics. A rational map $f\in K(x)$ has good reduction at $\mf p$ if and only if it can be written in homogeneous coordinates as $f(X,Y)=[A(X,Y):B(X,Y)]$ for polynomials $A$ and $B$ in $K_{\mf p}$, and it has potential good reduction if one can change variables to get good reduction. For example, one can check that unicritical PCF polynomials have potentially good reduction everywhere. Let's give a quick criterion.
+\begin{lemma}
+	Choose $z$ such that $f^k(z)=z$. If $f$ has potentially good reduction at $\mf p$, then $\left|(f^k)'(z)\right|_{\mf p}\le1$.
+\end{lemma}
+Dynamically, this says that there are no ``repelling'' cycles.
+
+We are interested in knowing what sort of reductions we can get uniform in the degree $d$ of $f$. Explicitly, this comes down to constructing some poorly behaved polynomials with repelling cycles at $\mf p$. For polynomials, this is folklore.
+\begin{proposition}
+	A PCF polynomial $f$ over $\QQ$ of degree $d$ has potentially good reduction for all $p\ge d$.
+\end{proposition}
+We would like to improve this. For example, there is also a lower bound.
+\begin{proposition}
+	For each prime $p<d$ with $p\nmid d$, there are infinitely many PCF polynomials $f$ of degree $d$ with a $p$-adically repelling fixed point.
+\end{proposition}
+Recall that having a $p$-adically repelling fixed point then means it does not even have potentially good reduction. The idea is to consider the family
+\[f(x)=pz^d-dt^{d-p}x^p\]
+as $t$ varies. One finds that $f$ is PCF if and only if $t$ is preperiodic. One can then solve $f^2(t)=0$ to find a working $t$.
+\begin{remark}
+	In some sense, what is happening is that PCF polynomials are ``special points'' in our one-parameter family of polynomials.
+\end{remark}
+The rest of the talk returned to rational functions. Here is the main result.
+\begin{theorem}
+	Choose $d\ge2$ and $p\nmid d(d-1)$. Then there is a PCF rational function of degree $d$ with a fixed point which repelling at some prime above $p$.
+\end{theorem}
+One shows this again by choosing a one-parameter family carefully.
+
+\subsection{Necklaces, Permutations, and Periodic Critical Orbits for Quadratics}
+This talk was given by Andrea Chen, Sophi Lie, Matthew Qian, and Leonna Wang; they are a team of high schoolers who did work in the PROMYS program under Matt Baker.
+
+We abandon the existing notation.
+\begin{definition}
+	Let $G_n$ denote the $n$th Gleason polynomial, whose roots are the $c\in\CC$ such that $0$ is a critical point of exactly period $n$ under the iteration $z\mapsto z^2+c$.
+\end{definition}
+This can be computed recursively by computing iterates of $z\mapsto z^2+c$ and then dividing out by the previous Gleason polynomials. It is conjectured that $G_n$ is irreducible. Here is some analogous result.
+\begin{theorem}[Buff--Floyd--Koch--Parry]
+	The number of irreducible factors of $G_n\pmod2$ equals the number of real roots of $G_n$.
+\end{theorem}
+The given proof is done be an explicit computation: one finds that this quantity is
+\[\frac1{2n}\sum_{\substack{m\mid n\\m\text{ odd}}}\mu(m)2^{m/n}.\]
+We are interested in giving a combinatorial proof of the result.
+
+Here are some definitions from combinatorics.
+\begin{definition}
+	A permutation is \textit{unimodal} if and only if its graph is decreasing and then increasing.
+\end{definition}
+\begin{definition}
+	A binary necklace of length $n$ is a sequence of $n$ bits, considered up to cyclic permutation.
+\end{definition}
+We now give the main theorem.
+\begin{theorem}
+	Fix $n$. Then we give explicit bijections for the following sets.
+	\begin{listroman}
+		\item Real roots of $G_n$.
+		\item Irreducible factors of $G_n\pmod2$.
+		\item The set of cyclic unimodal permutations.
+		\item Binary necklaces of length $n$ with an even number of $1$s.
+		\item Binary necklaces of length $n$ with an odd number of $1$s.
+	\end{listroman}
+\end{theorem}
+Let's list some inputs.
+\begin{itemize}
+	\item Teichmuller dynamics grants bijections between (i) and (iii).
+	\item Galois theory can give a bijection between (ii) and some special set ofbinary necklaces.
+	\item Symbolic dynamics can then give a bijection between cyclic unimodal permutations and the above sets of binary neckalces in (iv) and (v).
+	\item Lastly, one does some explicit combinatorics with binary necklaces for a little correction.
+\end{itemize}
+
+\subsection{Local Fields, Iterated Extensions, and Julia Sets}
+This talk was given by Donald Lee.
+
+Let $K$ be a local field with disctete valuation $\nu$, and we let $p$ be the residue characteristic. We are interested in iterates of the polynomial $f(z)=z^\ell-c$. If $\deg f=p$, then one finds that the field extensions of the solutions $f^n(z)=\alpha$ (as $\alpha\in K$ varies) is bounded if $\nu(c)<-p/(p-1)$ and infinite otherwise, and one can say something about the ramification in the latter case. This is shown by a study of the underlying arboreal Galois representation.
+
+We show analogous results for $\ell$ a power of $p$ with $p/(p-1)$. We will use some theory about Berkovich spaces. Let $\PP^1_{\mathrm{an}}$ be the Berkovich projective line, which is the Hausdorff compactification of $\PP^1(\CC_p)$. Roughly speaking, one adds ``generic'' points to $\PP^1(\CC_p)$ to fix the totally disconnected topology. One is now able to define a (filled) Berkovich Julia set attached to $f$ in the usual way by asking for iterates of $f$ to not escape to $\infty$; we let $\mc J_f$ denote the boundary, and it is the Berkovich Julia set. Here is our main result.
+\begin{theorem}
+	Write $\ell=p^k$ for $c\in\ov{\QQ_p}$, and set $\nu_\infty=-\ell/(\ell-1)\nu(\ell)$.
+	\begin{listalph}
+		\item If $\nu(c)<\nu_\infty$, then $\mc J_f$ is a Cantor set of points in $\PP^1(\CC_p)$.
+		\item Otherwise, $\mc J_f$ has non-generic points.
+	\end{listalph}
+\end{theorem}
+One can even more precisely study the non-generic points, though one needs another cutoff $\nu_{\mathrm{good}}$ to keep track of $f$ having good reduction. Do note that one needs a finer understanding of the points of $\PP^1_{\mathrm{an}}$ for these descriptions than we have given here. Roughly speaking, one uses the Newton polygon to do the computation of the filled Julia set.
+
+Here is our result on the field extensions.
+\begin{theorem}
+	Suppose $p\nmid\ell$ and $\ell>0$. Then the field extensions generated by the solutions to $f^n(z)=\alpha$ (for $\alpha\in K$) are bounded for small $\nu(c)$ and infinitely wildly ramified for large $\nu(c)$.
+\end{theorem}
+The idea is to use Krasner's lemma to do the bounding. For example, for small $\nu(c)$, one shows that $n$ large enough has all the solutions to $f^{n+1}(z)=\alpha$ too close to the solutions to $f^n(z)=\alpha$, showing boundedness.
+
+\subsection{Arithmetic Dynamics on Character Varieties}
+This talk was given by Cigole Thomas.
+
+Let's begin with a short introduction to character varieties. There is a topological ingredient, which is a finitely presented group $\Gamma$, which can be thought of as a fundamental group. Then there is a geometric component $G$, which is a complex reductive algebraic group.
+\begin{example}
+	Consider $\Gamma=\ZZ^2$ and $G=\op{SL}_n(\CC)$.
+\end{example}
+Letting $r$ be the number of generators of $\Gamma$, then there is an embedding $\op{Hom}(\Gamma,G)\into G^r$. But note that $G$ acts on $\op{Hom}(\Gamma,G)$ by conjugation, and we let the character variety $\mf X$ be the quotient. To make the quotient $\mf X$ behave, one should correct the space a bit.
+
+We remark that one can also take $\FF_q$-points.
+\begin{example}
+	One can compute $\op{Hom}(\ZZ^2,\op{SL}_n(\FF_q))$ is in bijection with pairs $(A,B)$ of commuting matrices, and after ridding of the conjugation action and correcting the quotient, we find that we are talking about sets of pairs simultaneously diagonalizable matrices.
+\end{example}
+Note that $\op{Aut}(\Gamma)$ acts on $\op{Hom}(\Gamma,G)$ by precomposition. By taking the quotient, we see that $\op{Out}(G)$ acts on $\mf X$; we are interested in this second action.
+\begin{example}
+	Note $\op{Aut}(\ZZ^2)=\op{GL}_2(\ZZ)$, so the above defines a homomorphism $\op{GL}_2(\ZZ)\to\op{Aut}(\mf X)$ which is essentially given by matrix multiplication.
+\end{example}
+This action turns out to not be transitive in general, so perhaps one can try to recover a result in the large $q$ limit. And in absence of transitivity, maybe we can ask for a large orbit. For example, one can ask when the limit
+\[\lim_{p\to\infty}\frac{\max\{\left|\op{Orb}(v)\right|:v\in X\}}{\left|X\right|}\]
+equals $1$. Roughly speaking, this is a finite-field analogue of ergodicity.
+
+Let's work with the running example. Here is a strategy for the computation.
+\begin{enumerate}
+	\item Stratify the space of pairs of matrices depending on eigenvalues.
+	\item Then count the number of points in each stratum.
+	\item Now, each stratum actually has a subgroup of $\op{SL}_2(\FF_p)^2$ containing the orbit.
+	\item The previous step allows one to say something about the orbit.
+\end{enumerate}
+This gives a main theorem.
+\begin{theorem}
+	With $\Gamma=\ZZ^2$ and $G=\op{SL}_2(\FF_q)$, one has
+	\[\lim_{p\to\infty}\frac{\max\{\left|\op{Orb}(v)\right|:v\in X\}}{\left|X\right|}=\frac12.\]
+\end{theorem}
+There are generalizations to $\Gamma=\ZZ^r$ and even $\op{SL}_3(\FF_q)$, but the computations become intractable in large rank.
+
+\subsection{Ramified Approximation and Semistable Reduction}
+This talk was given by Xander Faber. For now, $K$ is a nonarchimedean local field with valuation $v$, and $\pi$ is a uniformizer. As usual, $\OO_K$ is the valaution ring, $\widetilde K$ is the residue field with characteristic $p>0$, $K_s$ is a separable closure (which has an induced valuation $v$). Then $\CC_K$ is the completion of $K_s$, and we let $G_K$ be its Galois group.
+
+This talk is interested in (closed) disks $D(a,r)$ in $\CC_K$. Note that a $G_K$-invariant disk $D(a,k)$ will contain all the roots of some polynomial $f$; in fact, one can check that this is an equivalence. Roughly speaking, given a $G_K$-invariant disk $D(a,r)$, one can ask for the minimum degree of an algebraic element in $D(a,r)$ and how to find them. Of course, one can take the degree of $a$ and $r$ to produce a minimal degree, but maybe there are better ones.
+
+Here is an example result.
+\begin{proposition}
+	Fix a $G_K$-invariant disk $D$. If $D$ contains an element $a\in K_s$ with degree coprime to $p$, then $D\cap K\ne\emp$.
+\end{proposition}
+\begin{proof}
+	Well, given algebraic $a\in D$, one just takes $\frac1{\deg\alpha}\tr a\in D\cap K$, which is a legal quotient because $\deg\alpha$ is coprime to $p$.
+\end{proof}
+Here is an extension.
+\begin{lemma}[Ax]
+	Fix a $G_K$-invariant disk $D$. If $D$ contains an element $a\in K_s$ of degree $p^m$ (where $p\nmid m$), then $D$ contains an element of degree dividing $p^e$.
+\end{lemma}
+The idea is to consider some power series expansion of $f(a+t)$ where $f$ is the minimal polynomial, and one hopes to find the element at small $t$.
+
+There are results like this. Here is another.
+\begin{proposition}
+	Let $D$ be a $G_K$-invariant disk. If $D$ contains an elment $a\in K_s$ which generates an unramified extension of $K$, then $D\cap K\ne\emp$.
+\end{proposition}
+In total, one may hope to descend algebraic elements of Galois-invariant disks along totally tamely ramified extensions and even unramified extensions. One can even descend to a $p$-extension using Ax's lemma. Thus, we hope that we can go down to a totally wildly ramified extension. However, the kind of reduction we are hoping for is backward: the order of fields from $K$ to $L$ is in general unramified then tamely ramified then wildly ramified.
+
+However, we are still able to recover some kind of result, which is our main theorem.
+\begin{theorem}
+	Suppose $D$ is a disk containing all conjugates of some $\beta$. Then there is an explicit $\alpha\in D\cap K_s$ such that $K(\alpha)/K$ is separable and totally wildly ramified.
+\end{theorem}
+Let's give a dynamical application. Fix $f\colon\PP^1_K\to\PP^1_K$ of degree $d\ge2$, and we recall that we can write $f(X,Y)=[F(X,Y):G(X,Y)]$. We say that $f$ has good reduction if and only if its reduction to $\widetilde K$ has the same degree as $f$.
+\begin{theorem}
+	Fix $f\colon\PP^1_K\to\PP^1_K$ of degree at least $2$. Then $f$ has good reduction if and only if $\op{ordRes}(f)=0$.
+\end{theorem}
+Here, $\op{ordRes}$ has to do with the order of the homogeneous coordinates $F$ and $G$.
+
+Now let's give an application from arithmetic geometry.
+\begin{theorem}
+	An elliptic curve $E$ with potentially good reduction achieves good reduction after base-change by a totally ramified extension.
+\end{theorem}
+
+\section{Cohomology of Arithmetic Groups}
+These talks happened on Wednesday the 8th of January.
+
+\subsection{Hyperelliptic Curves, the Scanning Map, and Moments of \texorpdfstring{$L$}{L}-Functions}
+This talk was given by Craig Christopher Westerland. Given a squarefree positive integer $d$, we let $\chi_d$ denote the Kronecker symbol: for primes $p$, we have $\chi_d(p)=\left(\frac pd\right)$ and then extend multiplicatively. (There is some definition at $p=2$ which is not complicated, but we will not elaborate on it.) There is an $L$-function
+\[L(s,\chi)=\sum_{n=1}^\infty\frac{\chi(n)}{n^s}\]
+for any Dirichlet character $\chi$. There is an Euler product, meromorphic continuation, and functional equation for $L(s,\chi)$, and there is an expected Riemann hypothesis. One may be interested in the moments
+\[M_r(D)\coloneqq\sum_{\substack{\left|d\right|<D\\d\text{ squarefree}}}L(1/2,\chi_d)^r\]
+as $r\ge0$ varies. The value of $L(1/2,\chi_d)$ is potentially interesting for functional equation reasons. One has the following conjecture, which comes from some conjectures in random matrix theory.
+\begin{conj}
+	We have $M_r(D)\sim DQ_r(\log D)$, where $Q_r$ is some explicit polynomial of degree $r(r+1)/2$.
+\end{conj}
+\begin{remark}
+	We remark that there is also a conjecture on moments of $\zeta\left(\frac12+it\right)$. Explicitly, one expects
+	\[\int_0^T\left|\zeta\left(\frac12+it\right)\right|^{2r}\,dt\sim C_rT(\log T)^{r^2}\]
+	for an explicit constant $C_r$. One only knows $r\in\{1,2\}$, and they are about a hundred years old.
+\end{remark}
+We will study some related $L$-functions coming from algebraic geometry via the function field analogy. Using the same notions of quadratic residues, one can define Dirichlet characters (and the Kroneckedr symbol) on $\FF_q[t]$, and we produce an $L$-function defined exactly analogously as
+\[L(s,\chi)=\sum_{\substack{f\in\FF_q[x]\\f\text{ monic}}}\frac{\chi(f)}{\left|f\right|^s},\]
+where $\left|f\right|$ is $\#\FF_q[t]/(f)=q^{\deg f}$. (The reason for taking monic polynomials is that it is actually more natural to sum over ideals than elements.) There is still an Euler product, meromorphic continuation, and functional equation.
+
+Now, here is our main result on moments.
+\begin{theorem}
+	Let $q$ be an odd prime power. Then
+	\[\frac1{q^{2g+1}}\sum_{\substack{d\text{ squarefree}\\\deg d=2g+1}}L(1/2,\chi_d)^r=Q_r(2g+1)+O\left(4^{g(r+1)}q^{-g/12}\right)\]
+	for some explicit polynomial $Q_r$ of degree $r(r+1)/2$.
+\end{theorem}
+We remark that one needs $q>4^{12(r+1)}$ for the error term to not overwhelm the main term. Let's sketch the ideas.
+\begin{itemize}
+	\item One can interpret the left-hand side as counting $\FF_q$-points on a configuration space $\op{Conf}_{2g+1}$.
+	\item The Weil conjectures then relate point-counts to cohomology.
+	\item Lastly, one uses homotopy theory to compute the cohomology.
+\end{itemize}
+Let's recall the definition of $\op{Conf}$.
+\begin{definition}
+	For a ring $R$ and $n\ge0$, we define the \textit{configuration sheaf} $\op{Conf}_n(R)$ as the set of monic squarefree polynomials $d$ of degree $n$. We then define the \textit{Braid group} as $B_n\coloneqq\pi_1\op{Conf}_n(\CC)$.
+\end{definition}
+\begin{remark}
+	When $R$ is an algebraically closed field, then we are indeed looking at the set of $n$-tuples $(z_1,\ldots,z_n)$ of distinct points, taken up to permutation.
+\end{remark}
+Now, to access $L(1/2,\chi_d)$, one uses hyperelliptic curves.
+\begin{theorem}
+	Choose a monic squarefree polynomial $d\in\FF_q[x]$. Then we let $C_d\subseteq\PP^2$ be the hyperelliptic curve with affine model $y^2=d(x)$. Then
+	\[L(1/2,\chi_d)=\tr\left(\mathrm{Frob}_q\vert\land^\bullet\mathrm H^1_{\mathrm{\acute et}}(C_d)\right).\]
+\end{theorem}
+One has to do some work to go from $L(s,\chi_d)$ to $\zeta_{C_d}$, and then the Weil conjectures explain how to talk about $\zeta_{C_d}$.
+
+Thus, we now see that we are interested in studying
+\[\frac1{q^{2g+1}}\sum_{d\in\op{Conf}_{2g+1}(\FF_q)}\tr\left(\mathrm{Frob}_q\vert\land^\bullet\mathrm H^1_{\mathrm{\acute et}}(C_d)\right).\]
+We now recall the Grothendieck--Lefschetz trace formula, which gives
+\[\sum_{x\in X(\FF_q)}\tr(\mathrm{Frob}_q\vert\mc L_x)=\sum_{k=0}^{2\dim X}(-1)^k\tr\left(\mathrm{Frob}_q\vert\mathrm H^k_{\mathrm{\acute et}}(X,\mc L)\right)\]
+for a local system $\mc L$ on $X$. Thus, we see that we are interested in computing the cohomology
+\[\mathrm H^k_{\mathrm{\acute et}}\left(\mathrm{Conf}_{2g+1},(\land^\bullet V)^{\otimes r}\right),\]
+where $V$ is the local system $d\mapsto\mathrm H^1_{\mathrm{\acute et}}(C_d,\FF_q)$. One finds that $V$ is the reduced Burau representation of the Braid group $B_{2g+1}$, and it can be computed with explicitly.
+
+Now, the idea is to decompose $(\land^\bullet V)^{\otimes r}$ into irreducible representations of $\op{Sp}_{2g}(\ZZ)$ named $V_\lambda$. (The symplectic structure comes from the curve $C_d$.) One finds that the multiplicities are some explicit polynomials in $r$ of degree $r(r+1)/2$. It now turns out that there is some uniform homological stability.
+\begin{theorem}
+	Choose $k<g/12$. Then
+	\[\mathrm H^k(\mathrm{Conf}_{2g-1}(\CC),V_\lambda)\cong\mathrm H^k(\mathrm{Conf}_{2g+1}(\CC),V_\lambda).\]
+\end{theorem}
+What is remarkable is that the stability region $k<g/6$ does not depend on $\lambda$ (or in particular $r$)! The moral of the story is that we are allowed to tend $g$ large, which can be computed.
+\begin{theorem}
+	One can compute a generating function for
+	\[\lim_{g\to\infty}\mathrm H^*(\op{Conf}_{2g-1}(\CC),V_\lambda),\]
+	along with an action of $\mathrm{Frob}_q$.
+\end{theorem}
+Note we are allowed to work over $\CC$ mostly because of the available comparison theorems.
+
+Let's explain the second theorem a little. Given a based $(\ZZ/2\ZZ)$-space, one can define $\mc H_g(X)$ as consisting of pairs $(d,f)$ where $d\in\op{Conf}_{2g+1}(\CC)$ and $f$ is some $(\ZZ/2\ZZ)$-equivariant map $C_d/\iota\to X$. For partition $\lambda$, we let $S^\lambda$ denote the corresponding Schur functor, and one finds that
+\[\mathrm H_*(\mc H_g(K(A)))=\bigoplus_\lambda S^\lambda(A)\otimes\mathrm H_*(B_{2g+1},S^\lambda(V))\]
+for any graded $\QQ$-algebra $A$. We are interested in the right-hand homology groups, so it will be enough to let $A$ vary so that we can solve out the coefficients $S^\lambda(A)$. Then eventually one can compute $\mathrm H_*(\mc H_g(K(A)))$ with large $g$ using homotopy theory. One can compute the Galois action by tracking through the computation and being careful with comparisons.
+
+\subsection{Uniform Twisted Homological Stability}
+Jeremy Miller gave this talk. The goal of this talk is to prove the homological stability discussed in the previous talk. Here is the most basic case of homological stability, shown by an explicit computation of group homology groups.
+\begin{theorem}[Nakoaka]
+	For $i\le n/2$, there are isomorphisms $\mathrm H_i(S_n,\ZZ)\to\mathrm H_i(S_{n+1},\ZZ)$.
+\end{theorem}
+For twisted homological stability, we want to also want to change the coefficients in $n$. Then one has the following
+\begin{theorem}
+	Let $S_n$ act on $\ZZ^n$ by permuting the coordinates. For $i\le n/2$, there are isomorphisms $\mathrm H_i(S_n,\ZZ^n)\to\mathrm H_i\left(S_{n+1},\ZZ^{n+1}\right)$ is an isomorphism for $i\le(n-1)/2$.
+\end{theorem}
+\begin{proof}
+	Shapiro's lemma gives $\mathrm H_i(S_n,\ZZ^n)=\mathrm H_i(S_{n-1})$.
+\end{proof}
+The moral of the story is that twisting homological stability may make the stability range ``worse.''
+
+For our application, we have the following situation. Given a partition $\lambda$ of length at most $g$, we can produce (bijectively) irreducible algebraic $\op{Sp}_{2g}$ named $V_\lambda(g)$. Then there is a Burau representation $B_{2g+1}\to\op{Sp}_{2g}(\ZZ)$, so one can state and prove a stability result.
+\begin{theorem}
+	There is an isomorphism $\mathrm H_i(B_{2g+1},V_\lambda(g))\to\mathrm H_i(B_{2g+1},V_\lambda(g+1))$ is an isomorphism for $i\le g-\left|\lambda\right|$.
+\end{theorem}
+Our main result is the following.
+\begin{theorem}
+	There is an isomorphism $\mathrm H_i(B_{2g+1},V_\lambda(g))\to\mathrm H_i(B_{2g+1},V_\lambda(g+1))$ is an isomorphism for $i\le g/12$.
+\end{theorem}
+The point is that we have removed a dependence on $\lambda$. The same technique works for mapping class groups instead of the Braid group. We do remark that it is known to Borel that there is twisted homological stability for $i\le g/4$ for the group $\op{Sp}_{2g}(\ZZ)$.
+
+Let's say something about the proof in the case of mapping class groups. Let $R$ be the disjoint union of the classifying spaces $\mathrm{BMod}_{g,1}$. This is a monoid where taking ``pairs of pants'' forms the required product. Similarly, define $A$ as the disjoint union of the classifying spaces $\mathrm{BSp}_{2g}(\ZZ)$, which is again a monoid, and the Torelli map provides a map $R\to A$. Now, $A$ ``has'' twisted uniform homological stability, and we would like the same to be true for $R$. Roughly speaking, this turns into a homological algebra exercise. The main input is that ``derived $R$-module generators'' of $A/R$ have a vanishing line, and the vanishing line comes from some connectivity input from topology.
+
+\subsection{Hopf Algebras and the Cohomology of \texorpdfstring{$\op{GL}_n(\ZZ)$}{GLn(Z)}}
+This talk was given by Peter Patzt. Our goal is to compute $\mathrm H^k(\op{SL}_n(\ZZ),\QQ)$. We will state computational results for $n\le 7$. There are many $0$s. For example, one has the following.
+\begin{theorem}[Borel--Serre]
+	We have $\mathrm H^k(\mathrm{SL}_n(\ZZ),\QQ)=0$ for $k>\binom n2$.
+\end{theorem}
+In fact, it is conjectured that the cohomology vanishes for $k>\binom{n-1}2$. One can state this equivalently as $\mathrm H^{\binom n2-i}(\op{SL}_n(\ZZ),\QQ)=0$ for $i\le n-2$. This has been proven in a few cases.
+
+One also knows quite a bit about $i\le n-2$.
+\begin{theorem}[Borel]
+	For $k\le n-2$, we have
+	\[\mathrm H^k(\op{SL}_n(\ZZ),\QQ)\cong\bigland^k\langle\sigma_5,\sigma_9,\sigma_{13},\ldots\rangle.\]
+\end{theorem}
+This still leaves quite a bit to compute, which is ``unstable.'' For example, sometimes one can pull back a $\sigma_\bullet$ as above to the unstable range, but there is still something to compute. For example, $\mathrm H^3(\op{SL}_4(\ZZ),\QQ)=\QQ$, but this class is not explained by one of the ``stable'' $\sigma_\bullet$ classes.
+
+Here is our first result.
+\begin{theorem}
+	There is a graded commutative algebra structure on $\bigoplus_{k,n}\mathrm H^k(\op{SL}_n(\ZZ),\QQ)$ with the graded multiplication looking like
+	\[\mathrm H^{\binom n2-k}(\op{SL}_n(\ZZ),\QQ)\otimes\mathrm H^{\binom n2-\ell}(\op{SL}_m(\ZZ),\QQ)\to\mathrm H^{\binom {m+n}2-(k+\ell)}(\op{SL}_{m+n}(\ZZ),\QQ).\]
+\end{theorem}
+For example, we now find that we can divide the algebra into even and odd parts named $\mathrm H^{\mathrm{odd}}$ and $\mathrm H^{\mathrm{even}}$ respectively. The graded pieces $\mathrm H^\bullet_{k,n}$ correspond to some cohomology of $\op{GL}_n(\ZZ)$. Now, here is our second main result.
+\begin{theorem}
+	One has that $\mathrm H^{\mathrm{odd}}$ is a free graded commutative algebra.
+\end{theorem}
+In particular, one finds that products explain some classes seen in our cohomology after combining some easy-to-find classes (from $\mathrm H^0$) with the known stability classes.
+
+Analogous to the odd case, we have our third main result.
+\begin{theorem}
+	One has that $\mathrm H^{\mathrm{even}}$ is a free graded commutative algebra.
+\end{theorem}
+Once again, there are the stable classes and a class from $\mathrm H^0$, and all the known unstable classes are found as products.
+
+Let's say something about how the last two theorems are proved. The key input is from Hopf algebras.
+\begin{theorem}[Leray]
+	A graded commutative $\QQ$-Hopf algebra with constants $\QQ$ is free graded commutative.
+\end{theorem}
+Thus, the point is to find a Hopf algebra structure on $\mathrm H^{\mathrm{even}}$ and $\mathrm H^{\mathrm{odd}}$.
+
+\subsection{The Cohen--Lenstra Moments over Function Fields}
+This talk was given by Aaron Landesman. Let's begin by reviewing the Cohen--Lenstra heuristics. We are interested in the $\ell$-torsion of class groups of imaginary quadratic number rings for fixed prime $\ell$.
+\begin{conj}[Cohen--Lenstra]
+	Fix a prime-power $q$. For odd prime $\ell$, one has
+	\[\lim_{X\to\infty}\mathbb E_{K\text{ imag. quad.}}\#\op{Cl}(\OO_K)[\ell]=2.\]
+\end{conj}
+Only $\ell=3$ is known. For function fields, we work with the space $\mc M\mc H_{n,q}$ of function fields $K$ of monic hyperelliptic curves $y^2=f(t)$, and we let $\OO_K$. The following has been known.
+\begin{theorem}
+	For odd prime $\ell$ such that $\gcd(\ell,q(q-1))=1$, one has
+	\[\lim_{q\to\infty}\lim_{\substack{n\to\infty\\n\text{ odd}}}\mathbb E_{K\in\mc M\mc H_{n,q}}\#\op{Cl}(\OO_K)[\ell]=2.\]
+\end{theorem}
+We will show the equality for large $q$, effectively removing the limit. Thus, we find that we are interested in some point-counts over $\FF_q$, from which one can use some algebriac geometry. Here is our space.
+\begin{definition}[Hurwitz space]
+	Fix a group $G$ and a conjugacy class $c$. Then we define the \textit{Hurwitz space} $\op{Hur}_n^{G,c}$ as the space of Galois $G$-covers $X\to\AA^1$ branched over $n$ points with inertia contained in $c$.
+\end{definition}
+Then order-$\ell$ elements in class groups correspond to $\op{Hur}_n^{G,c}$. We take a moment to note that taking the branched locus produces a map $\mathrm{Hur}_n^{G,c}\to\mathrm{Conf}_n$. Here is our key input.
+\begin{theorem}
+	Choose an odd prime $\ell$ and $c\subseteq D_{2\ell}$ the conjugacy classes of reflections. For large $n$, there is an isomorphism
+	\[\mathrm H_i(Z,\QQ)\to\mathrm H_i(\mathrm{Conf}_n,\QQ),\]
+	for any component $Z\subseteq\mathrm{Hur}_n^{D_{2\ell},c}$.
+\end{theorem}
+For a taster, consider $\ell=3$ so that $G=S_3$; say $c=\{x,y,z\}$, which are the three transpositions. We would like a stability result for the map $\mathrm{Hur}^c\to\mathrm{Conf}^c$, where
+\begin{align*}
+	\mathrm{Hur}^c &\coloneqq\bigsqcup_{n\ge0}\mathrm{Hur}_n^{S_3,c}, \\
+	\mathrm{Conf}^c &\coloneqq\bigsqcup_{n\ge0}\bigsqcup_{\pi_0(\mathrm{Hur}_n^c}\mathrm{Conf}_n.
+\end{align*}
+The stability result comes from descent, and it uses some homotopy theory.
+\begin{remark}
+	One can hope to prove more than just for dihedral groups. This becomes related to Malle's conjecture in arithmetic statistics.
+\end{remark}
+
+\subsection{Moduli of Stable Elliptic Curves in \texorpdfstring{$\PP^r$}{ Pr}}
+This talk was given by Siddarth Kannan.
+
+We define $\mc M_{g,n}(\PP^r,d)$ consisting of a smooth proper curve $C$ of genus $g$ with $n$ distinct marked points such that there is an embedding $f\colon C\to\PP^n$ such that $f_*[C]=d[\OO(1)]$, taken up to isomorphism. One can compactify this space by replacing $C$ with connected nodal curves, and the marked points are chosen to be smooth.
+\begin{remark}
+	Let's give a few reasons to care.
+	\begin{itemize}
+		\item The Gromov--Witten invariants of $\PP^r$, which are symplectic invariants of $\PP^r$, can be seen as intersection numbers on $\overline{\mc M}_{g,n}(\PP^r,d)$.
+		\item Brill--Noether theory has to do with the map $\mc M_{g,n}(\PP^r,d)\to\mc M_{g,n}$.
+	\end{itemize}
+\end{remark}
+We would like to understand the rational cohomology of our moduli space. Note that these are representations of $S_n$ via the action on the marked points. For a taste of the difficulty, we note that $g>0$ makes $\mc M_{g,n}(\PP^r,d)$ is not dense in $\ov{\mc M}_{g,n}(\PP^r,d)$ and is highly singular. On the other hand, much is known for $g=0$ because this compactification is much better-behaved. There is also much known for $d=0$ because then we are looking at $\mc M_{g,n}$. Otherwise, not much is known.
+\begin{theorem}
+	For fixed $i$, $g$, $r$, and $d$, the group $\mathrm H_i(\ov{\mc M}_{g,n}(\PP^r,d),\QQ)$ stabilizes.
+\end{theorem}
+Today we will talk about $g=1$. In particular, we will compute the $S_n$-invariant Euler characteristic of $\ov{\mc M}_{g,n}(\PP^r,d)$. Explicitly, $\chi^{S_n}$ of a variety $X$ with $S_n$-action, we define $\chi^{S_n}(X)$ as the Euler characteristic in the Grothendieck ring of $S_n$-representations. Explicitly,
+\[\chi^{S_n}(X)=\sum_{i=0}^\infty(-1)^i[\mathrm H^i_c(X,\QQ)],\]
+where we view the cohomology $\mathrm H^i_c(X,\QQ)$ as a representation of $S_n$. We may write $\chi_\lambda$ for the multiplicity of the Specht module $V_\lambda$. For example, we are able to state the following result.
+\begin{theorem}
+	Fix $n,d\ge0$. For each partition $\lambda$ of $n$, there are functions $a_1^\lambda,\ldots,a_{d+1}^\lambda\colon\ZZ_{\ge0}\to\ZZ$ such that
+	\[\chi_\lambda(\ov{\mc M}_{g,n}(\PP^r,d))=a_1^\lambda(g)\binom{r+1}1+\cdots+a_{d+1}^\lambda(g)\binom{r+1}{d+1}.\]
+\end{theorem}
+The moral of the story is that we can write the Euler characteristic out in terms of certain binomial coefficients. Roughly speaking, by working over $\CC$, one is eventually able to turn this into combinatorics. From here, one is able to compute a generating function; it turns into some graph enumeration.
+
+\subsection{Tropicalizations of Locally Symmetric Spaces}
+This talk was given by Juliette Bruce.
+
+Let's begin with a quick summary of our picture. Curves have a moduli space $\mc M_g$ with compactification $\ov{\mc M}_g$ with boundary understood by some stable graphs, which then have attached some ``tropical'' combinatorial gadgets; there is also a chain complex to compute its homology. Then abelian varieties also have a moduli space $\mc A_g$ with a compactification $\ov{\mc A}_g^\Sigma$ whose boundary is described combinatorially via perfect cones, which then have attached some ``tropical'' combinatorial interpretation; it turns out that one still has a chain complex. One may hope to generalize from $\mc A_g$ to generally locally symmetric spaces $\Gamma\backslash D$ where $D$ is a Hermitian symmetric domain and $\Gamma$ is an arithmetic group.
+
+So let's begin with curves. For any variety $X$, it turns out that there is a subspace $W_0\mathrm H^i_c(X,\QQ)$ of $\mathrm H^i_c(X,\QQ)$ which ``comes from'' combinatorics. Namely, given a simple normal crossings compactification $\ov X$ of $X$, then the subspace explains what the boundary looks like. This gives the following result.
+\begin{theorem}[Chan--Golatius--Payne]
+	For $g\ge1$, there is an isomorphism
+	\[W_0\mathrm H^*_c(\mc M_g,\QQ)\cong\mathrm H_*(G),\]
+	where $G$ is Kontsevic's graph complex.
+\end{theorem}
+For example, one can show that cohomology groups like $\mathrm H^{15}(\mc M_6,\QQ)\ne0$.
+
+Now let's turn to abelian varieties. Here is a taster.
+\begin{theorem}
+	One can compute $W_0\mathrm H^*_c(\mc A_g,\QQ)$ in many cases.
+\end{theorem}
+For this, one should compactify $\mc A_g$, which can be done explicitly via some combinatorial data to produce some toroidal compactification. Then one can write down some chain complex to execute the above computation.
+
+We now turn to locally symmetric spaces $\Gamma\backslash D$ where $D$ is a Hermitian symmetric domain and $\Gamma$ is a discrete arithmetic subgroup; note that this quotient is a variety. For example, this includes the moduli of principally polarized abelian varieties (such as elliptic curves). One also is able to produce some level structure in the usual way. It is known how to compute a smooth toroidal compactification $\ov{\Gamma\backslash D}^\Sigma$ which depends on some combinatorial data $\Sigma$.
+\begin{definition}
+	The boundary of the aforementioned compactification is the tropicalization $(\Gamma\backslash D)^{\mathrm{trop}}$.
+\end{definition}
+So we are interested in studying some compactifications. This is a rather complicated procedure, but at the end, one can use it to compute cohomology.
+
+\subsection{Prym Representaions and Twisted Cohomology}
+This talk was given by Xiyan Zhong. Let $\Sigma_g^b$ be a genus-$g$ surface with $b$ boundary components, and let $\op{Mod}_g^b$ denote the space of homeomorphisms of $\Sigma_g^b$ fixing the boundary, up to isotopy. We would like to study the action of this mapping class group and its effect on cohomology.
+
+Suppose that we have some covering $\Sigma^{b'}_{g'}\to\Sigma_g^b$ with abelian Galois group. For a fixed $\ell$, there is an action by $\mathrm H_1(\Sigma_g^b,\ZZ/\ell\ZZ)$, so we may define some $\op{Mod}_g^b(\ell)$ as the kernel of this action. We call this representation the ``Prym representation.'' %Roughly speaking, we are interested in lifting elements of $\mathrm{Mod}_g^b$.
+As a taste, we could be interested in the cohomology of $\mathrm{Mod}_g^b$. One tool is a sequence
+\[\mathrm{Mod}_g^b\to\mathrm{Mod}_{g+1}^b\to\cdots\]
+given by simply adding on a hole repeatedly. Then we note that there is a known homological stability result for $\mathrm H^*(\mathrm{Mod}_g^b,\ZZ)$ in the large $g$ limit. It turns out that one can even work with $\mathrm{Mod}_g^b(\ell)$.
+\begin{theorem}[Putnam]
+	For large $\ell$, the map
+	\[\mathrm H^*(\mathrm{Mod}_g^b,\ZZ)\to\mathrm H^*(\mathrm{Mod}_g^b(\ell),\ZZ)\]
+	for large $g$.
+\end{theorem}
+Now, we may be interested in some cohomology like $\mathrm H^1(\Sigma_g^b,\QQ)$, but we would like to add some group action and in particular the Prym representation. For example, one has the following.
+\begin{theorem}[Putnam]
+	There is a stability result for
+	\[\mathrm H^*\left(\mathrm{Mod}_g^b,\mathrm H^1(\Sigma_g^b,\QQ)^{\otimes r}\right)\to\mathrm H^*\left(\mathrm{Mod}_g^b(\ell),\mathrm H^1(\Sigma_{g'}^{b'},\QQ)^{\otimes r}\right).\]
+\end{theorem}
+Looking at our known results, we are able to state our own computation.
+\begin{theorem}
+	For $r\ge1$ and $g\gg k$, we compute $\mathrm H^k\left(\mathrm{Mod}_g^b(\ell),\mathrm H^1(\Sigma_{g'}^{b'},\QQ)^{\otimes r}\right)$.
+\end{theorem}
+In particular, there is some stability, but it is not naively from the cohomology of $\mathrm{Mod}_g^b$.
+\begin{example}
+	If $k+r$ is odd, then
+	\[\mathrm H^k\left(\mathrm{Mod}_g^b(\ell),\mathrm H^1(\Sigma_{g'}^{b'},\QQ)^{\otimes r}\right)=0.\]
+\end{example}
+
+\section{Hypergeometric Functions}
+These talks occurred on Thursday the 9th of January.
+
+\subsection{Factorial Affine Varieties with a Torus Action}
+This talk was given by Takanori Nagamine. This talk is not hypergeometric, but I wandered in. We are interested in classifying unique factorization domains. For example, here is a question known as the Zariski cancellation problem: if $A$ is a $k$-algebra such that $A[x_1,\ldots,x_n]$ is isomorphic to a polynomial ring over $k$, then is $A$ isomorphic to a polynomial ring over $k$? Here are some partial answers.
+\begin{itemize}
+	\item If $\dim A\le2$, the answer is yes.
+	\item If $\dim A\ge3$ and $\op{char}k>0$, then the answer is no, and there are counterexamples known due to Zariski.
+	\item Lastly, if $\dim A\ge3$ and $\op{char}k=0$, then the problem is open.
+\end{itemize}
+Let's generalize the problem to give us some flexibility.
+\begin{definition}[retract]
+	An $A$-algebra $B$ is a \textit{retraction} if and only if there is a projection $\pi\colon B\to A$ such that $\pi|_A=\id_A$.
+\end{definition}
+\begin{example}
+	Polynomial rings are retractions of their coefficient ring.
+\end{example}
+So one can ask if being a retraction of a polynomial ring forces one to be a polynomial ring, exactly as before. This is known as the retraction problem. Of course, even less is known now.
+
+For now, we work over an algebraically closed field $k$. We assume that $A$ is a rational unique factorization domain (rational means $K(A)$ is isomorphic to a polynomial ring over $k$) of dimension $d\ge2$. We will also assume that there is a $\ZZ^{d-1}$-grading which is ``effective and unmixed'' with $A_0=k$. Note that these domains were classified already in some cases, such as $\dim A\le3$ or $\dim A\ge2$ in characteristic $0$. Here is our main result.
+\begin{theorem}
+	Fix a $k$-domain $A$ of dimension $d\ge2$.
+	\begin{listroman}
+		\item $A$ is a rational unique factorization domain with a $\ZZ^{d-1}$-grading which is effective and unmixed with $A_0=k$.
+		\item $A$ is a rational unique factorization domain with $A^\times=k^\times$ with a $\ZZ^{d-1}$-gradig which is effective with $A_0=k$.
+		\item $A$ is isomorphic to a polynomial ring over $k[\Delta]$ for some ``trinomial datum'' $\Delta$.
+	\end{listroman}
+\end{theorem}
+There remains a lot to exaplin.
+\begin{definition}[effective, unmixed]
+	Fix a $\ZZ^n$-graded ring $A$. Define $M$ as the set of $g\in\ZZ^n$ such that $A_g\ne0$.
+	\begin{listalph}
+		\item Then the grading is \textit{effective} if and only if $M$ generates $\ZZ^n$ as a group.
+		\item Then the grading is \textit{unmixed} if and only if $g+h=0$ for $g,h\in M$ implies $g=h=0$.
+	\end{listalph}
+\end{definition}
+For example, effective means that we are using the ``full'' rank of $\ZZ^n$, and unmixed codifies some kind of cone condition. It remains to explain what a trinomial datum is.
+\begin{definition}
+	A trinomial datum $\Delta$ consists of the following.
+	\begin{itemize}
+		\item An ordered partition $n=n_0+\cdots+n_r$. Then we label some variables $\{T_{i1},\ldots,T_{in_i}\}$ for each $i$.
+		\item We choose vectors $(\beta_{i1},\ldots,\beta_{in_i})$ in $\ZZ_{>0}^{n_i}$ for each $i$. Say $d_i$ is the greatest common divisor of these variables, and then we assume that the $d_\bullet$s are pairwise coprime. We will write $T_i^{\beta_i}$ for the induced monomial.
+		\item We choose distinct scalars $\lambda_2,\ldots,\lambda_r\in k^\times$.
+	\end{itemize}
+	Then we define $k[\Delta]$ as $k$ adjoin the $T_\bullet$s modded out by the polynomials $T_0^{\beta_0}+\lambda_iT_1^{\beta_1}+T_i^{\beta_i}$ for each $i$.
+\end{definition}
+One can check that this is a rational unique factorization domain of dimension $n-r+1$. We have now stated all the adjectives for the main theorem. As a quick application, we note that $k[\Delta]$ is smooth if and only if $k[\Delta]$ is a polynomial ring over $k$. Additionally, under our grading assumptions, we solve the Zariski cancellation problem and retraction problem.
+
+Let's outline the proof that (i) implies (iii) in the main theorem. We may as well assume that $A$ is not already a polynomial ring over $k$. It is well-known that $A$ is finitely generated over $k$. We now have the following steps.
+\begin{enumerate}
+	\item We claim that there are homogeneous and pairwise coprime elements $x_1,\ldots,x_{d+\ell}\in A$ generating $A$ as a $k$-lagebra. This uses the assumption $\ov k=k$, $A$ is a unique factorization domain, $A$ is unmixed, and $A_0=k$.
+	\item Consider the fraction subring $K_0\subseteq K(A)$ consisting of elements of the form $a/b$ where $a,b\in A_g$ for some $g$. Then we claim that $K_0$
+	\item Combining the previous two claims, one finds monomials $M_0,\ldots,M_r$ in the $x_\bullet$s generating certain fraction subrings of $K(A)$. One can use these to complete the proof after a change of variables.
+\end{enumerate}
+
+\subsection{Hypergeometric Distributions and Joint Families of Elliptic Curves}
+This talk as given by Hasan Saad, and it was good but quick. Recall the classical Sato--Tate predicts the distribution of $\#E(\FF_p)$ as $p$ varies over primes. We are interested in ``vertical'' distributions which fix the finite field $\FF_q$ and lets the variety vary. We will work with hypergeometric varieties.
+\begin{definition}
+	Fix a prime $p$, and let $\omega$ generated $\FF_p^\times$.  Let $\alpha$ and $\beta$ be collections of rational numbers with $\beta_1=1$. If $p\equiv1\pmod M$ where $M=\gcd(a,b)$, we may define the hypergeometric series as usual.
+\end{definition}
+Then one can construct some elliptic curves which read off the hypergeometric functions in their point-counts. For example, this was used to compute some ``vertical'' distributions by doing statistics on families of elliptic curves.
+
+One can go beyond elliptic curves. For example, the K3 surface
+\[X_\lambda\colon s^2=xy(x+1)(y+1)(x+\lambda y)\]
+again reads off some hypergeometric data, so one can prove a distribution using similar techniques as before.
+
+Let's recall the method. Let $U_m$ be the Chebychev polynomial of the second kind and degree $m$. The idea is to express
+\[\frac1p\sum_{\lambda\in\FF_p}U_m\left(\frac{a_{X,\lambda}(p)}{2\sqrt p}\right)\]
+in terms of the Fourier coefficients of some cusp forms. Then one can bound the sum using Deligne's bound on Fourier coefficients allows one to compute moments and determine the distribution.
+
+Thus, here are some motivating questions.
+\begin{itemize}
+	\item The above methods work with hyperogemetric data of length less than 4. What if it is longer?
+	\item Catalan numbers seem to appear in the moments. Is there a reason?
+	\item Where do these Chebychev polynomials come from?
+\end{itemize}
+We will answer these questions. For example, some main results are able to find limiting moments of certain hypergeometric functions over finite fields (but now with hypergeometric data of length four), and some Catalan numbers appear. One can then use this to compute some joint distributions, and one finds that they are independent in the large $p$ limit.
+
+Let's turn to methods. We will use the theory of \'etale sheaves to explain the presence of the Catalan numbers and Chebychev polynomials. Roughly speaking, and \'etale sheaf is a representation of the \'etale fundamental group. For example, one can realize a family of elliptic curves as an elliptic scheme $\mc E\to\AA^1$. Then the Tate module $V_\ell\mc E$ is some $\ell$-adic local system; for example, we find that
+\[\tr(\mathrm{Frob}_q\vert V_\ell\mc E_\lambda)^r=\tr(\mathrm{Frob}_q\vert V_\ell\mc E_\lambda^{\otimes r})\]
+for any $m\ge0$. Now, one can compute these traces using the Grothendieck--Lefschetz formula. It turns out that the zeroth and second cohomology groups vanish, and the Riemann hypothesis explains the eigenvalues of the Frobenius on cohomology groups.
+
+In order to work with two familes $\mc E_1$ and $\mc E_2$, the correct sheaves to look at are tensor powers. Now, we will want to take an irreducible decomposition of our tensor products (over the group $\op{SU}(2)$), so we remark that
+\[\tr(\op{Sym}^m\mathrm{Std}(g))=U_m\left(\frac{\tr\rho(g)}2\right),\]
+which explains the presence of our Chebychev polynomials! Namely, one now uses some representation theory of $\op{SU}(2)$ to decompose the sheaves $V_\ell\mc E_1^{\otimes m_1}\otimes V_\ell\mc E_2^{\otimes m_2}$ into irreducible representations of $\op{SU}(2)\times\op{SU}(2)$, plug into the above formulae, and then prove our results.
+
+\subsection{On the Parity of Coefficients of Eta Powers}
+This talk was given by Anna Medvedovsky. Fix a $q$-series $f(q)=\sum_{n}a_nq^n$ which is supported on the arithmetic progression $b\pmod m$. Powers of $\eta(q)\coloneqq q^{1/24}\prod_{k}\left(1-q^k\right)$ are known to have this property when plugging in stuff like $\eta\left(q^{24/\gcd(24,r)}\right)^{r}$.
+
+We now define an operator $U_\ell$ on power series given by
+\[\sum_na_nq^n\mapsto\sum_na_{\ell n}q^n.\]
+In particular, if $f$ is supported on $b\pmod m$, then $U_\ell f$ has leading term $a_Nq^{N/\ell}$ for some $N=N(f,m,\ell)$. For fixed prime $p$, we are interested in the density $D_p(f,m)$ of the set $S_p(f,m)$ of primes $\ell$ such that $a_{N(f,m,\ell)}\not\equiv0\pmod p$. Here is a main result.
+\begin{theorem}
+	If $f$ is a modular form, then the density $D_p(f,m)$ is a rational number.
+\end{theorem}
+One can show this by showing that $S_p(f,m)$ arises from the Chebotarev desnity theorem.
+
+Let's take a moment to specialize to $p=2$ and $f$ a power of $\eta$ in the form $\eta\left(q^{24/\gcd(24,r)}\right)^{r}$; then one wants to show that the function $D(r)$ sending $r$ to this density is a function to rationals with denominator a power of $2$. It looks likethis density $D(r)$ concentrates around certain powers, though we can only provide heuristics at the moment. Here are some partial results.
+\begin{theorem}
+	One has $D(r)=0$ if and only if $r$ is a divisor or multiple of $32$ or $48$.
+\end{theorem}
+\begin{theorem}
+	One has $D(r)<1$ and $D(2r)<1/2$ and $D(4r)\le1/4$ for all $r$.
+\end{theorem}
+Further, one can even compute some special nonzero cases of $D$ using Galois-theoretic methods. Let's outline our method.
+\begin{enumerate}
+	\item To begin, we express $\eta\left(q^{24/\gcd(24,r)}\right)^{r}$ in terms of mod-$2$ modular forms of level $1$ and $9$. For this, one defines some explicit modular forms and does a computation.
+	\item Then one can reinterpret our density in terms of some Galois-theoretic densities $\delta(T_uf)$, where $T_u$ is a Hecke operator. More precisely, $\delta(f)$ is the density of primes $\ell\in S_f$ such that $a_\ell\not\equiv0\pmod p$. However, $\delta(f)$ is not $D_p(f,m)$ verbatim because of some modular problems.
+	\item Then Galois methods are able to compute $\delta(f)$s. In particular, it turns out that $\ell\in S_f$ if and only if $\op{Frob}_\ell$ belongs to a particular conjugacy class in $\op{Gal}(E_f/\QQ)$ for some field $E_f$ given by $f$.
+\end{enumerate}
+
+\subsection{Explicit Images for the Shimura Correspondence}
+This talk was given by Swati. It was pretty notationally cumbersome, so I did not take many notes.
+
+The Shimura correspondnence consists of some maps between modular forms. Namely, one maps $\op{Sh}_t\colon S_{\lambda+1/2}(\Gamma_0(N),\psi\nu_\theta^{2\lambda+1})\to S_{2\lambda}(\Gamma_0(N/2),\psi^2)$ satisfying
+\[{\op{Sh}_t}\circ T_{p^2}=T_p\circ{\op{Sh}_t}.\]
+These maps play a key role in the theory of half-weight modular forms. To motivate our work, let $\eta$ be as usual. Given $f\in M_s(\Gamma_0(1))$ and $r\in\{1,2,\ldots,23\}$ with $\gcd(3,6)=1$, then se $\lambda=\frac{r-1}2$. One can then consider modular forms of the form $\eta(24z)^rf(24z)$ and do a computation. In particular, one can show that their images under the Shimura correspondence have much lower level than is expected a priori. This result is due to Yang, and it essentially consists of long technical computations of traces of Hecke operators.
+
+Our goal is to explicate the Shimura correspondence to optimize the proof of Yang. As before, $r\in\{1,2,\ldots,23\}$ and $\gcd(r,6)=1$ and $s\ge0$ is even, so we set $k=(r-1)/2+s$. Note $M_k(\Gamma_0(r),(\cdot/r))$ has a basis $\{g_1,\ldots,g_d\}$ of normalized Hecke eigenforms, which one can write down explicitly. Then we define $G_i(z)\coloneqq g_i(z)g_i(6z)-g_i(2z)g_i(3z)$, and it turns out that one can compute $\mc S_r(\eta^r f)$ as a linear combination of the $G_i$s, where $\mc S_r$ is a twisted version of the Shimura correspondence. One can recover a result for $r$ divisible by $3$ as well.
+
+\subsection{A Modular Framework of Functions of Knopp}
+This talk was given by Andreas Mono. It was also notationally cumbersome.
+
+Let $\mc Q_D$ be the set of integral binary quadratic forms $[a,b,c](x)\coloneqq ax^2+bxy+cy^2$ of discriminant $D=b^2-4ac$. Then $\op{SL}_2(\ZZ)$ acts on $\mc Q_D$ by a linear substitution. Evaluation at some $(\tau,1)$ satisfies
+\[\left(Q\begin{bmatrix}
+	a & b \\ c & d
+\end{bmatrix}\right)(\tau,1)=(c\tau+d)^2Q(\tau,1).\]
+For example, one can write down averages
+\[f_{k,D}(z)\coloneqq\sum_{Q\in\mc Q_D}\frac1{Q(\tau,1)^k}\]
+to produce something like an Eisenstein series. If $D>0$, we have a cusp form of weight $2k$; and if $D<0$, we have a meromorphic modular forms of weight $2k$ with poles which are CM points of discriminant $D$.
+
+For $D>0$, there is a kernel
+\[\Omega_{k,D}(\tau,z)\coloneqq\sum_{D>0}D^{k-1/2}f_{k,D}(z)q^D\]
+which produces Shimura and Shintani lifts between $S_{2k}(1)$ and $S_{k+1/2}^+(4)$. There are some other properties of interest.
+
+Next, we define the Bol operator $\mathbb D^{k-1}$ as $\left(\frac1{2\pi i}\frac{d}{d\tau}\right)^{k-1}$. Then there is some identity
+\[\mathbb D^{k-1}\left(\log\left(\frac{\tau-\alpha_Q^-}{\tau-\alpha_Q^+}\right)Q(\tau,1)^{k-1}\right)\approx\frac1{Q(\tau,1)^k}.\]
+Here $\alpha_Q^\pm$ are the complex roots.
+By changing the sign of $k$, one can still average to produce some kind of Eisenstein series named $\psi_{k+1,D}$, but it is not quite modular, but the error of being modular is more or less controlled: there is an infinite series and a period function.
+
+Let's try to fix this. Name $\omega_{k+1,D}(\tau,w)$ to be $\psi_{k+1,D}(\tau)$ minus some input from the infinite series. Then one can try to prove modularity in some formal way. One uses Parson's functions to ensure holomorphy of this function now defined on $\mathbb H\times\mathbb H$. This produces the required function $\Omega_{k+1,D}(\tau,w)$.
+
+\subsection{Special Values of Hecke \texorpdfstring{$L$}{ L}-series for Shinha Modules}
+This talk was given by Matt Papanikolas. By way of motivation, note that the elliptic curve $E\colon y^2=x^3-x$ over $\QQ$ has complex multiplication by $\ZZ[i]$ defined over $\QQ(i)$. Thus, its $L$-function comes from a Hecke character $\psi_E$ of $\QQ(i)$. We are interested in special values, so we note that it turns out
+\[L(E,1)=\frac1{\sqrt2}\cdot\frac{\Gamma(1/4)^2}{\sqrt\pi}\]
+by the Chowla--Selberg fomrula. We remark that there is a similar computation that one can do for Jacobians of Fermat curves, allowing one to write the $L$-function in terms of $L$-functions of Hecke characters $\psi$ by hand. It was proven in the 1980s that $L(\psi,1)$ should be a $K^\times$ times some Gammas of the form $\Gamma(a/d)$.
+
+We are interested in a finite-field analogue, so we translate everything over to $A=\FF_q[\theta]$ in the natural way. For example, we recall that $\left|f\right|_\infty=q^{\deg f}$. Our cyclotomic fields now come from Carlitz modules, so let's review this notion.
+\begin{definition}[Carlitz module]
+	Let $\tau$ on $\CC_\infty$ (which is the completion of the algebraic closure of $\FF_q((1/\theta))$) be the $q$th power Frobenius. Then there is a map $C\colon A\to\CC_\infty[\tau]$ by $C_\theta=\theta+\tau$. Then $C$ makes $\CC_\infty$ into an $A$-module different from the usual scalar multiplication, wchih we call a Carlitz module.
+\end{definition}
+Given a Carlitz module $C$, we define $\exp_C(X)$ as some explicitly defined power series, which produces a map $\CC_\infty\to\CC_\infty$. Then one has a diagram of short exact sequences as follows.
+% https://q.uiver.app/#q=WzAsMTAsWzAsMCwiMCJdLFswLDEsIjAiXSxbMSwwLCJBXFxwaSJdLFsxLDEsIkFcXHBpIl0sWzIsMCwiXFxDQ19cXGluZnR5Il0sWzIsMSwiXFxDQ19cXGluZnR5Il0sWzMsMCwiQyhcXENDX1xcaW5mdHkpIl0sWzMsMSwiXFxDQyhDX1xcaW5mdHkpIl0sWzQsMCwiMCJdLFs0LDEsIjAiXSxbNCw1LCJhIl0sWzYsNywiQ19hIl0sWzAsMl0sWzIsNF0sWzQsNl0sWzYsOF0sWzEsM10sWzMsNV0sWzUsN10sWzcsOV0sWzIsM11d&macro_url=https%3A%2F%2Fraw.githubusercontent.com%2FdFoiler%2Fnotes%2Fmaster%2Fnir.tex
+\[\begin{tikzcd}
+	0 & {A\pi} & {\CC_\infty} & {C(\CC_\infty)} & 0 \\
+	0 & {A\pi} & {\CC_\infty} & {\CC(C_\infty)} & 0
+	\arrow[from=1-1, to=1-2]
+	\arrow[from=1-2, to=1-3]
+	\arrow[from=1-2, to=2-2]
+	\arrow[from=1-3, to=1-4]
+	\arrow["a", from=1-3, to=2-3]
+	\arrow[from=1-4, to=1-5]
+	\arrow["{C_a}", from=1-4, to=2-4]
+	\arrow[from=2-1, to=2-2]
+	\arrow[from=2-2, to=2-3]
+	\arrow[from=2-3, to=2-4]
+	\arrow[from=2-4, to=2-5]
+\end{tikzcd}\]
+Here, $\pi$ is a Carlitz period with some explicit expression as an infinite product of $\theta$s. One now finds our Carlitz extensiosn $K_f$ of $\FF_q[x]$ by adjoining the torsion of some $f\in\FF_q[x]$; this turns out to be $\exp(a\pi/f)$ where $a\in A$ and $\deg a<\deg f$. For example, one can find an isomorphism $\rho_\bullet\colon(A/f)^\times\to\op{Gal}(K/k)$, and it turns out that this is compatible with the Artin symbol.
+
+As with Fermat curves, one is now able to find some ``Carlitz cyclotomic'' curves by looking for a curve over $\FF_q$ with function field $K_f$. As one expects, one finds $\deg f$ points at infinity after completing the smooth plane curve. For example, there are some nice points
+\[\xi_a\coloneqq(\theta,\rho_a(\zeta)),\]
+where $\zeta\coloneqq\exp(\pi/f)$ is essentially a primitive ``$f$th'' root of unity.
+
+For brevity, define $\mc A$ as the set $a\in A$ with $\deg a<\deg f$ and $(a,f)=1$ and $\mc A_+$ as the monic subset. Then Sinha constructed some rational function $g$ with a well-behaved divisor. For example, this function can be written down explicitly as a linear combination of some exponentials and Carlitz action.
+
+To continue, we note that there is a Gamma function
+\[\Pi(x)=\prod_{n\in A_+}\left(1+\frac xn\right)^{-1}\]
+on $\CC_\infty$. There are good reasons to use this as a function field analogue. For example, it has some interpolation formula. With this, Sinha constructs some modules which look like they should be something like an abelian variety with complex multiplication by $K_f$. (Namely, they are essentially quotients by a lattice where the lattice has multiplication by $K_f$.) One can also build Hecke characters $\psi$ in our suitably cyclotomic way, and we find that there is a Hecke $L$-series which even makes sense in $\CC_\infty$. Then the main result of the current talk is that $L(s,\psi)$ once again can be expanded out as a product of $\Pi$s.
+
+\subsection{Modular Forms, Hypergeometric Motives, and Rigid Surfaces}
+This talk was given by John Voight, and it was very good. Recall that elliptic curves over $\QQ$ are modular, allowing us to produce a modular form $f\in S_2(\Gamma_0(N),\QQ)$ bijectively from an elliptic curve $E$ over $\QQ$ of conductor $N$; notably, the $L$-functions and Galois representations align. This talk will be about explicit modularity.
+
+We quickly recall the definition of $L(E,s)$ as
+\[L(E,s)=\frac1{L_p\left(E,p^{-s}\right)},\]
+where $L_p(E,T)=1-a_pT+pT^2$ for $p$ of good reduction. Let $\alpha_p$ and $\beta_p$ be the roots. For ordinary $p$, it turns out that $v_p(\alpha_p)=0$ and $v_p(\beta_p)=1$, so we get a Hodge vector like $(1,1)$. In general, if $f\in S_k(\Gamma_0(N),\chi,M)$ where the coefficients are in $M$, then we get a Hodge vector like $(g,0,\ldots,0,g)$ where the length of the vector is $k$.
+\begin{example}
+	In the case $k=2$ over $\QQ$, we find that modular forms correspond to abelian varieties over $\QQ$ of $\op{GL}_2$-type.
+\end{example}
+\begin{example}[Sch\"utt]
+	Now in the case $k=3$ and $g=1$ and $M=\QQ$, we hope to find $f$ from the Hodge vector $(1,0,1)$ in a surface $X$. It turns out that $f$ is automatically CM, and $\chi$ is quadartic. Assuming the Riemann hypothesis for odd real Dirichlet characters, then there are exactly $65$ such newforms $f$, coming from $65$ imaginary quadratic fields with class group.
+\end{example}
+We are interested in finding the surface $X$ in the second example. Then $H^2(X,\QQ)$ has $\op{NS}(X)_\QQ\subseteq H^{1,1}$, consisting of divisors modulo equivalence. What is left we put in a transcendental subspace $T(X)_\QQ$. This permits the following definition.
+\begin{definition}[rigid]
+	A surface $X$ is \textit{rigid} if and only if $\op{NS}(X)_\QQ$ spans $H^{1,1}$.
+\end{definition}
+\begin{theorem}[Elkies--Sch\"utt]
+	Associated to $f\in S_3(\Gamma_0(N),\chi,\QQ)$ is a rigid K3 surface $X$ with the correct $L$-function.
+\end{theorem}
+\begin{example}
+	For example, the Fermat quartic surface comes from $\eta(4z)^6$.
+\end{example}
+Let's move on to $g=2$ and $k=3$ so that $(2,0,2)$.
+\begin{definition}[geometric genus]
+	Given a surface $X$, the \textit{geometric genus} is $\rho_g=\dim_\CC H^{0,2}$.
+\end{definition}
+We are now looking for our rigid surface $X$ over $\QQ$ with geometric genus $2$ coming from $f$. We conjecture that this should be true for only finitely many $f$ up to twist. On one hand, it's hard to do so; on the other hand, there are some moduli arguments that suggest there should be few. Let's give some examples.
+\begin{example}[Kuga--Sato]
+	Consider $f\in S_3(\Gamma_0(9),\chi)$. Consider the universal elliptic curve $\mc E_1(9)\to Y_1(9)$, which does provide a reasonable candidate surface. However, we would still like to check if they are rigid, which is done using the Shioda--Tate formula.
+\end{example}
+\begin{example}[elliptic surfaces]
+	Maybe we can go look for other elliptic surfaces and their twists. For example, maybe we start with $y^2=x(x-1)(x-t)$, plug in $t=\left(s^2-1\right)^2$. It turns out to go to a desired modular form.
+\end{example}
+\begin{example}[double covers]
+	One can try to build a double cover of $\PP(1,1,2)$. Then one can blow-up to get to smoothness, do a long construction, and eventually we get a good surface.
+\end{example}
+\begin{example}[hypergeometric motives]
+	There are $32$ hyperogemetric familes over $\QQ$ with Hodge vector $(2,1,2)$. One can try to degenerate these families, but they do not seem to come from modular forms. Roughly speaking, one can look at the endoomorphism algebras we get from a Hodge structure looking like $(2,0,2)$, but this is quite rare.
+\end{example}
+
+\subsection{Hypergeometric Differential Equatinos and Invertible K3 Surface Pencils}
+This talk was given by Ursula Whitcher. We are thinking about a dimensional tower, where one goes from elliptic curves to K3 surfaces to Calabi--Yau threefolds. (For example, elliptic curves are cubics in $\PP^2$, K3 surfaces are quartics in $\PP^3$, and so on.)
+
+Let's begin with elliptic curves. Then the elliptic curves has some periods, and one can study them in families via the Picard--Fuchs differential equation. For a K3 surface, one has essentially inflated the Hodge diamond to dimension $2$ with the condition $\dim H^{11}=20$. Once again, a family of K3 surfaces gives rise to a hyperplane class in $H^{11}(X)$, and there is still a period by taking an integral from which one gains a Picard--Fuchs differential equation. Our end goal is to produce explicit formulas for K3 surfaces $L$-functions, but for now we will focus on some geometric things.
+
+To set ourselves up, note that a matrix $A=[a_{ij}]_{0\le i,j\le n}$ with nonnegative integer matrices produces a polynomial
+\[F_A(x)\coloneqq\sum_{i=0}^n\prod_{j=0}^nx_j^{a_{ij}}.\]
+For example, the diagonal case produces the Fermat hypersurfaces. For some language, we say that $F_A$ is invertible if and only if $A$ is invertible and there are some other nice geometric properties (namely, there are weights $q_j$ such that $\sum_{j=0}^nq_ja_{ij}$ is constant in $i$, and there is only one critical point of $F_A$ which is at the origin). Under these hypotheses, the weights are able to define a quasismooth hypersurface $X_A$ in the appropriately weighted projective space.
+\begin{example}
+	Delsarte studied polynomials with weights $(1,\ldots,1)$.
+\end{example}
+\begin{example}
+	If $F_A$ is invertible, then $F_{A^\intercal}$ is too. It is able to define some mirror symmetry data of $X_A$.
+\end{example}
+\begin{remark}
+	The connection to mirror symmetry interested some physicists, and they classified them as being sums of certain given classes. There are ten which produce K3 surfaces; for example, there is the Fermat quartic but also a few stranger ones.
+\end{remark}
+Deforming our equation by something like $-d^\intercal\psi x$ (where $d$ is the weights and $\psi$ is the parameter), we can produce a pencil. It is known due to G\"ahrs that a Delsarte invertible pencil of K3 surfaces (or Calabi--Yau varieties) have periods coming from a hypergeometric Picard--Fuchs equation (with explicit hypergeometric parameters). One can work these out coming from the above remark. Here is our first main theorem, which looks at periods beyond the hyperplane class in $H^{11}$.
+\begin{theorem}
+	For each of the pencils living in $\PP(1,1,1,1)$, the primitive middle-dimensional cohomolgoy has $21$ periods which satisfy a hypergeometric Picard--Fuchs differential equation.
+\end{theorem}
+As before, one can explicitly compute the hypergeometric differential equations. Here are two methods.
+\begin{itemize}
+	\item The diagram method: organize the periods by their derivatives as living in the finite-dimensional vector space, and we must eventually find a relation with some linear algebra. This does not really tell us why the differential equations exist.
+	\item One can identify some hypergeometic operators on the cohomology group of an invertible pencil. Note not all these operators are not immediately geometric!
+\end{itemize}
+
+\subsection{Inversion Formulas for the Modular \texorpdfstring{$j$}{j}-Function}
+This talk was given by Alejandro de las Pe\~nas Casta\~no. We recall that the there is a modular $j$-function $\HH\to\CC$ with symmetry group $\op{SL}_2(\ZZ)$. It has special values $j(i)=1728$ and $j(\rho)=0$ (here, $\rho=\zeta_3$). For motivation, we recall that $j$ parameterizes elliptic curves and generate abelian extensions of imaginary quadratic fields; there are also connections to monstrous moonshine.
+
+Recall that $j$ is a bijection $\op{SL}_2(\ZZ)\backslash\HH^*\to\CC\cup\infty$. We may want to compute the inverse of this map. For example, it is conjectured that one can compute the Taylor series $T(t)$ of $j$ around $\tau\in\{i,\rho,\infty\}$, and one can find special functions $\omega(t)$ such that $T(\omega(t))$ is rational in $t$. Let's be more precise. Let $s_{\tau_*}$ be the conformal maps $\HH\to\mathbb D$ sending $\tau$ to $0$, normalized by some Chowla--Selberg periods. Then they conjecture that
+\[j\left(s_i^{-1}\left(\frac{h_i(t)}{g_i(t)}\right)\right)=64\frac{(3+4t)^3}{(1-4t^2)^2},\]
+and there is a similar conjecture for $\rho$; here $h_i$ and $g_i$ are some explicit power series. This was shown recently, where the key idea was that the right-hand polynomial arises from certain families of elliptic curves.
+
+Quickly, recall the hypergeometric series
+\[_2F_1(a,b,c;z)=\sum_{n=0}^\infty\frac{(a)_n(b)_n}{(c)_n}\frac{z^n}{n!},\]
+where $(a)_n$ is the Pochhammer symbol; it satisfies some differential equation. These hypergeometric functions are able to produce inversion formulas for $j$, thereby proving the conjecture of the previous paragraph.
+
+The main result of this talk is a similar result extending the above inversion formulae. For example, they prove the following.
+\begin{theorem}
+	One has
+	\[j\left(\frac{s_i^{-1}(C_i(t))+1}2\right)=64\frac{(16t^2-3)^3}{4t^2-1},\]
+	where $C_i$ is some explicit quotient of hypergeometric functions. There is a similar result for $\rho$.
+\end{theorem}
+The moral of the story is that inverting $j(\tau)=\alpha$ basically comes down to solving a quadratic or cubic and then plugging into $C_i$. For example, one solve $j(\alpha)=8000$ to find $\alpha=\sqrt{-2}$. Let's list the main inputs.
+\begin{itemize}
+	\item There is a hypergeometric identity for $_2F_1(a,b,c;z)$ in terms of $_2F_1(a,b,c;1/z)$ and $_2F_1(a,b,c;1-1/z)$.
+	\item They also used an existing inversion formula.
+\end{itemize}
+
+\subsection{The Explicit Hypergeometric Modularity Method}
+This talk was given by Brian Grove. Let's begin by taking about hypgergeometric motives. Roughly speaking, one expects that a hypergeometric datum $(\alpha_\bullet,\beta_\bullet)$ should give rise to periods and so on over $\CC$, point-counting over finite fields, and there are also $p$-adic incarnations. We are interested in finite-field modularity results, which should relate our hypergeometric functions to modular forms.
+
+Let's work with the elliptic curve $y^2=x(1-x)(1-\lambda x)$, and one can count its points via a finite-field hypergeometric function essentially by writing out solutions for $y^2$ using character sums. Thus, we see that we can realize the trace of a Frobenius to the hypergeometric function, and we further expect to find a modular form keeping track of this.
+
+More generally, Katz produced a family of $\ell$-adic representations $\rho_{HD}$ of $\op{Gal}(\ov\QQ/\QQ(\zeta_M))$ where $M=\gcd(\alpha_\bullet,\beta_\bullet)$ arises from the datum. Then it turns out that the trace of Frobenius from this Galois representation essentially calculate the values of the hypergeometric function over finite fields. On the other hand, the elliptic curve or modular form also has a Galois representation $\rho_f$ of $\op{Gal}(\ov\QQ/\QQ)$.
+
+We are interested in relating these two Galois representations. Here are a few methods.
+\begin{example}
+	One could imagine going through modularity of (certain) varieties, such as by going through the family of K3 surfaces
+	\[X_\lambda\colon s^2=xy(x+1)(y+1)(x+\lambda y).\]
+	Then one would need to check which $\lambda$ actually have modular forms. 
+\end{example}
+\begin{example}
+	There is also a way to use the Eichler--Selberg trace formula, which roughly uses a comparison between isomorphism classes of elliptic curves and Hurwitz class numbers.
+\end{example}
+Note that the above techniques place the modular form secondary, and it is found essentially by coincidence. We would like a way to predict the modular form directly from the hypergeometric datum.
+\begin{example}
+	Consider the datum $((1/2,1/2,/1,8),(1,1,1))$ and $\lambda=1$. There is a weight computed combinatorially; it can be found to be $3$. Similarly, one can compute some levels. So we are looking for a modular form of weight $3$ and level $N=2^j$ and $j\le8$. One numerically finds that the modular form we are looking for is 64.3.d.a at least when $p\equiv1\pmod8$.
+\end{example}
+Let's try to explicate the previous example. Here are the steps.
+\begin{enumerate}
+	\item One can begin with the hypergeometric function $_2F_1$. There is a way to expand it out as an integral.
+	\item Then we hope to be able to evaluate our hypergeometric function at some special point using known values, relating it to modular forms.
+	\item We are now able to evaluate the integral, yielding the required modular form.
+\end{enumerate}
+Having a method like this allows one to prove families of results finding the modular form from a hypergeometric datum. This is the main result.
+
+Let's list some inputs for a more general result.
+\begin{itemize}
+	\item We work $p$-adically. By some bounding of Deligne, it is enough to check$\pmod{p^2}$.
+	\item In the finite-field setting, one uses the Gross--Koblitz formula and some $p$-adic anaysis, allowing one to evaluate $H_p\pmod{p^2}$.
+	\item Then one proves a Dwork-type supercongruence.
+\end{itemize}
+
+\subsection{The Arithmetic of Hypergeometric Galois Representations in Low Dimensions}
+This talk was given by Ling Long. We are interested in Galois representations attached to hypergeometric datum; they can be computed rather explicitly. One expects motivic $L$-functions to be automorphic, so let's try to do this for our examples. We will focus on cases for irreducible representations of $\op{GO}_4$.
+
+As usual, choose $(\alpha,\beta)$ to be a hypergeometric datum and define $M=\gcd(\alpha,\beta)$ as usual. We will say that $(\alpha,\beta)$ is defined over $\QQ$ if and only if the polynomials
+\[\prod_j\left(T-e^{2\pi i\alpha_j}\right)\qquad\text{and}\qquad\prod_j\left(T-e^{2\pi i\beta_j}\right)\]
+live in $\QQ[T]$. We say that $(\alpha,\beta)$ is primitive if and only if $\alpha_i-\beta_j\notin\ZZ$ always; this roughly corresponds to the corresponding representation being irreducible. Note that there is a combinatorial way to write down some Hodge numbers of $(\alpha,\beta)$, and we recall that there is a finite-field analogue as
+\[H_p(\alpha,\beta,\lambda;\omega)=\frac1{1-p}\sum_{k=0}^{p-2}\omega^k((-1)^n\lambda)\prod_{j=1}^n\frac{g(\omega^{(p-1)\alpha_j+k})g(\ov\omega^{(p-1)\beta_j+k})}{g(\omega^{(p-1)\alpha_j})g(\ov\omega^{(p-1)\beta_j})},\]
+where $g(\cdot)$ is the Gauss sum. We note that if $(\alpha,\beta)$ is primitive, then this is rational and thus independent of $\omega$. Let's now give the corresponding motive.
+\begin{theorem}[Katz, Beukers--Cohen--Mellit]
+	For a primitive datum $(\alpha,\beta)$ defined over $\QQ$ and $\lambda\in\QQ^\times$, there is a $d$-dimensional compatible family of $\ell$-adic representations $\rho_{\lambda}$ of $\op{Gal}(\ov\QQ/\QQ)$ such that
+	\[\tr\rho_\lambda(\mathrm{Frob}_p)=H_p(\alpha,\beta;1/\lambda).\]
+	Here, $d=n$ if $\lambda\ne1$ and is $n-1$ if $\lambda=1$.
+\end{theorem}
+The moral of the story is that these hypergeometric functions over finite fields are seen to be on the Galois side of the Langlands program. We would now like to know if they are automorphic.
+
+We would like to work with $\op{GO}_4$, so we need some discussion of parity. As such, we note that Katz has a combinatorial way to determine if $\rho_\lambda$ preserves a bilinear form. In particular, it usually preserves a symmetric bilinear form; it only preserves an alternating form under some explicit but rare conditions. We are now able to state a main result.
+\begin{theorem}
+	One can classify $\rho$s as follows.
+	\begin{listroman}
+		\item $\rho$ is an induction from a character; then $\rho$ is found to be automorphic.
+		\item $\rho$ is not of ``type $0$'' and $\det\rho$ is a power of a cyclotomic character; then $\rho$ is found to be a tensor product of Hecke eigenforms of explicit weights.
+		\item $\rho$ is not of ``type $0$'' nor ``type $1$''; then there is a quadraic field $F$ and a character $\chi\colon\op{Gal}(\ov\QQ/\QQ)\to\ov\QQ_\ell^\times$ such that
+		\[(\rho\otimes\chi)|_{G_F}\cong\rho_1\otimes\rho_1^\tau,\]
+		where $\rho_1\colon\op{Gal}(\ov\QQ/\QQ)\to\op{GL}_2(\ov\QQ_\ell)$ is a Galois representation and $\tau$ is some Galois element. Now if $F$ is real, then we find $\rho$ is potentially automorphic.
+	\end{listroman}
+\end{theorem}
+Notably, we can work out these types explicitly. The talk also worked out some cases with a hypergeometric datum involving $\frac1d$s.
+
+\section{Rethinking Number Theory}
+This session happened on Friday the 10th of January.
+
+\subsection{Zeroes of \texorpdfstring{$L$}{ L}-Functions Attached to Maass Forms}
+This talk was given by Amita Malik. For motivation, we recall that $\zeta(s)$ admits a Dirichlet series, Euler product, meromorphic continuation with prescribed poles, and a functional equation of the form $\xi(s)=\xi(1-s)$ for a completed zeta function $\xi$ of $\zeta$.
+\begin{remark}
+	Guth and Maynard have recently made a breakthrough in estimating the number of zeroes in a line to the right of $\Re s=\gamma$.
+\end{remark}
+We are interested in computing the number of zeroes in some box of the form $[0,1]\times[-T,T]$. By the functional equation, it's enough to consider a box of the form $[0,1]\times[0,T]$. Currently, we can estimate this number $N(T)$ as
+\[N(T)=\frac T{2\pi}\log\frac T{4\pi e}+O(\log T).\]
+Under the Riemann hypothesis, Littlewood showed an error term $O(\log T/\log\log T)$, but it is expectation is $O(\sqrt{\log T\log\log T})$.
+
+For derivatives $\zeta^{(k)}(s)$, one can show a similar estimate
+\[N(T)=\frac T{2\pi}\log\frac T{4\pi e}+O_k(\log T)\]
+for the number of zeroes in the box. Letting $E_k$ be this error term, it was recently shown that the Riemann hypothesis gives error term of $O_k(\log T/\log\log T)$.
+\begin{remark}
+	For motivation, we remark that zero-free regions for $\zeta'$ also imply the Riemann hypothesis.
+\end{remark}
+There is a similar story for other $L$-functions, such as the Dirichlet $L$-function and the Selberg zeta function of a compact Riemann surface. Here is our main result.
+\begin{theorem}[Malik--Murty]
+	Let $L(s,f)$ be the $L$-function of a primitive Maass form $f$. Let $N_1(T,F)$ be the number of roots in $[0,1]\times[-T,T]$. Assuming the generalized Riemann hypothesis,
+	\[N_1(T,f)=\frac T\pi\log\frac T{2\pi me}+O\left(\frac{\log T}{\log\log T}\right).\]
+	Here, $m$ is the smallest $m$ with nonzero Dirichlet series coefficient.
+\end{theorem}
+Quickly, we recall that $f$ still admits a Dirichlet series $\sum_n\lambda_f(n)/n^s$, Euler product, and functional equation. We note that it is expected $\lambda_f(n)=O(n^\varepsilon)$, but one only knows $\lambda_f(n)=O\left(n^{7/64+\varepsilon}\right)$.
+
+Let's sketch some inputs. Consider
+\[G(s,f)\coloneqq\frac{-m^s}{\lambda_f(m)\log m}L'(s,f),\]
+with $m$ as before. Then one uses the argument principle to see
+\[N_1(T,f)=\frac T\pi\pm\frac1\pi\op{arg}G\left(\frac12+iT,f\right)\pm\frac1\pi\op{arg}L\left(\frac12+iT,f\right)+O(1).\]
+One can already bound the argument for the $L$ term (because one has a zero-counting result for $L$), so the name of the game is now to control the arguments of $G$. The idea is to pass to $G/L$. Eventually one needs to control gaps between zeroes of $G$, which we remark uses techniques of Yitang Zhang.
+
+\subsection{Automorphic Forms and String Scattering Amplitudes}
+This talk was given by Maryam Khaqm. Our motivation comes from string theory. Three of the four fundamental forces can be found in discrete quantum fields, but gravity does not fit into the current framework. String theory is a suggestion on how to add gravity. For example, one can explain how particles (now strings) interact. The math works in $\RR\times\RR^{9-d}\times\mc T^d$, where $d$ is some parameter. When one adds in some symmetries, one becomes interested in some moduli spaces
+\[G_d(\ZZ)\backslash G_d(\RR)/K\]
+where $G_d$ is some group and $K$ is a maximal compact.
+
+We are interested in computing some scattering amplitudes to automorphic forms that arise from this string theory construction. For example, one can find some Eisenstein series. One expects the arising automorphic forms to be constants, Eisenstein series, or products of Eisenstein series. In 2018, the motivating result worked all this out for $\op{SL}_2(\RR)$. We would like to work out $\op{SL}_3(\RR)$, now working in
+\[\op{SL}_3(\ZZ)\backslash\op{SL}_3(\RR)/\op{SO}_3(\RR).\]
+The main result of the talk is a conjecture on what the sort of things we are looking for, which is again some constants, some discrete series, and some continuous ``Eisenstein'' series. In the $\op{SL}_2(\RR)$ case, it is known how to do such a decomposition for operators coming from $L^2(\Gamma\backslash\HH)$, but products of Eisenstein series do not live there; the trick is to subtract out some easy pieces. However, this trick becomes infeasible in the $\op{SL}_3(\RR)$ case.
+
+\section{Mathematics Informed by Computation}
+This session happened on Friday the 10th of January.
+
+\subsection{Models of Modular Curves}
+This talk was given by David Zywina. Given a subgroup $G\subseteq\op{GL}_2(\ZZ/N\ZZ)$, there is a modular curve $X_G$; we'll assume that $\det G=(\ZZ/N\ZZ)^\times$ and $-1\in G$ for simplicity, which gives smoothness, projectivity, and integrality. It has a modular interpretation, roughly speaking by asking for the Galois representation of the $N$-torsion of an elliptic curve $E$ to be contained in $G$.
+\begin{example}
+	One may be interested in $X_0(N)$, which has $G$ to be upper-triangular matrices. We  note $X_0(N)(\QQ)$ has been classified by Mazur and Kenku.
+\end{example}
+\begin{example}
+	Given a non-split Cartan subgroup $C$ for a prime $\ell$, and we let $G$ be its normalize. Then one may be interested in $X_{\mathrm{ns}}(\ell)=X_G$, for example for Serre's uniformity problem.
+\end{example}
+There are many equivalent constructions of $X_G$, but we would like an explicit model. There is a large industry trying to find models of $X_G$. We give a method to compute it.
+
+Let's outline the approach, which is analytic. For example, there is an analytic description of $X_G$ by lifting $G$ to a congruence subgroup $\Gamma_G\subseteq\op{SL}_2(\ZZ)$, and then $X_G(\CC)$ is $\Gamma_G\backslash\HH^*$. We also note that there is a space of modular forms $M_k(\Gamma_G)$ for $k\ge2$ with symmetry group $\Gamma_G$. In fancy language, we want global sections of $\Omega_{X_G}^{\otimes k/2}(D_k)$, where $D_k$ is some specified divisor to control cusps; this is a good definition because it is defined over $\QQ$. So here are our steps.
+\begin{enumerate}
+	\item Note that ``weight-$1$'' Eisenstein series allow one to explicitly compute $\QQ$-generators of $M_{k,G}$.
+	\item Keeping track of cusps will allow us to embed $X_G\into\PP_\QQ^{\dim V-1}$ for some subset $V$ of modular forms.
+	\item Then one hopes to cut down the target space.
+\end{enumerate}
+David Zywina then gave some examples. The equations are (usually) pretty nice. For example, one is able to prove the following.
+\begin{theorem}
+	Up to conjugacy, there are exactly $524$ congruence subgroups $\Gamma\subseteq\op{SL}_2(\ZZ)$ with $-I\in\ZZ$ such that $X_\Gamma$ is hyperelliptic.
+\end{theorem}
+The idea is that gonality bounds lets us bound the genus, reducing to a finite computation. We remark that the result for congruence subgroups of the form $\Gamma_0(N)$ has been known.
+
+\subsection{Weierstrass Points on Shimura Curves}
+This talk was given by Holly Paige Chaos. Given a curve, there is a notion of Weierstrass points. For example, let $X$ be a Riemann surface of genus $g$. Given $P\in X$, we suppose that there is a function $f$ on $X$ with a simple pole at $P$ and no other poles, then $g$ defines a birational map to $\PP^1$; similarly, if it is a double pole, then $X$ is hyperelliptic. In general, one can ask for a nonzero rational function $f$ on $X$ with a pole of order $nP$ and no other poles; in general, one does not expect this for $n\le g$, though $n>g$ comes from some geometry.
+\begin{definition}
+	A point $P\in X$ is a \textit{Weierstrass point} if and only if there is some such positive $n\le g$. We may write $\op{wt}(P)$ to measure sthe sum of the $n$ which do not exist.
+\end{definition}
+\begin{example}
+	The set of Weierstrass points on a curve has $2g+2$ points if and only if the curve is hyperelliptic. In this case, they are the fixed points of the hyperelliptic points, and the gaps are $\{1,3,\ldots,2g-1\}$, so the weight is $\frac12g(g-1)$.
+\end{example}
+It is now a natural question to ask what the Weierstrass points of the modular curves $X_0(N)$ are.
+\begin{theorem}[Atkin, Lehner, Newmann]
+	If $N$ is sufficiently composite, then the cusps $0$ and $\infty$ of $X_0(N)$ are Weierstrass.
+\end{theorem}
+\begin{theorem}[Ogg]
+	If $N$ is prime, then the Weierstras points are supersingular$\pmod p$ and do not include cusps.
+\end{theorem}
+We are going to look at the Shimura curve parameterizing (principally polarized) abelian surface $A$ with quaternionic multiplication by an indefinite quaternion algebra of discriminant $D$; we may say that $A$ has QM. For example, it turns out that $A$ is supersingular if and only if $A$ is superspecial, meaning that its field of moduli comes from $\FF_{p^2}$, implying there are only finitely many. As usual, we will allow our moduli problem some level structure $\Gamma_0(N)$, allowing us to build a Shimura curve $X_0^D(N)$.
+
+Let's now list some inputs for our computation.
+\begin{itemize}
+	\item In many situtations, it turns out that Weierstrass points on our Shimura curve specialize to singular points on the reduction $X_0^D(N)_{\FF_p}$.
+	\item The $X_0^D(p)$s do not have cusps, so techniques from modular forms are a little harder to apply.
+	\item We will work in a situation when $X_0^D(p)$ is hyperelliptic, and the hyperelliptic involution comes from an Atkin--Lehner involution.
+\end{itemize}
+Let's now summarize a computation. In characteristic $0$, one finds $X_0^6(11)$ is a genus-$3$ hyperelliptic. Its Weierstrass points turn out to be QM abelian surfaces with CM by $\QQ(\sqrt{-66})$; it turns out that such a thing must decompose into a product of elliptic curves. There are techniques to determine when two such products of CM elliptic curves are isomorphic. One can also reduce$\pmod{11}$ to find superspecial points.
+
+\subsection{Murmurations of Dirichlet Characters}
+This talk was given by Kyu-Hwan Lee. Let's begin by recalling murmurations of elliptic curves. Fix an elliptic curve $E$ defined over $\QQ$, with rank $r$, conductor $N_E$, and define $a_p(E)=p+1-\#E(\FF_p)$ as usual.
+
+We will fix a prime $p$ for a moment and let the conductor vary over a large interval $[N_1,N_2]$ where $N_1$ and $N_2$ have medium size. Then one averages $a_p(E)$ as $E$ varies over particular ranks $r$, which we call $f_r(p)$. Then the values of $f_r(p)$s oscillate as $p$ gets larger; $f_1(p)$s look inverted to $f_0(p)$, but the oscillating pattern of $f_0(p)$ and $f_2(p)$ look similar. We remark that the patterns disappear if elliptic curves are weighted by something other than conductor.
+
+To account for root numbers, we let $e_w(p)$ denote the same average, but now we are only asking for $r\equiv w\pmod 2$ for $w\in\{0,1\}$. It turns out that one gets the same oscillation pattern no matter where the interval $[N_1,N_2]$ is placed, and one can see similar murmurations for more general modular forms. One continues to see some oscillation for other weights, abelian surfaces, etc.
+\begin{remark}
+	The story of elliptic curves remains open, but we remark on some of what is known. Well, Zubrilina has proven that weight-$k$ newforms see murmurations for even $k$, using the trace formula. There are also explained murmurations for Mass forms.
+\end{remark}
+Let's now move to Dirichlet characters. Let $\mc D_+(N)$ and $\mc D_-(N)$ be the set of primitive even and odd Dirichlet characters$\pmod N$, as before; let $\mc Q_{\pm}(N)$ be the corresponding subset of quadratic characters. Now one looks at averages
+\[\sum_{N\in[X,2X)}\sum_{\chi\in\mc Q_{\pm}(N)}\frac{\chi(p)}{g(\chi)},\]
+where $g(\chi)$ is the Gauss sum; here, $\chi(p)/g(\chi)$ is the Fourier coefficient of $\ov\chi$. One finds murmurations, but they are noisy. Let's try to fix this.
+\begin{enumerate}
+	\item One can work with all complex characters in $\mc D_{\pm}(N)$ Working with dyadic intervals looks a bit bizarre, but one can make the oscillation easier by working in short intervals of the form $\left[X,X+X^\delta\right]$ for fixed $\delta>0$. (One recovers dyadic intervals by integration.) Then the trace formula approach explains the murmurations.
+	\item Alternatively, one can use a smooth cutoff function $\Phi$ to smooth out the average. Then one again uses some trace formula approach.
+\end{enumerate}
+
+\subsection{The Least Prime in the Chebotarev Density Theorem}
+This talk was given by Robert J. Lemke Oliver. We begin by setting some notation. Fix a finite Galois extension $K/\QQ$. For each unramified prime $p$, one gets a conjugacy class $\op{Frob}_p$. Then the Chebotarev desnsity theorem says that the fraction of primes $p$ with specified conjugacy class is proportional to the size of the conjugacy class $C$.
+
+We would like to upper-bound the size of the first prime $p$ with $\op{Frob}_p$ living in a specified conjugacy class. The existing approach on the error term requires zero-free regions of the Hecke $L$-functions. Here is a taster.
+\begin{theorem}
+	There is a prime $p$ with ${\op{Frob}_p}\in C$ such that $p\ll\left|\op{Disc}K\right|^{16}$.
+\end{theorem}
+\begin{theorem}
+	Suppose $A\subseteq\op{Gal}(K/\QQ)$ is an abelian subgroup intersecting $C$ nontrivially. Then there is $p$ with $\mathrm{Frob}_p\in C$ such that $p\ll_{[K:\QQ]}\left|\op{Disc}K\right|^{1042/\left|A\right|}$.
+\end{theorem}
+\begin{example}
+	If $\op{Gal}(K/\QQ)\cong S_n$, then one can optimize $A$ to get the bound down to $\left|\op{Disc}K\right|^{1042/n}$.
+\end{example}
+We provide a new method to prove the following result.
+\begin{theorem}
+	Suppose $\op{Gal}(K/\QQ)\cong S_n$. Then there is $p$ with $\mathrm{Frob}_p\in C$ and $p\ll_n\left|\op{Disc}K\right|^{1042/\exp(n/4)}$.
+\end{theorem}
+One can optimize a little more depending on the cycle type of $C$. For example, one can get all the way down to $\left|\op{Disc}K\right|^{1/2+\varepsilon}$ in the worst case, and then case where $C$ is the $n$-cycle gets factorial decay in the exponent!
+
+We will not use an interesting zero-free region of $L$-functions. Let's give a taster.
+\begin{example}
+	Let's bound the least prime $P$ which is inert in $\QQ(\sqrt D)$. Well, suppose each $p\le X$ is split or ramified. Then $\chi_D(m)=1$ for each $m\le X$, so the character sum
+	\[\sum_{m\le X}\chi_D(m)=\sum_{\substack{m\le X\\\gcd(m,D)=1}}1\]
+	is large. Now one can compare this with the P\'olya--Vinogradov inequality to require $p\ll D^{1/2+\varepsilon}$. We remark that one can improve the inequality due to Burgess and Vinogradov.
+\end{example}
+Let's now generalize this approach. Suppose we can find multiplicative functions $F_+$ and $F_-$ such that $F_+(p)$ and $F_-(p)$ only depending on the conjugacy class $\op{Frob}_p$, and they should only be unequal when $\mathrm{Frob}_p\in C$.
+
+Further, we would like sums over $F_-(n)$ to be small and sums over $F_+(n)$ to be large. For example, it would be nice for $L(s,F_-)$ to be entire and for $L(s,F_+)$ to be entire except for some controlled poles (and notably one at $s=1$). We do remark that one has the needed continuation is known in the one-dimensional case by some class field theory, so one gets continuation for monomial virtual characters, and then tools from Brauer's theorem let us go a little further.
+
+For example, certain groups $G$ will have all their irreducible characters be nonnegative linear combinations of monomial characters, but this is really a condition on $F_+$ and $F_-$. Then to ensure the poles, one would like $\langle F_-,1\rangle_{S_n}=0$ and $\langle F_+,1\rangle=0$. On the other hand, we would like to minimize the total degrees of $F_+$ and $F_-$. So for fixed $n$ and $C$, this is some linear programming optimization problem! One can run this computation and see some patterns, for example when $C$ is an $n$-cycle, allowing us to prove the theorem above.
+
+% \section{Modular Forms in Twenty Minute Snippets}
+
+% \subsection{Modular Framework fo Generalized Hurwitz Class Numbers}
+% This talk was given by Andreas Mono.
+
+\section{Arithmetic Aspects of Enumerative Geometry}
+This talk was given by Kristen Wickelgren.
+
+Enumerative geometry is interested in counting algebro-geo\-metric objects satisfying certain conditions, such as solutions to polynomials, lines in planes, etc. However, we note that these solutions might be defined over large fields, such as $\ov\QQ$. We would like to keep track of fields of definition, for which we will use $\AA^1$ homotopy theory.
+
+By way of example, we wokr with a scheme $X\subseteq\PP^3$ cut out by a homogeneous degree-$3$ polynomial. We recall the following result.
+\begin{theorem}
+	Over $\CC$, any smooth cubic surface contains exactly $27$ lines.
+\end{theorem}
+\begin{remark}
+	However, over $\RR$, 
+\end{remark}
+Let's discuss this result a bit. Segre described a dual space taking lines $L\subseteq X$ to its tangent space, which we note will intersect $X$ twice. Thus, this association becomes a double-cover of $\PP^1$; letting $\iota$ be the induced involution, we note that over $\RR$ produces either complex conjugates or both real. In the complex conjugate case, this is called ``elliptic,'' and in the real case, it is ``hyperbolic.'' (Physically, elliptic means that a tangent plane following the line has a ``spin'' as one follows it.) Here is a result.
+\begin{theorem}
+	Over $\RR$, the number of hyperbolic lines minus the number of elliptic lines equals $3$.
+\end{theorem}
+For example, this shows that there are at least three (hyperbolic) lines.
+
+Now for a general field $k$, let $k(L)$ be the field generated by the coefficients of the equations cutting out $L$. Then the fixed point of $\iota$ is yields a quadratic extension which we name $k(L)(\sqrt a)$.
+\begin{definition}
+	We call $a$ the ``type'' of $L$.
+\end{definition}
+Let's now shift gears to talk about $\AA^1$-homotopy theory. Morel and Voevodsky defined some stable $\AA^1$-homotopy theory $\op{SH}(k)$ which includes both $k$-schemes and topological spaces. Here are some features.
+\begin{itemize}
+	\item This allows gluings and crunchines of schees.
+	\item There are reasonable open covers of smooth schemes.
+	\item $\AA^1$ is homotopic to a point.
+	\item To stabilize, we stabilize so that $\land\PP^1$ is invertible.
+\end{itemize}
+Roughly speaking, $\op{SH}(k)$ is the stabilization of $\AA^1$-invariant sheaves on smooth $k$-schemes.
+\begin{remark}
+	Let's motivate this construction. For one, it is a natural place for many cohomology theories, such as Betti, $\ell$-adic, $K$-theory, algebraic cobordism, motivic cohomology, and so on. More precisely, any theory satisfying the above points (which is expected from a cohomology theory) will factor through this homotopy theory; this also makes this a good home for motives.
+\end{remark}
+\begin{remark}
+	As another motivation, we note that there is a ``flagship'' reslt of Voevodsky's proof of the Bloch--Kato conjectures.
+\end{remark}
+Continuing, we note that there is a degree isomorphism $\deg$ from $[\PP^n,\PP^{n-1},\PP^n/\PP^{n-1}]$ to $\op{GW}(k)$, which is the group completion of non-degenerate symmetric bilinear forms over $k$; for example, $\langle2\rangle+\langle3\rangle=\langle\op{diag}(2,3)\rangle$. So there is a dimension map from $\op{GW}(k)\to\ZZ$. Here are two pieces of notation.
+\begin{itemize}
+	\item For $k\subseteq\RR$, one finds that there is also a sign map $\op{GW}(k)\to\{\pm1\}$ depending on the number of $(+1)$s or $(-1)$s.
+	\item For a finite separable extension $L/k$, there is a trace map $\op T_{L/k}\colon\op{GW}(k)\to\op{GW}(L)$ which just composes the bilinear form from $\op{GW}(k)$ with the trace map.
+\end{itemize}
+We now turn to $\AA^1$-enumerative geometry. Here is the sort of thing we can say.
+\begin{theorem}
+	Let $X$ be a smooth cubic surface over a field $k$ not of characteristic $2$. Then
+	\[\sum_{L\subseteq X}\op T_{k[L]/k}\langle\op{Type}(L)\rangle=15\langle1\rangle+12\langle-1\rangle.\]
+\end{theorem}
+Morally, one should view this as providing weighted counts of lines. For example, one can take dimensions to recover $27$ lines over the algebraic closure and take signs to get the difference of hyperbolic and real lines.
+
+Let's say something about techniques. We take a moment to talk about Gromov--Witten invariants. Choose a projective variety $X$ over $\CC$, an integer $n$, and $\beta\in H_2(X)$. Then we may define $\ov M_{g,n}(X,\beta)$ as consisting of curves $u\colon C\into X$ with $n$ marked points such that $C$ is a genus-$g$ nodal curve, $u$ is stable, and $u_*[C]=\beta$. From here, we note that there are projection maps $e_i\colon\ov M_{g,n}(X,\beta)\to X$ by sending $C$ with its marked points $\{p_1,\ldots,p_n\}$ to $u(p_i)$. There are a few other related such maps, and we note that these also lift to $\AA^1$-homotopy theory. Then one uses these invariants to prove the result.
+
+Let's list some other things one can prove, admittedly only on del Pezzo surfaces.
+\begin{example}
+	There is $\langle1\rangle$ conic through five points in the plane.
+\end{example}
+\begin{example}
+	For $A=(k,\ldots,k)$, one can compute the invariant $N_{0,X,\beta}(A)$ for $X=\PP^2$, which roughly counts some number of some kind of curves.
+\end{example}
+So the name of the game is to compute some Gromov--Witten invariants. This can be done essentially geometrically using some homotopy-theoretic notions.
+
+\section{Finding Arithmetic Progressions in Dense Sets of Integers}
+This talk was given by Sarah Peluse. We are interested in finding arithmetic progressions. We will require our arithmetic progressions to have distinct terms. For example, we recall the following result from Ramsey theory.
+\begin{theorem}[van der Waeden]
+	For $k\ge3$, and finite coloration of $\NN$ has a monochromatic $k$-term arithmetic progression.
+\end{theorem}
+One could ask for more. Indeed, looking at these colorings, we know that at least one color has ``the most'' elements, so maybe that is the color with the progressions. To be precise, we need a notion of density.
+\begin{definition}[upper density]
+	For $A\subseteq\NN$, we define the \textit{upper density}
+	\[ud(A)\coloneqq\limsup_{N\to\infty}\frac1N(A\cap\{1,\ldots,N\}).\]
+\end{definition}
+The following was conjectured by Erd\"os and Tur\'an.
+\begin{theorem}[Szmere\'edi]
+	If $A\subseteq\NN$ has $ud(A)>0$, then $A$ contains a $k$-term arithmetic progression for any $k\ge3$.
+\end{theorem}
+For example, $k=3$ was shown by Roth via Fourier analysis and the circle method. Szmere\'edi proved this in 1975 via an elaborate combinatorial argument, using a regularity lemma in extremal graph theory.
+
+By a compactness argument, this is equivalent to the following.
+\begin{theorem}
+	Fix $k\ge3$. Then the largest subset $A_N\subseteq\{1,\ldots,N\}$ with no $k$-term arithmetic progressions satisfies
+	\[\frac{\left|A_N\right|}N\to0\]
+	as $N\to\infty$.
+\end{theorem}
+It is an open question to get an explicit rate of decay; for example, Szem\'edi is able to provide a (rather bad) asymptotic, something worse than arbitrarily many $\log$s. Even for $k=3$, where Fourier analytic methods are availble, this remains a very active area of research. For example, we have been looking at $1/(\log N)^{1+\varepsilon}$ for some $\varepsilon\in(0,1)$ for the past forty years, but in 2023, it was improved to $\exp(-c\sqrt[12]{\log N})$.
+
+Gowers brought bounds past $k=3$, introducing ``higher-order Fourier analysis.''
+\begin{theorem}
+	If $A\subseteq\{1,\ldots,N\}$ contains no $k$-term arithmetic progressions, then
+	\[\frac{\left|A\right|}N\le\frac1{(\log\log N)^{2^{-2^{k+9}}}}.\]
+\end{theorem}
+It was recently improved in 2024 to a bound like $\exp(C(\log\log N)^c)$.
+
+Let's give a taste of the methods. For the remainder of the talk, instead of $\ZZ$, we will work in $\ZZ/p\ZZ$ for large $p$. Let $e_p\colon x\mapsto\exp(2\pi ix/p)$ be a character of $G$. The characters $\{e_p(ax):a\in G\}$ form an orthonormal basis of the functions $G\to\CC$. For example, there is a Fourier transform
+\[\widehat f(x)=\sum_{\xi\in G}f(x)e_p(-\xi x),\]
+there is some notion of Fourier inversion, and so on. For example, one can show identities like
+\[\sum_{x,y\in G}f(x)g(x+y)h(x+2y)=\sum_{\xi\in G}\widehat f(\xi)\widehat g(-2\xi)\widehat h(\xi).\]
+Letting $f=g=h=1_A$ for some set $A$, we see that we are able to control the number of $3$-term arithmetic progressions using $\widehat 1_A$. For example, if we have large density $\alpha$, then the number of arithmetic progressions is expected to be $\alpha^3p^2$, so one expects a set $A$ avoiding a $3$-term arithmetic progression must have some other structure which we can utilize.
+
+For longer progressions, it is harder to do much.
+\begin{example}
+	The set $B$ of elements $n$ such that $\left\{\sqrt2n^2\right\}\in[0,1/1000]$ has density about $1/1000$, but it has far more than $p^2/1000^4$ than one would expect because of some algebraic structure in $B$.
+\end{example}
+To replace the use of Fourier analysis for $k\ge4$, we introduce higher-order Fourier analysis. Here are some definitions.
+\begin{definition}
+	Given $f\colon G\to\CC$, we define $\Delta_hf=f(x)\overline{f(x+h)}$ and $\del_hg(x)=g(x)-g(x+h)$ to be discrete derivatives.
+\end{definition}
+\begin{definition}
+	Given $f\colon G\to\CC$ and $s\ge2$, one has
+	\[\norm f_{U^s}^{2^s}\coloneqq\frac1{p^{s+1}}\sum_{x,h_1,\ldots,h_s\in G}\Delta_{h_1}\cdots\Delta_{h_s}f(x).\]
+	It is not obvious that this is well-behaved norm (e.g., is nonnegative), but it is true.
+\end{definition}
+The important property of these norms is that they control $k$-term arithmetic progressions.
+\begin{lemma}
+	Fix $A\subseteq G$ of density $\alpha$. Then the number of $k$-term arithmetic progressions in $A$ is about $\alpha^kp^2$, with error $\norm{1_A-\alpha}_{U^{k-1}}$.
+\end{lemma}
+One shows this by applying Cauchy--Schwarz many times. It remains to study $f\colon G\to\CC$ with $\left|f\right|\le1$ such that $\norm f_{U^s}$ is large; this is called proving an ``inverse theorem.'' Here is a sample, whose proof is elementary using the fact that $\norm f_{U^2}=\norm{\widehat f}_{\ell^4}$ (shown with some Fourier inversion).
+\begin{theorem}
+	Choose $f\colon G\to\CC$ with $\left|f\right|\le1$. Fixing $\delta\in[0,1]$, if $\norm f_{U^2}\ge\delta$, then there is $\xi\in G$ such that $\left|\widehat f(\xi)\right|\ge\delta^2$.
+\end{theorem}
+Thus, we get some control of $f$: there is a large Fourier coefficient. Going back to $A$, this suggests that $A$ should be close to an arithmetic progression. For $k=4$, we need to bound $U^3$ norms. Roughly speaking, Gowers showed that having small $U^3$ means that one is close to some quadratic progression. For reasons related to nilsequences, it may still be difficult to find the needed $4$-term arithmetic progression.
+
+Without going into what a nilsequence is, we state the sort of result one gets from $U^s$ bounds.
+\begin{theorem}[Green--Tao--Ziegler]
+	Let $f\colon G\to\CC$ be a function with $\left|f\right|\le1$. Suppose $s\ge2$ and $\delta\in[0,1]$. If $\norm f_{U^s}\ge\delta$, then there is a reasonable nilsequence $\psi$ such that
+	\[\left|\frac1p\sum_{x\in G}f(x)\psi(x)\right|\ge c(\delta,s).\]
+\end{theorem}
+Manners proved some qualitative bound for $c(\delta,s)$ (along the lines of Gowers), which look very reasonable. Leng, Sah, and Sawhney prove remarkably strong bounds (along the lines of an efficiency of Green, Tao, and Ziegler); their bounds are so good that it should improve techniques even for applications to primes.
+
+\section{\texorpdfstring{ $L$}{ L}-Functions, Automorphic Forms, and Their Applications}
+This session happened on Saturday the 11th of January.
+
+\subsection{Central \texorpdfstring{$L$}{ L}-Values of the Cuspidal Asai Lifts}
+This talk was given by Wenzhi Luo.
+
+Let's set up our Hilbert modular forms. For now, $F$ is a real quadratic field over $\QQ$ of narrow class number $1$, and we write $\OO_F$ for its ring of integers. Let $\sigma_1$ and $\sigma_2$ be the real embeddings. For an ideal $I\subseteq\OO_F$, one can define a congruence subroup $\Gamma_0(I)$ in the usual way, and it acts on $\mathbb H^2$ by fractional linear transformations through $\sigma_1$ and $\sigma_2$.
+\begin{definition}
+	A Hilbert modular form $f$ of weight $k$ is a holomorphic function satisfying the expected translation law
+	\[f\left(\begin{bmatrix}
+		a & b \\ c & d
+	\end{bmatrix}z\right)=\op N(cz+d)^kf(z).\]
+	We let $M_k(\Gamma_0(I))$ denote the space of modular forms.
+\end{definition}
+Because we have narrow class number $1$, there is a Fourier expansion of the form
+\[f(z)=\sum_{\alpha\in\OO_F}a(\alpha)\exp(2\pi i\tr(\alpha z)),\]
+where $a\colon\OO_F\to\CC$ is some coefficent function.
+
+One can define cusps forms in $S_k(\Gamma_0(I))$ if it has no constant terms. For example, one can show
+\[\dim_\CC S_k(\Gamma_0(N))\sim\frac{\op{vol}\left(\Gamma_0(I)\backslash\HH^2\right)}{(4\pi)^2}(k-1)^2.\]
+There is also a Petersson inner product.
+
+We now restrict to level $I=\op{SL}_2(\OO_F)$. There is also a notion of Hecke operators as before, so we can build some normalized Hecke eigenforms with Hecke eigenvalues $\lambda_f(\mu)$ for ideals $(\mu)\subseteq\OO_F$, and we find that their $L$-functions
+\[L(s,f)=\sum_{(\mu),\mu>0}\lambda_f(\mu)\op N\mu^{-s}\]
+have a behaved Euler product. The usual arguments also grant $L(s,f)$ a functional equation for a completed $L$-function $\Lambda(s,f)$ via some argument with theta series.
+
+Asai defined a Dirichlet series of the type
+\[L(s,\op{As}f)\coloneqq\zeta(2s)\sum_{m=1}^\infty\lambda_f(m)m^{-s}.\]
+One can use converse theorems to show that a completed $L$-function $\Lambda(s,\op{As}f)$ admits a meromorphic continuation with prescribed poles and a functional equation. This thing also has an Euler product with local factors of degree $4$. This can be viewed as a case of Langlands functoriality for $\op{Res}\mathrm{GL}_{2,F}\to\mathrm{GL}_{4,\QQ}$. Using the triple product, one can confirm that $\Lambda(s,\op{As}f)$ is the $L$-function of an automorphic form of $\op{GL}_{4,\QQ}$.
+
+We are interested in the behaviod of $L(s,\op{As}f)$ on the critical line. Let's list some properties of $L$-func\-tions of related constructions.
+\begin{itemize}
+	\item Define $f^t(z_1,z_2)\coloneqq f(z_2,z_1)$, which one sees is still a Hilbert cusp form. Then the Rankin--Selberg convolution breaks down as
+	\[L(s,f\otimes f^t)=L(s,\op{As}f)L(s,\op{As}f\otimes\chi_D),\]
+	where $\chi_D$ is the Kronecker symbol modulo $D=\op{disc}F$.
+	\item If $f$ is a base-change of a Hecke eigenform $h$ from $S_k(\op{SL}_2(\ZZ))$, then one can further factor
+	\[L(s,\op{As}f)=L\left(s,\op{Sym}^2h\right)L(s,\chi_D).\]
+	Similarly, if $f$ is a base-change from a Hecke eigenform $f\in S_k(\Gamma_0(D),\chi_D)$, then
+	\[L(s,\op{As}f)=L\left(s,\op{Sym}^2h\right)\zeta(s).\]
+\end{itemize}
+We take a moment to give the following test for cuspidality of $\op{As}f$.
+\begin{theorem}
+	Fix everything as above.
+	\begin{listalph}
+		\item If $f$ is non-dihedral, then $\op{As}f$ is non-cuspidal if and only if $f$ and $f^t$ are twist-equivalent.
+		\item If $f$ is dihedral, then $\op{As}f$ is non-cuspidal if and only if $f$ is induced from a quadratic extension $K$ of $F$ which is biquadratic over $\QQ$.
+	\end{listalph}
+\end{theorem}
+From here, we note that one can fix an orthogonal basis $\{f_j\}_j$ of Hecke eigenforms of $S_k(\op{SL}_2(\OO_F))$; for each $j$, we will write $\widetilde f_j$ for the normalized Hecke eigenform with first Fourier coefficient equal to $1$. Then one can write out the Petersson formula for our Hilbert modular forms in terms of some generalized Kloosterman sums.
+
+One can now use the above factorizations to get a bound on the coefficients $a_j(1)$ using the Rankin--Selberg method. Let's get our hands on the central value. One finds
+\[L(1/2,\op{As}f)=2\sum_{n=1}^\infty\frac{\lambda_f(n)}{n^{1/2}}V_{1/2}\left(\frac n{\sqrt D}\right),\]
+where $V_{1/2}$ is some volume term.
+\begin{theorem}
+	Let $b\colon\OO_F\to\CC$ be a function on complex numbers defined modulo positive units. Then
+	\[\sum_{j}\left|L(1/2,\op{As}f_j)\right|\ll k^{2+\eta},\]
+	where we restrict the sum to cuspidal Asai lifts.
+\end{theorem}
+These moments are better than one would expect for generic automorphic representations of $\op{GL}_4$.
+
+Let's list some inputs to our result.
+\begin{itemize}
+	\item One uses the formula for $L(1/2,\op{As}f)$ to expand out the sum in terms of some Fourier coefficients.
+	\item One uses the Petterson inner product formula to aid the bounding.
+	\item Then one splits into cases between large and small level. In large level, there is not much to do. In the small level case, one reduces to the large level case using some embedding trick.
+\end{itemize}
+
+\subsection{Lucas Congruences Using Modular Forms}
+This talk was given by Wei-Lun Tsai. Here is our prototypical result.
+\begin{theorem}[Lucas]
+	Fix nonnegative integers $m$ and $n$. For a prime $p$,
+	\[\binom nmn\equiv\prod_{i=0}^\infty\binom{m_i}{n_i}\pmod p,\]
+	where $\{m_i\}$ and $\{n_i\}$ are the base-$p$ digits of $m$ and $n$.
+\end{theorem}
+The moral of the story is that we can compute binomial coefficients in modular arithmetic quickly.
+\begin{proof}
+	The idea is to use generating functions: note
+	\[\sum_{n=0}^m\binom mnX^n=(1+X)^m\equiv\prod_{i=0}^\infty\left(1+X^{p^i}\right)^{m_i}=\sum_{n=0}^m\Bigg(\prod_{i=0}^\infty\binom{m_i}{n_i}\Bigg)X^n.\]
+	By analogy, we have the following definition.
+\end{proof}
+\begin{definition}[Lucas congruence]
+	Fix a sequence $\{T(n)\}_{n\ge0}$ to be an integer sequence with $T(0)=1$. This satisfies \textit{Lucas congruence$\pmod p$} for fixed prime $p$ if and only if
+	\[T(n)\equiv\prod_{i=0}^\infty T(n_i)\]
+	where $\{n_i\}$ are the base-$p$-digits of $n$.
+\end{definition}
+\begin{remark}
+	One really only has to check that $T(a+bp)\equiv T(a)T(b)\pmod p$ and then proceed inductively.
+\end{remark}
+\begin{example}
+	For any $N>0$, one can take $T(n)=N^n$.
+\end{example}
+We would like a method to verify Lucas congruences. Here is another example.
+\begin{definition}[Ap\'ery]
+	Define
+	\[A(n)\coloneqq\sum_{k=0}^n\binom nk^2\binom{n+k}k^2.\]
+\end{definition}
+\begin{theorem}
+	The sequence $\{A(n)\}_{n\ge0}$ satisfies the Lucas congruences.
+\end{theorem}
+\begin{proof}
+	Apply Lucas's original theorem.
+\end{proof}
+\begin{example}
+	Because $A(0)$ and $A(1)$ are both odd, we see that $A(n)$ is always odd. Similarly, $3\nmid A(n)$ for all $n$.
+\end{example}
+\begin{remark}[Rowland]
+	It also turns out that $A(n)\equiv A(p-1-n)\pmod p$ for all $n\in\{0,1,\ldots,p-1\}$.
+\end{remark}
+\begin{remark}
+	It is conjectured that there are infinitely many $p$ such that $p\nmid A(n)$ for all $n$. In fact, there is a conjectured density of these primes as $e^{-1/2}$. Roughly speaking, one uses the palindomic property and just guesses that the numbers from $A(0),\ldots,A((p-1)/2)\pmod p$ are chosen randomly and computes the limit as $p\to\infty$.
+\end{remark}
+It turns out that one can relate these Ap\'ery numbers to modular forms: there is an equation of the form
+\[\sum_{n\ge0}A(n)t(\tau)^n=Z(\tau)\]
+where $t(\tau)$ and $Z(\tau)$ are some $\eta$-quotients. There is also a congruence
+\[A\left(\frac{p-1}2\right)\equiv a(p)\pmod{p^2},\]
+where the $a(p)$s are coefficients of a prescribed $\eta$-quotient.
+\begin{remark}[Malik--Straub]
+	It turns out that there are also ``Ap\'ery-like'' sequences (due to Zagier) satisfying certain recursive relations similar to the Ap\'ery numbers. These also satisfy the Lucas congruences, which one shows similarly upon giving an explicit summation.
+\end{remark}
+Cooper has defined other Ap\'ery-like sequences, but they do not all have closed forms. We will consider one of the form $T_{11}(n)$, which satisfies 
+\[\sum_{n\ge0}T_{11}(n)t_{11}(\tau)^n=Z_{11}(\tau),\]
+where $t_{11}$ and $Z_{11}$ are both an $\eta$-product divided by a theta series. One conjectures that this should satisfy Lucas congruences, and it has been checked in many cases. Here is our main result.
+\begin{theorem}
+	The sequence $T_{11}(n)$ satisfies the Lucas congruences.
+\end{theorem}
+In fact, we show more; there is a generalization to other modular functions with level $\Gamma_0(N)$ and rather prescribed behavior (such as location of poles and zeroes). One can also allow $\Gamma_0(N)$ to be extended by a certain Atkin--Lehner involution of $\Gamma_0(N)$.
+
+Let's give some inputs to the theorem.
+\begin{itemize}
+	\item Let $E_k(\tau)$ be the Eisenstein series of even weight $k\ge2$ and level $\op{SL}_2(\ZZ)$. Then there are congruences like $E_{2^m}(\tau)\equiv1\pmod{2^{m+1}}$ and $E_4(\tau)\equiv1\pmod3$.
+	\item By considerations of the generating function, it really suffices to show a congruence of the form $Z(\tau)\equiv Z_{[p]}(t)Z(t^p)\pmod p$, where $Z_{[p]}$ is the truncation of the Taylor series up to the term $\tau^{p-1}$.
+	\item For $p\ge5$, one defines
+	\[G_p\coloneqq\sum_d\left(E_{p-1}^2|w_d\right)Z^{1-p},\]
+	where the sum is over Hall divisors $d$ of $N$ (namely, we require $\gcd(d,N/d)=1$). Thus, one finds that $G_p$ is a modular function, and the prescribed behavior on $Z$ yields prescribed behavior of $G_p$. Then one uses congruences for Eisenstein series to conclude.
+	\item For $p\in\{2,3\}$, one uses similar tricks. We remark that the $p=2$ case requires quite a bit of care.
+\end{itemize}
+
+\subsection{Relative Trace Formula and Automorphic \texorpdfstring{$L$}{ L}-Functions}
+This talk was given by Liyang Yang. Let's start with Brumer's conjecture. Let $J_0(q)$ be the Jacobian of the modular curve $X_0(q)$. Under the Grand Riemann hypothesis, Brumer showed
+\[\op{rank}_aJ_0(q)\le\left(\frac32+o(1)\right)\dim J_0(q),\]
+where $\op{rank}_a$ is the analytic rank. This gives the following conjecture.
+\begin{conj}[Brumer]
+	One has
+	\[\op{rank}J_0(q)\sim\frac12\dim J_0(q).\]
+\end{conj}
+Eventually, one was able to prove $\op{rank}_aJ_0(q)\le c\dim J_0(q)$ without the grand Riemann hypothesis, and recently one has been able to take $c\approx 1.81$. Roughly speaking, the idea is that
+\[L(s,J_0(q))=\prod_{f\in S_2^*(q)}L\left(\frac12+s,f\right),\]
+so one wants to show
+\[\op{rank}_aJ_0(q)=\sum_f\op{ord}_{s=1/2}L(s,f)\le c\#S_2^*(q).\]
+This is some kind of nonvanishing problem. For example, one can show that about one-sixth of the $f$ with $L(1/2,f)\ne0$, which is enough to prove something.
+
+In general, one can take a family $\mc F$ of automorphic representations and ask for
+\[\liminf_{\#F\to\infty}\frac{\#\{\pi\in\mc F:L(1/2,\pi)\ne0\}}{\#\mc F}\stackrel?\ge c\]
+for an absolute constant $c$. For example, above we took $\mc F=S_k^*(q)$ as $q\to\infty$, but one can also consider Hilbert modular forms; one can also fix the level $q$ and send $k\to\infty$. One can even consider other forms, such as Maass forms. There has been quite a bit of progress on such questions over the past few decades.
+
+For now, we will fix a totally real field $F$ of degree $d$ and consider the set $\mc F(k,\mf q)$ of normalized Hilbert newforms over $F$ of level $\mf q$ and weight $k=(k_1,\ldots,k_d)$. One would like an explicit $C(k,\mf q)>0$ such that
+\[\frac{\#\{\pi\in\mc F(k,\mf q):L(1/2,\pi)\ne0\}}{\#\mc F(k,\mf q)}\ge C(k,\mf q).\]
+Here is our main result.
+\begin{theorem}
+	Suppose $k_\bullet\ge4$ always. For $\varepsilon>0$ and $A$ large enough, then
+	\[\frac{\#\left\{\pi\in\mc F(k,\mf q):L(1/2,\pi)>A^{-1}\right\}}{\#\mc F(k,\mf q)}\ge C(k,\mf q,A).\]
+\end{theorem}
+In some families of $A$s, one can also bound the $C(k,\mf q,A)$s. Notably, this has been proven without the Grand Riemann hypothesis in a uniform way.
+
+This is esssentially an application of Cauchy--Schwarz. Suppose we can estimate the two moments
+\[\sum_{\pi\in\mc F(k,\mf q)}\frac{L(1/2,\pi)}{L(1/2,\pi,\mathrm{Ad})}\qquad\text{and}\qquad\sum_{\pi\in\mc F(k,\mf q)}\frac{L(1/2,\pi)^2}{L(1/2,\pi,\mathrm{Ad})}.\]
+We do remark that the second moment is a bit problematic: one wants to use Kuznetsov's formula, but the error term there complicates the argument; one expects some error term like $O\left(n^{1/2+\varepsilon}k^{1/2+\varepsilon}\right)$ (because of microlocal analysis and the Gross--Zagier formula), but it seems difficult to actually achieve. Then the Cauchy--Schwarz inequality allows us to weed out and only sum over terms with $L(1/2,\pi)\ne0$. Eventually, one is able to produce a bound of the form
+\[\sum_{L(1/2,\pi)\ne0}\frac1{L(1,\pi,\mathrm{Ad})}\ge\frac{c\cdot\#\mc F(k,\mf q)}{\log\#\mc F(k,\mf q)}.\]
+There are now two things to fix: we need to get rid of the $\log$ and get rid of the $L(1,\pi,\mathrm{Ad})$.
+
+Let's describe how one removes the $\log$ term. The idea is to then bound the twisted moments
+\[\sum_{\pi\in\mc F(k,\mf q)}\frac{\lambda_\pi(\mf n)L(1/2,\pi)}{L(1/2,\pi,\mathrm{Ad})}\qquad\text{and}\qquad\sum_{\pi\in\mc F(k,\mf q)}\frac{\lambda_\pi(\mf n)L(1/2,\pi)^2}{L(1/2,\pi,\mathrm{Ad})},\]
+where $\lambda_\pi(\mf n)$ is the Hecke eigenvalue. (One needs to do some ``mollification'' to get everything done.) Then one can average over the $\lambda_\pi(\mf n)$s to eventually get rid of the $\log$.
+
+Let's provide a bit more detail on the second moment. We now explain how to use the relative trace formula. A nice function $f$ on $\op{PGL}_2(F)\backslash\op{PGL}_2(\AA_F)$ allows us to define a kernel
+\[K(g_1,g_2)=\sum_{\gamma\in\op{PGL}_2(F)}f\left(g_1^{-1}\gamma g_2\right).\]
+On the other hand, there is a specrtal expansion of $K$ as
+\[\sum_\pi\sum_\phi\lambda_\pi(\mf n)\phi(g_1)\overline{\phi(g_2)}.\]
+Then one evalautes an average of $K$ and compares the spectral and geometric sides. One gets out the second moment from the spectral side, and from the geometric side, we find that the error term is given by some orbitral integral. This orbitral integral turns into some local Bessel functions, which can be bounded.
+
+It remains to prove the $L(1,\pi,\mathrm{Ad})$ weight. This is essentially a standard technique due to Kowalski--Michel, but one needs to be careful with the mollifier to get the needed bounds.
+
+There is also a general case for higher-rank groups. A nice function $f\colon G(\AA_F)\to\CC$ defines an intertwining operator $R(f)$ by integrating against a kernel $K$ defined via $f$. Then one again has a relative trace formula. Approximately speaking, one then hopes to get the geometric side to have some Rankin--Selberg $L$-functions and some special functions on $F^n$. The spectral side features the desired central values of Rankin--Selberg $L$-functions. Here is a taste for what we can prove.
+\begin{theorem}
+	There are infinitely many automorphic representations $\pi$ of $\op{PGL}_{3,F}$ such that
+	\[L(1/2,\pi\times\chi)L(1/2,\pi\times\sigma)\ne0,\]
+	where $\chi$ is a unitary Hecke character, and $\sigma$ is a unitary cuspidal automorphic representation of $\op{GL}_{2,F}$.
+\end{theorem}
+With some work, it is also possible to give a quantitive bound on how many $\pi$ there are.
+
+\subsection{The Subconvexity Problem for Rankin--Selberg \texorpdfstring{$L$}{ L}-Functions}
+This talk was given by Junxian Li. Let $f$ be a primitive cusp form of level $q$ and central character $\chi_f$, and let $g$ be a Hecke eigenform of level $D$ and central character $\chi_g$. If $\gcd(q,D)=1$, one can define a Rankin--Selberg $L(s,f\otimes g)$ by directly multiplying the coefficients. It admits a meromorphic continuation with controlled poles, and there is a completed $L$-function $\Lambda(s,f\otimes g)$ with some functional equation.
+
+Now, the Phragmen-Lindel\"of principle produces a convexity bound
+\[L(s,f\otimes g)\ll\mf q(s,f\otimes g)^{1/2+\varepsilon},\]
+where $\mf q(s,f\otimes g)$ is some analytic conductor; this conductor grows like $q^2$ times some polynomial in the weight of $f$.
+
+The subconvexity problems asks us to give a $\delta>0$ with a bound
+\[L(s,f\otimes g)\stackrel?\ll\mf q(s,f\otimes g)^{1/2-\delta},\]
+where $f$ varies with fixed $g$. For example, this has applications to equidistribution of points on Shimura curves and bounds on the number of Fourier coefficients needed to distinguish between modular forms. This problem was solved essentially completely over about fifteen years by many authors (Duke, Friedlander, Iwaniec, Kowalski, Michel, Harcos, and Venkatesh).
+
+The general approach is to estimate the second moment
+\[\sum_{f\in\mc F}\left|L(1/2,f\otimes g)\right|^2\left|\sum_{\ell\le L}\lambda_f(\ell)x_\ell\right|^2,\]
+where the right-hand term is an amplifier intended to focus the contribution. Then one uses a Petersson or Kuznetsov formula to sums of Kloosterman sums, and then one uses some spectral theory of automorphic forms. We remark that the need for this spectral theory means that subconvexity bounds are mostly only available in low degree, though there are some things known.
+
+There is another ``delta'' approach due to Munshi. It was able to work with general automorphic forms attached to $\op{GL}_3$, and it is able to achieve better exponents in subconvexity. Here is the sort of thing we are able to prove.
+\begin{theorem}
+	Fix a prime $p$, and let $f$ be a primitive cusp form of level $p$ and with central character $\chi_f\pmod p$. Further, let $g$ be a Hecke eigenform of level $1$. Then we have
+	\[L(1/2,f\otimes g)\ll_g p^{1/2-1/524+\varepsilon}.\]
+\end{theorem}
+For example, this is uniform in $f$ (among modular and Maass forms), and the bound is independent on the progress towards the Ramanujan conjecture. Notably, we do not use the spectral theory of automorphic forms.
+
+Instead, we will use bounds of the form
+\[\sum_{\gcd(m,n)=1}\alpha_m\beta_ne\left(\frac{am}n\right)\ll\norm\alpha\norm\beta(\left|a\right|+MN)^{3/8}(M+N)^{11/48+\varepsilon}\]
+due to Duke--Friedlander--Iwaniec. Roughly speaking, this can be considered a bilinear form on Kloosterman sums, though we note that there is technology now to get savings on trilinear forms, due to Bettin and Chandee.
+
+Let's sketch some ideas that go into the proof.
+\begin{enumerate}
+	\item Using the functional equation, it essentially suffices to produce an estimate like
+	\[S(N)\coloneqq\sum_{n\approx N}\lambda_f(n)\lambda_g(n)\ll\sqrt N p^{1/2-\delta},\]
+	for some $\delta>0$.
+	\item One needs to apply an amplification to $S(N)$ as follows. Given $L\ge1$, we define $\gamma_\ell$ to be $1$ if prime about the size of $L$, and it is zero otherwise. Then we apply some scaling to $S(N)$.
+	\item The delta method then separates $f$ and $g$ using some kind of circle method. Roughly speaking, the idea is that one can detect $n=0$ with the sum
+	\[\frac1{C^2}\sum_{c\le c}\sum_{h\pmod c}e_c(hn),\]
+	where $C=\sqrt n$ and $e_c(x)=\exp(2\pi ix/c)$. One plugs this into our amplified $S(N)$ to separate $f$ and $g$.
+	\item Some Voronoi summation reduces the length of the sum.
+	\item Lastly, one applies the Cauchy--Schwarz inequality, some Poisson summation, and exponential sums. The Duke--Friedlander--Iwaniec inequality given above is applied to these exponential sums.
+\end{enumerate}
+From here, one hopes to be able to handle other levels or maybe achieve some uniformity in $g$.
+
+\subsection{Second Moment of \texorpdfstring{$\op{GL}(3)$ $L$-}{ GL(3) of L-}Functions}
+This talk was given by Wing Hong Leung. As usual, we note that the Riemann $\zeta$-function has a Dirichlet series, Euler product, meromorphic continuation with prescribed poles, and funcitonal equation, and such a thing typically has an unproven Riemann hypothesis. An $L$-function is a generalization including all the previous properties.
+
+Today, we are focusing on $L$-functions for $\op{GL}_{3,\QQ}$. The Dirichlet series
+\[L(s,f)=\sum_{n\ge1}\lambda(1,n)n^{-s}\]
+converges in the region $\{s:\Re s>2\}$.
+\begin{example}
+	For example, if $f=1\boxplus1\boxplus1$, then $L(s,f)=\zeta(s)^3$. 
+\end{example}
+We are interested in bounding
+\[\int_T^{2T}\left|L(1/2+it,f)\right|^3\,dt.\]
+The ``trivial'' bound is $T^{3/2}$. For example, if $L=\zeta^3$, then this is the sixth moment of $\zeta$. After expanding out this sum, the point is to estimate some shifted sum
+\[S(N,H)=\sum_{h\approx H}\sum_{n\approx N}\lambda_f(n)\lambda_f(n+h),\]
+where $N\ll T^{3/2}$ and $H\ll\sqrt T$.
+
+Currently, the asymptotics are wide open, but there is an upper bound of $T^{5/4+\varepsilon}$ by interpolating the fourth moment and the twelth moment. Here is the sort of thing that we have been able to show.
+\begin{theorem}
+	One has
+	\[\int_T^{T+T^{2/3}}\left|L(1/2+it,f)\right|^2\,dt\ll_\varepsilon T^{5/4+\varepsilon}.\]
+\end{theorem}
+\begin{remark}
+	By a decomposition idea, this was used to achieve the bound
+	\[\int_T^{2T}\left|L(1/2+it,f)\right|^2\,dt\ll_\varepsilon T^{3/2-3/88+\varepsilon}.\]
+\end{remark}
+The main result of the talk is as follows.
+\begin{theorem}
+	One has
+	\[\int_T^{2T}\left|L(1/2+it,f)\right|^2\,dt\ll_\varepsilon T^{4/3+\varepsilon}.\]
+\end{theorem}
+As one would expect, one really achieves a bound on $S(N,H)$ of the form $N^{4/3+\varepsilon}H^{-1/3}+\cdots$.
+
+Let's give a few applications. For example, we are of course going to achieve a subconvexity bound (on average). There is an application to the Rankin--Selberg problem trying to achieve a bound
+\[\sum_{n\le X}\left|\lambda_g(n)\right|^2=c_gX+O_{g,\varepsilon}\left(X^{3/5-\delta+\varepsilon}\right)\]
+for some $\delta<0$. By using $f=\op{Sym}^2g$ with our $L$-function bound, we are able to take $\delta=1/35$.
+We also mention that one can bound central values for things like $\op{Sym}^3g$.
+
+Let's sketch the argument.
+\begin{remark}
+	The only $\op{GL}(3)$ ingredient that we will need Voronoi summation to show that the sums of the coefficients are something like $O(1)$.
+\end{remark}
+Choose a weight function $V$. Because we are not interested in asymptotics, we may as well bound
+\[\int_\RR V\left(\frac tT\right)\left|L\left(\frac12+it,f\right)\right|^2\,dt.\]
+Using the approximate functional equation, one can bound $L(1/2+it,f)$ by a sum of $N^{-1/2}\sum_{n\approx N}\lambda(n)n^{-it}$
+for $N$ of the size $T^{3/2}$.
+
+Now, opening up the square and integrating, one eventually finds that we are approximately
+\[\frac1{\sqrt T}\sum_{\left|h\right|\approx T^{1/2}}\sum_{n\approx T^{3/2}}\lambda(n)\overline\lambda(n+h),\]
+which explains how we got to a shifted sum. We now focus on bounding the shifted sum.
+
+We now apply the delta method. The point is to replace $\lambda(n+h)$ with a sum over $\lambda(m)\delta(m=n+h)$ and then replace $\delta(m=n+h)$ with an exponential sum
+\[\frac1{Q^2}\sum_{q\le Q}\sum_{a\pmod q}e\left(\frac{an}q\right)U\left(\frac n{qQ}\right),\]
+where $Q$ is an even smooth function with $U(0)=1$.
+The point is that we have smoothly decomposed the indicator into harmonics, which will eventually let us produce a bound without having to think about shifted sums. We will take $Q$ to be about $T^{7/12}$, which we think about as a conductor-lowering trick.
+
+The moral of the story is that we have separated $m$ and $n$ and $h$. Applying some standard tricks (Poisson summation, Voronoi summation, Mellin inversion) allows us to continue. Eventually we get to something that looks like
+\[\int\sum_q\sum_h\left|\sum_{n}\lambda(n)S(\ov h,n;q)n^{iy}\right|^2\,dy.\]
+One can try to apply the large sieve directly, but it does not work well because the sums are not similar in size.
+Instead, we will apply a duality principle, which lets us move the long $n$ size outside and move the integral and sum over $q$ inside the absolute values.
+With the long sum outside, we open up the square and apply Poisson summation.
+There were many other steps, which I got too tired to record.
+
+\subsection{On Higher Regulators of Picard Modular Surfaces}
+This talk was given by Linli Shi, and it is about arithmetic geometry.
+
+We begin by introducing Bellinson's conjecture on special values. We are interested in special values of motivic $L$-functions generalizing the class number formula relating a special value to some regulator (along with some other data). Let's explain how to generalize this regulator. Fix a smooth projective variety $X$ over $\QQ$, and choose $i\ge0$ and some integer $n$ with $2n>i$.
+We are now interested in the motivic cohomology group $H^{i+1}_M(X,\QQ(n))$. For example, if $2n=i+1$, then we are looking at a Chow group. There is also an absolute Hodge cohomology.
+
+Now, let $M$ be a pure motive of the form $h^i(X)(n)$, and we can define a motivic $L$-function $L(M,s)$. For example, we recall that there is an Euler product for $\Re s>1+w/2$ using the Weil conjectures; it is only conjectured that there is a meromorphic continuation and functional equation. There is still a notion of completed $L$-function, for which we use some Hodge theory to build a Gamma factor $\Gamma_\infty(M,s)$; some $n\in\ZZ$ is called critical if and only if it is a pole of $\Gamma_\infty(M,s)$ (or $\Gamma_\infty(M,w+1-s)$).
+
+Deligne then conjectured that
+\[L(m,0)\in c^+\QQ^\times,\]
+where $c^+(M)$ is called the Deligne period, and it is defined using Hodge theory. On the other hand, Bellinson conjectured that (when $s=0$ is non-critical and some technical condition)
+\[L(M,0)\mathcal D(M)\equiv\land^{\mathrm{top}}r_H(H_M^{i+1}(X,\QQ(n))),\]
+where $r_H$ is a regulator map, and $\mathcal D(M)$ is a Deligne rational structure also defined using Hodge theory.
+
+For our main result, we will want some notions. Let $E$ be an imaginary quadratic field of discriminant $-D$, and let $x\mapsto\ov x$ denote complex conjugation. We will work with the group $\op{GU}(2,1)$. Our motives of interest will come from Picard modular surfaces, which are generalizations of modular curves. They are Shimura surfaces defined over $E$, essentially given by taking the quotient of the complex ball
+\[X=\{(z_1,z_2):\left|z_1\right|^2+\left|z_2\right|^2\le1\}\]
+by some arithmetic group.
+
+Lastly, for a cusp form, we recall that there is a Grothendieck motive $M(f)$. This story is known over $\op{GL}_2$, which is why we are working with $\op{GU}(2,1)$. Now, $f$ gives rise to an automorphic form $\pi$ of $\op{GU}(2,1)$, and $\pi$ also a Grothendieck motive. So our main result is to prove Bellinson's conjecture in this case. The general steps to prove such thing are as follows; let $S$ e the Shimura variety of $G=\op{GU}(2,1)$, and we let $M$ be the Shimura variety of $H$.
+\begin{enumerate}
+	\item One constructs some motivic classes.
+	\item Then one proves that the onstructed classes live in a controlled subspace.
+	\item Lastly, one computes the image of these motivic classes along $r_H$.
+\end{enumerate}
+So the main result is some version of Bellinson's conjecture, which had a fairly technical statement.
+
+\subsection{Adelic Distributions and Euler Systems for \texorpdfstring{$\ZZ_p(1)$}{Zp(1)}}
+This talk was given by John Jae Hyung Sim. My computer is about to die, so I will not take notes.
+
+\section{Current Directions on Modular Forms}
+This session happened on Saturday the 11th of January.
+
+\subsection{Modular Functions and the Monstrous Exponents}
+This talk was given by Holly Swisher. As usual, modular functions are meromorphic functions $f\colon\mathbb H\to\CC$ which is invariant under the action of some subgroup $\Gamma\subseteq\op{SL}_2(\ZZ)$. If, we assume $\begin{bsmallmatrix}
+	1 & 1 \\ 0 & 1
+\end{bsmallmatrix}\in\Gamma$, then one gets the usual $q$-expansion; for example, the modular $j$-function can be given a $q$-expansion. For motivation, we recall that the $j$-function provides a biholomorphic function $\op{SL}_2(\ZZ)\backslash\HH^*\to X_0(1)$ so that $j(\tau)$ is the $j$-invariant of the elliptic curve $(\ZZ+\ZZ\tau)\backslash\HH$.
+
+Suppose that $\Gamma$ produces a modular form $X_0(\Gamma)$ of genus $0$. Then we may look for a Hauptomodul, which is the biholomorphic function satisfying the properties of the previous paragraph. It is desirable to have a Hauptomodul with vanishing constant term, so we will define $J_1(z)\coloneqq j(z)-744$.
+
+Let's recall something about moonshine. There is a coefficient $196884$ of the $j$-function, and $196883$ is an irreducible representation of the monster group $M$. Conway and Norton conjectured the existence of an infinite graded representation
+\[V^\sharp\stackrel?=\bigoplus_{n\ge-1}V_n^\sharp\]
+so that each $g\in G$ has
+\[\sum{n\ge-1}\tr(g|V_n^\sharp)q^n\]
+produces a Hauptomodul of the normalizer $\Gamma_g$. In 1984, we were able to construct $V^\sharp$ so that
+\[J_1(\tau)=\sum_{n\ge-1}\dim V_n^\sharp q^n,\]
+completing the $g=1$ case. The conjecture of Conway and Norton was finally proven by Borcherds in 1992, from which he won a Fields medal.
+
+Even before we had any moonshine, Ogg noticed that $p\mid\#M$ if and only if $X_0(p)^+$ has genus $0$ (where $\Gamma_0(p)^+$ is $\Gamma_0(p)$ along with $p^{-1/2}\begin{bsmallmatrix}
+	& -1 \\ p
+\end{bsmallmatrix}$), which is equivalent to the primes $p$ so that the supersingular $j$-invariants are defined over $\FF_p$. In 2015, Duncan and Ono showed that each $p\mid\#M$ has a conjugacy class ``$p^+$'' of elements of $M$ of order $p$ so that
+\[\sum_{n\ge-1}\tr(g\vert V_n^\sharp)q^n\]
+is a Hauptomodul for $\Gamma_0(p)^+$, which we call $J_{p^+}$ after removing the constant term. They showed $J_{p^+}-J_1=J_{p^+}\vert U_p$. They then showed that $J_{p^+}\vert U_p$ is equivalent to some weight $(p-1)$ modular form $f$ taken$\pmod p$. This does something to explain the primes dividing the monster.
+
+We would like to also explain the exponents of the primes $p\mid\#M$. We divide into cases.
+\begin{enumerate}
+	\item If $\Gamma_0(p)^+$ has genus $0$ but $\Gamma_0(p)$ has genus $\ge1$, then $M$ has only one conjugacy class of $p$-power order, which is the $p^+$ above. This corresponds to this subgroup $\Gamma_0(p)^+$.
+	\item If $\Gamma_0(p)^+$ and $\Gamma_0(p)$ have genus $0$ but $\Gamma_0(p^2)$ have genus at least $1$. Then there are two conjugacy classes of $p$-power order, named $p^+$ and $p$, and they correspond to $\Gamma_0(p)^+$ and $\Gamma_0(p)$.
+	\item Otherwise, there are lots of conjugacy classes.
+\end{enumerate}
+We are able to exlpain the exponents seen in the first two cases. Here is a taste.
+\begin{theorem}
+	If $p$ is a prime in the first case, then
+	\[\nu_p(\#M)=\nu_p(J_1-J_{p^+}).\]
+\end{theorem}
+There is a similar result for the second case and even $p=5$. It remains to work out $p\in\{2,3\}$.
+
+Let's say something about the proof in the first case, other than $11$.
+\begin{itemize}
+	\item Following Duncan and Ono, there is a replicability property which yields
+	\[J_1(\tau)-J_{p^+}(\tau)=\sum_{k=0}^{p-1}J_{p^+}\left(\frac{\tau+k}p\right).\]
+	Then one can give the right-hand side a $q$-expansion.
+	\item Deligne explained how to split up $J_1\vert U_p$ in terms os supersingular $j$-invariants taken$\pmod p$.
+	\item The point then is that one can find some term not divisible by $p$, allowing us one to show something like $J_{p^+}\vert U_p\not\equiv0\pmod p$.
+\end{itemize}
+
+\subsection{Replicable Functions Arising from Towers}
+This talk was given by Stephanie Treneer. Rougly speaking, codes go to lattices go to vertex operator algebras. Each has an associated automorphism group and a counting function (weight enumerator, theta function, and character, respectively).
+\begin{example}
+	By way of motivation, there is a ``moonshine tower'' consisting of the Golay code $\mc G$, which then constructs the Leech lattice $\Lambda_{24}$, which constructs the moonshine vertex operator algebra. And one can track through the automorphism groups and counting functions. For example, the automorphism groups are $M_{24}$ (the Matthieu group), $Co_0$ (the Conway group), and $M$, respectively.
+\end{example}
+For today, we will mostly work with lattices and codes.
+\begin{definition}
+	A \textit{bilinear linear $[n,k]$-code} is a $k$-dimensional subspace $C\subseteq\FF_2^n$; an element is a codeword. We say $C$ is \textit{doubly even} if and only if the weights of all the codewords are divisible by $4$.
+\end{definition}
+For example, there are Hamming codes and a Golay code.
+
+Lattices are as usual. All of our lattices will be even, unimodular, and positive-definite. It turns out that these produces codes and lattices of ranks divisible by $8$. For example, at rank $8$, there is only the lattice $E_8$. For rank $16$, there are two lattices, but there are many more as the rank increases.
+
+Let's take a code $C$ and construct a lattice. Begin with the standard basis $\{\alpha_i\}$ of $\RR^n$ each scaled by $\sqrt2$. Then for each $b\in C$, we define
+\[\alpha_B\coloneqq\sum_{\substack{1\le i\le n\\b_i=1}}\alpha_i.\]
+Then $L(C)$ is the lattice of $\frac12\alpha_B+L'$ where $L'=\ZZ\alpha_1\oplus\cdots\oplus\ZZ\alpha_n$.
+
+To compute some automorphisms, we note that $S_n$ permuts $C$ on the coordinates, and we can ask for automorphisms which preserve $C$. These are put into $\op{Aut}(C)$. It turns out that there is an embedding $\iota\colon\op{Aut}C\to\op{Aut}L(C)$, which is the subset of automorphisms of interest to us. Notably, for each $g\in\op{Aut}L$ coming from a code automorphism, it is fairly easy to explicitly write down the set of fixed points in $L^g$ in terms of some combinatorics of the cycle type of $g\in S_n$. One can work with fixed sublattices like $L^G$ for more general subgroups $G\subseteq\op{Aut}C$.
+
+We are now ready to define our theta functions. Define
+\[\theta_L(z)\coloneqq\sum_{\lambda\in L}q^{\langle\lambda,\lambda\rangle/2}.\]
+Because of the hypotheses on our lattice of rank $n$, we produce a modular form of weight $n/2$. We would like to compute theta functions of fixed sublattices. One expects to recover ``replicable'' functions. For example, it turns out that the functions
+\[T_g(\tau)=\sum_{n\ge-1}\dim V_n^\sharp q^n,\]
+where $V^\sharp$ is the Moonshine vertex operator algebra, satisfy some replication formula
+\[\sum_{ad=n}T_{g^a}\left(\frac{\tau+a}n\right)\]
+being equal to some prescribed polynomial. This motivates the following definition.
+\begin{definition}
+	Write $f(q)=\frac1q+\sum_{m\ge1}a_mq^m$. Then $f$ is \textit{replicable} if and only if
+	\[\sum_{ad=n}f_a\left(\frac{a\tau+b}d\right)\]
+	is some prescribed Faber polynomial.
+\end{definition}
+Previous work took sublattices of the Leech or $E_8$ lattices and found some nice functions.
+
+The main results of the talk find some theta functions built from $L^G$ for subgroups $G\subseteq\op{Aut}C$.
+\begin{theorem}
+	Fix everything above. Then
+	\[\left(\frac{\theta_{L^G}(q)}{\eta_G(q)}\right)^{24/N}\]
+	is a weakly holomorphic modular function.
+\end{theorem}
+For example, one can write out all the computation and find that $19$ of the $65$ conjugacy classes from $E_8$ produce replicable functions. One is also able to find that certain replicable functions appear many times.
+
+\subsection{Rational Torsion Points on Abelian Surfaces with Quaternion Multiplication}
+This talk was given by John Voight. It was in the session on quaternions. For now, quaternions will act by endomorphisms on our abelian surfaces. We are interested in torsion of such abelian surfaces.
+
+Let's recall some facts from elliptic curves. For an elliptic curve $E$ over $\QQ$, we can write $E(\CC)$ has $\CC/\Lambda$ for a lattice $\Lambda$. Its $m$-torsion is then isomorphic to $(\ZZ/m\ZZ)^2$ all defined over $\ov\QQ$. Sometimes an elliptic curve has complex multiplication, which means that there is an ``unexpected'' endomorphism. For example, the equatino $y^2=x^3+1$ has an endomorphism $(x,y)\mapsto(\zeta_3x,y)$. Over $\QQ$, there is a classification of torsion.
+\begin{theorem}[Mazur]
+	An element $p\in E(\QQ)$ of torsion order $\ell$, then $\ell\le7$.
+\end{theorem}
+We are far from a result like Mazur's for general abelian varieties. There are results for complex multiplication which are older. For today, we will turn to quaternionic multiplication, meaning that our abelian surface $A$ over $\QQ$ has $\op{End}(A_{\ov\QQ})_\QQ$ containing a quaternion algebra. For example, one can find explicit genus-$2$ curves with quaternionic multiplication. We note also that there are compact Shimura curves parameterizing these, which motivates us thinking about these things similarly to elliptic curves.
+
+Here is an example theorem.
+\begin{theorem}
+	Suppose $A$ is an absolutely simple abelian surface with potential quaternionic multiplication by a maximal order. Then the torsion of prime order has order $2$ or $3$.
+\end{theorem}
+One can then classify possible torsion groups, though we have some torsion groups where we do not know if they actually exist or not, but for about half of the groups, we have found at least one Shimura curve parameterizing them.
+
+By way of example, let's work with $\ZZ/4\ZZ$. For example, we can work with the family of curves
+\[C_t\colon y^2=x^5+8x^4+tx^3+16x^2-4x.\]
+This family was found by interpolation when building the database. (Namely, they found all these examples for given $t$ and then guessed the result.) Here, the quaternion algebra is given by $B=\op{span}_\QQ\{1,i,j,k\}$ with $i^2=-1$ and $j^2=3$, which has discriminant $6$. Then $\op{Jac}C_t$ has potential quaternionic multiplication by a non-maximal order in $B$. For some special values of $t$, one can find an isogeny $\op{Jac}C_t\to A_t$ of degree $2$, and now $A_t$ has potential quaternionic multiplication by a maxial order of $B$. (However, $A_t$ fails to be principally polarized!) It turns out that $\ZZ/4\ZZ\subseteq A_t(\QQ)_{\mathrm{tors}}$ for all but finitely many $t$.
+
+\subsection{Zeros of Partition-Theoretic Polynomials}
+This talk was given by Larry Rolen. Let's study the partition function $p(n)$. Hardy and Ramanujan proved some asymptotic of the form
+\[p(n)\sim\]
+There are also some Ramanujan congruences such as $p(5n+4)\equiv0\pmod5$, and one can use Tate cycles to show that $\{5,7,11\}$ are the only congruences which look like this. In general, the idea is to put these things in generating functions and see what comes out.
+
+For now, we will be interested in polynomials, which we view as ``finite'' generating functions. Here is an example.
+\begin{definition}
+	For a real sequence $\{a(n)\}_{n\ge0}$, the degree $d$ and shift $n$ Jensen polynomial is
+	\[J_a^{d,n}(X)\coloneqq\sum_{j=0}^da(n+j)\binom djX^j.\]
+\end{definition}
+\begin{definition}[log concave]
+	A sequence $\{a(n)\}_{n\ge0}$ is \textit{log concave} if and only if $a(n)a(n+2)\ge a(n+1)$.
+\end{definition}
+Then one can use these polynomials $J_p^{2,n}$ only having real roots (eventually) to show the following.
+\begin{theorem}[DeSalvo--Pak]
+	The partition function is log concave for $n\ge26$.
+\end{theorem}
+There are other inequalities that one is able to show by showing that eventually $J_p^{d,n}(X)$ has all real roots. This is one of main theorems.
+\begin{theorem}
+	There is $N(d)$ where $J_p^{d,n}(X)$ has real roots for all $n\ge N(d)$.
+\end{theorem}
+It is an observation of Don Zagier that one can relate these functions to Hermite polynomials. The moral is that we gained analytic knowledge of partitions by studying zeroes of some special orthogonal polynomials.
+
+Let's think about congruences next.
+\begin{definition}
+	Define $\op{rank}(\lambda)$ of a partition $\lambda$ is the largest part minus the number of parts. We will let $N(m,n)$ be the number of partitions of $n$ with rank $m$, and we let $N(m,q,n)$ be the number of partitions of $n$ with rank equivalent to $m\pmod q$.
+\end{definition}
+Then one finds a generating function
+\[\sum_{m,n\ge0}N(m,n)\zeta^mq^n,\]
+which turns out to be a mock modular form. Then one can prove something about this generating function, which turns out to come from a polynomial divisibility of the form
+\[\Phi_5(\zeta)\mid\left[q^{5n+4}\right]R(z;\tau).\]
+One may want a bijective proof of this, which suggests the existence of some modular object underneath. We were able to use polynomial techniques to prove these sorts of things as well.
+\begin{remark}
+	Recently, there has been a drive to look at various partition functions and look for patterns in the roots. This was a little fast, so I didn't write these examples out.
+\end{remark}
+
+\subsection{Automorphic Form Twisted Adelic Shintani Functions}
+This talk was given by Eun Hye Lee. Let's define the Shintani zeta function. Fix a commutative ring $R$. Then we may let $V_R$ denote the space of binary cubic forms $ax^3+bx^2y+cxy^2+y^3$, and we note that $\op{GL}_3(R)$ acst by coordinate changes. We note that $V_\RR$ and $V_\CC$ are prehomogeneous spaces when equipped with that action.
+
+Now, define $\widehat V_\ZZ$ to consist of the $f\in V_\ZZ$ with $3\mid b,c$. We are now ready to define the Shintani zeta function
+\[\xi^{\pm}(s)\coloneqq\sum_{x\in\op{SL}_2(\ZZ)\backslash V_\ZZ}\frac1{\left|\op{Stab}(x)\right|}\left|\op{Disc}(x)\right|^{-s}.\]
+Their importance arises because $\xi^{\pm}(s)$ is the generating function for the number of cubic rings. Shintani proved an analytic continuation (as a vector $(\xi^+,\xi^-)$) along with a functional equation; however, there is no Euler product, and it fails any form of the Riemann hypothesis.
+
+Now, for a cusp form $\phi$, we define the twist $\mc L_\pm(s,\phi)$, and one can show something similar for Eisenstein series. Then one has a meromorphic continuation with prescribed poles and functional equation.
+\begin{theorem}
+	The twists $\mc L$ by twists of Hilbert modular forms admit meromorphic continuation with prescribed poles and a functional equation.
+\end{theorem}
+One shows this adelically by finding an integral representation like
+\[Z(\omega,\Phi,\varphi)\coloneqq\int_{\mathrm{GL}_{2,\AA}\backslash\mathrm{GL}_{2,k}}\omega(\det g)\varphi(g)\sum_{x\in V_k'}\Phi(gx)\,dg,\]
+where $\omega$ is a character, $\Phi$ is a Schwarz test function (vanishing on the zero locus of the discriminant), and $\varphi$ is either a cusp form or an Eisenstien series. One then proceeds as in Tate's thesis. The speaker worked out the proof in the slides, but I did not record it.
+
+\end{document}

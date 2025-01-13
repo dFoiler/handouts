@@ -87,3 +87,8 @@
 {"rule":"SENTENCE_WHITESPACE","sentence":"^\\QBetti cohomology Fix a topological space \\E(?:Dummy|Ina|Jimmy-)[0-9]+\\Q and a ring \\E(?:Dummy|Ina|Jimmy-)[0-9]+\\Q.\\E$"}
 {"rule":"UPPERCASE_SENTENCE_START","sentence":"^\\Qcohomology!de Rham cohomology Fix a smooth manifold \\E(?:Dummy|Ina|Jimmy-)[0-9]+\\Q of dimension \\E(?:Dummy|Ina|Jimmy-)[0-9]+\\Q.\\E$"}
 {"rule":"UPPERCASE_SENTENCE_START","sentence":"^\\Qcohomology!etale cohomology@cohomology!étale cohomology Fix a smooth projective variety \\E(?:Dummy|Ina|Jimmy-)[0-9]+\\Q over a field \\E(?:Dummy|Ina|Jimmy-)[0-9]+\\Q.\\E$"}
+{"rule":"UPPERCASE_SENTENCE_START","sentence":"^\\Qquad.\\E$"}
+{"rule":"POSSESSIVE_APOSTROPHE","sentence":"^\\QNamely, given a simple normal crossings compactification \\E(?:Dummy|Ina|Jimmy-)[0-9]+\\Q of \\E(?:Dummy|Ina|Jimmy-)[0-9]+\\Q, then the subspace explains what the boundary looks like.\\E$"}
+{"rule":"UPPERCASE_SENTENCE_START","sentence":"^\\Qmonomial Fix a finite group \\E(?:Dummy|Ina|Jimmy-)[0-9]+\\Q.\\E$"}
+{"rule":"EN_A_VS_AN","sentence":"^\\QOne numerically finds that the modular form we are looking for is 64.3.d.a at least when \\E(?:Dummy|Ina|Jimmy-)[0-9]+\\Q.\\E$"}
+{"rule":"SENTENCE_WHITESPACE","sentence":"^\\QFunctions.\\E$"}
