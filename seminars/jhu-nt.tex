@@ -1,0 +1,70 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+
+\newcommand{\nirpdftitle}{JHU Number Theory Seminar}
+\usepackage{import}
+\inputfrom{../../notes}{nir}
+\usepackage[backend=biber,
+    style=alphabetic,
+    sorting=ynt
+]{biblatex}
+\setcounter{tocdepth}{2}
+
+\pagestyle{contentpage}
+
+\title{Johns Hopkins Number Theory Seminar}
+\author{Nir Elber}
+\date{Spring 2025}
+\usepackage{graphicx}
+
+\begin{document}
+
+\maketitle
+
+\tableofcontents
+
+\section{January 22nd: Friedrich Knop}
+This is joint work with Zhgoon. For a group $G$ with two subgroups $P,H\subseteq G$, we may be interested in the double coset space $P\backslash G/H$. Today, $G$ will be a connected reductive group over a field $K$, which may or may not be algebraically closed. Then $H$ and $P$ will be closed subgroups of $G$.
+\begin{example}
+	Take $G=\op{GL}_n(\CC)$ and $H\subseteq\op O_n(\CC)$ and $P$ to be the upper-triangular matrices. Then $P\backslash G/H$ becomes complete flags together with some data of a quadratic form; it turns out to be classified by involutions in $S_n$, where a $\sigma$ has attached to it the quadratic form $\sum_ix_ix_{\sigma i}$. For example, the orbit corresponding to $x_1^2+x_2^2+x_3^2$ is open.
+\end{example}
+In general, one can see that having finitely many orbits. For example, there is the following result.
+\begin{theorem}
+	Fix $G$ a connected reductive group over an algebraically closed field $K$ with Borel subgroup $B\subseteq G$, and let $H\subseteq G$ be a closed subgroup. Then $B$ has an open orbit in $G/H$ if and only if $\left|B\backslash G/H\right|$ is finite.
+\end{theorem}
+There are examples yielding some level of sharpness for this result. One can ask what is special about the quotient $B\backslash G$, which the following notion helps explain.
+\begin{definition}[complexity]
+	Fix a group $H$ acting on a variety $X$ over an algebraically closed field $K$. Then we define the \textit{complexity} $c(X/H)$ as the transcendence degree of $K(X)^H$; note that this is the dimension of $X/H$ if such a quotient makes sense.
+\end{definition}
+\begin{theorem}[Vinburg]
+	Let $Y\subseteq X$ be a subvariety with an action by $G$. Then $c(Y/B)\le c(X/B)$.
+\end{theorem}
+The moral of the story is that we are able to bound open orbits.
+
+We would like to have such theorems over fields $K$ which may not be algebraically closed, but this requires some modifications. For example, one may not have a Borel subgroup $B$ defined over $K$, so we must work with a minimal parabolic subgroup $P$. For example, we have the following.
+\begin{theorem}
+	Work over the field $\RR$. Then if $P$ has an open orbit in $G/H$, then $\left|P(\RR)\backslash X(\RR)\right|$ is finite, where $X$ refers to the quotient $G/H$.
+\end{theorem}
+However, even this result fails over (say) $\QQ$.
+\begin{example}
+	Consider $G=\mathbb G_{m,\QQ}$ with $H=\mu_2$. Then $X=G/H$ becomes $\mathbb G_m$, but then action is given by the square, so the quotient is the infinite set $\QQ^{\times2}\backslash\QQ^\times$.
+\end{example}
+\begin{remark}
+	This example suggests that we may be able to salvage the theorem over local fields of characteristic $0$.
+\end{remark}
+To fix the result in general, we want to try to work over the algebraic closure.
+\begin{theorem}
+	Work over a perfect field $K$. Let $P\subseteq G$ be a minimal parabolic, and let $X$ be a variety with a $G$-action. Suppose that there is $x\in X(K)$ such that the orbit $Px\subseteq X$ is open. Then the quotient $P(\ov K)\backslash X(K)$ is finite.
+\end{theorem}
+Here, this quotient by $P(\ov K)$ refers to ``geometric'' equivalence classes: two points $x$ and $x'$ are identified if and only if one has $p\in P(\ov K)$ such that $x=px'$. We want the following notion.
+\begin{definition}
+	Let $G$ act on a variety $X$. Then $X$ is \textit{$K$-spherical} if and only if there is a point $x\in X(K)$ such that the orbit by the minimal parabolic is open.
+\end{definition}
+For example, suitably stated (one should assume that $X(K)\subseteq X$ and $Y(K)\subseteq Y$ are dense and that $X$ is normal), one is able to recover the result on complexity. Roughly speaking, the idea is to reduce to the case where $G$ has rank $1$. There are two cases for this reduction.
+\begin{itemize}
+	\item Previous work explains how to achieve the result when $GY=Y$.
+	\item If $GY$ strictly contains $Y$, then we pass to a quotient by a parabolic subgroup corresponding to some simple root.
+\end{itemize}
+We are now in the rank $1$ case. If $K=\ov K$, then it turns out that one may merely work with $G=\op{SL}_2$; then one actually directly classify closed subgroups to produce the result. With $K=\RR$, a similar idea works, but the casework at the end is harder. However, no such classification is available for general $K$. Instead, for general $K$, we develop some structure theory of these sorts of spherical varieties.
+
+\end{document}
