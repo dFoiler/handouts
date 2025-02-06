@@ -67,4 +67,174 @@ For example, suitably stated (one should assume that $X(K)\subseteq X$ and $Y(K)
 \end{itemize}
 We are now in the rank $1$ case. If $K=\ov K$, then it turns out that one may merely work with $G=\op{SL}_2$; then one actually directly classify closed subgroups to produce the result. With $K=\RR$, a similar idea works, but the casework at the end is harder. However, no such classification is available for general $K$. Instead, for general $K$, we develop some structure theory of these sorts of spherical varieties.
 
+\section{January 24: Milton Lin}
+Today, we are talking about period sheaves in mixed characteristics. The references are to relative Langlands duality and the geometrization of the local Langlands conjectures. In relative Langlands duality, they stated a duality of pairs of spaces $(X,G)$ and $(\check X,\check G)$. Today, we will be interested in the ``Iwasawa--Tate'' case, which is the pair $(\mathbb A^1,\mathbb G_m)$, where the dual is itself. In particular, we will study the period duality.
+
+Today, $\Lambda$ will be one of the coefficient rings $\{\FF_\ell,\ZZ_\ell,\QQ_\ell,\ov\QQ_\ell\}$, and $E$ is a $p$-adic field. Here is our main reesult.
+\begin{proposition}
+	There is a map of $v$-stacks $\pi\colon\mathrm{Bun}_G^X\to\mathrm{Bun}_G$.
+\end{proposition}
+Intuitively, a $v$-stack is some kind of geometric object.
+\begin{definition}
+	We call $\mc P_X\coloneqq\pi_!\Lambda$ the \textit{period sheaf}.
+\end{definition}
+\begin{remark}
+	These objects all exist in the equal characteristic case. Roughly speaking, $\mc P_X$ categorifies period functionals.
+\end{remark}
+\begin{remark}
+	Conjecturally, one can go down to local systems and define a map $\mathrm{Loc}_{\check G}^{\check X}\to\mathrm{Loc}_{\check G}$. This allows us to define an $L$-sheaf by $\mc L_{\check X}\coloneqq\pi_*\omega_{\widehat X}$, which is supposed to categorify $L$-functions. One expects $\mc L_{\check X}$ and $\mc P_X$ to correspond to each other in the case of $\mathbb G_m$, where the result is a known case of the local geometric Langlands conjecture due to Zou.
+\end{remark}
+We would like to recover the correspondence between $\mc P_X$ and $\mc L_{\check X}$ in our mixed characteristic setting.
+
+Let's review some background on $\mathrm{Bun}_G$ before continuing. We let $\mathrm{Pftd}_{\FF_q}$ be the category of perfectoid spaces over $\FF_q$. These spaces are glued together from ``affines'' $\op{Spa}(R,R^+)$ where $(R,R^+)$ is a perfectoid ring: $R$ is some topological ring, and $R^+\subseteq R$ is a subring of the bounded elements (and equality will hold in our cases of interest).
+\begin{example}
+	The prototypical examples in positive characteristic look like $\FF_p((t))$ embedded in a completion of $\FF_p((t^{1/p^\infty}))$.
+\end{example}
+\begin{example}
+	The prototypical examples in mixed characteristic look like $\QQ_p$ embedded in a completion of $\QQ_p(\mu_{p^\infty})$.
+\end{example}
+\begin{definition}[Fague--Fontaine curve]
+	Fix a perfectoid ring $(R,R^+)$. Set $E\coloneqq\QQ_p$ and $S\coloneqq\op{Spa}(R,R^+)$. Then we define
+	\[\mathbb D_S\coloneqq\op{Spa}\left(W(R^+)\otimes_{W(\FF_p)}\OO_E\right).\]
+	Morally, we have base-changed a disk to our desired coefficients. We also define the punctured disk $\mathbb D_S^\times$ as removing the vanishing set of $\pi[\varpi]$, where $\pi\in E$ is a uniformizer and $\varpi$ is a topologically nilpotent unit. (Here, $[\varpi]$ refers to the Teichmuler lift from $R$ to $W(R)$.) Lastly, we define the Fague--Fontaine curve
+	\[\Sigma_{S,E}\coloneqq\mathbb D_S^\times/\varphi^\ZZ,\]
+	where $\varphi$ is the Frobenius on $W(R^+)$.
+\end{definition}
+\begin{remark}
+	Morally, the point of $\mathbb D_S^\times$ is that we are trying to replicate some object like $\Spec\ZZ\times_{\FF_1}\Spec\ZZ$: the point is that we want a second parameter in $(R,R^+)$ to keep track of the distance between our points in the mixed characteristic situation.
+\end{remark}
+\begin{definition}
+	We define $\mathrm{Bun}_G$ as the functor $\mathrm{Pftd}_{\FF_q}$ to anima (here, anima is approximately speaking topological spaces) sending a perfectoid space $S$ to $G$-torsors on $\Sigma_{S,E}$. This is a $v$-stack, meaning that it satisfies some kind of descent for the $v$-topology.
+\end{definition}
+\begin{example}
+	For $G=\mathbb G_m$, there is an explicit description in terms of quotients $[*/E^\times]$. This allows a computation of $D(\mathrm{Bun}_{\mathbb G_m},\Lambda)$.
+\end{example}
+
+\section{January 31st: Milton Lin}
+Let's begin with some motivation today. Fix a reductive group $G$ defined over a number field $F$. An automorphic form on $G$ is some sort of smooth function $f$ on the automorphic quotient $[G]=G(F)\backslash G(\AA_F)$. Given a $G$-variety $X$, one finds many interesting period functionals $\Theta_X$, and then the canonical pairings $\langle\Theta_X(\varphi),f\rangle$.
+
+Let's be a bit more explicit about where this functional $\Theta_X$ arises from. Roughly speaking, one defines a Schwartz space $\mc S(X(\AA_F))$ and then
+\[\Theta_X(\varphi)\coloneqq\sum_{\gamma\in X(F)}\gamma\varphi,\]
+where $\varphi\in\mc S(X(\AA_F))$. The point is that choosing $\Theta_X$, $\varphi$, and $f$ carefully recovers some special values.
+
+Let's be a bit more explicit. Throughout, $G=\mathbb G_m$ and $X=\AA^1$.
+\begin{example}
+	We work over a number field $F$. Then we know how to define $\mc S(\AA_F)$ as
+	\[\mc S(\AA_F)=\bigoplus_{v\in V(F)}(\mc S(F_v),1_{\OO_v}),\]
+	where this refers to a restricted tensor product. Our special vector $\varphi\in\mc S(\AA_F)$ will be the self-dual one from Tate's thesis: define $\varphi_v$ by
+	\[\varphi_v\coloneqq\begin{cases}
+		1_{\OO_v} & \text{if }v<\infty, \\
+		e^{-\pi\left|x\right|^2} & \text{if }v\mid\infty.
+	\end{cases}\]
+	Next, we note that automorphic forms on $\mathbb G_m$ are simply Hecke characters $\chi$, and it turns out that $\langle\Theta_X(\varphi),\chi\rangle$ recovers the special value $L(\chi,0)$ of the Hecke $L$-function $L(s,\chi)$.
+\end{example}
+\begin{example}
+	We work over a function field $F=\FF_q(\Sigma)$, where $\Sigma$ is a smooth projective curve over a finite field $\FF_q$. Then all places $v\in V(F)$ are finite already, so we should define $\varphi$ as $\prod_v1_{X(\OO_v)}$. But now we note that $\varphi$ is notably $\OO_v^\times$-invariant for each place $v$, so $\Theta_X(\varphi)$ will descend to the double quotient
+	\[G(F)\backslash G(\AA_F)/G(\OO_F),\]
+	which has a geometric meaning as $\op{Bun}_G(\FF_q)$. In particular, it turns out that $\Theta_X(\varphi)$ is realized as some trace of a constant sheaf on a moduli space $\op{Bun}_G^X(\FF_q)$ of $G$-bundles together with a section from the associated $X$-bundle. In fact, one can compute that this sends a $G$-bundle $\mc L$ (which is a line bundle!) to $\#H^0(\Sigma,\mc L)$.
+\end{example}
+Let's now return to the setting from last week. Let $E$ be a nonarchimedean local field, and let $\Lambda$ be the coefficient ring $\FF_\ell$. Last time we described a stratification
+\[\mathrm{Bun}_G=\bigsqcup_{d\in\ZZ}[\mathrm{pt}/E^\times],\]
+and we label each piece by $\mathrm{Bun}_G^d$. It is interesting, from the perspective of these sheaves, to understand $\mc P_X\coloneqq\pi_!\underline\Lambda_X$. For example, last time we explained
+\[\mc P_{X,d}=\begin{cases}
+	\Lambda_{\mathrm{norm}}[-2d] & \text{if }d>0, \\
+	\Lambda_c(E) & \text{if }d=0, \\
+	\Lambda_{\mathrm{triv}} & \text{if }d<0,
+\end{cases}\]
+where these are all elements of the derived category $D^{\mathrm{sm}}(E^\times,\Lambda)$ of smooth representations of $E^\times$ over $\Lambda$. Remarkably, we see that $d=0$ recovers our functions on $E$, which is seen in Tate's thesis.
+
+This study of periods is all ``motivic'' in some sense. On the spectral/automorphic side, one has a dual version $\mathrm{Bun}_G^X\to\mathrm{Bun}_G$ named
+\[\pi\colon\mathrm{Loc}_{\check G}^{\check X}\to\mathrm{Loc}_{\check G},\]
+which are intended to categorify $L$-functions; however, these objects are not available in mixed characteristic.
+
+Let's begin by discussing $\mathrm{Loc}_{\check G}$, which is available. Intuitively, we are looking for ``local systems with $G$-action,'' which amounts to a group homomorphism from a fundamental group to $G$. One usually begins by defining a moduli stack of $1$-cocycles named $\mc Z^1(\omega_E,\check G)$, and then $\mathrm{Loc}_{\check G}$ is the quotient of this by the adjoint action from $\check G$. So we now want to define $\mc Z^1(\omega_E,\check G)$, which as a functor of points takes a commutative $\ZZ_\ell$-algebra $A$ to
+\[\op{Hom}_{\mathrm{cts}}(W_E,\check G(A)),\]
+where $W_E$ is the Weil group. Here, $W_E$ is to be understood as a stand-in for the fundamental group of the Fargues--Fontaine curve.
+\begin{example}
+	With $G=\mathbb G_m$, the fact that $G$ is abelian yields
+	\[\mc Z^1(W,\check G)/\check G=\op{Hom}_{\mathrm{cts}}(W_E,\check G)\times B\check G.\]
+\end{example}
+We now expand our coefficients to $\Lambda=\ov\QQ_\ell$. It turns out that
+\[D(\mathrm{Bun}_G,\Lambda)\cong\mathrm{QCoh}(\mathrm{Loc}_{\check G}),\]
+which is some sort of categorical version of the local Langlands correspondence. The left-hand side is understood to decompose geometrically, and the right-hand side (due to the $B\check G$) is seen to decompose similarly. Namely, one computes both sides as
+\[\prod_{d\in\ZZ}D^{\mathrm{sm}}(E^\times,\Lambda)\cong\prod_{d\in\ZZ}\mathrm{QCoh}(\mathrm{Hom}_{\mathrm{cts}}(W_E,\check G)),\]
+and the two decompositions roughly align (up to a sign). In short, one uses the Hecke again to reduce to $d=0$. Roughly speaking, this comes from class field theory, though to be formal, one should reduce everything to a ``finite level'' by taking quotients by a chosen compact open subgroup $K\subseteq E^\times$, which is legal because our representations are smooth.
+
+The moral of the story is that we can move our period sheaf $\mc P_X$ from the left to the right. In particular, the proof of the previous paragraph even provides an explicit formula how to do this. For example, on the $0$th component, we are interested in what quasicoherent sheaf corresponds to $\op{ind}_1^{E^\times}\Lambda=\Lambda_c(E^\times)$. In particular, we find that we get
+\[\colimit_{K\subseteq E^\times}\Lambda_c(E^\times)_K,\]
+where $(-)_K$ denotes the coinvariants. Eventually one computes that we get $\Lambda[E^\times/K]$ at finite level, which becomes the structure sheaf of $\mathrm{Hom}(W_E,\check G)$ after the colimit. In total, one finds that
+\[\mathrm{Loc}_{\check G}^d=\begin{cases}
+	i_{\mathrm{cyc}*}\Lambda[2d] & \text{if }d>0, \\
+	? & \text{if }d=0, \\
+	i_{\mathrm{triv}*}\Lambda & \text{if }d<0.
+\end{cases}\]
+To guess the last entry $?$, one uses the short exact sequence
+\[0\to\Lambda_c(E^\times)\to\Lambda_c(E)\to\Lambda\to0,\]
+where the right-hand map is given by evaluation at $0$, so one can dualize the short exact sequence.
+
+\section{February 5: Ryan Chen}
+Today we are talking about near-center derivatives and arithmetic $1$-cycles. Recall that one can normalize the weight-$2$ Eisenstein series to have a Fourier expansion
+\[E_2^*(z)=\frac1{8\pi y}+\frac{\zeta(-1)}2+\sum_{t>0}\sigma_1(t)q^t,\]
+where $q\coloneqq e^{2\pi iz}$ as usual. We claim that all terms except for the $\frac1{8\pi y}$ admit geometric meanings.
+\begin{itemize}
+	\item The value $\zeta(-1)/2$ is the volume of the modular curve $Y(1)$, where the measure is given by the pushforward of the Hodge module $\Omega^1$ along the universal elliptic curve $\pi\colon\mc E\onto Y(1)$. Explicitly, one finds that this volume form is $-\frac1{4\pi^2}dx\land dy$.
+	\item The values $\sigma_1(t)$ are degrees of some Hecke correspondences $\op{Hk}(t)$ over $Y(1)$. Imprecisely, $\op{Hk}(t)$ parameterizes degree-$t$ isogenies.
+\end{itemize}
+Let's do this for other Shimura varieties. Let's define $\op{SL}_2$-Eisenstein series. Here, $F/\QQ$ is an imaginary quadratic field with discriminant $\Delta$, and we assume $2$ splits for technical reasons. Then our $\op{SL}_2$ is given the real form $\op{SU}(1,1)$, and it acts on the upper-half plane $\mc H$ as usual. Of course, there are higher-dimensional versions of this. Let $P\subseteq\op{SU}(1,1)$ be the Siegel parabolic of upper-triangular matrices, and for even positive weight, we have
+\[E_n(z,s)\coloneqq\sum_{\begin{bsmallmatrix}
+	a & b \\ c & d
+\end{bsmallmatrix}\in P(\ZZ)\backslash\op{SU}(1,1)(\ZZ)}\frac{(\det y)^s}{\det(cz+d)^n\left|\det(cz+d)\right|^{2s}}.\]
+Sometimes, one shifts $s$ by $s_0=\frac12(n-m)$ to make the functional equation look nicer.
+
+It again turns out that $E_2^*(z,s)$ can be written out as a constant plus some Fourier coef\-fi\-cients of the form $E^*_2(y,s)(t)q^t$. Roughly speaking, this Euler product $E^*_2(y,s)$ reaks into archimedean and nonarchimedean parts
+\[W^*_{t,\infty}(y,s)\prod_pW^*_{t,p}(s).\]
+The archimedean part is something coming from hypergeometric functions, and the nonarchimedean part basically multiplies to something involving divisor functions as $\left|t\right|^{s+1/2}\sigma_{-2s}(\left|t\right|)$ (after shifting $s$).
+
+We are now ready to state a corollary of the main theorem.
+\begin{corollary}
+	One has
+	\[\frac12\frac d{ds}\bigg|_{s=1/2}\prod_pW_{t,p}^*(s)=\sum_{\substack{\varphi\colon E\to E_0\\\deg\varphi=t}}(h_{\mathrm{Fal}}(E)-h_{\mathrm{Fal}}(E_0)),\]
+	where $E_0$ is a fixed elliptic curve with CM by $\OO_F$ for some imaginary quadratic field $F/\QQ$ in which $2$ is split, and $h_{\mathrm{Fal}}$ is the Faltings height.
+\end{corollary}
+Notably, the right-hand expression depends on $F$, but the left-hand side does not! We remark that one can give geometric meaning to the entire expression $E_2^*(y,s)(t)$ as coming from some cycle.
+\begin{remark}
+	Let's recall something about the Faltings height. Let $\widetilde E$ be an elliptic scheme over $\OO_K$; we are only interested in the CM case, so we may as well assume that $\widetilde E$ has good reduction everywhere. We also assume that $\Gamma(\widetilde E,\Omega^1)$ is free over $\OO_K$ gnerated by some $\alpha$. Then
+	\[h_{\mathrm{Fal}}(E)=-\frac12\frac1{[K:\QQ]}\sum_{\sigma\colon K\into\CC}\log\left|\frac1{2\pi}\int_{E_\sigma(\CC)}\alpha\land\ov\alpha\right|.\]
+\end{remark}
+\begin{remark}
+	This complex volume on the right-hand side can also be seen as a volume of the arithmetic curve $\widetilde E$ over $Y(1)_{\OO_K}$. We remark that one can approximate this ``arithmetic volume'' by intersecting $\widetilde E$ with Hecke translates of a given curve. Some version of equidistribution of Hecke orbits is then able to let us compute a volume! This is a key idea in the proof.
+\end{remark}
+Let's move to a higher-dimensional case. Simply upgrade the group $\op{SU}(1,1)$ to $\op{SU}(m,m)$ everywhere, and we are able to define our Eisenstein series. Then it turns out that one has a Fourier expansion
+\[E_n(z,s)=\sum_{T\in\mathrm{Herm}_m(F)}E_n(y,s)(T)\cdot q^T,\]
+where $\mathrm{Herm}_m(F)$ refers to the Hermitian $m\times m$ matrices with entries in $F$. We let $\widetilde E(z,s)$ denote some suitable normalization, mostly multiplying in some $\pi$s, a discriminant, some gamma factors, and some $L$-function of a quadratic character.
+
+Our main theorem is some version of the Siegel--Weil formula. Here is the classical result, which tells us that special values of Eisenstein series know about counting lattice points.
+\begin{theorem}[Seigel--Weil]
+	Choose an integer $n$ divisible by $4$. Then with $m=1$,
+	\[\widetilde E(y,s)(T)=\sum_{\Lambda}\frac{\#\{x\in\Lambda:(x,x)=T\}}{\#\op{Aut}\Lambda},\]
+	where $\Lambda$ varies over Hermitian $\OO_F$-lattices which are positive-definite, self-dual (with respect to the trace pairing over $\ZZ$), and rank $n$.
+\end{theorem}
+\begin{remark}
+	There is also a straightforwardly stated generalization to higher $m$. One basically replaces $x\in\Lambda$ with a tuple $\underline x\in\Lambda^m$ and replaces the norm condition with a condition on the Gram matrix $(\underline x,\underline x)$.
+\end{remark}
+\begin{remark}
+	The set of vector spaces $\Lambda\otimes_\ZZ\QQ$ is a Shimura variety of unitary type.
+\end{remark}
+To make this result more geometric, we replace all these lattices by abelian varieties. We pick up a few definitions.
+\begin{definition}[Hermitian abelian scheme]
+	A \textit{Hermitian abelian scheme} over a base $S$ is a triple $(A,\iota,\lambda)$, where $A$ is an abelian scheme over $S$, $\iota\colon\OO_F\to\op{End}A$ is an embedding, $\lambda\colon A\to A^\lor$ is a polarization, along with some compatibility conditions. For example, complex conjugation should correspond to the Rosati involution.
+\end{definition}
+\begin{definition}[Kottwitz signature]
+	Fix a Hermitian abelian scheme $(A,\iota,\lambda)$ over $S$, where $S$ is a scheme over $\OO_F$. Then the \textit{Kottwitz signature} is a pair $(n-r,r)$ of integers such that any $\alpha\in\OO_F$ has its characteristic polynomial of $\iota(\alpha)$ acting on $\op{Lie}A$ taking the form
+	\[(X-a)^{n-r}(X-\sigma a)^r.\]
+\end{definition}
+Now, to state our more geometric Siegel--Weil formula, we count points in a lattice $\mc L=\op{Hom}(E_0,A)$, where $E_0$ is a fixed CM elliptic curve, which we go ahead and equip with its canonical principal polarization. Roughly speaking, the norm $(x,x)$ comes from a ``Rosati involution'' (arising from the ambient polarizations) and is defined as $x^\intercal\circ x$. Lastly, the self-duality condition corresponds to having $\ker\lambda$ equaling the kernel of the different ideal acting on $A$, and it is included for some technical conditions.
+
+At the end of this story, we have defined a subfunctor $\mc Z$ of $\mc L^m$, and it is called the Kudla--Rapoport special cycle. This is some $0$-dimensional cycle.
+\begin{remark}
+	Prior work computed an arithmetic degree of $\mc Z(T)$ as
+	\[\frac{\#\op{Cl}\OO_F}{\#\OO_F^\times}\frac d{ds}\bigg|_{s=0}E(y,s)(T).\]
+	The main theorem roughly tells the same story for an analogously defined $1$-cycle, proving a case of the Kudla's program.
+\end{remark}
+
 \end{document}

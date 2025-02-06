@@ -92,3 +92,6 @@
 {"rule":"UPPERCASE_SENTENCE_START","sentence":"^\\Qmonomial Fix a finite group \\E(?:Dummy|Ina|Jimmy-)[0-9]+\\Q.\\E$"}
 {"rule":"EN_A_VS_AN","sentence":"^\\QOne numerically finds that the modular form we are looking for is 64.3.d.a at least when \\E(?:Dummy|Ina|Jimmy-)[0-9]+\\Q.\\E$"}
 {"rule":"SENTENCE_WHITESPACE","sentence":"^\\QFunctions.\\E$"}
+{"rule":"IF_IS","sentence":"^\\QOur special vector \\E(?:Dummy|Ina|Jimmy-)[0-9]+\\Q will be the self-dual one from Tate's thesis: define \\E(?:Dummy|Ina|Jimmy-)[0-9]+\\Q by \\E(?:Dummy|Ina|Jimmy-)[0-9]+\\Q if \\E(?:Dummy|Ina|Jimmy-)[0-9]+\\Q if \\E(?:Dummy|Ina|Jimmy-)[0-9]+\\Q.\\E$"}
+{"rule":"IF_IS","sentence":"^\\QFor example, last time we explained \\E(?:Dummy|Ina|Jimmy-)[0-9]+\\Q if \\E(?:Dummy|Ina|Jimmy-)[0-9]+\\Q if \\E(?:Dummy|Ina|Jimmy-)[0-9]+\\Q if \\E(?:Dummy|Ina|Jimmy-)[0-9]+\\Q, where these are all elements of the derived category \\E(?:Dummy|Ina|Jimmy-)[0-9]+\\Q of smooth representations of \\E(?:Dummy|Ina|Jimmy-)[0-9]+\\Q over \\E(?:Dummy|Ina|Jimmy-)[0-9]+\\Q.\\E$"}
+{"rule":"IF_IS","sentence":"^\\QIn total, one finds that \\E(?:Dummy|Ina|Jimmy-)[0-9]+\\Q if \\E(?:Dummy|Ina|Jimmy-)[0-9]+\\Q if \\E(?:Dummy|Ina|Jimmy-)[0-9]+\\Q if \\E(?:Dummy|Ina|Jimmy-)[0-9]+\\Q.\\E$"}
