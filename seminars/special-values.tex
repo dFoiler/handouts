@@ -1,0 +1,121 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+
+\newcommand{\nirpdftitle}{Special Values Seminar}
+\usepackage{import}
+\inputfrom{../../notes}{nir}
+\usepackage[backend=biber,
+    style=alphabetic,
+    sorting=ynt
+]{biblatex}
+\setcounter{tocdepth}{2}
+
+\pagestyle{contentpage}
+
+\title{Special Values}
+\author{Nir Elber}
+\date{Spring 2025}
+\usepackage{graphicx}
+
+\begin{document}
+
+\maketitle
+
+\tableofcontents
+
+\section{Special Values of Dirichlet \texorpdfstring{$L$}{L}-Functions}
+This talk was given by Rui. Roughly speaking, the style of these sorts of special values results is that someone observes some equalities, then one works out examples, we make a general conjecture, and eventually it is proven.
+
+\subsection{Some Examples}
+Let's begin by discussing the simplest $L$-function: the Riemann $\zeta$-function.
+\begin{definition}
+	The \textit{Riemann $\zeta$-function} $\zeta$ is defined by the series
+	\[\zeta(s)\coloneqq\sum_{n=1}^\infty\frac1{n^s}\]
+	for $s\in\CC$ such that $\Re s>1$.
+\end{definition}
+\begin{example}
+	Here is what is known about some small special values. Euler showed that $\zeta(s)=\frac{\pi^2}6$, and Ap\'ery showed that $\zeta(3)$ is irrational.
+\end{example}
+\begin{remark}
+	In general, there is a conjecture that the values $\{\pi,\zeta(3),\zeta(5),\ldots\}$ forms an algebrically independent set. Roughly speaking, this is expected by the Grothendieck period conjecture.
+\end{remark}
+Today, we will be happy working in only slightly larger generality, with Dirichlet $L$-functions.
+\begin{definition}[Dirichlet character]
+	Fix a positive integer $N$. Then a \textit{Dirichlet character$\pmod N$} is a character $\eta\colon(\ZZ/N\ZZ)^\times\to\CC^\times$. The Dirichlet character $\eta$ is \textit{primitive} if and only if it does not factor through $(\ZZ/D\ZZ)^\times$ for any divisor $D\mid N$. Further, we say that $\eta$ is even (respectively, odd) if and only if $\eta(-1)=1$ (respectively, $\eta(-1)=-1$).
+\end{definition}
+\begin{definition}[Dirichlet $L$-function]
+	Given a Dirichlet character $\eta\pmod N$, we define the \textit{Dirichlet $L$-function} $L(\eta,s)$ by
+	\[L(\eta,s)\coloneqq\sum_{n=1}^\infty\frac{\eta(n)}{n^s},\]
+	where implicitly $\eta(n)=0$ whenver $\gcd(n,N)>1$.
+\end{definition}
+\begin{example}
+	Let $\eta\colon(\ZZ/2\ZZ)^\times\to\CC^\times$ be the nontrivial character. Then $L(\eta,1)=\frac\pi4$.
+\end{example}
+\begin{example}
+	Let $\eta\colon(\ZZ/8\ZZ)^\times\to\CC^\times$ be the character defined by $\eta(3)=\eta(5)=-1$. This can be proven via a trick. Consider the power series
+	\[f(x)\coloneqq x-\frac13x-\frac15x^5+\frac17x^7+\cdots,\]
+	from which one finds $f'(x)=1-x^2-x^4+x^6+\cdots=\frac{1-x^2-x^4+x^6}{1-x^8}$. Then one can integrate $f'(x)$ to get
+	\[f(x)=\frac{\sqrt2}4\log\left|\frac{x^2+\sqrt 2x+1}{x^2-\sqrt x+1}\right|.\]
+	It follows that $L(\eta,1)=\frac{\sqrt2}2\log\left(\sqrt2+1\right)$.
+\end{example}
+The previous example is an example of the class number formula, and right now it looks like a miracle. To give a taste for what is remarkable here, we note that $1+\sqrt2\in\ZZ[\sqrt2]^\times$ is a fundamental unit. As such, we expect some interesting arithmetic to be going on.
+
+Here is a more general result.
+\begin{theorem} \label{thm:baby-quadratic-class-number-formula}
+	Suppose $\eta\pmod N$ is a primitive nontrivial Dirichlet character.
+	\begin{listalph}
+		\item If $\eta$ is even, then for any positive integer $m$, we have
+		\[L(\eta,2m)\equiv\pi^{2m}\pmod{\ov\QQ^\times}.\]
+		\item If $\eta$ is odd, then for any positive integer $m$, we have
+		\[L(\eta,2m-1)\equiv\pi^{2m-1}\pmod{\ov\QQ^\times}.\]
+	\end{listalph}
+\end{theorem}
+The above is an instance of Deligne's conjecture.
+
+For another general result, we note that an even primitive quadratic character $\eta\colon(\ZZ/N\ZZ)^\times\to\{\pm1\}$ has kernel which is an index-$2$ subgroup of $(\ZZ/N\ZZ)^\times\cong\op{Gal}(\QQ(\zeta_N)/\QQ)$, so it corresponds to a quadratic extension $F$ of $\QQ$. In fact, the fact that $\eta$ is even tells us that complex conjugation fixes $F$, so $F$ is totally real. It then turns out that
+\[L(\eta,1)\equiv\sqrt{\op{disc}\OO_F}\cdot\log\left|u_F\right|\pmod{\QQ^\times},\]
+where $u_F$ is a fundamental unit of $\OO_F$. This also comes from the class number formula, and it is an instance of Beilinson's conjecture.
+
+\subsection{Funtional Equations}
+As usual, to write down a suitable functional equation for our $L$-functions, we must add some archimedean factors.
+\begin{definition}[completed Dirichlet $L$-function]
+	Let $\eta\colon(\ZZ/N\ZZ)^\times\to\CC^\times$ be a primitive Dirichlet character. Then we define $d\in\{0,1\}$ by $\eta(-1)=(-1)^d$ and then
+	\[L_\infty(\eta,s)\coloneqq\pi^{-\frac{s+\delta}2}\Gamma\left(\frac{s+\delta}2\right).\]
+	Then the \textit{completed Dirichlet $L$-function} is $\Lambda(\eta,s)\coloneqq L_\infty(\eta,s)L(\eta,s)$.
+\end{definition}
+\begin{remark}
+	Recall that $\Gamma(s)$ is defined by
+	\[\Gamma(s)\coloneqq\int_0^\infty e^{-t}t^s\,\frac{dt}t\]
+	for $s$ such that $\Re s>0$. One also knows that $\Gamma(s)$ admits a meromorphic continuation with understood poles, and it has a functional equation $\Gamma(s+1)=s\Gamma(s)$.
+\end{remark}
+And here is our functional equation.
+\begin{theorem} \label{thm:dirichlet-functional-equation}
+	Let $\eta\colon(\ZZ/N\ZZ)^\times\to\CC^\times$ be a primitive Dirichlet character. Then $L(\eta,s)$ admits a meromorphic continuation (with poles only at $s\in\{0,1\}$ only when $\eta$ is trivial) to all $\CC$ and satisfies a functional equation
+	\[\Lambda(\eta,s)=\varepsilon(\eta,s)\Lambda\left(\eta^{-1},1-s\right),\]
+	where $\varepsilon(\eta,s)$ is some appropriately normalized Gauss sum.
+\end{theorem}
+We will not prove this today (it is mildly technical). Instead, we will use it to show a partial version of \Cref{thm:baby-quadratic-class-number-formula}. With that said, we will need to do something in the direction of a meromorphic continuation because we will try to understand negative integer values of $L(\eta,s)$.
+
+By expanding out the series, we see that
+\[\Gamma(s)L(\eta,s)=\int_0^\infty\sum_{\substack{n\ge1\\\gcd(n,N)=1}}\eta(n)e^{-nt}t^s\,\frac{dt}t=\int_0^\infty\frac1{1-e^{-Nt}}\sum_{n=0}^{N_1}\eta(n)e^{-nt}\,\frac{dt}t.\]
+One now plugs into the general machine that produces analytic continuation and functional equations.
+
+\begin{lemma}
+	Choose a smooth Schwarz function $f\colon\RR_{\ge0}\to\RR$. Then
+	\[L(f,s)\coloneqq\frac1{\Gamma(s)}\int_0^\infty f(t)t^{s}\,\frac{dt}t\]
+	has an analytic continuation to all $\CC$ and satisfies $L(f,-n)=(-1)^nf^{(n)}(0)$ for all $n\ge0$.
+\end{lemma}
+\begin{proof}
+	To control singularities, we let $\varphi\colon\RR_{\ge0}\to\RR$ be a smooth bump function satisfying $\varphi|_{[0,1]}=1$ and $\varphi_{[2,\infty)}=0$. Thus, if we expand $f=f_1+f_2$ with $f_1=\varphi f$ and $f_2=(1-\varphi)f$, we see that
+	\[\int_0^\infty f_2(t)t^s\,\frac{dt}t=\int_1^\infty f_2(t)t^s\,\frac{dt}t,\]
+	and the rapid decay of $f$ grants this term an analytic continuation to all $\CC$, and it even satisfies
+	\[L(f_2,-n)=\left(\frac1{\Gamma(-s)}\int_1^\infty f_2(t)t^s\,\frac{dt}t\right)\Bigg|_{s=-n}=0.\]
+	Thus, we are allowed to ignore $f_2$ piece. For the $f_1$ part, we inductively integrate by parts. For example, our first integration by parts produces
+	\[L(f,s)=\underbrace{\frac1{\Gamma(s)}f_1(t)\frac{t^s}s\bigg|_0^\infty}_0-\frac1{s\Gamma(s)}\int_0^\infty f(t)t\cdot t^s\,\frac{dt}t=-L(f_1',s+1).\]
+	Thus, we have moved out $s$ to $s+1$, and we can iteratively produce the needed continuation from the argument above. The result on the special value follows from a computation.
+\end{proof}
+One can now use the lemma to see that
+\[L(\eta,-n)\in\QQ(\eta).\]
+Then one can use the functional equation \Cref{thm:dirichlet-functional-equation} to prove \Cref{thm:baby-quadratic-class-number-formula} after tracking everything through. I apologize, but I chose not to write down the details.
+
+\end{document}
