@@ -1,0 +1,506 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+
+\newcommand{\nirpdftitle}{JHUnior 2025}
+\usepackage{import}
+\inputfrom{../../notes}{nir}
+% \usepackage[backend=biber,
+%     style=alphabetic,
+%     sorting=ynt
+% ]{biblatex}
+% \addbibresource{bib.bib}
+\setcounter{tocdepth}{2}
+
+\pagestyle{contentpage}
+
+\title{JHUnior Number Theory Day}
+\author{Nir Elber}
+\date{February 2025}
+\usepackage{graphicx}
+\lhead{}
+\rhead{\textit{JHUNIOR NT DAY}}
+
+\begin{document}
+
+\maketitle
+
+\tableofcontents
+
+\section{Niven Achenjang}
+This speaker is a student of Bjorn Poonen. We are talking about integral points on varieties with infinite \'etale fundamental group. This is joint work with Jackson Morrow.
+
+We are interested in when some scheme $S$ over a number ring has finitely many integral points. For today, $K$ is a number field, and $S$ is a finite subset of its places including the infinite ones. We let $\OO_{K,S}$ denote the ring of $S$-integers. We let $X$ be a smooth projective $K$-variety, and we choose a normal crossings divisor $D\subseteq X$ so that we will be interested in integral points on $U\coloneqq X\setminus D$.
+\begin{example}
+	Choose $X=\mathbb P^1$.
+	\begin{itemize}
+		\item Then $\PP^1(\ZZ)=\PP^1(\QQ)=\QQ\cup\{\infty\}$ is infinite.
+		\item If we remove the divisor $D=\{\infty\}$, then we are left with $\AA^1(\ZZ)=\ZZ$.
+		\item If we remove two points $\{0,\infty\}$, then we are left with $\mathbb G_m(\ZZ)=\ZZ^\times=\{\pm1\}$. This is finite, but it becomes infinite upon passing to a larger number field or the ring of $S$-integers.
+		\item If we remove three points $\{0,1,\infty\}$, then the $\OO_{K,S}$-points are given by the $S$-unit equation $\{(u,v):u+v=1\}$, and it is a theorem of Siegel that this set is finite.
+	\end{itemize}
+\end{example}
+The slogan is that finiteness of integral points is easiest to prove when the divisor $D$ is large and has many components. We would like to achieve finiteness for irreducible $D$.
+
+Let's try to understand the slogan and maybe why we would expect our goal to be achievable.
+\begin{definition}
+	Call a subset $\Sigma\subseteq(X\setminus D)(K)$ a \textit{set of $(D,S)$-integral points} if and only if there is a model $\mathcal U$ on $\OO_{K,S}$ of $X\setminus D$ such that $\Sigma\subseteq\mathcal U(\OO_{K,S})$.
+\end{definition}
+The moral of the story is that our notion of integral points is independent of the choice of model. Now, here is the sort of theorem which realizes the slogan.
+\begin{theorem}[Vojta]
+	If $X$ is projective, and $D$ is a sum of $\dim X+2$ hyperplane sections, then no set of integral points is Zariski dense.
+\end{theorem}
+And here is the general conjecture.
+\begin{conj}[Vojta]
+	Let $\omega_X$ be the canonical divisor. If $\omega_X(D)$ is big (e.g., ample), then no set of integral points is Zariski dense.
+\end{conj}
+\begin{example}
+	Suppose $X$ is a curve. Then $\omega_X(D)$ is big if and only if $\deg\omega_X(D)>0$, which is equivalent to $2g(X)-2+\deg D>0$. For example, if $g(X)\ge2$, then we always have finiteness, if $g(X)=1$, then we need $\deg D\ge1$, and if $g(X)=0$, then $\deg D\ge3$. Note that the last $g(X)=0$ case agrees with our discussion of $\PP^1$ above.
+\end{example}
+\begin{remark}
+	Vojta's conjecture also predicts positive-dimensional families of irreducible $D$ on higher-dimensional $X$ where $(X\setminus D)$ does not have dense integral points.
+\end{remark}
+
+Let's go ahead and state our main result.
+\begin{theorem}
+	Assume $\dim X\ge2$ and $\pi_1^{\mathrm{\acute et}}(X_{\overline K})$ is infinite. Then there are infinitely many irreducible $D$ such that every set of $(D,S)$-integral points is finite.
+\end{theorem}
+\begin{example}
+	Let's make the appearance of the \'etale fundamental group a bit more motivated. Roughly speaking, $\pi_1^{\mathrm{\acute et}}((X\setminus D)_{\ov K})$ is infinite and nonabelian exactly for the cases of given finiteness.
+\end{example}
+Let's give an indication for the proof. The idea is to pass to an \'etale cover $Y$ of $X$ (which we know that there are many) and then construct the required divisor upstairs.
+\begin{proposition}
+	Let $\pi\colon X\to Y$ be a Galois cover with Galois group $G$. Then there are infinitely many ample, irreducible divisors $E$ on $Y$ such that its Galois translates
+	\[\{\sigma(E):\sigma\in G\}\]
+	are in general position.
+\end{proposition}
+Then we will take the desired divisor $D'$ to be the sum of the $\sigma(E)$s, which we note has lots of components. We now appeal to an instance of the aforementioned slogan.
+\begin{theorem}[Levin]
+	Let $D_1,\ldots,D_q$ be $q$ effective, ample divisors with sum $D'$. If the $D_\bullet$s are in general position, and $q\ge2(\dim Y)^2$, then any set of $(D',S)$-integral points on $Y\setminus D'$ is finite.
+\end{theorem}
+We now descend back down to $X$.
+\begin{theorem}[Chevalley--Weil]
+	Finiteness up in $Y\setminus D'$ implies finiteness down in $X\setminus D$.
+\end{theorem}
+Thus, we see that the proposition is the core of the result.
+\begin{remark}
+	We see from the proof that we only need $\pi_1^{\mathrm{\acute et}}(X_{\overline K})$ to be large: one only needs a large Galois cover.
+\end{remark}
+
+\section{Katharine Woo}
+We are now talking about Manin's conjecture for Ch\^atelet surfaces. We begin by recalling that a Ch\^atalet surface is a proper smooth model of the surface
+\[x^2+\Delta y^2=f(z),\]
+where $\Delta$ and $f$ are squarefree, and $f$ is of degree $3$ or $4$. Let $X_{\Delta,f}$ denote this surface. Roughly speaking, Ch\^atalet surfaces are the simplest arithmetically nontrivial surfaces (namely, they can fail the Hasse local-to-global principle).
+\begin{example}
+	For example, Iskoviskikh showed that
+	\[x^2+y^2=\left(3z^2-1\right)\left(1-2z^2\right)\]
+	fails the Hasse principle due to a failure coming from quadratic reciprocity, as an instance of the brauer--Manin obstruction.
+\end{example}
+It turns out that the Brauer--Manin obstruction always witnesses the failure of the Hasse principle, and it only occurs when $f(z)$ factors into irreducible quadratics.
+
+We are now ready to state Manin's conjecture.
+\begin{conj}[Manin]
+	Let $X$ be  Fano variety over a field $K$, nd let $h$ be a canonical height. Then one can count the number of points on $X(k)$ explicitly.
+\end{conj}
+We will resolve this conjecture for Ch\^atalet surfaces.
+\begin{theorem}
+	One has
+	\[\#\{x\in X_{\Delta,\rho}(\QQ):h(x)\le B\}\sim c_{\Delta,f}B(\log B)^{\rho_{\Delta,f}-1},\]
+	where $c_{\Delta,f}$ is an explicit constant, and $\rho_{\Delta,f}$ is an explicit exponent accounting for some quadratic obstructions.
+\end{theorem}
+\begin{remark}
+	Due to unirationality, having $X_{\Delta,f}(\QQ)\ne\emp$ implies that the set of rational points is infinite.
+\end{remark}
+\begin{remark}
+	In fact, we will be able to save a $\log B$ as error term. Additionally, it turns out that $c_{\Delta,f}$ vanishes if and only if there is a local or Brauer--Manin obstruction; when $f$ is irreducible, this constant is a product of local densities.
+\end{remark}
+It turns out that our count can be recast as
+\[N(X_{\Delta,f},B)=\frac12\cdot\#\{((x,y),(u,v),t):x^2+\Delta y^2=t^2F(u,v),\ldots\},\]
+where $\ldots$ indicates some size and gcd conditions. In particular, this talk is now about analytic number theory, not arithmetic geometry. At this point, I stopped taking notes because the speed of the equations became unmanageable.
+
+\section{Tejasi Bhatnagar}
+The title of this talk is ``Monodromy results for abelian surfaces and K3 suraces with bad reduction.'' Choose an elliptic curve $E$. Over a field $K$ of characteristic $p$, we recall that $E[p](\overline K)$ is either $\ZZ/p\ZZ$ or trivial, which correspond to ordinary and supersingular reduction, respectively.
+
+Today, we will work with the equicharacteristic local field $K=\FF_q((t))$, and $E$ is an ordinary elliptic curve over $K$. Then the $p$-adic Tate module $T_pE\cong\ZZ_p$ produces a Galois representation of $\op{Gal}(K^{\mathrm{sep}}/K)$. With good reduction and $\ell\ne p$, this Galois representation is unramified, but we should be worried about the general case. Now, the reduction of $E_0$ to $\FF_q$ has three cases.
+\begin{itemize}
+	\item If $E_0$ has good ordinary reduction, then the Galois action is unramified due to having some isomorphism
+	\[E(\OO_K)[p^\bullet]\to E_0(\overline{\FF_q})[p^\bullet].\]
+	\item If $E_0$ has good supersingular reduction, then we should work with the $p$-divisible group $E_0[p^\infty]$, and one finds that $y\in E_0[p^\bullet]$ produces a chain of field extensions
+	\[K\subseteq K(y_0)^{\mathrm{sep}}\subseteq K(y_1)^{\mathrm{sep}}\subseteq\cdots,\]
+	which eventually is totally ramified.
+	\item Lastly, if $E_0$ has bad (semistable) reduction, then we recall $E(\overline K)=\overline K^\times/\langle q\rangle$ for some $q$ (as rigid analytic spaces), which is some uniformization due to Tate. Then one finds that the Galois action by $\op{Gal}(K^{\mathrm{sep}}/K(q^{1/p}))$ on $p$-torsion is trivial; in particular, we are only finding inseparable extensions!
+\end{itemize}
+We now generalize the result of bad reduction to say something about orthogonal Shimura varieties.
+\begin{remark}
+	For $n\in\{3,19\}$, we find that this Shimura variety is a moduli space for abelian surfaces and K3 surfaces, respectively. For the K3 surfaces, one considers $\mathrm H^2_{\mathrm{crys}}(X)(-1)$, and ordinary is a requirement on the Newton polygon. The slope-$0$ part of the cohomology produces a Galois representation of $\op{SO}_{19}(\ZZ_p)$ of interest.
+\end{remark}
+Once again, we want to study how ramified our Galois representation is. Let's focus on the case of abelian surfaces.
+\begin{theorem}
+	Let $\overline A$ over $\FF_q$ be the special fiber.
+	\begin{listalph}
+		\item If $A$ has totally bad reduction, then $\rho_A$ has trivial image.
+		\item If $A$ has semiabelian reduction fitting in a short exact sequence
+		\[0\to\mathbb G_m\to\overline A\to\overline E\to0,\]
+		then one can describe $\rho_A$ depending on the reduction type of $\overline E$.
+	\end{listalph}
+\end{theorem}
+Let's talk a bit about the second case. We use Raynaud's uniformization theorem: given an abelian variety $A$, one has a covering
+\[M\to G\to A\]
+of rigid analytic spaces, where $G$ is semiabelian, and $M$ is a lattice. Our $A$ of interest makes $M$ into a $1$-dimensional lattice, and we find that $G$ sits between $\mathbb G_m$ and an elliptic curve; for example, one finds that if $A$ is an ordinary, then the elliptic curve $E$ has ordinary supersingular reduction. The moral is that one can use the uniformization to explicitly say something about $p$-torsion.
+
+Let's now say something about reduction of K3 surfaces. Due to the boundary of the Shimura variety, there are essentially two cases depending on what boundary we reduce to.
+\begin{theorem}
+	Let $X$ be an ordinary K3 surface over $K$.
+	\begin{listalph}
+		\item Under Type III reduction, the image of $\rho$ is trivial.
+		\item Under Type II reduction, one can say something about how ramified the extensino is: under ordinary reduction, inertia is unipotent; under supersingular reduction, inertia has finite index in the image of $\rho$.
+	\end{listalph}
+\end{theorem}
+To begin, one uses the Kuga--Satake construction. On the level of Shimura varieties, one is noting that there is a $\mathrm{GSpin}$ Shimura variety living above both the moduli space of abelian varieties and the needed orthogonal Shimura varieties. Thus, we can pass from K3 surfaces to abelian varieties, though we remark that the produced abelian varieties have high dimension.
+
+Given $X$, we let $\mathrm{KS}(X)$ denote the Kuga--Satake abelian variety, which has dimension $d$. It turns out that the reduction type of $X$ corresponds to the reduction type of $\mathrm{KS}(X)$. For example, Type III reduction makes $\mathrm{KS}(X)$ totally generate after reduction. Thus, we can once again use Ryanuad uniformization to say something about torsion. We remark that the problem of torsion is now harder to solve because the semiabelian variety $G$ potentially covers some large abelian variety; however, it turns out that the semiabelian variety which $G$ covers is simply a product of elliptic curves.
+
+Let's explain this last point a bit. We will want to work with the toroidal compactification of $\mathcal A_d$, though we note that $\mathrm{KS}(X)$ technically belongs to the formal completion of the boundary. Approximately speaking, one can view these compactifications (over $\CC$) as parameterizing certain kinds of Hodge structures. Thus, the abelian quotient $B$ of the $G$ in the previous paragraph is a point in the Bailey--Borel compactification of $\mathcal A_d$. In fact, one can do a computation to show that $B\in\mathcal A_{d/2}$, and by tracking around the toroidal compactification, one finds that $B$ lives in the image of the ``diagonal'' power embedding $\mathcal E_1\into\mathcal A_{d/2}$.
+\begin{remark}
+	The above construction works for a general orthogonal Shimura variety.
+\end{remark}
+
+\section{Mart\'i Roset Juli\`a}
+This waslk was titled ``Rigid cocycles for $\mathrm{SL}_n$ and explicit class field theory for totally real fields.'' It is joint work in progress with Peter Xu.
+
+We begin by defining Siegel units, which provide some explicit class field theory for imaginary quadratic fields $K$. Fix an elliptic scheme $\pi\colon E\to S$, and we choose an integer $c$ which is coprime to $6$. We begin by producing some divisor.
+\begin{proposition}
+	There exists a unique $_c\theta_E\in\OO(E\setminus E[c])^\times$ such that $\op{div}{_c\theta_E}=E[c]-c^2\OO$ and $[a]_*c\theta_E={_c\theta_E}$.
+\end{proposition}
+We would like to pull back this divisor to modular curve. For example, given a prime $p$ which is coprime to $c$, we recall that we have a universal elliptic curve $E$ over $Y=\Gamma(p^r)\backslash\mc H$. To pull back, we choose some nonzero $v\in\QQ^2/\ZZ^2$, and it produces a section $Y\to E$; roughly speaking, $Y$ parameterizes elliptic curves with a trivialization of $p^r$-torsion, so $v$ provides some data towards such a trivialization.
+
+In fact, we may select $v$ so that we have constructed a section $Y\to E\setminus E[c]$.
+\begin{definition}
+	We define the \textit{Siegel unit} as
+	\[_cg_v\coloneqq v^*{_c\theta_E}\in\OO(Y)^\times.\]
+\end{definition}
+Roughly speaking, $_cg_v$ is a function on $Y$.
+\begin{theorem}
+	Let $\tau\in H$ be a CM point attached to a quadratic imaginary field $K$. Then
+	\[_cg_v(\tau)\in K^{\mathrm{ab}}.\]
+\end{theorem}
+Roughly speaking, the idea is to move the entire construction of $_cg_v$ to algebra, and then the theory of complex multiplication produces the result.
+
+We are looking for a statement akin to the above theorem for totally real fields. For example, we remark that the case of real quadratic fields is essentially solved. We take a $p$-adic approach. Let's recall this story; let $F$ be a real quadratic field. We remark that there are no points in $\mc H$ stabilized by $F\subseteq\op{SL}_2(\QQ)$, but there are geodesics which are stabilized by $F$. For example, for $\tau\in F$ on the real line, let $\tau'$ denote its conjugate, and then the geodesic semicircle $\gamma$ connecting $\tau$ and $\tau'$ is stbailized by $F\subseteq\op{SL}_2(\QQ)$. Then considering some kind of period
+\[\frac1{2\pi i}\int_z^{\gamma_z}d\log({_cg_v})\]
+recovers some kind of special value; these special values turn out to be interpolated by some $p$-adic analytic function.
+
+This $p$-adic aside motivates us to replace $\mc H$ with a $p$-adic variant: let $\mc H_p$ denote $\PP^1(\CC_p)\setminus\PP^1(\QQ_p)$, and we let $\mc A$ denote the space of rigid analytic functions. We are now able to recover more of our complex multiplication story. For example, there is $\tau\in\mc H_p$ stabilized by $F\subseteq\op{SL}_2(\QQ)$ if and only if $p$ does not split in $F$. We also remark that
+\[\mc A^\times/\CC_p^\times\cong\mathrm{Meas}_0(\PP^1(\QQ_p),\ZZ),\]
+which implies that our functions are suitable for talking about $p$-adic functions. (Here, the $0$ in $\mathrm{Meas}_0$ means that our function has total mass $0$.) We are now ready to move periods to the $p$-adic side.
+\begin{theorem}
+	The periods of the Siegel units combine into a rigid cocyclec class
+	\[J\in\mathrm H^1(\op{SL}_2(\ZZ),\mc A^\times).\]
+	Further, if $\tau\in\mc H_p$ is stabilized by $F$, then there is an evaluation $J[\tau]$ by evaluating a cocycle representative $\widetilde J$ on some $F\cap\op{SL}_2(\ZZ)$ (and then on $\tau$). In this case, $J[\tau]\in F^{\mathrm{ab}}$.
+\end{theorem}
+The lack of an analagous theory of complex multiplication forces one to study families of $p$-adic modular forms (and the like) to prove the theorem.
+
+We would now like to generalize the previous theorem to all totally real fiels. Unsurprisingly, we work with the symmetric space $X_\infty\coloneqq\op{SL}_n(\RR)/\op{SO}_n(\ZZ)$, and we choose the vector $v_r\in(1/p^r,0,\ldots,0)\in(\QQ/\ZZ)^n$ as in the story of complex multiplication. Let $\Gamma_1$ denote its stabilizer in $\Gamma_r\coloneqq\op{SL}_n(\ZZ)$. Now, instead of a universal elliptic curve, we have a torus bundle
+\[T_r\coloneq\Gamma_r\backslash(X_\infty\times\RR^n/\ZZ^n),\]
+which covers $\Gamma_r\backslash X_\infty$. Then $T_r[c]-c^n\{0\}$ provides a class in $\mathrm H^0(T_r[c])$, and some topology then produces a corresponding class in $\mathrm H^n(T_r,T_r\setminus T_r[c])$. We now provide our classes.
+\begin{theorem}
+	There exists a unique class $_cZ_r\in\mathrm H^{n-1}(T_r\setminus T_r[c],\ZZ[1/c])$ satisfying the following.
+	\begin{listroman}
+		\item The class lifts $T_r[c]-c^n\{0\}$.
+		\item We have $[a]_*{_cZ_r}={_cZ_r}$ for all $a\in\NN^c$.
+	\end{listroman}
+\end{theorem}
+One can then pull back along $v_r^*$ to produce a class in $\mathrm H^{n-1}(\Gamma_r\backslash X_\infty,\ZZ[1/c])$ as before. One again finds that periods can be interpolated to produce a $p$-adic $L$-function.
+
+Let's expand on the $p$-adic variant. Let $X_p$ be $\PP^{n-1}(\CC_p)\setminus\bigcup_\alpha H_\alpha$, where $\alpha$ is running over $\QQ_p$-hyperplanes. We let $\mc A$ denote the space of its rigid analytic functions, and then eventually we can produce the needed $J\in\mathrm H^{n-1}(\Gamma,\mc A^\times)$ with an evaluation $J[\tau]$ for $\tau\in X_p$. Here is our main result.
+\begin{theorem}
+	One has
+	\[\op N_{F_p/\QQ_p}J[\tau]=\op N_{F_p/\QQ_p}u,\]
+	where $u\in F^{\mathrm{ab}}$.
+\end{theorem}
+Roughly speaking, the idea is to relate both values to some special value of a $p$-adic zeta function.
+
+\section{Peikai Qi}
+This talk was titled Iwasawa $\lambda$-invariants and Massey products. We are interested in understanding how the class group changes under field extensions. In particular, we will compare the results from Iwasawa theory and from Galois cohomology, which provide partial answers.
+
+Here is a rough version of our main theorem.
+\begin{theorem}
+	The Iwasawa $\lambda$-invariant can be computed by Massey products in some cases.
+\end{theorem}
+Let's recall what the Iwasawa $\lambda$-invariants and Massey products are.
+
+To begin, we'll look at Iwasawa theory. Consider an infinite Galois extension $K_\infty/K$ with Galois group $\ZZ_p$; in particular, there are intermediate subfields $K_\ell$ such that $\op{Gal}(K_\ell/K)\cong\ZZ/p^\ell\ZZ$.
+\begin{example}
+	Fix an odd prime $p$. Then note $\op{Gal}(\QQ(\zeta_{p^\infty})/\QQ)\simeq\ZZ_p^\times\cong(\ZZ/p\ZZ)^\times\times\ZZ_p$, so one can find a unique $\ZZ_p$-extension inside here, which we name $\QQ_\infty/\QQ$. For a general number field $K$, the field $K_\infty\coloneqq K\QQ_\infty$ provides a $\ZZ_p$-extension of $K$.
+\end{example}
+Now here is the main result of Iwasawa theory.
+\begin{theorem}[Iwasawa]
+	Fix a $\ZZ_p$-extension $K_\infty$ of a number field $K$. There exist constants $(\mu,\lambda,\nu)$ such that
+	\[\log_p\#\op{Cl}(K_\ell)[p^\infty]=\mu p^\ell+\lambda\ell+\nu\]
+	for $\ell$ sufficiently large.
+\end{theorem}
+There has been a lot of work attempting to compute these constants in some cases.
+\begin{example}
+	Let $K$ denote an imaginary quadratic field with $K_\infty$ as the cyclotomic $\ZZ_p$-extension, and suppose that the prime $p$ splits into $\mf p_1\mf p_2$ in $\OO_K$. We further suppose that $p\nmid\op{Cl}(K)$. Choosing a generator $\alpha$ of $\mf p_2^{\#\op{Cl}(K)}$, one has $\lambda\ge2$ if and only if
+	\[\alpha^{p-1}\equiv1\pmod{\mf p^2}.\]
+	We remark that $\mu=0$ and $\lambda\ge1$ is known in this case from other methods.
+\end{example}
+\begin{remark}
+	We now introduce a Galois representatio to explain what's going on a little. Let $S\subseteq V(K)$ be the set of places above $p$, and we let $K_S$ be the maximal abelian extension of $K$ which is unramified outside $S$. It turns out that we will always have $K_\infty\subseteq K$, so we may define some character $\chi$ as the composite
+	\[\op{Gal}(K_S/K)\to\op{Gal}(K_\infty/K)\cong\ZZ_p.\]
+	Then $\chi\in\op{Hom}(\op{Gal}(K_S/K),\ZZ_p)$ has equivalent data to an element of $\mathrm H^1(\op{Gal}(K_S/K),\ZZ_p)$. On the other hand, the aforementioned $\alpha$ lives in
+	\[\frac{K^\times\cap K_S^{\times p}}{K^{\times p}}\cong\mathrm H^1(\op{Gal}(K_S/K),\mu_p).\]
+	It now turns out that $\alpha^{p-1}\equiv1\pmod{\mf p^2}$ if and only if $\chi\cup\alpha=0$, which roughly comes from Pitou--Tate duality.
+\end{remark}
+Here is another, larger example.
+\begin{example}
+	Set $K\coloneqq\QQ(\zeta_p)$. Then we can take $K_\infty\coloneqq\QQ(\zeta_{p^\infty})$, and we see that $\op{Gal}(\QQ(\zeta_p)/\QQ)$ acts on $\op{Cl}(\QQ(\zeta_{p^\ell}))[p^\infty]$ for any fixed $\ell$, so we have some eigenspaces $\mc E_\bullet$ for this action. Each eigenspace $\mc E_\bullet$ has its own version of Iwasawa's theorem, having
+	\[\log_p\#\mc E_\bullet=u_ip^\ell+\lambda_i\ell+\nu_i,\]
+	and one finds that $\lambda_i\ge2$ if and only if $\chi\cup\lambda_i=0$, as before.
+\end{example}
+We would like to generalize both of the previous examples. For this, we replace the cup product with the Massey product. For motivation, we note that two characters $\chi_1,\chi_2\colon\op{Gal}(K_S/K)\to\FF_p$ produce upper-triangular unipotent representations $\rho_\bullet\coloneqq\begin{bmatrix}
+	1 & \chi_\bullet \\ & 1
+\end{bmatrix}$. One might hope that $\rho_1$ and $\rho_2$ can be glued together into a representation of the form
+\[\begin{bmatrix}
+	1 & \chi_1 & \varphi \\
+	& 1 & \chi_2 \\
+	&& 1
+\end{bmatrix},\]
+but there is some equation that $\varphi$ must satisfy in order for this gluing to occur. In particular, it turns out that $-d\varphi=\chi_1\cup\chi_2$ vanishes if and only if we achieve $\chi_1\cup\chi_2=0$.
+
+Massey products allow one to tell the above story about obstructions to gluing together higher-dimen\-sional representations. For example, there is a Massey product for a list of characters $\langle\chi_1,\ldots,\chi_n\rangle$ which encodes an obstruction to writing down a unipotent representation of dimension $n+1$. Now here is one implementation of the main theorem.
+\begin{corollary}
+	Let $K$ denote an imaginary quadratic field with $K_\infty$ as the cyclotomic $\ZZ_p$-extension, and suppose that the prime $p$ splits into $\mf p_1\mf p_2$ in $\OO_K$. We further suppose that $p\nmid\op{Cl}(K)$. Choosing a generator $\alpha$ of $\mf p_2^{\#\op{Cl}(K)}$, one has
+	\[\lambda=\min\{n\in\NN:\langle\underbrace{\chi,\ldots,\chi}_{n-1},\alpha\rangle\ne0\}.\]
+\end{corollary}
+There is a similar result present in the example where $K=\QQ(\zeta_p)$.
+
+\section{Ben Savoie}
+The title of this talk was ``Components of the moduli stack of Galois representations.'' For a field $F$, we set $G_F\coloneqq\op{Gal}(F^{\mathrm{sep}}/F)$. We are looking at moduli spaces of Galois representations $\ov\rho\colon G_K\to\op{GL}_2(\ov\FF_p)$, where $K/\QQ_p$ is a finite unramified extension. In particular, we would like to know which irreducible components are smooth or almost smooth (normal, Gorenstein, or Cohen--Macaulay)? To understand this question, we note that there is a smooth moduli space of Breuil--Kisin modules which is proper and birational over the stack of interest.
+
+Recall that a modular form produces a Galois representation in some formal way involving abelian varieties. The weight of this modular form becomes the Serre weight $k(\ov\rho)$ of the Galois representation $\ov\rho$. For large finite fields, one can build more Serre weights, and they turn out to correspond to the irreducible components of our moduli stack.
+
+Let's review this construction of moduli stack. For example, we would like to understand how these Galois representations behave ``in families.''
+\begin{example}
+	Here is one possible difficulty: consider unramified chracters of $G_{\QQ_p}$, which amount to characters on
+	\[G_{\QQ_p}\onto\op{Gal}(\QQ_p^{\mathrm{unr}}/\QQ_p)\cong G_{\overline\FF_p}\cong\widehat\ZZ.\]
+	Thus, we are on the hunt for homomoprhisms $\chi\colon\widehat\ZZ\to\overline\FF_p^\times$, which are uniquely determined by $\alpha\coloneqq\chi(\mathrm{Frob}_p)$. It is rather difficult to parameterize this family.
+\end{example}
+To fix the problem presented in the previous example, we use a little $p$-adic Hodge theory. The idea is that most $2$-dimensional (mod $p$) Galois representations roughly speaking come from finite flat group schemes, and these finite flat group schemes can be described in terms of some ``semilinear algebraic'' data called Breuil--Kisin modules (and some descent data).
+
+Let's indicate what a Breuil--Kisin module is. Choose an $\mathbb F_p$-algebra $A$, and we define
+\[\mf S_A\coloneqq(\FF_{p^f}\otimes_{\FF_p}A)[[u]],\]
+which we also endow with an action by some $\varphi\in\op{Gal}(K'/K)$ for a tamely ramified extension $K'/K$. Then a rank-$2$ Brueil--Kisin module over $A$ is a rank-$2$ module over $\mf S_A$. There is a similar definition of \'etale-$\varphi$ modules.
+
+Anyway, these modules allow us to define a reasonable moduli stack $\mc X$.
+\begin{theorem}
+	The functor of points $\mc X$ is an equidimensional algebraic stack of dimension $[K:\QQ_p]$, and its irreducible components are indexed by Serre weights.
+\end{theorem}
+Let's describe how we take an irreducible component $\mc X_i\subseteq\mc X$ and find the Serre weights: it turns out that there is a dense open subset $\mc U\subseteq\mc X_i$ with $\ov\FF_p$-points which look like some upper-triangular representation which look like
+\[\begin{bmatrix}
+	\chi_{\alpha_1}\omega^{m+n+1} & * \\ & \chi_{\alpha_2}\omega^m
+\end{bmatrix},\]
+where the $\chi_\bullet$s are unramified, and $\omega$ is the cyclotomic character. In this situtation, $(m,n)$ is the Serre weight.
+
+We are now ready to state a main result.
+\begin{theorem}
+	Except for some explicitly constructed Serre weights $\sigma_{m,n}$, one can calculate $\mc X(\sigma_{m,n})$ explicitly as a quotient stack. In particular, one finds that it is smooth.
+\end{theorem}
+Roughly speaking, one checks that the cover of our moduli space given by Breuil--Kisin modules actually provides an isomorphism.
+\begin{theorem}
+	In the remaining explicitly constructed Serre weights, they are not smooth, and they have explicitly understood singularities. In particular, they are not normal, but their normalization is Cohen--Macaulay but almost never Gorenstein.
+\end{theorem}
+\begin{remark}
+	Recall that there is a ``smoothness hierarchy''
+	\[\text{smooth}\implies\text{locally complete intersection}\implies\text{Gorenstein}\implies\text{Cohen--Macaulay}.\]
+\end{remark}
+\begin{example}
+	With $K=\QQ_p$, then each $\mc X_{m,n}$ is given by a curve. In the exceptional non-smooth cases, the curve is not normal.
+\end{example}
+
+\section{Rena Chu}
+The title of this tlk was ``Short character sums evaluated at homogeneous polynomials.'' For this, talk $p$ is prime, $\chi\pmod p$ is a Dirichlet character, and we would like to bound the sum
+\[\sum_{N<x<N+H}\chi(x)\]
+for small $N,H\le p$. For example, these imply subconvexity results for Dirichlet $L$-functions. Here are some historical bounds.
+\begin{itemize}
+	\item The trivial bound is $\ll H$.
+	\item P\'olya--Vinogradov achieved $\ll\sqrt p\log p$. This means that we will be interested in ``short'' character sums when $H\ll\sqrt p\log p$.
+	\item Burgess showed a family bounds: for any $r\ge1$, one has $\ll H^{1-1/r}p^{(r+1)/4r^2}\log p$. For given $r$, this bound is nontrivial for $H\gg p^{1/4+1/4r}$.
+	\item The expected bound is due to square root cancellation, so it is $\ll\sqrt H$.
+\end{itemize}
+We would like to extend this story to character sums for polynomials. FIx a homogeneous polynomial $F$ of degree $k$ and $n$ variables, and we would like to bound
+\[\sum_{\underline x\in[N,N+H]^n}\chi(F(\underline x)).\]
+Here are some known bounds.
+\begin{itemize}
+	\item Once again, there is a trivial bound of $H^n$.
+	\item There are P\'olya--Vinogradov-type bounds, bringing us roughly down to $\sqrt p$.
+	\item For $n=k=2$, there are Burgess-type bounds going down to $p^{1/4}$.
+	\item If $F$ splits over $\FF_p$ with $n=k$, then there are some results due to Bourgain.
+	\item If $F$ splits over $\ov{\FF}_p$, one has some small threshold to $p^{1/2-1/2(n+1)}$.
+	\item For most $F$, one can recently achieve a bound of $p^{1/2-1/2(n+1)}$.
+\end{itemize}
+All the bounds after Burgess more or less follow his method. The idea is to make copies of the short character sum in order to complete it, and then one can appeal to some Weil bound. Roughly speaking, pick an auxiliary prime $q$, and then we write $x=ap+mq$ and group our $x$ by$\pmod q$. This shortens the sum a bit, but now we can redistribute and repeat the process for enough $q$. Doing this enough produces sufficiently many complete sums.
+
+Here is our main result.
+\begin{theorem}[C]
+	Suppose $F$ is homogeneous and splits over $\overline\FF_p$ with $n\ge k$. Then we achieve the optimal Burgess bound of $p^{1/4}$.
+\end{theorem}
+
+\section{Trajan Hammonds}
+The title of this talk was ``The orbit method and analysis in representation theory.'' Let's begin with two definitions.
+\begin{definition}[Legendre polynomial]
+	The \textit{Legendre polynomials} are a sequence of polynomials $\{P_n\}_{n\ge0}$ such that $\deg P_n=n$ and such that they are orthogonal with respect to the inner product
+	\[\langle f,g\rangle\coloneqq\int_{[-1,1]}fg.\]
+\end{definition}
+\begin{definition}[Bessel function]
+	We define the \textit{Bessel function} as
+	\[J(x)\coloneqq\frac1\pi\Re\int_0^\pi e^{-i(n\tau-x\sin\tau)}\,d\tau.\]
+\end{definition}
+There is an asymptotic approximation of the form
+\[P_\ell(\cos\theta)=\sqrt{\frac{\theta}{\sin\theta}}J_0\left(\left(\ell+\frac12\right)\theta\right)+O\left(\ell^{-2}\right),\]
+which can be thought of as a bizarre equality of highly oscillatory functions.
+
+We will attempt to explain this asymptotic from the perspective of geometric representation theory. Consider the group $\op{SO}_3(\RR)$. One can realize its irreducible representations as indexed by $\ell\in\NN$: we define $V_\ell$ as the $\RR$-vector space of harmonic homogeneous polynomials in variables $\{x,y,z\}$ of degree $\ell$, and $g\in\op{SO}_3(\RR)$ acts on such a polynomial by
+\[(gP)(x,y,z)\coloneqq P((x,y,z)^\intercal g).\]
+For example, $\ell=1$ gives the standard representation.
+\begin{remark}
+	The harmonic condition on the polynomials turns out to give $\dim V_\ell=2\ell+1$.
+\end{remark}
+Let's find our weight vectors. The point is to decompose $V_\ell$ (over $\CC$) into eigenfunctions with respect to the subgroup $\op{SO}_2(\RR)\subseteq\op{SO}_3(\RR)$ of rotations about the $z$-axis. Namely, let $g_\theta$ be the rotation by $\theta$ about the $z$-axis, and we can hunt for a vector $v_m$ such that
+\[g_\theta\cdot v_m=e^{im\theta}v_m.\]
+Some theory of weights explains that we produce the eigenbasis $\{v_{-\ell},v_{-\ell+1},\ldots,v_{\ell-1},v_\ell\}$. It turns out that
+\[\langle g_\theta v_0,v_0\rangle\approx P_\ell(\cos\theta),\]
+maybe up to some ignored constants.
+
+We are now ready to introduce the orbit method, due to Kirillov. Fix a Lie group $G$ with Lie algebra $\mf g$. The moral of the story is that irreducible representations $\pi$ of $G$ are in bijection with ``coadjoint'' orbits $\OO_\pi\subseteq\mf g^*$. This coadjoint action is defined as the dual of the adjoint action $\op{Ad}\colon G\to\op{GL}(\mf g)$. So let's figure out what the representation $V_\ell$ of $\op{SO}_3(\RR)$ corresponds to. This coadjoint orbit $\OO_\ell$ turns out to be a sphere of radius $\ell+\frac12$ sitting inside $\mf{so}_3(\RR)^*\cong\RR^3$.
+
+One feature of the orbit method is that one can use these coadjoint operators to understand the representation. For example, it turns out that
+\[\chi_\pi(\exp X)\approx\int_{\OO_\pi}e^{i\langle X,\xi\rangle}\,d\xi,\]
+again perhaps up to some explicit factor. (Here, one should take $X$ small.) But now one uses the eigenbasis to note
+\[\chi_\pi(\exp X)=\sum_{-\ell\le m\le \ell}\langle\exp(X)v_m,v_m\rangle.\]
+To compare these two, one tries to construct a partition of the sphere $\OO_\ell$ into regions $\{\mc R_m\}_{-\ell\le m\le\ell}$ so that the spectral products in the sum above can be realized geometrically as an integral $\int_{\mc R_m}e^{i\langle X,\xi\rangle}\,d\xi$. Well, simply partition the sphere into horizontal strips of equal height.
+
+Now, here is our statement.
+\begin{theorem}
+	As $\ell\to\infty$, one has
+	\[\langle\exp(X)v_0,v_0\rangle\approx\int_{\xi\in\mc R_0}e^{i\langle x,\xi\rangle}\,d\xi,\]
+	where $\mc R_0$ is a circle with radius $\ell+\frac12$.
+\end{theorem}
+This explains the asymptotic.
+\begin{remark}
+	The above argument also explains other asymptotics. For example, we find $\langle\exp(X)v_\ell,v_\ell\rangle$ has exponential decay as $\ell\to\infty$. We note that this is some sort of ``geometric'' obstruction to having an obstruction of the above type.
+\end{remark}
+To return to the present day, we recall the following result.
+\begin{theorem}[Nelson--Venkatesh]
+	The asymptotic
+	\[\langle\exp(X)v_m,v_m\rangle\approx\int_{\xi\in\mc R_m}e^{i\langle x,\xi\rangle}\]
+	holds in much greater generality than explained, away from $\mc R_{\pm\ell}$.
+\end{theorem}
+However, it was conjectured that there should still be an asymptotic closer to the poles at $\pm\ell$. The speaker then went on to explain an example with a pair of groups $(G,H)=(\mathrm{PGL}_2(\RR),\mathrm{GL}_1(\RR))$. The main theorem is an explanation of the asymptotic in a nonarchimedean setting.
+
+\section{Guanjie Huang}
+This talk was titled ``Exceptional theta correspondence and Langlands functoriality.'' Here is our main result.
+\begin{theorem}
+	The exceptional theta correspondence realizes Langlands functoriality between $G_2$ and $\mathrm{PGL}_3$ for regular supercuspidal representations.
+\end{theorem}
+To explain these notions, let's say something about the local Langlands correspondence. Fix a $p$-adic field $F$, and let $G$ be a connected reductive group over $F$. We also let $\check G$ be the Langlands dual group, and the $L$-group is ${}^LG=W_F\rtimes\check G$. On the automorphic side, one considers the set $\Pi(G)$ irreducible smooth representations of $G(F)$ (up to isomorphism). On the Galois side, one has the set $\Phi(G)$ of $L$-homomorphisms $W_F\times\op{SL}_2(\CC)\to{{}^LG}$ up to conjugacy.
+\begin{conj}
+	There is a surjective map $\Pi(G)\to\Phi(G)$ with finite fibers. The image is called an $L$-parameter, and the fibers are called the $L$-packets.
+\end{conj}
+Kaletha construcsed this map for regular supercuspidal representations. For simplicity, we suppose that $p$ is large and that $G$ is tamely ramified. Then one can build a correspondence between regular supercuspidal representations parameterized by pais $(S,\xi)$ where $S$ is a maximal torus, and $\xi$ is a regular character. One can then construct the $L$-parameter from $(S,\xi)$ by hand. Roughly speaking, it is a composite
+\[W_F\times\op{SL}_2(\CC)\to{^LS}\to{^LG},\]
+where the map to $^LS$ is given by class field theory.
+
+Now, give a homomorphism $i\colon{^LG}\to{^LG'}$, one gets a map of $L$-packets, so one would like a map on the automorphic side making the diagram
+% https://q.uiver.app/#q=WzAsNCxbMCwwLCJcXFBpKEcpIl0sWzAsMSwiXFxQaShHJykiXSxbMSwwLCJcXFBoaShHKSJdLFsxLDEsIlxcUGhpKEcnKSJdLFsxLDMsIlxcbWF0aHJte0xMQ30iXSxbMCwyLCJcXG1hdGhybXtMTEN9Il0sWzMsMl0sWzEsMCwiIiwxLHsic3R5bGUiOnsiYm9keSI6eyJuYW1lIjoiZGFzaGVkIn19fV1d&macro_url=https%3A%2F%2Fraw.githubusercontent.com%2FdFoiler%2Fnotes%2Fmaster%2Fnir.tex
+\[\begin{tikzcd}
+	{\Pi(G)} & {\Phi(G)} \\
+	{\Pi(G')} & {\Phi(G')}
+	\arrow["{\mathrm{LLC}}", from=1-1, to=1-2]
+	\arrow[dashed, from=2-1, to=1-1]
+	\arrow["{\mathrm{LLC}}", from=2-1, to=2-2]
+	\arrow[from=2-2, to=1-2]
+\end{tikzcd}\]
+commute. Theta correspondences provide some way to do this. To be precise, let $G\times G'\subseteq\mathbb G$ be some algebraic groups defined over $F$ satisfying some compatibility conditions. Given a small representation $\omega$ of $\mathbb G$, one can try to decompose it as a representation of $G\times G'$ and then use the multiplicity factors to try to build a correspondence.
+
+Classically, one can take $(G,G')=(\op O(V),\op{Sp}(V))$ and $\mathbb G=\op{Mp}(W\otimes V)$, where $\op{Mp}$ is the metrplectic double cover of $\mathrm{Sp}$.
+\begin{theorem}[Howe]
+	Given a ``minimal'' representation $\omega$, one has
+	\[\op{Hom}_{G\times G'}(\omega,\pi\boxtimes\pi')\ne0\]
+	produces a map $\Pi(G)\to\Pi(G')\cup\{0\}$. Explicitly, for given $\pi\in\Pi(G)$, there is at most one $\pi'\in\Pi(G')$ satisfying the above.
+\end{theorem}
+\begin{theorem}[Atobe]
+	In even dimensions, the correspondence coming from Howe is induced the needed Langlands functoriality map $\Pi(G)\to\Pi(G')$ coming from the embedding $\op O_{2n}(\CC)\into\op{SO}_{2n+1}(\CC)$.
+\end{theorem}
+We would now like to retell this story for other pairs $(G,G')$. For example, $(G,G')=(\mathrm{PGL}_3,G_2)$ live in $\mathbb G=E_6$, which is our case of interest. Quickly, recall $G_2$ can be realized as the automorphism group of the split octonion algebra $\mathbb O$. One can choose some $x\in\mathbb O$ with $\langle x,1\rangle=0$ with stabilizer $\mathrm{SL}_3\subseteq G_2$. One can also define $E_6$ using something about octonions.
+\begin{theorem}[Gan--Savin]
+	Suppose $p\ge3$. For any $\pi\in\Pi(G)$, there is at most one $\pi'\in\Pi(G')$ such that
+	\[\op{Hom}_{G\times G'}(\omega,\pi\boxtimes\pi')\ne0.\]
+	Thus, this determines a map $\theta\colon\Pi(G)\to\Pi(G')$.
+\end{theorem}
+Let's describe the morphism on $L$-groups. It turns out that $G_2$ is self-dual, so our embedding $i\colon {^L\mathrm{PGL}_3}\to{^LG_2}$ turns out to be given by the aforementioned embedding $i\colon\mathrm{SL}_3\to G_2$.
+\begin{theorem}[Gan]
+	On representations which are not supercuspidal, the map $\theta$ is the desired Langlands functoriality map.
+\end{theorem}
+The proof uses the Jacquet module and the observation that this smaller amount of information.
+
+We now understand the main statement of the talk. Let's sketch some ingredients of the proof.
+\begin{enumerate}
+	\item We enumerate our regular supercuspidal representations by the pairs $(S,\xi)$ corresponding to $\pi\in\Pi(G)$ as before, and we are on the hunt for $(S',\xi')$ corresponding to the needed $\pi'\in\Pi(G')$. This comes down to some computations in root systems.
+	\item Next one computes the theta correspondence. It turns out that $\pi$ and $\pi'$ coming from the pairs $(S,\xi)$ and $(S',\xi')$ (respectively) are some compact inductions of Heisenberg representations $\rho$ and $\rho'$ (respectively). Thus, we need to compute morphisms $\omega\to\rho\boxtimes\rho'$ by Frobenius reciprocity. After providing a model for $\omega$, we are reduced to some kind of orbit correspondence check.
+\end{enumerate}
+% \begin{remark}
+% 	Let's now say something about the relative Langlands program. It turns out that one can use the Langlands correspondence 
+% \end{remark}
+
+\section{Chi-Heng Lo}
+This talk was titled ``On local Arthur packets and unitary dual.'' Let $F$ be a $p$-adic field with Weil group $W_F$, which we remark has a norm to $\RR^\times$. We set $G_n$ to be $\op{Sp}_{2n}(F)$ or (split) $\op{SO}_{2n+1}(F)$. We consider $\Pi(G)$ the collection of equivalence classes of irreducible admisslbe representations of $G$, and we are interested in the unitary representations $\Pi_u(G)$, and we let $\Pi_i(G)$ denote the isolated points in this space.
+
+In particular, we are interested in understanding the subset $\Pi_u(G)\subseteq\Pi(G)$: what are its elements, what the space looks like, etc. This is known for $\mathrm{GL}_n$, some exceptional groups, and some special families for classical groups (e.g., generic or unramified representations).
+
+\section{Weixiao Lu}
+The tite of this talk was ``Regularization in automorphic forms and applications.'' Let's begin with some examples of special values of regularization. Here, regularization is the process of giving divergent sums a meaningful value.
+\begin{example}
+	One has $\sum_n\frac1{n^2}=\frac{\pi^2}6$ and $\sum_n(-1)^{n+1}\frac1{2n-1}=\frac\pi4$. One would also like to make sense of equalities of the type
+	\[1+2+3+\cdots\stackrel?=-\frac1{12}\qquad\text{and}\qquad1-3+5-7+\cdots\stackrel?=0.\]
+	The left equality can be explained by meromorphic continuation of $\zeta(s)=\sum_n\frac1{n^s}$, and the right equality can be explained by meromorphic continuation of $L(s,\chi)=\sum_{n\ge0}\frac{\chi(n)}{n^s}$, where $\chi$ is the unique nontrivial Dirichlet character$\pmod4$.
+\end{example}
+\begin{example}[Tate's thesis]
+	Choose a Hecke character $\chi\colon\QQ^\times\backslash\AA_\QQ^\times\to\CC^\times$. Then the completed $L$-function $\Lambda(s,\chi)$ takes the form
+	\[\Lambda(s,\chi)=\int_{\AA_\QQ^\times}\chi(x)\Phi(x)\left|x\right|^s\,d^\times x,\]
+	where $\Phi\in\mc S(\AA_\QQ)$ is some Schwartz--Bruhat function. This right-hand side converges for $s$ such that $\Re s>1$, but it still has a meromorphic continuation, which can be proven in the usual way. Roughly speaking, one can replace $\Phi$ with $\Phi^T$ which removes $x=0$ from the support.
+\end{example}
+\begin{example}
+	A modular form $f\colon\mc H\to\CC$ has a Fourier expansion of the form $f(z)=\sum_na_nq^n$. To ensure convergence of integrals, one should remove from $\mc H$ the value of $a_0$ in open neighborhoods of the cusps. In adelic language, we are looking at some function $\varphi\colon\op{GL}_2(\AA_\QQ)\to\CC$, and one still wants to remove the cusps from the support.
+\end{example}
+\begin{example}
+	We work with relative trace formulae. Let $G$ be a connected reductive group over a number field $F$, and let $[G]$ be the adelic quotient $G(F)\backslash G(\AA_F)$. We let $G(F)$ act by right translation on $\varphi\in L^2([G])$ in the usual way. In fact, for $f\in C_c^\infty(G(\AA_F))$, this acts on $\varphi$ by
+	\[(R(f)\varphi)(x)\coloneqq\int_{G(\AA_F)}\varphi(xy)f(y)\,dy.\]
+	We can also view this as integration against the kernel $K_f(x,y)\coloneqq\sum_{\gamma\in G(F)}f\left(x^{-1}\gamma y\right)$ over the adelic quotient $[G]$. We remark that a decomposition of $L^2([G])$ into $\chi$-eigenspaces as $\chi$ varies over $\mf X(G)$ will also induce a decomposition of our kernel and hence of the above action. One would like to integrate against the decomposed kernels, but one must regularize.
+\end{example}
+Let's give an example.
+\begin{theorem}[Disegni--Zhang]
+	Fix a CM extension $E/F$, and let $\pi$ be a cuspidal automorphic representatin of $\op{GL}_n(\AA_E)$, which we write as $\pi=\pi_f\otimes\pi_\infty$. We further suppose that $\pi$ is Hermitian, and $\pi_\infty$ has trivial height. Then $\pi_f$ is defined over a number field $K$, and one finds that the central value $L(1/2,\pi)$ lives in $K$, up to some explicit constants.
+\end{theorem}
+\begin{proof}
+	The idea is to apply the Jacquet--Rallis relative trace formula. We work with $G=\mathrm{GL}_{n,E}\times\mathrm{GL}_{n+1,E}$ and $H_1=\mathrm{GL}_{n,E}$ (embedded diagonally) and $H_2=\mathrm{GL}_{n,F}\times\mathrm{GL}_{n+1,f}$. Then the point is to compute
+	\[I(f)=\int_{[H_1\times H_2]}K_f(h_1,h_2)\,dh_1\,dh_2\]
+	in two ways: one can expand along characters $\chi\in\mf X(G)$ produces some answer or expand along the GIT quotient $B=H_1\backslash G/H_2$. To relate this to the statement, noe chooses $f$ such that $I_\chi(f)$ vanishes except when $\chi=\pi$, and then we find that this value $I_\pi(f)$ is related to $L(1/2,\pi)$. Thus, one sees that rationality of our special value will follow from a rationality of $I_b(f)$s, which is easier to control; for example, one can choose $f$ so that $I_b(f)$s vanish all but finitely often.
+\end{proof}
+The above proof motivates one of our main results.
+\begin{theorem}[L]
+	For nice $f$, one has
+	\[I_b(f)=\int_{H_1(\AA)}\int_{H_2(\AA)}f\left(h_1^{-1}\gamma h_2\right)\left|h_1\right|^s\,dh_1\,dh_2\bigg|_{s=0},\]
+	where the outside $s=0$ indicates that one has to do some regularization to make sense of the value at $s=0$.
+\end{theorem}
+Let's see another example. Let $F/\QQ$ be an imaginary quadratic extension, and let $V$ be a Hermitian space of dimensino $n$, which we will assume have signature $(n-1,n)$. Then $G\coloneqq\mathrm U(V)$ admits a Shimura variety $\mathrm{Sh}_G$, so we go ahead and fix some level $K\subseteq G(\AA_f)$ as well. We will assume that $X=\mathrm{Sh}_{G,K}$ (over $F$) admits an integral model $\mc X$ over $\OO_F$. Then we promose the following conjecture.
+\begin{conj}
+	Let $\Delta\colon\mc X\to\mc X\times\mc X$ be the diagonal embedding, and let $\widehat\omega$ be the Hodge bundle. Then
+	\[\langle\Delta,\Delta,\widehat\omega\rangle\doteq\frac{L'(0,\pi,\mathrm{Ad})}{L(0,\pi,\mathrm{Ad})},\]
+	where $\pi$ is some cuspidal, tempered representation of $G(\AA_\QQ)$.
+\end{conj}
+We can prove this conjecture for $G=\mathrm{GL}_2$. Roughly speaking, for $f\in C_c^\infty(G(\AA_f))$, one can use the relative trace formula to work with the arithmetic distribution
+\[f\mapsto\langle R(f)\Delta,\Delta,\widehat\omega\rangle.\]
+On the other hand, one can compare this with a relative trace formula applied to
+\[I(f',\Phi,s)=\int_{[\mathrm{GL}_n]}K_f(x,y)\Theta(y,s)\,dx\,dy.\]
+
+\end{document}
