@@ -118,4 +118,102 @@ One can now use the lemma to see that
 \[L(\eta,-n)\in\QQ(\eta).\]
 Then one can use the functional equation \Cref{thm:dirichlet-functional-equation} to prove \Cref{thm:baby-quadratic-class-number-formula} after tracking everything through. I apologize, but I chose not to write down the details.
 
+\section{The Kummer Congruence and \texorpdfstring{$p$}{p}-Adic Analysis on \texorpdfstring{$\ZZ_p$}{ Zp}}
+This talk was given by Mitch. We would like to motivate $p$-adic $L$-functions and prove the Kummer congruences, which are used in their construction.
+
+\subsection{The Kummer Congruence}
+Last time, we had an equality of the form
+\[\int_{\RR^+}\underbrace{\frac1{1-e^{-Nt}}\sum_{n=1}^{N-1}\eta(n)e^{-nt}}_{f_\eta(t)\coloneqq}\cdot t^s\,\frac{dt}t=\Gamma(s)L(\eta,s),\]
+where $\eta\pmod N$ is some primitive Dirichlet character. The moral of the story is that we see that we are taking a Mellin transform of some function $f_\eta(t)$, so it may be interesting to study these functions on their own terms.
+
+For example, if $\eta=1$ is the trivial character, then one finds that
+\[tf_1(t)=\frac t{1-e^{-t}}=\sum_{m=0}^\infty B_m\frac{t^m}{m!},\]
+where $\{B_m\}_{m\ge0}$ are the Bernoulli numbers. (Indeed, this is a definition of the Bernoulli numbers.) More generally, one can expand
+\[tf_\eta(t)=\sum_{m=0}^\infty B_{\eta,m}\frac{t^m}{m!}\]
+to define ``twisted'' Bernoulli numbers.
+
+For our special values result, we found an identity
+\[L(f,-n)=(-1)^nf^{(n)}(0),\]
+where $\Gamma(s)L(f,s)$ refers to the Mellin transform, which eventually implies a special values result
+\[L(\eta,-n)=-\frac{(-1)^{n+1}B_{\eta,n+1}}{n+1}\]
+after some rearrangement. Parity arguments actually allow us to more or less ignore the sign $(-1)^{n+1}$. Namely, when $n$ is even, then $L(\eta,-n)=0$ for even $n$ (unless $\eta$ is trivial); and when $n$ is odd, then $L(\eta,-n)=0$ for $n\ge1$ odd.
+
+We are now ready to state our Kummer congruences.
+\begin{theorem}[Kummer congruence] \label{thm:kummer-cong}
+	Fix a nontrivial primitive Dirichlet character $\eta\pmod N$. Fix a prime $p$ coprime to $N$. Choose nonnegative integers $n_1$, $n_2$, and $k$ such that $n_1,n_2\ge k$ and $n_1\equiv n_2\pmod{(p-1)p^{k-1}}$. Then
+	\[-\frac{B_{\eta,n_1+1}}{n_1+1}\equiv-\frac{B_{\eta,n_2+1}}{n_2+1}\pmod{p^k}.\]
+	If $\eta$ is trivial, then we also need to require $p\nmid(n_1-1)(n_2-1)$.
+\end{theorem}
+The moral of the story is that the special values of $L(\eta,s)$ (at integers) admit some kind of continuity in $\ZZ_p$. This will motivate us to define a $p$-adic $L$-function which interpolates these values. This interpolation will turn out to be a profittable thing to do, essentially due to Euler systems.
+\begin{remark}
+	Here is a historical remark. For reasons related to Fermat's last theorem, Kummer was interested in the notion of a ``regular prime.'' Namely, an odd prime $p$ is found to be regular if and only if $p\nmid\#\op{Cl}(\QQ(\zeta_p))$, which turns out to be equivalent to the prime $p$ not dividing any of the numerators of $B_2,B_4,\ldots,B_{p-3}$.
+\end{remark}
+
+\subsection{Using the \texorpdfstring{$p$}{p}-Adic \texorpdfstring{$L$}{L}-Function}
+Let's begin to describe what a $p$-adic $L$-function should be. Fix a prime $p$ and some (space of) characters $\eta^{(p)}\colon(\ZZ/N\ZZ)^\times\to\CC^\times$ where $\eta^{(p)}\pmod N$ is a Dirichlet character with $p\nmid N$. Additionally, we fix some $\eta_p\colon(\ZZ/p^r\ZZ)^\times\to\CC^\times$, and we would like to ``interpolate'' the values
+\[L\left(\eta^{(p)}\eta_p,-n\right)\]
+as $n\ge0$ varies. More precisely, we will find that $L$ should be thought of as a measure where $\eta_p$ is an input.
+
+For our construction, we choose some $f_{\eta_p,n}\colon\ZZ_p^\times\to\ov\QQ_p^\times$ given by $f_{\eta_p,n}(a)\coloneqq\eta_p(a)a^n$. Then we will be able to appropriately interpolate with this function.
+\begin{remark}
+	Note that $f_{\eta_p,n}$ can be thought of as a Galois representation of $\op{Gal}(\QQ(\zeta_{p^\infty})/\QQ)$.
+\end{remark}
+Now, we note
+\[L^{\{p\}}\left(\eta^{(p)}\eta_p,s\right)\coloneqq\prod_{\substack{q\text{ prime}\\\gcd(q,Np)=1}}\frac1{1-\eta^{(p)}(q)q^{-s}}=\begin{cases}
+	L\left(\eta^{(p)}\eta_p,s\right) & \text{if }\eta_p\ne1, \\
+	L\left(\eta^{(p)}\eta_p,s\right)\left(1-\eta(p)p^{-s}\right) & \text{if }\eta_p=1.
+\end{cases}\]
+Morally, the $L^{\{p\}}$ product simply removes any problems at $p$, which are relevant while we are working $p$-adically. The interpolation now appeals to the following result.
+\begin{theorem} \label{thm:construct-p-adic-l-func}
+	Fix a primitive Dirichlet character $\eta^{(p)}\pmod N$ with $p\nmid N$. Then there is a $p$-adic measure $d\mu_{\eta^{(p)}}$ such that for any Dirichlet character $\eta_p\pmod{p^k}$ admits
+	\[\int_{\ZZ_p^\times}\eta_p(x)x^n\,d\mu_{\eta^{(p)}}(x)=L^{\{p\}}(\eta^{(p)}\eta_p,-n).\]
+\end{theorem}
+\begin{remark} \label{rem:p-adic-tate-thesis}
+	It is worth comparing this statement to Tate's thesis, where we represent some (completed) $L$-function of a Hecke character $\chi$ as the Mellin transform against a character. The bizarre measure $\mu_{\eta^{(p)}}$ can be seen as incorporating the bizarre prime-to-$p$ parts of the character $\chi$.
+\end{remark}
+We have not bothered to define $p$-adic integration, but let's explain why this implies \Cref{thm:kummer-cong} first.
+\begin{proof}[Proof that \Cref{thm:construct-p-adic-l-func} implies \Cref{thm:kummer-cong}]
+	This proof is rather formal. Write $\eta$ as $\eta^{(p)}\eta_p$, where $\eta^{(p)}$ as conductor prime to $p$, and $\eta_p$ has conductor which is a power of $p$. Now, for $n$ large (say, $n\ge k$), we see that
+	\[L^{\{p\}}\left(\eta^{(p)}\eta_p,-n\right)=\left(1-\eta(p)p^{-n}\right)L\left(\eta^{(p)}\eta_p,-n\right)\equiv L\left(\eta^{(p)}\eta_p,-n\right)\pmod{p^k}\]
+	if $\eta_p$ is trivial, and the statement is still true when $\eta_p$ is nontrivial. Thus, after plugging in our special values result as $-\frac{B_{\eta,n+1}}{n+1}=L(\eta,-n)$, and in light of \Cref{thm:construct-p-adic-l-func}, we would like to show
+	\[\int_{\ZZ_p^\times}\eta_p(x)x^{n_1}\,d\mu_{\eta^{(p)}}(x)\stackrel?\equiv\int_{\ZZ_p^\times}\eta_p(x)x^{n_2}\,d\mu_{\eta^{(p)}}(x)\pmod{p^k}\]
+	whenever $n_1\equiv n_2\pmod{(p-1)p^{k-1}}$. This last equivalence holds on the level of the integrands because we are looking$\pmod{p^k}$.
+\end{proof}
+
+\subsection{Integration}
+Let's say something about how $\mu_{\eta^{(p)}}$ functions.
+\begin{remark}
+	Do note that we are not looking for the usual Haar measure: small cosets receive size $1/p^\bullet$, which is large $p$-adically. Additionally, this will have basically no hope of incorporating the prime-to-$p$ information discussed in \Cref{rem:p-adic-tate-thesis}.
+\end{remark}
+So let's rebuild some functional analysis so that we can value our measures in $\QQ_p$.
+\begin{definition}[Banach space]
+	Fix a complete valued $p$-adic field $K$. A \textit{Banach space} over $K$ is a complete normed vector space $B$ over $K$ whose norm $\norm\cdot$ satisfies the triangle inequaltiy
+	\[\norm{v_1+v_2}\le\norm{v_1}+\norm{v_2}.\]
+\end{definition}
+\begin{example}
+	Fix a compact topological space $X$. Then the space $C^0(X,\QQ_p)$ of continuous functions $X\to\QQ_p$ is a Banach space over $\QQ_p$. The norm is given by $\norm\cdot_\infty$.
+\end{example}
+\begin{definition}[orthonormal basis]
+	Fix a Banach space $B$ overa complete valued field $p$-adic $K$. Then an \textit{orthonormal basis} is a set $\{e_i\}\subseteq B$ such that $\norm{e_i}=1$ for all $i$, and any vector $v$ admits a unique expansion
+	\[v=\sum_ix_ie_i,\]
+	which converges in the sense $x_i\to0$ where $\norm v=\max_i\left|x_i\right|$.
+\end{definition}
+\begin{remark}
+	We are not requiring that $\{e_i\}$ be countable. The condition that $x_i\to0$ also includes a hypothesis that only finitely many of the $x_\bullet$s are nonzero.
+\end{remark}
+Our key example will be $C^0(\ZZ_p,\QQ_p)$. Here is a nice basis of this space.
+\begin{example}
+	For nonnegative integers $n\ge0$, define the function $\binom xn\colon\ZZ_p\to\QQ_p$ as the polynomial
+	\[\binom xn=\frac{x(x-1)\cdots(x-(n-1))}{n!}.\]
+	This is continuous because polynomials are continuous. We also remark that $\norm{\binom xn}_\infty=1$, which can be seen by checking on the dense subset $\ZZ\subseteq\ZZ_p$.
+\end{example}
+\begin{proposition}
+	The functions $\left\{\binom xn\right\}_{n\ge0}$ form an orthonormal basis of $C^0(\ZZ_p,\QQ_p)$.
+\end{proposition}
+\begin{proof}
+	We won't bother to write out the proof explicitly, but let's explain why we might expect this. Suppose we have an expansion
+	\[f(x)=\sum_na_n(f)\binom xn\]
+	already. Then one has a system of equations involving the values of $f$ on integers to solve for the $a_\bullet(f)$s.
+\end{proof}
+
 \end{document}
