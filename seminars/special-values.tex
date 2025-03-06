@@ -196,7 +196,7 @@ So let's rebuild some functional analysis so that we can value our measures in $
 \begin{definition}[orthonormal basis]
 	Fix a Banach space $B$ overa complete valued field $p$-adic $K$. Then an \textit{orthonormal basis} is a set $\{e_i\}\subseteq B$ such that $\norm{e_i}=1$ for all $i$, and any vector $v$ admits a unique expansion
 	\[v=\sum_ix_ie_i,\]
-	which converges in the sense $x_i\to0$ where $\norm v=\max_i\left|x_i\right|$.
+	which converges in the sense $x_i\to0$ (namely, $\#\{i\in I:\left|x_i\right|\ge\varepsilon\}$ is finite for all $\varepsilon>0$) where $\norm v=\max_i\left|x_i\right|$.
 \end{definition}
 \begin{remark}
 	We are not requiring that $\{e_i\}$ be countable. The condition that $x_i\to0$ also includes a hypothesis that only finitely many of the $x_\bullet$s are nonzero.
@@ -211,9 +211,243 @@ Our key example will be $C^0(\ZZ_p,\QQ_p)$. Here is a nice basis of this space.
 	The functions $\left\{\binom xn\right\}_{n\ge0}$ form an orthonormal basis of $C^0(\ZZ_p,\QQ_p)$.
 \end{proposition}
 \begin{proof}
-	We won't bother to write out the proof explicitly, but let's explain why we might expect this. Suppose we have an expansion
-	\[f(x)=\sum_na_n(f)\binom xn\]
-	already. Then one has a system of equations involving the values of $f$ on integers to solve for the $a_\bullet(f)$s.
+	We proceed in steps.
+	\begin{enumerate}
+		\item We remark that these binomials provide a basis of the polynomial functions $\ZZ\to\ZZ$, which is why we may expect this to be true. Indeed, the idea is to consider finite differences, and binomials appear for reasons related to a finite-difference version of the binomial theorem. Explicitly, for $f\in C^0(\ZZ_p,\QQ_p)$, we define the finite differences $f^{[n]}\colon\ZZ_p\to\QQ_p$ recursively by
+		\[\begin{cases}
+			f^{[0]}(x)\coloneqq f(x), \\
+			f^{[n+1]}(x)\coloneqq f^{[n]}(x+1)-f^{[n]}(x).
+		\end{cases}\]
+		One can show by induction that
+		\[f^{[n]}(x)=\sum_{k=0}^n(-1)\binom nkf(x+n-k),\]
+		where the key point is to use Pascal's identity $\binom n{k-1}+\binom nk=\binom{n+1}k$ in the inductive step.
+
+		\item We now take a moment to explain how these finite differences extract coefficients $a_n(f)$ so that $f=\sum_na_n(f)\binom\cdot n$. Indeed, if we already had an expansion $f(x)=\sum_{n\ge0}a_n(f)\binom xn$, then one finds (by induction) that
+		\[f^{[k]}(x)=\sum_{n\ge0}a_n(f)\binom x{n-k},\]
+		where again the point is to use Pascal's identity, so taking $x=0$ finds $a_n(f)=f^{[n]}(0)$. We remark that this paragraph shows that the expansion of $f$ into binomial coefficients is thus unique.
+
+		\item It remains to show that taking $a_n(f)\coloneqq f^{[n]}(0)$ has $a_n(f)\to0$ as $n\to\infty$ and $f(x)=\sum_{n\ge0}a_n(f)\binom xn$. By scaling, we may assume that $\norm f_\infty=1$, and the explicit formula for $f^{[n]}(0)$ then verifies that $\left|a_n(f)\right|\le1$ for all $n$. In this step, we will check that $a_n(f)\to0$.
+
+		The main claim is that any continuous $f\colon\ZZ_p\to\ZZ_p$ has some $\nu$ such that $\im f^{[p^\nu]}\subseteq p\ZZ_p$. Indeed, because $f$ is continuous, there is $k$ such that the reduction $f\pmod p$ is constant on the cosets of $\ZZ_p/p^\nu\ZZ_p$, which implies that
+		\[f^{[p^\nu]}(x)=\sum_{k=0}^{p^\nu}(-1)^k\binom{p^\nu}kf\left(x+p^\nu-k\right)\equiv f\left(x+p^\nu\right)-f(x)\equiv0\pmod p,\]
+		as required.
+
+		Applying the claim inductively to the various finite differences of $f$, we see that there is a sequence of integers $\nu_0\le\nu_1\le\cdots$ such that $\im f^{[p^{\nu_\bullet}]}\subseteq p^\bullet\ZZ_p$ for each $\nu_\bullet$. Thus, for $n\ge\nu_\bullet$, we see that $a_n(f)\in p^\bullet\ZZ_p$, completing this step.
+
+		\item We now check that $f(x)=\sum_{n\ge0}a_n(f)\binom xn$. We remark that these are both continuous functions $\ZZ_p\to\ZZ_p$ because we now know that $a_n(f)\to0$ as $n\to\infty$. Thus, it is enough to check the equality on the dense subset $\ZZ\subseteq\ZZ_p$. One can then show equality on $\ZZ$ by induction: one needs to show that
+		\[f(n)=\sum_{k=0}^na_n(f)\binom nk\]
+		for each $n$, which can be done directly.
+		\qedhere
+	\end{enumerate}
 \end{proof}
+
+\section{More on Measures}
+This talk was given by Rui Chen; I was not present for it. Today we set up some measure theory on $\ZZ_p$.
+
+\subsection{The Amice Transform}
+From the perspective of the Riesz representation theorem, a measure on $\ZZ_p$ is really just a distribution: it is some way to take controlled (say, compactly supported) functions and produce a number (which is the integral). Here is the corresponding definition over $\ZZ_p$.
+\begin{definition}[distribution]
+	The space of \textit{distributions} on a profinite group $G$ is the module
+	\[\mc D_0(G,\ZZ_p)\coloneqq\op{Hom}_{\mathrm{cont}}\left(C^0(G,\ZZ_p),\ZZ_p\right).\]
+	Given some continuous $f\colon G\to\ZZ_p$, we may write $\int_G f\,d\mu$ or $\int_{G}f(x)\,d\mu(x)$ for $\mu(f)$.
+\end{definition}
+\begin{example}[Dirac distribution]
+	Fix some $g\in G$. Then there is a Dirac distribution $\delta_g\in\mc D_0(G,\ZZ_p)$ given by
+	\[\int_Gf\,d\delta_g\coloneqq f(g).\]
+\end{example}
+\begin{remark}
+	By continuity, a distribution $\mu\in\mc D_0(\ZZ_p,\ZZ_p)$ is uniquely determined by its values on the binomials $x\mapsto\binom xn$. Indeed, $\mu\mapsto\left(\mu\left(\binom xn\right)\right)\in\ZZ_p^{\ZZ_{\ge0}}$, which we claim is an isomorphism. We will explain this again later, so let's be quick. It is certainly some $\ZZ_p$-linear map, and it is injective because we can expand out any $f\in C^0(\ZZ_p,\ZZ_p)$ as $f(x)=\sum_{n\ge0}a_n(f)\binom xn$ with $a_n(f)\to0$ as $n\to\infty$, thereby yielding
+	\[\mu(f)=\sum_{n\ge0}a_n(f)\mu\left(\binom xn\right)\]
+	by continuity. Lastly, the above formula successfully defines a distribution no matter how we choose $\mu\left(\binom xn\right)$, which proves surjectivity of the constructed map.
+\end{remark}
+The previous remark allows us to identify a measure by an infinite tuple of elements in $\ZZ_p$. It will turn out to be convenient to identify such infinite tuples with $\ZZ_p[[T]]$ for the following reason.
+\begin{definition}[Amice transform]
+	Given $\mu\in\mc D_0(\ZZ_p,\ZZ_p)$, we define the \textit{Amice transform} $A_\mu(T)\in\ZZ_p[[T]]$ by
+	\[A_\mu(T)\coloneqq\int_{\ZZ_p}(1+T)^x\,d\mu(x).\]
+\end{definition}
+\begin{remark}
+	Intuitively, we are integrating the measure $\mu$ against the ``character'' $x\mapsto(1+T)^x$, so the Amice transform is a special case of a Fourier transform.
+\end{remark}
+Let's quickly explain how to interpret $A_\mu(T)$ as an element of $\ZZ_p[[T]]$: the idea is to use the ``binomial theorem'' to expand $(1+T)^x$ as
+\begin{align*}
+	A_\mu(T) &= \int_{\ZZ_p}(1+T)^x\,d\mu(x) \\
+	&= \int_{\ZZ_p}\sum_{n\ge0}\binom xnT^n\,d\mu(x) \\
+	&\stackrel*= \sum_{n\ge0}\left(\int_{\ZZ_p}\binom xn\,d\mu(x)\right)T^n \\
+	&= \sum_{n\ge0}\mu\left(\binom xn\right)T^n.
+\end{align*}
+Here, the interchange of the sum and integral $\stackrel*=$ should be understod as a formal operation because we have not previously defined what it means to integrate a formal power series in $\ZZ_p[[T]]$.
+
+\subsection{Distributions via the Iwasawa Algebra}
+The above construction is better understood in more generality. Let's begin by reinterpreting $\ZZ_p[[T]]$ in a more canonical way.
+\begin{definition}[Iwasawa algebra]
+	Fix a profinite group $G$. Then we define the \textit{Iwasawa algebra} as
+	\[\ZZ_p[[G]]\coloneqq\limit_{[H:G]<\infty}\ZZ_p[G/H].\]
+\end{definition}
+\begin{example}
+	We compute $\ZZ_p[[\ZZ_p]]$. Indeed, for any $\nu\ge0$, we note that there is a surjection $\ZZ_p[[T]]\onto\ZZ_p[\ZZ_p/p^\nu\ZZ_p]$ given by $T\mapsto[1]-1$, and it becomes a bijection upon passing to the inverse limit. Thus, morally, we ought to view $T\in\ZZ_p[[T]]$ as providing an infinitesimal generator for functions centered at $1\in\ZZ_p$.
+\end{example}
+\begin{example}
+	Fix a profinite group $G=\limit G_\bullet$, we find
+	\[\mc D_0(G,\ZZ_p)=\op{Hom}_{\mathrm{cts}}\left(C^0(\limit G_\bullet,\ZZ_p),\ZZ_p\right)=\limit\op{Hom}\left(C^0(G_\bullet,\ZZ_p),\ZZ_p\right).\]
+	Now, a distribution on the finite set $G_\bullet$ amounts to assigning a weight in $\ZZ_p$ to each element of $G_\bullet$, so it can be identified with $\ZZ_p[G_\bullet]$ (via the map $g\mapsto\delta_g$, where $\delta_g\in\mc D_0(G_\bullet,\ZZ_p)$ is the indiator of $g$). We conclude that we are looking at $\ZZ_p[[G]]$, and the isomorphism $\ZZ_p[[G]]\to\mc D_0(G,\ZZ_p)$ is given by extending $g\mapsto\delta_g$.
+\end{example}
+Thus, we see that the Iwasawa algebra provides a natural home for our distributions. For example, $\ZZ_p[[G]]$ has a natural multiplication structure, so we can look for this structure in distributions.
+\begin{definition}[convolution]
+	Fix a profinite group $G$, and choose two measures $\mu_1,\mu_2\in\mc D_0(G,\ZZ_p)$. Then we define the \textit{convolution} $(\mu_1\star\mu_2)\in\mc D_0(\ZZ_p)$ by
+	\[\int_Gf(g)\,d(\mu_1\star\mu_2)(g)\coloneqq\int_G\int_Gf(gh)\,d\mu_1(g)\,d\mu_2(h).\]
+\end{definition}
+\begin{remark}
+	Technically, we ought to check that the function
+	\[h\mapsto\int_Gf(gh)\,d\mu_1(g)\]
+	is a continuous map $G\to\ZZ_p$. Let $\ell_\bullet\colon G\times C^0(G,\ZZ_p)\to C^0(G,\ZZ_p)$ denote right translation by $h$; then we would like to show that $h\mapsto\mu_1(\ell_h(f))$ is continuous. By composing appropriately, it is enough to check $\ell_\bullet$ is a continuous function, which holds as soon as we give $C^0(G,\ZZ_p)$ the correct topology. (For example, one can take a limit over the finite groups making up $G$.)
+\end{remark}
+\begin{remark}
+	It is not hard to check that convolution makes $\mc D_0(G,\ZZ_p)$ into a ring without identity.
+\end{remark}
+\begin{proposition}
+	Fix a profinite group $G$. The isomorphism $\ZZ[[G]]\to\mc D_0(G,\ZZ_p)$ given by $g\mapsto\delta_g$ is an isomorphism of rings.
+\end{proposition}
+\begin{proof}
+	By taking a limit, it is enough to check this at finite level, allowing us to assume that $G$ is finite. Then any measure is a linear combination of Dirac distributions, so it is enough to check that $\delta_{x}\star\delta_{y}=\delta_{xy}$. Well, we compute
+	\begin{align*}
+		\int_Gf\,d(\delta_{x}\star\delta_{y}) &= \int_G\int_Gf(gh)\,d\delta_x(g)\,d\delta_y(h) \\
+		&= \int_Gf(xh)\,d\delta_y(h) \\
+		&= f(xy),
+	\end{align*}
+	as required.
+\end{proof}
+Anyway, we close this section by explaining the Amice transform.
+\begin{proposition}
+	The Amice transform $A_\bullet\colon\mc D_0(\ZZ_p,\ZZ_p)\to\ZZ_p[[T]]$ is the composite of the isomorphisms
+	\[\mc D_0(\ZZ_p,\ZZ_p)\cong\ZZ_p[[\ZZ_p]]\cong\ZZ_p[[T]].\]
+\end{proposition}
+\begin{proof}
+	This is a direct computation. In short, it is enough to check this on finite level and then pass to the limit. Now, a measure $\mu$ on $\ZZ_p/p^\nu\ZZ_p$ becomes the polynomial
+	\[\sum_{a\in\ZZ_p/p^\nu\ZZ_p}\mu\left(a+p^\nu\ZZ_p\right)[a]\in\ZZ_p[\ZZ_p/p^\nu\ZZ_p],\]
+	which then goes to the polynomial
+	\[\sum_{a\in\ZZ_p/p^\nu\ZZ_p}\mu\left(a+p^\nu\ZZ_p\right)(1+T)^a,\]
+	which is $\int_{\ZZ_p}(1+T)^x\,d\mu(x)$.
+\end{proof}
+
+\section{The \texorpdfstring{$p$}{p}-Adic Zeta Function}
+This talk was given by me. I did not have time to write up notes.
+
+\section{The Analytic Class Number Formula}
+This talk was given by Xin Wei.
+
+\subsection{Artin \texorpdfstring{$L$}{L}-Functions}
+Our first topic today is about building $L$-functions attached to Galois representations. For our notation, $F$ will be a number field, and we let $M_{F,f}$ denote the set of its finite places. Let's give some adjectives to our Galois representation.
+\begin{definition}
+	Fix a Galois representation $\rho\colon\op{Gal}(\ov F/F)\to\op{GL}_n(\ov\QQ_p)$.
+	\begin{listalph}
+		\item $\rho$ is \textit{unramified} at $v\in M_{F,f}$ if and only if $\rho$ is trivial on the inertia subgroup $I_v$ at $v$.
+		\item $\rho$ is \textit{nice} if and only if it is unramified at all but finitely many places $v$ satisfying the following conditions.
+		\begin{itemize}
+			\item For each $v\in M_{F,f}$ away from $p$, the characteristic polynomial of $\rho(\mathrm{Frob}_v)$ acting on $V^{I_v}$ has algebraic coefficients.
+			\item For each $v\in M_{F,f}$ above $p$, the local representation $\rho|_{\op{Gal}(\ov F_v/F_v)}$ is de Rham, and the characteristic polynomial of $\rho(\mathrm{Frob}_v)$ acting on the module $\mathbb D_{\mathrm{pst}}(\rho_v)^{I_v}=(\rho_v|_{L_w}\otimes B_{\mathrm{st}})^{\op{Gal}(L_w/F_v)}$ (coming from $p$-adic Hodge theory) has algebraic coefficients.
+		\end{itemize}
+	\end{listalph}
+\end{definition}
+\begin{remark}
+	Intuitively, ``de Rham'' means potentially semistable.
+\end{remark}
+\begin{remark}
+	When the image of $\rho$ is finite, one can replace the submodule coming from $p$-adic Hodge theory with just $V^{I_v}$.
+\end{remark}
+We are now ready to define our local $L$-factors.
+\begin{definition}
+	Fix a nice Galois representation $\rho\colon\op{Gal}(\ov F/F)\to\op{GL}_n(\ov\QQ_p)$. Then we define
+	\[L_v(\rho_v,s)\coloneqq\begin{cases}
+		\det\left(1-\rho_v(\mathrm{Frob}_v)q_v^{-s};V^{I_v}\right)^{-1} & \text{if }v\mid p. \\
+		\det\left(1-\rho_v(\mathrm{Frob}_v)q_v^{-s};\mathbb D_{\mathrm{st}}(\rho_v)^{I_v}\right)^{-1} & \text{if }\nmid p.
+	\end{cases}\]
+	Then we define $L(\rho,s)\coloneqq\prod_{v<\infty}L_v(\rho_v,s)$ if it converges for $\Re s$ large enough.
+\end{definition}
+\begin{remark}
+	It is not even known in general if $L(\rho,s)$ always converges if $\Re s$ is large enough, though this is true if $\rho$ comes from geometry (such as if $\im\rho$ is finite). Similarly, little is known about meromorphic continuation or functional equation, where most results are known if one is able to associate $\rho$ to an automorphic form.
+\end{remark}
+\begin{example}[Dirichlet character]
+	For a primitive Dirichlet character $\eta\pmod N$, there is a Galois representation $\widetilde\eta\colon\op{Gal}(\ov\QQ/\QQ)\to\ov\QQ^\times$ given by the following composite.
+	\[\arraycolsep=1.4pt\begin{array}{ccccccc}
+		\op{Gal}(\ov\QQ/\QQ) &\onto& \op{Gal}(\QQ(\zeta_N)/\QQ) &\simeq& (\ZZ/N\ZZ)^\times &\to& \ov\QQ^\times \\
+		\mathrm{Frob}_\ell &\mapsto& \mathrm{Frob}_\ell &\mapsto& \ell^{-1} &\mapsto& \eta(\ell)^{-1}
+	\end{array}\]
+	Here, one should take $\eta(p)=0$ for $p\mid N$, though this does not matter much. Because we have described explicitly what happens to the Frobenius elements above, we see that $L(\widetilde\eta,s)=L\left(\eta^{-1},s\right)$.
+\end{example}
+\begin{example}[Tate twist]
+	There is a cyclotomic character $\chi_{\mathrm{cyc}}\colon\op{Gal}(\ov F/F)\to\ZZ_p^\times$ given by restriction to $\op{Gal}(F(\mu_{p^\infty})/F)\onto\op{Gal}(\QQ(\mu_{p^\infty})/\QQ)=\ZZ_p^\times$. Expanding out this construction, we see that $\sigma(\zeta)=\zeta^{\chi_{\mathrm{cyc}}(\sigma)}$ for any $\zeta\in\mu_{p^\infty}$. We may write this representation as the Tate twist $\ZZ_p(1)$ in the sequel; then $\ZZ_p(n)\coloneqq\ZZ_p(1)^{\otimes n}$ for $n\ge0$ and $\ZZ_p(n)=\ZZ_p(-n)^\lor$ for $n<0$.
+\end{example}
+The up-shot of taking Tate twists is that we are able to shift $L$-functions. In particular, for a general Galois representation $\rho\colon\op{Gal}(\ov F/F)\to\op{GL}_{\ov\QQ_p}(V)$ and $v\nmid p$, one can compute
+\[L_v(V(n),s)=\det\left(1-\rho(n)(\mathrm{Frob}_v)q_v^{-s}\right)^{-1}=\det\left(1-\rho(n)(\mathrm{Frob}_v)q_v^{-s-n}\right)^{-1}=L_v(V,s+n),\]
+and actually the same holds for $v\mid p$.
+\begin{example}
+	Let's return to our $p$-adic measures $\mu_\eta$ briefly, where we recall that $\eta\colon(\ZZ/N\ZZ)^\times\to\ov\QQ_p^\times$ is some primitive Dirichlet character of conductor prime to $p$. Then for any primitive Dirichlet character $\chi\pmod{p^\nu}$, our measure $\mu_\eta$ satisfied
+	\[\int_{\ZZ_p^\times}\chi(x)x^n\,d\mu_\eta(x)=L^{(p)}(\eta,\chi,-n)=L^{(p)}(\widetilde\eta^{-1}\widetilde\chi^{-1}(-n),0),\]
+	allowing us to reinterpret the entire story in terms of Galois representations! 
+\end{example}
+\begin{remark}
+	In general, one expects that a nice Galois representation $\rho$ should admit a measure $\mu_\rho$ such that well-behaved $\chi$ have
+	\[\int_{\op{Gal}(\ov F/F)^{\mathrm{ab}}_p}\chi(x)\,d\mu_\rho(x)=L^{(p)}(\rho\otimes\chi,0),\]
+	where we are integrating over the pro-$p$ part of the abelianization of the Galois group. We are now allowed to only work with $0$ by shifting the value over by enough Tate twists.
+\end{remark}
+Here are some basic properties.
+\begin{proposition}
+	The following hold.
+	\begin{listalph}
+		\item Summation: for nice Galois representations $\rho_1$ and $\rho_2$ of $F$, we have $L(\rho_1\oplus\rho_2,s)=L(\rho_1,s)L(\rho_2,s)$.
+		\item Induction: for an extension $F'/F$ of number fields and nice Galois representation $\rho$ of $F'$, we have
+		\[L\left(\op{Ind}_{\op{Gal}(\ov\QQ/F)}^{\op{Gal}(\ov\QQ/F')}\rho,s\right)=L(\rho,s).\]
+	\end{listalph}
+\end{proposition}
+\begin{proof}[Sketch]
+	Summation is checked place-by-place.  Induction is also checked place-by-place. Away from $p$, this merely relates to some careful tracking through of facts about prime-splitting; at $p$, one needs to work a little harder with the $p$-adic Hodge theory construction.
+\end{proof}
+\begin{example}
+	One can view the Dedekind zeta function $\zeta_F$ as either coming from the trivial representation of $F$ or the induction to $F$ of the trivial representation $1$ of $\QQ$. This is easiest to check when the extension $F/\QQ$ is Galois.
+\end{example}
+
+\section{The Class Number Formula}
+We now state a special values result.
+\begin{theorem}
+	Fix a number field $F$. Let $\zeta_F(s)$ be the Dedekind zeta function, and consider the following invariants.
+	\begin{itemize}
+		\item $r_1$ is the number of real embeddings $F\into\RR$.
+		\item $r_2$ is the number of complex embeddings $F\into\CC$ counted up to conjugacy.
+		\item $h_F$ is the class number of $\OO_F$.
+		\item $w_F$ is the number of roots of unity in $\OO_F$.
+		\item $\mathrm{Reg}_F$ is the covolume of the unit lattice sitting inside the trace-zero hyperplane of $\RR^{r_1+r_2}$. Namely, one embeds $\OO_F^\times\to\RR^{r_1}\times\RR^{r_2}$ by projecting along the various embeddings $F\into\CC$ and taking logarithms appropriately.
+	\end{itemize}
+	Then
+	\[\lim_{s\to 1}(s-1)\zeta_F(s)=\frac{2^{r_1}(2\pi)^{r_2}\mathrm{Reg}_F h_F}{w_F\sqrt{\left|\op{disc}\OO_F\right|}}.\]
+\end{theorem}
+\begin{proof}[Sketch]
+	Proving this requires one to know something analytic about $\zeta_F(s)$, so the best proofs come from Tate's thesis. In particular, Tate's thesis more or less implies that the residue of $\zeta_F(s)$ at $s=1$ is given by the volume of the norm-$1$ id\'ele class group, which produes the given formula after some effort.
+\end{proof}
+\begin{remark}
+	Using the functional equation for $\zeta_F$, one can show that this is equivalent to
+	\[\lim_{s\to0}s^{-r_1-r_2+1}\zeta_F(s)=-\frac{h_F\mathrm{Reg}_F}{w_F}.\]
+\end{remark}
+We will not say more about the proof, but we will give a few examples for flavor.
+\begin{example}
+	For $F=\QQ$, the right-hand side is
+	\[\frac{2^1(2\pi)^0\cdot1\cdot1}{2\cdot1}=1.\]
+	So it remains to show that $(s-1)\zeta(s)\to1$ as $s\to1$. For this, we rouhgly speaking have to know something about a meromorphic continuation of $\zeta(s)$ to $s=1$, so we follow the simplest such proof and write
+	\[\zeta(s)=\sum_{n=1}^\infty\frac1{n^s}=\int_1^\infty\frac1{x^s}\,dx+O(1)=\frac1{s-1}+O(1).\]
+\end{example}
+\begin{proposition}
+	We prove the analytic class number formula in the quadratic imaginary case.
+\end{proposition}
+\begin{proof}
+	In this case, $(r_1,r_2)=(0,1)$, and the regulartor is $1$, and $w_F\in\{2,4,6\}$. Thus, the hardest contribution will come from the ideal class group. The idea is to stratify the sum according to ideal classes. For motivation, we begin by working with principal ideals, where we see our sum is
+	\[\frac1{\#\OO_F^\times}\sum_{\alpha\in\OO_F\setminus\{0\}}\frac1{\op N\alpha^s}.\]
+	Thus, we see that we are basically counting points in the lattice $\OO_F\subseteq\CC$ bounded by some circle. This is approximately the area of the corresponding ellipse, which can be computed by integrating along concentric circles. There are approximately $\frac2{\sqrt{\left|\op{disc}\OO_F\right|}}$ lattice points for each unit square (which can be seen by computing $\OO_F$), so our sum looks like
+	\[\frac1{w_F}\int_1^\infty\frac2{\sqrt{\left|\op{disc}\OO_F\right|}}\cdot2\pi R\cdot R^{-2s}\,dR\]
+	up to some constant which does not matter much. (To be rigorous, one would need to prove something a little technical about the Gauss circle problem.) This integral eventually collapses to
+	\[\frac{2\pi}{w_F\sqrt{\left|\op{disc}\OO_F\right|}}.\]
+	For the other ideal classes, one can multiply by an ideal in the inverse class so that we are still basically summing some sublattice of principal ideals, allowing us to appeal to the above argument (after passing to a sublattice of $\OO_F$); the final answer does not change. Summing over ideal classes completes the proof.
+\end{proof}
+\begin{remark}
+	One can do something similar for real quadratic fields by counting points bounded by hyperbolas.
+\end{remark}
 
 \end{document}

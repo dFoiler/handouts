@@ -290,4 +290,64 @@ Let's indicate the main theorem. As before, $G$ is a connected split reductive g
 \end{itemize}
 It is the proposal of Braverman--Kazhdan that one can fit the ring $J_{\mathrm{aff}}$ into the above picture as going to the families $\eta_{(P,\sigma)}$ where $\eta_{(P,\sigma)}$ varies rationally in $\nu$ with no poles when one has some positivity condition on $\nu$. This last sentence is our main theorem.
 
+\section{February 26: Jeremey Taylor}
+Today we are talking about tame local Betti Langlands.
+
+\subsection{Springer Theory}
+Our story begins in springer theory, which is motivated by the following observation.
+\begin{theorem}
+	Fix a nonnegative integer $n\ge0$. Then the following are in bijection.
+	\begin{listroman}
+		\item Irreducible representations of $S_n$.
+		\item Partitions of $n$.
+		\item Conjugacy classes of nilpotent matrices in $M_n(\CC)$.
+	\end{listroman}
+\end{theorem}
+Classically, one shows that (i) and (ii) in some explicit combinatorial way, and then the bijection between (ii) and (iii) is not so hard.
+
+Springer theory provides a geometric bijection between (i) and (iii). To explain this, let $\widetilde{\mc N}$ denote the space of pairs of a nilpotent matrix $X$ and a complete flag of $\CC^n$ preserved by $X$.
+\begin{theorem}[Springer]
+	There is an isomorphism of algebras
+	\[\mathrm H^{\mathrm{BM}}_{\mathrm{top}}(\widetilde{\mc N}\times_{\mc N}\widetilde{\mc N})\cong\CC[S_n].\]
+\end{theorem}
+Morally, one takes some $X\in\mc N$ on the right to homology of some Springer fiber $\widetilde{\mc N}_X$.
+
+In positive characteristic, Kazhdan and Lusztig give the following analogue.
+\begin{definition}[affine Hecke algebra]
+	Let $I\subseteq\op{GL}_n(\FF_q((T)))$ be the Iwahori subgrouup, and define the \textit{afine Hecke algebra $H_q$} as functions on $I\backslash\op{GL}_n(\FF_q((T)))/I$.
+\end{definition}
+\begin{remark}
+	One should understand $H_q$ as a $q$-deformation of the Weyl group $S_n\ltimes\ZZ^n$.
+\end{remark}
+\begin{theorem}[Kazhdan--Lusztig]
+	One has
+	\[K^{{\op{GL}_n}\times\CC^\times}(\widetilde{\mc N}\times_{\mc N}\widetilde{\mc N})\otimes_{K^{\CC^\times}(\mathrm{pt})}\CC(q)\cong H_q.\]
+\end{theorem}
+From here, one can then use this isomorphism to understand representations of $H_q$, which has applications to the geometric local Langlands correspondence. In particular, it is produce a bijectino between irreducible representations with an Iwahori-fixed vector; irreducible representations of $H_q$; and a tuple $(s,X)$ (up to conjugacy) where $s\in\op{GL}_n(\FF_q((T)))$ is semisimple, $X$ is nilpotent, and we satisfy $sXs^{-1}=qX$.
+\begin{remark}
+	There is a rather explicit way to use parabolic induction to write down this bijection when $q=1$, which means we are looking for irreducible representations of $S_n\ltimes\ZZ^n$. Roughly speaking, the semisimple element determines the action of the $\ZZ^n$, and the nilpotent element provides a representation of $S_n$ (given by some induction) via the Springer theory.
+\end{remark}
+
+\subsection{Categorification}
+We are now ready to state our main theorem, which categorifies the above theorem.
+\begin{theorem}
+	Fix a complex reductive group $G$ with maximal torus $T$, let $I\subseteq G(\CC((t)))$ be the Iwahori subgroup, and let $I^\circ\subseteq I$ be its pro-unipotent subgroup. Further, set $\widetilde{\mathrm{Fl}}\coloneqq G(\CC((t)))/I^\circ$. Then the following two categories admit a monoidal equivalence.
+	\begin{listroman}
+		\item The category $\mathrm{Sh}_I(\widetilde{\mathrm{Fl}})$ of sheaves which are locally constant on $I$-orbits.
+		\item The category of ind-coherent sheaves on $\check B/\check B\times_{\check G/\check G}\check B/\check B$.
+	\end{listroman}
+\end{theorem}
+\begin{remark}
+	For (i), we are looking at sheaves in the analytic topology, which explains why we are restricted to $\CC$.
+\end{remark}
+\begin{remark}
+	The category in (i) is predicted by geometric local Langlands: we are supposed to look at (nilpotent) sheaves on the moduli space of $G$-bundles on $\PP^1$ with ``unipotent reduction'' at two fixed points. (The unipotent reduction is roughly asking for a basis of the associated graded bundle at the given points.)
+\end{remark}
+\begin{remark}
+	Once again, the category in (ii) is predicted by geometric local Langlands, roughly speaking looking for ind-coherent sheaves on the category of $\check G$-local systems on $\PP^1\setminus\{0,\infty\}$ with the extra data of some flags at the boundary points.
+\end{remark}
+\begin{remark}
+	This can be thought of as a ``family of equivalences'' varying over $\check T\times\check T$: (ii) lives over this space because there is a quotient map $\check B\times\check T$, and (i) lives over this space by some kind of restriction. Taking the fiber at the identity of $\check T\times\check T$ recovers a result of Bezrukaunikov.
+\end{remark}
+
 \end{document}

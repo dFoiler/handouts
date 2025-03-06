@@ -101,3 +101,4 @@
 {"rule":"CONFUSION_OF_DECENT_DESCENT","sentence":"^\\QThe idea is that most \\E(?:Dummy|Ina|Jimmy-)[0-9]+\\Q-dimensional (mod \\E(?:Dummy|Ina|Jimmy-)[0-9]+\\Q) Galois representations roughly speaking come from finite flat group schemes, and these finite flat group schemes can be described in terms of some “semilinear algebraic” data called Breuil–Kisin modules (and some descent data).\\E$"}
 {"rule":"IF_IS","sentence":"^\\QNow, we note \\E(?:Dummy|Ina|Jimmy-)[0-9]+\\Q prime \\E(?:Dummy|Ina|Jimmy-)[0-9]+\\Q if \\E(?:Dummy|Ina|Jimmy-)[0-9]+\\Q if \\E(?:Dummy|Ina|Jimmy-)[0-9]+\\Q.\\E$"}
 {"rule":"SENTENCE_WHITESPACE","sentence":"^\\QL.-Function.\\E$"}
+{"rule":"IF_IS","sentence":"^\\QThen we define \\E(?:Dummy|Ina|Jimmy-)[0-9]+\\Q if \\E(?:Dummy|Ina|Jimmy-)[0-9]+\\Q if \\E(?:Dummy|Ina|Jimmy-)[0-9]+\\Q.\\E$"}
