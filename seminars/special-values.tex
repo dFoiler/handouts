@@ -450,4 +450,64 @@ We will not say more about the proof, but we will give a few examples for flavor
 	One can do something similar for real quadratic fields by counting points bounded by hyperbolas.
 \end{remark}
 
+\section{Cyclotomic Units and Regulators}
+This talk was given by Qing.
+
+\subsection{Special Values for Even Dirichlet Characters}
+For today, we work with $F_n^+\coloneqq\QQ(\zeta_n+\zeta_n^{-1})$. Then the class number formula yields the residue of the Dedekind zeta function $\zeta_{F_n^+}(s)$ at $s=1$. On the other hand, decomposing the regular representation into characters shows that $\zeta_{F_n^+}(s)$ admits a factorization
+\[\zeta_{F_n^+}(s)=\prod_\eta L(\eta,1),\]
+where the product is taken over characters $\eta$ of the Galois group $\op{Gal}(F_n^+/\QQ)$. Thus, we may compare the residue of $\zeta_{F_n^+}(s)$ with the values $L(\eta,1)$ when $\eta$ is nontrivial (because trivial $\eta$ yields a pole with controlled residue). Note that these values $L(\eta,1)$ must be nonzero for $\eta\ne1$: they are certainly finite, and it must be nonzero because the class number formula forces the product to have a simple pole of order exactly $1$.
+
+In particular, we would like to know that the values $L(\eta,1)$ are finite and nonzero. Well, recall
+\[L(\eta,1)=\sum_{n\ge1}\frac{\eta(n)}n.\]
+Now, $\eta(n)$ is some root of unity, so we may use the fact that
+\[\sum_{n\ge1}\frac{\zeta}n=-\log(1-\zeta)\]
+for $\left|\zeta\right|=1$ not equal to $1$. Explicitly, we may view $\eta$ as lifted from a primitive Dirichlet character $\eta\pmod m$; note $\eta(-1)=1$ because we are requiring that $\eta$ comes from $F_n^+$ instead of $\QQ(\zeta_n)$. Now, via a Fourier transform, one may expand
+\[\eta(n)=\sum_{i=0}^{m-1}a_i\zeta_m^{in}\]
+for some coefficients $a_i$. Let's solve for these coefficients. Well, by suitalby averaging, we find that
+\[a_i=\frac1m\sum_{j=0}^m\eta(j)\zeta_m^{-ij}.\]
+For example, if $\gcd(i,m)=1$, then the sum rearranges to $\frac1{m\eta(i)}G(\eta)$, where $G(\eta)=\sum_j\eta(j)\zeta_m^j$ is the Gauss sum. On the other hand, if $\gcd(i,m)=d>1$, then we can see that the sum has a certain periodicity$\pmod d$ which is not shared by $\eta$ (because $\eta$ is primitive!), so the entire sum vanishes. In total, we find that
+\[L(\eta,1)=\frac{G(\eta)}m\sum_{n\ge1}\Bigg(\sum_{\substack{1\le i\le m\\\gcd(i,m)=1}}\frac{\zeta_m^{in}\eta(i)^{-1}}n\Bigg).\]
+Rearranging the sums, we see
+\[L(\eta,1)=\frac{G(\eta)}m=-\frac{G(\eta)}m\sum_{i\in(\ZZ/m\ZZ)^\times/\{\pm1\}}\eta(i)^{-1}\log\left|1-\zeta_m^i\right|^2,\]
+where we have silently used the fact that $\eta(-1)=1$.
+\begin{remark}
+	By using the functional equation, one can compute that
+	\[\lim_{s\to0}s^{-1}L\left(\eta^{-1},s\right)=-\sum_{i\in(\ZZ/m\ZZ)^\times/\{\pm1\}}\eta(i)^{-1}\log\left|1-\zeta_m^i\right|.\]
+	Amazingly, the Gauss sum term has vanished! This formula also holds if $\eta$ fails to be primitive, basically by reducing to the primitive case.
+\end{remark}
+
+\subsection{\texorpdfstring{$p$}{p}-Adic Special Values for Even Dirichlet Characters}
+Throughout, we fix a prime $p$. Given an even primitive Dirichlet character $\eta\pmod m$ of conductor prime to $p$, then we know that there is a measure $\mu_\eta^{\{p\}}$ such that
+\[\int_{\ZZ_p^\times}\eta_p(x)x^n\,d\mu_\eta^{\{p\}}(x)=L^{\{p\}}(\eta\eta_p,-n)\]
+for and Dirichlet character $\eta_p$ of $p$-power conductor. Thus, for our $p$-adic analogue, we will try to compute
+\[L_p(\eta,1)\coloneqq\int_{\ZZ_p^\times}x^{-1}\,d\mu_\eta^{\{p\}}(x).\]
+We are expecting to get a statement about some sum of logarithms of cyclotomic numbers; this logarithm should not be so surprising because we are integrating $x^{-1}$. For our computation, we pick up a few lemmas.
+\begin{lemma}
+	Choose $\mu\in D_0(\ZZ_p,\ZZ_p)$. Define $x\mu$ by $\int_{\ZZ_p}f(x)\,d(x\mu)(x)\coloneqq\int_{\ZZ_p}xf(x)\,d\mu(x)$. Then the Amice transform satisfies
+	\[\mc A_{x\mu}(T)=(1+T)\frac d{dT}A_\mu(T).\]
+\end{lemma}
+\begin{proof}
+	Direct computation of the Amice transform.
+\end{proof}
+\begin{lemma}
+	Choose $\mu\in D_0(\ZZ_p^\times,\ZZ_p)$. Define $x^{-1}\mu$ by $\int_{\ZZ_p^\times}f(x)\,d(x^{-1}\mu)(x)\coloneqq\int_{\ZZ_p^\times}x^{-1}f(x)\,d\mu(x)$. Then the Amice transform satisfies
+	\[(1+T)\frac d{dT}A_{x^{-1}\mu}(T)=A_\mu(T)\]
+	and $\psi(A_{x^{-1}\mu})=0$. Here, $\psi$ is the operation on $\ZZ_p[[T]]$ given by $\sum_ia_i(1+T)^i\mapsto\sum_ia_{ip}(1+T)^i$.
+\end{lemma}
+\begin{proof}
+	Use the previous lemma.
+\end{proof}
+We now apply the above lemma to do our computation. By definition of $\mu_\eta$, we have
+\[A_{\mu_\eta}(T)=\frac{\sum_{a=1}^{m-1}\eta(a)(1+T)^a}{1-(1+T)^m},\]
+which can be expanded into
+\[A_{\mu_\eta}(T)=\sum_{a\ge1}\eta(a)(1+T)^a.\]
+Using a finite Fourier transform as before, we find
+\[A_{\mu_\eta}(T)=\frac1{G\left(\eta^{-1}\right)}\sum_{i=1}^{m-1}\frac{\eta(i)^{-1}\zeta_m^i(1+T}{1-\zeta_m^i(1+T).}\]
+Now, $A_{\mu_\eta^{\{p\}}}$ is the restriction $(1-\varphi\psi)A_{\mu_\eta}$ of $A_{\mu_\eta}$ to $\ZZ_p^\times$. One is able to write out this computation explicitly to find that the Amice transform
+\[B(T)\coloneqq-\frac1{G\left(\eta^{-1}\right)}\sum_{\substack{1\le i\le m\\\gcd(i,m)=1}}\eta(i)^{-1}\left(\log_p\left(1-\zeta_m^i(1+T)\right)-\frac1p\log_p\left(1-\zeta_m^p(1+T)^p\right)\right),\]
+where $\log_p$ is the $p$-adic logarithm; for example, one can check by hand that $\psi(B(T))=0$, so this does in fact produce a measure on $\ZZ_p^\times$. Evaluating at $T=0$ to take the integral, we find that
+\[L_p(\eta,1)=-\frac1{G\left(\eta^{-1}\right)}\left(1-\eta(p)p^{-1}\right)\sum_{i=1}^{m-1}\eta(i)^{-1}\log_p\left(1-\zeta_m^i\right),\]
+which is our desired result.
+
 \end{document}

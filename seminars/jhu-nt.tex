@@ -23,7 +23,7 @@
 
 \tableofcontents
 
-\section{January 22nd: Friedrich Knop}
+\section{January 22: Friedrich Knop}
 This is joint work with Zhgoon. For a group $G$ with two subgroups $P,H\subseteq G$, we may be interested in the double coset space $P\backslash G/H$. Today, $G$ will be a connected reductive group over a field $K$, which may or may not be algebraically closed. Then $H$ and $P$ will be closed subgroups of $G$.
 \begin{example}
 	Take $G=\op{GL}_n(\CC)$ and $H\subseteq\op O_n(\CC)$ and $P$ to be the upper-triangular matrices. Then $P\backslash G/H$ becomes complete flags together with some data of a quadratic form; it turns out to be classified by involutions in $S_n$, where a $\sigma$ has attached to it the quadratic form $\sum_ix_ix_{\sigma i}$. For example, the orbit corresponding to $x_1^2+x_2^2+x_3^2$ is open.
@@ -349,5 +349,145 @@ We are now ready to state our main theorem, which categorifies the above theorem
 \begin{remark}
 	This can be thought of as a ``family of equivalences'' varying over $\check T\times\check T$: (ii) lives over this space because there is a quotient map $\check B\times\check T$, and (i) lives over this space by some kind of restriction. Taking the fiber at the identity of $\check T\times\check T$ recovers a result of Bezrukaunikov.
 \end{remark}
+
+\section{March 12: Tsao-Hsien Chen}
+The title of this talk is ``Real groups, symmetric varieties, quantum groups, and Langlands duality.''
+% \subsection{}
+For today, we will work with real groups $G$ (over $\RR$), to which one can associate symmetric varieties $G/K$. There is now an emerging procedure, via relative Langlands duality, to produce quantum groups.
+
+By way of motivation, choose a complex group $G$, and one may want to understand its real forms. Additionally, one may ask for an anti-holomorphic involution $\eta$ of the complex group $G$. Asking for real forms is classified by some marked Dynkin diagrams, and Cartan solved the problem with the additional involution. Cartan's idea to solve the problem with the involution is to directly solve for algebraic involutions $\theta\colon G\to G$ which then give rise to certain subgroups $K=G^\theta$, which amounts to some complex linear algebra. Then there is a correspondence between the anti-holomorphic involutions and the algebraic ones.
+
+The representation theory of Lie groups frequently has this feature, where one can find interesting equivalences between real analytic situations and algebraic ``symmetric'' ones. Here are some more examples.
+\begin{itemize}
+	\item Cartan noticed there is an equivalence between real forms $G_\RR$ and symmetric spaces $G/K$.
+	\item Harish-Chandra showed an equivalence between real representations of $G$ and $(\mf g,K)$-modules.
+	\item Matsuki noted there is some correspondence between the flag variety $G_\RR\backslash G/B$ and the symmetric space $K\backslash G/B$. (There is a way to upgrade this to derived categories.)
+	\item Approximately speaking, real Langlands on $\PP^1$ over $\RR$ becomes relative Langlands. Namely, real Langlands on $\PP^1$ considers $G$-bundles on $\PP^1_\RR$, and relative Langlands considers the loop space $L^+G$ acting on $LX=X(\CC((t)))$.
+\end{itemize}
+It is worth remembering that the complex story is understood. For example, $G$-bundles on $\PP^1_\CC$ are understood by the action of a loop group $L^+G$ on some Grassmannian $\mathrm{Gr}_G\coloneqq LG/L^+G$. Here is another such statement.
+\begin{theorem}[geometric Satake]
+	Fix a complex group $G$. Then there is an equivalence between the following two categories.
+	\begin{itemize}
+		\item The category of perverse sheaves on $L^+G\backslash\mathrm{Gr}_G$.
+		\item The category of representations of $\check G$.
+	\end{itemize}
+\end{theorem}
+\begin{remark}
+	Note that this provides a Tannakian description of $\check G$!
+\end{remark}
+One can then prove geometric Langlands for $\PP^1$ by upgrading the geometric Satake equivalence to work with derived categories.
+\begin{theorem}
+	Fix a complex group $G$. Then there is an equivalence between the following two categories.
+	\begin{itemize}
+		\item The derived category on $\mathrm{Bun}_G(\PP^1)$.
+		\item The derived category on $L^+G\backslash\mathrm{Gr}_G$.
+	\end{itemize}
+\end{theorem}
+\begin{remark}
+	The idea is to consider the following diagram of quotients.
+	% https://q.uiver.app/#q=WzAsMyxbMSwwLCJHXFxiYWNrc2xhc2hcXG1hdGhybXtHcn1fRyJdLFswLDEsIkxedEdcXGJhY2tzbGFzaFxcbWF0aHJte0dyfV9HIl0sWzIsMSwiR1xcbGVmdFt0XnstMX1cXHJpZ2h0XVxcYmFja3NsYXNoXFxtYXRocm17R3J9X0ciXSxbMCwxXSxbMCwyXV0=&macro_url=https%3A%2F%2Fraw.githubusercontent.com%2FdFoiler%2Fnotes%2Fmaster%2Fnir.tex
+	\[\begin{tikzcd}[cramped]
+		& {G\backslash\mathrm{Gr}_G} \\
+		{L^+G\backslash\mathrm{Gr}_G} && {G\left[t^{-1}\right]\backslash\mathrm{Gr}_G}
+		\arrow[from=1-2, to=2-1]
+		\arrow[from=1-2, to=2-3]
+	\end{tikzcd}\]
+	The left-hand side turns out to be $\mathrm{Bun}_G(\PP^1)$. Then one can build the functor for the above theorem by pull back and push forward.
+\end{remark}
+We now return to the real situation. On the ``symmetric'' side one works with the category $D(L^+G\backslash LX)$. On the real side, one wants to define a suitable version of $\mathrm{Bun}_G(\PP^1)$, which we see will now require two involutions to define: one involution for $G$ and another involution for $\PP^1$. However, this extra involution for $\PP^1$ does not actually add much content because there are only two real forms up to equivalence: there is $\PP^1_\RR$ and a ``twisted'' version with no real points.
+\begin{remark}
+	Similar to how one has a twisted $\PP^1$, there is a twisted version of $LX$.
+\end{remark}
+We are now ready to state a main theorem, which is joint with David Nadler.
+\begin{theorem}
+	For complex Lie group $G$ with real form $G_\RR$, there is an equivalence
+	\[D\left(\mathrm{Bun}_{G_\RR}(\PP^1_\RR)\right)\to D\left(L^+G\backslash LX\right).\]
+\end{theorem}
+\begin{remark}
+	Once again, the functor is produced by a correspondence with some object $L^+G\backslash LG/K_\RR$.
+\end{remark}
+\begin{remark}
+	Here is an application going from ``real'' to ``symmetric.'' By using the Hecke action, one can in fact build an equivalence
+	\[D\left(L^+G_\RR\backslash\mathrm{Gr}_{G_\RR}\right)\to D\left(\mathrm{Bun}_{G_\RR}(\PP^1_\RR)\right).\]
+	Now, the composite equivalence $D\left(L^+G\backslash LX\right)\cong D\left(L^+G_\RR\backslash\mathrm{Gr}_{G_\RR}\right)$ is compatible with all structures available. One can even restrict this composite to perverse sheaves and then further restrict to some understood Tannakian subcategories.
+\end{remark}
+\begin{remark}
+	Conjecturally, one can understand the full category of perverse sheaves on our spaces as representations of a quantum group.
+\end{remark}
+
+\section{March 19: Chi-Hen Lo}
+This talk was given at MIT. It was titled ``Desiderata and uniqueness of the local Langlands correspondence.''
+
+\subsection{The Local Langlands Correspondence}
+Today, $F$ is a $p$-adic field, and $W_F$ is its Weil group. For example, class field theory provides a canonical isomorphism $W_F^{\mathrm{ab}}\cong F^\times$; by pre-composition, this provides a canonical bijection between smooth one-dimensional representations of $\op{GL}_1(F)\to\op{GL}_1(\CC)$ and homomorphisms $W_F\to\op{GL}_1(\CC)$. We would like to go beyond $\op{GL}_1$; for today, we will work with connected reductive algebraic group $G$ over $F$, and for simplicity we will assume that $G$ is quasi-split. We would like to exhibit maps between the following two sets.
+\begin{itemize}
+	\item $\Pi(G,F)$ is the set of smooth irreducible representations of $G(F)$. This may be abbreviated to $\Pi(G)$.
+	\item $\Phi(G,F)$ is the set of $L$-parameters of maps $\varphi\colon W_F\times\op{SL}_2(\CC)\to{}^LG$. This may be abbreviated to $\Phi(G)$.
+\end{itemize}
+Here is the main conjecture.
+\begin{conj}[local Langlands]
+	There is a canonical surjective map $\Pi(G)\onto\Phi(G)$, written $\pi\mapsto\varphi_\pi$ or $\pi\mapsto\op{LLC}_M(\pi)$.
+\end{conj}
+\begin{remark}
+	There is a way to enhance the target $\Phi(G)$ to some $\Phi^e(G)$ in order to have a conjectural bijection.
+\end{remark}
+\begin{remark}
+	Here is a bit of what is known for fixed $G$.
+	\begin{itemize}
+		\item For tori $G$, this is due to Langlands.
+		\item For $\op{GL}_n$, this is due to Harris--Taylor, Henniart, and Scholze.
+		\item If $G$ is an arbtirary classical group, this is known by many teams.
+	\end{itemize}
+\end{remark}
+\begin{remark} \label{rem:small-llc}
+	For some special $\pi\in\Pi(G)$, one can do a bit more. For example, Kazhdan--Lusztig can do it for unipotent representations $\pi$, and Kaletha can do it for non-singular supercuspidal representations (for $p$ large).
+\end{remark}
+
+\subsection{Desiderata}
+Thus, we see that there is a lot known, so it becomes a nontrivial problem to compare the various correspondences. Here is our main result.
+\begin{theorem} \label{thm:main-llc}
+	Fix $p$ very large. There is a unique local Langlands correspondence $\Pi(G)\to\Phi(G)$ which satisfies a long list of desiderata.
+\end{theorem}
+Let's list our desiredata. For example, it ought to agree with Kaletha's construction (\Cref{rem:small-llc}) in the non-singular supercuspidal case. Quickly, we note that non-singularity is not scary.
+\begin{theorem}
+	Assume $p$ is large enough. Then any generic supercuspidal representation is non-singular.
+\end{theorem}
+Next up, we want $\op{LLC}$ to be compatible with the Langlands classification.
+\begin{theorem}[Langlands classification]
+	Fix everything as above.
+	\begin{itemize}
+		\item There is a bijection between $\pi\in\Phi(G)$ and triples $(P,\pi_t,\nu)$ of parabolic $P\subseteq G$, tempered $\pi_t$, and unramified character $\nu$.  (A triple goes to the parabolic induction twisted by $\nu$.)
+		\item There is a bijection between $\varphi\in\Phi(G)$ and triples $(P,\phi_t,\nu)$ similarly.
+	\end{itemize}
+\end{theorem}
+Then \Cref{thm:main-llc} asks for $\op{LLC}$ to be compatible with the Langlands classifications on both sides.
+
+Our next desideratum has to do with infinitesimal characters.
+\begin{definition}[infinitesimal character]
+	Fix some $\varphi\colon W_F\times\op{SL}_2(\CC)\to{}^LG$. Then there is an \textit{infinitesimal character} given by
+	\[w\mapsto\varphi\left(w,\begin{bmatrix}
+		\left|w\right|^{1/2} \\ & \left|w\right|^{-1/2}
+	\end{bmatrix}\right).\]
+\end{definition}
+Then \Cref{thm:main-llc} asks that two generic $\pi_1\in\Pi(G)$ and $\pi_2\in\Pi(M)$ for Levi subgroup $M\subseteq G$ (here, genericity is taken with respect to a chosen Whittaker datum of $G$) will have $\pi_1$ live in the parabolic induction of $\pi_2$ if and only if they share the infinitesimal character.
+
+We would also like some control on parabolic induction, so \Cref{thm:main-llc} will ask for $\pi\into\op{Ind}_P^G\sigma$ (with $\sigma$ unitary tempered) to imply that $\varphi_\pi$ is the composition of $\varphi_\sigma$ with the induced embedding $^LM\to{}^LG$, where $P=MN$ is the Levi decomposition.
+
+We are now ready to note that we have gotten somewhere.
+\begin{theorem}
+	Let $\Pi^{M}(G)$ denote the collection of $\pi\in\Pi(G)$ whose paraboic induction has a generic quotient. For $p$ large enough, $\op{LLC}$ is uniquely determined on $\Pi^M(G)$ given the above desiredata.
+\end{theorem}
+\begin{proof}[Sketch]
+	If $\pi$ is non-tempered, then the Langlands classification allows us to induct and replace $G$ by a smaller group. Now, if $\pi$ is tempered, generic, and supercuspidal, then Kaletha's construction provides $\op{LLC}$. Lastly, if $\pi$ is tempered, generic, but not supercuspidal, then $\pi$ is an induction of some supercuspidal. After some twisting, one can use the hypothesis on parabolic induction in the tempered case.
+\end{proof}
+\begin{remark}
+	The above proof is ``almost constructive,'' in the sense that it can almost inductively calculate what $\op{LLC}$ is from the supercuspidal case. Conjecturally, one can sharpen this.
+\end{remark}
+Here are more desiderata.
+\begin{itemize}
+	\item We would like the Shahidi conjecture: if $\varphi$ is tempered, then there is a unique generic element $\pi$ of the fiber $\Pi_\varphi$.
+	\item We would like some stability: if $\varphi$ is tempered, then there is a finite sum $\eta_\varphi^{\mathrm{st}}$ into $\pi$s with the generic member having nonzero coefficient.
+	\item Lastly, we want ``strong atomic stability,'' which I did not really understand.
+\end{itemize}
 
 \end{document}

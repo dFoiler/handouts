@@ -1,0 +1,122 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+
+\newcommand{\nirpdftitle}{KAKEYA IN \texorpdfstring{$\RR^3$}{R3}}
+\usepackage{import}
+\inputfrom{../../notes}{nir}
+\usepackage[backend=biber,
+    style=alphabetic,
+    sorting=ynt
+]{biblatex}
+\setcounter{tocdepth}{2}
+
+\pagestyle{contentpage}
+
+\title{Kakeya Sets in \texorpdfstring{$\RR^3$}{R3}}
+\author{Hong Wang}
+\date{2 April 2025}
+\usepackage{graphicx}
+
+\begin{document}
+
+\maketitle
+
+\tableofcontents
+
+\section{The Kakeya Conjecture}
+This talk was given on April 2nd, given by Hong Wang, describing joint work with Zahl. We are interested in Kakeya sets.
+\begin{definition}[Kakeya set]
+	A \textit{Kakeya set} is a compact subset $K\subseteq\RR^n$ that contains a unit line segment in every direction.
+\end{definition}
+\begin{example}
+	The unit disk in the plane is a Kakeya set.
+\end{example}
+A natural question is how small a Kakeya set can be.
+\begin{theorem}[Besicovitch 1919] \label{thm:besico}
+	For every $n\ge0$, there is a Kakeya set in $\RR^n$ of Lesbegus measure $0$.
+\end{theorem}
+\begin{proof}
+	One can explicitly produce such a set via a tree-like construction.
+\end{proof}
+This allows us to make the following definition.
+\begin{definition}[Besicovitch]
+	A \textit{Besicovitch set} is a Kakeya set with Lesbesgue measure $0$.
+\end{definition}
+\begin{remark}[Fefferman 1970]
+	Such sets were used to give a counterexample to the ball multiplier conjecture. This provides a connection
+\end{remark}
+\begin{remark}
+	There are also connections between Kakeya sets and number theory and homogeneous dynamics.
+\end{remark}
+In spite of \Cref{thm:besico}, one still expects Kakeya sets to be fairly large, made rigorous by the following conjectuer
+\begin{conj}[Kakeya]
+	Any Kakeya set in $\RR^n$ has Hausdorff dimension $n$.
+\end{conj}
+The definition of Hausdorff dimension is somewhat technical, but it will not be totally necessary for this talk.
+
+Let's give some historical remarks. For $n=2$, the result is known due to Davies. For $n=3$, Bourgain (1995) showed that Kakeya sets have Hausdorff dimension at least $2+\frac13$, and Wolff (1995) showed $2+\frac12$; both these results use combinatorial methods. A team of Katz--Laba--Tao (2000) showed dimension $2+\frac12+\varepsilon$ using heavy machinery. Earlier this year, the full result was proved.
+\begin{remark}
+	Let's describe why going beyond $2+\frac12$ is difficult. The reason, roughly speaking, is that there is a Heisenberg group $H\subseteq\CC^3$ which has dimension $2+\frac12$ but behaves in many ways like a Kakeya set.
+\end{remark}
+The team Katz--Laba--Tao showed that having counterexamples to the Kakeya conjecture of dimension $2+\frac12$ will have many remarkable properties.
+
+\section{The Proof}
+A few years ago, Wang and Zahl showed the following.
+\begin{theorem}[Wang--Zahl 2022]
+	A sticky Kakeya set in $\RR^3$ has Hausdorff dimension $3$.
+\end{theorem}
+Here, stickiness basically means that the unit line segments in the same direction are close together in some sense. Notably, this proof must rule out the Heisenberg group $H\subseteq\CC^3$, which is sticky. Let's describe how this is done. For this, we introduce projection theory, which is a branch of geometric measure theory which wants to understand how the dimension of a set behaves under orthogonal projection to hyperplanes. However, this machinery is only well-developed for sticky and almost Alfors regular sets, which are hypotheses that allow one to apply induction of scales.
+
+In this situation, one can use Bourgain's sum product theorem, which is the analytic input able to distinguish between $\RR$ and $\CC$. Approximately speaking, Borugain's sum product theorem explains that reasonably large subsets $A\subseteq\RR$ have $A+A$ or $A\cdot A$ much larger than $A$ itself.
+
+We now turn to general Kakeya sets. Approximately speaking, our chief difficulty will be figuring out how to apply an induction of scales. One can translate our game into the following: for given $\delta>0$ small, let $\mathbb T$ be a collection of $\delta$-tubes in $\RR^3$, and then we would like to control the measure $\left|\bigcup_{T\in\mathbb T}T\right|$. In particular, the following is enough to prove the Kakeya conjecture.
+\begin{conj}[Kakeya, discretized] \label{conj:kakeya-conj-discrete}
+	For given $\delta>0$, let $\mathbb T$ be a set of $\delta$-tubes containing a $\delta$-tube in every $\delta$-separated direction. Then
+	\[\left|\bigcup_{T\in\mathbb T}T\right|\approx1.\]
+\end{conj}
+This conjecture is hard because it does not permit induction of scales: namely, even if we know the conjecture for some medium $\delta$, we cannot achieve the result for smaller $\delta$ because $\mathbb T$ at small scales might have the $\delta$-tubes in similar directions too far apart to be combined into single $\delta$-tubes.
+
+Thus, we are interested in replacing our hypothesis on having $\delta$-tubes in enough directions with a better list of hypotheses implied by this. We will work with the Wolff axioms.
+\begin{definition}
+	For $\delta>0$ small, let $\mathbb T$ be a set of $\delta$-tubes.
+	\begin{itemize}
+		\item $\mathbb T$ satisfies the \textit{Katz--Tao Wolff axiom} if and only if all convex sets $U$ with
+		\[\mathbb T[U]\coloneqq\{T\in\mathbb T:T\subseteq U\}\]
+		has $\#\mathbb T[U]\ll\left|U\right|/\left|T\right|$.
+		\item $\mathbb T$ satisfies the \textit{Frostman Wolff axiom} if and only if all convex sets $U$ have $\#\mathbb T[U]\ll\left|U\right|\cdot\#\mathbb T$.
+	\end{itemize}
+\end{definition}
+\begin{remark} \label{rem:kakeya-to-wolff}
+	If $\mathbb T$ contains a $\delta$-tube in every $\delta$-separated direction, then one can show that $\mathbb T$ satisfies Katz--Tao Wolff and Frostman Wolff axioms. Note that this holds only in $\RR^3$. In higher dimensions such as $\RR^4$, one must work with a more complicated set of axioms; for example, the hypersurface cut out by $xy-uw=1$ in $\RR^4$ fails to satisfy the above axioms despite being Kakeya.
+\end{remark}
+These hypotheses now permit induction on scales, so we are ready to state the main result.
+\begin{theorem}[Wong--Zahl 2025] \label{thm:get-kakeya}
+	Let $\mathbb T$ be a collection of $\delta$-tubes.
+	\begin{listalph}
+		\item If $\mathbb T$ satisfies the Katz--Tao Wolff axiom, then there are not too many tubes, and they are roughly disjoint; i.e., $\#\mathbb T\ll\delta^{-2}$ and $\left|\bigcup_{T\in\mathbb T}T\right|\approx\left|T\right|\cdot\#\mathbb T$.
+		\item If $\mathbb T$ satisfies the Frostman Wolff axiom, then there are many tubes, and they are not too close together; i.e., $\#\mathbb T\gg\delta^{-2}$ and $\left|\bigcup_{T\in\mathbb T}T\right|\approx1$.
+	\end{listalph}
+\end{theorem}
+Via \Cref{rem:kakeya-to-wolff}, this implies \Cref{conj:kakeya-conj-discrete}.
+
+Let's say something about the proof \Cref{thm:get-kakeya}. We may assume that $\mathbb T$ is not sticky, which means that there is a small $\rho>\delta$ such that any collection $\mathbb T_\rho$ of distinct $\rho$-tubes which contains $\mathbb T$ but has many tubes $\#\mathbb T_\rho\gg\rho^{-2}$. To prove our result, it turns out that we would like to bound the multiplicity of $\mathbb T$.
+\begin{definition}[multiplicity]
+	Let $\mathbb T$ be a collection of $\delta$-tubes. Then the \textit{multiplicity} $\mu(\mathbb T)$ is the number of tubes $T\in\mathbb T$ which pass through a typical point in $\bigcup_{T\in\mathbb T}T$.
+\end{definition}
+Now, for any $\mathbb T$ satisfying the Katz--Tao Wolff axiom, we find $\mu(\mathbb T)\ll\#\mathbb T^\sigma$ for some explicit $\sigma>0$. In the non-sticky case, we expect to be able to achieve an improvement $\mu(\mathbb T)\ll\#T^{\sigma-\varepsilon}$ for some positive $\varepsilon$. The rough idea is that the non-sticky condition means that working at a larger scale $\rho$ forces us to introduce more tubes than expected.
+
+In a few more words, one picks up points with many $\delta$-tubes intersecting through them, which we label as grains $G$. Then one is able to produce a bound of the form
+\[\mu(\mathbb T)\approx\mu(\mathbb T[T_\rho])\cdot\mu(G).\]
+Note that experts thus far have considered bounds of the type $\mu(\mathbb T)\ll\mu(\mathbb T[T_\rho])\cdot\mu(\mathbb T_\rho)$, which holds by some combinatorial scaling argument. Working with grains is able to produce a stronger bound, but we are now left with the task of finding structure in these grains. Here is the key input.
+\begin{proposition}
+	Let $\mathbb T$ be a set of $\delta$-tubes. Then there is a subset $\mathbb T'\subseteq\mathbb T$ and a set $\mc W$ of $A\times B\times1$ boxes with $\delta\le A\le B\le1$ satisfying the following.
+	\begin{listroman}
+		\item $\mc W$ satisfies the Katz--Tao Wolff axiom.
+		\item For all $W\in\mathbb W$, the set $\mathbb T'[W]$ satisfies a version of the Frostman Wolff axiom. 
+	\end{listroman}
+\end{proposition}
+For example, if $G$ is Katz--Tao, then one proceeds by writing
+\[\mu(\mathbb T)\approx\mu(\mathbb T[T_\rho])\cdot\mu(G)\ll(\rho-2)\sigma\ll\#\mathbb T_\rho^\sigma,\]
+which produces the required improvement.
+
+\end{document}

@@ -1451,8 +1451,164 @@ At long last, we may prove the Chebotarev density theorem.
 \begin{proof}
 	By \Cref{prop:equi-by-l-func}, it is enough to check that the $L$-functions $L(s,\rho)$ have nonvanishing holomorphic continuation to $\{s:\Re s\ge1\}$ for each nontrivial complex irreducible representation $\rho$ of $\op{Gal}(\ov K/K)$. Well, fix some such $\rho$. By \Cref{lem:artin-finite-image}, we can find a finite Galois extension $L$ of $K$ with Galois group $G$ such that $\rho$ descends to $\op{Gal}(L/K)$. Now, $G$ is Brauer by \Cref{thm:brauer}, so \Cref{lem:brauer-to-artin} provides a meromorphic continuation to $\{s:\Re s\ge1\}$ which is holomorphic and nonvanishing for $s\ne1$. Furthermore, $\langle{\tr}\circ\rho,1\rangle=0$ because $\rho$ is nontrivial and irreducible, so holomorphy and nonvanishing follows.
 \end{proof}
-% elliptic curves
-% y^9 = x(x-1)(x-lambda) first few moments
+
+\section{Some Abelian Varieties}
+In this section, we begin to prove the Sato--Tate conjecture for abelian varieties, using increasing amounts of results about automorphic forms and automorphy.
+
+\subsection{The Fundamental Theorem of Complex Multiplication}
+For this subsection, we will let $A$ be an abelian variety of dimension $g$ defined over a number field $L$ with complex multiplication by an order $\OO$ of a CM number field $K$. We let $\Phi$ denote the CM type. Our exposition closely follows \cite[Section~3]{conrad-cm}. It is slightly beyond the scope of our current discussion to give a precise statement of the Fundamental theorem of complex multiplication; instead, we will work with the following consequence.
+
+Ultimately, we are interested in computing the Galois action of $\op{Gal}(\ov\QQ/L)$ on the Tate module of $A$. In order to avoid fixing a prime $\ell$, we pick up the following notation.
+\begin{notation}
+	Fix an abelian variety $A$ defined over a field $L$ of characteristic $0$. Then we define the adelic Tate modules $\widehat T_f(A)\coloneqq\prod_\ell T_\ell(A)$ and $\widehat V_f(A)\coloneqq T_f(A)\otimes_\ZZ\QQ$.
+\end{notation}
+\begin{remark}
+	Note that $\widehat T_fA$ is a free $\widehat\ZZ$-module of rank $2g$, and $\widehat V_fA$ is a free $\AA_{\QQ,f}$-module of rank $2g$.
+\end{remark}
+Thus, we are interested in the Galois representation
+\[\rho_A\colon\op{Gal}(\ov\QQ/L)\to\op{GL}(\widehat V_fA).\]
+Suitably interpreted, this Galois representation will turn out to be the reflex norm, up to a root of unity.
+
+Because $A$ has complex multiplication by $K$ defined over $L$, the image of $\rho_A$ commutes with the action of $K$ on $\widehat V_fA$, so $\rho_A$ actually factors through $\op{GL}_{K\otimes_\ZZ\widehat\ZZ}(V_fA)$. By looking factor-by-factor (on each $\ell$), we see that this target is contained in $K\otimes_\ZZ\widehat\ZZ$ because $K$ is its own commutator. Thus, $\rho_A$ factors as a Galois representation
+\[\rho_A\colon\op{Gal}(\ov\QQ/L)\to(K\otimes_\ZZ\widehat\ZZ)^\times,\]
+where the embedding $K\otimes_\ZZ\widehat\ZZ\into\op{GL}(T_fA)$ is given by the action of $K$ on $A$. We take a moment to note that this target is $(K\otimes_\ZZ\widehat\ZZ)^\times=(K\otimes_\QQ\AA_{\QQ,f})^\times=\AA_{K,f}^\times$. Anyway, because the target is now abelian, we see that $\rho_A$ factors through
+\[\rho_A\colon\op{Gal}(L^{\mathrm{ab}}/L)\to\AA_{K,f}^\times.\]
+Artin reciprocity provides a canonical map $\op{Art}_L\colon\AA_L^\times\to\op{Gal}(L^{\mathrm{ab}}/L)$, so we may as well work with the composite $\ov\rho_A$
+\[\AA_L^\times\to\op{Gal}(L^{\mathrm{ab}}/L)\stackrel{\rho_A}\to\AA_{K,f}^\times.\]
+By \cite[Corollary~8.2.2]{neukirch-cohom}, we note that $\op{Art}_L$ is surjective with kernel containing $L^\times$ and $\AA_{L,\infty}^\times\subseteq\AA_L^\times$. (To see $\AA_{L,\infty}^\times$ is in the kernel, we need to know that $L$ has no real places, which holds because $L$ contains the CM field $K^*$ because $K^*$ is the field of definition for the endomorphisms of $A$.) For example,  this implies that $\ov\rho_A$ factors through $\AA_L^\times\onto\AA_{L,f}^\times$.
+
+It is this map $\ov\rho_A$ which will essentially turn out to be the reflex norm. Here is our statement of the fundamental theorem of complex multiplication, which we will not prove.
+\begin{theorem}[Fundamental] \label{thm:fundamental}
+	Fix an abelian variety $A$ of dimension $2g$ with complex multiplication by $(K,\Phi)$ defined over a number field $L$. Then there is a continuous homomorphism $\lambda\colon\AA_{L,f}^\times\to K^\times$ such that any $s_f\in\AA_{L,f}^\times$ has
+	\[\rho_A(\op{Art}_Ls_f)=\lambda(s_f)\op N_\Phi(\op N_{L/K^*}(s_f))^{-1}.\]
+	Here, $\lambda$ is continuous where $K^\times$ has been given the discrete topology.
+\end{theorem}
+\begin{remark}
+	Technically, the definition of $\op N_{L/K^*}$ depends on a choice of reflex $K^*$ inside $L$, which depends on a choice of embedding $L\into\ov\QQ$. However, it turns out that the composite $\mathrm N_\Phi\circ\mathrm N_{L/K^*}$ does not depend on the choice of embedding $L\into\ov\QQ$. We will not need this, so we will not show it.
+\end{remark}
+\begin{remark}
+	\Cref{thm:fundamental} is frequently cited as merely a corollary of the fundamental theorem, and the fundamental theorem is indeed a more precise statement about the Galois action on $A$. However, the precise statement of the usual fundamental theorem is rather technical, and we will not need it, so we will be happy merely using \Cref{thm:fundamental} in this article.
+\end{remark}
+Let's give a few properties of this mysterious character $\lambda$ for future use.
+\begin{proposition} \label{prop:use-fundamental}
+	Fix an abelian variety $A$ of dimension $2g$ and with complex multiplication by $(K,\Phi)$ defined over a number field $L$. Define the continuous character $\lambda\colon\AA_{L,f}^\times\to K^\times$ as in \Cref{thm:fundamental}.
+	\begin{listalph}
+		\item For $s_f\in\AA_{L,f}^\times$, the fractional ideal generated by $\op N_{\Phi}(\op N_{L/K^*}(s_f))$ is $\lambda(s_f)\OO_K$.
+		\item Choose a prime $\mf P$ of $L$. Then $A$ has good reduction at $\mf P$ if and only if $\lambda$ is trivial on $\OO_{\mf P}^\times\subseteq\AA_{L,f}^\times$.
+		\item Choose a prime $\mf P$ of $L$ with uniformizer $\varpi_\mf P\in\OO_{\mf P}^\times$. Suppose $A$ has good reduction at $\mf P$. Then $\lambda(\varpi_\mf P)\in\OO_K$, and it agrees with the $q_\mf P$-Frobenius endomorphism on the reduction $A_{\kappa(\mf P)}$ (where $q_\mf P\coloneqq\#\kappa(\mf P)$).
+	\end{listalph}
+\end{proposition}
+\begin{proof}
+	We show these parts one at a time. For (b) and (c), it will help to fix a rational prime $\ell$ not lying under $\mf P$.
+	\begin{listalph}
+		\item For each finite prime $\mf P$ of $K$, we must show $\op N_\Phi(\op N_{L/K^*}(s_f))$ and $\lambda(s_f)$ have the same $\mf P$-valuations. Equivalently, we would like to check that
+		\[u(s_f)\coloneqq\lambda(s_f)\op N_\Phi(\op N_{L/K^*}(s_f))^{-1}\stackrel?\in\prod_{\mf P}\OO_{K,\mf P}^\times.\]
+		Well, by \Cref{thm:fundamental}, we see that $u(s_f)$ acts on the Tate module $\widehat V_fA$ as $\rho_A(\op{Art}_Ls_f)$, which is notably an automorphism fixing the integral sublattice $\widehat T_fA\subseteq\widehat V_fA$. We conclude that $u(s_f)$ is a unit at all finite places.
+
+		\item We use the N\'eron--Ogg--Shafaverich criterion \cite{good-reduction-serre-tate}, which tells us that $A$ has good reduction at $\mf P$ if and only if $\rho_A\colon\op{Gal}(\ov\QQ/L)\to V_\ell A$ is trivial on the inertia subgroup $I_\mf P$. The Artin map $\op{Art}_L\colon\AA_{L,f}^\times\to\op{Gal}(\ov\QQ/L)$ is surjective, and the image of $\OO_{\mf P}^\times\subseteq\AA_{L,f}^\times$ is precisely $I_{\mf P}$, so $A$ has good reduction at $\mf P$ if and only if the composite
+		\[\OO_{\mf P}^\times\subseteq\AA_{L,f}^\times\onto\op{Gal}(L^{\mathrm{ab}}/L)\to\AA_{K,f}^\times\onto\AA_{K,\ell}^\times\]
+		is trivial. Well, by \Cref{thm:fundamental}, we see that this composite is $\lambda$ multiplied by the reflex norm. The image of the reflex norm on $\OO_{\mf P}^\times\subseteq\AA_{L,f}^\times$ will land away from $\AA_{K,\ell}^\times\subseteq\AA_{K,f}^\times$, so it does not affect whether this composite is trivial. Thus, we conclude that the composite is trivial if and only if $\lambda|_{\OO_{\mf P}^\times}$ is trivial.
+		% p adic proof?
+
+		\item Quickly, observe that $\lambda(\varpi_{\mf P})\in\OO_K^\times$ follows from agreeing with the Frobenius on the reduction. Indeed, agreeing with the Frobenius on the reduction implies that $\lambda(\varpi_{\mf P})$ is the root of the characteristic polynomial of the Frobenius, which is monic with coefficients in $\ZZ$.
+		
+		It remains to check agreement with the Frobenius on the reduction. The computation of the composite used in the proof of (b) explains that the Galois action of $\mathrm{Frob}_{\mf P}=\op{Art}_L(\varpi_{\mf P})$ on $V_\ell A$ is given by $\lambda(\varpi_{\mf P})_\ell\in\AA_{K,\ell}^\times$. Thus, the action of $\lambda(\varpi_{\mf P})$ on the Tate module $T_\ell A_{\kappa(\mf P)}$ of the reduction also agrees with the action of the Frobenius, which lifts to an equality of actions on the actual reduction $A_{\kappa(\mf P)}$ because passing to the Tate module is faithful (see \Cref{rem:tate-endomorphisms}).
+		\qedhere
+	\end{listalph}
+\end{proof}
+\begin{remark}
+	For (c), one may want to say that $\lambda(\varpi_{\mf P})$ is a characteristic-$0$ lifting of the Frobenius endomorphism on the reduction. However, if we do not have $\OO_K\subseteq\op{End}_L(A)$, then we cannot actually guarantee this lifting.
+\end{remark}
+We now move towards understanding the $L$-function of $A$. \Cref{prop:use-fundamental} more or less explains that $\lambda$ remembers the Frobenius action. However, $\lambda$ is essentially only a character $\AA_{L,f}^\times\to L^\times$, so we desire a way to extend $\lambda$ to a Hecke character $L^\times\backslash\AA_L^\times\to\CC^\times$. This means that we would like to extend $\lambda$ to the infinite places of $\AA_L^\times$ in such a way that it is trivial on $L^\times$.
+\begin{proposition} \label{prop:fundamental-l-func}
+	Fix an abelian variety $A$ of dimension $2g$ and with complex multiplication by $(K,\Phi)$ defined over a number field $L$. Define the continuous character $\lambda\colon\AA_{L,f}^\times\to K^\times$ as in \Cref{thm:fundamental}. Further, for each embedding $\sigma\colon K\into\CC$, define the character $\chi_\sigma\colon\AA_L^\times\to\CC^\times$ by
+	\[\chi_\sigma(s)\coloneqq\lambda(s_f)\op N_\Phi(\op N_{L/K^*}(s_\infty))_\sigma^{-1}.\]
+	Then $\chi_\tau$ is a Hecke character, and
+	\[L(s,A)=\prod_{\sigma\colon K\into\CC}L(s,\chi_\sigma).\]
+\end{proposition}
+% \Cref{thm:fundamental} is supposed to tell us everything we want to know about the Galois action over $L$. For example, we can recover the Shimura--Taniyama formula, though of course the proof is circular: one uses Shimura--Taniyama formula to prove \Cref{thm:fundamental}.
+% \begin{corollary}[Shimura--Taniyama]
+% 	Fix an abelian variety $A$ of dimension $2g$ and with complex multiplication by $(K,\Phi)$ defined over a number field $L$. For any finite prime $\mf P$ of good reduction, there is $\beta_\mf P\in\OO_K$ inducing the $q_\mf P$-Frobenius action on $A$ (where $q_\mf P\coloneqq\#\kappa(\mf P)$), and
+% 	\[\frac{\op{ord}_{\mf P'}(\beta_{\mf P})}{\op{ord}_{\mf P'}(q_{\mf P})}=\frac{\#(\Phi\cap H_{\mf P'})}{\# H_{\mf P'}},\]
+% 	where $H_{\mf P'}$ is the set of embeddings $K\into\ov\QQ_p$ inducing the prime $\mf P'$.
+% \end{corollary}
+% \begin{proof}
+% 	Let $S$ be a finite and nonempty set of finite primes of $L$ including the primes of bad reduction.
+% \end{proof}
+
+\subsection{Potential Modularity}
+In this subsection, we explain the proof of the Sato--Tate conjecture for elliptic curves (without complex multiplication) over CM fields.\todo{}
+
+\subsection{Some Partial Results}
+In this subsection, we prove some partial results towards the Sato--Tate conjecture for the curve $y^9=x(x-1)(x-\lambda)$.\todo{}
+
+\section{Vertical Considerations}
+In this section, we average ``in the other direction'' to produce some distributions which look like Sato--Tate distributions. To be explicit, the idea is to fix an abelian scheme $A$ over a curve $C$ over a fixed finite field $\FF_q$. Then we will be interested in the distribution of $\#A_c(\FF_q)$ as $c\in C$ varies. As with the usual Sato--Tate conjecture, this question can be refined into one about equidistribution in a suitable monodromy group.
+
+\subsection{Katz's Machine}
+In this subsection, we review Katz's machine to produce vertical Sato--Tate results.\todo{}
+
+\subsection{The Frobenius}
+Under some rather restrictive hypotheses, we explain how to use \Cref{thm:fundamental} in order to compute the Frobenius. Our exposition follows the approach of \cite[Section~4]{van-geeman-fermat-curve-hecke}, with two important caveats. First, our application will be slightly simpler. Second, the fundamental theorem (\Cref{thm:fundamental}) is slightly incorrect in \cite[Subsection~4.4]{van-geeman-fermat-curve-hecke} because the described Hecke character $\AA_K^\times\to K^\times$ is not continuous at the infinite places. Nevertheless, we are under the impression that the stated results are true, and the arguments are correct with slight modifications separating the continuity at the finite places with the reflex norm at the infinite places (as done in \Cref{prop:fundamental-l-func}).
+
+% Let $A$ be an abelian variety with complex multiplication by $(K,\Phi)$. We assume further that $K$ is a CM field and is Galois, which means that $K^*\subseteq K$, so we may as well replace $A$ with a model over $K$. For simplicity in the calculations, we also assume that $K$ has class number $1$, and we assume that $A$ has good reduction outside a single finite place $\mf Q$.
+
+% Now, for a prime $\mf P$ of $K$ distinct from $\mf Q$, we will attempt to compute $\rho_A(\mathrm{Frob}_{\mf P})$. By \Cref{prop:use-fundamental}, this essentially amounts to computing $\lambda(\varpi_{\mf P})$ for some choice of uniformizer $\varpi_{\mf P}\in\OO_{\mf P}$.
+Here is our starting result, explaining how to compute the Frobenius action.
+\begin{proposition} \label{prop:fundamental-compute-frob}
+	Let $A$ be an abelian variety with complex multiplication by $(K,\Phi)$ defined over $L$, and let $S$ be a finite set of finite places of $L$ containing the places of $A$ of bad reduction. We further suppose that $L$ is Galois over $\QQ$. Then there is a continuous character $\lambda_S\colon\widehat\OO_{L,S}^\times\to\mu(K)$ with the following property: for any principal prime $\mf P$ of $L$ not in $S$, let $\varpi_{\mf P}\in\mf P$ be a generator, and then
+	\[\lambda_S(\varpi_{\mf P})^{-1}\op N_\Phi(\op N_{L/K^*}(\varpi_{\mf P}))\]
+	agrees with the $q_{\mf P}$-Frobenis endomorphism on the reduction $A_{\kappa(\mf P)}$ (where $q_{\mf P}\coloneqq\#\kappa(\mf P)$).
+\end{proposition}
+\begin{proof}
+	By \Cref{prop:use-fundamental}, we basically want to compute $\lambda(\iota_{\mf P}\varpi_{\mf P})$, where $\iota_v\colon L_v^\times\to\AA_L^\times$ is the inclusion for any place $v$. However, we see that our statement is asking us to move the evaluation of $\lambda$ away from $\mf P$, for which we use the Hecke character of \Cref{prop:fundamental-l-func}. Fix an embedding $L\subseteq\CC$, and then any embedding $K\into\CC$ actually factors through $L$ because $L$ is Galois; we let $\chi$ be the Hecke character constructed in \Cref{prop:fundamental-l-func}. Then $\lambda(\iota_{\mf P}\varpi_{\mf P})=\chi(\iota_{\mf P}\varpi_{\mf P})$, and because $\chi$ is trivial on $L^\times$, we see that this equals
+	\[\chi\Bigg(\prod_{v\ne\mf P}\iota_v\varpi_{\mf P}^{-1}\Bigg)=\prod_{v\nmid\mf P\infty}\lambda(\iota_v\varpi_\mf P)^{-1}\cdot\op N_\Phi(\op N_{L/K^*}(\varpi_{\mf P})).\]
+	Now, by \Cref{prop:use-fundamental}, $\lambda(\iota_v\varpi_\mf P)=1$ for finite $v\notin S\cup\{\mf P\}$, so we see that we may define $\lambda_S$ as the restriction $\lambda|_{\widehat\OO_{L,S}^\times}$. However, we must still check that $\lambda_S$ lands in $\mu(K)$. Well, the kernel of $\lambda\colon\widehat\OO_{L,S}^\times\to K^\times$ is some open subgroup by continuity of $\lambda$, but $\widehat\OO_{L,S}^\times$ is profinite, so it follows that $\lambda|_{\widehat\OO_{L,S}^\times}$ factors through a finite quotient and hence lands in a finite subgroup of $K^\times$.
+\end{proof}
+\begin{remark}
+	It is not difficult to relax the hypothesis that $\mf P$ is principal: one simply needs to choose representatives for each ideal class and enlarge $S$ to suit. For simplicity, all our examples will have class number $1$, so we will not say more.
+\end{remark}
+\begin{remark} \label{rem:lambda-on-units}
+	The construction of $\lambda_S$ implies that $\lambda_S^{-1}\cdot({\op N}_\Phi\circ{\op N}_{L/K^*})$ is trivial on $\OO_K^\times$. Alternatively, this follows from the statement of \Cref{prop:fundamental-compute-frob} because the value $\lambda_S(\varpi_{\mf P})^{-1}\op N_\Phi(\op N_{L/K^*}(\varpi_{\mf P}))$ should be independent of the choice of generator $\varpi_\mf P$.
+\end{remark}
+Let's see an example.
+\begin{example} \label{ex:compute-cm-ec}
+	Let $A$ be the elliptic curve over $\QQ(\zeta_3)$ given by the affine equation $y^2=x^3+1$. Define the character $\lambda_S\colon\widehat\OO_{K,\{2,(1-\zeta_3)\}}^\times\to\mu_6$ by $\lambda_S(x)\equiv x\pmod{2(1-\zeta_3)}$ for each $x$. Then for any rational prime $p$ such that $p\equiv1\pmod3$, write $p=a^2-ab+b^2$ for $a,b\in\ZZ$, and
+	\[\lambda_S(a+b\zeta_3)\cdot(a+b\zeta_3)\]
+	embedded in $\op{End}(A)$ (via $\zeta_3\colon(x,y)\mapsto(\zeta_3x,y)$) agrees with the action of $\op{Frob}_p$.
+\end{example}
+\begin{proof}
+	We use \Cref{prop:fundamental-compute-frob}. Note that $A$ admits an order-$3$ automorphism given on the affine piece $(x,y)\mapsto(\zeta_3x,y)$, so $A$ admits complex multiplication by $K\coloneqq\QQ(\zeta_3)$ with $\op{End}_K(A)=\ZZ[\zeta_3]$. Also, note $dx/y$ provides a basis of $\op{Lie}A$, so the CM type of $A$ is given by $\Phi=\{\sigma_1\}$, where $\sigma_i\in\op{Gal}(\QQ(\zeta_3)/\QQ)$ is defined by $\sigma_i(\zeta_3)\coloneqq\zeta_3^i$ for each $i\in\{1,2\}$.
+	
+	Continuing, we see that may take $L\coloneqq\QQ(\zeta_3)$, which is Galois over $\QQ$ and has class number $1$. By a discriminant computation, we see that $A$ has bad reduction only at $S\coloneqq\{2,3\}$, so our work will go into computing the character $\lambda_S\colon\widehat\OO_S^\times\to\mu(K)$. By \Cref{rem:lambda-on-units}, we see that $\lambda_S(\zeta)=\zeta$ for each $\zeta\in\mu(K)$, and this will basically be able to compute $\lambda_S$. To be precise, we note the inclusion $\mu_6\into\widehat\OO_{K,S}^\times$ is a section of the projection
+	\[\widehat\OO_{K,S}^\times=\widehat\OO_{K,(2)}^\times\times\widehat\OO_{K,(1-\zeta_3)}^\times\onto\left(\frac{\widehat\OO_{K,(2)}}{(2)}\right)^\times\times\left(\frac{\widehat\OO_{K,(1-\zeta_3)}}{(1-\zeta_3)}\right)^\times=\FF_4^\times\times\FF_3^\times\cong\mu_3\times\mu_2=\mu_6.\]
+	Because $\mu_6\into\widehat\OO_{K,S}^\times$ is also a section of $\lambda_S$, we conclude that $\lambda_S$ must equal exactly the above projection. The result follows.
+\end{proof}
+\begin{remark} \label{rem:hecke-character-by-kernel-lambda}
+	Here is an equivalent statement. For any rational prime $p$ such that $p\equiv1\pmod3$, write $p=(a+b\zeta_3)(a-b\zeta_3)$ where $a,b\in\ZZ$ and $a+b\zeta_3\equiv1\pmod{2(1-\zeta_3)}$. (Equivalently, $p=a^2-ab+b^2$ with $a\equiv1\pmod2$ and $b\equiv0\pmod2$ and $a+b\equiv1\pmod3$.) Then $(a+b\zeta_3)$ agrees with the $p$-Frobenius on the reduction $A_{\kappa(a+b\zeta_3)}$. While we're here, we then note that $\#A_{\kappa(a+b\zeta_3)}$ equals
+	\[(p+1)-\tr_{\QQ(\zeta_3)/\QQ}(a+b\zeta_3)=(p+1)-(2a-b).\]
+	This has been verified numerically for $p<10000$.
+\end{remark}
+Here is a similar computation for a twist, stated as in \Cref{rem:hecke-character-by-kernel-lambda}.
+\begin{example}
+	Let $A$ be the elliptic curve over $\QQ(\zeta_3)$ given by the affine equation $y^3=x^3+1$. Then for any rational prime $p$ such that $p\equiv1\pmod3$, write $p=(a+b\zeta_3)(a+b\ov\zeta_3)$ where
+	\[(a+b\zeta_3)\equiv1\pmod{(1+\zeta_3)^2}.\]
+	Embedding $\ZZ[\zeta_3]\into\op{End}(A)$ by $\zeta_3\colon(x,y)\mapsto(x,\zeta_3y)$, the element $(a+b\ov\zeta_3)$ agrees with the action of $\op{Frob}_p$.
+\end{example}
+\begin{proof}
+	Following \Cref{ex:compute-cm-ec}, we use \Cref{prop:fundamental-compute-frob}. We use the notation established in \Cref{ex:compute-cm-ec}, but we note that the CM type is now $\Phi=\{\sigma_2\}$, and $A$ now only has bad reduction at $S=\{(1-\zeta_3)\}$. Thus, we see that $\lambda_S(\zeta)=\ov\zeta$ for all $\zeta\in\mu(K)$, which is able to determine $\lambda_S$. Indeed, the inclusion $\mu_6\into\widehat\OO_{K,S}^\times$ is a section of the projection
+	\[\widehat\OO_{K,(1-\zeta_3)}^\times\onto\left(\frac{\widehat\OO_{K,(1-\zeta_3)}}{(1-\zeta_3)^2}\right)^\times,\]
+	which we can detect because every element of $\mu_6$ maps to a distinct unit in the target. Because $\mu_6\into\widehat\OO_{K,S}^\times$ is also a section of $\overline\lambda_S$, we conclude that $\lambda_S$ is the above projection (composed with the isomorphism to $\mu_6$). The result follows.
+\end{proof}
+\begin{remark}
+	Having $a+b\zeta_3\equiv1\pmod{(1-\zeta_3)^2}$ is equivalent to having $9$ dividing
+	\[((a-1)+b\zeta_3)(1-\ov\zeta_3)^2=(3a-3b-3)+(3a-3)\zeta_3,\]
+	or $a\equiv1\pmod3$ and $b\equiv0\pmod3$. Thus, we can once again make the statement entirely elementary.
+\end{remark}
+Here is roughly the furthest we can push the method used in the previous two examples.
+\begin{corollary}
+	Let $A$ be an abelian variety with complex multiplication by $(K,\Phi)$ defined over $L$, and let $S$ be a finite set of finite places of $L$ containing the places of $A$ of bad reduction. We further suppose that $L$ is Galois over $\QQ$, has class number $1$, and that
+\end{corollary}
 
 % CM + Chebotarev does not seem to give potential CM
 % the problem is that ST is requiring equidistribution of some very strange composite, and I am quite unconvinced that it is continuous (namely, the non-canonical embedding Q_l to C is discontinuous)
