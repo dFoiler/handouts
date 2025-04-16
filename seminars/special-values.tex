@@ -545,4 +545,93 @@ Let's check that we have produced enough units
 	was computed to be the residue of $L(\ov\eta,s)$ at $s=0$, which we know to be finite and nonzero!
 \end{proof}
 
+\section{\texorpdfstring{$(\varphi,\Gamma)$}{(phi, Gamma)}-Modules and Galois Cohomology}
+I was not present for this talk.
+
+\subsection{\texorpdfstring{$(\varphi,\Gamma)$}{(phi, Gamma)}-Modules}
+Let's start with a little $p$-adic Hodge theory. For today, $E$ will be a field of positive characteristic $p$. Our goal is to understand Galois representations of $E$ in positive characteristic. Importantly, we will not assume that $E$ is perfect in order to allow $E=\FF_p((t))$, which wil be a running example. For some notation, we define $\varphi\colon E^{\mathrm{sep}}\to E^{\mathrm{sep}}$ to be the arithmetic Frobenius given by $x\mapsto x^p$.
+\begin{definition}[$\varphi$-module]
+	A \textit{$\varphi$-module} over $E$ is a finite-dimensional $E$-vector space $M$ together with an isomorphism $\Phi\colon M\otimes_{E,\varphi}E\to M$. Equivalently, we are asking for a sufficiently non-degenerate Frobenius-semilinear operator $\Phi\colon M\to M$, where the semilinearity means and $a\in E$ and $m\in M$ has
+	\[\Phi(am)=\varphi(a)\Phi(m).\]
+	The category of $\varphi$-modules over $E$ is denoted $\mathrm{Mod}_E^\varphi$.
+\end{definition}
+\begin{theorem} \label{thm:basic-phi-gamma}
+	Consider the following two functors between $\mathrm{Rep}_{\FF_p}(\mathrm{Gal}_E)$ and $\mathrm{Mod}^\varphi_E$.
+	\begin{itemize}
+		\item There is a functor $\mathbb D\colon\mathrm{Rep}_{\FF_p}(\mathrm{Gal}_E)\to\mathrm{Mod}_E^\varphi$ given by $\mathbb D(V)\coloneqq(V\otimes_{\FF_p}E^{\mathrm{sep}})^{\mathrm{Gal}_E}$.
+		\item There is a functor $\mathbb V\colon\mathrm{Mod}_E^\varphi\to\mathrm{Rep}_{\FF_p}(\mathrm{Gal}_E)$ given by $\mathbb V(D)\coloneqq(D\otimes_EE^{\mathrm{sep}})^{\varphi=1}$.
+	\end{itemize}
+	Then these are inverse equivalences preserving dimensions.
+\end{theorem}
+\begin{proof}
+	We divide the proof into two similar checks.
+	\begin{itemize}
+		\item Choose $V\in\mathrm{Rep}_{\FF_p}(\mathrm{Gal}_E)$ of dimension $d$. We claim that there a Galois-equivariant isomorphism $V\otimes_{\FF_p}E^{\mathrm{sep}}\to (E^{\mathrm{sep}})^d$ of vector spaces. This comes down Hilbert's theorem 90. By choosing a basis for $V$, we see that each $g\in\mathrm{Gal}_E$ produces some matrix $a_g\in\op{GL}_d(E)$, which we would like to be given by the standard Galois action after changing the basis suitably. Well, because $V$ is a representation, we see that
+		\[a_{gh}=a_g\cdot g(a_h),\]
+		so $g\mapsto a_g$ defines a $1$-cocycle in $Z^1(\mathrm{Gal}_E,\op{GL}_d(E^{\mathrm{sep}}))$. But all $1$-cocycles and $1$-coboundaries by Hilbert's theorem 90, so there is $b\in\op{GL}_d(E^{\mathrm{sep}})$ such that $a_g=b^{-1}\cdot g(b)$. Adjusting the basis by using $b$, we find that we may change the basis so that all the $a_g$s are the identity, and we are done.
+
+		As an application of this, we note $\mathbb D(V)=\left(V\otimes_{\FF_p}E^{\mathrm{sep}}\right)^{\mathrm{Gal}_E}=V\otimes_{\FF_p}E$ because there is an obvious map between them, and these vector spaces have the same dimension. Thus, $\dim\mathbb D(V)=\dim V$, and
+		\begin{align*}
+			\mathbb V(\mathbb D(V)) &= \left(\mathbb D(V)\otimes_EE^{\mathrm{sep}}\right)^{\varphi=1} \\
+			&= \left(V\otimes_{\FF_p}E^{\mathrm{sep}}\right)^{\varphi=1} \\
+			&= V.
+		\end{align*}
+
+		\item Choose $D\in\mathrm{Mod}_E^\varphi$ of dimension $d$. Then we claim that $D\otimes_EE^{\mathrm{sep}}\cong(E^{\mathrm{sep}})^d$ as $\varphi$-modules. Well, upon choosing a basis of $D$ as an $E$-vector space, we may write the matrix $\Phi$ as some matrix $F\in\mathrm{GL}_n(E)$.
+
+		It is more illuminating to imagine we want to compute $(D\otimes_EE^{\mathrm{sep}})^{\varphi=1}$, which amounts to solving the equation $\varphi(v)-P^{-1}v=0$ for $v\in D$. This can be viewed as searching for the $E^{\mathrm{sep}}$-points of the algebra
+		\[\frac{E[v_1,\ldots,v_n]}{\left(\varphi(v)-P^{-1}v\right)}.\]
+		The Jacobian criterion allows us to check that this is a finite \'etale algebra, so there are indeed $p^d$ points over $E^{\mathrm{sep}}$. Additionally, because \'etale morphisms need to factor through affine space, we see that $D\otimes_EE^{\mathrm{sep}}$ is $(E^{\mathrm{sep}})^d$ as $\varphi$-modules, as required.
+
+		For the same sort of application, we note $D\otimes_EE^{\mathrm{sep}}=\mathbb V(D)\otimes_{\FF_p}E^{\mathrm{sep}}$ because there is a map from the right to left, and these vector spaces have the same dimension.\footnote{Actually, one can check that the natural map is an isomorphism after reducing to $\FF_p$.} We conclude $\dim\mathbb V(D)=\dim D$, and
+		\begin{align*}
+			\mathbb D(\mathbb V(D)) &= (\mathbb V(D)\otimes_{\FF_p}E^{\mathrm{sep}})^{\mathrm{Gal}_E} \\
+			&= \left(D\otimes_EE^{\mathrm{sep}}\right)^{\mathrm{Gal}_E} \\
+			&= D.
+		\end{align*}
+	\end{itemize}
+	The above checks complete the proof.
+\end{proof}
+\begin{remark}
+	It turns out that $\mathbb D$ and $\mathbb V$ are compatible with taking tensor products and duals, which we will not check.
+\end{remark}
+We would like to upgrade \Cref{thm:basic-phi-gamma} to keep track of integral structure. This will require replacing $\mathrm{Mod}_E^\varphi$ to a category which keeps track of some integrality.
+\begin{definition}[Cohen ring]
+	Fix a field $E$ of positive characteristic $p$. A \textit{Cohen ring} $C_E$ of $E$ is a complete discrete valuation ring with residue field $E$ such that $p$ is a uniformizer.
+\end{definition}
+\begin{remark}
+	If $E$ fails to be perfect, then Cohen rings may not be unique. However, they always exist.
+\end{remark}
+In the sequel, we will require our Cohen ring $E$ to admit a Frobenius lift of $\varphi\colon E\to E$. We will also write $C_E^{\mathrm{unr}}$ to be a maximal unramified extension; note then that Henselian conditions imply that $C_E^{\mathrm{unr}}/(p)=E^{\mathrm{sep}}$.
+\begin{example}
+	Consider $E=\FF_p((t))$. Then we may take $C_E$ as the ring $\ZZ_p((t))^{\land}$, where $(\cdot)^\land$ denotes a $p$-adic completion. The endomorphism $\varphi\colon C_E\to C_E$ defined by $\varphi(T)\coloneqq(1+T)^p-1$ is a suitable lift of the Frobenius.
+\end{example}
+And here is our analogue of \Cref{thm:basic-phi-gamma}.
+\begin{definition}[\'etale]
+	Fix a field $E$ of positive characteristic $p$, and choose a Cohen ring $C_E$ of $E$. Then a $\varphi$-module $M$ is \textit{\'etale} if and only if the matrix representing $\Phi\colon M\to M$ has entries in $C_E$.
+\end{definition}
+\begin{theorem}
+	Fix a field $E$ of positive characteristic $p$. Fix a Cohen ring $C_E$ of $E$ admitting a Frobenius lift, and choose a maximal unramified extension $C_E^{\mathrm{unr}}$ of $C_E$. Then the following two functors are inverse equivalences of tensor categories.
+	\begin{itemize}
+		\item The functor $\mathbb D\colon\mathrm{Rep}_{\ZZ_p}(\mathrm{Gal}_E)\to\mathrm{Mod}_{C_E}^{\varphi,\mathrm{\acute et}}$ given by $\mathbb D(V)\coloneqq\left(V\otimes_{\ZZ_p}\widehat{C_E^{\mathrm{unr}}}\right)^{\mathrm{Gal}_E}$.
+		\item The functor $\mathbb V\colon\mathrm{MOd}_{C_E}^{\varphi,\mathrm{\acute et}}\to\mathrm{Rep}_{\ZZ_p}(\mathrm{Gal}_E)$ given by $\mathbb V(D)\coloneqq\left(D\otimes_{C_E}\widehat{C_E^{\mathrm{unr}}}\right)^{\varphi=1}$.
+	\end{itemize}
+\end{theorem}
+Let's now turn to positive characteristic. By the Kronecker--Weber theorem, we note that $\QQ_p^{\mathrm{ab}}=\QQ_p(\mu_\infty)$, which is $\QQ_p(\mu_{p^\infty})$ because $\QQ_p$ already has prime-to-$p$ torsion. As for the nonabelian part, it turns out that
+\[\op{Gal}\left(\ov\QQ_p/\QQ_p^{\mathrm{ab}}\right)\cong\op{Gal}\left(E^{\mathrm{sep}}/E\right),\]
+where $E\coloneqq\FF_p((t))$. It is now possible to prove a suitable version of \Cref{thm:basic-phi-gamma}.
+\begin{definition}[$(\varphi,\Gamma)$-module]
+	An \textit{\'etale $(\varphi,\Gamma)$-module} is a finitely generated $C_E$-module $M$ equipped with a semilinear $\Gamma$-action (namely, $\gamma(am)=\gamma(a)\gamma(m)$) and a $\Gamma$-equivariant Frobenius-semilinear isomorphism $\Phi\colon M\to M$ with integral matrix entries (and integral inverse). The category of $(\varphi,\Gamma)$-mod\-ules is denoted by $\mathrm{Mod}^{(\varphi,\Gamma)}$.
+\end{definition}
+\begin{theorem}
+	Set $E\coloneqq\FF_p((t))$ and $C_E\coloneqq\ZZ_p((t))^{\land}$, where $C_E$ admits the Frobenius lift $\varphi\colon C_E\to C_E$ defined by $\varphi(t)\coloneqq(1+t)^p-1$. Then the following functors are inverse equivalences of tensor categories.
+	\begin{itemize}
+		\item The functor $\mathbb D\colon\mathrm{Rep}_{\FF_p}^{\mathrm{free}}(\mathrm{Gal}_{\QQ_p})\to\mathrm{Mod}_E^{(\varphi,\Gamma),\mathrm{\acute et},\mathrm{free}}$ given by $\mathbb D(V)\coloneqq\left(V\otimes_{\ZZ_p}\widehat{C_E^{\mathrm{unr}}}\right)^{\mathrm{Gal}(\ov\QQ_p/\QQ_p^{\mathrm{ab}})}$.
+		\item The functor $\mathbb V\colon\mathrm{Mod}_E^{(\varphi,\Gamma),\mathrm{\acute et},\mathrm{free}}\to \mathrm{Rep}_{\FF_p}^{\mathrm{free}}(\mathrm{Gal}_{\QQ_p})$ given by $\mathbb V(D)\coloneqq\left(D\otimes_{C_E}\widehat{C_E^{\mathrm{unr}}}\right)^{\varphi=1}$.
+	\end{itemize}
+\end{theorem}
+\begin{remark}
+	There is a suitable analogue replacing $\FF_p$-coefficients of our Galois coefficeints with coefficients of $\ZZ_p$ which consists of replacing our $\varphi$-modules over $E$ with $\varphi$-modules over $C_E$.
+\end{remark}
+
 \end{document}

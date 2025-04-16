@@ -1,0 +1,553 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+
+\newcommand{\nirpdftitle}{Representation Theory of Finite Groups}
+\usepackage{import}
+\inputfrom{../../notes}{nir}
+\usepackage[backend=biber,
+    style=alphabetic,
+    sorting=ynt
+]{biblatex}
+\setcounter{tocdepth}{2}
+
+\pagestyle{contentpage}
+
+\title{Representation Theory of Finite Groups}
+\author{Nir Elber}
+\date{Spring 2025}
+\usepackage{graphicx}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+	We review the representation theory of finite groups. Emphasis is placed on providing a reference, so proofs are chosen to be short and memorable. There are no examples. All groups $G$, $H$, $K$, and so on are finite. All vector spaces are finite-dimensional and over $\CC$.
+\end{abstract}
+
+\tableofcontents
+
+% In this appendix, we review the representation theory of finite groups used throughout this book. As such, throughout this section, $G$ is a finite group, and we will only consider finite-dimensional representations in $\CC$.
+
+\section{Down to Irreducibles}
+In this section, we study some questions which directly reduce to irreducible representations: decompositions and computing homomorphisms.
+
+\subsection{Basic Constructions}
+Let's start at the beginning.
+\begin{definition}[representation]
+	Fix a group $G$. Then a (finite-dimensional) \textit{$G$-representation} (over $\CC$) is a finite-dimensional $\CC$-vector space $V$ equipped with a homomorphism $\rho\colon G\to\op{Aut}(V)$. We occasionally call $\rho$ itself the representation and write $V_\rho$ to denote the ``underlying'' vector space.
+\end{definition}
+\begin{remark}
+	Fix a group $G$. Then a $G$-representation (over $\CC$) has equivalent data to a $\CC[G]$-module. On one hand, a $\CC[G]$-module $V$ is a $\CC$-module (i.e., a $\CC$-vector space), and it comes with a $G$-action from the module structure. On the other hand, a $G$-representation $\rho\colon G\to\op{Aut}(V)$ extends the $\CC$-action $\CC\to\op{End}(V)$ to a ring morphism $\CC[G]\to\op{End}(V)$.
+\end{remark}
+\begin{example}
+	The above remark has also told that any group $G$ has the ``regular representation'' given by $\CC[G]$.
+\end{example}
+This module-theoretic perspective tells us that we should define morphisms of representations (called ``$G$-invariant'') to be morphisms of $\CC[G]$-modules so that the category of $G$-representations (over $\CC$) is simply $\mathrm{Mod}_{\CC[G]}$. This tells us that our category is abelian, so we may define subobjects (called ``suprepresentations'' or ``invariant subspaces''), quotients (called ``quotient representations''), direct sums, and tensor products in $\mathrm{Mod}_{\CC[G]}$.
+\begin{example}
+	For any $G$-representation $\rho$, the $G$-invariants
+	\[V^G_\rho\coloneqq\{v\in V_\rho:\rho(g)v=v\text{ for all }g\in G\}\]
+	is a $G$-invariant subspace. Indeed, we can see directly that it is $G$-invariant, and it is the intersection of the kernels $\ker({\id_V}-\rho(g))$ over all $g\in G$, so it is a subspace.
+\end{example}
+\begin{definition}[regular representation]
+	Fix a group $G$. Because $\CC[G]$ is itself a $\CC[G]$-module, we see that $\CC[G]$ is a $G$-representation. It is called the \textit{regular representation}.
+\end{definition}
+Another perspective is that representation theory is linear algebra with some extra bells and whistles, so we attach many definitions from linear algebra to our representations. For example, the dimension of a $G$-representation $\rho$ is
+\[\dim\rho\coloneqq\dim V_\rho.\]
+\begin{remark} \label{rem:reps-are-diagonalizable}
+	A quick benefit of a linear algebra perspective is that, for any $G$-representation $\rho$, the operator $\rho(g)$ is diagonalizable for any $g\in G$. Indeed, $G$ is finite, so $g$ and hence $\rho(g)$ has finite order. It thus follows that $\rho(g)$ is diagonalizable. To see this, it is enough to show that any vector in $V\coloneqq V_\rho$ is a sum of eigenvectors of the operator $\varphi\coloneqq\rho(g)$. Let $n$ be the operator of $\varphi$. Then the minimal polynomial of $\varphi$ is $x^n-1$, which has no repeated roots when factored over $\CC$, so $\varphi$ is diagonalizable.
+\end{remark}
+However, in contrast to both linear algebra and modules, we use the special structure to give $\op{Hom}$ and $\otimes$ a special structure.
+\begin{definition}
+	Fix $G$-representations $\rho$ and $\rho'$. Then $\op{Hom}_\CC(V_\rho,V_{\rho'})$ has the structure of $G$-representation by defining
+	\[g\varphi\coloneqq\rho'(g)\circ\varphi\circ\rho(g)^{-1}.\]
+	One can check directly that this provides $\CC[G]$-module structure. As a special case, we define the dual as $\rho^\lor\coloneqq\op{Hom}_\CC(V_\rho,\CC)$.
+\end{definition}
+\begin{remark} \label{rem:hom-invariants}
+	Let's explain the above definition. In the context of the previous definition, we claim that $\op{Hom}_\CC(V_\rho,V_{\rho'})^G=\op{Hom}_{\CC[G]}(V_\rho,V_{\rho'})$. Indeed, $\varphi\colon V_\rho\to V_{\rho'}$ is fixed by $g\in G$ if and only if
+	\[\rho(g)\circ\varphi\circ\rho'(g)^{-1}=\varphi\]
+	for all $g\in G$, which rearranges to $\rho(g)\circ\varphi=\varphi\circ\rho'(g)$.
+\end{remark}
+\begin{definition}
+	Fix $G$-representations $\rho$ and $\rho'$. Then $V_\rho\otimes_\CC V_{\rho'}$ has the structure of $G$-representation by defining
+	\[g(v\otimes v')\coloneqq gv\otimes gv'.\]
+	One can check directly that this provides $\CC[G]$-module structure.
+\end{definition}
+Here is a quick sanity check that our definitions have been set up correctly.
+\begin{lemma} \label{lem:hom-is-dual-tensor}
+	Fix $G$-representations $\rho$ and $\rho'$. Then $\op{Hom}_\CC(V_\rho,V_{\rho'})\cong V_\rho^\lor\otimes_\CC V_{\rho'}$.
+\end{lemma}
+\begin{proof}
+	There is a natural map
+	\[\eta\colon V_\rho^\lor\otimes_\CC V_{\rho'}\to\op{Hom}_\CC(V_\rho,V_{\rho'})\]
+	by extending $\eta(\varphi\otimes v')\colon v\mapsto\varphi(v)v'$; further, $\eta$ is $G$-linear because
+	\begin{align*}
+		(g\eta(\varphi\otimes v'))(v) &= \rho'(g)\circ\eta(\varphi\otimes v')\left(\rho(g)^{-1}v\right) \\
+		&= \rho'(g)\varphi\left(\rho(g)^{-1}v\right)v' \\
+		&= (g\varphi)(v)(\rho'(g)v') \\
+		&= \eta(g\varphi\otimes gv')(v).
+	\end{align*}
+	It remains to show $\eta$ is bijective. Well, the domain and codomain of $\eta$ both have dimension $(\dim\rho)(\dim\rho')$, so it suffices to show $\eta$ is surjective. As such, fix bases $\{v_1,\ldots,v_n\}$ and $\{v_1',\ldots,v'_{n'}\}$ of $V$ and $V'$, respectively. For any linear map $\psi\colon V_\rho\to V_{\rho'}$, we let $\{a_{ii'}\}_{i,i'}$ be the associated matrix. Then we define $\varphi_{i}\colon V_\rho\to\CC$ by extending $v_j\mapsto1_{i=j}$ linearly, and we see
+	\[\psi(v_i)=\sum_{j'=1}^{n'}a_{ij'}v_{j'}=\sum_{j'=1}^na_{ij'}\varphi_{i}(v_i)v_{j'}=\sum_{j=1}^n\sum_{j'=1}^na_{jj'}\varphi_{j}(v_i)v_{j'}\]
+	for each $v_i$. Thus, we see
+	\[\psi=\eta\Bigg(\sum_{j=1}^n\sum_{j'=1}^n\varphi_{j}\otimes a_{jj'}v_{j'}\Bigg),\]
+	finishing.
+\end{proof}
+
+\subsection{Decomposing Representations}
+We are going to decompose representations into irreducible ones.
+\begin{definition}[irreducible]
+	A $G$-representation $\rho$ is \textit{irreducible} if and only if it is nonzero and has no nonzero proper subrepresentations.
+\end{definition}
+We are going to want to decompose general representations into irreducible ones. It will be productive to discuss inner products.
+\begin{definition}[unitary]
+	A $G$-representation $\rho$ is \textit{unitary} for a Hermitian inner product $\langle\cdot,\cdot\rangle$ on $V_\rho$ if and only if
+	\[\langle gv,gw\rangle=\langle v,w\rangle\]
+	for any $v,w\in V_\rho$.
+\end{definition}
+It is a remarkable fact that we can think about any given representation as being unitary.
+\begin{proposition}[Weyl] \label{prop:make-unitary}
+	Let $G$ be a finite group. For any representation $\rho$, there exists a Hermitian inner product $\langle\cdot,\cdot\rangle$ on $V_\rho$ for which $\rho$ is unitary.
+\end{proposition}
+\begin{proof}
+	Because $V_\rho$ is a finite-dimensional $\CC$-vector space, we can choose a basis of $V$ to yield an isomorphism $V_\rho\cong\CC^n$ where $n=\dim\rho$. Then we can certainly give $V_\rho$ some inner product $\langle\cdot,\cdot\rangle_0$ in the form of the usual one on $\CC^n$. To fix the $G$-invariance of this inner product, we define
+	\[\langle v,w\rangle\coloneqq\frac1{\#G}\sum_{g\in G}\langle\rho(g)v,\rho(g)w\rangle_0.\]
+	A linear combination of Hermitian inner products remains conjugate-symmetric, bilinear, and positive, so $\langle\cdot,\cdot\rangle$ is conjugate-symmetric, bilinear, and positive. In fact, we can also see that $\langle\cdot,\cdot\rangle$ is non-degenerate: if $\langle v,w\rangle=0$, then we must have $\langle\rho(g)v,\rho(g)w\rangle_0=0$ for each $g\in G$, so $v=w$ follows by setting $g$ to be the identity. Lastly, we see that $\langle\cdot,\cdot\rangle$ makes $\rho$ unitary because
+	\[\langle\rho(g')v,\rho(g')w\rangle=\frac1{\#G}\sum_{g\in G}\langle\rho(gg')v,\rho(gg')w\rangle_0=\frac1{\#G}\sum_{g\in G}\langle\rho(g)v,\rho(g)w\rangle_0=\langle v,w\rangle\]
+	for any $v,w\in V_\rho$ and $g'\in G$.
+\end{proof}
+The following result explains why we care about being unitary.
+\begin{lemma} \label{lem:get-ortho-comp}
+	Fix a $G$-representation $\rho$ unitary for $\langle\cdot,\cdot\rangle$. If $W\subseteq V_\rho$ is a $G$-invariant subspace, then the orthogonal complement
+	\[W^\perp\coloneqq\{v\in V:\langle v,w\rangle=0\text{ for all }w\in W\}\]
+	is also a $G$-invariant subspace, and $V_\rho\cong W\oplus W^\perp$ as $G$-representations.
+\end{lemma}
+\begin{proof}
+	To see that $W^\perp$ is $G$-invariant, we note that $v\in W^\perp$ implies that
+	\[\langle gv,w\rangle=\left\langle v,g^{-1}w\right\rangle=0\]
+	for any $g\in G$ and $w\in W$; notably, we are using the fact that $g^{-1}w\in W$ as well. To see that $V_\rho\cong W\oplus W^\perp$, we define the map $\varphi\colon W\oplus W^\perp\to V_\rho$ by $\varphi\colon(w,w')\mapsto w+w'$. This map is $G$-linear, and it describes the usual orthogonal decomposition of a vector space (recall $V_\rho$ is finite-dimensional), so it is an isomorphism of representations.
+\end{proof}
+\begin{theorem}[Maschke] \label{thm:maschke}
+	Any $G$-representation $\rho$ is a direct sum of finitely many irreducible representations.
+\end{theorem}
+\begin{proof}
+	We induct on $\dim\rho$. If $\dim\rho=0$, then $\rho$ is the zero representation, which is the direct sum of no irreducible representations. Otherwise, given $\rho$ with $\dim\rho>0$, we have two cases.
+	\begin{itemize}
+		\item If $\rho$ is irreducible, then we are done.
+		\item If $\rho$ is not irreducible, then $\rho$ has a nonzero proper $G$-invariant subspace $W\subseteq V_\rho$. Then \Cref{prop:make-unitary} combined with \Cref{lem:get-ortho-comp} allows us to decompose $\rho$ as a direct sum of two proper subrepresentations arising from $W,W^\perp\subseteq V_\rho$. Thus, $\dim W,\dim W^\perp<\dim\rho$, so we may induct to finish.
+		\qedhere
+	\end{itemize}
+\end{proof}
+\Cref{thm:maschke} lets us define the ``isotypical decomposition.''
+\begin{definition}[isotypical decomposition]
+	Fix a $G$-representation $\rho$. Let $\rho_1,\ldots,\rho_k$ denote distinct irreducible representations of $G$. Then the \textit{isotypical decomposition} of $\rho$ consists of the nonnegative integers $n_1,\ldots,n_k$ such that
+	\[\rho\cong\bigoplus_{i=1}^k\rho_i^{n_i}.\]
+\end{definition}
+Note that we have not yet shown that the isotypical decomposition is unique, only that it exists. This requires a bit more machinery; we will wait until \Cref{cor:isotypical-unique} to provide a proof.
+
+\subsection{Morphisms Between Representations}
+An advantage to working with ``simple'' objects is that their morphisms are relatively controlled.
+\begin{theorem}[Schur's lemma] \label{thm:schur}
+	Fix an irreducible $G$-representation $\rho$. Any $G$-invariant map $\varphi\colon V_\rho\to V_\rho$ is multiplication by a scalar.
+\end{theorem}
+\begin{proof}
+	Note $\varphi$ is a linear operator on a $\CC$-vector space, so it has an eigenvalue $\lambda$. Thus, $\ker(\varphi-\lambda{\id_V})$ contains a nonzero vector, so it has a nonzero subrepresentation of $V_\rho$. Because $V_\rho$ is irreducible, it follows that
+	\[\ker(\varphi-\lambda{\id_V})=V_\rho,\]
+	so $\varphi(v)=\lambda v$ for all $v\in V_\rho$.
+\end{proof}
+\Cref{thm:schur} has a number of important corollaries.
+\begin{example}
+	Let $G$ be a finite abelian group. We claim that all irreducible representations are one-dimensional. Indeed, for any $G$-representation $\rho$, we note that $\rho(g)\colon V_\rho\to V_\rho$ is a $G$-invariant map because $G$ is abelian: we compute
+	\[\rho(g)(\rho(g')v)=\rho(gg')v=\rho(g'g)v=\rho(g')(\rho(g)v).\]
+	Thus, \Cref{thm:schur} implies that $\rho(g)$ must equal a scalar $\lambda_g$. In particular, any one-dimensional subspace of $V_\rho$ is a nonzero $G$-invariant subspace of $V_\rho$, so if $\rho$ is irreducible, then $\dim V_\rho=1$ is forced.
+\end{example}
+\begin{corollary} \label{cor:irrep-morphisms}
+	Fix irreducible $G$-representations $\rho$ and $\rho'$. Then
+	\[\dim\op{Hom}_{\CC[G]}(V_\rho,V_{\rho'})=\begin{cases}
+		1 & \text{if }V_\rho\cong V_{\rho'}, \\
+		0 & \text{else}.
+	\end{cases}\]
+\end{corollary}
+\begin{proof}
+	We deal with the two cases separately.
+	\begin{itemize}
+		\item If $V_\rho\cong V_{\rho'}$, then after fixing such an isomorphism, we are computing
+		\[\dim\op{End}_{\CC[G]}(V_\rho).\]
+		Of course, scalars in $\CC$ are morphisms, and these are distinct morphisms because $\rho$ is irreducible and hence nonzero. However, \Cref{thm:schur} tells us these are the only morphisms, so $\dim\op{End}_{\CC[G]}(V_\rho)=\dim\CC=1$.
+		\item If $V_\rho\not\cong V_{\rho'}$, we show $\op{Hom}_{\CC[G]}(V_\rho,V_{\rho'})=0$. Well, any morphism $\varphi\colon V_\rho\to V_{\rho'}$ is either not injective or not surjective. If $\varphi$ is not injective, then $\ker\varphi\subseteq V_\rho$ is a nontrivial subrepresentation, so the irreducibility enforces $\ker\varphi=V_\rho$, so $\varphi=0$.
+		
+		On the other hand, if $\varphi$ is not surjective, then $\im\varphi\subseteq V_{\rho'}$ is a proper subrepresentation, so irreducibility enforces $\im\varphi=0$, so $\varphi=0$.
+		\qedhere
+	\end{itemize}
+\end{proof}
+For the next corollaries, we want the following lemma. Roughly speaking, the symmetry of the statement in \Cref{cor:irrep-morphisms} in $\rho$ and $\rho'$ can be extended to arbitrary representations, which we will use to great profit.
+\begin{lemma} \label{lem:isotypical-morphisms}
+	Fix a group $G$. Let $\rho_1,\ldots,\rho_k$ be irreducible representations, and fix nonnegative integers $n_1,\ldots,n_k$ and $n_1,\ldots,n_k'$. Then any morphism
+	\[\varphi\colon\bigoplus_{i=1}^k\rho_i^{\oplus n_i}\to\bigoplus_{i=1}^k\rho_i^{\oplus n_i'}\]
+	is the sum of the induced maps $\rho_i^{\oplus n_i}\to\rho_i^{\oplus n_i'}$. Thus,
+	\[\op{Hom}_{\CC[G]}\Bigg(\bigoplus_{i=1}^kV_{\rho_i}^{\oplus n_i},\bigoplus_{i=1}^kV_{\rho_i}^{\oplus n_i'}\Bigg)\cong\bigoplus_{i=1}^k\op{Hom}_{\CC[G]}\left(V_{\rho_i}^{\oplus n_i},V_{\rho_i}^{\oplus n_i'}\right).\]
+\end{lemma}
+\begin{proof}
+	Composing $\varphi$ with inclusion and projection, for any indices $a$ and $b$, we have induced maps
+	\[V_a^{\oplus n_a}\to\bigoplus_{i=1}^k\rho_i^{\oplus n_i}\stackrel\varphi\to\bigoplus_{i=1}^k\rho_i^{\oplus n_i'}\to V_b^{\oplus n_b'}.\]
+	Call this composite $\varphi_{b,a}$. It follows that we may write
+	\[\varphi(v_1,\ldots,v_k)=\Bigg(\sum_{i=1}^k\varphi_{1,i}(v_i),\ldots,\sum_{i=1}^k\varphi_{k,i}(v_i)\Bigg)\]
+	If $a\ne b$, then any $G$-invariant map $V_a\to V_b$ must vanish by \Cref{cor:irrep-morphisms}, so the above sum actually collapses into
+	\[\varphi(v_1,\ldots,v_k)=(\varphi_{1,1}v_1,\ldots,\varphi_{k,k}v_k).\]
+	To show the last sentence, we note that there is a natural map $\eta$ from the right to left by sending a $k$-tuple of maps $(\varphi_1,\ldots,\varphi_k)$ to the map
+	\[\eta(\varphi_1,\ldots,\varphi_k)\colon(v_1,\ldots,v_k)\mapsto(\varphi_1v_1,\ldots,\varphi_kv_k).\]
+	A direct computation shows that $\eta$ is $G$-linear. Now, $\eta$ is injective because if $\eta(\varphi_1,\ldots,\varphi_k)$ vanishes, then it must vanish in each coordinate, forcing $(\varphi_1,\ldots,\varphi_k)=(0,\ldots,0)$. Further, the above proof establishes that $\eta$ is surjective, so $\eta$ is an isomorphism.
+\end{proof}
+\begin{corollary} \label{cor:bilin-hom-form}
+	Fix a $G$-representations $\rho$ and $\rho'$ with isotypical decompositions $\rho\cong\bigoplus_{i=1}^k\rho_i^{\oplus n_i}$ and $\rho'\cong\bigoplus_{i=1}^k\rho_i^{\oplus n_i'}$. Then
+	\[\dim\op{Hom}_{\CC[G]}(V_\rho,V_{\rho'})=\sum_{i=1}^kn_in_i'.\]
+\end{corollary}
+\begin{proof}
+	By \Cref{lem:isotypical-morphisms}, we see
+	\[\op{Hom}_{\CC[G]}(V_\rho,V_{\rho'})\cong\op{Hom}_{\CC[G]}\Bigg(\bigoplus_{i=1}^kV_{\rho_i}^{\oplus n_i},\bigoplus_{i=1}^kV_{\rho_i}^{\oplus n_i'}\Bigg)\cong\bigoplus_{i=1}^k\op{Hom}_{\CC[G]}\left(V_{\rho_i}^{\oplus n_i},V_{\rho_i}^{\oplus n_i'}\right).\]
+	Now, for each $i$, a morphism $V_{\rho_i}^{\oplus n_i}\to V_{\rho_i}^{\oplus n_i'}$ is an $n_i'\times n_i$ matrix of morphisms $V_{\rho_i}\to V_{\rho_i'}$ by tracking what happens to each coordinate, so we actually have
+	\[\op{Hom}_{\CC[G]}(V_\rho,V_{\rho'})\cong\bigoplus_{i=1}^k\op{Hom}_{\CC[G]}(V_{\rho_i},V_{\rho_i})^{\oplus n_in_i'}.\]
+	Taking dimensions and applying \Cref{cor:irrep-morphisms} finishes.
+\end{proof}
+\begin{remark}
+	Note the bilinear form $(\cdot,\cdot)$ defined on finite-dimensional $G$-representations by $(\rho,\rho')\coloneqq\dim\op{Hom}_{\CC[G]}(V_\rho,V_{\rho'})$ is automatically bilinear with respect to direct sums. (This is because $\op{Hom}$ commutes with direct sums and products.) Here are some other properties.
+	\begin{itemize}
+		\item \Cref{cor:bilin-hom-form} tells us that this form is symmetric.
+		\item If $\rho$ and $\rho'$ are irreducible, then by \Cref{cor:irrep-morphisms}, we see $(\rho,\rho')$ is $1$ if $\rho\cong\rho'$ and $0$ otherwise.
+		\item If $\rho$ has $(\rho,\rho')=0$ for all $\rho'$, then we claim $\rho=0$. Indeed, give $\rho$ an isotypical decomposition $\bigoplus_{i=1}^k\rho_i^{\oplus n_i}$. But then computing $(\rho,\rho_i)=n_i$ by \Cref{cor:bilin-hom-form} for each $i$ enforces $n_i=0$ always, so $\rho=0$.
+	\end{itemize}
+\end{remark}
+\begin{corollary}
+	Fix a $G$-representation $\rho$ with isotypical decomposition $\rho\cong\bigoplus_{i=1}^k\rho_i^{\oplus n_i}$. Then
+	\[\op{End}_{\CC[G]}(V_\rho)\cong\bigoplus_{i=1}^kM_{n_i}(\CC),\]
+	where $M_{n_i}(\CC)$ is the matrix algebra.
+\end{corollary}
+\begin{proof}
+	By \Cref{lem:isotypical-morphisms}, we note that any $G$-invariant map $\varphi\colon V_\rho\to V_\rho$ is the sum of maps $\varphi_i\colon V_{\rho_i}^{\oplus n_i}\to V_{\rho_i}^{\oplus n_i}$, so we have an isomorphism
+	\[\bigoplus_{i=1}^k\op{End}_{\CC[G]}\left(V_{\rho_i}^{\oplus n_i},V_{\rho_i}^{\oplus n_i}\right)\to\op{End}_{\CC[G]}(V_\rho)\]
+	of $\CC[G]$-modules. Because this isomorphism merely sends $(\varphi_1,\ldots,\varphi_k)$ to the summed morphisms, we see that it is also compatible with the ring structures on both sides, so this is an isomorphism of $\CC[G]$-algebras.
+
+	It remains to show $\op{End}_{\CC[G]}\left(V_{\rho_i}^{\oplus n_i},V_{\rho_i}^{\oplus n_i}\right)$ is isomorphic to $M_{n_i}(\CC)$. Well, we see that any morphism $\varphi\colon V_{\rho_i}^{\oplus n_i}\to V_{\rho_i}^{\oplus n_i}$ can be written as
+	\[\varphi(v_1,\ldots,v_{n_i})=\Bigg(\sum_{j=1}^n\varphi_{1j}(v_j),\ldots,\sum_{j=1}^n\varphi_{n_ij}(v_j)\Bigg)\]
+	where the maps $\varphi_{ab}\colon V_{\rho_i}\to V_{\rho_i}$ are defined by the inclusion to $V_{\rho_i}^{\oplus n_i}$ followed by $\varphi$ followed by projection. However, \Cref{thm:schur} tells us that each $\varphi_{ab}$ is a scalar $\lambda_{ab}\in\CC$, so the data of the above morphism $\varphi$ is simply given by the matrix $(\lambda_{ab})_{a,b=1}^{n_i}$.
+\end{proof}
+
+\section{Character Theory}
+In this section, we introdue characters and use them to great profit.
+
+\subsection{Characters}
+One difficulty in understanding representations is that they are inherently multidimensional objects. To fix this, we introduce characters.
+\begin{definition}[character]
+	Fix a $G$-representation $\rho$. Then the \textit{character} $\chi_\rho\colon G\to\CC$ of $\rho$ is defined as $\chi_\rho(g)\coloneqq\tr\rho(g)$.
+\end{definition}
+For example, one can compute the trace by providing $V_\rho$ with any basis and then summing along the diagonal entries of the matrix associated to $\rho(g)$. This construction does not depend on the basis because the trace of a matrix does not change when the basis changes.
+\begin{example} \label{ex:regular-character}
+	Let $\rho\colon G\to\CC[G]$ be the regular representation. Then we claim $\chi_\rho(g)=|G|1_{g=e}$. Indeed, note $\CC[G]$ has the standard basis $\{h\}_{h\in G}$, and $\rho(g)$ acts by permuting them by left multiplication. Then, for any $g\in G$, the diagonal entry given by $h\in G$ is $1$ if $gh=h$ (which is equivalent to $g=e$) and $0$ otherwise. So $\chi_\rho(g)=\tr\rho(g)=|G|1_{g=e}$ follows.
+\end{example}
+Here are some basic properties.
+\begin{lemma} \label{lem:char-comps}
+	Fix a $G$-representations $\rho$.
+	\begin{listalph}
+		\item If $\dim\rho=1$, then $\rho=\chi_\rho$ after identifying $V_\rho$ with $\CC$.
+		\item $\chi_\rho$ is defined up to conjugacy class.
+		\item $\chi_\rho(1)=\dim\rho$.
+		\item We have
+		\[\dim V^G=\frac1{|G|}\sum_{g\in G}\chi_\rho(g).\]
+	\end{listalph}
+\end{lemma}
+\begin{proof}
+	Here we go.
+	\begin{listalph}
+		\item For any $g\in G$, we note $\rho(g)\colon\CC\to\CC$ is a morphism of vector spaces, so it is equal to its trace.
+		\item For any $g,h\in G$, we compute
+		\[\chi_\rho\left(ghg^{-1}\right)=\tr\left(\rho(h)\circ\rho(g)\circ\rho(h)^{-1}\right)=\tr\left(\rho(g)\circ\rho(h)^{-1}\circ\rho(g)\right)=\tr\rho(g)=\chi_\rho(g),\]
+		so $\chi(g)$ is defined up to conjugacy class of $g$.
+		\item Note $\chi_\rho(1)=\tr\rho(1)=\tr\id_{V_\rho}$. This is $\dim V_\rho$ by summing along the diagonal of the identity matrix.
+		\item Define the linear map $\pi\colon V\to V$ by
+		\[\pi\coloneqq\frac1{|G|}\sum_{g\in G}\rho(g).\]
+		Notably, $\tr\pi=\frac1{|G|}\sum_{g\in G}\chi_\rho(g)$ by the linearity of $\tr$. We claim that $\pi$ is a projection onto $V^G$. We have two checks.
+		\begin{itemize}
+			\item Note $\pi(v)\in V^G$ for any $v\in V$: indeed, we compute
+			\[g'\pi(v)=\frac1{|G|}\sum_{g\in G}\rho(g'g)v=\frac1{|G|}\sum_{g\in G}\rho(g)v=\pi(v)\]
+			for any $g'\in G$.
+			\item Note $\pi(v)=v$ for any $v\in V^G$: indeed, we compute
+			\[\pi(v)=\frac1{|G|}\sum_{g\in G}\rho(g)v=\frac1{|G|}\sum_{g\in G}v=v.\]
+		\end{itemize}
+		It now follows that $\tr\pi=\dim V^G$. To see this concretely, we set $d\coloneqq\dim V^G$ and $n\coloneqq\dim\rho$, and we give $V$ a basis by extending a basis $\{v_1,\ldots,v_d\}$ of $V^G$ to a basis $\{v_1,\ldots,v_n\}$ of $V$. Letting $\{\pi_{ij}\}_{i,j=1}^n$ be the associated matrix, we note that $\pi(v_i)=v_i$ for each $1\le i\le d$ implies that $\pi_{ii}=1$ if $1\le i\le d$; otherwise, for each $i>d$, we see $\pi_{ii}=0$ because $\pi(v_i)\in V^G$ is a linear combination of the $v_j$ with $1\le j\le d$, which has no $v_i$ component. Thus, summing along the diagonal confirms $\tr\pi=\dim V^G$.
+		\qedhere
+	\end{listalph}
+\end{proof}
+We can also describe how characters behave with our other constructions.
+\begin{lemma} \label{lem:build-chars}
+	Fix $G$-representations $\rho$ and $\rho'$.
+	\begin{listalph}
+		\item $\chi_{\rho\oplus\rho'}=\chi_\rho+\chi_{\rho'}$.
+		\item $\chi_{\rho\otimes\rho'}=\chi_{\rho}\cdot\chi_{\rho'}$.
+		\item $\chi_{\rho^\lor}(g)=\chi_\rho\left(g^{-1}\right)$ for any $g$.
+	\end{listalph}
+\end{lemma}
+\begin{proof}
+	Here we go.
+	\begin{listalph}
+		\item For any $g\in G$, we compute
+		\[\chi_{\rho\oplus\rho'}(g)=\tr(\rho(g)\oplus\rho'(g))\stackrel*=\tr\rho(g)+\tr\rho'(g)=\chi_\rho(g)+\chi_{\rho'}(g).\]
+		To see $\stackrel*=$ concretely, we note that we can give the underlying vector space $V_\rho\oplus V_{\rho'}$ a basis by concatenating the bases of $V_\rho$ and $V_{\rho'}$, upon which the matrix associated to $\rho(g)\oplus\rho'(g)$ looks like
+		\[\begin{bmatrix}
+			\rho(g) & 0 \\
+			0 & \rho'(g)
+		\end{bmatrix},\]
+		whose trace is the sum of the traces of $\rho(g)$ and $\rho'(g)$.
+		\item For any $g\in G$, we compute
+		\[\chi_{\rho\otimes\rho'}(g)=\tr(\rho(g)\otimes\rho'(g))\stackrel*=\tr\rho(g)\cdot\tr\rho'(g)=\chi_\rho(g)\cdot\chi_{\rho'}(g).\]
+		To see $\stackrel*=$ concretely needs some work. Give $V_\rho$ and $V_{\rho'}$ bases $\{v_1,\ldots,v_n\}$ and $\{v'_1,\ldots,v'_{n'}\}$, respectively, and let the matrices associated to $\rho(g)$ and $\rho'(g)$ be $\{a_{ij}\}_{i,j=1}^n$ and $\{a'_{i'j'}\}_{i',j'=1}^n$, respectively. Now, $V_\rho\otimes V_{\rho'}$ has basis given by $v_i\otimes v'_{i'}$ where the $i$ and $i'$ vary, so we compute
+		\[(\rho(g)\otimes\rho'(g))(v_i\otimes v'_{i'})=\rho(g)v_i\otimes\rho'(g)v'_{i'}=\Bigg(\sum_{j=1}^na_{ij}v_j\Bigg)\otimes\Bigg(\sum_{j'=1}^{n'}a'_{i'j'}v'_{j'}\Bigg)=\sum_{j=1}^n\sum_{j'=1}^{n'}a_{ij}a'_{i'j'}(v_j\otimes v'_{j'}).\]
+		Thus, the diagonal entry (at $(i,i')$) here is $a_{ii}a_{i'i'}$. Summing over all diagonal entries, we conclude
+		\[\tr(\rho(g)\otimes\rho'(g))=\sum_{i=1}^n\sum_{i'=1}^{n'}a_{ii}a_{i'i'}=\tr\rho(g)\cdot\tr\rho'(g).\]
+		\item By \Cref{prop:make-unitary}, we may give $V_\rho$ an inner product $\langle\cdot,\cdot\rangle$ making $\rho$ a unitary representation. Then
+		\[\chi_{\rho^\lor}(g)=\tr\left(\varphi\mapsto\varphi\circ\rho(g)^{-1}\right)\stackrel*=\tr\left(\rho(g)^{-\intercal}\right)=\tr\rho(g)^{-1}=\chi_\rho\left(g^{-1}\right),\]
+		where $\stackrel*=$ amounts to giving $V_\rho^\lor$ a dual basis.
+		\qedhere
+	\end{listalph}
+\end{proof}
+
+\subsection{Orthogonality Relations}
+Characters get most of their structure from having an inner product.
+\begin{notation}
+	For any functions $\varphi,\psi\colon G\to\CC$, we define
+	\[\langle\varphi,\psi\rangle\coloneqq\frac1{|G|}\sum_{g\in G}\varphi(g)\psi\left(g^{-1}\right).\]
+	One can directly check that $\langle\cdot,\cdot\rangle$ is an inner product on the $\CC$-vector space $\op{Mor}(G,\CC)$ (though not Hermitian!).
+\end{notation}
+\begin{remark} \label{rem:conj-char}
+	Fix a $G$-representation $\rho$. By \Cref{rem:reps-are-diagonalizable}, we see that $\rho(g)$ is diagonalizable, and we know that its eigenvalues are roots of unity (of order dividing $|G|$) and in particular have magnitude $1$. Thus, $\rho\left(g^{-1}\right)$ has eigenvalues conjugate to the eigenvalues of $\rho(g)$, with the correct multiplicities, so
+	\[\chi_\rho(g)=\tr\rho(g)=\overline{\tr\rho\left(g^{-1}\right)}=\overline{\chi_\rho\left(g^{-1}\right)}.\]
+	Thus, our inner product does look Hermitian when we work with characters of representations.
+\end{remark}
+The following result explains how we will use this inner product to talk about representations.
+\begin{theorem} \label{thm:ortho-relations}
+	Fix $G$-representations $\rho$ and $\rho'$. Then $\langle\chi_\rho,\chi_{\rho'}\rangle=\dim\op{Hom}_{\CC[G]}(V_\rho,V_{\rho'})$.
+\end{theorem}
+\begin{proof}
+	We apply force. By \Cref{rem:hom-invariants} and \Cref{lem:hom-is-dual-tensor}, we see
+	\[\dim\op{Hom}_{\CC[G]}(V_\rho,V_{\rho'})=\dim\op{Hom}_\CC(V_\rho,V_{\rho'})^G=\dim\left(V_\rho^\lor\otimes_\CC V_{\rho'}\right)^G.\]
+	To relate to characters, we use \Cref{lem:char-comps} and then use \Cref{lem:build-chars} to compute
+	\[\dim\op{Hom}_{\CC[G]}(V_\rho,V_{\rho'})=\frac1{|G|}\sum_{g\in G}\chi_{\rho^\lor\otimes\rho'}(g)=\frac1{|G|}\sum_{g\in G}\chi_{\rho}\left(g^{-1}\right)\chi_{\rho'}(g).\]
+	Exchanging the roles of $g$ and $g^{-1}$ finishes the proof.
+\end{proof}
+\begin{corollary} \label{cor:inner-product-isotypical}
+	Fix a $G$-representations $\rho$ and $\rho'$ with isotypical decompositions $\rho\cong\bigoplus_{i=1}^k\rho_i^{\oplus n_i}$ and $\rho'\cong\bigoplus_{i=1}^k\rho_i^{\oplus n_i'}$. Then
+	\[\langle\chi_\rho,\chi_{\rho'}\rangle=\sum_{i=1}^kn_in_i'.\]
+	In particular, $\langle\chi_\rho,\chi_{\rho_i}\rangle=n_i$.
+\end{corollary}
+\begin{proof}
+	By \Cref{lem:char-comps}, we see
+	\[\chi_\rho=\sum_{i=1}^kn_i\chi_{\rho_i}\qquad\text{and}\qquad\chi_{\rho'}=\sum_{i=1}^kn_i'\chi_{\rho_i},\]
+	so the bilinearity of our inner product yields
+	\[\langle\chi_\rho,\chi_{\rho'}\rangle=\sum_{i=1}^k\sum_{j=1}^kn_in_j\langle\chi_{\rho_i},\chi_{\rho_j}\rangle.\]
+	Now, \Cref{thm:ortho-relations} tells us that $\langle\chi_{\rho_i},\chi_{\rho_j}\rangle=\dim\op{Hom}_{\CC[G]}(V_{\rho_i},V_{\rho_j})$, which is $1_{i=j}$ by \Cref{cor:irrep-morphisms}. So this collapses to
+	\[\langle\chi_\rho,\chi_{\rho'}\rangle=\sum_{i=1}^kn_in_i',\]
+	which is what we wanted. The last sentence now follows by giving $\rho_i$ an isotypical decomposition ``$\rho_i$.''
+\end{proof}
+\begin{remark}
+	One can show \Cref{cor:inner-product-isotypical} in the form of
+	\[\dim\op{Hom}_{\CC[G]}(V_\rho,V_{\rho'})=\sum_{i=1}^kn_in_i'\]
+	directly by taking dimensions in \Cref{lem:isotypical-morphisms}. In particular, one can prove suitable versions of \Cref{cor:isotypical-unique,cor:irrep-iff-norm-1,cor:first-ortho,cor:square-sum-irreps,cor:irred-iff-dual-irrep} without needing to talk about characters at all!
+\end{remark}
+\begin{corollary} \label{cor:isotypical-unique}
+	Fix a $G$-representation $\rho$. Then the isotypical decomposition of $\rho$ is unique.
+\end{corollary}
+\begin{proof}
+	Suppose we have two isotypical decompositions of $\rho$. In other words, we may fix irreducible representations $\rho_1,\ldots,\rho_k$ and nonnegative integers $n_1,\ldots,n_k$ and $n_1',\ldots,n_k'$ such that
+	\[\bigoplus_{i=1}^k\rho_i^{\oplus n_i}\cong\rho\cong\bigoplus_{i=1}^k\rho_i^{\oplus n_i'}.\]
+	Then applying \Cref{cor:inner-product-isotypical} to each of our isotypical decompositions yields
+	\[n_i=\langle\chi_\rho,\chi_{\rho_i}\rangle=n_i'\]
+	for each $i$, finishing.
+\end{proof}
+\begin{corollary} \label{cor:irrep-iff-norm-1}
+	Fix a group $G$. Then a $G$-representation $\rho$ is irreducible if and only if $\langle\chi_\rho,\chi_\rho\rangle=1$.
+\end{corollary}
+\begin{proof}
+	Let $\rho\cong\bigoplus_{i=1}^k\rho_i^{\oplus n_i}$ be an isotypical decomposition of $\rho$. Then \Cref{cor:inner-product-isotypical} tells us
+	\[\langle\chi_\rho,\chi_\rho\rangle=\sum_{i=1}^kn_i^2.\]
+	If $\rho$ is irreducible, then there is only one nonzero term in the above sum, and it is equal to $1^2=1$, so $\langle\chi_\rho,\chi_\rho\rangle=1$. Conversely, if the above sum is $1$, then we have $n_i^2\le1$ for each $i$, and we have equality achieved exactly once, so $\rho\cong\rho_i$ for some irreducible representation $\rho_i$, which is what we wanted.
+\end{proof}
+\begin{corollary} \label{cor:irred-iff-dual-irrep}
+	Fix a group $G$. Then a $G$-representation $\rho$ is irreducible if and only if $\rho^\lor$ is irreducible.
+\end{corollary}
+\begin{proof}
+	We compute
+	\[\langle\chi_{\rho^\lor},\chi_{\rho^\lor}\rangle=\sum_{g\in G}\chi_{\rho^\lor}(g)\chi_{\rho^\lor}\left(g^{-1}\right)\stackrel*=\sum_{g\in G}\chi_\rho\left(g^{-1}\right)\chi_\rho(g)=\langle\chi_\rho,\chi_\rho\rangle,\]
+	where we used \Cref{lem:build-chars} in $\stackrel*=$. So the left-hand side equals $1$ if and only if the right-hand side equals $1$, from which \Cref{cor:irrep-iff-norm-1} finishes.
+\end{proof}
+\begin{corollary}[First orthogonality relation] \label{cor:first-ortho}
+	Fix a group $G$. Given irreducible representations $\rho$ and $\rho'$, we have
+	\[\langle\chi_\rho,\chi_{\rho'}\rangle=\begin{cases}
+		1 & \text{if }\rho\cong\rho', \\
+		0 & \text{else}.
+	\end{cases}\]
+\end{corollary}
+\begin{proof}
+	One can see this by comparing isotypical decompositions of $\rho$ and $\rho'$ and applying \Cref{cor:inner-product-isotypical}. Alternatively, one may use \Cref{thm:ortho-relations} and then \Cref{cor:irrep-morphisms}.
+\end{proof}
+\begin{corollary} \label{cor:square-sum-irreps}
+	Fix a group $G$. There are only finitely many irreducible representations of $G$, and if they are $\rho_1,\ldots,\rho_k$, then
+	\[\sum_{i=1}^k(\dim\rho_i)^2=|G|.\]
+\end{corollary}
+\begin{proof}
+	The point here is to compute the isotypical decomposition of the representation $\rho\colon G\to\CC[G]$. Indeed, for any $G$-representation $\rho'$, we see that
+	\[\langle\chi_\rho,\chi_{\rho'}\rangle=\frac1{|G|}\sum_{g\in G}\chi_\rho(g)\chi_{\rho'}\left(g^{-1}\right)=\frac1{|G|}\cdot|G|\chi_{\rho'}(1),\]
+	where we have used the computation in \Cref{ex:regular-character}. To finish, \Cref{lem:char-comps} tells us $\chi_{\rho'}(1)=\dim\rho'$, so $\langle\chi_\rho,\chi_{\rho'}\rangle=\dim\rho'$.
+
+	Thus, if we let $\rho\cong\bigoplus_{i=1}^k\rho_i^{\oplus n_i}$ be the isotypical decomposition of $\CC[G]$, \Cref{cor:inner-product-isotypical} tells us that $n_i=\langle\chi_\rho,\chi_{\rho_i}\rangle=\dim\rho_i$. Taking dimensions, we see
+	\[|G|=\dim\CC[G]=\sum_{i=1}^kn_i\dim\rho_i=\sum_{i=1}^k(\dim\rho_i)^2.\]
+	We now show that $\rho_i,\ldots,\rho_k$ are all the irreducible representations. For any irreducible $G$-representation $\rho$, if $\rho\not\cong\rho_i$ for each $i$, then \Cref{cor:inner-product-isotypical} implies that $\dim\op{Hom}_{\CC[G]}(\CC[G],\rho)=0$, which is false as shown above.
+\end{proof}
+We are now ready to explain why we care so much about characters.
+\begin{corollary}
+	Fix $G$-representations $\rho$ and $\rho'$. Then $\rho\cong\rho'$ if and only if $\chi_\rho=\chi_{\rho'}$.
+\end{corollary}
+\begin{proof}
+	There is nothing to say for the forward direction. In the reverse direction, let $\rho_1,\ldots,\rho_k$ denote the irreducible $G$-representations. Then we see
+	\[\langle\chi_\rho,\chi_{\rho_i}\rangle=\langle\chi_{\rho'},\chi_{\rho_i}\rangle\]
+	for any $i$, so \Cref{cor:inner-product-isotypical} lets us give $\rho$ and $\rho'$ the same isotypical decomposition
+	\[\bigoplus_{i=1}^k\rho_i^{\oplus\langle\chi_\rho,\chi_{\rho_o}\rangle},\]
+	so $\rho\cong\rho'$ follows.
+\end{proof}
+\Cref{cor:first-ortho} is the ``first'' orthogonality relation. We will prove the second one later.
+
+\subsection{Class Functions}
+\Cref{lem:char-comps} motivates the following definition.
+\begin{definition}[class function]
+	Fix a group $G$. Then a function $\varphi\colon G\to\CC$ is a \textit{class function} if and only if $\varphi\left(hgh^{-1}\right)=\varphi(g)$ for any $g,h\in G$. Note that the set of all class functions forms a $\CC$-vector space.
+\end{definition}
+It will turn out that characters of irreducible representations form an orthonormal basis of the vector space of all class functions. This is difficult to show directly, approximately speaking because it is not easy to show that there are ``enough'' representations. Instead, we will upgrade this ``numerical'' result into an isomorphism of algebras.
+\begin{theorem} \label{thm:finite-peter-weyl}
+	Fix a group $G$. Then the action map
+	\[\CC[G]\to\prod_{\rho\text{ irreducible}}\op{End}_\CC(V_\rho)\]
+	defines an isomorphism of algebras.
+\end{theorem}
+\begin{proof}
+	The action map does define a morphism of algebras (by definition of a representation), and \Cref{cor:square-sum-irreps} explains that the domain and codomain have the same dimension. Thus, to conclude, it is enough to show that the action map has trivial kernel.
+	
+	Well, suppose that $x\in\CC[G]$ acts by $0$ on all irreducible representations $\rho$; we would like to show $x=0$. To begin, note that $x$ acting by $0$ on all irreducibles implies that $x$ acts by $0$ on any representation by \Cref{thm:maschke}. For example, $x$ must act by $0$ on the regular representation $\CC[G]$. In particular, $x\cdot1=0$ in $\CC[G]$, so we are done.
+\end{proof}
+We now need to take this isomorphism of algebras down to a numerical result. This will be done by considering the center.
+\begin{lemma} \label{lem:class-function-is-center}
+	Fix a group $G$, and let $\varphi\colon G\to\CC$ be a function. Then the following are equivalent.
+	\begin{listalph}
+		\item $\varphi$ is a class function.
+		\item The element $e_\varphi\coloneqq\sum_{g\in G}\varphi(g)g\in\CC[G]$ is in the center of $\CC[G]$.
+	\end{listalph}
+\end{lemma}
+\begin{proof}
+	We have two implications to show. For any $h\in G$, we compute
+	\[he_\varphi h^{-1}=\sum_{g\in G}\varphi(g)hgh^{-1}=\sum_{g\in G}\varphi\left(hgh^{-1}\right)g.\]
+	Now, $e_\varphi$ is in the center if and only if $he_\varphi h^{-1}=e_\varphi$ for all $h\in G$. (The forward implication is by definition; the reverse implication is because any element of $\CC$ commutes with $e_\varphi$ already.) But comparing the $g$-coordinate of $he_\varphi h^{-1}$ above and $e_\varphi$ reveals that this is equivalent to $\varphi\left(hgh^{-1}\right)=\varphi(g)$ for any $g,h\in G$, which is equivalent to $\varphi$ being a class function.
+\end{proof}
+\begin{lemma} \label{lem:center-of-end}
+	For any finite-dimensinal vector space $V$ over $\CC$, we have $Z(\op{End}_\CC(V))=\{\lambda{\id_V}:\lambda\in\CC\}$.
+\end{lemma}
+\begin{proof}
+	Certainnly any scalar operator $\lambda\id_V$ lives in $Z(\op{End}_\CC(V))$. Conversely, we note that $\op{End}_\CC(V)$ acts standardly on $V$, and in fact $V$ is an irreducible module for this algebra. Thus, the same argument as in \Cref{thm:schur} implies that any $\op{End}_\CC(V)$-invariant endomorphism of $V$ is a scalar.
+\end{proof}
+\begin{proposition} \label{prop:count-irreps}
+	Fix a group $G$. Then the number of irreducible representations of $G$ equals the number of conjugacy classes of $G$.
+\end{proposition}
+\begin{proof}
+	We compute the dimension of the center of both sides of \Cref{thm:finite-peter-weyl}. On the left, we see that \Cref{lem:class-function-is-center} explains that $Z(\CC[G])$ is isomorphic (as a $\CC$-vector space) to the space of class functions, so $\dim Z(\CC[G])$ is the number of conjugacy classes. On the right, we see that \Cref{lem:center-of-end} explains that each factor in the produce has one-dimensional center, so $\dim Z\left(\prod_\rho\op{End}_\CC(V_\rho)\right)$ equals the number of irreducible representations of $G$.
+\end{proof}
+\begin{corollary} \label{cor:irrep-chars-span-class-funcs}
+	Fix a group $G$. Then the characters of irreducible representations form an orthonormal basis of the vector space of all class functions.
+\end{corollary}
+\begin{proof}
+	That these characters are orthonormal follows from \Cref{cor:first-ortho}, so it remains to show that these span the vector space of class functions. Well, \Cref{prop:count-irreps} tells us that the number of irreducible representations equals the dimension of the space of class functions (that is, the number of conjufacy classes).
+	% Let $\rho_1,\ldots,\rho_k$ be the irreducible $G$-representaitons. Now, for any class function $\psi$, we define
+	% \[\varphi\coloneqq\psi-\sum_{i=1}^k\langle\psi,\chi_{\rho_i}\rangle\chi_{\rho_i}\]
+	% so that $\langle\varphi,\chi_{\rho_i}\rangle=0$ for each $i$ by the linearity of our inner product. We claim that $\varphi$ vanishes, which will finish because it shows that $\psi$ lives in the span of the $\chi_{\rho_i}$.
+	%
+	% We now apply a trick. As in \Cref{lem:class-function-is-center}, define $e_\varphi\coloneqq\sum_{g\in G}\varphi(g)g$. For any $G$-representation $\rho$, we see from \Cref{lem:class-function-is-center} that multiplication by $e_\varphi$ induces a $G$-invariant map $\rho_\varphi\colon V_\rho\to V_\rho$. In particular, if $\rho$ is irreducible, then \Cref{thm:schur} tells us that $\rho_\varphi$ is equal to multiplication by a scalar. By providing $V_\rho$ with a basis and writing out the matrix associated to $\rho_\varphi$, we see that
+	% \[\rho_\varphi=\frac{\tr\rho_\varphi}{\dim V_\rho}=\frac1{\dim V}\sum_{g\in G}\varphi(g)\tr\rho(g)=\frac1{\dim V}\langle\varphi,\chi_{\rho^\lor}\rangle,\]
+	% where we used \Cref{lem:build-chars} in the last equality. But $\rho^\lor$ is also irreducible by \Cref{cor:irred-iff-dual-irrep}, so $\langle\varphi,\chi_\rho\rangle=0$ by hypothesis on $\varphi$.
+	%
+	% Now, decomposing the regular representation $\rho\colon G\to\CC[G]$ as a sum of irreducible representations (via \Cref{thm:maschke}) we again note that the multiplication-by-$e_\varphi$ map $\rho_\varphi\colon\CC[G]\to\CC[G]$ must be the zero map because it is the zero map on each summand. Thus,
+	% \[0=e_\varphi\cdot1=\sum_{g\in G}\varphi(g)g,\]
+	% so $\varphi(g)=0$ for each $g\in G$. This completes the proof.
+\end{proof}
+% \begin{corollary} \label{cor:num-irreps}
+% 	Fix a group $G$. Then the number of irreducible representations is equal to the number of conjugacy classes of $G$.
+% \end{corollary}
+% \begin{proof}
+% 	By \Cref{prop:irrep-chars-span-class-funcs}, characters of irreducible representations are distinct (by \Cref{cor:first-ortho}) and form a basis of the space of all class functions. So the number of irreducible characters is the dimension of the space of all class functions. But letting $c_1,\ldots,c_r$ denote the conjugacy classes of $G$, we see that class functions are functions $\{c_1,\ldots,c_r\}\to\CC$, and this space has dimension $r$. This finishes.
+% \end{proof}
+While we're here, we also prove the second orthogonality relation.
+\begin{corollary}[Second orthogonality relation]
+	Fix a group $G$. Let $\rho_1,\ldots,\rho_r$ be the irreducible representations of $G$. For any $g\in G$, we let $[g]$ denote the conjugacy class of $G$. Then each $g,h\in G$ has
+	\[\sum_{i=1}^r\chi_{\rho_i}(g)\chi_{\rho_i}\left(h^{-1}\right)=\begin{cases}
+		|G|/|[g]| & \text{if }[g]=[h], \\
+		0 & \text{else}.
+	\end{cases}\]
+\end{corollary}
+\begin{proof}
+	Let the conjugacy classes of $G$ be represented as $[g_1],\ldots,[g_r]$; note that this is equal to the number of irreducible representations by \Cref{prop:count-irreps}. The point here is to do linear algebra to achieve the result from \Cref{cor:first-ortho}. Indeed, define the $r\times r$ matrix
+	\[M\coloneqq\begin{bmatrix}
+		\sqrt{\frac{|[g_1]|}{|G|}}\chi_1(g_1) & \cdots & \sqrt{\frac{|[g_r]|}{|G|}}\chi_1(g_r) \\
+		\vdots & \ddots & \vdots \\
+		\sqrt{\frac{|[g_1]|}{|G|}}\chi_r(g_1) & \cdots & \sqrt{\frac{|[g_r]|}{|G|}}\chi_r(g_r)
+	\end{bmatrix}.\]
+	The main claim is that $M$ is a unitary matrix. Notably, \Cref{rem:conj-char} tells us that
+	\[M^\dagger=\begin{bmatrix}
+		\sqrt{\frac{|[g_1]|}{|G|}}\overline{\chi_1(g_1)} & \cdots & \sqrt{\frac{|[g_1]|}{|G|}}\overline{\chi_r(g_1)} \\
+		\vdots & \ddots & \vdots \\
+		\sqrt{\frac{|[g_r]|}{|G|}}\overline{\chi_1(g_r)} & \cdots & \sqrt{\frac{|[g_r]|}{|G|}}\overline{\chi_r(g_r)}
+	\end{bmatrix}=\begin{bmatrix}
+		\sqrt{\frac{|[g_1]|}{|G|}}{\chi_1\left(g_1^{-1}\right)} & \cdots & \sqrt{\frac{|[g_1]|}{|G|}}{\chi_r\left(g_1^{-1}\right)} \\
+		\vdots & \ddots & \vdots \\
+		\sqrt{\frac{|[g_r]|}{|G|}}{\chi_1\left(g_r^{-1}\right)} & \cdots & \sqrt{\frac{|[g_r]|}{|G|}}{\chi_r\left(g_r^{-1}\right)}
+	\end{bmatrix}.\]
+	Thus, \Cref{cor:first-ortho} tells us that
+	\[(MM^\dagger)_{ik}=\sum_{j=1}^rM_{ij}M_{jk}^\dagger=\sum_{j=1}^r\frac{|[g_j]}{|G|}\chi_i(g_j)\chi_k\left(g_j^{-1}\right)=\frac1{|G|}\sum_{g\in G}\chi_i(g)\chi_k(g^{-1})=1_{i=k},\]
+	so $MM^\dagger$ is the identity matrix, as needed. In particular, $M^\dagger=M^{-1}$, so we also see that $M^\dagger M$ is the identity matrix, so
+	\[1_{i=k}=(M^\dagger M)_{ik}=\sum_{j=1}^rM^\dagger_{ij}M_{jk}=\frac{\sqrt{|[g_i]|\cdot|[g_k]|}}{|G|}\sum_{j=1}^r\chi_j(g_i^{-1})\chi_j(g_k).\]
+	Thus, if $i=k$, then we see the leftmost summation evaluates to $|G|/|[g_i]|$; otherwise, the leftmost summation vanishes. The summation can replace $g_i$ and $g_k$ with any representative of their respective conjugacy classes by \Cref{lem:char-comps}, so we complete the proof.
+\end{proof}
+\begin{remark}
+	The moral of the above proof is that the character table (which is the matrix $\{\chi_i([g_j])\}$) is ``almost'' unitary. Indeed, it becomes unitary after appropriately scaling the columns.
+\end{remark}
+
+% \section{Induction}
+% In this section, we will introduce a powerful method to make new representations from old ones: induction.
+
+% \subsection{Frobenius Reciprocity}
+% Here is our main definition.
+% \begin{definition}[induction]
+% 	Fix a subgroup $H\subseteq G$. Given a representation $\rho\colon H\to\op{GL}(V)$, we define the \textit{induced representation} $\op{Ind}_H^G\rho\colon G\to\op{GL}(\op{Ind}_H^GV_\rho)$ as follows: our vector space is
+% 	\[\op{Ind}_H^GV_\rho\coloneqq\big\{f\in\op{Mor}(G,V_\rho):f(hg)=\rho(h)f(g)\text{ for }h\in H,g\in G\big\},\]
+% 	and the action is given by $(\op{Ind}_G^H\rho(g)f)(g')\coloneqq f(g'g)$.
+% \end{definition}
+% \begin{remark}
+% 	Note $\op{Ind}_H^GV_\rho$ is finite-dimensional because its dimension is bounded above by the dimension of $\op{Mor}(G,V_\rho)$, which is simply $(\dim V_\rho)^{\#G}$. To check that this actually defines a representation, we compute
+% 	\[((g_1g_2)f)(g')=f(g'g_1g_2)=(g_2f)(g'g_1)=(g_1(g_2f))(g'),\]
+% 	so $(g_1g_2)f=g_1(g_2f)$. This computation explains why we want $G$ to act ``on the right'' inside the function.
+% \end{remark}
+% \begin{remark}
+% 	For technical reasons that are not important for this note, the given functor $\op{Ind}$ is frequently called ``coinduction,'' and the name ``induction'' is reserved for a different functor. Because our groups are finite (so that $[G:H]$ is finite), these functors are in fact naturally isomorphic.
+% \end{remark}
+% This definition appears to be unmotivated at first. Its utility arises by pairing it with a second operation: restriction.
+% \begin{definition}[restriction]
+% 	Fix a subgroup $H\subseteq G$. Given a representation $\rho\colon G\to\op{GL}(V)$, we define the \textit{restricted representation} $\op{Res}_H^G\rho\colon H\to\op{GL}(V_\rho)$ to be simply given by $\op{Res}_H^G\rho(h)\coloneqq\rho(h)$. This can be checked to be a representation.
+% \end{definition}
+% The utility of restriction is clearer: frequently, it is the case that representations of small subgroups are easier, so one may hope to learn something about a representation of $G$ by restricting to $H$. The relevance of induction to this story arises from Frobenius reciprocity.
+% \begin{theorem}[Frobenius reciprocity]
+% 	Fix a subgroup $H\subseteq G$, and choose representations $\sigma\colon G\to\op{GL}(V)$ and $\tau\colon H\to\op{GL}(W)$. Then
+% 	\begin{align*}
+% 		\op{Hom}_G\left(\sigma,\op{Ind}_H^G\tau\right) &\cong \op{Hom}_H\left(\op{Res}^G_H\sigma,\tau\right), \\
+% 		\op{Hom}_G\left(\op{Ind}_H^G\tau,\sigma\right) &\cong \op{Hom}_H\left(\tau,\op{Res}^G_H\sigma\right).
+% 	\end{align*}
+% \end{theorem}
+% \begin{proof}
+	
+% \end{proof}
+% \begin{remark}
+% 	One can upgrade these isomorphisms to adjunctions of functors, but we will not need to.
+% \end{remark}
+
+\end{document}
