@@ -1,0 +1,422 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+
+\newcommand{\nirpdftitle}{KAKEYA IN \texorpdfstring{$\RR^3$}{R3}}
+\usepackage{import}
+\inputfrom{../../notes}{nir}
+\usepackage[backend=biber,
+    style=alphabetic,
+    sorting=ynt
+]{biblatex}
+\setcounter{tocdepth}{2}
+
+\pagestyle{contentpage}
+
+\title{The Chinese Remainder Theorem}
+\author{Nir Elber}
+\date{May 2025}
+\usepackage{graphicx}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+	In this short note, we introduce the statement and give some example applications of the Chinese remainder theorem. We assume some familiarity with modular arithmetic. The reader is strongly encouraged to work out the exercises.
+\end{abstract}
+
+\tableofcontents
+
+\setcounter{section}{0}
+\section{Introduction}
+Morally, the Chinese remainder theorem is simply the intuition that taking$\pmod{m_1}$ and$\pmod{m_2}$ are pretty independent operations. Here is one incarnation of this: because taking$\pmod{m_1}$ and$\pmod{m_2}$ are essentially independent, we should be able to find integers $x$ satisfying the conditions
+\[x\equiv\begin{cases}
+	a_1\pmod{m_1}, \\
+	a_2\pmod{m_2},
+\end{cases}\]
+for any integers $a_1$ and $a_2$. This is not literally true, but it is almost true. The objective of this note is to explain how to solve such systems of equations. We will motivate and prove the following theorem.
+\begin{theorem}[Chinese remainder theorem] \label{thm:crt}
+	Choose two pairs of integers $(a_1,m_1)$ and $(a_2,m_2)$ such that $m_1$ and $m_2$ are positive. Suppose that $\gcd(m_1,m_2)=1$. Then there is exactly one class $x\pmod{m_1m_2}$ such that
+	\[x\equiv\begin{cases}
+		a_1 \pmod{m_1}, \\
+		a_2 \pmod{m_2}.
+	\end{cases}\]
+\end{theorem}
+While reasonably intuitive, there is still something to explain about this statement. Notably, it is not obvious what the condition $\gcd(m_1,m_2)=1$ does, but we will find that it is quite necessary for both the existence and the uniqueness of $x$.
+
+Let's take a moment to explain the layout of this note. We split this theorem into two pieces: the existence of $x$ and its uniqueness$\pmod{m_1m_2}$. In \cref{sec:existence}, we handle the existence, and in \cref{sec:uniqueness}, we handle the uniqueness. Lastly, in \cref{sec:supp}, we answer some questions the reader may be left with after reading the rest of the article.
+
+\section{Existence} \label{sec:existence}
+In this section, we show that systems of equations which look like
+\[x\equiv\begin{cases}
+	a_1\pmod{m_1}, \\
+	a_2\pmod{m_2},
+\end{cases}\]
+frequently have solutions.
+
+\subsection{A Starting Example}
+Let's give a taste for our constructions work.
+\begin{example} \label{ex:1-m3-2-m5}
+	Show that there is an integer $x$ such that $x\equiv1\pmod3$ and $x\equiv2\pmod5$.
+\end{example}
+\begin{proof}
+	Here is one way to approach this problem: we can search among the integers which are $2\pmod5$ until we find one which is $1\pmod3$. To this end, we make the following table.
+	\[\begin{array}{c|ccccccccc}
+		n & 0 & 1 & 2 & 3 & 4 & 5 & 6 & 7 & \cdots \\\hline
+		5n+2 & 2 & 7 & 12 & 17 & 22 & 27 & 32 & 37 & \cdots \\
+		5n+2\pmod3 & 2 & 1 & 0 & 2 & 1 & 0 & 2 & 1 & \cdots
+	\end{array}\]
+	Thus, we see that we may take $x=7$ or $x=22$ or $x=37$.
+\end{proof}
+\begin{exe}
+	Show that there is an integer $x$ such that $x\equiv1\pmod3$ and $x\equiv1\pmod5$.
+\end{exe}
+\begin{exe}
+	Show that there is an integer $x$ such that $x\equiv2\pmod3$ and $x\equiv0\pmod5$.
+\end{exe}
+Let's make a general argument.
+\begin{proposition} \label{prop:construct-crt-mod-3-mod-5}
+	Choose any two integers $a_1$ and $a_2$. Then there is an integer $x$ such that
+	\[x\equiv\begin{cases}
+		a_1\pmod3, \\
+		a_2\pmod5.
+	\end{cases}\]
+\end{proposition}
+\begin{proof}
+	We argue as in \Cref{ex:1-m3-2-m5}. We would like to take $x=a_2+5k$ for some integer $k$ because such $x$ automatically satisfy $x\equiv a_2\pmod5$. Thus, we are asking if there exists an integer $k$ such that
+	\[a_2+5k\stackrel?\equiv a_1\pmod3.\]
+	We would like to ``solve'' for $k$. This is equivalent to asking for $2k\equiv(a_1-a_2)\pmod3$. Multiplying both sides by $2$, this is equivalent to asking for $k\equiv2(a_1-a_2)\pmod3$. Taking $k=2(a_1-a_2)$ will work.
+\end{proof}
+\begin{remark} \label{rem:unwind-crt-mod-3-mod-5}
+	For the sake of completeness, we note that we may unwind this argument to see that we are taking $x=a_2+5k=-9a_2+10a_1$. One can check directly that $x\equiv a_1\pmod3$ and $x\equiv a_2\pmod5$.
+\end{remark}
+
+\subsection{Some Trouble}
+However, there is some trouble in paradise.
+\begin{example} \label{ex:crt-nexist-ex}
+	Show that there is no integer $x$ such that $x\equiv1\pmod4$ and $x\equiv2\pmod6$.
+\end{example}
+\begin{proof}
+	Suppose that such an integer $x$ exists.
+	\begin{itemize}
+		\item On one hand, $x=1+4k$ for some integer $k$, so $x\equiv1\pmod2$.
+		\item On the other hand, $x=2+6\ell$ for some integer $\ell$, so $x\equiv0\pmod2$.
+	\end{itemize}
+	However, there is no integer $x$ which is both $0\pmod2$ and $1\pmod2$!
+\end{proof}
+\begin{exe}
+	Show that there is an integer $x$ such that $x\equiv1\pmod4$ and $x\equiv3\pmod6$.
+\end{exe}
+\begin{exe}
+	Show that there is no integer $x$ such that $x\equiv11\pmod{15}$ and $x\equiv12\pmod{25}$.
+\end{exe}
+Ultimately, the obstruction is ``common divisors.''
+\begin{proposition} \label{prop:crt-obstruction}
+	Choose two pairs of integers $(a_1,m_1)$ and $(a_2,m_2)$ such that $m_1$ and $m_2$ are positive. Suppose that there is a common divisor $d$ of $m_1$ and $m_2$. If there is an integer $x$ such that
+	\[x\equiv\begin{cases}
+		a_1 \pmod{m_1}, \\
+		a_2 \pmod{m_2},
+	\end{cases}\]
+	then $a_1\equiv a_2\pmod d$.
+\end{proposition}
+\begin{proof}
+	The idea is to reduce everything$\pmod d$. First, we lift everything to integers. We may write $x=a_1+k_1m_1$ and $x=a_2+k_2m_2$ for some integers $k_1$ and $k_2$. Second, we reduce$\pmod d$: because $d$ divides $m_1$ and $m_2$, we see that
+	\[a_1+k_1m_1\equiv a_1\pmod d,\]
+	and similarly $a_2+k_2m_2\equiv a_2\pmod d$. We conclude that
+	\[a_1\equiv x\equiv a_2\pmod d,\]
+	which is the desired statement.
+\end{proof}
+\begin{remark}
+	Let's explain the relevance of \Cref{prop:crt-obstruction}. The point of is that the presence of common divisors $d$ means that we are not allowed to choose $a_1$ and $a_2$ randomly, lest solutions fail to exist! \Cref{ex:crt-nexist-ex} is one instance of this: $2$ is a common divisor of both $4$ and $6$, but $1\not\equiv0\pmod2$.
+\end{remark}
+
+\subsection{The Theorem}
+However, in the absence of common divisors, this system is solvable.
+\begin{theorem}[Chinese remainder theorem, existence] \label{thm:crt-exist}
+	Choose two pairs of integers $(a_1,m_1)$ and $(a_2,m_2)$ such that $m_1$ and $m_2$ are positive. Suppose that $\gcd(m_1,m_2)=1$. Then there is an integer $x$ such that
+	\[x\equiv\begin{cases}
+		a_1 \pmod{m_1}, \\
+		a_2 \pmod{m_2}.
+	\end{cases}\]
+\end{theorem}
+\begin{proof}
+	We proceed as in \Cref{prop:construct-crt-mod-3-mod-5}. We would like to take $x=a_2+km_2$ for some integer $k$ because such $x$ automatically satisfy $x\equiv a_2\pmod{m_2}$. Thus, we are asking if there exists an integer $k$ such that
+	\[a_2+km_2\stackrel?\equiv a_1\pmod{m_1}.\]
+	We would like to ``solve'' for $k$. To this end, we note that this is equivalnt to
+	\[km_2\stackrel?\equiv(a_1-a_2)\pmod{m_1}.\]
+	Now, because $\gcd(m_1,m_2)=1$, there exists an integer $m_2'$ such that $m_2m_2'\equiv1\pmod{m_1}$.\footnote{By Bezout's lemma, we can write $m_1'm_1+m_2'm_2=1$ for some integers $m_1'$ and $m_2'$, and then $m_2'$ is the desired integer.} This allows us to fully isolate $k$, making the above equivalent to
+	\[k\stackrel?\equiv m_2'(a_1-a_2)\pmod{m_1},\]
+	which is certainly possible.
+\end{proof}
+Let's unwind the construction in this proof, following \Cref{rem:unwind-crt-mod-3-mod-5}.
+\begin{exe} \label{exe:solve-crt}
+	Choose two pairs of integers $(a_1,m_1)$ and $(a_2,m_2)$ such that $m_1$ and $m_2$ are positive. Suppose that there are integers $m_1'$ and $m_2'$ such that $m_1'm_1+m_2'm_2=1$. Show that $x\coloneqq m_1'm_1a_1+m_2'm_2a_2$ satisfies
+	\[x\equiv\begin{cases}
+		a_1\pmod{m_1}, \\
+		a_2\pmod{m_2}.
+	\end{cases}\]
+\end{exe}
+\begin{exe}
+	Find integers $m_1'$ and $m_2'$ such that $3m_1'+5m_2'=1$. Use these integers to find an integer $x$ such that $x\equiv1\pmod3$ and $x\equiv2\pmod5$.	
+\end{exe}
+\begin{remark}
+	\Cref{exe:solve-crt} tells us something important: not only is the system of equations solvable in many cases, but it is not difficult to go out and find the solutions. Indeed, it is basically as hard as making Bezout's lemma effective, for which one can use the Extended Euclidean algorithm.
+\end{remark}
+
+\section{Uniqueness} \label{sec:uniqueness}
+We would now like to examine how unique a solution $x$ to a system
+\[x\equiv\begin{cases}
+	a_1\pmod{m_1}, \\
+	a_2\pmod{m_2},
+\end{cases}\]
+can be.
+
+\subsection{Infinitely Many Integers}
+If we merely ask for integer solutions, we are going to find infinitely many. Let's see this.
+\begin{example}
+	Show that there are infinitely many integers $x$ such that $x\equiv1\pmod3$ and $x\equiv2\pmod5$.
+\end{example}
+\begin{proof}
+	In \Cref{ex:1-m3-2-m5}, we showed that $x=7$ or $x=22$ or $x=37$ suffice. Noting that $22=7+15$ and $37=22+15$, we are motivated to guess that $x\coloneqq7+15k$ will work for any integer $k$. Indeed, it does: $7+15k\equiv1\pmod3$, and $7+15k\equiv2\pmod5$.
+\end{proof}
+\begin{exe}
+	Show that there are infinitely many integers $x$ such that $x\equiv1\pmod3$ and $x\equiv1\pmod5$.
+\end{exe}
+\begin{exe}
+	Show that there are infinitely many integers $x$ such that $x\equiv1\pmod4$ and $x\equiv2\pmod7$.
+\end{exe}
+In general, one has the following.
+\begin{proposition}
+	Choose two pairs of integers $(a_1,m_1)$ and $(a_2,m_2)$ such that $m_1$ and $m_2$ are positive. Suppose that there exists at least one integer $x_0$ such that
+	\[x_0\equiv\begin{cases}
+		a_1 \pmod{m_1}, \\
+		a_2 \pmod{m_2}.
+	\end{cases}\]
+	Then there are infinitely many integers $x$ such that
+	\[x\equiv\begin{cases}
+		a_1 \pmod{m_1}, \\
+		a_2 \pmod{m_2}.
+	\end{cases}\]
+\end{proposition}
+\begin{proof}
+	We proceed constructively. The idea is that $m_1m_2\equiv0\pmod{m_1}$ and $m_1m_2\equiv0\pmod{m_2}$. Thus, for any integer $k$, we claim that $x\coloneqq x_0+km_1m_2$ solves the system of equation. Indeed,
+	\begin{align*}
+		x &= x_0+km_1m_2 \\
+		&\equiv x_0 \\
+		&\equiv a_1\pmod{m_1}.
+	\end{align*}
+	A similar argument shows that $x\equiv a_2\pmod{m_2}$. Letting $k$ vary over all integers produces the desired infinitely many solutions.
+\end{proof}
+
+\subsection{Uniqueness of Classes}
+Thus, it is too much to hope for our solutions $x$ to be unique because we can always add $m_1m_2$ to a given solution to produce a new one. This suggests that we should be looking at solutions$\pmod{m_1m_2}$! Let's see some examples.
+\begin{example} \label{ex:crt-uniq-mod-3-mod-5}
+	Suppose that an integer $x$ satisfies $x\equiv0\pmod3$ and $x\equiv0\pmod5$. Then $x\equiv0\pmod{15}$.
+\end{example}
+\begin{proof}
+	In short, because $3$ and $5$ are coprime, we see that $3\mid x$ and $5\mid x$ implies $15\mid x$.
+
+	Here is an argument in more words; this will work in more generality, as we will see later in \Cref{thm:crt-uniq}. Because $3\mid x$, we can write $x=3k$. Now, $3k\equiv0\pmod5$. We claim that $k\equiv0\pmod5$, which will then imply $15\mid x$ and hence complete the proof. Well, multiplying both sides of the equation
+	\[3k\equiv0\pmod5\]
+	by $2$ yields
+	\[k\equiv0\pmod5.\]
+	Thus, we may write $k=5\ell$ for some integer $\ell$, which gives $x=15\ell$, as desired.
+\end{proof}
+\begin{example} \label{ex:crt-uniq-mod-3-mod-5-nonzero}
+	Suppose that an integer $x$ satisfies $x\equiv1\pmod3$ and $x\equiv2\pmod5$. Then $x\equiv7\pmod{15}$.
+\end{example}
+\begin{proof}
+	We use \Cref{ex:crt-uniq-mod-3-mod-5}. Indeed, note that
+	\begin{align*}
+		x-7 &\equiv 1-1 \\
+		&\equiv0\pmod3,
+	\end{align*}
+	and
+	\begin{align*}
+		x-7 &\equiv 2-2 \\
+		&\equiv 0\pmod5.
+	\end{align*}
+	We conclude that $x-7\equiv0\pmod{15}$ by applying \Cref{ex:crt-uniq-mod-3-mod-5} to $x-7$, so $x\equiv7\pmod{15}$.
+\end{proof}
+\begin{exe}
+	Suppose that an integer $x$ satisfies $x\equiv1\pmod3$ and $x\equiv1\pmod{15}$. Show that $x\equiv1\pmod{15}$.
+\end{exe}
+\begin{exe}
+	Suppose that there are two integers $x_1$ and $x_2$ such that $x_1\equiv x_2\equiv2\pmod{3}$ and $x_1\equiv x_2\pmod0\pmod5$. Show that $x_1\equiv x_2\pmod{15}$.
+\end{exe}
+These arguments can be generalized.
+\begin{proposition} \label{prop:crt-uniq-mod-3-mod-5-general}
+	Suppose that there are two integers $x_1$ and $x_2$ such that $x_1\equiv x_2\pmod3$ and $x_1\equiv x_2\pmod5$. Then
+	\[x_1\equiv x_2\pmod{15}.\]
+\end{proposition}
+\begin{proof}
+	We proceed as in \Cref{ex:crt-uniq-mod-3-mod-5-nonzero}. Note that $x_1-x_2\equiv0\pmod3$ and $x_1-x_2\equiv0\pmod5$, so applying \Cref{ex:crt-uniq-mod-3-mod-5} to the integer $x$ implies that $x_1-x_2\equiv0\pmod{15}$. Thus, $x_1\equiv x_2\pmod{15}$.
+\end{proof}
+
+\subsection{Some Trouble, Again}
+Once again, there is some trouble if we permit common divisors. As before, let's start by looking at how this looks at $0$.
+\begin{example}
+	Show that there is an integer $x$ such that $x\equiv0\pmod4$ and $x\equiv0\pmod6$ but $x\not\equiv0\pmod{24}$.
+\end{example}
+\begin{proof}
+	We are asking for $x$ to be divisible by both $4$ and $6$, which amounts to looking for common multiples of $4$ and $6$. Thus, we may as well start with the least common multiple $\lcm(4,6)$, which is $x\coloneqq12$. Indeed, $12\not\equiv0\pmod{24}$.
+\end{proof}
+Note $12$ presents a problem for such systems in general.
+\begin{exe}
+	Fix integers $a_1$ and $a_2$ for which there is an integer $x$ such that $x\equiv a_1\pmod4$ and $x\equiv a_2\pmod6$. Then show that
+	\[x+12\equiv\begin{cases}
+		a_1\pmod4, \\
+		a_2\pmod6.
+	\end{cases}\]
+\end{exe}
+However, this is essentially the only obstruction.
+\begin{proposition}
+	Fix integers $a_1$ and $a_2$ for which there is an integer $x$ such that $x\equiv a_1\pmod4$ and $x\equiv a_2\pmod6$. Suppose that $x_1$ and $x_2$ are both integers satisfying the system
+	\[x\equiv\begin{cases}
+		a_1\pmod4, \\
+		a_2\pmod6.
+	\end{cases}\]
+	Then $x_1\equiv x_2\pmod{12}$.
+\end{proposition}
+\begin{proof}
+	By hypothesis, we know that $x_1\equiv x_2\pmod4$ and $x_1\equiv x_2\pmod6$. Then $x_1-x_2$ is divisible by $4$ and by $6$, so it is also divisible by $12$. Thus, $x_1\equiv x_2\pmod{12}$.
+\end{proof}
+We refer to \Cref{thm:crt-no-coprime} for a more general statement.
+
+\subsection{The Theorem}
+We are now ready to prove our uniqueness result upon adding the condition $\gcd(m_1,m_2)=1$.
+\begin{theorem}[Chinese remainder theorem, uniqueness] \label{thm:crt-uniq}
+	Suppose that two positive integers $m_1$ and $m_2$ satisfy $\gcd(m_1,m_2)=1$. If two integers $x_1$ and $x_2$ satisfy
+	\[\begin{cases}
+		x_1 \equiv x_2\pmod{m_1}, \\
+		x_1 \equiv x_2\pmod{m_2},
+	\end{cases}\]
+	then $x_1\equiv x_2\pmod{m_1m_2}$.
+\end{theorem}
+\begin{proof}
+	Our proof follows \Cref{prop:crt-uniq-mod-3-mod-5-general}. Take $x\coloneqq x_1-x_2$, which we know satisfies $x\equiv0\pmod{m_1}$ and $x\equiv0\pmod{m_2}$, and we would like to show that $x\equiv0\pmod{m_1m_2}$. Ultimately, this will hold because $\gcd(m_1,m_2)=1$.
+
+	Because $x\equiv0\pmod{m_1}$, we may write $x=m_1k$ for some integer $k$. We claim that $k\equiv0\pmod{m_2}$, which will quickly complete the argument. Well, by Bezout's lemma, we may find two integers $m_1'$ and $m_2'$ such that $m_1'm_1+m_2'm_2=1$. Then
+	\[m_1'm_1k+m_2'm_2k=k.\]
+	We now reduce this equation$\pmod{m_2}$: note $m_1'm_1k=m_1'x$ is divisible by $m_2$, as is $m_2'm_2k$. Thus, we conclude that $k\equiv0\pmod{m_2}$. To complete the argument, we write $k=m_2\ell$ for some integer $\ell$, which yields $x=m_1m_2\ell$ and thus $x\equiv0\pmod{m_1m_2}$.
+\end{proof}
+Because it is not totally obvious, we explain how our two theorems \Cref{thm:crt-exist} (on existence) and \Cref{thm:crt-uniq} (on uniqueness) together imply \Cref{thm:crt}.
+\begin{proof}[Proof of \Cref{thm:crt} from \Cref{thm:crt-exist,thm:crt-uniq}]
+	Let's quickly recall the goal. Assuming $\gcd(m_1,m_2)=1$, we are hunting for a unique class $x\pmod{m_1m_2}$ such that
+	\[x\equiv\begin{cases}
+		a_1\pmod{m_1}, \\
+		a_2\pmod{m_2},
+	\end{cases}\]
+	where $a_1$ and $a_2$ are some given integers. We will handle existence and uniqueness separately. The existence of some class $x\pmod{m_1m_2}$ follows from the existence of the integer $x$ in \Cref{thm:crt-exist}.
+	
+	It remains to show that the class $x\pmod{m_1m_2}$ is unique. Well, suppose that there are two classes $x_1\pmod{m_1m_2}$ and $x_2\pmod{m_1m_2}$ solving our system. Then
+	\[x_1\equiv a_1\equiv x_2\pmod{m_1},\]
+	and similarly $x_1\equiv x_2\pmod{m_2}$, so we conclude that $x_1\equiv x_2\pmod{m_1m_2}$ by \Cref{thm:crt-uniq}.
+\end{proof}
+
+\section{Supplements} \label{sec:supp}
+In this last section, we mention some asides which aide in the understanding of the Chinese remainder theorem. Because we not need this section as much, we will be briefer.
+
+\subsection{More Equations}
+One can use induction to solve systems with more equations.
+\begin{theorem}
+	Choose pairs of integers $(a_1,m_1),\ldots,(a_k,m_k)$ such that the integers $m_1,\ldots,m_k$ are positive. Suppose $\gcd(m_i,m_j)=1$ for any indices $i$ or $j$. Then there is exactly one class $x\pmod{m_1\cdots m_k}$ such that
+	\[x\equiv\begin{cases}
+		a_1 \pmod{m_1}, \\
+		\qquad\vdots \\
+		a_k \pmod{m_k}.
+	\end{cases}\]
+\end{theorem}
+\begin{proof}
+	We induct on $k$. If $k=1$, there is not much to do: we are hunting for a class $x\pmod{m_1}$ such that $x\equiv a_1\pmod{m_1}$, so we are forced to take $x\equiv a_1\pmod{m_1}$. If $k=2$, we appeal to \Cref{thm:crt}.
+
+	For our induction, we assume that the statement holds at $k$, and we want to show it for $k+1$. To be explicit, we are given suitable pairs of integers $(a_1,m_1),\ldots,(a_{k+1},m_{k+1})$, and we want to find a unique class $x\pmod{m_1\cdots m_{k+1}}$ such that
+	\[x\equiv\begin{cases}
+		a_1 \pmod{m_1}, \\
+		\qquad\vdots \\
+		a_{k+1} \pmod{m_{k+1}}.
+	\end{cases}\]
+	We will handle the existence and uniqueness parts of the proof separately.
+	\begin{itemize}
+		\item Existence: we must find an integer $x$ such that
+		\[x\equiv\begin{cases}
+			a_1 \pmod{m_1}, \\
+			\qquad\vdots \\
+			a_{k+1} \pmod{m_{k+1}}.
+		\end{cases}\]
+		By the inductive hypothesis, there exists $y$ such that
+		\[y\equiv\begin{cases}
+			a_1 \pmod{m_1}, \\
+			\qquad\vdots \\
+			a_k \pmod{m_k}.
+		\end{cases}\]
+		Now, by \Cref{thm:crt} (to solve a system of two equations), we are granted an integer $x$ such that
+		\[x\equiv\begin{cases}
+			y \pmod{m_1\cdots m_k}, \\
+			a_{k+1} \pmod{m_{k+1}}.
+		\end{cases}\]
+		(Why is $\gcd(m_1\cdots m_k,m_{k+1})=1$?) It remains to check that this $x$ works. Well, $x\equiv a_{k+1}\pmod{m_{k+1}}$ by construction, for any for $i$ in $\{1,\ldots,k\}$, we see that
+		\[x\equiv y\equiv a_i\pmod{m_i}\]
+		by construction of $y$. Thus, our constructed $x$ works.
+
+		\item Uniqueness: suppose that we have two integers $x_1$ and $x_2$ solving the system of equations. We would like to show that $x_1\equiv x_2\pmod{m_1\cdots m_{k+1}}$. For this, we group the equations: we do know that
+		\[x_1\equiv x_2\pmod{a_i}\]
+		for each $i\in\{1,\ldots,k\}$, so the inductive hypothesis implies that $x_1\equiv x_2\pmod{m_1\cdots m_k}$. Furthermore, we know that
+		\[\begin{cases}
+			x_1 \equiv x_2\pmod{m_1\cdots m_k}, \\
+			x_1 \equiv x_2\pmod{m_{k+1}},
+		\end{cases}\]
+		so \Cref{thm:crt} (for the uniqueness of two equations) gives $x_1\equiv x_2\pmod{m_1\cdots m_{k+1}}$.
+		\qedhere
+	\end{itemize}
+\end{proof}
+\begin{exe}
+	Find all integers $x$ such that
+	\[x\equiv\begin{cases}
+		1\pmod2, \\
+		2\pmod3, \\
+		3\pmod5.
+	\end{cases}\]
+\end{exe}
+
+\subsection{Common Divisors}
+It is possible to relax the condition $\gcd(m_1,m_2)=1$ in \Cref{thm:crt}, but it requires some care.
+\begin{theorem} \label{thm:crt-no-coprime}
+	Choose pairs of integers $(a_1,m_1)$ and $(a_1,m_2)$ such that the integers $m_1$ and $m_2$ are positive. Set $d\coloneqq\gcd(m_1,m_2)$ and $M\coloneqq\lcm(m_1,m_2)$.
+	\begin{listalph}
+		\item Non-existence: if $a_1\not\equiv a_2\pmod d$, then there does not exist an integer $x$ satisfying $x\equiv a_1\pmod{m_1}$ and $x\equiv a_2\pmod{m_2}$.
+		\item Existence: if $a_1\equiv a_2\pmod d$, then there exists exactly one class $x\pmod{M}$ satisfying $x\equiv a_1\pmod{m_1}$ and $x\equiv a_2\pmod{m_2}$.
+	\end{listalph}
+\end{theorem}
+\begin{proof}
+	The statement (a) is the contrapositive of \Cref{prop:crt-obstruction}. It remains to handle (b), so we assume that $a_1\equiv a_2\pmod d$. As usual, we deal with the existence and uniqueness separately. In general, the approach is to reduce to the coprime case by dividing out by $d$ (note $\gcd(m_1/d,m_2/d)=1$), where we can apply \Cref{thm:crt}.
+	\begin{itemize}
+		\item Existence: we would like to find an integer $x$ such that $x\equiv a_1\pmod{m_1}$ and $x\equiv a_2\pmod{m_2}$. By subtracting $a_1$ from both equations, it is enough to find an integer $y$ such that $y\equiv0\pmod{m_1}$ and $y\equiv b_2\pmod{m_2}$, where $b_2\coloneqq a_2-a_1$. Notably, $b_2\equiv0\pmod d$ by hypothesis.
+
+		Now, because $\gcd(m_1/d,m_2/d)=1$, \Cref{thm:crt} promises an integer $y'$ such that
+		\[y'\equiv\begin{cases}
+			0 \pmod{m_1/d}, \\
+			b_2/d \pmod{m_2/d}.
+		\end{cases}\]
+		Thus, $y\coloneqq dy'$ can be checked to satisfy $y\equiv0\pmod{m_1}$ and $y\equiv b_2\pmod{m_2}$. Taking $x\coloneqq y+a_1$ completes the proof.
+
+		\item Uniqueness: suppose that $x_1$ and $x_2$ are two integers such that $x_1\equiv x_2\equiv a_1\pmod{m_1}$ and $x_1\equiv x_2\equiv a_2\pmod{m_2}$. Then we would like to check that $x_1\equiv x_2\pmod M$. Consider $x\coloneqq x_1-x_2$ so that we would like to show that $x\equiv0\pmod M$ when we are given that
+		\[x\equiv\begin{cases}
+			0\pmod{m_1}, \\
+			0\pmod{m_2}.
+		\end{cases}\]
+		Well, $m_1\mid x$ and $m_2\mid x$ implies that $d$ divides $x$, and $x/d$ is divisible by both $m_1/d$ and $m_2/d$. However, $\gcd(m_1/d,m_2/d)=1$, so we are allowed to apply \Cref{thm:crt} to see that $x/d$ is divisible by $m_1m_2/d^2$. We conclude that
+		\[x\equiv0\pmod{m_1m_2/d},\]
+		so we are done because $\lcm(m_1,m_2)=m_1m_2/\gcd(m_1,m_2)$.
+		\qedhere
+	\end{itemize}
+\end{proof}
+\begin{exe}
+	Find all integers $x$ such that
+	\[x\equiv\begin{cases}
+		3\pmod{10}, \\
+		8\pmod{15}.
+	\end{cases}\]
+\end{exe}
+
+\end{document}

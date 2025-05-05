@@ -103,3 +103,7 @@
 {"rule":"SENTENCE_WHITESPACE","sentence":"^\\QL.-Function.\\E$"}
 {"rule":"IF_IS","sentence":"^\\QThen we define \\E(?:Dummy|Ina|Jimmy-)[0-9]+\\Q if \\E(?:Dummy|Ina|Jimmy-)[0-9]+\\Q if \\E(?:Dummy|Ina|Jimmy-)[0-9]+\\Q.\\E$"}
 {"rule":"EN_A_VS_AN","sentence":"^\\QAn étale \\E(?:Dummy|Ina|Jimmy-)[0-9]+\\Q-module is a finitely generated \\E(?:Dummy|Ina|Jimmy-)[0-9]+\\Q-module \\E(?:Dummy|Ina|Jimmy-)[0-9]+\\Q equipped with a semilinear \\E(?:Dummy|Ina|Jimmy-)[0-9]+\\Q-action (namely, \\E(?:Dummy|Ina|Jimmy-)[0-9]+\\Q) and a \\E(?:Dummy|Ina|Jimmy-)[0-9]+\\Q-equivariant Frobenius-semilinear isomorphism \\E(?:Dummy|Ina|Jimmy-)[0-9]+\\Q with integral matrix entries (and integral inverse).\\E$"}
+{"rule":"EN_A_VS_AN","sentence":"^\\QThis then produces Come chow cycle on the Shimura variety., which has an étale realization \\E(?:Dummy|Ina|Jimmy-)[0-9]+\\Q in \\E(?:Dummy|Ina|Jimmy-)[0-9]+\\Q.\\E$"}
+{"rule":"UPPERCASE_SENTENCE_START","sentence":"^\\Qvia Non-Unique Models.\\E$"}
+{"rule":"ADVERB_OR_HYPHENATED_ADJECTIVE","sentence":"^\\QIn our situation, we actually have two commuting involutions \\E(?:Dummy|Ina|Jimmy-)[0-9]+\\Q and \\E(?:Dummy|Ina|Jimmy-)[0-9]+\\Q, and we let \\E(?:Dummy|Ina|Jimmy-)[0-9]+\\Q and \\E(?:Dummy|Ina|Jimmy-)[0-9]+\\Q be the corresponding fixed subgroups.\\E$"}
+{"rule":"EN_DIACRITICS_REPLACE","sentence":"^\\QThis talk was given by Hao Peng.\\E$"}
