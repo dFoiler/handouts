@@ -490,4 +490,139 @@ Here are more desiderata.
 	\item Lastly, we want ``strong atomic stability,'' which I did not really understand.
 \end{itemize}
 
+\section{April 16: Chol Park}
+This talk was titled ``Families of strongly divisible modules of rank 2.'' This is joint work with Seongjae Han.
+
+\subsection{Some Galois Reprensetations}
+We are interested in computing$\pmod p$ reductions of semistable Galois representations. For today, $K$ is a finite extension of $\QQ_p$, and we let $G_K$ denote its absolute Galois group with inertia subgroup $I_K\subseteq G_K$. We let $E$ be another finite extension of $\QQ_p$, which will be our coefficient field, so we also set $\FF\coloneqq\OO_E/\mf p_E$.
+
+Thus, our Galois representations will be continuous maps $G_K\to\op{GL}_n(E)$. General Galois representations are a bit hard to handle, so we will restrict our attention to de Rham representations, semistable representations, or even crystalline representations. We note each of those representations admits a Hodge--Tate decomposition given by some weights $\nu\in\left(\ZZ^n\right)^{\op{Hom}(K,E)}$. ALso, potentially semistable representations admit Galois types $\tau\colon I_K\to\op{GL}_n(E)$ (where the target has the discrete topology) which measures how ``potential'' the potentially semistable reduction is; of course, by the $p$-adic monodromy theorem, potentially semistable is the same as de Rham.
+
+We will not discuss the $p$-adic Hodge theory which gives rise to these adjectives, but let's give the key examples. For any smooth projective variety $X$ over $K$, then the $G_K$-representation $\mathrm H^i_{\mathrm{\acute et}}(X_{\ov\QQ_p},\ov\QQ_p)$ is de Rham, and $X$ has good (repsectively, semistable) reduction if and only if the Galois representation is crystalline (respectively, semistable).
+
+The intended application for our results is to give a description of some Galois deformation ring, frequently used for the Breuil--Mezard conjecture. Let's give one formulation (``numerical'') of this conjecture. Given $\ov\rho_0\colon G_K\to\op{GL}_n(\FF_E)$ and Hodge--Tate weight $\nu$ and Galois type $\tau$, then Kisin produces a Galois deformation ring $\mf R_{\ov\rho_0}^{\nu,\tau}$ which is a complete local $\OO_E$-algebra whose geometric points parameterize potentially semistable lifts of $\ov\rho_0$ with the given Hodge--Tate weight and Galois type. Additionally, $\tau$ and $\nu$ produces some representations $\sigma(\tau)$ and $\sigma(\nu)$ of $\op{GL}_n(\OO_K)$. Then the conjecture is that any irreducible representation $\sigma$ of $\op{GL}_n(\OO_K)$ over $\FF$, there is an integer $M_\sigma(\ov\rho_0)\in\ZZ_{\ge0}$ such that
+\[e\left(\mf R_{\ov\rho_0}^{\nu,\tau}/\mf p_E\right)=\sum_\sigma n_\sigma(\nu,\tau)M_\sigma(\ov\rho_0),\]
+where $n_\sigma(\nu,\tau)$ is some explicit integer not depending on $\ov\rho_0$, given by $\overline{\sigma(\nu)\otimes_E\sigma(\tau)}^{\mathrm{ss}}=\bigoplus_\sigma\sigma^{n_\sigma(\nu,\tau)}$. (Here, $e$ is some invariant from commutative algebra, called the Hilbert--Samuel multiplicity.)
+\begin{theorem}[Cariani--Emerton--Gee--Savitt]
+	When $n=2$ and $\nu=(0,1)$, the conjecture holds.
+\end{theorem}
+Additionally, the proof is able to say something about the integers $M_\sigma(\ov\rho_0)$.
+
+\subsection{A Little Integral \texorpdfstring{$p$}{p}-adic Hodge Theory}
+Let's give our review in a few steps.
+\begin{enumerate}
+	\item Coleman and Fontaine provided a correspondence between semistable Galois representations of $G_K$ over $E$ and (weakly) admissible filtered $(\varphi,N)$-modules over $K\otimes_{\QQ_p}E$.
+	\item To add integrality, we want to work with Galois stable lattices in $E$, which by Breuil and Lin correspond on the linear algebraic side to strongly divisible modules (which are some kind of lattice in the $(\varphi,N)$-module); however, the correspondence only works for Hodge--Tate weights between $0$ and $p-2$.
+	\item Now that we have integrality, we can take$\pmod p$ reduction to get Galois representations of $G_K$ over $\FF$. This then corresponds to Breuil modules, but now the functor from Breuil modules to$\pmod p$ repreesentations is merely fully faithful only when $K/\QQ_p$ is unramified.
+\end{enumerate}
+So our goal is to start with the $(\varphi,N)$-module, find a strongly divisible module, map down to the Breuil module, and lastly apply the functor to compute some$\pmod p$ Galois representation.
+
+We now focus on the case where $K/\QQ_p$ is unramified with degree $f$. The $(\varphi,N)$-modules are already understood. It turns out that producing the strongly divisible module is the difficult step, and the remaining computations are pretty easy. The rest of the talk consisted of explaining how to parameterize the strongly divisible modules, which uses a lot of data and many equations.
+
+\section{April 23: Ari Shnidman}
+This talk was titled ``Class group heuristics.'' This is joint work with Artane Siad.
+
+\subsection{The Question}
+Fix an integer $m\ge2$, a transitive subgroup $G\subseteq S_m$, a number field $K$, and a prime $\ell$. We are interested in the distribution of the groups $\mathrm{Cl}_F[\ell^\infty]$ as $F$ varies over extensions $F/K$ of degree $m$ with (Galois closure of) Galois group $G$. This question is old, originating more or less with Gauss, who essentially studied the $2$-torsion of the class group of imaginary quadratic fields. In particular, he found some obstructions to the size which suggest we should take $\ell\nmid m$ to get truly random groups.
+
+Here is some of the modern history in this area.
+\begin{itemize}
+	\item For $m=2$ and $F=\QQ$, there are the Cohen--Lenstra heuristics (1983), which claim
+	\[\PP(\mathrm{Cl}_F[\ell^\infty]\cong H)\approx\frac1{\left|H\right|^{r_1}\left|\op{Aut}H\right|},\]
+	where $(r_1,r_2)$ is the signature of the field $F$, and $\approx$ refers to an explicit constant. This was more or less observed directly from the data.
+	\item For $m>2$, we found that the Cohen--Lenstra heuristics are incorrect, which was attempted to be fixed by Cohen--Martinet (2008) and corrected by Malle (2008) and Achter. It was recently observed (2020) that the class group has some extra structure which explains the correction observed by Malle. The state of the art seems to be by Sawin--Wood for $\ell\nmid\left|G\right|$.
+	\item There are many results supporting the various heuristics in the function field case. The strongest known results are known by Landesmann--Levy, who get very close: they can prove the result for a fixed function field and fixed $H$.
+	\item In the number field case, there are not many results. Davenport--Heilbronn (1973) counted $3$-torsion of class groups of quadratic fields. Bhargava (2005) counted $2$-torsion of class groups of cubic fields with full Galois group. There are known generalizations to number fields. Recently, Lemke Oliver--Wang--Wood compute $3$-torsion for some $2$-groups $G\subseteq S_{2^n}$; they basically manage to inductively bootstrap the Davenport--Heilbronn result.
+\end{itemize}
+Here are our main results.
+\begin{theorem}
+	Choose $K=\QQ(\zeta_3)$, and we study $(\ZZ/3\ZZ)$-extensions. Order extensions $F_n\coloneqq K(\sqrt[3]n)$ for $n\in\OO_K$ by norm. Then the average of $\#\mathrm{Cl}_{F_n}[2]$ is $3/2$.
+\end{theorem}
+\begin{remark}
+	This confirms the Cohen--Lenstra--Martinet--Malle heuristics in this case.
+\end{remark}
+We can even do this for different base fields. Of course, as number theorists, we would love to handle $K=\QQ$. We will be able to study $2$-torsion of the extensions $\QQ(\sqrt[3]n)$ for cube-free $n\in\ZZ$, but the answer is complicated, as one would expect because it has not been proven yet!
+\begin{definition}
+	A cubic extension $\QQ(\sqrt[3]n)$ is \textit{type I} if and only if $n\not\equiv\pm1\pmod9$; otherwise, it is \textit{type II}.
+\end{definition}
+\begin{remark}
+	This condition $n\pmod9$ has to do with the structure of the ring of integers.
+\end{remark}
+\begin{theorem} \label{thm:cubic-extensions-cl-2}
+	Choose $K=\QQ$, and we study $S_3$-extensions.
+	\begin{listalph}
+		\item Among $F_n=\QQ(\sqrt[3]n)$ of type I, the average of $\#\mathrm{Cl}_F[2]$ is $2$.
+		\item Among $F_n=\QQ(\sqrt[3]n)$ of type II, the average of $\#\mathrm{Cl}_F[2]$ is $3/2$.
+	\end{listalph}
+\end{theorem}
+\begin{remark}
+	This is not predicted by Sawin--Wood's heuristics because $2\mid\#S_3$.
+\end{remark}
+Note that (b) is what is predicted among the general class of cubic extensions, but (a) is not!
+
+\subsection{Hecke Reciprocity}
+The main tool in the proof is a Hecke reciprocity. Fix an extension $F/K$ of odd degree $m$, and we work with relative class groups $\mathrm{Cl}_{F/K}\coloneqq\mathrm{Cl}_F/\mathrm{Cl}_K$. Now, class field theory explains that $\mathrm{Cl}_{K/F}[2]$ are in bijection with unramified quadratic extensions $F(\sqrt t)/F$ of $F$, and we require $\op N_{F/K}(t)\in K^{\times2}$ in order to pick up only $2$-torsion of the relative class group. For psychological reasons, we want to realize our glass group as some kind of Selmer group. As such, set
+\[M\coloneqq\ker\left(\op{Res}_{F/K}\mu_2\stackrel{\op N}\to\mu_2\right),\]
+which is a group of order $2^{m-1}$. Now, one can compute that
+\[\mathrm H^1(K,M)=ker\left(F^\times/F^{\times2}\stackrel{\op N}\to K^\times/K^{\times 2}\right),\]
+which allows us to define a Selmer group $\op{Sel}_2^{\mathrm{unr}}(F/K)$ as being in the pre-image in the following diagram
+% https://q.uiver.app/#q=WzAsNixbMSwwLCJcXG1hdGhybSBIXjEoSyxNKSJdLFsxLDEsIlxcbWF0aHJtIEheMShLX1xcbWYgcCxNKSJdLFsyLDAsIlxca2VyXFxsZWZ0KEZeXFx0aW1lcy9GXntcXHRpbWVzMn1cXHRvIEteXFx0aW1lcy9LXntcXHRpbWVzMn1cXHJpZ2h0KSJdLFsyLDEsIlxca2VyXFxsZWZ0KEZfe1xcbWYgcH1eXFx0aW1lcy9GXntcXHRpbWVzMn1fe1xcbWYgcH1cXHRvIEtfe1xcbWYgcH1eXFx0aW1lcy9LX3tcXG1mIHB9XntcXHRpbWVzMn1cXHJpZ2h0KSJdLFswLDEsIlxcbWF0aHJtIEheMV97XFxtYXRocm17dW5yfX0oS19cXG1mIHAsTSkiXSxbMCwwLCJcXG9we1NlbH1fMl57XFxtYXRocm17dW5yfX0oRi9LKSJdLFswLDFdLFswLDJdLFsyLDNdLFsxLDNdLFs0LDFdLFs1LDRdLFs1LDBdXQ==&macro_url=https%3A%2F%2Fraw.githubusercontent.com%2FdFoiler%2Fnotes%2Fmaster%2Fnir.tex
+\[\begin{tikzcd}[cramped]
+	{\op{Sel}_2^{\mathrm{unr}}(F/K)} & {\mathrm H^1(K,M)} & {\ker\left(F^\times/F^{\times2}\to K^\times/K^{\times2}\right)} \\
+	{\mathrm H^1_{\mathrm{unr}}(K_\mf p,M)} & {\mathrm H^1(K_\mf p,M)} & {\ker\left(F_{\mf p}^\times/F^{\times2}_{\mf p}\to K_{\mf p}^\times/K_{\mf p}^{\times2}\right)}
+	\arrow[from=1-1, to=1-2]
+	\arrow[from=1-1, to=2-1]
+	\arrow[from=1-2, to=1-3]
+	\arrow[from=1-2, to=2-2]
+	\arrow[from=1-3, to=2-3]
+	\arrow[from=2-1, to=2-2]
+	\arrow[from=2-2, to=2-3]
+\end{tikzcd}\]
+for all primes $\mf p$. It turns out that this Selmer group is exactly $\mathrm{Cl}_{F/K}[2]$.
+\begin{definition}[Hecke ideal]
+	For an extension $F/K$, there is a \textit{Hecke ideal} $H_{F/K}=\op{Disc}_{F/K}\op{Diff}_{F/K}^{-1}$.
+\end{definition}
+\begin{remark}
+	It turns out that $H_{F/K}$ has square norm and is in fact a square in the class group. The proof that it is a square is a very strange theorem, and it does not seem to have an application outside this talk.
+\end{remark}
+We are now ready to state Hecke reciprocity.
+\begin{definition}[Hecke prime]
+	Fix an extnesion $F/K$. A prime $w$ of $F$ lying over a prime $v$ of $K$ is \textit{Hecke} if and only if the following hold.
+	\begin{itemize}
+		\item $w$ divides $H_{F/K}$ to an odd power.
+		\item There is a local class $t\in\mathrm H^1_{\mathrm{unr}}(K_{\mf p},M)$ has $t_w\notin F_w^{\times2}$.
+	\end{itemize}
+\end{definition}
+\begin{theorem}[Hecke reciprocity]
+	For any $F(\sqrt t)\in\mathrm{Cl}_{F/K}[2]$, the number of Hecke primes $w$ inert in $F(\sqrt t)$ is even.
+\end{theorem}
+\begin{proof}
+	This follows from the fact that $H_{F/K}$ is a square in the ideal class. Let $\chi\colon\mathrm{Cl}_F\to\ZZ/2\ZZ$ be the character corresponding to $F(\sqrt t)/F$. Now, one may expand $H_{F/K}=\prod_ww^{\nu_w}$ for some $w$, and we find that
+	\[\chi(H_{F/K})=\sum_wh_w\chi(w)\]
+	receives nonzero contributions from a prime $w$ if and only if it is Hecke and for which $F(\sqrt t)/F$ is inert (so that $\chi(w)=1$).
+\end{proof}
+\begin{remark}
+	The result explains the second condition in the definition of Hecke prime: having $t_w\notin F_w^{\times2}$ is simply saying that the extension $F_w(\sqrt t)/F_w$ looks inert locally.
+\end{remark}
+\begin{example}
+	Fix a cubic extension $F/K$. Then it turns out that $w$ is Hecke if and only if $F_w/K_v$ is quadratic, ramified, and generated by the square root of a uniformizer.
+\end{example}
+\begin{example}
+	Fix an extension $K(\sqrt[p]n)/K$ where $p$ is an odd prime. Then the only possible Hecke primes will lie above $p$. In particular, one can compute that either $(p)=w_1w_2^{-1}$ or $(p)=w_1^p$. For example, our main theorems take $p=3$, and the congruence class $n\pmod9$ correspond to either of those two classes.
+\end{example}
+Let's now say something about the proof of \Cref{thm:cubic-extensions-cl-2}.
+\begin{proof}[Proof of \Cref{thm:cubic-extensions-cl-2}]
+	We proceed in steps. Let $F_n=\QQ(\sqrt[3]n)$. Then our $M_n$ is order-$4$ and self-dual.
+	\begin{itemize}
+		\item Because $M$ is self-dual, there is a cup-product pairing
+		\[\mathrm H^1(\QQ,M)\times\mathrm H^1(\QQ,M)\stackrel\cup\to\op{Br}\QQ[2].\]
+		It turns out that this pairing arises from a quadratic form $q\colon\mathrm H^1(\QQ,M)\to\op{Br}\QQ[2]$ given by sending our $t$ to $\frac13\tr_{F_n/\QQ}tx^2\in\mathrm H^1(\QQ,\op{SO}(3))$. Let $q_p\colon\mathrm H^1(\QQ_p,M)\to\frac12\ZZ/\ZZ$ be the local version.
+
+		\item One can compute that the nonzero class $t\in\mathrm H^1_{\mathrm{unr}}(\QQ_p,M_n)$ lies in the kernel of $q_p$ if and only if $p$ splits as $\lambda_1^2\lambda_2$ where $\lambda_1$ is a Hecke prime. It turns out that this computation re-proves the fact that $H_{F/K}$ is a square.
+
+		\item There is some ``arithmetic invariant theory'' which relates the Selmer group $\mathrm{Cl}_F[2]\cong\op{Sel}_2^{\mathrm{unr}}(F/\QQ)$ to some integral orbits according to some group action. (This is where Hecke reciprocity is used.) This is now something which is understood how to count.
+		\qedhere
+	\end{itemize}
+\end{proof}
+
 \end{document}

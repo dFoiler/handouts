@@ -634,4 +634,117 @@ where $E\coloneqq\FF_p((t))$. It is now possible to prove a suitable version of 
 	There is a suitable analogue replacing $\FF_p$-coefficients of our Galois coefficeints with coefficients of $\ZZ_p$ which consists of replacing our $\varphi$-modules over $E$ with $\varphi$-modules over $C_E$.
 \end{remark}
 
+\section{Iwasawa Cohomology}
+This talk was given by Yashi.
+
+\subsection{Some Kummer Theory}
+Let's begin by reviewing some Kummer theory. Let $F$ be a field of characteristic not $p$, and let $G_F$ be the absolute Galois group. Then there is a short exact sequence
+\[1\to\mu_{p^n}\to F^\times\stackrel{p^n}\to F^\times\to1\]
+which upon taking Galois cohomology yields the short exact sequence
+\[1\to\mathrm H^0(G_F,\mu_{p^n})\to\mathrm H^0(G_F,F^{\mathrm{sep}^\times})\to\mathrm H^0(G_F,F^{\mathrm{sep}\times})\to\mathrm H^1(G_F,\mu_{p^n})\to1,\]
+where the last term vanishes by Hilbert's theorem 90. We conclude that the connecting morphism defines an isomorphism
+\[\frac{F^\times}{F^{\times p^n}}\to\mathrm H^1(G_F,\mu_{p^n}).\]
+This map has good functoriality properties. For example, if $F\subseteq E$ is a field extension, then one can check that the norm map on $\mathrm H^0$ is simply corestriction, so the diagram
+% https://q.uiver.app/#q=WzAsNCxbMCwwLCJFXlxcdGltZXMvRV57XFx0aW1lcyBwXm59Il0sWzAsMSwiRl5cXHRpbWVzL0Zee1xcdGltZXMgcF5ufSJdLFsxLDAsIlxcbWF0aHJtIEheMShHX0UsXFxtdV97cF5ufSkiXSxbMSwxLCJcXG1hdGhybSBIXjEoR19GLFxcbXVfe3Bebn0pIl0sWzAsMSwiXFxvcCBOX3tFL0Z9IiwyXSxbMSwzXSxbMCwyXSxbMiwzLCJcXG9we2NvcmVzfSJdXQ==&macro_url=https%3A%2F%2Fraw.githubusercontent.com%2FdFoiler%2Fnotes%2Fmaster%2Fnir.tex
+\[\begin{tikzcd}[cramped]
+	{E^\times/E^{\times p^n}} & {\mathrm H^1(G_E,\mu_{p^n})} \\
+	{F^\times/F^{\times p^n}} & {\mathrm H^1(G_F,\mu_{p^n})}
+	\arrow[from=1-1, to=1-2]
+	\arrow["{\op N_{E/F}}"', from=1-1, to=2-1]
+	\arrow["{\op{cores}}", from=1-2, to=2-2]
+	\arrow[from=2-1, to=2-2]
+\end{tikzcd}\]
+commutes. As another nice functoriality property, we note that we can take an ivnerse limit over $p^n$, which produces an isomorphism $F^\times\widehat\otimes\ZZ_p\to\mathrm H^1(G_F,\ZZ_p(1))$.
+
+Let's give a ``global'' variant. If $S$ is a finite set of places of a global field $F$, we let $F^S$ denote the maximal extension of $F$ which is unramified outside $S$, and we let $G_{F,S}$ be its Galois group. In our application, we now fix $S$ to be the places above $p$ and $\infty$, in which case we find that the short exact sequence
+\[1\to\mu_{p^n}\to\OO_{F^S}\left[p^{-1}\right]^\times\to\OO_{F^S}\left[p^{-1}\right]\to1,\]
+so the same sort of connecting morphism argument prduces an injection
+\[\OO_F\left[p^{-1}\right]\widehat\otimes\ZZ_p\into\mathrm H^1(G_{F,S},\ZZ_p(1)).\]
+
+\subsection{Iwasawa Cohomology}
+We are now allowed to define Iwasawa cohomology. We consider the following lattice of fields.
+% https://q.uiver.app/#q=WzAsNSxbMCwyLCJGIl0sWzAsMSwiRihcXG11X3twXnJ9KSJdLFswLDAsIkYoXFxtdV97cF5cXGluZnR5fSkiXSxbMSwxLCJGXlMiXSxbMSwwLCJGXlMoXFxtdV97cF5yfSkiXSxbMCwxLCIiLDAseyJzdHlsZSI6eyJoZWFkIjp7Im5hbWUiOiJub25lIn19fV0sWzEsMiwiIiwwLHsic3R5bGUiOnsiaGVhZCI6eyJuYW1lIjoibm9uZSJ9fX1dLFszLDQsIiIsMCx7ImxldmVsIjoyLCJzdHlsZSI6eyJoZWFkIjp7Im5hbWUiOiJub25lIn19fV0sWzAsMywiIiwxLHsic3R5bGUiOnsiaGVhZCI6eyJuYW1lIjoibm9uZSJ9fX1dLFsxLDQsIiIsMSx7InN0eWxlIjp7ImhlYWQiOnsibmFtZSI6Im5vbmUifX19XV0=&macro_url=https%3A%2F%2Fraw.githubusercontent.com%2FdFoiler%2Fnotes%2Fmaster%2Fnir.tex
+\[\begin{tikzcd}[cramped]
+	{F(\mu_{p^\infty})} & {F^S(\mu_{p^r})} \\
+	{F(\mu_{p^r})} & {F^S} \\
+	F
+	\arrow[no head, from=2-1, to=1-1]
+	\arrow[no head, from=2-1, to=1-2]
+	\arrow[equals, from=2-2, to=1-2]
+	\arrow[no head, from=3-1, to=2-1]
+	\arrow[no head, from=3-1, to=2-2]
+\end{tikzcd}\]
+Now, for a representation $V$ of $G_{F,S}$, we define
+\[\mathrm H^1_{\mathrm{IW}}(G_{F,S},V)\coloneqq\limit_r\mathrm H^1(G_{F(\mu_{p^r}),S},V),\]
+where this Galois group acts on $V$ by $G_{F(\mu_{p^r}),S}=\op{Gal}(F^S/F(\mu_{p^r}))$.
+
+Here is our application of Kummer theory: the commutative diagram
+% https://q.uiver.app/#q=WzAsNCxbMCwwLCJcXFpaX3BbXFxtdV97cF5yfV1cXGxlZnRbcF57LTF9XFxyaWdodF1eXFx0aW1lc1xcd2lkZWhhdFxcb3RpbWVzXFxaWl9wIl0sWzEsMCwiXFxtYXRocm0gSF4xKEdfe1xcUVEoXFxtdV97cF5yfSksU30sXFxaWl9wKDEpKSJdLFsxLDEsIlxcbWF0aHJtIEheMShHX3tcXFFRKFxcbXVfe3Becn0pfSxcXFpaX3AoMSkpIl0sWzAsMSwiXFxRUV9wKFxcbXVfe3Becn0pXlxcdGltZXNcXHdpZGVoYXRcXG90aW1lc1xcWlpfcCJdLFswLDEsIiIsMCx7InN0eWxlIjp7InRhaWwiOnsibmFtZSI6Imhvb2siLCJzaWRlIjoidG9wIn19fV0sWzMsMiwiIiwwLHsic3R5bGUiOnsidGFpbCI6eyJuYW1lIjoiaG9vayIsInNpZGUiOiJ0b3AifSwiaGVhZCI6eyJuYW1lIjoiZXBpIn19fV0sWzAsM10sWzEsMl1d&macro_url=https%3A%2F%2Fraw.githubusercontent.com%2FdFoiler%2Fnotes%2Fmaster%2Fnir.tex
+\[\begin{tikzcd}[cramped]
+	{\ZZ[\mu_{p^r}]\left[p^{-1}\right]^\times\widehat\otimes\ZZ_p} & {\mathrm H^1(G_{\QQ(\mu_{p^r}),S},\ZZ_p(1))} \\
+	{\QQ_p(\mu_{p^r})^\times\widehat\otimes\ZZ_p} & {\mathrm H^1(G_{\QQ_p(\mu_{p^r})},\ZZ_p(1))}
+	\arrow[hook, from=1-1, to=1-2]
+	\arrow[from=1-1, to=2-1]
+	\arrow[from=1-2, to=2-2]
+	\arrow[hook, two heads, from=2-1, to=2-2]
+\end{tikzcd}\]
+with horizontal arrows given by Kummer theory produces a commutative diagram
+% https://q.uiver.app/#q=WzAsNCxbMCwwLCJcXGxpbWl0XFxaWltcXG11X3twXlxcYnVsbGV0fV1cXGxlZnRbcF57LTF9XFxyaWdodF1eXFx0aW1lc1xcd2lkZWhhdFxcb3RpbWVzXFxaWl9wIl0sWzEsMCwiXFxtYXRocm0gSF4xX3tcXG1hdGhybXtJV319KEdfe1xcUVEsU30sXFxaWl9wKDEpKSJdLFsxLDEsIlxcbWF0aHJtIEheMV97XFxtYXRocm17SVd9fShHX3tcXFFRLFN9LFxcWlpfcCgxKSkiXSxbMCwxLCJcXGxpbWl0XFxRUVtcXG11X3twXlxcYnVsbGV0fV1eXFx0aW1lc1xcd2lkZWhhdFxcb3RpbWVzXFxaWl9wIl0sWzAsM10sWzMsMiwiIiwwLHsic3R5bGUiOnsidGFpbCI6eyJuYW1lIjoiaG9vayIsInNpZGUiOiJ0b3AifSwiaGVhZCI6eyJuYW1lIjoiZXBpIn19fV0sWzAsMSwiIiwyLHsic3R5bGUiOnsidGFpbCI6eyJuYW1lIjoiaG9vayIsInNpZGUiOiJ0b3AifX19XSxbMSwyXV0=&macro_url=https%3A%2F%2Fraw.githubusercontent.com%2FdFoiler%2Fnotes%2Fmaster%2Fnir.tex
+\[\begin{tikzcd}[cramped]
+	{\limit\ZZ[\mu_{p^\bullet}]\left[p^{-1}\right]^\times\widehat\otimes\ZZ_p} & {\mathrm H^1_{\mathrm{IW}}(G_{\QQ,S},\ZZ_p(1))} \\
+	{\limit\QQ_p[\mu_{p^\bullet}]^\times\widehat\otimes\ZZ_p} & {\mathrm H^1_{\mathrm{IW}}(G_{\QQ_p,S},\ZZ_p(1))}
+	\arrow[hook, from=1-1, to=1-2]
+	\arrow[from=1-1, to=2-1]
+	\arrow[from=1-2, to=2-2]
+	\arrow[hook, two heads, from=2-1, to=2-2]
+\end{tikzcd}\]
+where the limits are taken with respect to norms.
+
+% We finish the talk by explaining that one can compute Iwasawa cohomology using $(\varphi,\Gamma)$-modules.
+\begin{proposition}
+	One has
+	\[\mathrm H^1_{\mathrm{IW}}(G_{\QQ_p},V)\cong\mathbb D(V)^{\psi},\]
+	where $\psi$ is a certain quasi-inverse of the Frobenius.
+\end{proposition}
+\begin{proof}
+	Let's set up some notation. Let $\gamma\in\op{Gal}(\QQ_p(\mu_{p^\infty})/\QQ_p)$ be a topological generator, namely the Frobenius, and we let $\gamma_{1+p^r}$ be the corresponding topoloical generator of $\op{Gal}(\QQ_p(\mu_{p^\infty}),\QQ_p(\mu_{p^r}))$. Now, there are restriction and corestriction maps between $\mathrm H^i(G_{\QQ_p},V)$ and $\mathrm H^i(G_{\mu_p(\mu_{p^r})},V)$, which should be seen on the level of the Herr complex by the folowing diagram.
+	% https://q.uiver.app/#q=WzAsNixbMCwwLCJcXG1hdGhiYiBEViJdLFsxLDAsIlxcbWF0aGJiIERWXFxvcGx1c1xcbWF0aGJiIERWIl0sWzIsMCwiXFxtYXRoYmIgRFYiXSxbMCwxLCJcXG1hdGhiYiBEViJdLFsxLDEsIlxcbWF0aGJiIERWXFxvcGx1c1xcbWF0aGJiIERWIl0sWzIsMSwiXFxtYXRoYmIgRFYiXSxbMCwxLCIoXFxwc2ktMSxcXGdhbW1hLTEpIl0sWzEsMiwiKFxcZ2FtbWEtMSksMS1cXHBzaSkiXSxbMywwLCJcXGlkIiwwLHsib2Zmc2V0IjotMn1dLFswLDMsIlxcaWQiLDAseyJvZmZzZXQiOi0yfV0sWzMsNCwiKFxccHNpLTEsXFxnYW1tYV97MStwXnJ9LTEpIiwyXSxbNCw1LCIoXFxnYW1tYV97MStwXnJ9LTEsMS1cXHBzaSkiLDJdLFs0LDEsIlxcc3VtX2lcXGdhbW1hXmkiLDAseyJvZmZzZXQiOi0yfV0sWzEsNCwiXFxpZCIsMCx7Im9mZnNldCI6LTJ9XSxbNSwyLCJcXGlkIiwwLHsib2Zmc2V0IjotMn1dLFsyLDUsIlxcc3VtX2lcXGdhbW1hXmkiLDAseyJvZmZzZXQiOi0yfV1d&macro_url=https%3A%2F%2Fraw.githubusercontent.com%2FdFoiler%2Fnotes%2Fmaster%2Fnir.tex
+	\[\begin{tikzcd}[cramped,column sep=large]
+		{\mathbb DV} & {\mathbb DV\oplus\mathbb DV} & {\mathbb DV} \\
+		{\mathbb DV} & {\mathbb DV\oplus\mathbb DV} & {\mathbb DV}
+		\arrow["{(\psi-1,\gamma-1)}", from=1-1, to=1-2]
+		\arrow["\id", shift left=2, from=1-1, to=2-1]
+		\arrow["{(\gamma-1),1-\psi)}", from=1-2, to=1-3]
+		\arrow["\id", shift left=2, from=1-2, to=2-2]
+		\arrow["{\sum_i\gamma^i}", shift left=2, from=1-3, to=2-3]
+		\arrow["\id", shift left=2, from=2-1, to=1-1]
+		\arrow["{(\psi-1,\gamma_{1+p^r}-1)}"', from=2-1, to=2-2]
+		\arrow["{\sum_i\gamma^i}", shift left=2, from=2-2, to=1-2]
+		\arrow["{(\gamma_{1+p^r}-1,1-\psi)}"', from=2-2, to=2-3]
+		\arrow["\id", shift left=2, from=2-3, to=1-3]
+	\end{tikzcd}\]
+	(The middle morphisms are slightly wrong. I have described the maps on the left $\mathbb DV$, but the maps on the right $\mathbb DV$ are reversed.) The rows can be viewed as the total complex for a filtration, so the Grothendieck spectral sequence yields a short exact sequence
+	\[0\to\frac{\mathbb DV^{\psi=1}}{\gamma_{1+p^r}-1}\to\mathrm H^1_{\psi,\gamma_{1+p^r}}(\mathbb DV)\to\left(\frac{\mathbb DV}{\psi-1}\right)^{\gamma_{1+p^r}=1}\to0.\]
+	We now note that this short exact sequence fits into a morphism
+	% https://q.uiver.app/#q=WzAsOSxbMCwwLCIwIl0sWzEsMCwiXFxmcmFje1xcbWF0aGJiIERWXntcXHBzaT0xfX17XFxnYW1tYV97MStwXntyKzF9fS0xfSJdLFsyLDAsIlxcbWF0aHJtIEheMV97XFxwc2ksXFxnYW1tYV97MStwXntyKzF9fX0oXFxtYXRoYmIgRFYpIl0sWzMsMCwiXFxsZWZ0KFxcZnJhY3tcXG1hdGhiYiBEVn17XFxwc2ktMX1cXHJpZ2h0KV57XFxnYW1tYV97MStwXntyKzF9fT0xfSJdLFs0LDAsIjAiXSxbMSwxLCJcXGZyYWN7XFxtYXRoYmIgRFZee1xccHNpPTF9fXtcXGdhbW1hX3sxK3Bee3J9fS0xfSJdLFsyLDEsIlxcbWF0aHJtIEheMV97XFxwc2ksXFxnYW1tYV97MStwXntyfX19KFxcbWF0aGJiIERWKSJdLFszLDEsIlxcbGVmdChcXGZyYWN7XFxtYXRoYmIgRFZ9e1xccHNpLTF9XFxyaWdodClee1xcZ2FtbWFfezErcF57cisxfX09MX0iXSxbMCwxLCIwIl0sWzIsNiwiXFxvcHtjb3Jlc30iXSxbMSw1LCIiLDAseyJzdHlsZSI6eyJoZWFkIjp7Im5hbWUiOiJlcGkifX19XSxbMyw3LCJcXHN1bV9pXFxnYW1tYV5pIl0sWzgsNV0sWzUsNl0sWzYsN10sWzAsMV0sWzEsMl0sWzIsM10sWzMsNF1d&macro_url=https%3A%2F%2Fraw.githubusercontent.com%2FdFoiler%2Fnotes%2Fmaster%2Fnir.tex
+	\[\begin{tikzcd}[cramped]
+		0 & {\frac{\mathbb DV^{\psi=1}}{\gamma_{1+p^{r+1}}-1}} & {\mathrm H^1_{\psi,\gamma_{1+p^{r+1}}}(\mathbb DV)} & {\left(\frac{\mathbb DV}{\psi-1}\right)^{\gamma_{1+p^{r+1}}=1}} & 0 \\
+		0 & {\frac{\mathbb DV^{\psi=1}}{\gamma_{1+p^{r}}-1}} & {\mathrm H^1_{\psi,\gamma_{1+p^{r}}}(\mathbb DV)} & {\left(\frac{\mathbb DV}{\psi-1}\right)^{\gamma_{1+p^{r+1}}=1}}
+		\arrow[from=1-1, to=1-2]
+		\arrow[from=1-2, to=1-3]
+		\arrow[two heads, from=1-2, to=2-2]
+		\arrow[from=1-3, to=1-4]
+		\arrow["{\op{cores}}", from=1-3, to=2-3]
+		\arrow[from=1-4, to=1-5]
+		\arrow["{\sum_i\gamma^i}", from=1-4, to=2-4]
+		\arrow[from=2-1, to=2-2]
+		\arrow[from=2-2, to=2-3]
+		\arrow[from=2-3, to=2-4]
+	\end{tikzcd}\]
+	given by compatibility of corestriction. The result now follows upon taking the inverse limit because the right-hand term of the short exact sequence vanishes.
+\end{proof}
+\begin{remark}
+	Technically, all of these constructions have integrality built in, so we must work with $V$ defined over $\ZZ_p$. Notably, the last sentence needs $V$ to be over $\ZZ_p$.
+\end{remark}
+
 \end{document}

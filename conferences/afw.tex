@@ -1,0 +1,972 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+
+\newcommand{\nirpdftitle}{Automorphic Forms Workshop}
+\usepackage{import}
+\inputfrom{../../notes}{nir}
+% \usepackage[backend=biber,
+%     style=alphabetic,
+%     sorting=ynt
+% ]{biblatex}
+% \addbibresource{bib.bib}
+\setcounter{tocdepth}{2}
+
+\pagestyle{contentpage}
+
+\title{Automorphic Forms Workshop}
+\author{Nir Elber}
+\date{April 2025}
+\usepackage{graphicx}
+\lhead{}
+\rhead{\textit{AUTOMORPHIC FORMS WORKSHOP}}
+
+\begin{document}
+
+\maketitle
+
+\tableofcontents
+
+\section{Wednesday, April 30}
+
+\subsection{Reductive Groups and Hasse Principle}
+This talk was given by Parimala Raman. For today, $G$ will be a reductive group over a global field $K$, such as a classical group. We will be interested in homogeneous spaces $X$ of $G$.
+\begin{definition}[homogeneous space]
+	Fix a reductive group $G$ over a field $K$. A \textit{homogeneous space} $X$ is a $k$-scheme equipped with a transitive $G$-action (of $G(\ov K)$ on $X(\ov K)$). We say that $X$ is a \textit{principal homogeneous space} if and only if the stabilizer is trivial, and it is \textit{projective} if and only if $X$ is projective as a $k$-scheme.
+\end{definition}
+\begin{example}
+	For $G=\mathrm{SL}_n$, we may consider the space $X_a$ of $n\times n$ matrices with determinant $a\in k^\times$. This is a homogeneous space.
+\end{example}
+\begin{example}
+	A quadratic form $q\sum_ia_ix_i^2$ cuts out a $k$-scheme out of $\PP^{n-1}$. This is a projective and principal homogeneous space for the group $\op{SO}(q)$.
+\end{example}
+We are interested in the ``Hasse principle.''
+\begin{definition}[Hasse principle]
+	Fix a number field $K$, and let $\Omega_K$ be the set of places of $K$. Then a group $G$ satisfies the \textit{Hasse principle} if and only if any homogeneous space $X$ satisfies the following: $X(K)=\emp$ if and only if $X(K_v)=\emp$ for some $v\in\Omega_K$.
+\end{definition}
+\begin{example}
+	The Hasse--Minkowski theorem implies the Hasse principle for quadratic forms.
+\end{example}
+The following general result is known.
+\begin{theorem}[Harder]
+	Suppose that $G$ is a connected linear algebraic group. Then the projective homogeneous spaces satisfy the Hasse principle.
+\end{theorem}
+Let's see an example of failure.
+\begin{example}
+	Let $L$ be a biquadearic failure of $\QQ$, such as $\QQ(\sqrt{13},\sqrt{17})$. Then let $T$ be the norm torus for $L/\QQ$. For a given $a$, one can look at the principal homongeous space $X_a$ of elements with norm $a$. For example, $X_{25}$ can be seen to locally have elements for $p$-adic reasons, but $X_{25}(\QQ)=\emp$.
+\end{example}
+One can view the above example as an instance of a Brauer--Manin obstruction, which keeps track of things such as this. In fact, this is the only possible kind of obstruction.
+\begin{theorem}[Borovoi]
+	Fix a reductive group $G$ over a number field $K$. Assume that everything is geometrically simply connected. Then the Brauer--Manin obstruction is the only obstruction to the Hasse principle.
+\end{theorem}
+We now turn to function fields, so $K$ is the function field of a smooth projective curve $X$. Here are the sort of application we have in mind.
+\begin{example}
+	If the Hasse principle holds for a field $F$, then every $9$-dimensional quadratic form over $F$ has a nontrivial zero. However, this is not known.
+\end{example}
+Here is something we can show.
+\begin{theorem}
+	The Hasse principle holds for quadratics over $p$-adic fields for $p\ne2$.
+\end{theorem}
+\begin{remark}
+	The application that every $9$-dimensional quadratic form has a nontrivial zero was actually already known before this. A separate proof is required to handle $p=2$ due to the lack of the Hasse principle there.
+\end{remark}
+One can frequently work with more general fields.
+\begin{definition}[semiglobal]
+	A field $K$ is \textit{semiglobal} if and only if it is complete discrete valued fields which are function fields over a curve $X$.
+\end{definition}
+For example, one can recover the Hasse principle for quadratics over semiglobal fields, away from characteristic $2$. One can prove more.
+\begin{theorem}
+	Fix a reductive group $G$ over a semiglobal field $K$. Then a projective homogeneous space for $G$ satisfies the Hasse principle away from an explicit finite set of places.
+\end{theorem}
+\begin{remark}
+	Maybe we should say something about where reductivity is used. In fact, if $F$ has characteristic $0$, one can remove reductivity and work with general connected linear algebraic groups. Ultimately, the issue is that unipotent groups are much harder to control in positive characteristic.
+\end{remark}
+
+\subsection{Distinguished Representatinos and Symplectic Periods}
+This talk was given by Mahendra Kumar Verma. Let's start by reviewing period integrals. Fix a number field $F$, and we let $G$ be an algebrai group over $F$, and let $H\subseteq G$ be a closed subgroup. Automorphic forms are some controlled functions on $G(F)\backslash G(\AA_F)$, and they generate automorphic representations. Cusp forms are those which vanish on unipotent subgroups, and they generate cuspidal automorphic reprensetations.
+
+For some automorphic representation $\pi$ of $G$ and $f\in\pi$, we may be interested in the period integral
+\[\int_{H(F)\backslash H(\AA_F)}f.\]
+In general, one needs some regulization to make sense of this integral.
+\begin{definition}
+	An irreducible automorphic represntaiton $\pi$ is \textit{$H$-distinguished} if and only if the period integral does not vanish identically on all $f$. We may also say that $\pi$ has a nonzero $H$-period.
+\end{definition}
+\begin{example}
+	Eisenstein series $E(g,s)$ produce automorphic forms on the adelic quotient of r$\op{SL}_2$, and it turns out that
+	\[\int_{[\mathrm{SO}_2]}E(g,s)\,dg=\zeta_{\QQ(i)}(s).\]
+	Thus, we see that there is some arithmetic content.
+\end{example}
+We are interested in symplectic periods, so fix $G=\mathrm{GL}_{2n}$ and $H=\mathrm{Sp}_{2n}$. There is also a local incarnation.
+\begin{definition}
+	A representation $\pi_v$ of $\op{GL}_{2n,F_v}$ has a symplectic period if and only if $\mathrm{Hom}_{\mathrm{Sp}_{2n}}(\pi,\CC)\ne0$.
+\end{definition}
+Of course, having global periods implies having local periods.
+
+Let's review some of what is already known.
+\begin{theorem}[Jacquet--Rallis--Offen]
+	Some $\pi$ has a nonzero symplectic period if and only if $2n/r$ is even. For example, if $\pi$ is cuspidal, then its symplectic period vanishes.
+\end{theorem}
+Let's define $r$.
+\begin{itemize}
+	\item One begins by parameterizing automorphic representations of $\op{GL}_{2n}$.
+	\item Then one restricts the parameterization to the discrete series.
+\end{itemize}
+Then $r$ is some invariant which pops out of the parameterization.
+\begin{remark}
+	Here is a heuristic reason: having a nonzero symplectic period implies that $\pi_v$s have symplectic invariant functionals. However, these $\pi_v$s are also generic and have Whittaker models. These turn out to be disjoint conditions!
+\end{remark}
+The above remark tells us that we are fighting with local obstructions. Let's twist our local places to hopefully make them go away. In particular, we now turn our attention to division algebras, so let $D$ be a quaternion algebra over $F$. In the cae, of $F=\QQ$, one finds that $\op{Sp}_n(D)$ is the unique non-split inner form of $\op{Sp}_{2n,\QQ}$. Notably, there is a Jacquet--Langlands correspondence between automorphic representations $\pi$ of $\op{GL}_n(D)$ and $\op{JL}(\pi)$ of $\op{GL}_{2n,\QQ}$. This correspondence is checked to be unique locally away from the ramified primes of $D$.
+
+Working with quaternion algebras grants us symplectic periods.
+\begin{proposition}
+	For all odd $n\ge1$, there exists a cuspidal automorphic representation $\pi$ of $\op{GL}_n(D)$ and $f\in\pi$ such that
+	\[\int_{[\mathrm{Sp}_{n}(D)]}f\ne0.\]
+\end{proposition}
+\begin{remark}
+	However, one can show that if $\op{JL}(\pi)$ is cuspidal, then the symplectic period should vanish!
+\end{remark}
+\begin{remark}
+	It is conjectured that an automorphic representation $\pi$ in the discrete spectrum can be detected being distinguished by $\op{JL}(\pi)$. For example, by explicit computation with Eisenstein series, one can show that a non-cuspidal automorphic representation in the discrete spectrum  of $\op{GL}_2(D)$ has an explicit form and will be distinguished by $\op{Sp}_2(D)$; in fact, $\op{JL}(\pi)$ is found to be distinguished by $\op{Sp}_{4,\QQ}$.
+\end{remark}
+
+\subsection{Relative Satake Isomorphism and Euler Systems}
+This talk was given by Shilin Lai. We are interested in constructing Euler systems. Let's take the Gan--Gross--Prasad setup: $E/F$ is CM, and $W\subseteq V$ are Hermitian spaces of dimensions $n$ and $n+1$. Then there is a diagonal embedding $U(W)\into U(W)\times U(V)$, which produces a special cycle $\Delta$ on the Shimura variety for $U(W)\times U(V)$. This then produces Come chow cycle on the Shimura variety., which has an \'etale realization $\Delta_p$ in
+\[\mathrm H^{2n}(\mathrm{Sh}_G,\ZZ_p(n)).\]
+This cycle $\Delta_p$ can be extended to a full Euler system. Thus, we have some Euler systems for Rankin--Selberg motives, which has the usual applications to rank-$1$ Bloch--Kato. Notably, because we work ``motivically,'' we can work with all primes without fear.
+
+Let's quickly recall that an Euler system. For all but finitely many places $\ell$ of $F$ which split in $E$, our goal is to construct some classes
+\[\Delta_p^{(\ell)}\in\mathrm H^{2n}(\mathrm{Sh}_{G,E[\ell]},\mathbb L(n)),\]
+where $\mathbb L$ is some local system. Then we have some trace condition on these classes, and we haev some Satake transform condition related to a local $L$-factor.
+
+The first proof of this result writes down an explicit test vector and checks that everything works. Our goal for today is to write down an Euler system by pure thought.
+\begin{enumerate}
+	\item Take $X=H\backslash G$ to be a spherical variety, and there is a $G(\AA^{p\infty})$-equivariant map
+	\[\Theta^{p\infty}\colon C_c^\infty(X(\AA^{p\infty}),\ZZ_p)\to\mathrm H^{2n}(\mathrm{Sh}_G,\mathbb L(n)),\]
+	which produces our cycles. Roughly speaking, one pushes the indicator of $gU$ to a translation (by $g$) of the special cycle $\mathrm{Sh}_H(H\cap U)$. In particular, it is known that this produces rational cycles in $\mathbb L(n)_\QQ$, but one can check that if we start with something integral, then one can get integrals out.
+
+	\item To keep track of field extensions geometrically, we simply remark that the trace can be realized on the level of functions as some character condition on the ambient maximal compact subgroup.
+
+	This leaves us with a purely local question, asking us to construct $\varphi^1\in C^\infty_c(X(F_\ell),\ZZ_p)^{K^1}$ satisfying some trace condition related
+	\[\tr\varphi^1=\mc L\cdot 1_{X(\OO)},\]
+	where $\mc L$ is related to the Satake isomorphism.
+
+	\item For this local question, we do some local harmonic analysis, so take $F$ to be local. For this, one stratifies $X(F)$, and it allows us to compute (via geometry) the image of the trace map. Thus, the goal is to check that $1_{X(\OO)}$ satisfies this divisibility condition. For this, we use a relative Satake isomorphism, which moves the complicated object $C_c^\infty(X(F),\CC)^K$ (with Hecke action) to some polynomial ring; notably, relative Langlands also explains how to invert this isomorphism via relative Plancherel formula. One can now check the integrality and divisibility conditions by the explicit formulae.
+\end{enumerate}
+The moral of the story is that knowing cases of relative Langlands produces the desired Euler systems!
+
+\subsection{Large Values of Fourier Coefficients}
+This talk was given by Krishnarjun Krishnamoorthy. We are interested in studying $L$-functions in families. For example, some random matrix theory models allow us to conjecture
+\[\sum_{\left|D\right|\le X}L\left(\frac 12,f\otimes\chi_D\right)^k\sim X(\log X)^{k(k-1)/2}.\]
+In spite of this, we can wonder if any particular central value can be very large. One can also wonder about Ramanujan conjectures for half-integral weight modular forms; a weak form is conjecturally expected.
+
+Let's turn to Hilbert modular forms. Fix a totally real number field $F$ of degree $r$ over $\QQ$; then $F$ has an embedding into $\RR^r\subseteq\CC^r$, which we note has a natural inner product. Given a level $\Gamma$, a Hilbert modular cusp form is some holomorphic function $f$ on $\mc H^r$ with a transformation law by $\Gamma$ and vanishes on the cusps. Under favorable conditions, the presence of cusps grants a Fourier expansion. Here is our main result.
+\begin{theorem}
+	Fix an ideal $\mf c$, and choose constants $A$ and $X$ with $X$ large, and choose $\mf t$ coprime to $\mf c$. For any $\varepsilon>0$, there are $\gg X^{1-\varepsilon}$ integral ideals $\mf a$ with norm between $X$ and $2X$ satisfying $\mf a\equiv\mf t\pmod{\mf c}$ and
+	\[L\left(\frac12,f_1,\chi_{\mf a}\right)\ge A\sum_{\nu=2}^mL\left(\frac12,f_v\otimes\chi_{\mf a}\right)+\exp\left(c\sqrt{\frac{\log X}{\log\log X}}\right),\]
+	where $\{f_1,\ldots,f_m\}$ is some set of mutually orthogonal Hecke eigenforms of integral weight and full level, and $c>0$ is some constant depending on all the other choices.
+\end{theorem}
+\begin{theorem}
+	Fix a nonzero cuspidal half integral weight Hilert modular form $f$ of full level and weight $k$ with Fourier expansion. Then one can show that there is $\xi$ with large Fourier coefficients at $\xi$.
+\end{theorem}
+\begin{remark}
+	The result adapts methods of Gun--Kohnen--Soundararajan for modular forms to Hilbert modular forms.
+\end{remark}
+\begin{remark}
+	Let's give a few ingredients.
+	\begin{itemize}
+		\item The quadratic Hecke family has a large sieve inequality.
+		\item There is a Shimura correspondence and Kohnen--Zagier formula. In particular, the Kohnen--Zagier formula relates Fourier coefficients with these central values.
+	\end{itemize}
+\end{remark}
+
+\subsection{Special Cycles on \texorpdfstring{$G_2$}{ G2}}
+This talk was given by Chris Xu. We will work with split $G_2$, which is the automorphism group of the (split) octonions $\mathbb O$, which is some $8$-dimensional non-associative $\RR$-algebra. Here are some facts.
+\begin{itemize}
+	\item For example, one can check that $\dim G_2=14$.
+	\item The norm map on $\mathbb O$ induces a perfect pairing on the trace-zero hyperplane $V_7$ of $\mathbb O$, and it has signature $(3,4)$ so that there is an embedding $G_2\into\op{SO}(3,4)$. (The action of $G_2$ is transitive with stabilizers $\op{SU}(2,1)$.)
+	\item The group $G_2$ is semisimple.
+\end{itemize}
+We would now like to introduce some special cycles. There is no Shimura variety, but there is still a symmetric space: let $\Gamma\subseteq G_2(\QQ)$ be a neat, discrete subgroup, and we have a symmetric space $M=\Gamma\backslash G/K$, where $K\subseteq G_2$ is the maximal compact. One finds $\dim M=8$, so we are interested in $\mathrm H^4(M,\CC)$. It turns out that classes $\eta\in\mathrm H^4(M,\CC)$ are presented by functionals on $G_2$ with some symmetry conditions by $\Gamma$ and $K$.
+
+Now, a lattice $\Lambda\subseteq V_7$ has an actino by $\Gamma$. One can choose representatives, which then gives smaller symmetric spaces $\Gamma_i\backslash H_i/K$, which has dimension $4$. One can check that the integral of a class $\eta$ against this ``special cycle'' $\Gamma_i\backslash H_i/K$ can be explicitly computed as proportional to the value of the representative (roughly speaking). Furthermore, one can assemble the proportionality constants into a holomorphic modular form of weight $7/2$.
+\begin{remark}
+	The modular form arises from theta lifting from $G_2$ to $\widetilde{\mathrm{SL}}_2$.
+\end{remark}
+
+\subsection{The Geometry of \texorpdfstring{$\mathcal A_g$}{ Ag} adn the Rankin--Cohen Bracket}
+This talk was given by Alan Zhao. For us, $\mathcal A_g$ is the moduli space of principally polarized abelian varieties of dimension $g$. We work over an algebraically closed field $\CC$, and we ignore any stacky issues. In particular, $\mathcal A_g=\mathrm{Sp}_{2g}(\ZZ)\backslash\mathcal H_g$, where $\mathcal H_g$ is the space of positive-definite $g\times g$ matrices.
+
+Even though $\mathcal A_g$ fails to be compact, there are natural compactifications. For example, there is a Baily--Borel compactification $\mathcal A_g^*$ essentially found by adding points at infinity, but it is pretty non-smooth. Roughly The usual compactification is toroidal $\overline{\mathcal A_g}$ essentially constructed by adding moduli components.
+
+The Picard group of the toirodal compactification is generated by a Hodge bundle (as in the Baily--Borel compactification) and its boundary. We are going to study the following quantities (and more).
+\begin{itemize}
+	\item Effective divisor: the divisor cut out by locally nonzero elements.
+	\item Moving divisor: a divisor that has dociemsnion two or higher base loci, and its corresponding line bundle has nonzero global sections.
+	\item Slope: given a divisor of the form $a\mc L-bD$, we can be interested in the quantity $a/b$.
+\end{itemize}
+There are many, many kinds of divisors that one may be interested in.
+
+Given a modular form $F$ of weight $a$, we note that it can be pulled back to $\overline{\mathcal A_g}$ and has no poles on the boundary, and one finds that the whole sum comes out to $a\lambda$. So the non-boundary part of the divisor looks like $a\mc L-bD$ for some positive $a,b>0$. Then one can use constructions from modular forms in order to produce more divisors, which bound certain geometric quantities.
+
+\subsection{\texorpdfstring{$p$-}{p-}adic Interpolation of Bessel Periods on \texorpdfstring{$\mathrm{GSp}_4$}{ GSp4}}
+This talk was given by Alexander Bauman. Given an algebraic automorphic reprensetation $\pi$, the special values $L(s,\pi)$ are expected to encode arithmetic information. One tool to understand these things is to do $p$-adic interpolation, essentially by building some integral formulation and then varying the automorphic input to the integral.
+
+For us, we take $G=\mathrm{GSp}_4$ and $P=MN$ be the standard Siegel parabolic. We fix a standard additive character $\psi$ on $\AA/\QQ$, and we choose $S$ to be a $2\times2$ symmetric matrix in $\QQ$, which induces a character on $[N]$ by $\psi(X)=\psi(\tr SX)$. Further, let $R_S$ be the (connected) centralizer of $\psi_S$ in $P$, and we let $T_S=R_S\cap M$ be a subtorus.
+
+Now, $\varphi$ is a cuspidal automorphic form on $G$ with central character $\chi$. The Bessel period is
+\[B\varphi\coloneqq\int_{[NT_S/Z]}\varphi(nt)\overline\psi(n)\chi(t)\,dn\,dt.\]
+We are going to show that this period connects Fourier coefficients and special values. In particular, suppose $\varphi$ is the adelization of a classical holomorphic Siegel cusp form $F$ of weight $(k_1,k_2)$ and trivial central character. Now, $F$ admits a Fourier expansion, and one can show that the Bessel period appears.
+
+On the other had, the Gan--Gross--Prasad conjecture produces an equality of the form
+\[\frac{\left|B\varphi\right|^2}{(\varphi,\varphi)}\approx\frac{L(1/2,\pi\times\op{AI}(\chi))}{L(1,\pi,\mathrm{Ad})}\prod_v\frac{B_v^\sharp(\varphi_v,\varphi_v)}{(\varphi_v,\varphi_v)_v},\]
+where the product is over some local factors.
+
+Now, we can let $(F,\chi)$ vary in $p$-adic families. Here is our main result.
+\begin{theorem}
+	Suppose $T_S$ splits over $\QQ_p$. Then there is a $p$-adic $L$-function which interpolates
+	\[\sqrt{\frac{L(1/2,\pi_F\times\op{AI}(\chi))(\varphi_F,\varphi_F)}{L(1,\pi_F,\mathrm{Ad})}}\]
+	as $F$ varies in a Hida family, has constant weight, and there are some more conditions.
+\end{theorem}
+We should say something about Hida families. Roughly speaking, it is a $p$-adic anlytic family of $p$-adic Siegel cuspidal eigenforms which are $p$-ordinary. Note that the Hida family might not fix a weight, so we do need to find a space which can do everything we need. For this, we take the module of continuous functions $U(\ZZ_p)\backslash\op{GL}_2(\ZZ_p)\to\ZZ_p$. Thenit is a matter of interpolating our periods.
+
+\subsection{\texorpdfstring{$L$-}{ L-}functions for \texorpdfstring{$\mathrm{Sp}_{2n}\times\op{GL}_k$}{ Sp(2n) x GL(k)} via Non-Unique Models}
+This talk was given by Pan Yan. We would like to establish integral formulae for $L$-functions. We do so for $L(s,\pi\times\tau)$ where $\pi$ is a cuspidal representation of $\op{Sp}_{2n}$ and $\tau$ is a cuspidal representation for $\op{GL}_k$.
+
+Classically, $\pi$ may be a cuspidal automorphic representation of $\op{GL}_2(\AA)$ over a number field $F$. For a cusp form $\varphi_\pi$, we work with the integral
+\[I(s,\varphi_\pi)=\int_{[\mathrm{GL}_1]}\varphi_\pi\left(\begin{bmatrix}
+	t \\ & 1
+\end{bmatrix}\right)\left|t\right|^s\,dt.\]
+Then a cusp form admits a Fourier expansion into Whittaker functions, which can produce the $L$-function as a Dirichlet series. In particular, these global Whittaker functions produce local Whittaker functions (by uniqueness), which then expand the above integral into an Euler product which can be evaluated locally.
+
+We would like to tell this story for $\mathrm{Sp}_{2n}\times\mathrm{Gl}_k$. Assume $n$ is even and that $\pi$ is a cuspidal automorphic representation of $\op{Sp}_{2n}(\AA)$. Let $T$ be the anti-diagonal element multiplied by the standard diagonal torus. Let $\chi_T=(\det T,-)$ be the global Hilbert symbol $[\mathrm{GL}_1]\to\{\pm1\}$. Further, $\tau$ is a cuspidal automorphic representation of $\op{GL}_k(\AA)$, and we let $\Delta(\tau\otimes\chi_T,n)$ be a generalized Speh representation of $\op{GL}_{nk}(\AA)$. This representation theory is parabolically induced by some explicit representation. One then defines some explicit Eisenstein series to integrate against.
+
+\section{Thursday, May 1}
+
+\subsection{Endoscopic Classification for Classical Groups}
+This talk was given by Sug Woo Shin. We will say quite a bit about Arthur's work on endoscopic classification.
+
+Let's start with a bit of history. Our story roughly begins with quadratic reciprocity, which leads to class field theory. Hilbert asked for the most general reciprocity law, which can be interested in asking for a nonabelian class field theory. Or perhaps one can ask for a reciprocity law for higher-dimensional Galois representations. For example, it is a conjecture of Artin if Galois representations $\rho\colon\op{Gal}(\ov\QQ/\QQ)\to\op{GL}_n(\CC)$ have $L(s,\rho)$ is entire. For $\op{GL}_1$, this follows by class field theory, basically by relating these $L$-functions to Hecke characters.
+
+So we see that one hopes to relate our Galois objects to automorphic ones. This marks the beginning of the Langlands program. In a letter to Weil, Langlands introduced a large zoo of automorphic forms which have $L$-functions given by Euler products, which one can hope to prove admit holomorphic continuation and have some functoriality. There is a large history of progress for the continuations.
+
+Today we will say something about functoriality. For example, the trace formula combined with endoscopy gave early succes: Jacquet--Langlands, base-change and automorphic induction (Arthur--Clozel), and there was developed a Langlands--Kottwitz approach for $\ell$-adic cohomology of Shimura varieties. In 2013, Arthur claimed an endoscopic classification for quasi-split $\op{Sp}$ and $\op{SO}$.
+
+We can be more precise about what functoriality is. Roughly speaking, we would like a diagram which looks like the following for any suitable morphism $\eta\colon{}^LH\to{}^LG$.
+% https://q.uiver.app/#q=WzAsNCxbMCwwLCJcXHRleHR7YXV0b21vcnBoaWMgcmVwcyBvZiB9SCJdLFswLDEsIlxcdGV4dHthdXRvbW9ycGhpYyByZXBzIG9mIH1HIl0sWzIsMCwiXFx0ZXh0e0xhbmdsYW5kcyBwYXJhbWV0ZXJzIH1cXG1jIExfRlxcdG8ge31eTEgiXSxbMiwxLCJcXHRleHR7TGFuZ2xhbmRzIHBhcmFtZXRlcnMgfVxcbWMgTF9GXFx0byB7fV5MRyJdLFswLDEsIiIsMCx7InN0eWxlIjp7ImJvZHkiOnsibmFtZSI6ImRhc2hlZCJ9fX1dLFsyLDMsIlxcZXRhIl0sWzAsMiwiIiwxLHsic3R5bGUiOnsiYm9keSI6eyJuYW1lIjoiZGFzaGVkIn19fV0sWzEsMywiIiwxLHsic3R5bGUiOnsiYm9keSI6eyJuYW1lIjoiZGFzaGVkIn19fV1d&macro_url=https%3A%2F%2Fraw.githubusercontent.com%2FdFoiler%2Fnotes%2Fmaster%2Fnir.tex
+\[\begin{tikzcd}[cramped]
+	{\text{automorphic reps of }H} && {\text{Langlands parameters }\mc L_F\to {}^LH} \\
+	{\text{automorphic reps of }G} && {\text{Langlands parameters }\mc L_F\to {}^LG}
+	\arrow[dashed, from=1-1, to=1-3]
+	\arrow[dashed, from=1-1, to=2-1]
+	\arrow["\eta", from=1-3, to=2-3]
+	\arrow[dashed, from=2-1, to=2-3]
+\end{tikzcd}\]
+Roughly speaking, $\mc L_F$ is a Galois group. The horizontal arrows are the Langlands correspondence, which is notably conjectural but known in some cases, and we would like to exhibit a map on the left.
+
+We will focus on $\eta$ with some special type with $^LH=\op{GL}_N$ (such as ${\op{Sp}_N}\to\mathrm{GL}_N$) which roughly means that $^LG$ is the stabilizer of something. In these cases, endoscopy provides some extra tools, such as a fundamental lemma for orbital integral computations and trace formulae which know how to compare. Note that taking $^LH=\op{GL}_N$ is expected to have some applications because automorphic forms are better understood for $\op{GL}_N$; for example, there are multiplicity-$1$ properties and the local Langlands correspondence.
+
+Thus, a refined version of our question is to classify representations of various classical groups using endoscopy and the trace formula. Here are two versions of this question.
+\begin{itemize}
+	\item There are local questions, starting with the local Langlands correspondence. We would also like to construct Arthur packetes and have endoscopic character relations (ECR) characterizing all these packets.
+	\item Globally, we would like to konw how to lift representations from our classical groups to representations of $\op{GL}_N$. Additionally, we would like an Arthur multiplicity formula.
+\end{itemize}
+These questions have a wide variety of arithmetic applications, roughly speaking because arithmetic symmetries frequently find incarnations in automorphic representations. For example, this has been done successfully for unitary groups.
+\begin{remark}
+	One can prove some of these results without using the trace formula, instead using converse theorems.
+\end{remark}
+Decades of work completed the endoscopic classification for quasi-split classical groups. However, these results were conditional on quite a few things. It remains to remove some of these hypotheses. Three volumes over 1500 pages got rid of many of the major difficulties by 2018. There remained four key difficulties: A25, A26, A27, and the weighted fundamental lemma. The statements expected from Arthur's A25, A26, and A27 are understood, but they have still yet to appear. The weighted fundamental lemma has much known (e.g., for split groups), but it is being worked on by other people.
+
+For today's talk, we will focus on the Arthurian legend of A25, A26, and A27, focusing on A25. All three of these papers involve ``local intertwining relations'' (LIR). Roughly speaking, local intertwining operators provide some endomorphisms on parabolically induced representations as some intertwining integrals; then local intertwining relations relate this to ``stable linear forms on endoscopic groups.'' (Endoscopic groups are some explicit products of classical groups, and stable linear forms are some special linear combination of irreducible characters satisfying a stability property.) Here are the applications of LIR.
+\begin{itemize}
+	\item Roughly speaking, many of Arthur's results are very large induction results, and LIR is one of the main local theorems in the inductive argument.
+	\item LIR also helps with the comparison of trace formulae in some technical way. Namely, there are some error terms on the spectral side, and there is some stabilization on the geometric side, and one can basically cancel these out using LIR.
+	\item It turns out that having a proper Levi subgroup $M\subsetneq G$ has some functoriality of local $L$-parameteres, and we would like the local Langlands correspondence to be compatible with parabolic induction. The issue here is not the construction of the packet which parabolic induction should produce, but we need LIR to check some endoscopic character relations.
+\end{itemize}
+Let's explain why Arthur wants LIR in A25. Arthur begins with some local theorems for tempered $L$-para\-meters, and then A25 uses Aubert duality\footnote{A local Arthur parameter is some functional on $W\times\mathrm{SL}_2\times\mathrm{SL}_2$, so Aubert duality simply switches the two $\mathrm{SL}_2$s. It turns out that Aubert duality does nothing to supercuspidal representations, but it can be interesting: it swaps trivial and Steinberg!} to prove local theorems for co-tempered $A$-parameters, from which one can globalize somehow to prove local theorems for all $A$-parameters.
+
+Approximately speaking, we begin with the tempered packet $\varphi$ with packet $\Pi_\varphi$ constructed by induction. Then $\psi=\widehat\varphi$ is co-tempered, and we want to construct its packet. This is expected to arise from Aubert duality, but one needs access to a pairing satisfying an endoscopic character relation. The slogan is that the endoscopic character relation is compatible with a ``signed'' Aubert duality.
+
+\subsection{The Beilinson--Block Conjecture over Function Fields}
+This talk was given by Matt Broe. We are interested in studying some Chow groups of smooth projective varieties $X$. Explicitly, $Z^i(X)$ is free abelian on the codimension-$i$ algebraic cycles; taking quotient by divisors of rational functions produces the Chow group $\op{CH}^i(X)$.
+\begin{example}
+	We have $\op{CH}^1(X)=\op{Pic}X$. When $X$ is ncie enough, there is an exact sequence
+	\[0\to\op{Pic}^0X\to\op{Pic}X\to\op{NS}X\to0,\]
+	which indicates that understanding Chow groups should be at least as hard as understanding rational points on varieties.
+\end{example}
+\begin{remark}
+	For $i>1$, it is expected that understanding $\op{CH}^i(X)$ is even harder. In particular, it is not expected to be able to easily control it in terms of abelian varieties.
+\end{remark}
+The Chow group is best understood by mapping it into (Weil) cohomology theories, which by definition are equipped with cycle class maps $\op{CH}^i(X)\to\mathrm H^{2i}(X)(i)$. There are many conjectures asking about the image of this map. Here is one.
+\begin{conj}[Tate]
+	Suppose $k$ is finitely generated. Then the $\ell$-adic cycle class map
+	\[\op{cl}\colon\op{CH}^i(X)\otimes_\ZZ\QQ_\ell\to\mathrm H^{2i}(X_{\ov k},\QQ_\ell(i))^{G_k}.\]
+\end{conj}
+Not much is known about this conjecture. For abelian varieties, one has $i=1$ by work of many people (Tate, Zarhin, and Faltings) and when $X$ is a K3 surface. For some special or generic abelian varieties, one also has results for many $i$.
+
+Over finite fields, one expects more.
+\begin{conj}
+	Suppose $k$ is a finite field.
+	\begin{listalph}
+		\item Beilinson: the cycle class map is bijective.
+		\item Tate: the eigenvalue $1$ of the geometric Frobenius is semisimple.
+	\end{listalph}
+\end{conj}
+\begin{remark}
+	This notably implies
+	\[\dim_\QQ\op{CH}^i(X)_\QQ=\op{ord}_{t=1}\det\left(1-\mathrm{Frob}_qt;\mathrm H^{2i}(X_{\ov k},\QQ_\ell(i))\right).\]
+	Notably, over $\CC$, the kernel of the cycle class map is expected to be very complicated, so it is very surprising that ``linearizing'' the Chow group loses no information over finite fields!
+\end{remark}
+\begin{remark}
+	It has been shown that the above conjecture is equivalent to the Tate conjecture for abelian varieties.
+\end{remark}
+One can still conjecture something for global fields.
+\begin{conj}[Beilinson--Bloch]
+	Suppose $k$ is global. Then
+	\[\dim_\QQ\op{CH}^i(X)_0=\op{ord}_{s=i}L\left(\mathrm H^{2i-1}(X_{\ov k},\QQ_\ell),s\right),\]
+	where $\op{CH}^i(X)_0$ is the kernel of the cycle class map.
+\end{conj}
+\begin{remark}
+	For $i=1$ and $X$ is an abelian variety, this is the Birch and Swinnerton-Dyer conjecture. For $i>1$, there is a little evidence given by Bloch.
+\end{remark}
+More is known for function fields.
+\begin{theorem}
+	Suppose $X$ is smooth and proper, and let $C$ be a smooth proper curve over a finite field $k$. Suppose we hae a flat family $f\colon X\to C$ with smooth and geometrically connected generic fiber. Then the following are equivalent.
+	\begin{listalph}
+		\item The Tate conjecture for $X$ at $i=1$.
+		\item The Beilinson--Bloch conjecture for the Jacobian of $X_K$ and the Tate conjecture for $X_K$ at $i=1$.
+		\item The Brauer group of $X$ is finite.
+		\item The Tate--Shafaverich group of $\op{Alb}X_K$ is finite, and the Tate conjecture holds for $X_K$ at $i=1$.
+	\end{listalph}
+\end{theorem}
+Here is our main result.
+\begin{theorem}
+	Let $X$ be smooth projective over $\FF_q$. If $f\colon X\to C$ is flat with smooth generic fiber, and let $U\subseteq C$ be some affine open subscheme so that $f|_{f^{-1}U}$ is smooth; set $Z\coloneqq C\setminus U$. If the Beilinson conjecture holds for $X$ at $i$, and there is a suitable form of the Tate and semisimplicity conjectures for $f^{-1}Z$, then the Beilinson--Bloch and Tate conjectures hold for $X_K$ at $i$.
+\end{theorem}
+Here is an example, using some known cases of the hypotheses.
+\begin{theorem}
+	Suppose $E$ is a CM elliptic curve over a finitely generated field $k$, and suppose $C$ is a smooth projective curve over $k$. Then the Tate conjecture holds for $E^\bullet\times C$.
+\end{theorem}
+\begin{remark}
+	Thus, the Beilinson--Bloch conjecture holds for $E^\bullet$ when $E$ is over a global function field.
+\end{remark}
+
+\subsection{Analogues of Greenberg's Conjecture}
+This talk was given by Pekai Qi. Let $K_\infty/K$ be a $\ZZ_p$-extension where $K$ is a number field.
+\begin{example}[cyclotomic]
+	For example, there is a cyclotomic $\ZZ_p$-extension by letting $\QQ_{n-1}$ be the unique subextension of $\QQ(\zeta_{p^n})/\QQ$ of degree $p^{n-1}$. For a general number field $K$, we may define $K_\infty=K\QQ_\infty$.
+\end{example}
+\begin{example}[elliptic]
+	There is an anlogue to elliptic curves: if $E$ has complex multiplication by $K$, choose a prime $p$ splitting as $\mf p\cdot\overline{\mf p}$, and then $K(E[\mf p^\bullet])$ can be assembled into a $\ZZ_p$-extension.
+\end{example}
+It turns out that these elliptic $\ZZ_p$-extensions are similar to the cyclotomic extensions of totally real fields. One has the following conjecture.
+\begin{conj}[Greenberg]
+	Suppose $K$ is totally real, and let $K_\bullet$ be the cyclotomic $\ZZ_p$-extensino. Then the size of the $p$-primary part of the class group of $K_n$ is bounded as $n\to\infty$. 
+\end{conj}
+The elliptic $\ZZ_p$-extensions of an imaginary quadratic field appear similar. Notably, these are just examples of $S$-ramified $\ZZ_p$-extensions, so one may expect that these $S$-ramified $\ZZ_p$-extensions to behave similarly.
+
+Here is some evidence to this expectation.
+\begin{proposition}
+	Let $A_n$ be the $p$-class group of $K_n$, and let $B_n\subseteq A_n$ be the Galois-fixed part. Then Leopoldt's conjecture for the CM field $K$ implies boundedness of $\left|B_n\right|$ for $S$-ramified $\ZZ_p$-extensions.
+\end{proposition}
+This is an analogue of a result of Greenberg.
+
+Lastly, let's try to reinterpret Greenberg's conjecture.
+\begin{definition}
+	A finitely generated $R$-module is \textit{psuedo-null} if and only if $\op{ht}_R\op{Ann}M\ge2$.
+\end{definition}
+\begin{example}
+	Consider the Iwasawa algebra $\Lambda\coloneqq\ZZ_p[[\ZZ_p]]$. Then a finitely generated module over $\Lambda$ is pseudo-null if and only if it is finite.
+\end{example}
+Thus, here is one way to look at Greenberg's conjecture.
+\begin{conj}[Greenberg]
+	Fix $F$ totally real, and let $F_\infty/F$ be the cyclotomic $\ZZ_p$-extension. Then
+	\[\limit\op{Cl}(F_\bullet)[p^\infty]\]
+	is pseudo-null.
+\end{conj}
+One can generalize this to include all $\ZZ_p$-extensions.
+
+\subsection{Numerical Study of Refined Conjectures of the Birch--Swinnerton-Dyer Type}
+This talk was given by Juan-Pablo Llerena-C\'ordova. The classical motivation is to the ranks of elliptic curves, where one conjectures that
+\[\op{ord}_{s=1}L(E,s)=\op{rank}_\ZZ E(\QQ).\]
+One can refine this conjecture to
+\[\frac{L^{r}(E,1)}{r_E!\cdot 2\Omega_E^+}=\frac{\left|S_E\right|\op{Reg}(E)C_E}{\left|E(\QQ)_{\mathrm{tors}}\right|^2},\]
+where $C_E$ is some Tamagawa number.
+
+We are interested in analogous statements which are more automorphic. As such, let $f_E$ be the newform of weight $2$ attached to $E$. Then there is a modular symbol
+\[\lambda^+(a,b)=\frac{\pi i}{\Omega_E^+}\left(\int_{i\infty}{a/b}f_E+\int_{i\infty}^{-a/b}f_E\right),\]
+which is some kind of automorphic period. It turns out to be rational. Continuing, the $L$-function is replaced by the Mazur--Tate element
+\[\theta_M\coloneqq\sum_{a\in G_M}\lambda^+(a,M)\cdot[a]\in R[G_M],\]
+where $R$ is some number ring, and $M$ is a fixed natural number. We will focus on the case where $M$ is a prime $p$ where $E$ has split reduction. Here is now our automorphic version of the Birch and Swinnerton-Dyer conjecture.
+\begin{conj}
+	One has $\op{ord}(\theta_p)\ge r_E+1$, where the vanishing order is the largest $n$ such that $\theta_p\in I^n$, where $I\subseteq R[G_p]$ is the augmentation ideal.
+\end{conj}
+We now turn $p$-adic: if $E$ has split multiplicative reduction at $p$, then there admits a $p$-adic uniformization $E(\QQ_p)=\QQ_p^\times/q_p^\ZZ$, where $q_p$ is some $p$-adic period; we let $\widetilde q_p$ be a normalization. Then one can refine the conjecture  as follows.
+\begin{conj}
+	Assume $r_E=0$. Then one can describe $\widetilde\theta_p$ in terms of the $p$-adic period and some other invariants.
+\end{conj}
+\begin{remark}
+	There is also a way to make the conjecture more local at a particular prime $\ell$. It looks something like
+	\[\prod_{a\in G_M}\pi_\ell(a)^{\lambda^+(a,p)}\equiv\pi_\ell(q_p)^{\lambda^+(0,1)/(2\op{ord}_pq_p)}.\]
+\end{remark}
+One can check this latter conjecture in many cases, and it turns out that it fails if $R$ is too small! In particular, it appears that one should add $\ell^{-1}$ to $R$ whenever $\ell$ divides the order of $E(\QQ)_{\mathrm{tors}}$, though not always!
+
+\subsection{A Strong Multiplicity One Theorem and Applications}
+This talk was given by Hui Xue.  Here are the sort of questions we are interested in.
+\begin{example}
+	One can reformulate Dirichlet's theorem on arithmetic progressions in terms of character theory: choose distinct Dirichlet characters $\chi_\bullet\pmod N$. Then if some linear combination
+	\[\sum c_\bullet\chi_\bullet\]
+	vanishes on almost all primes $p$, then the $c_\bullet$s vanish. This can then be framed in terms of $L$-functions.
+\end{example}
+\begin{example}[Luo]
+	Choose $g_1$ and $g_2$ which are newforms. If there is $c\ne0$ and infinitely many primes such that
+	\[L(f\otimes g_1,1/2)=L(f\otimes g_2,p)\]
+	for all newforms $f$ of level $p$, then $g_1=g_2$. This is in the ``level aspect.''
+\end{example}
+\begin{example}
+	Choose $g_1$ and $g_2$ which are newforms. If $L(f\otimes g_1,1/2)=L(f\otimes g_2)$ for all newforms $f\in S_\ell(1)$ for infinitely many $\ell$, then $g_1=g_2$.
+\end{example}
+We would like to combine and extend these various results. For example, we now work over a global field $F$, and $\pi$ is an irreducible unitary cuspidal automorphic representation of $\op{GL}_r$. Then $\pi$ admits a standard $L$-function $L(\pi,s)$ in terms of some Euler product, and we write $\pi(v)$ for the $v$th Fourier coefficient of $v$, and $\pi(v^n)$ is the trace of the $n$th power.
+
+For bounding reasons, we want something about the Ramanujan conjecture.
+\begin{definition}
+	We say $\pi$ satisfies $H(\delta)$ if and only if $\left|\alpha_{\pi,i}(v)\right|\le q_v^\delta$ for almost all $v$ and all $i$, where $\alpha_{\pi,i}(v)$ is the $i$th Satake parameter at $v$.
+\end{definition}
+The Ramanujan conjecture provides strong bounds for $H(\delta)$, though some partial results are known. Here is our version of Dirichlet's theorem.
+\begin{theorem}
+	Choose $\pi_1,\ldots,\pi_m$ on $\mathrm{GL}_{r_1},\ldots,\mathrm{GL}_{r_m}$. Suppose $\pi_i$s satisfy $H(1/4-\varepsilon)$. If
+	\[\sum_ic_i\pi_i(v)=0\]
+	for almost all $v$, then all the $c_\bullet$s vanish.
+\end{theorem}
+\begin{remark}
+	The condition $H(1/4-\varepsilon)$ is satisfied for $\op{GL}_2$ and some other cases given by functorial lifts.
+\end{remark}
+\begin{remark}
+	One can also generalize the other two starting examples. For example, having $\sum c_\bullet L(f\otimes g_\bullet,1/2)=0$ for $f$ varying in some level in weight or level aspect, then one can conclude $c_\bullet$s vanish.
+\end{remark}
+
+\subsection{Arithmetic Connections to Mathieu Moonshine in Weight \texorpdfstring{$3/2$}{3/2}}
+This talk was given by Wade Twyford. The story of moonshine begins with the connection between dimensions of irreducible representations of the monster group with the Fourier coefficients of the $j$-invariant. This was upgraded to the existence of some infinite-dimensional moonshine module.
+
+Our story works with the Mathieu group $M_{24}$. It was observed that its representations have connections to K3 surfaces. Moonshine appeared by finding the existence of some quasimodular trae $Q_g(\tau)$ attached to a virtual graded $M_{24}$-module $V$ by taking traces on the $V_n$s as
+\[Q_g(\tau)=\sum_n\tr(g,V_n)q^n,\]
+and one finds that $Q_g$ is some kind of mock modular form. It turns out that there are some divisibility conditions satisfied by these traces, related to point-counts on some Jacobians of modular curves. This was shown by some explicit decomposition into Eisenstein and cusp pieces of $Q_g(\tau)$.
+\begin{remark}
+	There are other arithmetic connections to some moonshine coming from elliptic curves.
+\end{remark}
+
+\section{Friday, May 2}
+
+\subsection{\texorpdfstring{$L$}{ L}-functions and Poincar\'e Series}
+This talk was given by V. Kumar Murty. We are considering holomorphic modular forms of (even) integral weight $k$ and level $\Gamma_0(N)$. Such things admit $q$-expansion $f(z)=\sum_{n\ge1}a_f(n)q^n$. They also admit a newform theory, and it turns out that these Fourier coefficients live in a fixed number field $K_f$.
+\begin{example}
+	There is a Ramanujan $\tau$-function defined by taking the Fourier coefficients of the cusp form of weight $12$ and level $\op{SL}_2(\ZZ)$. Here are some open questions.
+	\begin{itemize}
+		\item Lehmer's conjecture: does $\tau$ ever vanish?
+		\item Can one compute $\tau$ efficiently?
+	\end{itemize}
+\end{example}
+Given a modular $f$, we may want to produce an $L$-function $L_f(s)$. By taking a Mellin transform, one finds
+\[\int_{\RR^+}f(iy)y^s\,\frac{dy}y=\sum_{n\ge1}\frac{a_f(n)}{n^s}.\]
+The symmetry properties of the modular form $f$ then produce a functional equation and continuation for this $L$-function. On the other hand, we can look at
+\[\frac1{2\pi i}\int_{\op{Re}z=u}L_f(s+w)X^2\Gamma(w)\,dw,\]
+which can compute comes out to
+\[\sum_{n\ge1}\frac{a_f(n)}{n^s}e^{-n/X},\]
+which is basically the same as $L_f(s)$'s Dirichlet series, concentrated in the starting terms (up to about $X$). Moving $u$ around is once again able to recover a good approximation; for example, one finds
+\[L(f,1)=\sum_{n\ge1}\frac{a_f(n)}ne^{-n/X}+\varepsilon_f\sum_{n\ge1}\frac{a_f(n)}ne^{-4\pi^2X/N},\]
+so choosing $X\approx\sqrt N$ allows one to approximte the $L$-function via finite Dirichlet sum.
+\begin{remark}
+	This ``approximate'' $L$-function is gaining popularity because of Beyond Endoscopy.
+\end{remark}
+On the other hand, one can pass through Galois representations to produce this $L$-function. Upon choosing a prime $\lambda$ of $K_f$, one can write down an elliptic curve and hence $\lambda$-adic Galois representation
+\[\rho_f\colon\op{Gal}(\ov\QQ/\QQ)\to\op{GL}_2(K_{f,\lambda}).\]
+This $\rho_f$ has characteristic polynomial of Frobenius at some prime $p$ given by data of $f$. Then it turns out that $\rho_f$ produces the same $L$-function via the formalism of Galois representations. The fact that this $L$-function agrees with the automorphic side implies that it has a continuation and functional equation, but this is not easy to see on the motivic side!
+
+However, this approach via Galois representations tells us that there are $\lambda$-adic approximations.
+\begin{example}
+	One can use the Chebotarev density theorem along with some monodromy group computations to derive statistics information for the Fourier coefficients. For example, one can show that
+	\[\#\{p\le X:a_f(p)\equiv0\pmod\ell\}=\frac1\ell\pi(X)+O\left(\ell^3X^{1/2}\log\ell Nx\right)\]
+	under the generalized Riemann hypothesis.
+\end{example}
+One is also able to other similar sorts of statistics questions. For example, it turns out that the usual number of prime factors of some $N$ is $\log\log N$. Analogously, the $a_f(p)$s have $\log\log p$ prime factors, but the $a_f(n)$s have $\frac12(\log\log n)^2$ prime factors. There is also a version of the Lang--Trotter conjecture here.
+\begin{remark}
+	The Lang--Trotter conjecture has an expected exponent of $1/2$. One can attempt to prove this using an $L$-function with pole at $1/2$. The speaker had a proposal where such a thing might come from.
+\end{remark}
+
+\subsection{Lower Order Terms in the Shape of Cubic Fields}
+This talk was given by Robert Hough, and it is joint work with Eun Hye Lee. Let $K/\QQ$ be a number field with Galois group $S_n$ and signature $(r_1,r_2)$ so that there is a canonical embedding $K\into\RR^{r_1}\times\CC^{r_2}$. For example, $\OO_K$ embeds as a rank-$n$ lattice in this $n$-dimensional vector space (over $\RR$). We are interested in the ``shape'' of this lattice as $K$ varies. Certainly $\ZZ\subseteq\OO_K$ implies that we have the short vector
+\[(1,\ldots,1)\in\RR^{r_1}\times\CC^{r_2}.\]
+(This vector is considered short as the discriminant grows.) As such, we let $\Lambda_K$ be the orthogonal projection away from this vector, scaled appropriately so that $\op{covol}\Lambda_K=1$. Then $\Lambda_K$ varies over the space of $(n-1)$-dimensional lattices, which is simply $\mc X_{n-1}\coloneqq\op{GL}_{n-1}(\ZZ)\backslash\op{GL}_{n-1}(\RR)$. This space is not compact, but it does have finite volume and hence a natural probability measure.
+
+We are now ready to give a distibution result.
+\begin{theorem}
+	Choose $n\in\{3,4,5\}$. Choose some measurable subset $\omega\subseteq\mf X_{n-1}$ of boundary measure zero. Order number fields $K$ of degree $n$ and Galois group $S_n$ and fixed signature, growing with disrcriminant. Then
+	\[\lim_{X\to\infty}\frac{\#\{K:\Lambda_K\in\omega,\left|\op{disc}K\right|<X\}}{\#\{K:\left|\op{disc}K\right|<X\}}=\mu_{n-1}(\omega).\]
+\end{theorem}
+Let's say someting about the method. Functions on $\mc X_{n-1}$ are somewhat related to automorphic forms by Fourier analysis, where we see that functions admit a spectal decomposition into constants, discrete spectrum, and continuous spectrum. This allows one count our number fields. Recently, Shankar--Tsimerman gave lower-order terms when counting quartic fields.
+
+For this talk, we are interested in lower-order terms for other parts of the spectrum. Here is a main result.
+\begin{theorem}
+	Choose a test function $F\in C_c^\infty(\RR)$ and some $\lambda=\frac14+r^2$. Then
+	\[\sum_{\substack{[K:\QQ]=3\\\mathrm{Gal}_K=S_3}}F\left(\frac{\left|\op{disc}K\right|}X\right)\mathbb E_r(\Lambda_k)\]
+	admits an explicit spectral decomposition.
+\end{theorem}
+The various terms in the spectral decomposition turn out to give the various error terms.
+
+\subsection{Recent Progress on the Distribution of Rational Points and Integral Points on Homogeneous Varieties}
+This talk was given by Ramin Takloo-Bighash. Today, we are interested in rational points on projective varieties $V$, so we fix some homongeous polynomials $f_1,\ldots,f_r$ on $\PP^n(\QQ)$. We would like to count integral points on this projective variety with bounded height $B$. Heuristically, one expects
+\[B^{n+1}\cdot B^{-d_1}\cdots B^{-d_r}\]
+total points, assuming all the various conditions are suitably independent. Notably, the canonical divisor $K_V$ of $V$ has $-K_V=\OO(n+1-\sum_id_i)$ if $V$ is a complete intersection, so there is a geometric incarnation of this counting exponent. In other words, if $-K_V$ is ample, one expects to have lots of points. More rigorously, one can ask for the rational points to be Zariski dense over some extension and propose something for the count, but this turns out to be false.
+
+Roughly speaking, one needs to throw out some exceptional divisors or coverings by certain thin sets which may produce too many rational points for our counting. Today, we would like to present an orbifold variant of these conjectures.
+
+Let $X$ be smooth projective over a number field $F$ with strict normal crossing divisors $\sum_\alpha D_\alpha$.
+\begin{definition}
+	A \textit{Compana orbifold} is such a pair $(X,D)$ such that $D$ is an effective divisor over $\QQ$ of the form $D=\sum_\alpha\varepsilon_\alpha D_\alpha$ and has some coherence result.
+\end{definition}
+Given such $(X,D)$, one can find a regular projective model $(\mc X,\mc D)$. There is an open subset $X^\circ$ given by suitably removing some divisors, and its points induce some integral points back on the model.
+\begin{definition}
+	A \textit{Compana point} is a point in the integral model $\mc X$ away from the divisors and sufficiently divisible over the finite places where $\mc X$ fails to be defined.
+\end{definition}
+There is now a conjecture counting points away from some thin sets, and the point of the talk is to present a conjecture for the leading constant. It can be checked in some cases relating to certain semisimple groups via some Tauberian theory. One can check that this zeta function has spectral decomposition and then use it to find some poles.
+
+\subsection{When Exactly will the Newspaces Exist?}
+This talk was given by Erick Ross. We are interested in asymptotic behavior of Hecke operators $T_m$ on spaces of cusp forms $S_k(\Gamma_0(N))$. Here is an example theorem.
+\begin{theorem}
+	The average size of the eigenvalue of $T_m$ acting on $S_k(\Gamma_0(N))$ approaches $\sqrt{\sigma_1(m)/m}$ as $N+k\to\infty$.
+\end{theorem}
+We would like to add a Dirichlet character to the mix. For example, perhaps we can work with newforms $S_k^{\mathrm{new}}(\Gamma_0(N),\chi)$ for some Dirichlet character $\chi$.
+
+Thus, we would like to know $S_k^{\mathrm{new}}(\Gamma_0(N),\chi)$ is trivial or small. It turns out that there are infinitely many $(N,k)$ such that
+\[\dim S_k^{\mathrm{new}}(\Gamma_0(N),\chi)<3,\]
+where $\chi$ satisfies the correct parity condition. However, taking newforms is important.
+\begin{theorem}
+	For any bound $B$, there are only finitely many $(N,k)$ with
+	\[\dim S_k(\Gamma_0(N),\chi)\le B,\]
+	provided that $\chi$ satisfies the correct parity condition.
+\end{theorem}
+This basically uses a dimension formula for $S_k(\Gamma_0(N),\chi)$.
+\begin{remark}
+	One can even provide a complete list using the dimension formula to provide some effective bounds given $B$.
+\end{remark}
+However, $\dim S_k^{\mathrm{new}}(\Gamma_0(N),\chi)$ is given by some kind of convolution with a multiplicative function against dimensions of the $S_k(\Gamma_0(N),\chi)$s; in particular, it is impossible to estimate the newform dimension directly due to having too much cancellation. Nevertheless, one can expand everything out to get a complicated dimension formula.
+\begin{proposition}
+	One has
+	\[\dim S_k^{\mathrm{new}}(\Gamma_0(N),\chi)=\frac{k-1}{12}\psi(f)\beta*\psi_f(N/f)+O\left(N^{1/2}\right),\]
+	where $\psi$ and $\beta*\psi_f$ are some explicit multiplicative functions.
+\end{proposition}
+In particular, one can show that there are problems with the finiteness when $2\mid f$ and $\gcd(4,N/f)=2$; namely, the main terms vanish, as do all the other terms in the explicit dimension formula, yielding $\dim S_k^{\mathrm{new}}(\Gamma_0(N),\chi)=0$. Otherwise, we get the usual finiteness.
+\begin{theorem}
+	Suppose it is not the case that $2\mid f(\chi)$ and $\gcd(4,N/f(\chi))=2$. Then for any bound $B$, there are only finitely many $(N,k)$ with
+	\[\dim S_k^{\mathrm{new}}(\Gamma_0(N),\chi)\le B,\]
+	provided that $\chi$ satisfies the correct parity condition.
+\end{theorem}
+\begin{remark}
+	It is not totally obvious why the ``local'' condition $2\mid f(\chi)$ and $\gcd(4,N/f(\chi))=2$ prevents newforms from existing. Well, in this case, it turns out that elements in $S_k(\Gamma_0(N),\chi)$ admits a decomposition into lower level $\Gamma_0(N/2)$. However, it is not obvious why these sorts of decompositions exist.
+\end{remark}
+
+\subsection{Periods of Bianchi Modular Forms: Progress and Problems}
+This talk was given by Tian An Wong. Let's begin with the classical story of period polynomials. Given a cusp form $f$ of weight $2k+2$ of full level, there is a period polynomial
+\[r_f(X)=\int_0^{i\infty}f(z)(X-z)^{2k}=\sum_{n=0}^{2k}i^{-n+1}\binom{2l}nr_n(f)X^{2k-n}.\]
+These $r_n(f)$s encode information about special values of $L(f,s)$. For the usual generators $S$ and $T$ of $\op{SL}_2(\ZZ)$, we cut out some subspaces
+\[W_k=\ker(1+S)\cap\ker\left(1+U+U^2\right),\]
+where $U=TS$. Then we can further decompose by eigenvalues of $\begin{bsmallmatrix}
+	-1 \\ & 1
+\end{bsmallmatrix}$, and it turns out that $r(f)$ provides the Eichler--Shimura isomorphism
+\[S_k(\Gamma)\cong\frac{W_k^+}{X^k-1}\cong W^-_k.\]
+For this talk, we would like to extend some of these results to Bianchi modular cusp forms $F$, now working over imaginary quadratic fields. Namely, there is some period polynomial
+\[r_F(X,Y,\ov X,\ov Y)=\sum_{p,q}\binom kp\binom kqr_{p,q}(F)X^{k-p}Y^p\ov X^{k-q}\ov Y^q,\]
+where once again $r_{p,q}(F)$ encodes some information aboubt special values. Once again, there is a generalization of Eichler--Shimura present, and one can tell much of the same story.
+
+Let's recall an old result of Manin.
+\begin{theorem}
+	Let $\QQ(f)$ be the number field generated by the Fourier coefficents of a normalized eigenform $f$. Then there are explicit transcendental numbers $\omega^{\pm}\in\RR^+$ such that $r_j(f)/\omega^-\in\QQ(f)$ for odd $j\le k-2$ and $r_j(f)/\omega^+\in\QQ(f)$ for even $j\le k-2$.
+\end{theorem}
+One can show something similar for the Bianchi periods.
+\begin{theorem}
+	Suppose $K$ is Euclidean and quadratic imaginary. Let $K(F)$ be the number field generated by the Fourier coefficents of a Bianchi normalized eigenform $F$. Then there is an explicit transcendental number $\Omega\in$ such that $r_j(f)/\Omega\in K(F)$ for $p,q\le k$.
+\end{theorem}
+One basically decomposes the action on periods via some continued fractions.
+
+Another question for period polynomials comes from a Riemann hypothesis. Namely, the functional equation for $L(f,s)$ yields $r_f(X)=X^kr_f(1/X)$, which tells us tht $\rho$ is a zero of $r_f$ if and only if $-1/\rho$ is. Now, here is a classical result.
+\begin{theorem}
+	Let $f$ be a weight $k$ eigenform. Then the odd period polynomial $r_f^-(X)$ has simple zeroes $0,\pm2,\pm\frac12$, double at $\pm1$, and the remaining zeroes are on the unit circle.
+\end{theorem}
+The described zeroes come from some relations of $W_k^-$, and the unit circle bit arises from modularity. This result is rather popular and has had many subsequent incarnations. For example, there is a similar result for Hilbert modular eigenforms.
+
+\subsection{Explicit Images for the Shimura Correspondence}
+This walk was given by Swati. I saw this talk at JMM already, so I did not take notes.
+
+\subsection{Twisted Gan--Gross--Prasad Conjecture}
+This talk was given by Zhiyu Zhang. Here is a taster of a linear algebra problem. Given a base field $F$ and two quadratic extensions $E$ and $K$ with $L=EK$, we may be interesed in studying double cosets in
+\[\op{GL}_n(E)\backslash\op{GL}_n(L)/\op{GL}_n(K).\]
+Roughly speaking, we are interested in Galois representations. There are some arithmetic conjectures related to $L$-functions, frequently shown to be automorphic. Here are two tools for these periods.
+\begin{itemize}
+	\item It is possible to unfold non-reductive period integrals by guessing or doing some local unramified computations.
+	\item There are trace formulae which allow us to isolate spectral pieces after matching some orbital integrals.
+\end{itemize}
+For these periods, we note that there are very few cases where we have such integral representations for our $L$-functions; for example, there are Rankin--Selberg $L$-functions for $\mathrm{GL}_n\times\mathrm{GL}_m$, and there are Asai lifts for $\op{Res}_{L/E}\op{GL}_n$. Conjecturally, the relative Langlands program allows one to always relate $L$-functions to periods.
+
+Today, we will talk about one instance of this relative Langlands program, which is twisted GGP. For today, $V_K$ is Hermitian space over $L/K$, and it descends along $E/F$; we may as well take $F=\QQ$ and $E=\QQ(\sqrt{-q})$ and $K=\QQ(\sqrt p)$. There are many interesting difficulties in this case.
+\begin{itemize}
+	\item We are dealing with non-reductive periods, which are not well-understood.
+	\item There is a silent intermediate field $M=\QQ(\sqrt{-pq})$.
+\end{itemize}
+Let's say a bit about what we are doing. Split $V^\lor$ into Lagrangians as $\mathbb L\oplus\mathbb L^\lor$ over $F$. Then there is a Weil representaation $\omega$ on the unitary group on $S(\mathbb L(\mathbb A))$. For example, if $E=F\times F$, then $\mathbb L=F^n$. Our reductive periods take the form
+\[P_V\phi=\int_{[U(V)]}\varphi(h)\phi(h)\,dh,\]
+where $\phi\in\omega$.
+\begin{conj}[Gan---Gross--Prasad]
+	Suppose $\Pi$ is cuspidal and tempered. Then the following are equivalent.
+	\begin{listalph}
+		\item $L(1/2,\Pi,\mathrm{As}_{L/E}\otimes\mu^{-1})\ne0$.
+		\item $P_V\ne0$ on the descent $\pi$ of $\Pi$ for some skew-Hermitian space $V$ over $E/F$.
+	\end{listalph}
+\end{conj}
+Our main result is to prove this conjecture under some local conditions.
+
+As is typical, we need a relative trace formula. Take $H=\op U(V)$ and $G=\op U(V_K)$. Then $f\in S(G(\AA))$ and $\phi_1,\phi_2\in S(\mathbb L(A))$ has a period integral
+\[J(f,\phi_1\otimes\phi_2)=\int_{[H]\times[H]}K_f(h_1,h_2)\overline{\Theta(h_1,\phi_1)}\Theta(h_2,\phi_2)\,dh_1\,dh_2.\]
+Then there is a similar expression twisted by $\eta_{L/K}$ for $H_1=\op{Res}_{E/F}\op{GL}_n$ and $G'=\op{Res}_{L/F}\op{GL}_n$ and $H_2=\op{Res}_{K/F}\op{GL}_n$. We would like to compare these two expressions on the geometric side, but it is not so obvious what the geometric side should even be.
+
+To this end, let's try to describe some representatives. In general, suppose $H\subseteq G$ is a subgroup fixed by an involution $\theta$. We will say that $g\in G$ is $\theta$-normal if and only if $g\theta(g)=\theta(g)g$. We would like or $(H\times H)$-orbits in $G$ to have $\theta$-normal elements: this tells us that some partial Fourier transform behave with the Weil representation.
+
+In our situation, we actually have two commuting involutions $\theta_1$ and $\theta_2$, and we let $H_1$ and $H_2$ be the corresponding fixed subgroups. Then we note that $G/H_2$ embeds in $G^{\theta_2=(\cdot)^{-1}}$ by $\xi\mapsto\xi\theta_2(\xi)^{-1}$. There is a notion of normality here, and one finds that $\gamma$ is normal if and only if $\delta=\gamma\theta_1\theta_2(\gamma)$ is fixed by $\theta_1\theta_2$.
+
+\subsection{The Global Gan--Gross--Prasad Conjecture for Fourier--Jacobi Periods}
+This talk was given by Weixiao Lu. For this ``untwisted'' talk, we have a better understanding of GGP. Let's give a big picture of the relative Langlands program. Fix a number field $F$, and let $G$ be connected reductive over $F$. We are interested in the space $\mc A(G)$ of automorphic forms on $G$. Then BZSV takes a Hamiltonian $G$-variety $M$ and produces a period functional $\mc P_M$ on an automorphic representation $\pi$ which is expected to keep track of a special value of an $L$-function.
+
+For our special case of this, we will work with the Rankin--Selberg integral. Take $G=\mathrm{GL}_n\times\mathrm{GL}_n$ and $H$ the diagaonl subgroup. For $\Phi\in S(\AA^n)$, we consider the series
+\[\Theta(g,\Phi)=\sum_{v\in F^n}\Phi(gv)\left|\det g\right|^{1/2}.\]
+Then the period integral of a cuspidal automorphic representation $\pi_1\times\pi_2$ against $\Theta$ controls special values of $L(1/2,\pi_1\times\pi_2)$.
+
+Now, we twist our $\op{GL}_n$s into unitary groups. Let $E/F$ be a quadratic extension, and let $V$ be a skew-Hermitian space of dimension $n$. Then there is a theta series $\theta$ attached to $\op U(V)$, which has a period integral as well
+\[\mc P(\varphi,\phi)=\int_{[U(V)]}\varphi(x)\theta(x,\phi)\,dx\]
+for cuspidal representation $\pi_1\times\pi_2$ on $\op U(V)\times\op U(V)$. Here is the GGP conjecture, which is our main result.
+\begin{theorem}
+	Let $\pi$ be a tempered representation as above. Then $L(1/2,\pi)\ne0$ if and only if the period $\mc P$ is non-vanishing for some $\pi'$ in the same packet as $\pi$.
+\end{theorem}
+\begin{remark}
+	In fact, one expects $\left|\mc P\right|^2=L(1/2,\pi)$.
+\end{remark}
+Unsurprisingly, we will use the relative trace formula. In short, the period can be related to some distribution $J_\pi$ on $U(V)\times U(V)$, and the special value $L(1/2,\pi)$ can be related to a distribution $I_\Pi$ on $\op{GL}_n(\AA)\times\op{GL}_n(\AA_E)$. Thus, we want to relate these two distributions via relative trace formulae, which is done via some local and global harmonic analysis. Let's explain some of this analysis.
+\begin{itemize}
+	\item Locally, one needs a fundamental lemma, smooth transfer, and a local spectral identity.
+	\item Globally, one needs to truncate the relative trace formula, a global singular transfer, a way to isolate the spetrum, and then we need to compute the spectral singular term.
+\end{itemize}
+We have a bit of time, so let's decribe some of these pieces. Given a test function $f$, one has
+\[J(f)=\int_{[U(V)]\times[U(V)]}K_f(x,y)\Theta(x,\phi)\Theta(y,\phi_2)\,dx\,dy,\]
+and there is a similar integral for $I$. (Arthur truncation is used to stabilize the distributions.) Then the usual comparison of relative trace formula produces a result.
+
+\section{Saturday, May 3}
+
+\subsection{Cyclotomic Torsion Points on Abelian Varieties}
+This talk was given by Ken Ribet. Today, $A$ is an abelian variety over a number field $k$. We are interested in cyclotomic torsion points, which are $A(k^{\mathrm{cyclo}})_{\mathrm{tors}}$. One has the following result.
+\begin{theorem}[Ribet]
+	The group $A(k^{\mathrm{cyclo}})_{\mathrm{tors}}$ is finite.
+\end{theorem}
+Today, we are going to talk about some specializations of this result.
+\begin{remark}
+	Let's think about uniform boundedness. For example, if $\dim A=1$ and $k=\QQ$, we may ask if $A(k)_{\mathrm{tors}}$ or $A(k^{\mathrm{cyclo}})_{\mathrm{tors}}$ has a uniform bound. In 2019, it was found that $A(k^{\mathrm{cyclo}})_{\mathrm{tors}}$ does in fact have bounded torsion, and the largest possible order is $163$, somehow related to complex multiplication.
+\end{remark}
+\begin{remark}
+	Let $X$ be a curve of genus at least $2$. The Manin--Mumford conjecture asserts that the unlikely intersection
+	\[X\cap\op{Jac}(X)_{\mathrm{tors}}\]
+	is finite, which was proved by Raynaud and independently later by others. Coleman asked for a description of this set when $X$ has some special types (Fermat curve or modular curves).
+\end{remark}
+So let's focus on modular curves.
+\begin{theorem} \label{thm:cyclo-by-eisen}
+	Fix a prime number $N$. Then $\op{Jac}(X_0(N))(\QQ^{\mathrm{cyc}})_{\mathrm{tors}}$ is the kernel of the Eisenstein ideal of $\op{Jac}(X_0(N))$.
+\end{theorem}
+Recall that $J_0(N)\coloneqq\op{Jac}X_0(N)$ is an abelian variety over $\QQ$ of dimension approximately $N/12$; it has good reduction away from $N$ and purely multiplicative reduction at $N$. Also, recall that each $n\ge1$ induces a Hecke correspondence $T_n\colon X_0(N)\to X_0(N)$, which induce endomorphisms of $J_0(N)$; it turns out that $\op{End}J_0(N)$ equals the ring generated by the Hecke operators.
+\begin{definition}
+	The \textit{Eisenstein ideal} $I$ is the ideal of the Hecke algebra $\mathbb T$ generated by the elements $1+p-T_p$ for all primes $p\ne N$, together with the generator $1-T_N$ there.
+\end{definition}
+\begin{remark}
+	It turns out that there is an isomorphism $\ZZ/n\ZZ\onto\mathbb T/I$, and it is a result of Mazur that $n=(N-1)/\gcd(N-1,12)$. For example, it turns out that $n>1$ if and only if $\dim J_0(N)>1$.
+\end{remark}
+\begin{remark}
+	There are many definitions of the Eisenstein ideal, frequently seen as an annihilator of some action of the Hecke algebra. For example, one can take the group of components of $J_0(N)$ at the special fiber of the N\'eron model at $N$.
+\end{remark}
+\begin{definition}
+	An \textit{Eisenstein maximal ideal} $\mf m$ is a maximal ideal constaining $I$.
+\end{definition}
+\begin{remark}
+	The isomorphism $\mathbb T/I\cong\ZZ/n\ZZ$ means that a maximal ideal $\mf m$ is Eisenstein if and only if $\mf m$ is (over) a prime dividing $n$.
+\end{remark}
+\begin{remark}
+	One can relate these Eisenstein primes to certain Galois representations.
+\end{remark}
+Mazur's study of the Eisenstein ideal was used to prove the following result.
+\begin{theorem}[Ogg's conjecture]
+	The cuspidal subgroup of $J_0(N)$ generated by the cusps is exactly the torsion.
+\end{theorem}
+\begin{remark}
+	The key input to \Cref{thm:cyclo-by-eisen} is to check that cyclotomic torsion is unramified at $N$; one can check relatively quickly that the Eisenstein ideal does vanish on cyclotomic torsion. To check the unramified-ness, one does some local analysis.
+\end{remark}
+
+\subsection{Modeling the Vanishing of \texorpdfstring{$L$}{ L}-functions at the Central Point}
+This talk was given by Steven Miller and Akash L. Narayanan. Our starting motivation is that zeroes of $L$-functions (high up on the critical line) are modeled by some random matrix theory. However, next to the central point, there seem to be different sorts of families. There seems to be some kind of excised orthogonal model to capture the behavior of the lowest-lying zeroes of a family of twists of elliptic curves. Roughly speaking, the excision is required because there is some repulsion of zeroes away from the critical point $1/2$.
+\begin{remark}
+	There is some intuition that there should be some general behavior determined by geometry or representation theory or similar, and arithmetic effect should be seen in the error terms or rates of convergence.
+\end{remark}
+For this talk, we would like to work with other families of $L$-functions, such as for cuspidal newforms $f$, twisted by some quadartic characters $\psi_d$ as $d$ varies. One can then write down some compact groups for which we hope to recover our random matrix theory, depending on nebentype of $f$. There are two further parameters.
+\begin{itemize}
+	\item One can adjust the matrix size. Then one finds the ``correct'' matrix sizes by comparing mean densities of zeroes or pair-correlation.
+	\item One can adjust the cut-off value, which means that certain matrices with eigenvalues which are too small and should be removed.
+\end{itemize}
+These two parameters can be adjusted to fit existing plots of low-lying zeroes of our $L$-functions.
+\begin{example}
+	In particular, it appears that no cut-off should be used in the even $\mathrm{SO}$ case when the weight exceeds $2$.
+\end{example}
+\begin{example}
+	One expects that having ``generic'' nebentype should give the unitary matrix model, but this has a counterexample somewhere.
+\end{example}
+\begin{remark}
+	The given conjectural distributions are able to recover Montgommery's Pair correlation conjecture.
+\end{remark}
+
+\subsection{Optimizing Test Functions to Bound the Lowest Zeroes of Cuspidal Newforms}
+This talk was given by Glenn Bruda and Raul Marquez. We are interested in zero statistics of $L$-functions. In particular, we would like to know the lowest lying zeroes for $L$-functions. For example, previous work showed that a general class of $L$-functions have a zero before $\frac12+23i$. Here is a sample result.
+\begin{theorem}
+	There is an explicit upper bound for the percentage of cuspidal newforms in a family with a zero in $\frac12+i\gamma$ for bounded $\gamma$.
+\end{theorem}
+The main input is to construct some smooth test function concentrated at $0$ with some desirable properties.
+
+\subsection{Hecke Relations for Eta Multipliers}
+This talk was given by Clayton Williams. We are motivated by the partition congruences, such as
+\[p\left(\frac{5^{2m}n+1}{24}\right)\equiv0\pmod{5^m}\]
+for any $m\ge1$. Here, $p$ denote the number of partitions $\pi\vdash n$, where $\pi$ is an unordered sequence of positive integers summing to $n$. There were rapidly too many definitions, so I was unable to follow.
+
+There is some variant of the partition function dealing with the smallest parts called $\op{spt}_j$, and it turns out to fit into a generating function
+\[S_j(q)=\sum\op{spt}_j(n)q^{n/24}.\]
+Then it turns out that $S_j$ is related to modular forms in some explicit way, from which one can derive congruences.
+
+\subsection{Eisenstein Series modulo \texorpdfstring{$p^2$}{p2}}
+This talk was given by Mike Hanson. Let $G_k\approx E_k$ be a suitably normalized Eisenstein series. We let $\theta=q\frac d{dq}$ be the usual differential operator, and there is another operator $\del f=12\theta(f)+24kG_2f$ which increases the weight of $f$ by $2$. Here are some usual facts.
+\begin{proposition}
+	We have the following.
+	\begin{listalph}
+		\item $G_k\equiv G_k'\pmod p$ if $k\equiv k'\not\equiv0\pmod{p-1}$.
+		\item $E_k\equiv1\pmod p$ if $k\not\equiv0\pmod{p-1}$.
+		\item $E_{p-1}^p\equiv1\pmod{p^2}$.
+	\end{listalph}
+\end{proposition}
+There are more congruences, but we did not list this. These $p$-adic properties of modular forms give rise to $p$-adic modular forms.
+\begin{remark}
+	There are some more recent$\pmod{p^2}$ congruences which allow for suitable reductions for Eisenstein series in large weight.
+\end{remark}
+We would like to find congruences of modular forms in lower weight. Here is our result.
+\begin{theorem}
+	Fix a prime $p\ge5$. Then there is a $p$-integral modular form $f_{p+1}$ such that
+	\[E_2E_{p-1}\equiv f_{p+1}+pE_{p-1}^p\pmod{p^2}.\]
+\end{theorem}
+This is done by some explicit manipulation of classical facts. Here is another such result.
+\begin{theorem}
+	For prime $p\ge5$ and $k\ge1$, one has
+	\[E_{rp^{k-1}(p-1)}\equiv E^{rp^{k-1}}_{p-1}\pmod{p^{k+1}}.\]
+\end{theorem}
+This is another direct computation. And here is our last result.
+\begin{theorem}
+	Fix prime $p\ge 5$ and even $k_0\in\{2,3,\ldots,p-3\}$ and $n\ge0$. Then there is a $p$-integral modular form $f_{k_0+(p-1)}$ such that
+	\[G_{k_0+(n+1)(p-1)}\equiv E_{k_0+(n+1)(p-1)}f\pmod {p^2}.\]
+\end{theorem}
+\begin{remark}
+	One can compute $f\pmod p$ as $G_{k_0}$.
+\end{remark}
+
+\subsection{Theta Cycles of Modular Forms Modulo \texorpdfstring{$p^2$}{p2}}
+This talk was given by Martin Raum.
+
+\section{Sunday, May 4}
+
+\subsection{Classical vs. Fargues--Scholze Local Langlands and Applications}
+This talk was given by Hao Peng. We restrict ourselves to the groups $\op{SO}$ over a finite extension $K/\QQ_p$.
+\begin{itemize}
+	\item Then there is a classical local Langlands correspondence
+	\[\op{rec}_V\colon\widetilde\Pi(\op{SO}(V))\to\widetilde\Phi(\op{SO}(V)),\]
+	where $V/K$ is some quadratic space. Here, the tildas denote some quotient by outer automorphisms which arise from endoscopy theory. In general, this map fails to be surjective.
+	\item Fargues and Scholze have a semisimplified correspondence for all connected reductive groups $G$ as
+	\[\op{rec}_G^{\mathrm{FS}}\colon\Pi(G)\to\Phi^{\mathrm{ss}}(G),\]
+	where the ``semisimple'' superscript simply denotes that it vanishes on the ambient extra $\op{SL}_2$.
+\end{itemize}
+We would like compatibility diagrams like the following.
+% https://q.uiver.app/#q=WzAsMyxbMCwwLCJcXFBpKEcpIl0sWzEsMCwiXFxQaGkoRykiXSxbMSwxLCJcXFBoaV57XFxtYXRocm17c3N9fShHKSJdLFswLDIsIlxcb3B7cmVzfV57XFxtYXRocm17RlN9fSIsMl0sWzAsMSwiXFxvcHtyZXN9Il0sWzEsMl1d&macro_url=https%3A%2F%2Fraw.githubusercontent.com%2FdFoiler%2Fnotes%2Fmaster%2Fnir.tex
+\[\begin{tikzcd}[cramped]
+	{\Pi(G)} & {\Phi(G)} \\
+	& {\Phi^{\mathrm{ss}}(G)}
+	\arrow["{\op{res}}", from=1-1, to=1-2]
+	\arrow["{\op{res}^{\mathrm{FS}}}"', from=1-1, to=2-2]
+	\arrow[from=1-2, to=2-2]
+\end{tikzcd}\]
+For inner forms of $\op{GL}_n$, this has been known histrorically. It is also known for $\op{GSp}_4$ and unitary groups. Here is our main result.
+\begin{theorem}
+	If $K/\QQ_p$ is unramified and $G$ is special orthogonal or unitary which splits in $K$, then compatibility holds for $G$.
+\end{theorem}
+As a corollary, we are able to write down the local Langlands correspondence for $\op{SO}_{2n}$.
+\begin{remark}
+	Having compatibility has the usual applications. For example, we are able to answer some questions about when the Fargues--Scholze parameter degenerates in some way or not.
+\end{remark}
+\begin{remark}
+	One application we have is some version of vanishing of torsion classes of Shimura varieties of orthogonal type.
+\end{remark}
+
+\subsection{Advances in Computations on the Cohomology of Congruence Subgroups of \texorpdfstring{$\op{SL}_3(\ZZ)$}{SL3(Z)}}
+This talk was given by Zachary Porat; it was pretty good. We are interested in finding cuspidal automorphic forms for $\op{SL}_3$. In general, for a reductive group $G$ with associated symmetric space $X$, we choose a finite-index subgroup $\Gamma\subseteq G$, and we are interested in the cohomology of $X/\Gamma$. Cuspidal automorphic forms can then be found in cuspidal cohomology (by definition of cuspidal cohomology).
+
+This story is well-understood for $\op{GL}_2$, so we are moving on to $\op{GL}_3$. For example, one still has access to cuspidal cohomology generated by cuspidal forms, and one can build $L$-functions via some action of Hecke operators. However, it turns out that there are very few cuspidal forms for $\op{SL}_3$: our main discussion explains that there are $9$ prime level forms for $p<2400$.
+
+\subsection{Polynomial Bounds on Torsion from Rational Geometric Isogeny Classes}
+This talk was given by Abby Bourbon. We would like to understand $\#E(F)_{\mathrm{tors}}$ as $F$ varies. For example, it would be nice to have bounds on this torsion depending only on $F$ or $[F:\QQ]$, whcih is known as the ``Strong uniform boundedness'' conjecture.
+\begin{theorem}[Merel]
+	Fix $d$. For all elliptic curves $E$ over $F$ with $[F:\QQ]=d$, then
+	\[\#E(F)_{\mathrm{tors}}\le B(d).\]
+\end{theorem}
+Merel's bound was superexponential, as $p<d^{3d^2}$ for $p\mid\#E(F)_{\mathrm{tors}}$. Parent letter found that $p^n\mid\#E(F)_{\mathrm{tors}}$ has $p^n$ with an exponential bound on $d$. We would like better bounds: we expect polynomial bounds in $d$.
+\begin{example}
+	If $E/F$ has everywhere good reduction, then $\#E(F)\ll d\log d$.
+\end{example}
+\begin{example}
+	If $j(E)\in\QQ$, then $\#E(F)_{\mathrm{tors}}\ll_\varepsilon d^{5/2+\varepsilon}$. One has a similar result for $j(E)$ in a quadratic field which is not quadratic imaginary with have class number $1$.
+\end{example}
+Here is a main result.
+\begin{theorem}
+	For each $\varepsilon>0$, if $j(E)\in\QQ$, then
+	\[\#E(F)_{\mathrm{tors}}\ll_\varepsilon[F:\QQ]^{3/2+\varepsilon}.\]
+\end{theorem}
+\begin{remark}
+	This bound is sharp without omitting CM curves. For non-CM elliptic curves, we expect to have $\#E(F)_{\mathrm{tors}}\ll\sqrt{d\log\log d}$.
+\end{remark}
+We would like to improve beyond $j(E)\in\QQ$. Instead, we will work with elliptic curves which are $\ov\QQ$-isogenous to elliptic curves over $\QQ$.
+\begin{example}
+	If $E/\QQ$ does not have CM, then for some cyclic subgroup $C\subseteq E$ of order $\ell^\bullet$, the quotient $E/C$ is isogenous over $\ov\QQ$, but 
+\end{example}
+\begin{theorem}
+	Torsion for elliptic curves $\ov\QQ$-isogenous to elliptic curves over $\QQ$ is uniformly bounded by a polynomial.
+\end{theorem}
+Here is one of the main inputs.
+\begin{proposition}
+	Suppose $n\ge1$ is divisible only by primes $\ell>37$. If $E/\QQ$ does not have CM with $P\in E[n]$, then
+	\[[\QQ(P):\QQ]\ge\frac12\cdot\frac1{24^k}\cdot n^2\cdot\prod_{\ell\mid n}\left(1-\frac1\ell\right).\]
+\end{proposition}
+
+\subsection{Explicit Modularity of Hypergeometric Galois Representations}
+This talk was given by Michael Allen. Given a hypergeometric function, we expect to have an automorphic object (such as a modular form) on the other side of the Langlands program.
+\begin{example}
+	An elliptic curve $E$ has many incarnations.
+	\begin{itemize}
+		\item Over $\CC$, it looks like a torus, which is parameterized by some modular curves $X_0(N)$. It turns out that $X_0(N)$s can cover our elliptic curves.
+		\item Over $\FF_p$, one can count points, and the point-counts are related to the Fourier coefficients of the modular forms.
+		\item Over $\QQ_\ell$, the elliptic curve gives rise to a Galois representation, which agrees with one constructed by a corresponding modular form.
+	\end{itemize}
+\end{example}
+The point is that the Modularity theorem has many incarnations managing to relate motivic to automorphic. For our purposes, ``motivic'' more or less means ``cohomological,'' though we will work with hypergeometric motives.
+
+Let's start with $\CC$. As usual, given rationals $\alpha=\{a_1,\ldots,a_n\}$ and $\beta=\{b_1,\ldots,b_{n-1}\}$, one has a hypergeometric series $_nF_{n-1}(\alpha,\beta;z)$.
+\begin{example}
+	It turns out that $_2F_1((1/2,1/2),1;\lambda)$ is related to the periods of the Legendre elliptic curve $y^2=x(x-1)(x-\lambda)$.
+\end{example}
+\begin{remark}
+	One can relate special values of modular forms to the periods on the motivic side. This provides interesting equalities.
+\end{remark}
+Moving to finite fields, one replaces $\Gamma$ functions in the definition of the hypergeometric series with a Gauss sum to define a hypergeometric function over $\FF_p$. One is as usual able to relate certain Fourier coefficients with the values of these hypergeometric functions, and one can build a Galois representations whose traces keep track of the finite field hypergeometric functions.
+\begin{remark}
+	The method, roughly speaking, is to relate the hypergeometric series to some period integrals, which begins to go to something in a complex world. From there, one can extract some modular forms.
+\end{remark}
+
+\subsection{A Power-Saving Error Term in Counting \texorpdfstring{$C_2\wr H$}{ C2 wr H} Extensions of a Number Field}
+This talk was given by Arijit Chakraborty. We are interested in counting number fields $F$ of degree $d$ and Galois group $G$, which is a specified transitive permutation subgroup of $S_n$. For a field extension $K/F$, we let $\widetilde K$ denote the Galois closure, and we would like to count
+\[\{K:[K:F]=n\text{ and }\op{Gal}(\widetilde K/F)=G\}.\]
+For example, in edge cases, this includes the inverse Galois problem. Historically, it has been known how to do study this for cubic fields and quartic fields. Further, class field theory has explained how to do this for any abelian $G$. There is a long history of attempted conjectures.
+
+We now turn to counting with wreath products $H_1\wr H_2$.
+\begin{definition}
+	Fix groups $A$ and $B$, where $B\subseteq S_n$ is some transitive subgroup. Then the \textit{wreath product} is
+	\[A\wr B\coloneqq A^n\rtimes B.\]
+\end{definition}
+\begin{remark}
+	If $L/K/F$ is a tower of fields, then $\op{Gal}(\widetilde L/F)$ is found inside a wreath product of the two Galois groups.
+\end{remark}
+For today, we will take $A=C_2$.
+\begin{example}
+	One has $C_2\wr C_2=D_4$, where Malle's conjecture is known over an arbitrary base field with a power-saving error term.
+\end{example}
+Here is another result.
+\begin{theorem}[Kl\"unners]
+	Assume that there is at least one extension of $F$ with Galois group $H$, and their umber is not too much. Then the number of $C_2\wr H$ extensions with discriminant up to $H$ is proportional to $X$.
+\end{theorem}
+This result has no error term. Here is our main result.
+\begin{theorem}
+	Assume we understand $H$-extensions of $F$. Under some technical conditions, we are able to count $C_2\wr H$ extensions with a power-saving error term.
+\end{theorem}
+The idea is to count quadratic extensions of $H$-extensions. There is some formula to control discriminants, and then it is a matter of checking which quadratic extensions of $H$-extensions actually have the full Galois group $C_2\wr H$.
+\begin{remark}
+	With a specific $H$ in hand, one can do more with the error term.
+\end{remark}
+
+\subsection{Weierstrass Points on Hyperelliptic Shimura Curves}
+This talk was given by Holly Paige Chaos. Fix a curve $X$ over $\CC$.
+\begin{example}
+	If $X$ admits a function with a simple pole at some $P$ and nowhere else, then $X$ has genus $0$.
+\end{example}
+Thus, such points exhibit some geometry.
+\begin{definition}
+	Fix a curve $X$ of genus $g\ge2$. Fix a point $P\in X$. If there is a function on $X$ with a pole of order $n$ at $P$ and nowhere else, then $n$ is a pole number of $P$; otherwise, it is a gap number. If $P$ admits a pole number, then $P$ is a \textit{Weierstrass point}.
+\end{definition}
+\begin{remark}
+	It turns out that any curve has finitely many Weierstrass points.
+\end{remark}
+Weierstrass points on $X_0(N)$ are somewhat understood.
+\begin{theorem}
+	Suppose $N$ is sufficiently composite. Then the cusps are Weierstrass points on $X_0(N)$.
+\end{theorem}
+\begin{theorem}
+	If $P$ is Weierstrass on $X_0(p)$, then the reduction of the corresponding elliptic curve is supersingular point.
+\end{theorem}
+\begin{remark}
+	In the prime case, one has a reduction formula
+	\[\prod_{P\in X_0(p)}(x-j(P))^{\op{wt}(P)}=\prod_{\text{ss }E/\ov\FF_p}(x-J(E))^{g_p(g_p-1)},\]
+	where $\op{wt}(P)$ is some weight.
+\end{remark}
+We are interested in Shimura curves, which parameterize principally polarized abelian surfaces with quatenrionic multiplication and some level structure. Here is what was known in this setting.
+\begin{theorem}[Baker]
+	If a curve $X$ has two genus-$0$ curves intersecting transvely at three more points, then the Weierstrass points of $X$ will reduce to singular points in a reduction.
+\end{theorem}
+We would like to know more. Because Weierstrass points on hyperelliptic curves have something understood in the literature, we will focus on Weierstrass points on hyperelliptic Shimura curves. These are classified. One also has a classification of Shimura curves of genus $0$.
+\begin{example}
+	Note $X_0^6(11)$ is a hyperelliptic curve of genus $3$, and its involution is the Atkin--Lehmer involution $\omega_{66}$. There are $2g+2=8$ Weierstrass points, which are exactly the points with CM by a quadratic imaginary field of $-264$. CM points are fixed by Atkin--Lehmer involutions, so there is a way to write these down.
+\end{example}
+
+\subsection{Orhtogonal Friedberg--Jacquet Periods}
+This talk was given by Bobby Zhang. As usual, $F$ is a number field, $G$ is a connected reductive group over $F$, and $H\subseteq G$ is a reductive subgroup. We take $\pi$ to be a cuspidal automorphic representation of $G(\AA_F)$. We are interested in some period integrals. Let $\mc A_{\mathrm{cusp},\pi}$ be the smooth vectors of $L^2_{\mathrm{cusp},\pi}([G])$. Our period integrals look like
+\[\mc P_{H,\chi}\phi\coloneqq\int_{[H]}\phi(h)\chi^{-1}(h)\,dh,\]
+where $\chi\colon[H]\to\CC^\times$ is a quasicharacter.
+\begin{definition}
+	A cuspidal representation $\pi$ is \textit{$H$-distinguished} if there is $\phi\in\pi$ such that $\mc P_{H,\chi}\phi\ne0$.
+\end{definition}
+\begin{remark}
+	If $G$ gives rise to a Shimura variety, yhese periods are related to special cycles.
+\end{remark}
+\begin{remark}
+	These period integrals also appear in the relative Langlands program, which relate period integrals to special values and poles of $L$-functions.
+\end{remark}
+\begin{example}[Friedberg--Jacquet]
+	Consider $(G,H)=(\mathrm{GL}_{2n},\mathrm{GL}_n\times\mathrm{GL}_n)$. This gives rise to ``linear'' periods. For suitably smooth $\phi\in\pi$ and idele class character $\chi$, one has
+	\[\mc P_H\phi\approx L(1/2,\pi\otimes\chi)\op{Res}_{s=1}L\left(s,\pi,\land^2\right),\]
+	where $\approx$ means equality up to some explicit factor.
+\end{example}
+We would like to tell the same story for orthogonal group, namely with $(G,H)=(\mathrm{SO}_{2n+1},\mathrm S(\mathrm O_n\times\mathrm O_{n+1})$. One expects that $\pi$ is $H$-distinguished if and only if a weak base-change $\Pi$ for $\op{GL}_{2n}$ is distinguished for both $\mathrm{GL}_n\times\mathrm{GL}_n$ and $\mathrm O_{2n}$.
+\begin{example}
+	Take $(G,H)=(\mathrm{SO}_{2n+1},\mathrm S(\mathrm O_n\times\mathrm O_{n+1})$. Then $\pi$ is $H$-distinguished if and only if
+	\[L(1/2,\Pi\otimes\chi)\op{Res}_{s=1}L(s,\Pi,\land^2)\ne0,\]
+	and $\Pi$ is $\op O_{2n}$-type. This second condition is still a bit mysterious.
+\end{example}
+The usual technique to prove such a result is to compare some relative trace formulae. In general, $(G,H_1,H_2)$ is a triple of reductive groups with $H_1,H_2\subseteq G$. For compactly supported $f\in C_c^\infty(G(\AA_F))$, one has a kernel
+\[K_f(x,y)=\sum_{\gamma\in G(F)} f(x^{-1}\gamma y)\]
+which gives rise to a linear functional
+\[I(f)\coloneqq\int_{[H_1]\times[H_2]}K_f(x,y)\,dx\,dy.\]
+There are two ways to expand $I(f)$: one can take a spectral decomposition by summing over $\pi$-isotypic pieces, or one has a geometric decomposition into some relative orbital integrals.
+
+Now, given two triples $(G,H_1,H_2)$ and $(G',H_1',H_2')$, it may be desirable to compare period integrals between our groups. Frequently, it is possible to match the orbital integrals, which is currently understood for the present project. A matching of the orbital integrals may then allow one to compare the spectral sides, granting us a proof of some result. In our situation, our $(G,H_1,H_2)$ are orthogonal, and $(G',H_1',H_2')$ are orthogonal.
+\begin{remark}
+	Here is a general principle of Getz and Wambach. Given a classical group $G$ and symmetric subgroup $H$, there should be some triple $(G',H_1',H_2')$ of linear groups detecting if a cuspidal representaion is $H$-distinguished.
+\end{remark}
+
+\end{document}
