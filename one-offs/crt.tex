@@ -29,7 +29,7 @@
 
 \setcounter{section}{0}
 \section{Introduction}
-Morally, the Chinese remainder theorem is simply the intuition that taking$\pmod{m_1}$ and$\pmod{m_2}$ are pretty independent operations. Here is one incarnation of this: because taking$\pmod{m_1}$ and$\pmod{m_2}$ are essentially independent, we should be able to find integers $x$ satisfying the conditions
+The Chinese remainder theorem codifies the intuition that taking$\pmod{m_1}$ and$\pmod{m_2}$ are pretty independent operations. In particular, because taking$\pmod{m_1}$ and$\pmod{m_2}$ are essentially independent, we should be able to find integers $x$ satisfying the conditions
 \[x\equiv\begin{cases}
 	a_1\pmod{m_1}, \\
 	a_2\pmod{m_2},
@@ -144,13 +144,13 @@ However, in the absence of common divisors, this system is solvable.
 	\[a_2+km_2\stackrel?\equiv a_1\pmod{m_1}.\]
 	We would like to ``solve'' for $k$. To this end, we note that this is equivalnt to
 	\[km_2\stackrel?\equiv(a_1-a_2)\pmod{m_1}.\]
-	Now, because $\gcd(m_1,m_2)=1$, there exists an integer $m_2'$ such that $m_2m_2'\equiv1\pmod{m_1}$.\footnote{By Bezout's lemma, we can write $m_1'm_1+m_2'm_2=1$ for some integers $m_1'$ and $m_2'$, and then $m_2'$ is the desired integer.} This allows us to fully isolate $k$, making the above equivalent to
+	Now, because $\gcd(m_1,m_2)=1$, there exists an integer $m_2'$ such that $m_2m_2'\equiv1\pmod{m_1}$.\footnote{\label{footnote:mod-inv} By Bezout's lemma, we can write $m_1'm_1+m_2'm_2=1$ for some integers $m_1'$ and $m_2'$, and then $m_2'$ is the desired integer.} This allows us to fully isolate $k$, making the above equivalent to
 	\[k\stackrel?\equiv m_2'(a_1-a_2)\pmod{m_1},\]
 	which is certainly possible.
 \end{proof}
 Let's unwind the construction in this proof, following \Cref{rem:unwind-crt-mod-3-mod-5}.
 \begin{exe} \label{exe:solve-crt}
-	Choose two pairs of integers $(a_1,m_1)$ and $(a_2,m_2)$ such that $m_1$ and $m_2$ are positive. Suppose that there are integers $m_1'$ and $m_2'$ such that $m_1'm_1+m_2'm_2=1$. Show that $x\coloneqq m_1'm_1a_1+m_2'm_2a_2$ satisfies
+	Choose two pairs of integers $(a_1,m_1)$ and $(a_2,m_2)$ such that $m_1$ and $m_2$ are positive. Suppose that there are integers $m_1'$ and $m_2'$ such that $m_1'm_1+m_2'm_2=1$. Show that $x\coloneqq m_2'm_2a_1+m_1'm_1a_2$ satisfies
 	\[x\equiv\begin{cases}
 		a_1\pmod{m_1}, \\
 		a_2\pmod{m_2}.
@@ -242,7 +242,7 @@ Thus, it is too much to hope for our solutions $x$ to be unique because we can a
 	Suppose that an integer $x$ satisfies $x\equiv1\pmod3$ and $x\equiv1\pmod{15}$. Show that $x\equiv1\pmod{15}$.
 \end{exe}
 \begin{exe}
-	Suppose that there are two integers $x_1$ and $x_2$ such that $x_1\equiv x_2\equiv2\pmod{3}$ and $x_1\equiv x_2\pmod0\pmod5$. Show that $x_1\equiv x_2\pmod{15}$.
+	Suppose that there are two integers $x_1$ and $x_2$ such that $x_1\equiv x_2\equiv2\pmod{3}$ and $x_1\equiv x_2\equiv0\pmod5$. Show that $x_1\equiv x_2\pmod{15}$.
 \end{exe}
 These arguments can be generalized.
 \begin{proposition} \label{prop:crt-uniq-mod-3-mod-5-general}
@@ -250,7 +250,7 @@ These arguments can be generalized.
 	\[x_1\equiv x_2\pmod{15}.\]
 \end{proposition}
 \begin{proof}
-	We proceed as in \Cref{ex:crt-uniq-mod-3-mod-5-nonzero}. Note that $x_1-x_2\equiv0\pmod3$ and $x_1-x_2\equiv0\pmod5$, so applying \Cref{ex:crt-uniq-mod-3-mod-5} to the integer $x$ implies that $x_1-x_2\equiv0\pmod{15}$. Thus, $x_1\equiv x_2\pmod{15}$.
+	We proceed as in \Cref{ex:crt-uniq-mod-3-mod-5-nonzero}. Note that $x_1-x_2\equiv0\pmod3$ and $x_1-x_2\equiv0\pmod5$, so applying \Cref{ex:crt-uniq-mod-3-mod-5} to the integer $x\coloneqq x_1-x_2$ implies that $x_1-x_2\equiv0\pmod{15}$. Thus, $x_1\equiv x_2\pmod{15}$.
 \end{proof}
 
 \subsection{Some Trouble, Again}
@@ -296,9 +296,11 @@ We are now ready to prove our uniqueness result upon adding the condition $\gcd(
 \begin{proof}
 	Our proof follows \Cref{prop:crt-uniq-mod-3-mod-5-general}. Take $x\coloneqq x_1-x_2$, which we know satisfies $x\equiv0\pmod{m_1}$ and $x\equiv0\pmod{m_2}$, and we would like to show that $x\equiv0\pmod{m_1m_2}$. Ultimately, this will hold because $\gcd(m_1,m_2)=1$.
 
-	Because $x\equiv0\pmod{m_1}$, we may write $x=m_1k$ for some integer $k$. We claim that $k\equiv0\pmod{m_2}$, which will quickly complete the argument. Well, by Bezout's lemma, we may find two integers $m_1'$ and $m_2'$ such that $m_1'm_1+m_2'm_2=1$. Then
-	\[m_1'm_1k+m_2'm_2k=k.\]
-	We now reduce this equation$\pmod{m_2}$: note $m_1'm_1k=m_1'x$ is divisible by $m_2$, as is $m_2'm_2k$. Thus, we conclude that $k\equiv0\pmod{m_2}$. To complete the argument, we write $k=m_2\ell$ for some integer $\ell$, which yields $x=m_1m_2\ell$ and thus $x\equiv0\pmod{m_1m_2}$.
+	Because $x\equiv0\pmod{m_1}$, we may write $x=m_1k$ for some integer $k$. We claim that $k\equiv0\pmod{m_2}$, which will quickly complete the argument. Well, we may find an integer $m_1'$ such that $m_1m_1'\equiv1\pmod{m_2}$. (\Cref{footnote:mod-inv} explains why $m_1'$ exists.) Thus, we can multiply both sides of the equation
+	\[m_1k\equiv0\pmod{m_2}\]
+	by $m_1'$ to give
+	\[k\equiv0\pmod{m_2},\]
+	completing the proof of the claim. To complete the proof, we write $k=m_2\ell$ for some integer $\ell$, which yields $x=m_1m_2\ell$ and thus $x\equiv0\pmod{m_1m_2}$.
 \end{proof}
 Because it is not totally obvious, we explain how our two theorems \Cref{thm:crt-exist} (on existence) and \Cref{thm:crt-uniq} (on uniqueness) together imply \Cref{thm:crt}.
 \begin{proof}[Proof of \Cref{thm:crt} from \Cref{thm:crt-exist,thm:crt-uniq}]
@@ -307,7 +309,7 @@ Because it is not totally obvious, we explain how our two theorems \Cref{thm:crt
 		a_1\pmod{m_1}, \\
 		a_2\pmod{m_2},
 	\end{cases}\]
-	where $a_1$ and $a_2$ are some given integers. We will handle existence and uniqueness separately. The existence of some class $x\pmod{m_1m_2}$ follows from the existence of the integer $x$ in \Cref{thm:crt-exist}.
+	where $a_1$ and $a_2$ are some given integers. We will handle existence and uniqueness separately. The existence of the class $x\pmod{m_1m_2}$ follows from the existence of the integer $x$ in \Cref{thm:crt-exist}.
 	
 	It remains to show that the class $x\pmod{m_1m_2}$ is unique. Well, suppose that there are two classes $x_1\pmod{m_1m_2}$ and $x_2\pmod{m_1m_2}$ solving our system. Then
 	\[x_1\equiv a_1\equiv x_2\pmod{m_1},\]
@@ -319,7 +321,7 @@ In this last section, we mention some asides which aide in the understanding of 
 
 \subsection{More Equations}
 One can use induction to solve systems with more equations.
-\begin{theorem}
+\begin{theorem} \label{thm:crt-more-eqs}
 	Choose pairs of integers $(a_1,m_1),\ldots,(a_k,m_k)$ such that the integers $m_1,\ldots,m_k$ are positive. Suppose $\gcd(m_i,m_j)=1$ for any indices $i$ or $j$. Then there is exactly one class $x\pmod{m_1\cdots m_k}$ such that
 	\[x\equiv\begin{cases}
 		a_1 \pmod{m_1}, \\
@@ -389,7 +391,9 @@ It is possible to relax the condition $\gcd(m_1,m_2)=1$ in \Cref{thm:crt}, but i
 	\end{listalph}
 \end{theorem}
 \begin{proof}
-	The statement (a) is the contrapositive of \Cref{prop:crt-obstruction}. It remains to handle (b), so we assume that $a_1\equiv a_2\pmod d$. As usual, we deal with the existence and uniqueness separately. In general, the approach is to reduce to the coprime case by dividing out by $d$ (note $\gcd(m_1/d,m_2/d)=1$), where we can apply \Cref{thm:crt}.
+	With a bit of squinting, one can see that the statement (a) is the equivalent to the statement of \Cref{prop:crt-obstruction}.
+	
+	It remains to handle (b), so we assume that $a_1\equiv a_2\pmod d$. As usual, we deal with the existence and uniqueness separately. In general, the approach is to reduce to the coprime case by dividing out by $d$ (note $\gcd(m_1/d,m_2/d)=1$), where we can apply \Cref{thm:crt}.
 	\begin{itemize}
 		\item Existence: we would like to find an integer $x$ such that $x\equiv a_1\pmod{m_1}$ and $x\equiv a_2\pmod{m_2}$. By subtracting $a_1$ from both equations, it is enough to find an integer $y$ such that $y\equiv0\pmod{m_1}$ and $y\equiv b_2\pmod{m_2}$, where $b_2\coloneqq a_2-a_1$. Notably, $b_2\equiv0\pmod d$ by hypothesis.
 
@@ -418,5 +422,8 @@ It is possible to relax the condition $\gcd(m_1,m_2)=1$ in \Cref{thm:crt}, but i
 		8\pmod{15}.
 	\end{cases}\]
 \end{exe}
+\begin{remark}
+	It is possible to formulate and prove a theorm which simultaneously generalizes \Cref{thm:crt-more-eqs,thm:crt-no-coprime}. The interested reader is encouraged to attempt this exercise.
+\end{remark}
 
 \end{document}
