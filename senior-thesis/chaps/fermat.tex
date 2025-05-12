@@ -186,7 +186,7 @@ The above computation shows that $\gamma\in\mathrm Z^{\mathrm B}_1(X(\CC),\QQ)$.
 	\end{align*}
 	The last integral (famously) equals the Beta function, and it evaluates to $\Gamma\left(\frac{[a]}N\right)\Gamma\left(\frac{[b]}N\right)\Gamma\left(\frac{[a]+[b]}N\right)^{-1}$. We take a moment to check that
 	\[\sum_{r,s\in\ZZ/N\ZZ}\left(1-\zeta^{ar}\right)\left(1-\zeta^{bs}\right)\stackrel?=N^2.\]
-	Well, $\left(1-\zeta^{ar}\right)\left(1-\zeta^{bs}\right)=1-\zeta^{ar}-\zeta^{bs}+\zeta^{ar+bs}$, and because $a,b\ne0$, we see that summing over $r$ and $s$ causes the terms not equal to $0$ to vanish. Thus, we are left with $N^2$.
+	Well, $\left(1-\zeta^{ar}\right)\left(1-\zeta^{bs}\right)=1-\zeta^{ar}-\zeta^{bs}+\zeta^{ar+bs}$, and because $a,b\ne0$, we see that summing over $r$ and $s$ causes the terms not equal to $1$ to vanish. Thus, we are left with $N^2$.
 \end{proof}
 \begin{remark} \label{rem:nonzero-form-period}
 	Because the right-hand side is nonzero, \Cref{lem:gamma-periods} implies that the differential forms $\omega_{(a,b,c)}$ are nonzero.
@@ -245,7 +245,7 @@ When $\mathrm H$ is de Rham cohomology $\mathrm H_{\mathrm{dR}}$, we thus see we
 
 Following \cite[Proposition~7.6]{deligne-hodge}, it will be useful to have the following definition.
 \begin{definition}[weight]
-	Given a function $f\colon\ZZ/N\ZZ\to\ZZ$, we define its \textit{weight map} as the function $\langle f\rangle\colon(\ZZ/N\ZZ)^\times\to\QQ$ defined by
+	Given a function $f\colon\ZZ/N\ZZ\to\CC$, we define its \textit{weight map} as the function $\langle f\rangle\colon(\ZZ/N\ZZ)^\times\to\CC$ defined by
 	\[\langle f\rangle(u)\coloneqq\frac1N\sum_{a\in\ZZ/N\ZZ}f(ua)[a]\]
 	For $p\ge0$, we note that we may identify $\widehat G^{2p}$ with a tuple in $(\ZZ/m\ZZ)^{2p}$, and then we define the \textit{weight} $\langle\alpha\rangle$ of a character $\alpha\in\widehat G^{2p}$ as $\langle1_\alpha\rangle(1)$, where $1_\alpha\colon\ZZ/N\ZZ\to\ZZ$ is the multiplicity of an element in $\ZZ/N\ZZ$ in the tuple $\alpha$. 
 \end{definition}
@@ -256,6 +256,16 @@ Following \cite[Proposition~7.6]{deligne-hodge}, it will be useful to have the f
 		\item If $[a]+[b]+[c]=2N$ so that $\langle\alpha\rangle=2$, then $\omega_{\alpha}$ is not holomorphic so that $\omega_{\alpha}\in\mathrm H^{01}(X)$.
 	\end{itemize}
 	In all cases, we find $\omega_{\alpha}\in\mathrm H^{2-\langle\alpha\rangle,\langle\alpha\rangle-1}(X)$.
+\end{remark}
+\begin{remark}
+	If $f$ is instead a function $f\colon\frac1N\ZZ/\ZZ\to\CC$, we may similarly define the weight by the formula
+	\[\langle f\rangle(u)\coloneqq\sum_{a\in\frac1N\ZZ/\ZZ}f(ua)\langle a\rangle,\]
+	where $\langle a\rangle$ now refers to the element in $[0,1)$ in the class of $a$.
+\end{remark}
+\begin{remark} \label{rem:a-2p-const-weight-is-b-2p}
+	Suppose that $\alpha\in\mf A^{2p}$ has $1_\alpha$ of constant weight. Then we claim that $\langle\alpha\rangle=3p$. Indeed, we must have
+	\[\frac1N\sum_{i=1}^{6p}[a_i]=\frac1N\sum_{i=1}^{6p}[-a_i],\]
+	but $[-a_i]=N-a_i$ then forces the sum to equal $3p$.
 \end{remark}
 We now upgrade \Cref{rem:deg-by-weight-curve} to $\mathrm H^1_{\mathrm{dR}}(X,\CC)^{\otimes2p}$.
 \begin{notation}
@@ -474,6 +484,9 @@ We are now ready for our main theorem.
 \begin{remark}
 	As a sanity check, it is not hard to see that \Cref{thm:fermat-galois} actually defines a group representation.
 \end{remark}
+\begin{remark} \label{rem:compute-k-conn-a-fermat}
+	Following \Cref{rem:compute-k-conn-a}, one can use \Cref{thm:fermat-galois} allows ons to compute the connected monodromy field $K^{\mathrm{conn}}_A$ of the Jacobian $A$ of any quotient $C$ of the Fermat curve $X_N$. Indeed, \Cref{rem:compute-k-conn-a} explains that this is essentially a matter of computing enough the field of definition of enough Tate classes (used to cut out the torus $G_\ell^\circ(A)$). In particular, we already know that $\QQ(\zeta_N)\subseteq K^{\mathrm{conn}}_A$ (because of the endomorphisms), and then \Cref{thm:fermat-galois} explains that $\sigma\in\op{Gal}(\ov\QQ/\QQ(\zeta_N))$ fixes a Tate cycle $\nu_\alpha$ if and only if it fixes the period $\op{Per}\left(\gamma^{2p},\nu_{-\alpha}\right)$.
+\end{remark}
 % S8.5 of GGL
 % use kunneth to discuss how we get a Hodge cycle
 % build the abs Hodge cycle from the Hodge cycle => this should allow me to describe the Hodge cycles on X^2p without too much pain, notably avoiding Deligne 82
@@ -490,7 +503,7 @@ Let's see an example.
 \begin{proof}
 	To see that $(\alpha,\alpha')\in\mf B^2$, we note that any $u\in(\ZZ/N\ZZ)^\times$ still has $u\alpha=-u\alpha'$, so $\{\langle u\alpha\rangle,\langle-u\alpha\rangle\}=\{1,2\}$.
 
-	Looking at \Cref{thm:fermat-galois}, we see the main part of proof will be computing our periods. The main point is that the reflection formula for $\Gamma$ reassures us that
+	Looking at \Cref{thm:fermat-galois}, we see the main part of proof will be computing our periods. The main point is that the reflection formula for $\Gamma$ (recalled later in \Cref{prop:gamma-prod-props}) reassures us that
 	\[\Gamma\left(\frac{[a]}N\right)\Gamma\left(\frac{[-a]}N\right)=\frac\pi{\sin\frac{a\pi}N}.\]
 	We now combine this with the computation in \Cref{rem:iterated-coleman-period} to achieve
 	\[\op{Per}\left(\gamma^{2p},\nu_{-(\alpha,\alpha')}\right) = -(2\pi i)^{-1}\cdot\zeta_{2N}^{[-a]+[-b]+[a]+[b]}\cdot\frac\pi{\sin\frac{[a]\pi}N}\cdot\frac\pi{\sin\frac{[b]\pi}N}\cdot\frac{\sin\frac{[c]\pi}N}\pi.\]
@@ -544,7 +557,13 @@ We begin with the superelliptic curve $C\colon y^9=x^3-1$.
 		\[\nu_{333,675,648,612}\otimes1\in\mathrm H^4_{\mathrm{\acute et}}(X_{\ov\QQ},\QQ_\ell)(2)\otimes_\QQ\QQ_\ell\]
 		and its Galois orbit.
 
-		\item We claim that $K^{\mathrm{conn}}_A=\QQ(\zeta_N)$. By \Cref{rem:galois-computes-monodromy-finite}, it is enough to know that $\op{Gal}(\QQ(\zeta_N)/\QQ)$ is the largest subgroup of $\op{Gal}(\ov\QQ/\QQ)$ fixing $W'$. We already know that our endomorphisms are defined over $\QQ(\zeta_N)$, and conversely, \Cref{cor:fermat-galois-polarization} has found some Tate classes that are only fixed by $\op{Gal}(\QQ(\zeta_N)/\QQ)$. It remains to check that $\sigma\in\op{Gal}(\QQ(\zeta_N)/\QQ)$ fixes the Galois orbit of $\nu_{333,675,648,612}\otimes1$. Well, looking at \Cref{thm:fermat-galois}, it is enough to check that $\sigma$ fixes
+		\item We claim that $K^{\mathrm{conn}}_A=\QQ(\zeta_N)$. By \Cref{rem:galois-computes-monodromy-finite}, it is enough to know that $\op{Gal}(\QQ(\zeta_N)/\QQ)$ is the largest subgroup of $\op{Gal}(\ov\QQ/\QQ)$ fixing $W'$. We already know that our endomorphisms, except the isogeny $(A_1)_{\ov\QQ}\cong (A_2)_{\ov\QQ}$, are defined over $\QQ(\zeta_N)$ (see also \Cref{cor:fermat-galois-polarization} for these equations and the polarization). The isogeny corresponds to equations $\kappa_u=\lambda_{2u}$ for each $u\in(\ZZ/9\ZZ)^\times$, which means that we would like to check that
+		\[\op{Per}\left(\gamma^{2p},\nu_{u(612,378)}\right)\]
+		is in $\QQ(\zeta_N)$. Well, by \Cref{rem:coleman-periods}, this element is
+		\[(-2\pi i)^{-1}\zeta_{2N}^{u(6+2+3+7)}\cdot\frac{\Gamma\left(\frac{[6u]}9\right)\Gamma\left(\frac{[2u]}9\right)}{\Gamma\left(\frac{[8u]}9\right)}\cdot\frac{\Gamma\left(\frac{[3u]}9\right)\Gamma\left(\frac{[7u]}9\right)}{\Gamma\left(\frac{[u]}9\right)}.\]
+		A quick application of the reflection formula as in \Cref{cor:fermat-galois-polarization} shows this is in $\QQ(\zeta_N)$.
+
+		It remains to check that $\sigma\in\op{Gal}(\QQ(\zeta_N)/\QQ)$ fixes the Galois orbit of $\nu_{333,675,648,612}\otimes1$. Well, looking at \Cref{thm:fermat-galois}, it is enough to check that $\sigma$ fixes
 		\[\op{Per}\left(\gamma^4,\nu_{u(333,675,648,612)}\right)\]
 		for any $u\in(\ZZ/N\ZZ)^\times$. Well, by \Cref{rem:coleman-periods}, we see this equals
 		\[(-2\pi i)^{-2}\zeta_{2N}^{u(3+3+6+7+6+4+6+1)}\cdot\frac{\Gamma\left(\frac{[3u]}9\right)\Gamma\left(\frac{[3u]}9\right)}{\Gamma\left(\frac{[6u]}9\right)}\cdot\frac{\Gamma\left(\frac{[6u]}9\right)\Gamma\left(\frac{[7u]}9\right)}{\Gamma\left(\frac{[4u]}9\right)}\cdot\frac{\Gamma\left(\frac{[6u]}9\right)\Gamma\left(\frac{[4u]}9\right)}{\Gamma\left(\frac{[u]}9\right)}\cdot\frac{\Gamma\left(\frac{[6u]}9\right)\Gamma\left(\frac{[u]}9\right)}{\Gamma\left(\frac{[7u]}9\right)}.\]
@@ -626,12 +645,15 @@ We begin with the superelliptic curve $C\colon y^9=x^3-1$.
 	This completes our computation.
 \end{proof}
 % \subsection{The Family \texorpdfstring{$y^9=\left(x^2+x+1\right)(x-\lambda)$}{y9 = (x2+x+1)(x-lambda)}}
-We now use the above computation of the previous subsection to compute the Sato--Tate group of some generic superelliptic curves.
+We now use the above computation to compute the Sato--Tate group of some generic superelliptic curves.
 \genericfullst
 \begin{proof}
 	As usual, we proceed in steps. Throughout, we freely use the computation of \Cref{prop:generic-fermat-st}.
 	\begin{enumerate}
-		\item We lift our situation to an abelian scheme. Let $S$ be $\AA^1_\QQ\setminus\{0,1\}$, and we let $\mc C\to S$ be the curve cut out by the equation $y^9=\left(x^2+x+1\right)(x-\lambda)$ as $\lambda$ varies over $S$; then we can normalize and complete $C$ to produce a family of smooth projective curves $\widetilde{\mc C}\to S$. Then $\mc A\coloneqq\op{Pic}^0{\mc C/S}$ is an abelian scheme over $S$. In particular, for each $\lambda\in\QQ\setminus\{0,1\}$, we can specialize to $\lambda\in S$ to produce $A_\lambda\coloneqq\mc A_\lambda$ as the Jacobian of the curve $\widetilde C_\lambda\coloneqq\widetilde{\mc C}_\lambda$.
+		\setcounter{enumi}{-1}
+		\item Quickly, we note that we may pass from $y^9=x(x-1)(x-\lambda)$ (for $\lambda\notin\{0,1\}$) to $y^9=\left(x^2+x+1\right)(x-\lambda)$ (for $\lambda\notin\{\zeta_3,\ov\zeta_3\}$). Indeed, consider the isomorphism $f\colon\PP^1\to\PP^1$ defined over $\QQ(\zeta_9)$ by fixing $\infty$ and sending $0\mapsto\zeta_3$ and $1\mapsto\ov\zeta_3$. Then the curves $y^9=x(x-1)(x-\lambda)$ and $y^9=\left(x^2+x+1\right)(x-f(\lambda))$ are isomorphic by an isomorphism of the ``ground'' $\PP^1$. Thus, the connected monodromy field over $\QQ(\zeta_9)$ of both curves must be the same. Because $K_A^{\mathrm{conn}}$ for both curves must contain $\QQ(\zeta_9)$ anyway (there are endomorphisms whose field of definition is $\QQ(\zeta_9)$ already), we see that this movement must be harmless!
+
+		\item We lift our situation to an abelian scheme. Let $S$ be $\AA^1_\QQ\setminus\{\zeta_3,\ov\zeta_3\}$, and we let $\mc C\to S$ be the curve cut out by the equation $y^9=\left(x^2+x+1\right)(x-\lambda)$ as $\lambda$ varies over $S$; then we can normalize and complete $C$ to produce a family of smooth projective curves $\widetilde{\mc C}\to S$. Then $\mc A\coloneqq\op{Pic}^0{\mc C/S}$ is an abelian scheme over $S$. In particular, for each $\lambda\in\QQ\setminus\{\zeta_3,\ov\zeta_3\}$, we can specialize to $\lambda\in S$ to produce $A_\lambda\coloneqq\mc A_\lambda$ as the Jacobian of the curve $\widetilde C_\lambda\coloneqq\widetilde{\mc C}_\lambda$.
 
 		While we're here, we set up a family of Galois representations. In order to avoid any difficult \'etale cohomology, we will do this cheaply using the Tate module. For each $n\ge1$, we have a finite flat group scheme $\mc A[n]\to S$, so each $\lambda\in S(\QQ)$ gets a natural Galois-invariant pullback square as follows.
 		% https://q.uiver.app/#q=WzAsNCxbMCwwLCJBX1xcbGFtYmRhW25dIl0sWzEsMCwiXFxtYyBBW25dIl0sWzEsMSwiUyJdLFswLDEsIlxcbGFtYmRhIl0sWzMsMl0sWzAsM10sWzAsMV0sWzEsMl1d&macro_url=https%3A%2F%2Fraw.githubusercontent.com%2FdFoiler%2Fnotes%2Fmaster%2Fnir.tex
@@ -643,7 +665,7 @@ We now use the above computation of the previous subsection to compute the Sato-
 			\arrow[from=1-2, to=2-2]
 			\arrow[from=2-1, to=2-2]
 		\end{tikzcd}\]
-		Taking limits over $n$, we get Galois-invariant inclusions $V_\ell A\to V_\ell\mc A$, where $V_\ell\mc A$ can be interpreted as a sheaf with stalks given by $V_\ell A$. The moral of the story is that we will be able to a special point in $S$ in order to compute the Galois action for generic $\lambda\in S$.
+		Taking limits over $n$, we get Galois-invariant inclusions $V_\ell A\to V_\ell\mc A$, where $V_\ell\mc A$ can be interpreted as a sheaf with stalks given by $V_\ell A$. The moral of the story is that we will be able to use a special point in $S$ in order to compute the Galois action for generic $\lambda\in S$.
 
 		\item As before, we will use \Cref{prop:galois-computes-monodromy} in order to compute $G_\ell(A_\lambda)$ when $A_\lambda$ does not have complex multiplication. Thus, \Cref{rem:galois-computes-monodromy-finite} asks us to find a space $W'$ of Tate classes cutting out $G_\ell(A)^\circ$. We may as well work with $\op{MT}(A)$ by the Mumford--Tate conjecture, which is known in our case by \Cref{prop:mtc-reldim-2}. As before, we go ahead and add in $W_1$ to account for the endomorphisms of $A$. We also add the class of the polarization to $W'$. Thus, our Tate classes so far cut out $\op L(A)$. The computation of \Cref{prop:generic-fermat-st} tells us that $\op{MT}(A)$ is $\op L(A)$ cut out by one additional equation from the center, given by
 		\[\lambda_1\lambda_4\lambda_7=\lambda_2\lambda_5\lambda_8.\]
@@ -687,6 +709,860 @@ We now use the above computation of the previous subsection to compute the Sato-
 	\end{enumerate}
 \end{proof}
 
+\section{Calculations of the Periods}
+Our calculation of the Galois action on absolute Hodge cycles above (\Cref{thm:fermat-galois}) found that the main difficulty reduces to a computation of the periods $\op{Per}\left(\gamma^{2p},\nu_\alpha\right)$. In general, it is not an easy problem to compute the periods of a variety, even an abelian variety with complex multiplication. However, we have already put in a lot of work into being able to do this: \Cref{rem:iterated-coleman-period} explains that $\alpha\in\mf B^{2p}$ will have
+\[\op{Per}\left(\gamma^{2p},\nu_\alpha\right)=(2\pi i)^{-p}\prod_{i=1}^{2p}\zeta_{2N}^{[a_i]+[b_i]}\frac{\Gamma\left(\frac{[a_i]}N\right)\Gamma\left(\frac{[b_i]}{N}\right)}{\Gamma\left(\frac{[-c_i]}N\right)}.\]
+It remains to compute these ratios, which comes down to being able to do arithmetic with products of $\Gamma$-functions. This is the primary goal of this section.
+
+\subsection{Properties of \texorpdfstring{$\Gamma$}{ Gamma}}
+To set ourselves up for the remaining subsections, we will now prove all needed properties of the $\Gamma$-function
+\[\Gamma(s)\coloneqq\int_{\RR^+}t^se^{-t}\,\frac{dt}t\]
+from scratch. We will be rather streamlined. Our end goal is to prove the following proposition.
+\begin{proposition} \label{prop:gamma-prod-props}
+	The function $\Gamma(s)$ admits a meromorphic continuation to $\CC$ with only simple poles at the nonpositive integers. Further, it satisfies the following properties.
+	\begin{listalph}
+		\item Translation: $\Gamma(s+1)=s\Gamma(s)$.
+		\item Reflection: $\Gamma(s)\Gamma(1-s)=\frac{\pi}{\sin\pi s}$.
+		\item Multiplication: for any positive integer $d$,
+		\[\Gamma\left(\frac sd\right)\Gamma\left(\frac{s+1}d\right)\cdots\Gamma\left(\frac{s+(d-1)}d\right)=(2\pi)^{(d-1)/2}d^{1/2-s}\Gamma(s).\]
+	\end{listalph}
+\end{proposition}
+Among (a)--(c), only (a) admits a quick proof.
+\begin{proof}[Proof of \Cref{prop:gamma-prod-props}(a)]
+	Assuming that the integral form is well-defined, we find that the result holds by integration by parts.
+	\begin{align*}
+		\Gamma(s+1) &= \int_{\RR^+}t^{s+1}e^{-t}\,\frac{dt}t \\
+		&= -\int_{t\in\RR^+}t^s\,d\left(e^{-t}\right) \\
+		&= -t^se^{-t}\bigg|_{t=0}^{t=\infty}+s\int_{\RR^+}t^se^{-t}\,\frac{dt}t \\
+		&= s\Gamma(s),
+	\end{align*}
+	as required.
+\end{proof}
+\begin{example} \label{ex:gamma-on-ints}
+	A direct integral computation shows that $\Gamma(1)=1$, so we note that we may read the integration by parts above backwards to see that we have shown that the integral defining $\Gamma(n)$ converges and equals $(n-1)!$ for any positive integer $n$.
+\end{example}
+Now that we have some idea how to bound the integral defining $\Gamma$, we are able to prove the meromorphic continuation.
+\begin{proof}[Proof of meromorphic continuation of \Cref{prop:gamma-prod-props}]
+	We have two steps.
+	\begin{enumerate}
+		\item We claim that the integral converges absolutely and uniformly on compacts in the region $\{s:\Re s>0\}$, which will prove that $\Gamma$ is holomorphic there. Here, we may bound the integral absolutely by
+		\[\int_{\RR^+}\left|t^se^{-t}\right|\,dt\le\int_0^1t^{\Re s-1}\,dt+\int_1^\infty t^{\ceil{\Re s-1}}e^{-t}\,dt.\]
+		The left integral equals $\frac1{\Re s-1}$, so it converges absolutely on compacts. The right integral is bounded by $\Gamma(\ceil{\Re s-1})$, which we know by \Cref{ex:gamma-on-ints} to converge.
+		\item We complete the meromorphic continuation. The equation $\Gamma(s+1)=s\Gamma(s)$ allows us to inductively holomorphically continue $\Gamma(s)$ to the region $\CC\setminus\{0,-1,-2,\ldots\}$. This equation written as $\Gamma(s)=\frac1s\Gamma(s+1)$ also explains that $\Gamma$ admits a simple pole at $s=0$, which can then be inductively continued to produce simple poles on the nonpositive integers.
+		\qedhere
+	\end{enumerate}
+\end{proof}
+\begin{example} \label{ex:gamma-half}
+	We compute $\Gamma(1/2)$. The proof above shows that the integral converges, so we would like to compute $\int_{\RR^+}t^{-1/2}e^{-t}\,dt$. Taking $u=\sqrt t$, we see that $2\,du=t^{-1/2}\,dt$, so
+	\[\Gamma(1/2)=\int_{\RR}e^{-u^2}\,du.\]
+	The technique of squaring the integral and passing to polar coordinates shows that the integral equals $\sqrt\pi$.
+\end{example}
+We now turn to the reflection formula.
+\begin{proof}[Proof of \Cref{prop:gamma-prod-props}(b)]
+	We will have to do some work. The following slick argument is taken from David Speyer, who credits Paul Monsky \cite{speyer-gamma-reflection}. We will show that the function $f(s)\coloneqq\Gamma(s)\Gamma(1-s)\sin\pi s$ is constant. Note that this will complete the proof because we can compute the constant is $\pi$ by writing
+	\[f(1/2)=\Gamma(1/2)^2\sin\frac\pi2\]
+	and using \Cref{ex:gamma-half}. We now proceed in steps. The idea is that the ambient $1$-periodicity of $f$ means that we only have worry about bounds on $f(x+iy)$ as $\left|y\right|\to\infty$.
+	\begin{enumerate}
+		\item We claim that there is a holomorphic function $g\colon\CC^\times\to\CC$ such that $f(s)=g\left(e^{2\pi is}\right)$. To begin, note that $\Gamma(s)$ has simple poles at the nonpositive integers, so $\Gamma(1-s)$ has simple poles at the positive integers, so $f(s)$ is entire. Furthermore, we claim that $f(s+1)=f(s)$. By analytic continuation, it is enough to check this away from the real axis. Because the function $\sin\pi s$ satisfies $\sin\pi(s+1)=-\sin\pi s$, it is enough to compute
+		\[\Gamma(s+1)\Gamma(1-(s+1))=s\Gamma(s)\cdot\frac1{-s}\Gamma(1-s).\]
+		We now turn towards defining $g$. The function $s\mapsto e^{2\pi is}$ is an entire surjection $\CC^\times\to\CC^\times$ with non-vanishing derivative everywhere, so one can at least locally invert it. Thus, we may use a local inverse suitably composed with $f$ to define $g$ locally. This local definition of $g$ however extends to a definition on all $\CC^\times$ because $f(s+1)=f(s)$.
+
+		\item We provide some bounds on the function $g$. We begin with some bounds on $\Gamma$: if $x\in[0,1]$ and $\left|y\right|\ge1$, then
+		\begin{align*}
+			\left|\Gamma(x+iy)\right| &= \left|\frac1{x+iy}\right|\cdot\left|\Gamma((x+1)+iy)\right| \\
+			&\le \Gamma(x+1) \\
+			&\le \max_{x\in[1,2]}\Gamma(x),
+		\end{align*}
+		which is absolutely bounded by some constant $C$. Moving to $f$, we see
+		\[\left|f(x+iy)\right|\le C^2e^{-\pi y}.\]
+		Lastly, moving to $g$, we see that $\left|g\left(e^{2\pi i(x+iy)}\right)\right|\le C^2e^{-\pi y}$. We evaluate this in two extreme cases: sending $y\to\infty$ tells us that $\left|g(q)\right|\le C^2\left|q\right|^{1/2}$ as $\left|w\right|\to\infty$; on the other hand, sending $y\to-\infty$ tells us that $\left|g(q)\right|\le C^2\left|q\right|^{-1/2}$ as $q\to0$.
+
+		\item We complete the proof. Our goal is to show that $f$ is constant, so it is enough to show that $g$ is constant. It is enough to show that $g(s)$ and $g(1/s)$ both extend to holomorphic functions at $s=0$ because this will imply that $g$ extendeds to a bounded holomorphic function, which is constant.
+
+		It is therefore enough to show the following lemma in complex analysis: suppose $g\colon B(0,1)\setminus\{0\}\to\CC$ is a holomorphic function such that $\left|g(q)\right|\le\left|q\right|^{-1/2}$ as $q\to0$. Then we want to show that $g$ extends to a holomorphic function at $0$. Well, the function $g_1(q)\coloneqq qg(q)$ continues to be holomorphic on $B(0,1)\setminus\{0\}$, but now we see that it has a removable singularity at $0$ with $qg(q)\to0$ as $q\to0$, so $g_1$ admits a holomorphic continuation to $B(0,1)$ by taking $g_1(q)=0$. We may now divide out by the zero to define $g(q)$ at $q=0$.
+		\qedhere
+	\end{enumerate}
+\end{proof}
+We now turn to the multiplication formula. This will be harder still. We will require two lemmas.
+\begin{lemma}[Stirling's approximation] \label{lem:stirling}
+	As $s\to\infty$, we have
+	\[\Gamma(s+1)\sim\left(\frac se\right)^s\sqrt{2\pi s}.\]
+\end{lemma}
+\begin{proof}
+	The following argument is taken from \cite[Section~3]{conrad-stirling}. In order to make the asymptotic terms appear, we set $x\coloneqq\frac{t-s}{\sqrt s}$ so that
+	\begin{align*}
+		\Gamma(s+1) &= \int_{\RR^+}t^se^{-t}\,dt \\
+		&= \int_{-\sqrt s}^\infty(\sqrt sx+s)^se^{-(\sqrt sx+s)}\sqrt s\,dx \\
+		&= \left(\frac se\right)^s\sqrt s\underbrace{\int_{-\sqrt s}^\infty\left(1+\frac x{\sqrt s}\right)^se^{-\sqrt sx}\,dx}_{I(\sqrt s)\coloneqq}
+	\end{align*}
+	It remains to check that $I(s)\to\sqrt{2\pi}$ as $s\to\infty$. This will be done using the Dominated convergence theorem. Define $f_s\colon\RR\to\RR$ by $f_s(x)\coloneqq\left(1+\frac xs\right)^{s^2}e^{-sx}$ so that $I(s)=\int_\RR f_s(x)\,dx$. (Here, $f_s$ is defined to be $0$ on $(-\infty,-s]$.) We have two steps.
+	\begin{enumerate}
+		\item We claim that $f_s(x)\to e^{-x^2/2}$ as $s\to\infty$. It is enough to check equality after taking $\log$s, so we would like to show that
+		\[\lim_{s\to\infty}\left(s^2\log\left(1+\frac xs\right)-sx\right)\stackrel?=-\frac{x^2}2.\]
+		Now, $\log\left(1+\frac xs\right)=\sum_{k\ge1}\frac1k\left(\frac xs\right)^k$, so the Monotone convergence theorem (used for $s$ large) gives
+		\begin{align*}
+			\lim_{s\to\infty}\left(s^2\log\left(1+\frac xs\right)-sx\right) &= \lim_{s\to\infty}\Bigg(s^2\sum_{k\ge1}\frac1k\left(\frac xs\right)^k-sx\Bigg) \\
+			&= \underbrace{0}_{k=1}-\underbrace{\frac{x^2}2}_{k=2}+\sum_{k\ge3}\lim_{s\to\infty}\frac1k\left(\frac xs\right)^k,
+		\end{align*}
+		which evaluates to $-x^2/2$, as needed.
+
+		\item We now apply the Dominated convergence theorem to see that $I(s)\to\int_\RR e^{-x^2/2}\,dx$, where the integral equals $\sqrt{2\pi}$ as remarked in \Cref{ex:gamma-half}. In light of the previous step, it remains to find a dominating function for the $f_s$s. We will do this based on sign.
+		\begin{itemize}
+			\item For $x\le0$, we claim that $f_s(x)\le e^{-x^2/2}$. If $s\le-x$, then $f_s(x)=0$, so there is nothing to do; otherwise, we take $s>-x$. After taking logarithms, we see that we would like to check that the function
+			\[s^2\log\left(1+\frac xs\right)-sx+\frac{x^2}2\]
+			is nonpositive for $x\le0$. This function vanishes at $x=0$, so it is enough to check that it is increasing, for which we note its derivative (with respect to $x$) is
+			\[\frac{s^{2}}{1+\frac{x}{s}}\cdot\frac{1}{s}-s+x=\frac{x^{2}}{s+x},\]
+			which is nonnegative for $s\ge-x$.
+			\item For $x\ge0$ (and $s\ge1$), we claim that $f_s(x)\le f_1(x)$. After taking logarithms, we see that we would like to show that
+			\[\left(\log\left(1+x\right)-x\right)-\left(s^{2}\log\left(1+\frac{x}{s}\right)-sx\right)\]
+			is nonnegative for $x\ge0$. This function vanishes at $x=0$, so it is enough to check that it is increasing, for which we note its derivative (with respect to $x$) is
+			\[\left(\frac{1}{1+x}-1\right)-\left(\frac{s^{2}}{1+\frac{x}{s}}\cdot\frac{1}{s}-s\right)=\frac{x^{2}\left(s-1\right)}{\left(1+x\right)\left(s+x\right)},\]
+			which is nonnegative for $s\ge1$.
+		\end{itemize}
+		Thus, we see that our dominating function may be taken to be $e^{-x^2/2}$ in the negative region and $f_1(x)$ in the positive region.
+		\qedhere
+	\end{enumerate}
+\end{proof}
+\begin{lemma}[Euler form] \label{lem:euler-form-gamma}
+	If $s>0$, then
+	\[\Gamma(s)=\lim_{n\to\infty}\frac{n!n^s}{s(s+1)\cdots(s+n)}.\]
+\end{lemma}
+\begin{proof}
+	% Let the right-hand side be $\Gamma_1(s)$. A direct manipulation of the limit shows
+	% \begin{align*}
+	% 	\frac{\Gamma_1(s+1)}{s\Gamma_1(s)} &= \lim_{n\to\infty}\dfrac{\frac{n!n^{s+1}}{(s+1)(s+2)\cdots(s+n)}}{\frac{n!n^s}{}}
+	% \end{align*}
+	We evaluate the limit directly, using \Cref{lem:stirling}. Manipulating directly, we see the limit is
+	\[\Gamma(s)\lim_{n\to\infty}\frac{\Gamma(n+1)n^s}{\Gamma(s+n+1)}.\]
+	We now see the desired $\Gamma(s)$ term, so we want to show that the remaining limit equals $0$. By \Cref{lem:stirling} and taking logarithms, we see that we would like to show that
+	\[\lim_{n\to\infty}\left(x\log x-x+s\log x-\left(s+x\right)\log\left(s+x\right)+s+x\right)\stackrel?=0.\]
+	After some simplification, this limit is seen to equal the limit of $s-n\log\left(1+\frac sn\right)$, which can be evaluated to $0$ by expanding out the power series for $\log(1+x)$.
+\end{proof}
+\begin{remark}
+	The right-hand side in fact defines a holomorphic function on $\CC\setminus\{0,-1,-2,\ldots\}$, so the given equality extends to this region by analytic continuation. This prior claim can be checked by verifying that the right-hand side converges uniformly on compact sets in the region $\{s:\Re s>0\}$ and also satisfies the equation $\Gamma(s+1)=s\Gamma(s)$.
+\end{remark}
+\begin{proof}[Proof of \Cref{prop:gamma-prod-props}(c)]
+	The following argument is taken from \cite{random-gamma-multiplication}. By analytic continuation, it is enough to check the identity when $s$ is real and positive. We simply expand out the right-hand side using the Euler form (\Cref{lem:euler-form-gamma}) and Stirling's approximation (\Cref{lem:stirling}). To avoid off-by-one errors, we note that
+	\begin{align*}
+		\Gamma(s) &= \lim_{n\to\infty}\frac{n!n^s}{s(s+1)\cdots(s+n)} \\
+		&= \lim_{n\to\infty}\frac{n!n^{s-1}}{s(s+1)\cdots(s+n-1)} \\
+		&= \lim_{n\to\infty}\frac{\sqrt{2\pi}e^{-n}n^{n+s-1/2}}{s(s+1)\cdots(s+n-1)}.
+	\end{align*}
+	Namely, the denominator now has precisely $n$ terms. Now,
+	\begin{align*}
+		\prod_{k=0}^{d-1}\Gamma\left(\frac{s+k}d\right) &= \lim_{n\to\infty}\prod_{k=0}^{d-1}\frac{\sqrt{2\pi}e^{-n}n^{n+(s+k)/d-1/2}}{\left(\frac{s+k}d\right)\left(\frac{s+k+d}d\right)\cdots\left(\frac{s+k+(n-1)d}d\right)} \\
+		&= \lim_{n\to\infty}\frac{(\sqrt{2\pi})^de^{-nd}n^{nd+(ds+(0+\cdots+(d-1)))/d-d/2}}{\frac sd\left(\frac{s+1}d\right)\cdots\left(\frac{s+nd-1}d\right)} \\
+		&= \lim_{n\to\infty}\frac{(\sqrt{2\pi})^de^{-nd}n^{nd+s-1/2}d^{nd}}{s\left(s+1\right)\cdots\left(s+nd-1\right)}.
+	\end{align*}
+	We would like the Euler form (\Cref{lem:euler-form-gamma}) for $\Gamma(s)$ to come out of this limit, and this will be done by substituting $nd\to\infty$ into the limit for the coordinate $n\to\infty$. With this in mind, we move the strange factors from the right-hand side of the desired equality in \Cref{prop:gamma-prod-props} to the left-hand side, writing our limit as
+	\[(2\pi)^{-(d-1)/2}d^{s-1/2}\prod_{k=0}^{d-1}\Gamma\left(\frac{s+k}d\right) = \lim_{n\to\infty}\frac{\sqrt{2\pi}e^{-nd}(nd)^{nd+s-1/2}}{s\left(s+1\right)\cdots\left(s+nd-1\right)},\]
+	which is indeed the Euler form for $\Gamma(s)$.
+\end{proof}
+
+\subsection{Unrefined Algebraicity}
+It will be worthwhile to give ourselves some language to describe the sorts of products we want to evalaute. A priori, we are basically computing a product which looks like
+\[\prod_{i\in\ZZ}\Gamma\left(\frac iN\right)^{a_i},\]
+where $\{a_i\}_{i\in\ZZ}$ is a sequence of integers arranged so that the above product is finite. (Namely, $i/N$ should never be in $\ZZ_{\le0}$ if $a_i>0$, and only finitely many of the $a_i$ should fail to vanish.) However, by using the fact that $\Gamma(s+1)=s\Gamma(s)$, we may slide all factors of the product to $(0,1)$, meaning that we want to compute a product which looks like
+\[\prod_{i=1}^{N-1}\Gamma\left(\frac iN\right)^{f(i/N)},\]
+where $f\colon\frac1N\ZZ/\ZZ\to\ZZ$ is some function.
+\begin{notation}
+	For any function $f\colon\frac1N\ZZ/\ZZ\to\ZZ$, we define
+	\[\Gamma(f)\coloneqq\prod_{i=1}^{N-1}\Gamma\left(\frac iN\right)^{f(i/N)}.\]
+	Dually, for any element $a\in\ZZ\left[\frac1N\ZZ/\ZZ\right]$, we may write $a=\sum_{i=0}^{N-1}a_i\cdot\ov{i/N}$, and we define $\Gamma(a)$ according to the function $i/N\mapsto a_i$. Note that $\Gamma(a)$ does not admit a value if $a$ is nonzero at $0/N$.
+\end{notation}
+\begin{remark}
+	Because we are only interested in computing the periods $\op{Per}\left(\gamma^{2p},\nu_\alpha\right)$ where $\alpha\in\mf B^{2p}$, we may restrict our view to functions $a\colon\frac1N\ZZ/\ZZ\to\ZZ$ such that the weight $\langle a\rangle\colon(\ZZ/N\ZZ)^\times\to\ZZ$ is constant.
+\end{remark}
+Now, \Cref{prop:gamma-prod-props} gives us two further properties about products of $\Gamma$s we may use. By suitably translating, we are able to compute products which look like
+\[\Gamma\left(\frac aN\right)\Gamma\left(\frac{N-a}N\right)\qquad\text{and}\qquad\Gamma\left(\frac{da}N\right)^{-1}\prod_{k=0}^{d-1}\Gamma\left(\frac aN+\frac k{d}\right),\]
+$a,b\in\{1,\ldots,N\}$, and we require $d\mid N$ and $N\nmid da$ in the second product. Here is some notation to keep track of this.
+\begin{notation}
+	For a positive divisor $d$ of $N$ and $a\in\ZZ/N\ZZ$, we define the function $\varepsilon_{d,a}\colon\frac1N\ZZ/\ZZ\to\ZZ$ to be the characteristic function of the set
+	\[\left\{\frac{N-da}N\right\}\cup\left\{\frac aN+\frac kd:k\in\{0,\ldots,d-1\}\right\}.\]
+	Similarly, for any $a\in(\ZZ/N\ZZ)\setminus\{0\}$, we define $s_a\colon\frac1N\ZZ/\ZZ\to\ZZ$ to be the characteristic function of $\left\{\frac aN,\frac{-a}N\right\}$.
+\end{notation}
+\begin{remark}
+	Abusing notation slightly, we may identify $\varepsilon_{d,a}$ and $s_a$ with the corresponding elements in $\ZZ\left[\frac1N\ZZ/\ZZ\right]$.
+\end{remark}
+The moral is that we can compute $\Gamma(\varepsilon_{d,a})$ and $\Gamma(s_a)$, so we would like to see which functions $\frac1N\ZZ/\ZZ\to\ZZ$ can be written as linear combinations of $\varepsilon_{d,a}$s and $s_a$s. Recalling that we are only interested in functions of constant weight, we pick up the following results in this direction.
+\begin{lemma} \label{lem:const-weight-exs}
+	For any positive divisor $d\mid N$ and $a\in\frac1N\ZZ/\ZZ$, the weight functions $\langle\varepsilon_{d,a}\rangle$ and $\langle s_a\rangle$ are constant. % (Here, $s_a$ only makes sense when $s\ne0$.)
+\end{lemma}
+\begin{proof}
+	This is \cite[Example, p.~343]{deligne-periods}. Note $s_a=\varepsilon_{1,a}$ when $a\ne0$, so we are reduced to the considering $\varepsilon_{d,a}$s. Before doing any computation, we note that we will write $[q]$ to be the representative in $[0,1)$ of an element $q\in\QQ/\ZZ$. We now proceed in steps.
+	\begin{enumerate}
+		\item For any $u\in(\ZZ/N\ZZ)^\times$, we find $v$ such that $uv\equiv1\pmod N$ and compute
+		\begin{align*}
+			\langle\varepsilon_{d,a}\rangle(u) &= \frac1N\sum_{b\in(\ZZ/N\ZZ)}1_{\varepsilon_{d,a}}\left(\frac{ub}N\right)[b] \\
+			&= \left[-\frac{dva}N\right]+\sum_{k=0}^{d-1}\left[\frac{va}N+\frac{vk}d\right] \\
+			&= \langle\varepsilon_{d,va}\rangle(1).
+		\end{align*}
+		Thus, we see that we would like to show that $\langle\varepsilon_{d,a}\rangle(1)=\langle\varepsilon_{d,ua}\rangle(1)$ for any $u\in(\ZZ/N\ZZ)^\times$; for example, there is nothing to show in the case where $a=0$.
+		\item Setting $e\coloneqq N/d$, we note that $\varepsilon_{d,a}=\varepsilon_{d,a+e}$ pointwise. Thus, we are reduced to the case where $a\in[0,e)$ by shifting $a$ appropriately.
+		\item Now, for any $q\in\RR/\ZZ\setminus\frac1d\ZZ/\ZZ$, we define $\varepsilon_{d,q}$ as the indicator of the set $\{[-dq]\}\cup\{q+k/d:k\in\{0,1\ldots,d-1\}\}$. We claim that $\langle\varepsilon_{d,q}\rangle(1)$ does not depend on $q$, which will complete the proof in the cases where $a/N=q$ by the first step. As in the second step, we note that $\varepsilon_{d,q}$ only depends on the class of $q$ in $\QQ/\frac1d\ZZ$, so we may assume that $q\in(0,1/d)$. Now, as in the first step, we compute
+		\begin{align*}
+			\langle\varepsilon_{d,q}\rangle(1) &= [-dq]+\sum_{k=0}^{d-1}\left[q+\frac kd\right] \\
+			&\stackrel*= (1-dq)+\sum_{k=0}^{d-1}\left(q+\frac kd\right) \\
+			&= 1+\sum_{k=0}^{d-1}\frac kd,
+		\end{align*}
+		which is independent of $q$. Here, the key equality $\stackrel*=$ holds notably because $q\in(0,1/d)$.
+		\qedhere
+	\end{enumerate}
+\end{proof}
+\begin{remark} \label{rem:weight-of-distrib-relation}
+	In fact, the above proof shows that $\langle\varepsilon_{d,a}\rangle$ is $\frac{d+1}2$ when $N\nmid da$.
+\end{remark}
+One also has a partial converse.
+\begin{proposition}[Koblitz--Ogus] \label{prop:const-weight-to-distribs}
+	Let $f\colon\frac1N\ZZ/\ZZ\to\QQ$ be a function of constant weight such that $f(0)=0$. Then $f$ is a $\QQ$-linear combination of the functions
+	\[\{\varepsilon_{d,a}:d\mid N,d\text{ is prime},N\nmid da\}\sqcup\{s_a:N\mid a\}.\]
+\end{proposition}
+\begin{proof}
+	This is \cite[Proposition, p.~344]{deligne-periods}. Approximately speaking, the idea is that we want to decompose $f$ into a sum over some cosets, which is a job for Fourier analysis. Before doing anything, we set up some notation. Let $E$ be the given set of $\varepsilon_{d,a}$s. Note that the given statement is one about some functions $E$ in a vector space spanning the full space, which can be checked by extending scalars, so we go ahead and extend scalars to $\CC$.
+	
+	Now, for a given function $f\colon\frac1N\ZZ/\ZZ\to\CC$ and a divisor $d\mid N$, we define $f_d\colon(\ZZ/d\ZZ)^\times\to\CC$ by $f_d(u)\coloneqq f(u/d)$. For example, because $f(0)=0$, we see that $f_1=0$. Continuing, for each function $f\colon\frac1N\ZZ/\ZZ\to\CC$, we define $d(f)$ to be the smallest divisor of $N$ such that $f_{d(f)}$ is nonzero, setting $d(f)=N$ if $f=0$. Lastly, for convenience, we also define $I_d\subseteq(\ZZ/N\ZZ)^\times$ (for $d\mid N$) to be the subgroup of elements $u\in(\ZZ/N\ZZ)^\times$ such that $u\equiv1\pmod d$. Note that there is a short exact sequence
+	\[1\to I_d\subseteq(\ZZ/N\ZZ)^\times\onto(\ZZ/d\ZZ)^\times\to1.\]
+	We now proceed in steps.
+	\begin{enumerate}
+		\item The general approach is to induct on $d(f)$. In particular, if $d(f)=1$, then $f=0$, so there is nothing to do. Thus, we may fix a divisor $d\mid N$ bigger than $1$, and we would like to show that any (fixed) $f$ of constant weight with $d(f)=d$ lives in $\op{span}_\CC E$, assuming this is true for any $f'$ with $d(f')<d(f)$. As such, our goal is to find $g\in\op{span}_\CC E$ such that $d(f-g)<d(f)$.
+
+		We need to do something to get ourselves off the ground, so we go ahead and specify some kinds of functions $f$ with $d(f)=d$ for which we are already able to conclude.
+		\begin{listalph}
+			\item Suppose that $f_d$ factors through $(\ZZ/d\ZZ)^\times/\{\pm1\}$. Then $f_d(-a)=f_d(a)$ for each $a$, so we may define
+			\[f'\coloneqq f-\sum_{a\in(\ZZ/d\ZZ)^\times/\{\pm1\}}f_d(a)s_{a/d}.\]
+			By construction, $f'_d=0$ while $f'_e=f_e$ for any other divisor $e\mid N$, so $d(f')<d(f)$.
+			\item Suppose that $f_d$ factors through $\big(\ZZ/\frac dp\ZZ\big)^\times$ for some prime factor $p\mid d$. Let $I_{d/p,d}$ be the kernel of the projection $(\ZZ/d\ZZ)^\times\onto\big(\ZZ/\frac dp\ZZ\big)^\times$ so that $f_d$ is invariant under $I_{d/p,d}$. Now, for each $a\in(\ZZ/d\ZZ)^\times$, we note that
+			\[\frac adI_{d/p,d}=\left(\left\{\frac{d-pa}d\right\}\cup\left\{\frac ad+\frac kp:k\in\{0,\ldots,p-1\}\right\}\right)\cap\frac1d(\ZZ/d\ZZ)^\times\]
+			because both sides are simply the elements of the form $\frac bd$ where $b\in(\ZZ/d\ZZ)^\times$ has $a\equiv b\pmod{\frac dp}$. Thus, as in (a), we may subtract out suitable multiples of $\varepsilon_{p,a}$s from $f$ to cause $f_d$ to vanish while not changing $f_e$ for any $e>d$, thereby making $d(f)$ smaller.
+		\end{listalph}
+		In the remaining steps, we will show that any $f_d$ is a linear combination of functions of the type described in (a) and (b), which completes the induction and thus the proof.
+
+		\item The aforementioned goal will be achieved via Fourier analysis. Discrete Fourier analysis allows one to write $f_d$ as a linear combination of characters $\chi\colon(\ZZ/d\ZZ)^\times\to\CC^\times$, writing
+		\[f=\sum_{\chi\colon(\ZZ/d\ZZ)^\times\to\CC^\times}\langle f,\chi_d\rangle\chi.\]
+		Because we want to show $f_d$ is a linear combination of functions which factor through $(\ZZ/d\ZZ)^\times/\{\pm1\}$ or $\big(\ZZ/\frac dp\ZZ\big)^\times$, we may as well show that $f_d$ is a linear combination of even and imprimitive characters. Taking the contraposition, we must show $\langle f_d,\chi_d\rangle=0$ for any odd primitive character $\chi_d\colon(\ZZ/d\ZZ)^\times\to\CC^\times$.
+
+		\item Forget the context of the previous step for a sentence. Continuing with the Fourier analysis, we will show in the next step that any function $f\colon\frac1N\ZZ/\ZZ\to\CC$ and any character $\widetilde\chi\colon(\ZZ/N\ZZ)^\times\to\CC^\times$ has
+		\begin{equation}
+			\langle\langle f\rangle,\widetilde\chi\rangle=\sum_{\substack{d\mid N\\\widetilde\chi|_{I_d}=1}}-L(0,\chi_d)\left|I_d\right|\langle f_d,\chi_d\rangle, \label{eq:fourier-weight-eq}
+		\end{equation}
+		where $\chi_d\colon(\ZZ/d\ZZ)^\times\to\CC^\times$ is the character induced from $\widetilde\chi$. Let's explain how this completes the proof, returning to the context of the previous step.
+
+		We apply \eqref{eq:fourier-weight-eq} to our $f$ and some character $\widetilde\chi\colon(\ZZ/N\ZZ)^\times\to\CC^\times$ induced from a chosen odd primitive character $\chi_d\colon(\ZZ/d\ZZ)^\times$; we want to show that $\langle f_d,\chi_d\rangle=0$. Let's look at both sides of \eqref{eq:fourier-weight-eq}.
+		\begin{itemize}
+			\item Because $\langle f\rangle$ is constant and $\widetilde\chi$ is nontrivial, the left-hand side $\langle\langle f\rangle,\widetilde\chi\rangle$ vanishes.
+			\item On the other hand, the right-hand side sees contributions only from divisors $e\mid N$ for which $I_e\subseteq\ker\widetilde\chi$. But then the image of $I_e$ in $(\ZZ/d\ZZ)^\times$ will be contained in $\ker\chi_d$, which forces $I_e\subseteq I_d$ because $\ker\chi_d$ is trivial (because $\chi_d$ is primitive). Thus, our sum only consider divisors $e\mid d$, but because $d(f)=d$, we see that $f_e=0$ whenever $e<d$. In total, our right-hand side features only the term $-L(0,\chi_d)\left|I_d\right|\langle f_d,\chi_d\rangle$.
+		\end{itemize}
+		The above two points combine to imply $-L(0,\chi_d)\left|I_d\right|\langle f_d,\chi_d\rangle=0$, so $\langle f_d,\chi_d\rangle=0$ because $\chi_d$ being odd and primitive implies $L(0,\chi_d)\ne0$. (Namely, $L(0,\chi_d)\ne0$ by combining the functional equation for this Dirichlet $L$-function with the non-vanishing result \Cref{prop:hecke-nonvanish}.)
+
+		\item It remains to check the equality \eqref{eq:fourier-weight-eq}. This is a direct computation. Expanding everything out, we see
+		\[\langle\langle f\rangle,\widetilde\chi\rangle=\frac1N\sum_{\substack{u\in(\ZZ/N\ZZ)^\times\\a\in\ZZ/N\ZZ}}\frac{\langle a\rangle}N f\left(\frac{au}N\right)\ov\chi(u).\]
+		In order to make $f_d$s appear, we stratify the sum over $a$, writing
+		\[\langle\langle f\rangle,\widetilde\chi\rangle=\sum_{d\mid N}\frac1d\sum_{\substack{u\in(\ZZ/N\ZZ)^\times\\v\in(\ZZ/d\ZZ)^\times}}\langle v\rangle f_d\left(uv\right)\ov\chi(u).\]
+		Eventually, the sum over $v$ will turn into a term like $\langle f_d,\chi_d\rangle$, so we need to get rid of the sum over $u$. Let $U_d'\subseteq(\ZZ/N\ZZ)^\times$ be a set of coset representatives for $(\ZZ/N\ZZ)^\times/I_d$ so that $(\ZZ/N\ZZ)^\times=U_d'I_d$. Then the internal sum over $u$ looks like
+		\[\sum_{\substack{u'\in U_d'\\u\in I_d}}f_d(uu'v)\ov\chi(uu').\]
+		Note $f_d(uu'v)=f_d(u'v)$, so we may sum $\ov\chi$ over just $u$ alone. If $I_d\not\subseteq\ker\chi$, then this sum over $u$ vanishes; otherwise, the sum over $u$ is $\left|I_d\right|$, so the total sum is
+		\[\sum_{u'\in U_d'}f_d(u'v)\ov\chi(u')\left|I_d\right|=\chi_d(v)\left|I_d\right|\langle f_d,\chi_d\rangle.\]
+		Plugging this back in, we see
+		\[\langle\langle f\rangle,\widetilde\chi\rangle=\sum_{d\mid N}\Bigg(\frac1d\sum_{v\in(\ZZ/d\ZZ)^\times}\langle v\rangle\chi_d(v)\Bigg)\left|I_d\right|\langle f_d,\chi_d\rangle.\]
+		The claim now follows by \cite[Proposition~4.1, Theorem~4.2]{washington-cyclotomic-field}.
+		\qedhere
+	\end{enumerate}
+\end{proof}
+\begin{corollary} \label{cor:unrefined-gamma-alg}
+	Let $f\colon\frac1N\ZZ/\ZZ\to\ZZ$ be a function of constant weight $w$. Then
+	\[\pi^{-w}\Gamma(f)\in\ov\QQ.\]
+\end{corollary}
+\begin{proof}
+	By adding or subtracting $1_0$s (which have weight $0$), we may assume that $f(0)=0$. The hypothesis and conclusion are $\QQ$-linear in $f$ (note that fractional powers are permitted in an algebraicity question), so \Cref{prop:const-weight-to-distribs} tells us that it is enough to check the result for $f$ being one of the $\varepsilon_{d,a}$s in the statement; recall from \Cref{rem:weight-of-distrib-relation} that $\langle\varepsilon_{d,a}\rangle=\frac{d+1}2$.
+
+	In fact, for any divisor $d\mid N$ and choice of $a\in\ZZ/N\ZZ$ with $N\nmid da$, we claim that $\pi^{-w}\Gamma(\varepsilon_{d,a})\in\ov\QQ^\times$, where $w=\frac{d+1}2$ is the weight. Indeed, by combining the reflection and multiplication formulae (\Cref{prop:gamma-prod-props}), we see that $\Gamma(\varepsilon_{d,a})$ is
+	\[\Gamma\left(\frac{N-da}N\right)\prod_{k=0}^{d-1}\Gamma\left(\frac aN+\frac kd\right)\equiv\pi^{(d+1)/2}\pmod{\ov\QQ^\times},\]
+	so the result follows.
+\end{proof}
+
+\subsection{The Universal Distribution}
+This section follows \cite{kubert-distribution}. We are now permitted to make the following definition.
+\begin{definition}[distribution]
+	A \textit{distribution relation} is an element of $\ZZ\left[\frac1N\ZZ/\ZZ\right]$ of the form
+	\[\ov a-\sum_{\substack{b\in\frac1N\ZZ/\ZZ\\db=a}}\ov b,\]
+	where $d\mid N$ is a positive divisor. A \textit{distrubtion} is a function $f\colon\frac1N\ZZ/\ZZ\to A$ to an abelian group $A$ whose natural extension to $\ZZ\left[\frac1N\ZZ/\ZZ\right]$ vanishes on all distribution relations. A distribution is \textit{odd} if and only if it also satisfies $f(-a/N)=-f(a/N)$ for all $a$.
+\end{definition}
+\begin{example}[universal] \label{ex:universal-distribution}
+	Let $U_N$ be the abelian group given by taking the quotient of $\ZZ\left[\frac1N\ZZ/\ZZ\right]$ by the subgroup generated by the distribution relations. Then there is a natural inclusion $i\colon\frac1N\ZZ/\ZZ\to U_N$, which we see is a distribution by construction. In fact, we see that every distribution $f\colon\frac1N\ZZ/\ZZ\to A$ factors uniquely through $i$, so $i$ is initial in the category of distributions.
+\end{example}
+\begin{example} \label{ex:gamma-as-distribution}
+	By \Cref{prop:gamma-prod-props}, the function $\frac1{\sqrt{2\pi}}\Gamma\colon\QQ/\ZZ\to\CC/\ov\QQ$ is an odd distribution. Namely, this function descends to $\QQ/\ZZ$ by the translation property, it is a distribution by the multiplication formula, and it is odd by the reflection formula.
+\end{example}
+\Cref{ex:gamma-as-distribution} explains why we are discussing distributions in this section: products of $\Gamma$s can be tracked through as satisfying these distribution relations. We also remark that integer-valued functions of constant weight $0$ live a new life here.
+\begin{lemma} \label{lem:const-weight-as-odd-distrib}
+	Let $D_N^-\subseteq\ZZ\left[\frac1N\ZZ/\ZZ\right]$ be the $\ZZ$-module generated by the distribution relations and the elements $\ov a+\ov{-a}$ and $\ov0$. After identifying $\ZZ\left[\frac1N\ZZ/\ZZ\right]$ with functions $\frac1N\ZZ/\ZZ\to\ZZ$, we see $D_N^-$ is generated by the elements $\ov0$ and $\varepsilon_{d,a}$ where $d\mid N$ is a divisor and $a\in(\ZZ/N\ZZ)$.
+\end{lemma}
+\begin{proof}
+	For nonzero $a$, note that $\varepsilon_{1,a}$ is simply the generator $\ov{a/N}+\ov{-a/N}$, and $\varepsilon_{d,a}$ produces the distribution relation
+	\[-\varepsilon_{d,a}+\varepsilon_{1,da}=\overline{\frac{da}N}-\sum_{k=0}^{d-1}\overline{\frac aN+\frac kd}.\]
+	Thus, up to adding or subtracting some $\varepsilon_{1,\bullet}$, we see that the distribution relations are in bijection with the $\varepsilon_{d,a}$s, so these elements generate the same subgroup of $\ZZ\left[\frac1N\ZZ/\ZZ\right]$.
+\end{proof}
+\begin{remark} \label{rem:const-weight-as-odd-prime-distrib}
+	It is not hard to see that one may inductively write $\varepsilon_{d,a}$s as a $\ZZ$-linear combination of $\varepsilon_{p,a}$s where $p$ is a prime. (For that matter, one can inductively write distribution relations in terms of ones where the divisor $d\mid N$ is prime.) The point is that we really only have to consider $\varepsilon_{p,a}$s (with $p$ prime) and $\varepsilon_{1,a}$s in \Cref{lem:const-weight-as-odd-distrib}.
+\end{remark}
+The goal of the present subsection is to show the following structure result \cite[Theorem~1.8]{kubert-distribution}.
+\begin{theorem}[Kubert] \label{thm:free-abelian-distribution}
+	Let $i\colon\frac1N\ZZ/\ZZ\to U_N$ be an initial distribution. Then $U_N$ is a free abelian group of rank $\varphi(N)$.
+\end{theorem}
+\begin{proof}[Proof from \Cref{prop:free-abelian-distribution-upper,prop:free-abelian-distribution-lower}]
+	We will go ahead and outline the argument, referring forward to results we will prove in the sequel. There are two main steps.
+	\begin{enumerate}
+		\item In \Cref{prop:free-abelian-distribution-upper}, we show that any distribution $f$ has $\langle\im f\rangle$ admitting a generating set of $\varphi(N)$ elements.
+		\item In \Cref{prop:free-abelian-distribution-lower}, we exhibit a distribution $r$ with $\dim_\QQ\langle\im r\rangle_\QQ=\varphi(N)$.
+	\end{enumerate}
+	Let's quickly explain why these two implications allow us to conclude the proof. By the first step, we see that there is a surjection $\ZZ^{\varphi(N)}\onto U_N$ of abelian groups, and we will be done as soon as we know that this map is an isomorphism. Well, because $i$ is an initial distribution, we see that the distribution $r$ factors through $i$, meaning that there is an induced surjection
+	\[\ZZ^{\varphi(N)}\onto U_N\onto\langle\im r\rangle.\]
+	However, this composite must become an isomorphism after tensoring with $\QQ$ (for dimension reasons) by the second step, so the composite must in particular be injective. We conclude that the map $\ZZ^{\varphi(N)}\onto U_N$ is an isomorphism.
+\end{proof}
+It remains to provide the proofs of \Cref{prop:free-abelian-distribution-upper,prop:free-abelian-distribution-lower}. Before going further, we need some notation.
+\begin{notation}
+	By the Chinese remainder theorem, summation provides an isomorphism
+	\[\sum_{p\mid N}\frac1{p^{\nu_p(N)}}\ZZ/\ZZ\to\frac1N\ZZ/\ZZ.\]
+	For any $s\in\frac1N\ZZ/\ZZ$ and $p\mid N$, we define $s_p\in\frac1{p^{\nu_p(N)}}\ZZ/\ZZ$ to be the corresponding $p$-component. Similarly, if we have $\frac aN\in\frac1N\ZZ/\ZZ$, we let $\frac{a_p}{p^{\nu_p(N)}}$ be the $p$-component.
+\end{notation}
+Because it is faster, we now proceed with \Cref{prop:free-abelian-distribution-lower}.
+\begin{proposition} \label{prop:free-abelian-distribution-upper}
+	Let $f\colon\frac1N\ZZ/\ZZ\to A$ be a distribution. Then $\langle\im f\rangle$ admits a generating set of $\varphi(N)$ elements.
+\end{proposition}
+\begin{proof}
+	This result is \cite[Proposition~1.8]{kubert-distribution}, though we follow the isomorphic proof given in \cite[Proposition~12.10]{washington-cyclotomic-field}. The idea is to use the distribution relations to minimize the number of generators. There are two steps.
+	\begin{enumerate}
+		\item We claim that the collection
+		\[S_N\coloneqq\left\{f\left(\frac aN\right):a_p=0\text{ or }\gcd(a_p,p)=1\right\}\]
+		generates $\langle\im f\rangle$. We proceed by induction on the number of primes factors of $N$, where the statement has little content if $N=1$.
+		
+		Now, for a given $N$, choose some $a/N\in\frac1N\ZZ/\ZZ$, and we want to show that $f(a/N)\in\langle S_N\rangle$. Quickly, if $a_p=0$ for some prime $p\mid N$, then in fact $a/N\in\frac1d\ZZ/\ZZ$ for some divisor $d\mid N$ with strictly fewer prime factors, so $f(a/N)\in\langle S_d\rangle$ by the induction.
+		
+		Thus, we may assume that $a_p\ne0$ for all $p\mid N$. In this case, we hope to use a distribution relation to find $f(a/N)$ in $\langle S_N\rangle$. In particular, note that we can write $a=dx$ where $d\mid N$ and $\gcd(x,N)=1$: indeed, simply write $\frac aN$ in reduced terms as $\frac xe$, and then $a=\frac Ne\cdot x$ is a suitable expansion. (In particular, $e$ is the order of $a$, so $p\mid e$ for all primes $e$, so $\gcd(x,e)=1$ implies $\gcd(x,N)=1$.) Thus, $f(a/N)$ equals
+		\[f\left(d\cdot\frac xN\right)=\sum_{k=0}^{d-1}f\left(\frac xN+\frac kd\right),\]
+		and now every term in the right-hand side lives in $S_N$.
+
+		\item We claim that the collection
+		\[T_N\coloneqq\left\{f\left(\frac aN\right):a_p=0,\text{ or }a_p\ne1\text{ and }\gcd(a_p,p)=1\right\}\]
+		generates $\langle\im f\rangle$. Once again, we proceed by induction on the number of prime factors of $N$, where the statement has little content if $N=1$. Note that the previous step tells us that it is enough to check that $S_N\subseteq\langle T_N\rangle$.
+
+		As such, we go ahead and pick up some $f(a/N)\in S_N$, and to show that $f(a/N)\in\langle T_N\rangle$. As in the prior step, we note that having $a_p=0$ for any prime $p$ implies that $f(a/N)\in S_d$ for some $d\mid N$ with fewer prime factors, yielding $f(a/N)\in\langle T_N\rangle$ by the induction. Thus, we may assume that $a_p\ne0$ for all $p$.
+		
+		We will induct on the number $\omega(a/N)$ of primes $p$ such that $a_p=1$. Of course, if $\omega(a/N)=0$, then $a/N\in T_N$ already, so there is nothing to do. Otherwise, suppose that our $a/N$ has at least one prime $q\mid N$ with $a_q=1$. We now use the distribution relations twice: set
+		\[\frac bM\coloneqq\sum_{\substack{p\mid N\\p\ne q}}\frac{a_p}{p^{\nu_p(N)}},\]
+		and then we note that we have two equalities
+		\begin{align*}
+			f\left(q^{\nu_q(N)}\cdot\frac bM\right) &= \sum_{k=0}^{q^{\nu_q(N)}-1}f\left(\frac bM+\frac k{q^{\nu_q(N)}}\right), \\
+			f\left(q^{\nu_q(N)-1}\cdot\frac bM\right) &= \sum_{k=0}^{q^{\nu_q(N)-1}-1}f\left(\frac bM+\frac{qk}{q^{\nu_q(N)}}\right).
+		\end{align*}
+		Both left-hand sides are in $\langle T_N\rangle$ by the induction on the number of prime factors. Now, subtracting these two equations produces the relation
+		\[\sum_{k\in(\ZZ/q^{\nu_q(N)})^\times}f\left(\frac bM+\frac k{q^{\nu_q(N)}}\right)\in\langle T_N\rangle.\]
+		Note $\frac aN=\frac bM+\frac1{q^{\nu_q(N)}}$ is the first term in this sum while the other terms in the sum have strictly smaller $\omega$ (because the $q$-component is not equal to $1$), so we are done by the induction.
+	\end{enumerate}
+	Note that the second step completes the proof because $\#S_N$ equals
+	\[\prod_{p\mid N}\#\left(\{0\}\cup\left(\ZZ/p^{\nu_p(N)}\ZZ\right)^\times\setminus\{1\}\right),\]
+	which is simply $\#(\ZZ/N\ZZ)^\times=\varphi(N)$ by the Chinese remainder theorem.
+\end{proof}
+\begin{remark}
+	The proof of \Cref{prop:free-abelian-distribution-upper} actually gives explicit generators of $\im f$. One can unwind this (and the proof of \Cref{thm:free-abelian-distribution}) to give explicit generators of $U_N$ defined in \Cref{ex:universal-distribution}.
+\end{remark}
+We now turn to the construction for \Cref{prop:free-abelian-distribution-lower}.
+\begin{proposition} \label{prop:free-abelian-distribution-lower}
+	There exists a distribution $r\colon\frac1N\ZZ/\ZZ\to A$ such that $\dim_\QQ\langle\im r\rangle_\QQ=\varphi(N)$.
+\end{proposition}
+\begin{proof}
+	To understand why this is difficult, we note that we are basically trying to compute the dimension of the vector space $U_{N,\QQ}$, where $U_N$ is the rather horrendous abelian group constructed \Cref{ex:universal-distribution}. Technically, \Cref{prop:free-abelian-distribution-upper} tells us what should be a basis, but this vector space has so many relations that it is difficult to determine if these elements are actually linearly independent. The usual proof (in \cite[Chapter~12]{washington-cyclotomic-field} or \cite[Section~3]{kubert-distribution}) uses cyclotomy theory and some facts about character sums, reducing the task to a non-vanishing of some special value. These topics are moderately tangential to this thesis, so we will not discuss them. Instead, we will follow \cite[Section~4]{kubert-distribution} and provide a direct combinatorial construction.
+	
+	Our target space will be $A_N\coloneqq\QQ\left[(\ZZ/N\ZZ)^\times\right]$, and we note that $(\ZZ/N\ZZ)^\times$ has a natural permutation action on $A_N$. Throughout, $\op{ord}$ denotes the additive order of a group element. We require two elements of $A_N$.
+	\begin{itemize}
+		\item For $s\in\frac1N\ZZ/\ZZ$, we define
+		\[X_N(s)\coloneqq\sum_{\substack{x\in(\ZZ/N\ZZ)^\times\\x\cdot N/\op{ord}s\equiv Ns}}\ov x.\]
+		For example, if $\op{ord}s=N$, then $X_N(s)=\{Ns\}$. In general, if $s=a/d$ where $d=\op{ord}s$ so that $\gcd(a,d)=1$, then the $x$s take the form $(a+kd)$.
+		\item For prime divisors $p\mid N$, we define
+		\[Y_N(p)\coloneqq\sum_{\substack{y\in(\ZZ/N\ZZ)^\times\\py\equiv1\pmod{N/p^{\nu_p(N)}}}}\ov y.\]
+		Notably, the value of $y\in(\ZZ/N\ZZ)^\times$ only has freedom in the $p$-component, so $Y_N(p)$ has $\varphi\left(p^{\nu_p(N)}\right)$ elements.
+	\end{itemize}
+	Because $X_N(s)$ and $Y_N(p)$ are basically subsets of $(\ZZ/N\ZZ)^\times$, we may write $\#X_N(s)$ or $\#Y_N(p)$ to mean the number of their elements. We are now ready to define $r_N\colon\frac1N\ZZ/\ZZ\to\QQ\left[(\ZZ/N\ZZ)^\times\right]$ by
+	\[r_N(s)\coloneqq\frac{X_N(s)}{\varphi(N)}\prod_{p\mid\op{ord}s}\left(1-\frac{Y_N(p)}{\#Y_N(p)}\right).\]
+	It remains to run many checks on $r_N$. They are all some explicit combinatorial manipulations.
+	\begin{enumerate}
+		\item For $c\in(\ZZ/N\ZZ)^\times$, we check that $r_N(cs)=cr_N(s)$. Note that $cX_N(s)=X_N(cs)$ because both contain the $x$ such that $cxN/\ord s\equiv Ns$. It now suffices to check that
+		\[c\left(\left(1-\frac{Y_N(p)}{\#Y_N(p)}\right)\cdot X\right)\stackrel?=\left(1-\frac{Y_N(p)}{\#Y_N(p)}\right)\cdot cX\]
+		for any prime divisor $p\mid N$ and $X\in\QQ\left[(\ZZ/N\ZZ)^\times\right]$. Well, it is enough to check this claim for $X\in(\ZZ/N\ZZ)^\times$, whereupon doing some rearragnement shows that it is enough to check that $c(Y_N(p)X)=Y_N(p)(cX)$, which is true by definition of the $(\ZZ/N\ZZ)^\times$-action on $A_N$.
+
+		\item For any divisor $M\mid N$, we claim that the diagram
+		% https://q.uiver.app/#q=WzAsNCxbMCwwLCJcXGZyYWMxTVxcWlovXFxaWiJdLFsxLDAsIlxcUVFcXGxlZnRbKFxcWlovTVxcWlopXlxcdGltZXNcXHJpZ2h0XSJdLFsxLDEsIlxcUVFcXGxlZnRbKFxcWlovTlxcWlopXlxcdGltZXNcXHJpZ2h0XSJdLFswLDEsIlxcZnJhYzFOXFxaWi9cXFpaIl0sWzEsMiwiaSJdLFswLDMsIlxcc3Vic2V0ZXEiLDMseyJzdHlsZSI6eyJib2R5Ijp7Im5hbWUiOiJub25lIn0sImhlYWQiOnsibmFtZSI6Im5vbmUifX19XSxbMCwxLCJyX00iXSxbMywyLCJyX04iXV0=&macro_url=https%3A%2F%2Fraw.githubusercontent.com%2FdFoiler%2Fnotes%2Fmaster%2Fnir.tex
+		\[\begin{tikzcd}[cramped]
+			{\frac1M\ZZ/\ZZ} & {\QQ\left[(\ZZ/M\ZZ)^\times\right]} \\
+			{\frac1N\ZZ/\ZZ} & {\QQ\left[(\ZZ/N\ZZ)^\times\right]}
+			\arrow["{r_M}", from=1-1, to=1-2]
+			\arrow["\subseteq"{marking, allow upside down}, draw=none, from=1-1, to=2-1]
+			\arrow["{i}", from=1-2, to=2-2]
+			\arrow["{r_N}", from=2-1, to=2-2]
+		\end{tikzcd}\]
+		commutes, where $i$ is given by $i(\ov y)=\frac{\varphi(M)}{\varphi(N)}\sum_{x\equiv y\pmod M}\ov x$ for any $y\in(\ZZ/M\ZZ)^\times$. Note that $i$ is injective and $\QQ$-linear by construction, but it is not a ring map because it does not map $1\mapsto1$. However, the leading constant is chosen to make $i$ multiplicative: for $\ov y_1,\ov y_2\in(\ZZ/M\ZZ)^\times$, we see $i(\ov y_1)i(\ov y_2)$ equals
+		\[\left(\frac{\varphi(M)}{\varphi(N)}\right)^2\sum_{\substack{x_1\equiv y_1\pmod M\\x_2\equiv y_2\pmod M}}\ov x_1\ov x_2=\left(\frac{\varphi(M)}{\varphi(N)}\right)^2\sum_{\substack{x\equiv y_1y_2\pmod M\\x'\equiv1\pmod M}}\ov x,\]
+		where we have substituted $(x,x')=(x_1x_2,x_1/x_2)$. We conclude $i(\ov y_1)i(\ov y_2)=i(\ov y_1\ov y_2)$, an equation which extends $\QQ$-linearly to all $A_N$.
+
+		The main computation will be to compute $i(r_M(s))$ for $s\in\frac1M\ZZ/\ZZ$. Using the multiplicativity of the previous paragraph, we see
+		\[i(r_M(s))=\frac{i(X_M(s))}{\varphi(M)}\prod_{p\mid\op{ord}s}i\left(1-\frac{Y_M(p)}{\#Y_M(p)}\right).\]
+		We see that we have to compute $i(X_M(s))$ and $i(Y_M(p))$.
+		\begin{itemize}
+			\item Note $\frac{\varphi(N)}{\varphi(M)}i(X_M(s))=X_N(s)$: some $x\in(\ZZ/N\ZZ)^\times$ finds itself in $\frac{\varphi(N)}{\varphi(M)}i(X_M(s))$ if and only if $x\cdot M/\op{ord}s\equiv Ms$, which is equivalent to $x\cdot N/\op{ord}s\equiv Ns$.
+			\item We claim $\frac{i(Y_M(p))}{\#Y_M(p)}=i(1)\frac{Y_N(p)}{\#Y_N(p)}$. Note that the reduction map $Y_N(p)\to Y_M(p)$ is surjective: any $y$ with $py\equiv1\pmod{M/p^{M/\nu_p(M)}}$ may be lifted to a multiplicative inverse of $p\pmod{N/p^{N/\mu_p(N)}}$. We thus see that the support of $\frac{\varphi(N)}{\varphi(M)}i(1)Y_M(p)$ agrees with the support of $\frac{\varphi(N)}{\varphi(M)}i(Y_M(p))$; however, each element in $\frac{\varphi(N)}{\varphi(M)}i(Y_M(p))$ is overcounted by a factor of $\varphi\left(p^{\nu_p(N)}\right)/\varphi\left(p^{\nu_p(M)}\right)$ because we already had freedom in the $p$-component. Adjusting for this completes the claim.
+		\end{itemize}
+		We now see
+		\[i(r_M(s))=\frac{i(X_M(s))}{\varphi(M)}\prod_{p\mid\op{ord}s}i(1)\left(1-\frac{Y_N(p)}{\#Y_N(p)}\right).\]
+		To get rid of the factor of $i(1)$, we note that $i(X_M(s))i(1)=i(X_M(s))$ by the multiplicativity. Lastly, we may substitute $\frac{i(X_M(s))}{\varphi(M)}=\frac{X_N(s)}{\varphi(N)}$, writing
+		\[i(r_M(s))=\frac{X_N(s)}{\varphi(N)}\prod_{p\mid\op{ord}s}\left(1-\frac{Y_N(p)}{\#Y_N(p)}\right),\]
+		which is indeed $r_N(s)$.
+
+		\item We claim that $r_N$ is a distribution. Namely, for any divisor $d\mid N$ and $s\in\frac1N\ZZ/\ZZ$, we must check hat
+		\[r_N(ds)\stackrel?=\sum_{k=0}^{d-1}r_N\left(s+\frac kd\right).\]
+		We begin with a few reductions. By adjusting $s$ by some $k/d$, we may assume that $\op{ord}s$ is divisible by $d$. By inductively applying the distribution relations, we may assume that $d$ is prime. Lastly, because $i$ defined in the previous step is injective, we can pass from $r_N$ to $r_{\op{ord}s}$, allowing us to assume that $\op{ord}s=N$. We now have two cases for the prime divisor $d$ of $N$.
+		\begin{itemize}
+			\item Suppose that $d^2\mid N$. In this case, all primes dividing $\op{ord}s=N$ continue to divide $\op{ord}ds=N/d$. Additionally, $s+\frac kd$ always has order $N$, so
+			\[\sum_{k=0}^{d-1}r_N\left(s+\frac kd\right)=\Bigg(\frac1{\varphi(N)}\sum_{k=0}^{d-1}X_N\left(s+\frac kd\right)\Bigg)\prod_{p\mid N}\left(1-\frac{Y_N(p)}{\#Y_N(p)}\right).\]
+			Because $s+\frac kd$ has order $N$, we see $X_N\left(s+\frac kd\right)=\overline{N(s+\frac kd)}$. On the other hand, $X_N(ds)$ consists of the $x$ for which $dx\equiv d(Ns)$, which is equivalent to having $x=N(s+\frac kd)$. We conclude
+			\[\sum_{k=0}^{d-1}r_N\left(s+\frac kd\right)=\frac{X_N(ds)}{\varphi(N)}\prod_{p\mid N}\left(1-\frac{Y_N(p)}{\#Y_N(p)}\right),\]
+			which is $r_N(ds)$.
+			\item Suppose $d\mid N$ while $d^2\nmid N$. The same computation essentially goes through except for two caveats: $\op{ord}ds=N/d$ has one fewer prime factor, and $s+\frac kd$ need not have order $N$. In particular, the $p$-component of $s+\frac kd$ is the same as the same $p$-component of $s$, so the order of $s+\frac kd$ is either $N$ or $N/d$. Further, and we see that it will be $N/d$ only when $s+\frac kd$ has $d$-component equal to $0$ for exactly when $k$; say that $t=s+\frac{k_0}d$ is this value of $k$. Then
+			\[\sum_{k=0}^{d-1}r_N\left(s+\frac kd\right)=\frac1{\varphi(N)}\Bigg(X_N(t)+\sum_{k=1}^{d-1}X_N\left(t+\frac kd\right)\left(1-\frac{Y_N(d)}{\#Y_N(d)}\right)\Bigg)\prod_{p\mid N/d}\left(1-\frac{Y_N(p)}{\#Y_N(p)}\right).\]
+			Comparing this to $r_N(ds)=r_N(dt)$, we see that we have left to show
+			\[X_N(dt)\stackrel?=X_N(t)+\sum_{k=1}^{d-1}X_N\left(t+\frac kd\right)\left(1-\frac{Y_N(d)}{\#Y_N(d)}\right),\]
+			which is equivalent to
+			\[X_N(dt)+\frac1{\#Y_N(d)}\sum_{k=1}^{d-1}X_N\left(t+\frac kd\right)Y_N(d)\stackrel?=X_N(t)+\sum_{k=1}^{d-1}X_N\left(t+\frac kd\right).\]
+			We now must compute the various $X_N$s.
+			\begin{itemize}
+				\item Each $t+\frac kd$ has order $N$ by construction of $t$, so $X_N\left(t+\frac kd\right)=\overline{N(t+\frac kd)}$. As such, multiplying by $Y_N(d)$ will leave us with $x\in(\ZZ/N\ZZ)^\times$ such that $x\equiv{\frac Nd(t+\frac kd)}\pmod{N/d}$, which is equivalent to $x\equiv\frac Ndt\pmod{N/d}$; in particular, the sum on the left-hand side counts all these elements $\#Y_N(d)=(d-1)$ times. On the other hand, $X_N(t)$ consists of the $x$ for which $dx\equiv Nt$, which is equivalent to $x\equiv\frac Ndt\pmod{N/d}$, so
+				\[\frac1{\#Y_N(d)}\sum_{k=1}^{d-1}X_N\left(t+\frac kd\right)=X_N(t).\]
+				\item Similarly, $dt$ has order $N/d$, so $X_N(dt)$ consists of the $x\in(\ZZ/N\ZZ)^\times$ such that $dx\equiv Ndt$. Well, this is equivalent to having $x\equiv\overline{N(t+\frac kd)}$, so
+				\[X_N(dt)=\sum_{k=1}^{d-1}X_N\left(t+\frac kd\right).\]
+			\end{itemize}
+			Combining the above two points completes the computation.
+		\end{itemize}
+
+		\item We begin computing $\langle\im r_N\rangle_\QQ$. For each prime $p\mid N$, define the fractional ideal
+		\[U_p\coloneqq X_N\left(\frac{p^{\nu_p(N)}}N\right)\ZZ\left[(\ZZ/N\ZZ)^\times\right]+\left(1-\frac{Y_N(p)}{\#Y_N(p)}\right)\ZZ\left[(\ZZ/N\ZZ)^\times\right].\]
+		We claim that $\langle\im r_N\rangle$ equals $\prod_{p\mid N}U_p$. Because $r_N$ respects the $(\ZZ/N\ZZ)^\times$-action, it is enough to check that $\langle\im r_N\rangle$ is given by generators of this ideal. Well, a generic generator of $\prod_{p\mid N}U_p$ looks like
+		\[\prod_{p\nmid M}X_N\left(\frac{p^{\nu_p(N)}}N\right)\prod_{p\mid M}\left(1-\frac{Y_N(p)}{\#Y_N(p)}\right),\]
+		where $M$ is some divisor of $N$; in fact, we may as well assume $\nu_p(M)\in\{0,\nu_p(N)\}$ for all primes $p$. We claim that the above element is $\varphi(N)r_N(1/M)$; this claim completes this step. To show the claim, we note the right product is already seen in $r_N(1/M)$. It thus remains to show that
+		\[\prod_{p\nmid M}X_N\left(\frac{p^{\nu_p(N)}}N\right)\stackrel?=X_N\left(\frac1M\right).\]
+		Indeed, the left-hand side is made of products $\prod_{p\nmid M}x_p$ where $x_p\cdot p^{\nu_p(N)}\equiv p^{\nu_p(N)}\pmod N$, which is equivalent to a condition on $x_p\equiv1\pmod{N/p^{\nu_p(N)}}$. By the Chinese remainder theorem, such products are in bijection with $x$s such that $x\equiv1\pmod{N/M}$, which is $X_N(1/M)$.
+
+		\item We claim that $(U_p)_\QQ=\QQ\left[(\ZZ/N\ZZ)^\times\right]$. Because $(\#Y_N(p)-Y_N(p))\in U_p$, it is enough to check that $Y_N(p)\in U_p$. In fact, we claim that $Y_N(p)$ is a multiple of $X_N\left(p^{\nu_p(N)}/N\right)$, which will complete the proof. Well, $Y_N(p)$ has $x$ such that $px\equiv1\pmod{N/p^{\nu_p(N)}}$, and $X_N\left(p^{\nu_p(N)}/N\right)$ has $x$ such that $x\equiv1\pmod{N/p^{\nu_p(N)}}$ as discussed in the previous step. Thus, we see
+		\[p'X_N\left(\frac{p^{\nu_p(N)}}N\right)=Y_N(p),\]
+		where $p'\in(\ZZ/N\ZZ)^\times$ is chosen so that $p'\equiv p\pmod{N/p^{\nu_p(N)}}$, and the claim follows.
+	\end{enumerate}
+	Thus, we have checked that $r_N$ is a distribution, and the last two steps check that $\langle\im r_N\rangle_\QQ=A_N$, so $\dim\langle\im r_N\rangle_\QQ=\varphi(N)$ follows.
+\end{proof}
+
+\subsection{Cohomology of the Universal Distribution}
+Let $i\colon\frac1N\ZZ/\ZZ\to U_N$ be the initial distribution of \Cref{ex:universal-distribution}, and further let $U_N^-$ be the quotient of $U_N$ by the elements $\langle\ov a+\ov{-a}\rangle_{a\in\frac1N\ZZ/\ZZ}$. The quotient $U_N^-$ is of interest to us because $\Gamma$ factors through $U_N^-$ by combining the reflection formula (\Cref{prop:gamma-prod-props}) with \Cref{ex:gamma-as-distribution}.
+
+We are now ready to state the main result of this subsection.
+\begin{theorem} \label{thm:distribution-torsion}
+	Let $i\colon\frac1N\ZZ/\ZZ\to U_N$ be the initial distribution of \Cref{ex:universal-distribution}, and further let $U_N^-$ be the quotient of $U_N$ by the elements $\langle\ov a+\ov{-a}\rangle_{a\in\frac1N\ZZ/\ZZ}$.
+	\begin{listalph}
+		\item The torsion subgroup $U_{N,\mathrm{tors}}^-$ is $2$-torsion.
+		\item If $N$ is odd or divisible by $4$, then $\dim_{\FF_2}U_{N,\mathrm{tors}}^-=2^{\omega(N)-1}$, where $\omega(N)$ is the number of distinct prime factors of $N$.
+	\end{listalph}
+\end{theorem}
+\begin{proof}[Proof from \Cref{prop:odd-distrib-2,prop:odd-distrib-rank}]
+	As in the previous subsection, we go ahead and outline the argument, referring forward to results we will prove in the sequel. There are two steps: in \Cref{prop:odd-distrib-2}, we show that $U_{N,\mathrm{tors}}^-$ is isomorphic to the cohomology group $\mathrm H^2(\langle\pm1\rangle,U_N)$, thereby proving (a). The dimension computation for this cohomology group is carried out in \Cref{prop:odd-distrib-rank}.
+\end{proof}
+We now turn our attention to the proofs of \Cref{prop:odd-distrib-2} and \Cref{prop:odd-distrib-rank}.
+\begin{proposition} \label{prop:odd-distrib-2}
+	Let $i\colon\frac1N\ZZ/\ZZ\to U_N$ be the initial distribution of \Cref{ex:universal-distribution}. Further, let $U_N^-$ be the quotient by the elements $\langle\ov a+\ov{-a}\rangle_{a\in\frac1N\ZZ/\ZZ}$. Then the torsion subgroup of $U_N^-$ is isomorphic to
+	\[\mathrm H^2(\langle\pm1\rangle,U_N).\]
+\end{proposition}
+\begin{proof}
+	This is an application of \Cref{thm:free-abelian-distribution}. We follow \cite[Proposition~6.3.3]{ggl-fermat}. Note that the action of $\langle\pm1\rangle\subseteq(\ZZ/N\ZZ)^\times$ on $\frac1N\ZZ/\ZZ$ extends to $U_N$. We will actually show that $U_{N,\mathrm{tors}}^-$ is isomorphic to the Tate cohomology group
+	\[\mathrm H^0_{\mathrm T}(\langle\pm1\rangle,U_N)=\frac{U_N^{\langle\pm1\rangle}}{\op N_{\langle\pm1\rangle}(U_N)},\]
+	which is enough because the group cohomology of a cyclic group is $2$-periodic. We have two inclusions.
+	\begin{itemize}
+		\item On one hand, the denominator of $\mathrm H^0_{\mathrm T}(\langle\pm1\rangle,U_N)$ is basically modding out by the elements $\ov a+\ov{-a}$. Thus, we have an inclusion $\mathrm H^0_{\mathrm T}(\langle\pm1\rangle,U_N)\subseteq U_N^-$, so $\mathrm H^0_{\mathrm T}(\langle\pm1\rangle,U_N)\subseteq U_{N,\mathrm{tors}}^-$ because Tate cohomology groups are torsion.
+
+		\item On the other hand, choose some $f\in U_{N,\mathrm{tors}}^-$, and we would like to check that $f\in U_N^{\langle\pm1\rangle}$. Well, we are given that there is some $D>0$ such that $Df$ vanishes in $U_N^-$, so $Df=(\ov 1+\ov{-1})g$ (in $U_N$) for some $g\in U_N$. However, this implies that $(\ov 1-\ov{-1})Df=0$ in $U_N$, which requires $(\ov 1-\ov{-1})f=0$ because $U_N$ is torsion-free by \Cref{thm:free-abelian-distribution}! We conclude that $f\in U_N^{\langle\pm1\rangle}$.
+		\qedhere
+	\end{itemize}
+\end{proof}
+Before proceeding with the long proof of \Cref{prop:odd-distrib-rank}, we pick up a group-theoretic lemma.
+\begin{lemma} \label{lem:free-invariant-coinvariant}
+	Fix finite abelian groups $G$ and $H$. If $M$ is a free $\ZZ[G\times H]$-module, then $M^H$ and $M/M^H$ are both free $\ZZ[G]$-modules.
+\end{lemma}
+\begin{proof}
+	Because $M$ is a module over $G\times H$, we see that $M^H$ is still a $G$-module. Quickly, note that $M$ is a sum of $\ZZ[G\times H]$s, so because taking $(\cdot)^H$ and the quotient are both additive functors, it suffices to check the result for $M=\ZZ[G\times H]$. We now show that $M^H$ and $M/M^H$ are free independently.
+	\begin{itemize}
+		\item We show that $M^H$ is a free $\ZZ[G]$-module. Indeed, some element $\sum_{(g,h)}a_{(g,h)}(g,h)$ is $H$-invariant if and only if $a_{(g,h)}=a_{(g,h')}$ always, in which case we see that
+		\[\sum_{(g,h)\in G\times H}a_{(g,h)}(g,h)=\sum_{g\in G}\Bigg(a_{(g,1)}(g,1)\sum_{h\in H}(1,h)\Bigg).\]
+		Thus, we see that the map $\ZZ[G]\to\ZZ[G\times H]^H$ given by multiplying by $\sum_h(1,h)$ is an isomorphism.
+		\item We show that $M/M^H$ is a free $\ZZ[G]$-module. Quickly, observe that $\ZZ[G\times H]$ is free over $\ZZ[G]$ with a basis given by $\{(1,h)\}_{h\in H}$, so we may apply a linear transformation to see that $\ZZ[G\times H]$ is free over $\ZZ[G]$ with basis instead given by
+		\[\left\{\sum_h(1,h)\right\}\sqcup\{(1,h)\}_{h\ne1}.\]
+		The first element is a basis of $\ZZ[G\times H]^H$ over $\ZZ[G]$ by the previous point, so we see that the quotient is free over $\ZZ[G]$ with basis given by the remaining entries.
+		\qedhere
+	\end{itemize}
+\end{proof}
+\begin{proposition}[Kubert] \label{prop:odd-distrib-rank}
+	Fix a positive integer $N$ which is odd or divisible by $4$, and let $i\colon\frac1N\ZZ/\ZZ\to U_N$ be the initial distribution of \Cref{ex:universal-distribution}. Then
+	\[\dim_{\FF_2}\mathrm H_{\mathrm T}^\bullet(\langle\pm1\rangle,U_N)=2^{\omega(N)-1},\]
+	where $\omega(N)$ is the number of distinct prime factors of $N$.
+\end{proposition}
+\begin{proof}
+	Our argument follows \cite[Section~2]{kubert-cohom}. We continue with the set-up of \Cref{prop:free-abelian-distribution-lower}, but we drop all the subscript $N$s because we will work with fixed $N$ throughout. Thus, we may also set $\nu_p\coloneqq\nu_p(N)$ for each prime $p$. In particular, by the universal property (and as outlined in \Cref{thm:free-abelian-distribution}), we see that $U_N$ is isomorphic to the image of induced map $r\colon\ZZ\left[\frac1N\ZZ/\ZZ\right]\to\QQ\left[(\ZZ/N\ZZ)^\times\right]$.
+	
+	We will need a few other pieces of notation. For bookkeeping reasons, we say that a divisor $M\mid N$ is admissible if and only if $\nu_p(M)\in\{0,\nu_p\}$ for all primes $p$; roughly speaking, $M$ keeps track of a subset of primes dividing $N$. For example, for each admissible divisor $M\mid N$, we define
+	\[U(M)\coloneqq\prod_{p\mid M}U_p,\]
+	where $U_p$ is the ideal defined at the end of the proof of \Cref{prop:free-abelian-distribution-lower}; for example, $U(1)=\ZZ\left[(\ZZ/N\ZZ)^\times\right]$ and $U(N)=\im r$. In short, $U(M)$s will allow us to make certain inductive arguments.
+
+	Continuing, for each admissible divisor $M\mid N$, we define the subgroup $C(M)\subseteq(\ZZ/N\ZZ)^\times$ by
+	\[C(M)\coloneqq\{a\in(\ZZ/N\ZZ)^\times:a\equiv1\pmod{N/M}\}.\]
+	Thus, $C(M)\cong\prod_{p\mid M}(\ZZ/p^{\nu_p}\ZZ)^\times$ is isomorphic to $(\ZZ/M\ZZ)^\times$. For example, $C(1)=(\ZZ/N\ZZ)^\times$ and $C(N)=\{1\}$. We also remark that the sum $Y(p)$ is fixed by $C(p^{\nu_p})$ by contruction (in fact, the set admits a transitive action), and a quick expansion of the definitions reveals that $X\left(p^{\nu_p}/N\right)=C(p^{\nu_p})$. As usual, we may identify $C(p^{\nu_p})$ with an element of $\ZZ\left[(\ZZ/N\ZZ)^\times\right]$ given by $\sum_{a\in C(p^{\nu_p})}\ov a$.
+
+	In the end, we will show that
+	\[\dim_{\FF_2}\mathrm H^\bullet_{\mathrm T}\left(\langle\pm1\rangle,U(M)^{C(N/M)}\right)\stackrel?=2^{\omega(M)-1}\]
+	for any admissible divisor $M\mid N$ bigger than $1$, via an induction; taking $M=N$ then produces the desired result. Our proof now proceeds in many steps. We remark that our first few steps are picking up some technica tools used later.
+	\begin{enumerate}
+		\item Let $\varepsilon_p\in\QQ\left[(\ZZ/N\ZZ)^\times\right]$ be the idempotent $\frac1{\#C(p^{\nu_p})}\sum_{a\in C(p^{\nu_p})}\ov a$. Then we claim that $x\in\QQ\left[(\ZZ/N\ZZ)^\times\right]$ is fixed by $C(p^{\nu_p})$ if and only if $(1-\varepsilon_p)x=0$. This is some abstract group theory. In one direction, if $x$ is fixed by $C(p^{\nu_p})$, then
+		\[\frac1{\#C(p)}\sum_{a\in C(p^{\nu_p})}ax=\frac1{\#C(p^{\nu_p})}\sum_{a\in C(p^{\nu_p})}x\]
+		is simply $x$. In the other direction, if $(1-\varepsilon_p)x=0$, then $x=\varepsilon_px$; however, $a\varepsilon_p=\varepsilon_p$ for all $a\in C(p^{\nu_p})$ by a rearrangement of the terms in $\varepsilon_p$, so we see that $\varepsilon_px$ is certainly fixed by $C(p^{\nu_p})$.
+
+		\item For an admissible divisor $M\mid N$ and prime $p\mid(N/M)$, we claim that $(1-\varepsilon_p)U\left(Mp^{\nu_p}\right)=(1-\varepsilon_p)U_M$ and
+		\[U\left(Mp^{\nu_p}\right)^{C\left(p^{\nu_p}\right)}\stackrel?=C(p^{\nu_p})\cdot U(M)+\left(1-\frac{Y(p)}{\#Y(p)}\right)U(M)^{C\left(p^{\nu_p}\right)},\]
+		where $C(p)$ refers to the element $\sum_{a\in C(p)}\ov a$ by abuse of notation.
+		
+		For this, we note $U\left(Mp^{\nu_p}\right)=U_pU(M)$ by definition, so
+		\[U\left(Mp^{\nu_p}\right)=C\left(p^{\nu_p}\right)U(M)+\left(1-\frac{Y(p)}{\#Y(p)}\right)U(M).\]
+		The first and the second claimed equalities are linked by the previous step, which tells us that we are interested in the kernel of $(1-\varepsilon_p)$. As such, let's look at how $(1-\varepsilon_p)$ behaves on each term.
+		\begin{itemize}
+			\item Certainly $(1-\varepsilon_p)$ vanishes on $C\left(p^{\nu_p}\right)$, so the left term above lives in the kernel.
+			\item Similarly, $Y(p)$ is fixed by $C\left(p^{\nu_p}\right)$, so it is in the kernel of $(1-\varepsilon_p)$, from which one sees $(1-\varepsilon_p)\left(1-\frac{Y(p)}{\#Y(p)}\right)=(1-\varepsilon_p)$. For example, we see that multiplying by $(1-\varepsilon_p)$ kills the coefficient $\left(1-\frac{Y(p)}{\#Y(p)}\right)$. Additionally, the kernel of $(1-\varepsilon_p)$ will simply be the kernel of $(1-\varepsilon_p)$ acting on $U(M)$.
+		\end{itemize}
+		Combining these two points completes the proof.
+
+		\item Suppose that $M$ and $M'$ are admissible divisors of $N$ such that $MM'\mid N$. Then we claim that $U(M)$ is free as a $C(M')$-module; further, if $MM'\ne N$, we claim that $U(M)$ is free as a $\pm C(M')$-module.
+		
+		For this, we induct on $M$. If $M=1$, then $U(M)$ is free over all subgroups of $(\ZZ/N\ZZ)^\times$, so there is nothing to do. Thus, we focus on the inductive step, so suppose that the statement is true for $M$, and we would like to show it for $Mp^{\nu_p}$ for some prime $p\mid(N/M)$. Then the previous step provides short exact sequences as follows.
+		% https://q.uiver.app/#q=WzAsMTAsWzAsMCwiMCJdLFsxLDAsIlUoTSlee0NcXGxlZnQocF57XFxudV9wfVxccmlnaHQpfSJdLFsyLDAsIlUoTSkiXSxbMiwxLCJVKE1wXntcXG51X3B9KSJdLFszLDAsIigxLVxcdmFyZXBzaWxvbl9wKVUoTSkiXSxbNCwwLCIwIl0sWzMsMSwiKDEtXFx2YXJlcHNpbG9uX3ApVShNcF57XFxudV9wfSkiXSxbNCwxLCIwIl0sWzEsMSwiVShNcF57XFxudV9wfSlee0MocF57XFxudV9wfSl9Il0sWzAsMSwiMCJdLFsxLDJdLFsyLDRdLFs0LDVdLFswLDFdLFs5LDhdLFs4LDNdLFszLDZdLFs2LDddLFs0LDYsIiIsMSx7ImxldmVsIjoyLCJzdHlsZSI6eyJoZWFkIjp7Im5hbWUiOiJub25lIn19fV1d&macro_url=https%3A%2F%2Fraw.githubusercontent.com%2FdFoiler%2Fnotes%2Fmaster%2Fnir.tex
+		\[\begin{tikzcd}[cramped]
+			0 & {U(M)^{C\left(p^{\nu_p}\right)}} & {U(M)} & {(1-\varepsilon_p)U(M)} & 0 \\
+			0 & {U(Mp^{\nu_p})^{C(p^{\nu_p})}} & {U(Mp^{\nu_p})} & {(1-\varepsilon_p)U(Mp^{\nu_p})} & 0
+			\arrow[from=1-1, to=1-2]
+			\arrow[from=1-2, to=1-3]
+			\arrow[from=1-3, to=1-4]
+			\arrow[from=1-4, to=1-5]
+			\arrow[equals, from=1-4, to=2-4]
+			\arrow[from=2-1, to=2-2]
+			\arrow[from=2-2, to=2-3]
+			\arrow[from=2-3, to=2-4]
+			\arrow[from=2-4, to=2-5]
+		\end{tikzcd}\]
+		The main claim is that $U(M)^{C(p^{\nu_p})}=U(Mp^{\nu_p})^{C(p^{\nu_p})}$. Let's quickly explain why this claim will complete this step. Fix an admissible divisor $M'\mid (N/Mp^{\nu_p})$, and then there are two things to show.
+		\begin{itemize}
+			\item We would like to show that $U(Mp^{\nu_p})$ is free over $C(M')$. By the inductive hypothesis, we know that $U(M)$ is free over $C(M')$ and $C(p^{\nu_p})$ and even over the product of the two groups. Thus, \Cref{lem:free-invariant-coinvariant} tells us that $U(M)^{C(p^{\nu_p})}=U(Mp^{\nu_p})^{C(p^{\nu_p})}$ and $(1-\varepsilon_p)U(M)=(1-\varepsilon_p)U(Mp^{\nu_p})$ are both free over $C(M')$. Because the right term of the bottom short exact sequence is free, we conclude that the bottom short exact sequence thus splits, forcing $U(Mp^{\nu_p})$ to be a sum of free $C(M')$-modules and hence free.
+			\item Suppose $MM'p^{\nu_p}\ne N$. Then we would like to show that $U(Mp^{\nu_p})$ is free over $\pm C(M')$. In this case, $U(M)$ is free over $\pm C(p^{\nu_p})C(M')$ by the induction, but $\pm C(M')\cap C(p^{\nu_p})$ is trivial: any element $a$ in the intersection has $a\equiv1\pmod{N/p^{\nu_p}}$ and $a\equiv\pm1\pmod{N/M'}$, but the $+1$ is forced by having $N/(M'p^{\nu_p})$ be bigger than $2$ by the hypotheses on $N$. Thus, $U(M)$ is actually free over $\pm C(M')\times C(p^{\nu_p})$, and now the argument can proceed as in the previous step. 
+		\end{itemize}
+		It remains to prove the main claim $U(M)^{C(p^{\nu_p})}=U(Mp^{\nu_p})^{C(p^{\nu_p})}$. Well, the previous step grants
+		\[U\left(Mp^{\nu_p}\right)^{C\left(p^{\nu_p}\right)}=C(p^{\nu_p})\cdot U(M)+\left(1-\frac{Y(p)}{\#Y(p)}\right)U(M)^{C\left(p^{\nu_p}\right)}.\]
+		By the inductive hypothesis, $U(M)$ is free over $C(p^{\nu_p})$, so $U(M)^{C(p^{\nu_p})}=C(p^{\nu_p})\cdot U(M)$. Thus, it is enough to show that $\left(1-\frac{Y(p)}{\#Y(p)}\right)U(M)^{C\left(p^{\nu_p}\right)}\subseteq U(M)^{C(p^{\nu_p})}$. Well, $Y(p)$ is stable under $C(p^{\nu_p})$, so we can express $\left(1-\frac{Y(p)}{\#Y(p)}\right)\cdot C(p^{\nu_p})$ as $(1-y)\cdot C(p^{\nu_p})$ for some $y\in Y(p)$, and the result follows because $U(M)$ is a fractional ideal for $\ZZ\left[(\ZZ/N\ZZ)^\times\right]$.
+
+		\item As a last tool, we show that the induced action of $(\ZZ/N\ZZ)^\times$ on $\mathrm H^\bullet\left(\langle\pm1\rangle,U(M)^{C(N/M)}\right)$ is trivial for any admissible divisor $M\mid N$. In fact, it's enough to check that the action of $C(p^{\nu_p})$ is trivial because these subgroups generate $(\ZZ/N\ZZ)^\times$. Now, note that $U(M)^{C(N/M)}$ automatically has trivial action by $C(p^{\nu_p})$ if $p\nmid M$, so we now focus on the case $p\mid M$.
+
+		Well, for a given $a\in C(p^{\nu_p})$, we would like to show that the action of $a$ is trivial, for which it is enough to show that the action of $(1-a)$ is zero. Well, we claim that multiplication by $(1-a)$ factors through $\mathrm H^\bullet_{\mathrm T}\left(\langle\pm1\rangle,U(M/p^{\nu_p})^{C(N/M)}\right)$, which we note vanishes because $U(M/p^{\nu_p})^{C(N/M)}$ is free over $\langle\pm1\rangle$ by the previous step!
+
+		Now, to show that multiplication by $(1-a)$ factors as claimed, it is enough by functoriality to show that multiplication by $(1-a)$ on $U(M)$ factors through $U(M/p^{\nu_p})$. Well, we see
+		\[U(M)=C\left(p^{\nu_p}\right)U(M/p^{\nu_p})+\left(1-\frac{Y(p)}{\#Y(p)}\right)U(M/p^{\nu_p}).\]
+		Note $(1-a)C\left(p^{\nu_p}\right)=0$, and $(1-a)\left(1-\frac{Y(p)}{\#Y(p)}\right)=(1-a)$ because $Y(p)$ is fixed by $a$. Thus, $(1-a)U(M)\subseteq U(M/p^{\nu_p})$, as needed.
+
+		\item If $M$ and $Mp^{\nu_p}$ are admissible divisors of $N$, we claim that there is a short exact sequence
+		\[0\to\mathrm H^\bullet_{\mathrm T}\left(\langle\pm1\rangle,U(M)^{C(N/M)}\right)\to\mathrm H^\bullet_{\mathrm T}\left(\langle\pm1\rangle,U(Mp^{\nu_p})^{C(N/Mp^{\nu_p})}\right)\to \mathrm H^{\bullet+1}_{\mathrm T}\left(\langle\pm1\rangle,U(M)^{C(N/M)}\right)\to0.\]
+		Note that we will have to do something nontrivial (beyond immediately applying a long exact sequence) because the middle group has a different invariant subgroup $C$ acting on it. Our extra input will come from the morphism
+		% https://q.uiver.app/#q=WzAsMTAsWzAsMCwiMCJdLFsxLDAsIlUoTSlee0MocF57XFxudV9wfSl9Il0sWzEsMSwiVShNcF57XFxudV9wfSlee0MocF57XFxudV9wfSl9Il0sWzAsMSwiMCJdLFsyLDAsIlUoTSkiXSxbMywwLCIoMS1cXHZhcmVwc2lsb25fcClVKE0pIl0sWzMsMSwiKDEtXFx2YXJlcHNpbG9uX3ApVShNcF57XFxudV9wfSkiXSxbMiwxLCJVKE1wXntcXG51X3B9KSJdLFs0LDAsIjAiXSxbNCwxLCIwIl0sWzAsMV0sWzMsMl0sWzEsMiwiXFxsZWZ0KDEtXFxmcmFje1kocCl9e1xcI1kocCl9XFxyaWdodCkiLDJdLFsxLDRdLFsyLDddLFs3LDYsIigxLVxcdmFyZXBzaWxvbl9wKSJdLFs0LDUsIigxLVxcdmFyZXBzaWxvbl9wKSJdLFs1LDhdLFs2LDldLFs0LDcsIlxcbGVmdCgxLVxcZnJhY3tZKHApfXtcXCNZKHApfVxccmlnaHQpIiwyXSxbNSw2XV0=&macro_url=https%3A%2F%2Fraw.githubusercontent.com%2FdFoiler%2Fnotes%2Fmaster%2Fnir.tex
+		\[\begin{tikzcd}[cramped]
+			0 & {U(M)^{C(p^{\nu_p})}} & {U(M)} & {(1-\varepsilon_p)U(M)} & 0 \\
+			0 & {U(Mp^{\nu_p})^{C(p^{\nu_p})}} & {U(Mp^{\nu_p})} & {(1-\varepsilon_p)U(Mp^{\nu_p})} & 0
+			\arrow[from=1-1, to=1-2]
+			\arrow[from=1-2, to=1-3]
+			\arrow["{\left(1-\frac{Y(p)}{\#Y(p)}\right)}"', from=1-2, to=2-2]
+			\arrow["{(1-\varepsilon_p)}", from=1-3, to=1-4]
+			\arrow["{\left(1-\frac{Y(p)}{\#Y(p)}\right)}"', from=1-3, to=2-3]
+			\arrow[from=1-4, to=1-5]
+			\arrow[from=1-4, to=2-4]
+			\arrow[from=2-1, to=2-2]
+			\arrow[from=2-2, to=2-3]
+			\arrow["{(1-\varepsilon_p)}", from=2-3, to=2-4]
+			\arrow[from=2-4, to=2-5]
+		\end{tikzcd}\]
+		of exact sequences discussed in the third step; note that the left arrow is well-defined by the second step, and right arrow is then induced by the diagram. Before continuing, we make a few simplifiactions to this diagram.
+		\begin{itemize}
+			\item In the third step, we showed that $U(M)^{C(p^{\nu_p})}=U(Mp^{\nu_p})^{C(p^{\nu_p})}$.
+			\item Recall that $Y(p)$ is fixed by $C(p^{\nu_p})$, so $(1-\varepsilon_p)\left(1-\frac{Y(p)}{\#Y(p)}\right)=(1-\varepsilon_p)$, thereby implying that the right arrow is simply the identity. We no longer care about the exact content of this right-hand term, so we denote it by $K\coloneqq(1-\varepsilon_p)U(M)=(1-\varepsilon_p)U(Mp^{\nu_p})$.
+			\item Using the fact that the set $Y(p)$ has a transitive action  by $C(p^{\nu_p})$, we see that multiplying an element of $U(M)^{C(p^{\nu_p})}$ by $Y(p)$ is the same as multiplying it by any other element. Thus, we go ahead and fix some element $y_p\in Y(p)$, and we see that the left arrow is simply multiplication by $(1-y_p)$.
+		\end{itemize}
+		Our diagram now looks like the following.
+		% https://q.uiver.app/#q=WzAsMTAsWzAsMCwiMCJdLFsxLDAsIlUoTSlee0MocF57XFxudV9wfSl9Il0sWzEsMSwiVShNcF57XFxudV9wfSlee0MocF57XFxudV9wfSl9Il0sWzAsMSwiMCJdLFsyLDAsIlUoTSkiXSxbMywwLCJLIl0sWzMsMSwiSyJdLFsyLDEsIlUoTXBee1xcbnVfcH0pIl0sWzQsMCwiMCJdLFs0LDEsIjAiXSxbMCwxXSxbMywyXSxbMSwyLCIoMS15X3ApIiwyXSxbMSw0XSxbMiw3XSxbNyw2XSxbNCw1XSxbNSw4XSxbNiw5XSxbNCw3LCJcXGxlZnQoMS1cXGZyYWN7WShwKX17XFwjWShwKX1cXHJpZ2h0KSIsMl0sWzUsNiwiIiwxLHsibGV2ZWwiOjIsInN0eWxlIjp7ImhlYWQiOnsibmFtZSI6Im5vbmUifX19XV0=&macro_url=https%3A%2F%2Fraw.githubusercontent.com%2FdFoiler%2Fnotes%2Fmaster%2Fnir.tex
+		\[\begin{tikzcd}[cramped]
+			0 & {U(M)^{C(p^{\nu_p})}} & {U(M)} & K & 0 \\
+			0 & {U(M)^{C(p^{\nu_p})}} & {U(Mp^{\nu_p})} & K & 0
+			\arrow[from=1-1, to=1-2]
+			\arrow[from=1-2, to=1-3]
+			\arrow["{(1-y_p)}"', from=1-2, to=2-2]
+			\arrow[from=1-3, to=1-4]
+			\arrow["{\left(1-\frac{Y(p)}{\#Y(p)}\right)}"', from=1-3, to=2-3]
+			\arrow[from=1-4, to=1-5]
+			\arrow[equals, from=1-4, to=2-4]
+			\arrow[from=2-1, to=2-2]
+			\arrow[from=2-2, to=2-3]
+			\arrow[from=2-3, to=2-4]
+			\arrow[from=2-4, to=2-5]
+		\end{tikzcd}\]
+		We now take $C(N/Mp^{\nu_p})$-invariants and $\langle\pm1\rangle$-cohomology to recover the result. Taking $C(N/Mp^{\nu_p})$-invariants keeps the exactness because $U(M)^{C(p^{\nu_p})}$ is free over $C(N/Mp^{\nu_p})$ by using \Cref{lem:free-invariant-coinvariant} and the result in step 3. Thus, our diagram looks like the following.
+		% https://q.uiver.app/#q=WzAsMTAsWzAsMCwiMCJdLFsxLDAsIlUoTSlee0MoTi9NKX0iXSxbMSwxLCJVKE1wXntcXG51X3B9KV57QyhOL00pfSJdLFswLDEsIjAiXSxbMiwwLCJVKE0pXntDKE4vTXBee1xcbnVfcH0pfSJdLFszLDAsIktee0MoTi9NcF57XFxudV9wfSl9Il0sWzMsMSwiS157QyhOL01wXntcXG51X3B9KX0iXSxbMiwxLCJVKE1wXntcXG51X3B9KV57QyhOL01wXntcXG51X3B9KX0iXSxbNCwwLCIwIl0sWzQsMSwiMCJdLFswLDFdLFszLDJdLFsxLDIsIigxLXlfcCkiLDJdLFsxLDRdLFsyLDddLFs3LDZdLFs0LDVdLFs1LDhdLFs2LDldLFs0LDcsIlxcbGVmdCgxLVxcZnJhY3tZKHApfXtcXCNZKHApfVxccmlnaHQpIiwyXSxbNSw2LCIiLDEseyJsZXZlbCI6Miwic3R5bGUiOnsiaGVhZCI6eyJuYW1lIjoibm9uZSJ9fX1dXQ==&macro_url=https%3A%2F%2Fraw.githubusercontent.com%2FdFoiler%2Fnotes%2Fmaster%2Fnir.tex
+		\[\begin{tikzcd}[cramped]
+			0 & {U(M)^{C(N/M)}} & {U(M)^{C(N/Mp^{\nu_p})}} & {K'} & 0 \\
+			0 & {U(M)^{C(N/M)}} & {U(Mp^{\nu_p})^{C(N/Mp^{\nu_p})}} & {K'} & 0
+			\arrow[from=1-1, to=1-2]
+			\arrow[from=1-2, to=1-3]
+			\arrow["{(1-y_p)}"', from=1-2, to=2-2]
+			\arrow[from=1-3, to=1-4]
+			\arrow["{\left(1-\frac{Y(p)}{\#Y(p)}\right)}"', from=1-3, to=2-3]
+			\arrow[from=1-4, to=1-5]
+			\arrow[equals, from=1-4, to=2-4]
+			\arrow[from=2-1, to=2-2]
+			\arrow[from=2-2, to=2-3]
+			\arrow[from=2-3, to=2-4]
+			\arrow[from=2-4, to=2-5]
+		\end{tikzcd}\]
+		Here, $K'$ is the induced quotient, which we continue to not care about. We now take $\langle\pm1\rangle$-cohomology. For brevity, we will set $\mathrm H^\bullet_{\mathrm T}(M')\coloneqq\mathrm H^\bullet_{\mathrm T}\left(\langle\pm1\rangle,U(M')^{C(N/M')}\right)$ for any admissible divisor $M'\mid N$.
+		% https://q.uiver.app/#q=WzAsMTIsWzAsMSwiXFxtYXRocm0gSF57XFxidWxsZXQtMX1fe1xcbWF0aHJtIFR9KFxcbGFuZ2xlXFxwbTFcXHJhbmdsZSxLJykiXSxbMCwwLCJcXG1hdGhybSBIXntcXGJ1bGxldC0xfV97XFxtYXRocm0gVH0oXFxsYW5nbGVcXHBtMVxccmFuZ2xlLEsnKSJdLFsxLDAsIlxcbWF0aHJtIEheXFxidWxsZXRfe1xcbWF0aHJtIFR9KE0pIl0sWzEsMSwiXFxtYXRocm0gSF5cXGJ1bGxldF97XFxtYXRocm0gVH0oTSkiXSxbMiwwLCIwIl0sWzIsMSwiXFxtYXRocm0gSF5cXGJ1bGxldF97XFxtYXRocm0gVH0oTXBee1xcbnVfcH0pIl0sWzMsMCwiXFxtYXRocm0gSF5cXGJ1bGxldF97XFxtYXRocm0gVH0oXFxsYW5nbGVcXHBtMVxccmFuZ2xlLEsnKSJdLFs1LDAsIjAiXSxbMywxLCJcXG1hdGhybSBIXlxcYnVsbGV0X3tcXG1hdGhybSBUfShcXGxhbmdsZVxccG0xXFxyYW5nbGUsSycpIl0sWzUsMSwiXFxtYXRocm0gSF57XFxidWxsZXQrMX1fe1xcbWF0aHJtIFR9KE1wXntcXG51X3B9KSJdLFs0LDAsIlxcbWF0aHJtIEhee1xcYnVsbGV0KzF9X3tcXG1hdGhybSBUfShNKSJdLFs0LDEsIlxcbWF0aHJtIEhee1xcYnVsbGV0KzF9X3tcXG1hdGhybSBUfShNKSJdLFsxLDAsIiIsMCx7ImxldmVsIjoyLCJzdHlsZSI6eyJoZWFkIjp7Im5hbWUiOiJub25lIn19fV0sWzIsMywiKDEteV9wKSIsMl0sWzEsMl0sWzAsM10sWzEwLDExLCIoMS15X3ApIl0sWzIsNF0sWzQsNl0sWzYsMTBdLFszLDVdLFs1LDhdLFs4LDExXSxbMTEsOV0sWzEwLDddLFs3LDldLFs0LDVdLFs2LDhdXQ==&macro_url=https%3A%2F%2Fraw.githubusercontent.com%2FdFoiler%2Fnotes%2Fmaster%2Fnir.tex
+		\[\begin{tikzcd}[cramped]
+			{\mathrm H^{\bullet-1}_{\mathrm T}(\langle\pm1\rangle,K')} & {\mathrm H^\bullet_{\mathrm T}(M)} & 0 & {\mathrm H^\bullet_{\mathrm T}(\langle\pm1\rangle,K')} & {\mathrm H^{\bullet+1}_{\mathrm T}(M)} & 0 \\
+			{\mathrm H^{\bullet-1}_{\mathrm T}(\langle\pm1\rangle,K')} & {\mathrm H^\bullet_{\mathrm T}(M)} & {\mathrm H^\bullet_{\mathrm T}(Mp^{\nu_p})} & {\mathrm H^\bullet_{\mathrm T}(\langle\pm1\rangle,K')} & {\mathrm H^{\bullet+1}_{\mathrm T}(M)} & {}
+			\arrow[from=1-1, to=1-2]
+			\arrow[equals, from=1-1, to=2-1]
+			\arrow[from=1-2, to=1-3]
+			\arrow["{(1-y_p)}"', from=1-2, to=2-2]
+			\arrow[from=1-3, to=1-4]
+			\arrow[from=1-3, to=2-3]
+			\arrow[from=1-4, to=1-5]
+			\arrow[from=1-5, to=1-6]
+			\arrow[equals, from=1-4, to=2-4]
+			\arrow["{(1-y_p)}", from=1-5, to=2-5]
+			\arrow[from=2-1, to=2-2]
+			\arrow[from=2-2, to=2-3]
+			\arrow[from=2-3, to=2-4]
+			\arrow[from=2-4, to=2-5]
+		\end{tikzcd}\]
+		Here, the $0$s arise because $U(M)^{C(N/Mp^{\nu_p})}$ is free over $\langle\pm1\rangle$ by the third step. We now make a few simplications.
+		\begin{itemize}
+			\item The $0$s in the top row imply that $\mathrm H^\bullet_{\mathrm T}(\langle\pm1\rangle,K')\to\mathrm H^{\bullet+1}_{\mathrm T}(M)$ is an isomorphism.
+			\item By the previous step, we know that the $(1-y_p)$ arrows are the $0$ map. Thus, the commutativity of the diagram implies that the arrows $\mathrm H_{\mathrm T}^{\bullet-1}(\langle\pm1\rangle,K')\to\mathrm H^\bullet_{\mathrm T}(M)$ and $\mathrm H^\bullet_{\mathrm T}(\langle\pm1\rangle,K')\to\mathrm H^{\bullet+1}_{\mathrm T}(M)$ in the bottom row are both the zero map.
+		\end{itemize}
+		The above two observations turns the bottom row into
+		\[0\to\mathrm H^\bullet_{\mathrm T}(M)\to\mathrm H^\bullet_{\mathrm T}(Mp^{\nu_p})\to\mathrm H^{\bullet+1}_{\mathrm T}(M)\to0.\]
+
+		\item We now complete the proof by induction. We want to compute $\dim_{\FF_2}\mathrm H^\bullet_{\mathrm T}\left(\langle\pm1\rangle,U(M)^{C(N/M)}\right)$ for any admissible divisor $M\mid N$. The previous step grants an ``inductive step'' that
+		\[\dim_{\FF_2}\mathrm H^\bullet_{\mathrm T}\left(\langle\pm1\rangle,U(Mp^{\nu_p})^{C(N/Mp^{\nu_p})}\right)=\sum_{i\in\{0,1\}}\dim_{\FF_2}\mathrm H^i_{\mathrm T}\left(\langle\pm1\rangle,U(M)^{C(N/M)}\right)\]
+		whenever $M$ and $Mp^{\nu_p}$ is an admissible divisor of $N$. For example, we find that
+		\[\dim_{\FF_2}\mathrm H^\bullet_{\mathrm T}\left(\langle\pm1\rangle,U(p^{\nu_p})^{C(N/p^{\nu_p})}\right)=\sum_{i\in\{0,1\}}\dim_{\FF_2}\mathrm H^i_{\mathrm T}\left(\langle\pm1\rangle,U(1)^{C(N)}\right)\]
+		by taking $M=1$. But now this dimension is independent of the cohomological index, so we inductively see that
+		\[\dim_{\FF_2}\mathrm H^\bullet_{\mathrm T}\left(\langle\pm1\rangle,U(M)^{C(N/M)}\right)=2^{\omega(M)-1}\sum_{i\in\{0,1\}}\dim_{\FF_2}\mathrm H^i_{\mathrm T}\left(\langle\pm1\rangle,U(1)^{C(N)}\right)\]
+		for any admissible divisor $M\mid N$ such that $M>1$.
+
+		The proof will be over as soon as we check
+		\[\sum_{i\in\{0,1\}}\dim_{\FF_2}\mathrm H^i_{\mathrm T}\left(\langle\pm1\rangle,U(1)^{C(N)}\right)=1.\]
+		Well, note $U(1)=\ZZ[(\ZZ/N\ZZ)^\times]$, so the $C(N)$-fixed points are given by $C(N)\cdot\ZZ[(\ZZ/N\ZZ)^\times]=\ZZ C(N)$. This has trivial action by $\langle\pm1\rangle$, so we are computing the Tate cohomology of the trivial $\langle\pm1\rangle$-module $\ZZ$. Well, one has
+		\[\begin{cases}
+			\mathrm H^0_{\mathrm T}(\langle\pm1\rangle,\ZZ) = \ZZ/2\ZZ, \\
+			\mathrm H^{-1}_{\mathrm T}(\langle\pm1\rangle,\ZZ) = 0,
+		\end{cases}\]
+		so we see that the sum of the $\FF_2$-dimensions is in fact $1$.
+		\qedhere
+	\end{enumerate}
+\end{proof}
+\begin{remark} \label{rem:distrib-cohom-by-inclusion}
+	Choose admissible divisors $M\mid M'$. The fifth step of the argument shows that there is an inclusion $U(M)^{C(N/M)}\subseteq U(M')^{C(N/M')}$ which then induces an inclusion
+	\[\mathrm H^\bullet_{\mathrm T}\left(\langle\pm1\rangle,U(M)^{C(N/M)}\right)\to\mathrm H^\bullet_{\mathrm T}\left(\langle\pm1\rangle,U(M')^{C(N/M')}\right)\]
+	on (Tate) cohomology. As seen in the fifth step of the argument, these inclusions explain ``half'' of the elements of a given $\mathrm H^\bullet_{\mathrm T}\left(U(M')^{C(N/M')}\right)$ by taking $M\mid M'$ to be $M'/p^{\nu_p}$ for some prime $p\mid M'$. The ``other half'' arises from a quotient and is thus harder to describe.
+\end{remark}
+\begin{example} \label{ex:const-is-nontrivial-in-h0}
+	Let's exhibit a nontrivial element in $\mathrm H^0_{\mathrm T}(\langle\pm1\rangle,U_N)$. \Cref{rem:distrib-cohom-by-inclusion} explains that there is an inclusion $\ZZ[(\ZZ/N\ZZ)^\times]^{(\ZZ/N\ZZ)^\times}\subseteq U_N$ which induces an inclusion
+	\[\mathrm H^0_{\mathrm T}\left(\langle\pm1\rangle,\ZZ[(\ZZ/N\ZZ)^\times]^{(\ZZ/N\ZZ)^\times}\right)\subseteq\mathrm H^0_{\mathrm T}(\langle\pm1\rangle,U_N).\]
+	Now, $\ZZ[(\ZZ/N\ZZ)^\times]^{(\ZZ/N\ZZ)^\times}\subseteq U_N$ is isomorphic to $\ZZ$ generated by $\sum_{a\in(\ZZ/N\ZZ)^\times}\ov a$. Because this module has the trivial $\langle\pm1\rangle$-action, we see that this generating element $\sum_{a\in(\ZZ/N\ZZ)^\times}\ov a$ provides a nontrivial class in $\mathrm H^0_{\mathrm T}(\langle\pm1\rangle,U_N)$.
+\end{example}
+
+\subsection{Refined Algebraicity}
+The previous subsections (and in particular \Cref{thm:distribution-torsion}) allows us to upgrade \Cref{prop:const-weight-to-distribs}.
+\begin{lemma} \label{lem:2-const-weight-to-distribs}
+	Let $f\colon\frac1N\ZZ/\ZZ\to\ZZ$ be a function of constant weight. Then $2f$ is a $\ZZ$-linear combination of the functions $1_0$ and $\varepsilon_{d,a}$ where $N\nmid da$.
+\end{lemma}
+\begin{proof}
+	This is \cite[Proposition~6.3.6]{ggl-fermat}. By adding or subtracting $1_0$s (which have weight $0$), we may assume that $f(0)=0$. By \Cref{prop:const-weight-to-distribs}, we know that there is some denominator $D>0$ such that $Df$ is a $\ZZ$-linear combination of the functions $1_0$ and $\varepsilon_{d,a}$ where $N\nmid da$, and we can see that there are no $1_0$s because $f(0)=0$. Thus, \Cref{lem:const-weight-as-odd-distrib} tells us that $Df$ (up to $1_0$) vanishes in the group $U_N^-$ described in \Cref{thm:distribution-torsion}. This group is actually $2$-torsion by \Cref{thm:distribution-torsion}, so we conclude that $2f$ vanishes in $U_N^-$. Another application of \Cref{lem:const-weight-as-odd-distrib} tells us that $2f$ is a $\ZZ$-linear combination of the $\varepsilon_{d,a}$s.
+\end{proof}
+\begin{remark} \label{rem:effective-2-const-weight-to-distrib}
+	In fact, once we know that $2f$ is a $\ZZ$-linear combination of $1_0$ and the $\varepsilon_{d,a}$s, one can use some linear algebra to explicitly find this linear combination. We take a moment to note that \Cref{rem:const-weight-as-odd-prime-distrib} tells us that we are allowed to only use $\varepsilon_{1,a}$s and $\varepsilon_{p,a}$s where $p\mid N$ is prime.
+\end{remark}
+Here is the appliation to products of $\Gamma$.
+\begin{lemma} \label{lem:gamma-gen-from-distrib-relations}
+	Let $K_N$ be the extension of $\QQ(\zeta_{2N},i)$ generated by the elements $\pi^{-w}\Gamma(f)$, where $f\colon\frac1N\ZZ/\ZZ$ is a function of constant weight $w$ which is a $\ZZ$-linear combination of the $\varepsilon_{d,a}$s. Then
+	\[K_N=\QQ(i,\zeta_{2N})\left(\{p^{p/N}:\text{prime }p\mid N\}\right).\]
+\end{lemma}
+\begin{proof}
+	It is enough to handle $f$ which are equal to some $\varepsilon_{d,a}$. One can inductively write $\varepsilon_{d,a}$ as a sum of $\varepsilon_{1,\bullet}$s and $\varepsilon_{p,\bullet}$s, so we can just handle those. By the reflection formula (\Cref{prop:gamma-prod-props}), $\Gamma(\varepsilon_{1,a})$ is in $\QQ(\zeta_{2N},i)$, so we don't have to worry about these elements.
+
+	Continuing, by the multipliation formula (\Cref{prop:gamma-prod-props}), we see
+	\[\frac{\Gamma(\varepsilon_{p,a})}{\Gamma(\varepsilon_{1,pa})}=(2\pi)^{(p-1)/2}p^{1/2-pa/N}.\]
+	We now have two cases on the parity of $p$.
+	\begin{itemize}
+		\item If $p$ is odd, then these elements show $p^{1/2-pa/N}\in K_N$. However, $p^{1/2}\in\QQ(i,\zeta_{2N})$ already, so we are only generating $p^{p/N}\in K_N$.
+		\item Similarly, if $p=2$, then these elements show $2^{1/2}\cdot2^{1/2-2/N}\in K_N$. Thus, we are again only generating $2^{2/N}\in K_N$.
+		\qedhere
+	\end{itemize}
+\end{proof}
+\begin{proposition} \label{prop:refined-gamma-alg}
+	Let $L_N$ be the extension of
+	\[K_N=\QQ(i,\zeta_{2N})\left(\{p^{p/N}:\text{prime }p\mid N\}\right)\]
+	generated by the elements $\pi^{-w}\Gamma(f)$, where $f\colon\frac1N\ZZ/\ZZ\to\ZZ$ is a function of constant weight $w$. Then the extension $L_N/K_N$ is multiquadratic. If $N$ is odd or divisible by $4$, the degree is bounded by
+	\[\log_2[L_N:K_N]\le2^{\omega(N)-1}-1.\]
+\end{proposition}
+\begin{proof}
+	We proceed in steps, showing the various claims separately.
+	\begin{enumerate}
+		\item To check that this extension is multiquadratic, we will actually check that $(\pi^{-w}\Gamma(f))^2$ is in $K_N$ for each $f$; note that $\pi^{-w}\Gamma(f)$ is already algebraic by \Cref{cor:unrefined-gamma-alg}. Now, by \Cref{lem:2-const-weight-to-distribs}, we may write $2f$ as a $\ZZ$-linear combination of $\varepsilon_{d,a}$s, so $\Gamma(f)^2$ can be written as a product of $\Gamma(\varepsilon_{d,a})$s. But up to a power $\pi$, \Cref{lem:gamma-gen-from-distrib-relations} assures us that $\Gamma(\varepsilon_{d,a})$ is in $K_N$.
+		% : the reflection formula tells us that $\Gamma(\varepsilon_{1,a})$s are in $K_N$, and the multiplication formula (combined with the reflection formula) works in general. We conclude that
+		% \[\Gamma(f)^2\in\pi^\ZZ K_N,\]
+		% so actually $(\pi^{-w}\Gamma(f))^2$ is in $K_N$ because we already know that this number is algebraic (and $\pi$ is transcendental).
+
+		\item It remains to bound $[L_N:K_N]$ when $N$ is odd. By the previous step and Kummer theory \cite[Theorem~VI.8.1]{lang-algebra}, we would like to show that the $2$-subgroup $\Gamma_N\subseteq K_N^\times/K_N^{\times2}$ generated by the elements $(\pi^{-w}\Gamma(f))^2$ has
+		\[\dim_{\FF_2}\Gamma_N\stackrel?\le2^{\omega(N)-1}-1.\]
+		This bound will come from \Cref{thm:distribution-torsion}. To be formal, let $\varphi\colon\op{Mor}_{\mathrm{cw}}(\frac1N\ZZ/\ZZ,\ZZ)\to K_N^\times$ be the homomorphism taking functions $f\colon\frac1N\ZZ/\ZZ\to\ZZ$ of constant weight $w$ to $(\pi^{-w}\Gamma(f))^2\in K_N^\times$. By construction, we see that this homomorphism sends elements of the form $\varepsilon_{d,a}$ to $K_N^{\times2}$, as discussed in \Cref{lem:gamma-gen-from-distrib-relations}. Thus, \Cref{lem:const-weight-as-odd-distrib} tells us that $\varphi$ descends to a homomorphism
+		\[\ov\varphi\colon U_{N,\mathrm{tors}}^-\to\frac{K_N^\times}{K_N^{\times2}},\]
+		and $\Gamma_N$ is the image of this map. \Cref{thm:distribution-torsion} explains that the domain $U_{N,\mathrm{tors}}^-$ is already a $2$-torsion group and has $\FF_2$-dimension bounded by $2^{\omega(N)-1}$, so we will be done if we can lower the dimension any further.
+
+		\item We complete the proof by showing that $\ov\varphi$ has a nontrivial kernel. Indeed, consider the constant function $f_1\equiv1$. We have two checks.
+		\begin{itemize}
+			\item On one hand, we claim that $f_1\in\ker\varphi$. Then
+			\[f_1=1_0+1_{2\mid N}1_{1/2}\sum_{a=1}^{\floor{(N-1)/2}}\varepsilon_{1,a},\]
+			where $1_0$ and $1_{1/2}$ are indicators. Certainly $1_0$ and $1_{1/2}$ are in $\ker\ov{\varphi}$ because $\Gamma(1_0)=\Gamma(1_{1/2})=1$ (see \Cref{ex:gamma-half}), and the $\varepsilon_{1,a}$s are in $\ker\ov\varphi$ as already noted. We conclude $f_1\in\ker\varphi$.
+			\item On the other hand, we claim that $f_1$ is a nontrivial element of $U_{N,\mathrm{tors}}^-$. This is a little tricky. Under the isomorphism $U_{N,\mathrm{tors}}^-\cong\mathrm H^0_{\mathrm T}(\langle\pm1\rangle,U_N)$ of \Cref{prop:odd-distrib-2}, $f_1$ corresponds to the (Tate) cohomology class
+			\[\sum_{a\in(\ZZ/N\ZZ)}\ov a\in\mathrm H^0_{\mathrm T}(\langle\pm1\rangle,U_N).\]
+			However, this element is nontrivial by \Cref{ex:const-is-nontrivial-in-h0}!
+		\end{itemize}
+		We conclude that $\ker\ov\varphi$ is nontrivial, so $\Gamma_N=\im\ov\varphi$ satisfies
+		\[\dim_{\FF_2}\im\ov\varphi<\dim_{\FF_2}U_{N,\mathrm{tors}}^-,\]
+		so we are done by \Cref{thm:distribution-torsion}.
+		\qedhere
+	\end{enumerate}
+\end{proof}
+\begin{remark} \label{rem:effective-gamma-prod}
+	The first step of the proof has the pleasant consequence of providing an explicit algorithm to compute the algebraic numbers $\pi^{-w}\Gamma(f)$, as discussed in \cite[Theorem~6.3.9]{ggl-fermat}. Indeed, it suffices to compute the square $\pi^{-2w}\Gamma(2f)$. Now, \Cref{rem:effective-2-const-weight-to-distrib} says that we can use linear algebra to write $2f$ as a $\ZZ$-linear combination of some $\varepsilon_{d,a}$s, and then we can compute $\Gamma(\varepsilon_{d,a})$ using the reflection and multiplication formulae of \Cref{prop:gamma-prod-props} (as explained in \Cref{cor:unrefined-gamma-alg}).
+\end{remark}
+\begin{remark}
+	Whether equality is achieved in \Cref{prop:refined-gamma-alg} is an interesting question. It seems to be true in small examples; see \Cref{rem:k-conn-hyper-fermat}.
+\end{remark}
+% \subsection{Application to the Fermat Curve}
+We now apply our theory to periods of the Fermat curve. To begin, we note that periods of Fermat curves can handle fairly general functions of constant weight.
+\begin{lemma} \label{lem:period-to-const-weight}
+	Let $f\colon\frac1N\ZZ/\ZZ\to\ZZ$ be a function of constant weight $w$ such that $f(0)=0$. Then there is some index $p\ge0$ and $\alpha\in\mf B^{2p}$ and a list $\{a_i\}_{i=1}^n\subseteq(\ZZ/N\ZZ)$ such that
+	\[f=1_\alpha-\sum_{i=1}^n\varepsilon_{1,a_i}.\]
+\end{lemma}
+\begin{proof}
+	We will actually show that there is a list $\{a_i\}_{i=1}^n$ such that $f+\sum_{i=1}^n\varepsilon_{1,a_i}$ equals $1_\alpha$ for some $\alpha\in\mf B^{2p}$. In fact, it is enough to get $\alpha\in\mf A^{2p}$: we already know that $f+\sum_{i=1}^n\varepsilon_{1,a_i}$ has constant weight by \Cref{lem:const-weight-exs}, so the weight will correctly be $3p$ as soon as this is some suitably $\alpha\in\mf A^{2p}$ by \Cref{rem:a-2p-const-weight-is-b-2p}. As a last reduction, we note that we may assume $\im f\subseteq\ZZ_{\ge0}$ by adding in suitable $\varepsilon_{1,\bullet}$s.
+	
+	We now induct on $\norm f_1=\sum_{i=0}^nf(i/N)$. Here are some small cases.
+	\begin{itemize}
+		\item If $\norm f_1=0$, then $f=0$, and we can take $p=0$ and $\alpha$ to be empty.
+		\item It is not possible for $f$ to be supported on a single nonzero entry because such a function cannot have constant weight.
+		\item Suppose $\norm f_1=2$. Because $f$ should not be supported at a single point, we have $f=\ov{a/N}+\ov{b/N}$ for some $a,b\in\ZZ/N\ZZ$. We claim that $f=\varepsilon_{1,a}$. Well, $f$ needs to have constant weight, so
+		\[[a]+[b]=[-a]+[-b].\]
+		Thus, $[a]+[b]=N$, so $b=-a$, as required.
+	\end{itemize}
+	We now proceed with the induction. Suppose that $\norm f_1>2$. Because $f$ is nonzero, $f$ is supported on at least two points, which we name $a/N$ and $b/N$ where $a,b\in(\ZZ/N\ZZ)$. We have two cases.
+	\begin{itemize}
+		\item Suppose that $b=-a$. Then $f-\varepsilon_{1,a}$ continues to have nonnegative image and constant weight, but $\norm{f-\varepsilon_{1,a}}_1<\norm f_1$, so we may apply the inductive hypothesis to $f-\varepsilon_{1,a}$ to conclude the proof.
+		\item Suppose that $b\ne-a$. Then there is a nonzero $c\in(\ZZ/N\ZZ)$ such that $a+b+c=0$, and we define $\alpha\coloneqq(a,b,c)$ to be in $\mf A^1$. We now see that
+		\[f-1_\alpha+\varepsilon_{1,c}\]
+		has nonnegative image and constant weight, but $\norm{f-1_\alpha+\varepsilon_{1,c}}_1<\norm f_1$. We now again conclude by applying the inductive hypothesis.
+		\qedhere
+	\end{itemize}
+\end{proof}
+\begin{theorem} \label{thm:bound-k-conn-fermat}
+	Let $K^{\mathrm{conn}}_A$ be the connected monodromy field of the Jacobian $A$ of the Fermat curve $X_N$, and define the field
+	\[K_N=\QQ(i,\zeta_{2N})\left(\{p^{p/N}:\text{prime }p\mid N\}\right).\]
+	\begin{listalph}
+		\item We have $K_N\subseteq K^{\mathrm{conn}}_A(i,\zeta_{2N})$.
+		\item The extension $K^{\mathrm{conn}}_A(i,\zeta_{2N})/K_N$ is multiquadratic.
+		\item If $N$ is odd or divisible by $4$, then
+		\[\log_2[K^{\mathrm{conn}}_A(i,\zeta_{2N}):K_N]\le2^{\omega(N)-1}-1.\]
+	\end{listalph}
+\end{theorem}
+\begin{proof}
+	As explaind in \Cref{rem:compute-k-conn-a-fermat}, $K_A^{\mathrm{conn}}$ is the extension of $\QQ(\zeta_N)$ which contains the periods
+	\[\op{Per}\left(\gamma^{2p},\nu_\alpha\right)=(2\pi i)^{-p}\prod_{i=1}^{2p}\zeta_{2N}^{[a_i]+[b_i]}\frac{\Gamma\left(\frac{[a_i]}N\right)\Gamma\left(\frac{[b_i]}{N}\right)}{\Gamma\left(\frac{[-c_i]}N\right)},\]
+	where $\alpha\in\mf B^{2p}$ varies. By the reflection formula (\Cref{prop:gamma-prod-props}), this period is in $\pi^{-\langle\alpha\rangle}\Gamma(1_\alpha)\QQ(i,\zeta_{2N})$. Now, \Cref{lem:period-to-const-weight} explains that any function $f\colon\frac1N\ZZ/\ZZ\to\ZZ$ of constant weight can be transformed into some $1_\alpha$ for $\alpha\in\mf B^{2p}$ at merely the cost of some $1_0$s and $\varepsilon_{1,a}$s, so $K_A^{\mathrm{conn}}(i,\zeta_{2N})$ is actually generated by $\pi^{-w}\Gamma(f)$, where $f$ may now vary over all functions $f\colon\frac1N\ZZ/\ZZ\to\ZZ$ of some constant weight $w$. Part (a) now follows from \Cref{lem:gamma-gen-from-distrib-relations}, and parts (b) and (c) now follow from \Cref{prop:refined-gamma-alg}.
+\end{proof}
+\begin{remark} \label{rem:k-conn-hyper-fermat}
+	Let $A$ be the Jacobian of the curve $y^2=x^N-1$, which is a quotient of the Fermat curve $X_N$. In \cite[Theorem~7.1.1]{ggl-fermat}, it is shown that $K_A^{\mathrm{conn}}$ is multiquadratic over merely $\QQ(\zeta_N)$ via some algebro-geometric arguments. If $N$ is odd, then \Cref{thm:bound-k-conn-fermat} shows that
+	\[\log_2[K_A^{\mathrm{conn}}(i):\QQ(i,\zeta_N)]\le2^{\omega(N)-1}-1.\]
+	In particular, note that the $p^{p/N}$s define odd-degree cyclic extensions of $\QQ(i,\zeta_N)$ and hence cannot live in the multiquadratic extension $K_A^{\mathrm{conn}}$ of $\QQ(\zeta_N)$. The above bound agrees with the table in \cite[Example~6.4.10]{ggl-fermat}; in fact, that table suggests that equality may hold without the added $i$s!
+\end{remark}
+Let's see an example computation.
+\begin{proposition} \label{prop:special-fermat-st-full-2}
+	Define $A$ to be the Jacobian of the proper curve $C$ with affine chart $y^9=x\left(x^2+1\right)$. Then we show $K_A^{\mathrm{conn}}=\QQ\left(\zeta_N,2^{1/3},2^{2/9}\cdot3^{1/6}\right)$.
+\end{proposition}
+\begin{proof}
+	This computation follows the one in \Cref{prop:special-fermat-st-full}. We will freely use the computation executed in \Cref{prop:special-fermat-st-2}. Thoughout, $A\coloneqq\op{Jac}C$, and we recall that we have a decomposition $A=C_0\times A_1\times A_2$ (over $\QQ$) into geometrically simple abelian varieties. We proceed in steps.
+	\begin{enumerate}
+		\item Set $N\coloneqq18$, and we note that there is a quotient map $X_N\to C$ from the affine patch $x^{18}+y^{18}+1=0$ to $C$ given by $\psi(x,y)\coloneqq\left(x^9,xy^2\right)$. Thus, we will be able to use the Galois-invariant embedding $\psi\colon\mathrm H^1_{\mathrm{\acute et}}(C_{\ov\QQ},\QQ_\ell)\into\mathrm H^1_{\mathrm{\acute et}}(X_{N,\ov\QQ},\QQ_\ell)$ to use \Cref{thm:fermat-galois} by restricting to the Galois submodule. To make this explicit, we recall that we have a basis
+		\[\left\{\frac{dx}{y^4},\frac{dx}{y^5},\frac{dx}{y^6},\frac{dx}{y^7},\frac{dx}{y^8},\frac{x\,dx}{y^7},\frac{x\,dx}{y^8}\right\}\]
+		of $\mathrm H^{10}(C)$, we see that we can pass this basis through $\psi^*$ to see that $\mathrm H^{10}(C)\subseteq\mathrm H^{10}(X)$ has basis
+		\[\left\{\nu_{5,10,3},\nu_{4,8,6},\nu_{3,6,9},\nu_{2,4,12},\nu_{1,2,15},\nu_{11,4,3},\nu_{10,2,6}\right\}.\]
+		Combining with the conjugate differentials yeilds a full basis of $\mathrm H^1_{\mathrm{dR}}(C,\QQ)\subseteq\mathrm H^1_{\mathrm{dR}}(X,\QQ)$.
+
+		\item We pass to the \'etale site in exactly the same way as in \Cref{prop:special-fermat-st-full}. In the notation of \Cref{prop:special-fermat-st-2}, we see that $\psi^*$ pulls the basis $\{u_1\otimes1,v_1\otimes1,v_2\otimes1,v_4\otimes1,w_1\otimes1,w_2\otimes1,w_5\otimes1\}$ to
+		\[\{\nu_{3,6,9}\otimes1,\quad\nu_{10,2,6}\otimes1,\nu_{2,4,12}\otimes1,\nu_{4,8,6}\otimes1,\quad\nu_{1,2,15}\otimes1,\nu_{11,4,3}\otimes1,\nu_{5,10,3}\otimes1\}.\]
+
+		\item We are now ready to begin executing \Cref{prop:galois-computes-monodromy}; for this, \Cref{rem:galois-computes-monodromy-finite} informs us that we need to build a space of $W'$ of Tate classes cutting out $G_\ell(A)^\circ\subseteq\op{GL}_{14,\QQ_\ell}$. We begin by adding $W_1$, made up of the endomorphisms, which ensures (for example) that $G_\ell(A)^\circ$ is diagonal. Then \Cref{prop:special-fermat-st-2} computed that we also have the ``polarization equations''
+		\begin{align*}
+			\mu_1\mu_2 &= \kappa_1\kappa_8, \\
+			\kappa_1\kappa_8 &= \kappa_2\kappa_7, \\
+			\kappa_1\kappa_8 &= \kappa_4\kappa_5,
+		\end{align*}
+		and the exceptional equation
+		\begin{align*}
+			\mu_1\kappa_7 &= \kappa_5\kappa_8.
+		\end{align*}
+		We remark that the polarization equations translate into a Tate class like $\nu_{(\alpha,-\alpha,\beta,-\beta)}\otimes1$ understood as an element in $\mathrm H^4_{\mathrm{\acute et}}(X_{\ov\QQ},\QQ_\ell)(2)\otimes_\QQ\QQ_\ell$, but this Tate class actually already come from a class in $W_1$ (see \Cref{cor:fermat-galois-polarization}), so we may safely ignore it. Thus, we only have to translate the exceptional equation into the tensor
+		\[\nu_{(3,6,9),(7,14,15),(13,8,15),(1,2,15)}\otimes1\in\mathrm H^4_{\mathrm{\acute et}}(X_{\ov\QQ},\QQ_\ell)(2)\otimes_\QQ\QQ_\ell\]
+		and its Galois orbit.
+
+		\item Arguing as in \Cref{rem:compute-k-conn-a-fermat}, we know that the periods of the Tate classes given in the previous step generate $K_A^{\mathrm{conn}}$, so it remains to compute these periods. We already know that our endomorphisms, except for the isogeny $(A_1)_{\ov\QQ}\cong (A_2)_{\ov\QQ}$, are defined over $\QQ(\zeta_N)$ (see also \Cref{cor:fermat-galois-polarization}). We now handle the remaining cycles.
+		\begin{itemize}
+			\item The isogeny $A_1\cong A_2$ corresponds to equations $\kappa_u=\lambda_{2u}$ for each $u\in(\ZZ/18\ZZ)^\times$, which means that we would like to compute
+			\[\op{Per}\left(\gamma^{2p},\nu_{u(1,2,15),u(16,14,6)}\right).\]
+			Well, by \Cref{rem:coleman-periods}, this element is
+			\[(-2\pi i)^{-1}\zeta_{2N}^{u(1+2+16+14)}\cdot\frac{\Gamma\left(\frac{[u]}{18}\right)\Gamma\left(\frac{[2u]}{18}\right)}{\Gamma\left(\frac{[3u]}{18}\right)}\cdot\frac{\Gamma\left(\frac{[16u]}{18}\right)\Gamma\left(\frac{[14u]}{18}\right)}{\Gamma\left(\frac{[12u]}{18}\right)}.\]
+			One can check that the term on the left is in $\pi^{-1}\QQ(\zeta_N)$, so it remains to handle the product of $\Gamma$s. We handle the case where $u=1$ because the others turn out to be essentially Galois conjugates. (Indeed, \Cref{thm:fermat-galois} explains that the remaining $u$s belong to the same Galois orbit.) Using the algorithm suggested in \Cref{rem:effective-gamma-prod}, one finds that this product equals
+			\[\Gamma(-\varepsilon_{1,8} -\varepsilon_{2,3} -\varepsilon_{2,4} -\varepsilon_{2,6} -\varepsilon_{2,7} + \varepsilon_{3,1} + \varepsilon_{3,2} + 2 \varepsilon_{3,4}),\]
+			which evaluates to
+			\[\left(-\zeta_N^5 + \zeta_N^2 + \zeta_N + 1\right)\cdot\left(2^{22} \cdot 3^3\right)^{1/18},\]
+			up to a (correct) power of $\pi$.
+			
+			\item It remains to compute
+			\[\op{Per}\left(\gamma^4,\nu_{(3,6,9),(7,14,15),(13,8,15),(1,2,15)}\otimes1\right).\]
+			Well, by \Cref{rem:coleman-periods}, we see this equals
+			\[(-2\pi i)^{-2}\zeta_{2N}^{(3+6+7+14+13+8+1+2)}\cdot\frac{\Gamma\left(\frac{3}{18}\right)\Gamma\left(\frac{6}{18}\right)}{\Gamma\left(\frac{9}{18}\right)}\cdot\frac{\Gamma\left(\frac{7}{18}\right)\Gamma\left(\frac{14}{18}\right)}{\Gamma\left(\frac{3}{18}\right)}\cdot\frac{\Gamma\left(\frac{13}{18}\right)\Gamma\left(\frac{8}{18}\right)}{\Gamma\left(\frac{3}{18}\right)}\cdot\frac{\Gamma\left(\frac{1}{18}\right)\Gamma\left(\frac{2}{18}\right)}{\Gamma\left(\frac{3}{18}\right)}.\]
+			As above, the term on the left belongs to $\pi^{-2}\QQ(\zeta_N)$, so it remains to handle the product of $\Gamma$s. Once again using the algorithm suggested in \Cref{rem:effective-gamma-prod}, one finds that this product equals
+			\[\Gamma\left(\varepsilon_{1,7} -\varepsilon_{1,8} + \frac12 \varepsilon_{1,9} + \varepsilon_{2,5} -\varepsilon_{2,7} + \varepsilon_{2,8} + \varepsilon_{3,1} -\varepsilon_{3,3} + \varepsilon_{3,4} -\varepsilon_{3,5}\right),\]
+			which evaluates to $4\cdot2^{6/18}$ up to a (correct) power of $\pi$.
+		\end{itemize}
+		Altogether, we can combine these two calculations to show $K_A^{\mathrm{conn}}=\QQ\left(\zeta_N,2^{1/3},2^{2/9}\cdot3^{1/6}\right)$.
+		\qedhere
+	\end{enumerate}
+\end{proof}
+\begin{remark}
+	\Cref{prop:special-fermat-st-full-2} provides a reasonably small example of a quotient of a Fermat curve where $\QQ(\zeta_N)$, the endomorphism field, and the connected monodromy field all disagree!
+\end{remark}
 % \section{The Frobenius}
 % In this section, we use the theory of complex multiplication (in particular, \Cref{thm:fundamental}) to compute the Frobenius of some Fermat curves.
 

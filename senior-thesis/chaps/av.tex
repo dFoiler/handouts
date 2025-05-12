@@ -1071,8 +1071,8 @@ This faithful representation allows us to compute $G_\ell(A)$: we are looking fo
 	Note that such a field $K_A^{\mathrm{conn}}$ exists and is finite over $K$ by Galois theory: note $G_\ell(A)^\circ\subseteq G_\ell(A)$ is a finite-index subgroup (because the quotient is a discrete algebraic group), so the pre-image $U\subseteq\op{Gal}(\ov K/K)$ of $G_\ell(A)^\circ$ similarly must be open and finite index and hence closed and finite index.
 \end{remark}
 Thus, we see that the Galois reprentation to $\op{GL}(W)$ factors through the finite group $\op{Gal}(K_A^{\mathrm{conn}}/K)$. In this way, we are able to reduce the computation suggested by \Cref{prop:galois-computes-monodromy} from the infinite group $\op{Gal}(\ov K/K)$ to the finite quotient $\op{Gal}(K_A^{\mathrm{conn}}/K)$.
-\begin{remark}
-	Let's describe how one might compute $K_A^{\mathrm{conn}}$ in practice. BY combining the definition of $K_A^{\mathrm{conn}}$ with \Cref{lem:monodromy-fixes-tate-classes}, we see that $\op{Gal}(\ov K/K_A^{\mathrm{conn}})$ is the kernel of the representation
+\begin{remark} \label{rem:compute-k-conn-a}
+	Let's describe how one might compute $K_A^{\mathrm{conn}}$ in practice. By combining the definition of $K_A^{\mathrm{conn}}$ with \Cref{lem:monodromy-fixes-tate-classes}, we see that $\op{Gal}(\ov K/K_A^{\mathrm{conn}})$ is the kernel of the representation
 	\[\op{Gal}(\ov K/K)\to\op{GL}(W),\]
 	so one could imagine computing the open subgroup $\op{Gal}(\ov K/K_A^{\mathrm{conn}})$ by computing the above representation. As usual, we remark that \Cref{lem:monodromy-fixes-tate-classes} allows us to replace $W$ with a finite-dimensional subrepresentation $W'$ ``cutting out'' $G_\ell(A)^\circ$.
 \end{remark}

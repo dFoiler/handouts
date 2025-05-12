@@ -1548,6 +1548,90 @@ In this section, we average ``in the other direction'' to produce some distribut
 \subsection{Katz's Machine}
 In this subsection, we review Katz's machine to produce vertical Sato--Tate results.\todo{}
 
+\subsection{The Cartier--Manin Matrix}
+Our exposition follows \cite{sutherland-superelliptic}, but \cite{serre-cartier-manin} is the original source. In the sequel, it will be useful to have some partial explicit information about the Frobenius. Let $C$ be a smooth affine curve over a finite field $\FF_q$. Later, we will see examples where $C$ is superelliptic, but we may work in more generality for now. Further, we let $K\coloneqq k(C)$ denote the fraction field of meromorphic functions on $C$.
+
+We begin by picking up some theory around differentials of curves.
+\begin{definition}[separating element]
+	Fix a perfect field $k$ of characteristic $p$, and let $K/k$ be a field extension with $\operatorname{trdeg}_kK=1$. Then a \textit{separating element} is an element $x\in K$ such that the field extension $K/k(x)$ is separable.
+\end{definition}
+\begin{remark}
+	Separating elements exist. Indeed, by \cite[Proposition~3.10.2]{stich-function-fields}, such elements $z\in K$ are precisely elements in $K\setminus K^p$.
+\end{remark}
+Now, we let $\Omega_K$ denote the module of (Weil) differentials for $K$. For given separating element $x\in K$, because $\op{trdeg}_kK=1$, it follows that $[K:K^p]$ has degree $p$ so that $K$ has a basis $\left\{1,x,\ldots,x^{p-1}\right\}$ as a $K^p$-vector space. (Indeed, the elements $\left\{1,x,\ldots,x^{p-1}\right\}$ are $K^p$-linearly independent.) Thus, any element $\omega\in\Omega_K$ can be written uniquely as
+\[\omega=\sum_{i=0}^{p-1}z_i^px^i\,dx\]
+for some $z_0,\ldots,z_{p-1}\in K$. We are now ready to define our operator.
+\begin{definition}[Cartier operator]
+	Fix a perfect field $k$ of characteristic $p$, and let $K/k$ be a field extension with $\operatorname{trdeg}_kK=1$. Fix a separating element $x\in K$. Then the \textit{Cartier operator} $\mc C\colon\Omega_K\to\Omega_K$ is defined by
+	\[\mc C\Bigg(\sum_{i=0}^{p-1}z_i^px^i\,dx\Bigg)\coloneqq z_{p-1}\,dx.\]
+\end{definition}
+Here are some basic properties of the Cartier operator.
+\begin{lemma} \label{lem:basic-cartier}
+	Fix a perfect field $k$ of characteristic $p$, and let $K/k$ be a field extension with $\operatorname{trdeg}_kK=1$.
+	\begin{listalph}
+		\item Additive: for $\omega_1,\omega_2\in\Omega_K$, we have $\mc C(\omega_1+\omega_2)=\mc C(\omega_1)+\mc C(\omega_2)$.
+		\item Frobenius-semilinear: for $\omega\in\Omega_K$ and $z\in K$, we have $\mc C(z^p\omega)=z\mc C(\omega)$.
+		\item The operator $\mc C\colon\Omega_K\to\Omega_K$ is surjective.
+		\item The kernel of $\mc C$ is $\{dz:z\in K\}$.
+		\item We have $\mc C(dz/z)=dz/z$ for any $z\in K^\times$.
+	\end{listalph}
+\end{lemma}
+\begin{proof}
+	This is \cite[Exercise~4.12]{stich-function-fields} or \cite[Proposition~8]{serre-cartier-manin}. Throughout, fix a separating element $x$. Note (a) and (b) follow straight from the definition of $\mc C$. For (c), we note $\mc C(z^px^{p-1}\,dx)=z\,dx$. For (d), we compute that $z=\sum_{i=0}^{p-1}z_i^px^i$ has $dz=\sum_{i=1}^{p-1}iz_i^px^{i-1}\,dx$, so the image of $d\colon K\to\Omega_K$ is exactly the Weil differentials $\sum_{i=0}^{p-1}z_i^px^i\,dx$ with $z_{p-1}=0$.
+
+	It remains to show (e), which is more involved. Note that the given equality is equivalent to asking for $\mc C(z^{p-1}\,dz)=dz$ by (b), and this latter equality is valid at $z=0$, so we may let $L\subseteq K$ be the set of $z\in K$ satisfying $\mc C(z^{p-1}\,dz)=dz$. The proof will be over as soon as we show $L=K$, which we do in steps.
+	\begin{enumerate}
+		\item To get started, we note $K^p\subseteq L$ simply because $d$ vanishes on $K^p$. Additionally, $x\in L$ by construction of $\mc C$. Thus, we will be done if we can show that $K^p\subseteq L$ is closed under addition and multiplication.
+		\item We directly dispose of closure under multiplication. For $z,w\in L$, we compute
+		\begin{align*}
+			\mc C\left((zw)^{p-1}\,d(zw)\right) &= \mc C\left(z^pw^{p-1}\,dw+z^{p-1}w^p\,dz\right) \\
+			&= z\mc C\left(w^{p-1}\,dw\right)+w\mc C\left(z^{p-1}\,dz\right) \\
+			&= z\,dw+w\,dz,
+		\end{align*}
+		which is $d(zw)$, and so $zw\in L$.
+		\item Closure under addition will be slightly harder, so we start with an easy case: if $z\in L$, then we show $z+1\in L$. Indeed, we compute
+		\begin{align*}
+			\mc C\left((z+1)^{p-1}\,d(z+1)\right) &= \sum_{i=0}^{p-1}\binom{p-1}i\mc C\left(z^i\,dz\right) \\
+			&= \mc C\left(z^{p-1}\,dz\right)+\sum_{i=0}^{p-2}\frac1{i+1}\binom{p-1}i\mc C\left(d\left(z^{i+1}\right)\right) \\
+			&= dz,
+		\end{align*}
+		which is $d(z+1)$, and so $z+1\in L$.
+		\item We now complete the proof. It is enough to show that $L$ is closed under addition by nonzero elements, so we pick up $z,w\in L\setminus\{0\}$, and we would like to check $z+w\in L$. Well, by closure under multplication, it is enough to check that $z/w+1$ is in $L$, so the previous step tells us that it is enough to check that $z/w\in L$. By closure under multiplication, it is therefore enough to cehck that $1/w\in L$. This last requirement we can check directly: we compute $d\left(w^{-1}\right)/w^{-1}=-dw/w$, so
+		\begin{align*}
+			\mc C\left(d\left(w^{-1}\right)/w^{-1}\right) &= -\mc C\left(dw/w\right) \\
+			&= -dw/w,
+		\end{align*}
+		which is $d\left(w^{-1}\right)/w^{-1}$, so we are done.
+		\qedhere
+	\end{enumerate}
+\end{proof}
+\begin{remark}
+	The properties of \Cref{lem:basic-cartier} uniquely determine $\mc C$. (This implies that the operator $\mc C$ does not depend on the choice of separating element $x$!) Indeed, suppose $\mc C$ satisfies the given list of properties, and we will show that $\mc C\left(\sum_{i=0}^{p-1}z_i^px^i\,dx\right)=z_{p-1}\,dx$. By (d), we see that $\mc C\left(\sum_{i=0}^{p-1}z_i^px^i\,dx\right)=\mc C\left(z_{p-1}^px^{p-1}\,dx\right)$, which by (b) is $z_{p-1}\mc C\left(x^{p-1}\,dx\right)$. Thus, it remains to check $\mc C\left(x^{p-1}\,dx\right)=dx$, which follows from (e).
+\end{remark}
+\begin{lemma}
+	Let $C$ be a smooth proper curve defined over a perfect field $k$ of characteristic $p$, and set $K\coloneqq k(C)$. For each $c\in C$ and $\omega\in\Omega_K$, if $\nu_c(\omega)\ge0$, then $\nu_c(\mc C(\omega))\ge0$.
+\end{lemma}
+\begin{proof}
+	Fix some $c\in C$, and choose a uniformizer $t$ at $c$. Then $t\in K$ is a separating element (because $t\notin K^p$). Thus, any $\omega\in\Omega_K$ can be expanded (uniquel) as
+	\[\omega=\sum_{i=0}^{p-1}z_i^px^i\,dx\]
+	for some $z_0,\ldots,z_{p-1}\in K$. If we assume $\nu_c(\omega)\ge0$, then we must actually have $\nu_c(z_i)\ge0$ for each $i$ and in particular $\nu_c(z_{p-1})\ge0$, so we conclude that $\nu_c(\mc C(\omega))\ge0$ as well.
+\end{proof}
+To explain why we care about $\mc C$, we would now like to relate $\mc C$ to the Frobenius action on $\mathrm H^1_{\mathrm{dR}}(C)$. Note that the Frobenius action on $\mathrm H^0(C,\Omega_C)\subseteq\mathrm H^1_{\mathrm{dR}}(C)$ is simply trivial because the Frobenius action factors through $p\cdot\mathrm H^0(C,\Omega_C)=0$. Thus, the relationship between $\mc C$ and the Frobenius must not be totally trivial. Instead, the idea is to take the ``transpose'' and work with $\mathrm H^1(C,\OO_C)\subseteq\mathrm H^1_{\mathrm{dR}}(C)$ instead. To make sense of this, we will need to realize $\mathrm H^1(C,\OO_C)$ and $\mathrm H^0(C,\Omega_C)$ as duals, which is a special case of Serre duality \cite[Theorem~II.7.6]{hartshorne}. In our case, this is made explicit by the residue theorem.
+\begin{definition}[residue]
+	Let $C$ be a curve defined over $\FF_p$, and set $K\coloneqq k(C)$. For any smooth point $c\in C$, we choose a uniformizer $x\in K$. Then any $\omega\in\Omega_K$ can be written as $\omega=z\,dx$, and we define
+	\[\op{res}_{c,x}(\omega)\coloneqq a_{-1},\]
+	where $z$ has $x$-adic expansion $z=\sum_{n\in\ZZ}a_nx^n$.
+\end{definition}
+\begin{lemma}
+	Let $C$ be a curve defined over $\FF_p$, and set $K\coloneqq k(C)$. Then $\mc C\colon\Omega_K\to\Omega_K$ restricts to the (induced) action of the $p$-power Frobenius on $\mathrm H^0(C,\Omega_C)$.
+\end{lemma}
+\begin{proof}
+	
+\end{proof}
+\begin{remark}
+	One can extend this result to work with other finite fields than $\FF_p$, in which case we need to take suitable composites of $\mc C$. The key difficulty is that $\mc C$ should still relate to the $p$-power Frobenius, but now one should work with the relative instead of the absolute Frobenius.
+\end{remark}
+
 \subsection{The Frobenius}
 Under some rather restrictive hypotheses, we explain how to use \Cref{thm:fundamental} in order to compute the Frobenius. Our exposition follows the approach of \cite[Section~4]{van-geeman-fermat-curve-hecke}, with two important caveats. First, our application will be slightly simpler. Second, the fundamental theorem (\Cref{thm:fundamental}) is slightly incorrect in \cite[Subsection~4.4]{van-geeman-fermat-curve-hecke} because the described Hecke character $\AA_K^\times\to K^\times$ is not continuous at the infinite places. Nevertheless, we are under the impression that the stated results are true, and the arguments are correct with slight modifications separating the continuity at the finite places with the reflex norm at the infinite places (as done in \Cref{prop:fundamental-l-func}).
 
@@ -1574,7 +1658,7 @@ Here is our starting result, explaining how to compute the Frobenius action.
 Let's see an example.
 \begin{example} \label{ex:compute-cm-ec}
 	Let $A$ be the elliptic curve over $\QQ(\zeta_3)$ given by the affine equation $y^2=x^3+1$. Define the character $\lambda_S\colon\widehat\OO_{K,\{2,(1-\zeta_3)\}}^\times\to\mu_6$ by $\lambda_S(x)\equiv x\pmod{2(1-\zeta_3)}$ for each $x$. Then for any rational prime $p$ such that $p\equiv1\pmod3$, write $p=a^2-ab+b^2$ for $a,b\in\ZZ$, and
-	\[\lambda_S(a+b\zeta_3)\cdot(a+b\zeta_3)\]
+	\[\lambda_S(a+b\zeta_3)^{-1}\cdot(a+b\zeta_3)\]
 	embedded in $\op{End}(A)$ (via $\zeta_3\colon(x,y)\mapsto(\zeta_3x,y)$) agrees with the action of $\op{Frob}_p$.
 \end{example}
 \begin{proof}
@@ -1582,7 +1666,7 @@ Let's see an example.
 	
 	Continuing, we see that may take $L\coloneqq\QQ(\zeta_3)$, which is Galois over $\QQ$ and has class number $1$. By a discriminant computation, we see that $A$ has bad reduction only at $S\coloneqq\{2,3\}$, so our work will go into computing the character $\lambda_S\colon\widehat\OO_S^\times\to\mu(K)$. By \Cref{rem:lambda-on-units}, we see that $\lambda_S(\zeta)=\zeta$ for each $\zeta\in\mu(K)$, and this will basically be able to compute $\lambda_S$. To be precise, we note the inclusion $\mu_6\into\widehat\OO_{K,S}^\times$ is a section of the projection
 	\[\widehat\OO_{K,S}^\times=\widehat\OO_{K,(2)}^\times\times\widehat\OO_{K,(1-\zeta_3)}^\times\onto\left(\frac{\widehat\OO_{K,(2)}}{(2)}\right)^\times\times\left(\frac{\widehat\OO_{K,(1-\zeta_3)}}{(1-\zeta_3)}\right)^\times=\FF_4^\times\times\FF_3^\times\cong\mu_3\times\mu_2=\mu_6.\]
-	Because $\mu_6\into\widehat\OO_{K,S}^\times$ is also a section of $\lambda_S$, we conclude that $\lambda_S$ must equal exactly the above projection. The result follows.
+	Because $\mu_6\into\widehat\OO_{K,S}^\times$ is also a section of $\lambda_S$, we suspect that $\lambda_S$ must equal exactly the above projection.\todo{}
 \end{proof}
 \begin{remark} \label{rem:hecke-character-by-kernel-lambda}
 	Here is an equivalent statement. For any rational prime $p$ such that $p\equiv1\pmod3$, write $p=(a+b\zeta_3)(a-b\zeta_3)$ where $a,b\in\ZZ$ and $a+b\zeta_3\equiv1\pmod{2(1-\zeta_3)}$. (Equivalently, $p=a^2-ab+b^2$ with $a\equiv1\pmod2$ and $b\equiv0\pmod2$ and $a+b\equiv1\pmod3$.) Then $(a+b\zeta_3)$ agrees with the $p$-Frobenius on the reduction $A_{\kappa(a+b\zeta_3)}$. While we're here, we then note that $\#A_{\kappa(a+b\zeta_3)}$ equals
