@@ -11,7 +11,7 @@
 
 In this chapter, we define the notion of a Hodge structure as well as some related groups (the Mumford--Tate group and the Hodge group). Our exposition follows Moonen's unpublished notes \cite{moonen-mumford-tate-intro,moonen-mumford-tate} and Lombardo's master's thesis \cite[Chapter~3]{lombardo-mumford-tate}. Throughout, we find motivation from geometry (and in particular the cohomology of complex varieties), but we will review cohomology only later.
 
-\section{Hodge Structures}
+\section{Hodge Structures} \label{sec:hodge-struct}
 Cohomology of a variety frequently comes with some extra structure. On the \'etale site, we will later get significant utility of the fact that \'etale cohomology is a Galois representaion. On the analytic site, the corresponding structure is called a ``Hodge structure.''
 
 \subsection{Definition and Basic Properties}
@@ -314,7 +314,7 @@ Roughly speaking, the point of the group $\op{MT}(V)$ is that $\op{MT}(V)$ is an
 \end{proof}
 We thus see that understanding the Mumford--Tate group is important from the perspective of the Hodge conjecture (\Cref{conj:hodge}). It will be helpful to note that this characterizes $\op{MT}(V)$ in some cases.
 \begin{proposition} \label{prop:reductive-group-by-invariants}
-	Fix a field $k$ of characteristic $0$. Let $H\subseteq\op{GL}_{n,k}$ be a reductive subgroup. Suppose $H'$ is the algebraic $\QQ$-subgroup of $\op{GL}_{n,k}$ defined by fixing all $H$-invariants occuring in any tensor representation
+	Fix a field $K$ of characteristic $0$. Let $H\subseteq\op{GL}_{n,K}$ be a reductive subgroup. Suppose $H'$ is the algebraic $\QQ$-subgroup of $\op{GL}_{n,K}$ defined by fixing all $H$-invariants occuring in any tensor representation
 	\[T=\bigoplus_{i=1}^N\left(V^{\otimes m_i}\otimes (V^\lor)^{\otimes n_i}\right),\]
 	where $m_i,n_i\ge0$ are nonnegative integers. Then $H=H'$.
 \end{proposition}
@@ -419,8 +419,8 @@ It is worthwhile to note that there is also a tensor characterization of $\op{Hg
 % 	as required.
 % \end{proof}
 
-\section{Computational Tools}
-In this section, we provide some discussion which will help the computations used later in this thesis.
+% \section{Computational Tools}
+% In this section, we provide some discussion which will help the computations used later in this thesis.
 
 \subsection{Bounding with Known Classes} \label{subsec:mt-class-bounds}
 Here, we use endomorphisms and the polarization to bound the size of $\op{MT}(V)$ and $\op{Hg}(V)$.
@@ -769,7 +769,7 @@ Computationally, one reason why $\op L(V)$ is more controlled is that it is much
 
 % type iv discussion
 
-\section{Absolute Hodge Classes}
+\section{Absolute Hodge Classes} \label{sec:abs-hodge}
 We now discuss the main application of Hodge structures: cohomology. This will allow us to discuss absolute Hodge classes. Our exposition an abbreviated form \cite{deligne-hodge}.
 
 \subsection{Some Cohomology Theories} \label{subsec:review-cohom}
@@ -807,14 +807,14 @@ We now add smoothness to our manifolds, which allows us to define de~Rham cohomo
 	where $d$ denotes the de Rham differential.
 \end{defihelper}
 We once again have a comparison isomorphism.
-\begin{theorem}
+\begin{theorem} \label{thm:betti-dr-comparison}
 	Fix a smooth manifold $X$. For each $i$, there is a functorial perfect paring $\mathrm H_i^{\mathrm B}(X,\RR)\times\mathrm H^i_{\mathrm{dR}}(X,\RR)\to\RR$ given by
 	\[\langle\sigma,\omega\rangle\coloneqq\int_\sigma\omega\]
 	for each smooth map $\sigma\colon\Delta^i\to X$.
 \end{theorem}
 We next upgrade to complex K\"ahler manifolds. For example, one can upgrade our de Rham cohomology to use holomorphic differential forms instead of smooth differential forms, and the cohomology does not change. The key benefit of the complex manifold situation is that the de Rham cohomology gains a Hodge structure.
 \begin{theorem}
-	Fix a compact complex K\"aholer manifold $X$. For each $n\ge0$, there is a decomposition
+	Fix a compact complex K\"ahler manifold $X$. For each $n\ge0$, there is a decomposition
 	\[\mathrm H^i_{\mathrm{dR}}(X,\CC)=\bigoplus_{p+q=n}\mathrm H^{pq}(X),\]
 	where $\mathrm H^{pq}(X)\coloneqq\mathrm H^p(X,\Omega^q_X)$.
 \end{theorem}
@@ -832,11 +832,11 @@ Working with varieties gives access to the last cohomology theory we will need.
 	\[\mathrm H^i_{\mathrm{\acute et}}(X_{\ov K},\QQ_\ell)\coloneqq\left(\limit\mathrm H^i_{\mathrm{\acute et}}(X_{\ov K},\underline{\ZZ/\ell^\bullet\ZZ})\right)\otimes_\ZZ\QQ\]
 \end{defihelper}
 Importantly, we note that \'etale cohomology has the natural action by $\op{Gal}(\ov K/K)$. As usual, there is a comparison isomorphism.
-\begin{theorem}
+\begin{theorem} \label{thm:betti-etale-comparison}
 	Fix a smooth projective variety $X$ over $\CC$. Then there is a natural isomorphism
 	\[\mathrm H^i_{\mathrm B}(X,\QQ_\ell)\to\mathrm H^i_{\mathrm{\acute et}}(X_{\ov K},\QQ_\ell).\]
 \end{theorem}
-For convenience, we may find it convenient to glue our cohomology theories together.
+We may find it convenient to glue our cohomology theories together.
 \begin{notation}
 	Fix a smooth projective variety $X$ over a field $K$ with an embedding $\sigma\colon K\into\CC$. Then we define
 	\[\mathrm H^i_{\AA}(X)\coloneqq\mathrm H^i_{\mathrm{dR}}(X,\RR)\times\left(\limit_n\mathrm H^i_{\mathrm{\acute et}}(X_{\ov K},\underline{\ZZ/n\ZZ})\otimes_\ZZ\QQ\right).\]
@@ -847,9 +847,15 @@ For convenience, we may find it convenient to glue our cohomology theories toget
 	\[\mathrm H^i_{\mathrm{dR}}(X,\RR)\times\prod_\ell\left(\mathrm H^i_{\mathrm{\acute et}}(X_{\ov K},\QQ_\ell),\mathrm H^i_{\mathrm{\acute et}}(X_{\ov K},\ZZ_\ell)\right),\]
 	which provides some motivation for the $\AA$ in the notation.
 \end{remark}
+Thus far, we have defined many cohomology theories, so it is worthwhile to explain why one may expect them to somehow be related to one another. We have already mentioned a few comparison isomorphisms, but it also turns out that they all have other properties which tie them together. For example, they all have a cup product, which turn the collection of cohomology groups $\mathrm H^i(X)$ into a graded commutative ring $\mathrm H^\bullet(X)$. There is also some functoriality: for a map $f\colon X\to Y$ of spaces, there is always an induced pullback map
+\[f^*\colon\mathrm H^\bullet(Y)\to\mathrm H^\bullet(X),\]
+which turns out to be a homomorphism of graded algebras.
 
-\subsection{The Definition}
-To define absolute Hodge classes following \cite{deligne-hodge}, we must first discuss Tate twists. These change depending on our cohomology theory.
+As a more complicated example, there is a K\"unneth formula: for any of the above cohomology theories $\mathrm H$ defined on a space $X$ and $Y$, there is an isomorphism
+\[\mathrm H^n(X\times Y)=\bigoplus_{i+j=n}\mathrm H^i(X)\otimes\mathrm H^j(Y).\]
+Of course, it is a major theorem among each of our cohomology theories that the K\"unneth formula is satisfied, which we will not prove.
+
+There is also a notion of Poincar\'e duality. To explain Poincar\'e duality, we need some twists.
 \begin{definition}[Tate twist]
 	We define our Tate twists as follows.
 	\begin{itemize}
@@ -863,29 +869,1247 @@ To define absolute Hodge classes following \cite{deligne-hodge}, we must first d
 	\[\mathrm H^i(X)(n)\coloneqq\mathrm H^i(X)\otimes\mathrm T^{\otimes n},\]
 	where $\mathrm T$ denotes the Tate twist, and $i\ge0$ and $n\in\ZZ$. If $n\le0$, then we take the dual.
 \end{notation}
-As an example application, we want the Hodge classes on a complex K\"ahler manifold $X$ to be elements of the cohomology group $\mathrm H^{2p}_{\mathrm{dR}}(X,\CC)(p)$ of bidegree $(0,0)$ and satisfying some rationality condition. The definition of an absolute Hodge class comes from trying to be agnostic about the embedding of the base field of $X$.
-\begin{definition}[absolute Hodge class]
-	Fix a smooth projective variety $X$ over a number field $K$. An \textit{absolute Hodge class} is an element $t$ of some $\mathrm H^{2p}_\AA(X_{\ov K})(p)$ if and only if it satisfies the following properties.
+Now, for any of these cohomology theories $\mathrm H$ over a field $F$ defined on a space $X$ of equidimension $d$, Poincar\'e duality provides a perfect pairing
+\[\mathrm H^i(X)\otimes\mathrm H^{2d-i}(X)(d)\to F\]
+for each index $i$. Once again, it is a major theorem among each of our cohomology theories above that Poincar\'e duality is satisfied.
+
+\subsection{Weil Cohomology Theories}
+It will be worth our time to encode everything we need that the above cohomology theories have in common. In essence, we are asking for a formalism of a cohomology theory, which is known as a Weil cohomology theory. Approximately speaking, a Weil cohomology theory is a cohomology theory with the minimum amount of data to prove the Lefschetz trace formula without too much pain. Our exposition here follows \cite[Tag~\texttt{0FFG}]{stacks}. Throughout, we freely use facts about intersection theory and Chow groups because the author is too ignorant to provide a suitable review of these notions; everything we need can be found in \cite{fulton-intersection-theory}.
+
+Throughout, we fix a base field $K$ and a coefficient field $F$. We require $\op{char}F=0$, but we do not require $K$ to be algebraically closed. These hypotheses will not be repeated!
+\begin{notation}
+	Let $\mc P(K)$ denote the category of smooth projective varieties over $K$, with morphisms given by regular maps.
+\end{notation}
+Here is the data we will be working with.
+\begin{defihelper}[Weil cohomology datum] \nirindex{Weil cohomology!Weil cohomology datum}
+	A \textit{Weil cohomology datum} consists of the following data.
 	\begin{itemize}
-		\item $\pi_\infty(t)$ lives in the component $(0,0)$ of $\mathrm H^{2p}_{\mathrm{dR}}(X,\CC)$.
-		\item For each embedding $\sigma\colon K\into\CC$, the element $t$ is in the image of the embedding $\mathrm H^{2p}_{\mathrm B}(X,\QQ)(p)$ into $\mathrm H^{2p}_\AA(X)(p)$.
+		\item A one-dimensional $F$-vector space $F(1)$.
+		\item A contravariant functor $\mathrm H^\bullet$ from $\mc P(K)$ to the category of $\ZZ$-graded commutative $F$-algebras. We will write the product as a cup $\cup$.
+		\item For $X\in\mc P(K)$ of equidimension $d$, there is a trace map $\int_X\colon\mathrm H^{2d}(X)(d)\to F$.
+		\item For $X\in\mc P(K)$, there is a cycle class map $\op{cl}_X\colon\mathrm{CH}^i(X)\to\mathrm H^{2i}(X)(i)$, which is required to be a group homomorphism.
 	\end{itemize}
-	We denote the collection of these absolute Hodge classes by $C^p_{\mathrm{AH}}(X_{\ov K})$ or $C^p_{\mathrm{AH}}(X)$.
+	Frequently, we will call $\mathrm H^\bullet$ alone the Weil cohomology datum, leaving the other inputs implied.
+\end{defihelper}
+In short, $F(1)$ is the Tate twist, $\mathrm H^\bullet$ are the vector spaces one usually remembers with Weil cohomology theories, $\int_X$ keeps track of Poincar\'e duality, and $\op{cl}_X$ relates cohomology to geometry.
+
+In order to keep us thinking ``cohomologically,'' we use some special notation.
+\begin{notation}
+	Fix a Weil cohomology datum $\mathrm H^\bullet$ over $K$ with coefficients in $F$.
+	\begin{itemize}
+		\item For any $F$-vector space $V$, we write $V(n)\coloneqq V\otimes F(1)^{\otimes n}$. Here, negative exponents denote duals.
+		\item If $f\colon X\to Y$ is a regular map, we let $f^*\colon\mathrm H^\bullet(Y)\to\mathrm H^\bullet(X)$ denote the induced ring homomorphism.
+	\end{itemize}
+\end{notation}
+\begin{remark}
+	In the sequel, we may note that $f*(\alpha\cup\beta)=f^*\alpha\cup f^*\beta$ without comment: indeed, this follows because $f^*$ is a ring homomorphism! Similarly, we may use the fact that $(g\circ f)^*=f^*\circ g^*$, which follows because the functor $\mathrm H^\bullet$ is contravariant.
+\end{remark}
+Now, a Weil cohomology datum is going to be required to satisfy many axioms. Before going further, let's summarize them.
+\begin{itemize}
+	\item We need a K\"unneth formula to ensure that products of varieties go to products in graded algebras.
+	\item We need Poincar\'e duality, for example to define pushfowards. This adds some coherence to the cycle class maps.
+	\item To add some geometric input to the picture, we need some coherence of our cycle class maps.
+	\item Lastly, we will need another axiom to ensure that, for example, $\mathrm H$ is only supported in nonnegative indices.
+\end{itemize}
+Let's begin with the K\"unneth formula.
+\begin{defihelper}[K\"unneth formula] \nirindex{Weil cohomology!K\"unneth formula}
+	Fix a Weil cohomology datum $\mathrm H^\bullet$ over $K$ with coefficients in $F$. Then $\mathrm H^\bullet$ satisfies the \textit{K\"unneth formula} if and only if it satisfies the following for all $X,Y\in\mc P(K)$.
+	\begin{listalph}
+		\item K\"unneth formula: the map
+		\[\arraycolsep=1.2pt\begin{array}{rclcc}
+			\mathrm H^\bullet(X) &\otimes& \mathrm H^\bullet(Y) &\to& \mathrm H^\bullet(X\times Y) \\
+			\alpha &\otimes& \beta &\mapsto& \op{pr}_1^*\alpha\cup\op{pr}_2^*\beta
+		\end{array}\]
+		is an isomorphism of graded $F$-algebras. We may write $\alpha\boxtimes\beta\coloneqq\op{pr}_1^*\alpha\cup\op{pr}_2^*\beta$.
+		\item Fubini's theorem: if $X$ and $Y$ have equidimension $d$ and $e$, respectively, then
+		\[\int_{X\times Y}(\alpha\boxtimes\beta)=\int_X\alpha\cdot\int_Y\beta\]
+		for any $\alpha\in\mathrm H^{2d}(X)(d)$ and $\beta\in\mathrm H^{2e}(Y)(e)$.
+	\end{listalph}
+\end{defihelper}
+\begin{remark}
+	It is worth recalling the grading on the tensor product of two graded vector spaces: if $V$ and $W$ are $\ZZ$-graded vector spaces, then $(V\otimes W)$ has a grading given by
+	\[(V\otimes W)_n=\bigoplus_{i+j=n}V_i\otimes W_j.\]
+	In particular, we see that satisfying the K\"unneth formula implies that there is a canonical isomorphism
+	\[\bigoplus_{i+j=n}\mathrm H^i(X)\otimes\mathrm H^j(Y)\to\mathrm H^n(X\times Y).\]
+\end{remark}
+It is worth noting that the K\"unneth formula has good functoriality properties.
+\begin{lemma} \label{lem:weil-product-morphism}
+	Fix a Weil cohomology datum $\mathrm H^\bullet$ over $K$ with coefficients in $F$ satisfying the K\"unneth formula. Given morphisms $f\colon X\to X'$ and $g\colon Y\to Y'$ in $\mc P(K)$, we have
+	\[(f\times g)^*=f^*\otimes g^*.\]
+\end{lemma}
+\begin{proof}
+	Note that these are both automatically ring maps $\mathrm H^\bullet(X'\times Y')\to\mathrm H^\bullet(X\times Y)$. By the K\"unneth formula, it is enough to check this on elements of the form $\alpha\boxtimes\beta=\op{pr}_1^*\alpha\cup\op{pr}_2^*\beta$, where $\alpha\in\mathrm H^\bullet(X)$ and $\beta\in\mathrm H^\bullet(Y)$. Well, we note
+	\[(f\times g)^*\op{pr}_1^*\alpha=f^*\alpha,\]
+	and similarly $(f\times g)^*\op{pr}_2^*\beta=g^*\beta$. Combining completes the proof.
+\end{proof}
+We now move on to Poincar\'e duality.
+\begin{defihelper}[Poincar\'e duality] \nirindex{Weil cohomology!Poincar\'e duality}
+	Fix a Weil cohomology datum $\mathrm H^\bullet$ over $K$ with coefficients in $F$. Then $\mathrm H^\bullet$ satisfies \textit{Poincar\'e duality} if and only if it satisfies the following for all $X\in\mc P(K)$ of equidimension $d$.
+	\begin{listalph}
+		\item Finite type: we have $\dim_F\mathrm H^i(X)<\infty$ for all $i\in\ZZ$.
+		\item Poincar\'e duality: for each index $i$, the composite
+		\[\mathrm H^i(X)\times\mathrm H^{2d-i}(X)(d)\stackrel\cup\to\mathrm H^{2d}(X)(d)\stackrel{\int_X}\to F\]
+		is a perfect pairing of vector spaces over $F$.
+	\end{listalph}
+\end{defihelper}
+\begin{remark}
+	Notably, our definition allows cohomology to be supported in negative degrees! We will remedy this later in \Cref{lem:cohomology-correct-degs} when we have a full definition of a Weil cohomology theory.
+\end{remark}
+An important feature of Poincar\'e duality is that it lets us define the pushforward.
+\begin{notation}
+	Fix a Weil cohomology datum $\mathrm H^\bullet$ over $K$ with coefficients in $F$ satisfying Poincar\'e duality. If $f\colon X\to Y$ is a regular map of smooth projective varieties of equidimensions $d$ and $e$ respectively, we define the index-$i$ pushforward
+	\[f_*\colon\mathrm H^{2d-i}(X)(d)\to\mathrm H^{2e-i}(Y)(e)\]
+	as the transpose of the pullback $f^*$ under Poincar\'e duality.
+\end{notation}
+\begin{remark} \label{rem:better-pushforward}
+	Explicitly, given $\alpha\in\mathrm H^{2d-i}(X)(d)$, then $f_*\alpha\in\mathrm H^{2e-i}(X)(e)$ is defined as the unique element such that
+	\[\int_X(f^*\beta\cup\alpha)=\int_Y(\beta\cup f_*\alpha)\]
+	for all $\beta\in\mathrm H^{i}(Y)$. For example, if $\alpha\in\mathrm H^{2d}(X)(d)$, we may choose $\beta=1$ to see that $\int_X\alpha=\int_Yf_*\alpha$.
+\end{remark}
+\begin{remark}
+	The pushforward construction is functorial: given maps $f\colon X\to Y$ and $g\colon Y\to Z$, we check that $(g\circ f)_*=g_*\circ f_*$. Well, we already know that $(g\circ f)^*=f^*\circ g^*$ by functoriality of $\mathrm H^\bullet$, so this follows by taking the transpose along Poincar\'e duality.
+\end{remark}
+\begin{remark} \label{rem:push-equidimension}
+	If $\dim X=\dim Y$, then $f_*$ preserves the grading. Further, we can undo the twisting to see that $f_*$ becomes a graded linear map $f_*\colon\mathrm H^\bullet(X)\to\mathrm H^\bullet(Y)$.
+\end{remark}
+We know that $f^*(\alpha\cup\beta)=f^*\alpha\cup f^*\beta$. We would like a similar way to compute $f_*$ on products. This is not quite possible, but one can do something.
+\begin{lemma}[Projection formula] \label{lem:weil-projection-formula}
+	Fix a Weil cohomology datum $\mathrm H^\bullet$ over $K$ with coefficients in $F$ satisfying Poincar\'e duality. If $f\colon X\to Y$ is a regular map of smooth projective varieties of equidimensions $d$ and $e$ respectively, then
+	\[f_*(f^*\beta\cup\alpha)=\beta\cup f_*\alpha\]
+	for each $\alpha\in\mathrm H^{2d-i}(X)(d)$ and $\beta\in\mathrm H^{j}(Y)$.
+\end{lemma}
+\begin{proof}
+	We unravel the definition, following \Cref{rem:better-pushforward}. Indeed, for any $\beta'\in\mathrm H^{i-j}(X)$ has
+	\[\int_Xf^*\beta'\cup(f^*\beta\cup\alpha)=\int_Y\beta'\cup(\beta\cup f_*\alpha)\]
+	by definition of $f_*\alpha$.
+\end{proof}
+\begin{remark} \label{lem:chow-projection-formula}
+	This projection formula is expected on the level of cycles: for $\alpha\in\op{CH}(X)$ and $\beta\in\op{CH}(Y)$, one has $f_*(f^*\beta\cdot\alpha)=\beta\cdot f_*\alpha$ for any proper map $f\colon X\to Y$.
+\end{remark}
+\begin{lemma} \label{lem:weil-pushforward-projection}
+	Fix a Weil cohomology datum $\mathrm H^\bullet$ over $K$ with coefficients in $F$ satisfying the K\"unneth formula and Poincar\'e duality. Given $X,Y\in\mc P(K)$ which are equidimensional of dimensions $d$ and $e$ respectively, then
+	\[\op{pr}_{2*}(\alpha\boxtimes\beta)=\left(\int_X\alpha\right)\beta\]
+	for any $\alpha\in\mathrm H^{2d}(X)(d)$ and $\beta\in\mathrm H^\bullet(Y)(e)$.
+\end{lemma}
+\begin{proof}
+	It is enough to consider the case where $\beta$ is homogeneous, so say $\beta\in\mathrm H^{2d-j}(Y)(e)$. Then we must check that
+	\[\int_{X\times Y}\op{pr}_2^*\beta'\cup(\alpha\boxtimes\beta)\stackrel?=\int_Y\beta'\cup\left(\int_X\alpha\right)\beta\]
+	for any $\beta'\in\mathrm H^j(Y)$. Well, $\beta'\cup(\alpha\boxtimes\beta)=\alpha\boxtimes(\beta'\beta)$, so this follows from the K\"unneth formula.
+\end{proof}
+% \begin{lemma}
+% 	Fix a Weil cohomology datum $\mathrm H^\bullet$ over $K$ with coefficients in $F$ satisfying Poincar\'e duality and the K\"unneth formula. Given $\alpha\in\mathrm H^{2d}(X)(d)$ and $\beta\in\mathrm H^{2e}(Y)(e)$, we have
+% 	\[\op{pr}_{2*}(\alpha\boxtimes\beta)=\left(\int_X\alpha\right)\beta.\]
+% \end{lemma}
+% \begin{proof}
+%
+% \end{proof}
+Our last collection of coherence assumptions on $\mathrm H^\bullet$ is for the cycle class maps.
+\begin{defihelper}[cycle coherence] \nirindex{Weil cohomology!cycle coherence}
+	Fix a Weil cohomology datum $\mathrm H^\bullet$ over $K$ with coefficients in $F$ satisfying Poincar\'e duality. Then $\mathrm H^\bullet$ satisfies \textit{cycle coherence} if and only if it satisfies the following.
+	\begin{listalph}
+		\item Pullbacks: if $f\colon X\to Y$ is a regular map of smooth projective varieties, then $\op{cl}_X(f^!\beta)=f^*\op{cl}_X(\beta)$ for any $\beta\in\op{CH}^\bullet(Y)$.
+		\item Pushforwards: if $f\colon X\to Y$ is a regular map of smooth equidimensional projective varieties, then $\op{cl}_Y(f_*\alpha)=f_*\op{cl}_X(\alpha)$ for any $\alpha\in\op{CH}^\bullet(X)$.
+		\item Cup products: given $\alpha,\alpha'\in\op{CH}^\bullet(X)$, we have $\op{cl}_X(\alpha\cdot\alpha')=\op{cl}_X(\alpha)\cup\op{cl}_X(\alpha')$.
+		\item Non-degeneracy: we have $\int_{\Spec K}\op{cl}_{\Spec K}([\Spec K])=1$.
+	\end{listalph}
+\end{defihelper}
+We now have enough axioms to start proving some results, so let's give a name for our current stopping point.
+\begin{defihelper}[pre-Weil cohomology theory] \nirindex{Weil cohomology!pre-Weil cohomology theory}
+	Fix a Weil cohomology datum $\mathrm H^\bullet$ over $K$ with coefficients in $F$ satisfying Poincar\'e duality. Then $\mathrm H^\bullet$ is a \textit{pre-Weil cohomology theory} if and only if $\mathrm H^\bullet$ satisfies the K\"unneth formula, Poincar\'e duality, and cycle coherence.
+\end{defihelper}
+As we start to move into proving things, it is worth keeping track of the following idea.
+\begin{idea}
+	To prove something about all Weil cohomology theories, one proves something ``motivic'' (i.e., ``geometric'') and then does linear algebra.
+\end{idea}
+We will point out the various places we use motivic input; typically, one can see it as where we apply anything about cycle class maps. As an example, let's compute the cohomology of the point.
+\begin{example} \label{ex:weil-cohom-pt}
+	Fix a pre-Weil cohomology theory $\mathrm H^\bullet$ over $K$ with coefficients in $F$. Then the cohomology ring $\mathrm H^\bullet(\Spec K)$ is supported in degree $0$, and
+	\[\int_{\Spec K}\colon\mathrm H^0(\Spec K)\to F\]
+	is an isomorphism of algebras over $F$.
+\end{example}
+\begin{proof}
+	Our pieces of motivic input will be that $\Spec K\times\Spec K=\Spec K$ and that $[\Spec K]\cdot[\Spec K]=[\Spec K]$ in $\op{CH}^0(\Spec K)$.
+	
+	Note $\Spec K\times\Spec K\cong\Spec K$, so $\dim_F\mathrm H^\bullet(\Spec K\times\Spec K)=\dim_F\mathrm H^\bullet(\Spec K)$. Thus, the K\"unneth formula requires $\dim_F\mathrm H^\bullet(\Spec K)\in\{0,1\}$. However, the non-degeneracy part of cycle coherence forces $\mathrm H^0(\Spec K)\ne0$, so we conclude $\dim_F\mathrm H^\bullet(\Spec K)=1$. Now, Poincar\'e duality tells us that $\dim_F\mathrm H^i(X)=\dim_F\mathrm H^{-i}(X)$ for all $i\in\ZZ$, so $\mathrm H^\bullet$ must be supported in degree $0$.
+
+	It remains to show that $\int_{\Spec K}\colon\mathrm H^0(\Spec K)\to F$ is an isomorphism of algebras. This map is certainly an $F$-linear map of one-dimensional $F$-vector spaces, so it takes the form $a\mapsto a\int_{\Spec K}1$ where $1\in\mathrm H^0(\Spec K)$ is the unit. It thus suffices to check that $\int_{\Spec K}1=1$. Well, cycle coherence requires $\int_{\Spec K}\op{cl}_{\Spec K}([\Spec K])=1$, so we would like to show $\op{cl}_{\Spec K}([\Spec K])=1$. For this, we note that
+	\[[\Spec K]\cdot[\Spec K]=[\Spec K],\]
+	so cycle coherence forces $\op{cl}_{\Spec K}([\Spec K])\in\{0,1\}$, and zero it is not permitted by non-degeneracy.
+\end{proof}
+\begin{corollary} \label{cor:weil-push-space}
+	Fix a pre-Weil cohomology theory $\mathrm H^\bullet$ over $K$ with coefficients in $F$. If $X\in\mc P(K)$, then $\op{cl}_X([X])=1$.
+\end{corollary}
+\begin{proof}
+	Let $p_X\colon X\to\Spec K$ be the structure map. Then we have some motivic input $[Y]=p_Y^*([\Spec K])$, so cycle coherence tells us that
+	\[\op{cl}_Y([Y])=p_Y^*(\op{cl}_{\Spec K}([\Spec K])),\]
+	from which $\op{cl}_Y([Y])=1$ follows by \Cref{ex:weil-cohom-pt}.
+\end{proof}
+We can also check that our cohomology is sufficiently nontrivial.
+\begin{proposition} \label{prop:weil-nontrivial}
+	Fix a pre-Weil cohomology theory $\mathrm H^\bullet$ over $K$ with coefficients in $F$. If $X\in\mc P(K)$ is nonempty, then $\mathrm H^0(X)\ne0$.
+\end{proposition}
+\begin{proof}
+	Throughout, for $Y\in\mc P(K)$, the structure morphism is denoted by $p_Y\colon Y\to\Spec K$. The proof has two steps.
+	\begin{enumerate}
+		\item We show that $\mathrm H^\bullet(X)\ne0$ if $X$ is nonempty and irreducible. It suffices to show that $\mathrm H^\bullet$ has some nonzero functional, for which we use points. Because $X$ is smooth, it has a closed point $x\in X$ with residue field $\kappa(x)$ finite and separable over $K$; let $i\colon\{x\}\to X$ denote the inclusion. Then $(p_X\circ i)\colon\{x\}\to\Spec K$ is given by the inclusion $K\into\kappa(x)$, from which we can compute
+		\[(p_X)_*i_*[x]=[\kappa(x):K]\cdot[\Spec K].\]
+		(At the level of intersection theory, one can see this by passing to the algebraic closure, whereupon $x$ splits into $[\kappa(x):K]$ distinct geometric points.) This provides our geometric input. Then cycle class coherence and \Cref{cor:weil-push-space} show that
+		\[(p_X)_*(\op{cl}_X(i_*[x]))=[\kappa(x):K].\]
+		Because $F$ has characteristic $0$, we see that the right-hand is nonzero, so $\op{cl}_X(i_*[x])\ne0$, so $\mathrm H^\bullet(X)\ne0$.
+		\item We reduce to the irreducible case. Suppose $X$ is nonempty, and let $X'\subseteq X$ be an irreducible component. We would like to show that $1\ne0$ in $\mathrm H^\bullet(X)$. Well, there is a ring map $\mathrm H^\bullet(X)\to\mathrm H^\bullet(X')$ given by the inclusion, so it is actually enough to check that $1\ne0$ in $\mathrm H^\bullet(X')$. This has been done in the previous step.
+		\qedhere
+	\end{enumerate}
+\end{proof}
+\begin{example}
+	Fix a pre-Weil cohomology theory $\mathrm H^\bullet$ over $K$ with coefficients in $F$. Then $\mathrm H^\bullet(\emp)=0$.
+\end{example}
+\begin{proof}
+	For any $X\in\mc P(K)$, our geometric input is that $\emp\times X=\emp$, from which the K\"unneth formula requires
+	\[\dim_F\mathrm H^\bullet(\emp)\cdot\dim_F\mathrm H^\bullet(X)=\dim_F\mathrm H^\bullet(\emp).\]
+	Now, we choose $X$ to be nonempty of dimension at least $1$ (for example, $X=\PP^1_K$), then \Cref{prop:weil-nontrivial} shows $\mathrm H^0(X)\ne0$, from which Poincar\'e duality yields $\dim_F\mathrm H^\bullet(X)\ge2$. Plugging this in to the above equality gives $\mathrm H^0(X)$ $\dim_F\mathrm H^\bullet(\emp)=0$, from which the result follows.
+\end{proof}
+In the sequel, we will also want more general control over unions.
+\begin{proposition} \label{prop:weil-union}
+	Fix a pre-Weil cohomology theory $\mathrm H^\bullet$ over $K$ with coefficients in $F$. Given $X,Y\in\mc P(K)$, let $i_1\colon X\to X\sqcup Y$ and $i_2\colon Y\to X\sqcup Y$ denote the canonical inclusions. Then the map
+	\[\arraycolsep=1.2pt\begin{array}{ccrclc}
+		\mathrm H^\bullet(X\sqcup Y) &\to& \mathrm H^\bullet(X) &\times& \mathrm H^\bullet(Y) \\
+		\gamma &\mapsto& (i_1^*\gamma &,& i_2^*\gamma)
+	\end{array}\]
+	is an isomorphism.
+\end{proposition}
+\begin{proof}
+	If $X=\emp$ or $Y=\emp$, then the other inclusion is an isomorphism, and there is nothing to do. Let the given map be denoted $i$. Ultimately, the difficulty in this proof arises from the fact that there is no canonical inverse map, so we will have to apply various tricks to put ourselves in situations where we have approximations.
+	
+	Quickly, we note that $i$ is a product of algebra maps and hence an algebra map, so the main content comes from checking that this is a bijection. We will check injectivity and surjectivity, both in two steps. Let's start with injectivity.
+	\begin{enumerate}
+		\item We show that $i$ is injective if $X$ and $Y$ are equidimensional with $\dim X=\dim Y$. This hypothesis will be used to allow us to think of pushforwards along $i_1$ and $i_2$ at the level of the full graded vector spaces, as in \Cref{rem:push-equidimension}. In particular, we will show that
+		\[\gamma\stackrel?=i_{1*}i_1^*\gamma+i_{2*}i_2^*\gamma\]
+		for any $\gamma\in\mathrm H^\bullet(X\sqcup Y)$; injectivity follows because this shows that $(\alpha,\beta)\sqcup i_{1*}\alpha+i_{2*}\beta$ is a one-sided inverse for $i$.
+
+		By the projection formula (\Cref{lem:weil-projection-formula}), it is enough to check that
+		\[1\stackrel?=i_{1*}1+i_{2*}1,\]
+		from which one can apply $\gamma\cup-$. Well, by \Cref{cor:weil-push-space}, this is equivalent to asking for
+		\[\op{cl}_{X\sqcup Y}([X\sqcup Y])=i_{1*}\op{cl}_X([X])+i_{2*}\op{cl}_Y([Y]),\]
+		We now see that this has motivic input given by the equation $[X\sqcup Y]=[X]+[Y]$, from which the result follows after using cycle coherence.
+
+		\item We show that $i$ is injective in the general case. This will require a geometric trick. Given $X$ and a positive integer $d>\dim X$, we will construct $X'$ of dimension $d$ for which there is an embedding $j_X\colon X\to X'$ and a projection $q_X\colon X'\to X$ such that $q_X\circ j_X=\id_X$. If we choose $d$ to exceed $\max\{\dim X,\dim Y\}$ and apply the same construction to $Y$, then we can conclude as follows. The diagrams
+		% https://q.uiver.app/#q=WzAsOCxbMywwLCJcXG1hdGhybSBIXlxcYnVsbGV0KFhcXHNxY3VwIFkpIl0sWzQsMCwiXFxtYXRocm0gSF5cXGJ1bGxldChYKVxcdGltZXNcXG1hdGhybSBIXlxcYnVsbGV0KFkpIl0sWzMsMSwiXFxtYXRocm0gSF5cXGJ1bGxldChYJ1xcc3FjdXAgWScpIl0sWzQsMSwiXFxtYXRocm0gSF5cXGJ1bGxldChYJylcXHRpbWVzXFxtYXRocm0gSF5cXGJ1bGxldChZJykiXSxbMCwwLCJYXFxzcWN1cCBZIl0sWzAsMSwiWCdcXHNxY3VwIFknIl0sWzEsMCwiWCxZIl0sWzEsMSwiWCcsWSciXSxbMCwxXSxbMiwzXSxbMCwyLCIocV9YXFxzcWN1cCBxX1kpXioiLDJdLFsxLDMsInFfWV4qIiwwLHsib2Zmc2V0IjotMn1dLFsxLDMsInFfWF4qIiwyLHsib2Zmc2V0IjoyfV0sWzUsNCwicV9YXFxzcWN1cCBxX1kiXSxbNiw0XSxbNyw1XSxbNyw2LCJxX1giLDAseyJvZmZzZXQiOi0yfV0sWzcsNiwicV9ZIiwyLHsib2Zmc2V0IjoyfV1d&macro_url=https%3A%2F%2Fraw.githubusercontent.com%2FdFoiler%2Fnotes%2Fmaster%2Fnir.tex
+		\[\begin{tikzcd}[cramped]
+			{X\sqcup Y} & {X,Y} && {\mathrm H^\bullet(X\sqcup Y)} & {\mathrm H^\bullet(X)\times\mathrm H^\bullet(Y)} \\
+			{X'\sqcup Y'} & {X',Y'} && {\mathrm H^\bullet(X'\sqcup Y')} & {\mathrm H^\bullet(X')\times\mathrm H^\bullet(Y')}
+			\arrow[from=1-2, to=1-1]
+			\arrow[from=1-4, to=1-5]
+			\arrow["{(q_X\sqcup q_Y)^*}"', from=1-4, to=2-4]
+			\arrow["{q_Y^*}", shift left=2, from=1-5, to=2-5]
+			\arrow["{q_X^*}"', shift right=2, from=1-5, to=2-5]
+			\arrow["{q_X\sqcup q_Y}", from=2-1, to=1-1]
+			\arrow["{q_X}", shift left=2, from=2-2, to=1-2]
+			\arrow["{q_Y}"', shift right=2, from=2-2, to=1-2]
+			\arrow[from=2-2, to=2-1]
+			\arrow[from=2-4, to=2-5]
+		\end{tikzcd}\]
+		commute (the right diagram is induced from the left by functoriality), and the bottom row of the right diagram is injective by the previous step. Now, $q_\bullet\circ i_\bullet=\id_\bullet$, so $i_\bullet^*\circ q_\bullet^*=\id_\bullet^*$, meaning that the vertical $q_\bullet^*$s in the right diagram are all injective. Thus, the diagonal morphism of the right diagram is injective, so its top morphism is injective as well.
+
+		It remains to construct $X'$. Decompose $X$ into irreducible components $\{X_1,\ldots,X_n\}$, and we note that the smoothness of $X$ implies that its irreducible components are connected components as well. Thus, $X=X_1\sqcup\cdots\sqcup X_n$, allowing us to define
+		\[X'\coloneqq\left(X_1\times\PP_K^{d-\dim X_1}\right)\sqcup\cdots\sqcup\left(X_n\times\PP_K^{d-\dim X_n}\right).\]
+		Choosing a point of the projective spaces gives an inclusion $X\into X'$, and there is an obvious projection $X'\onto X$ by getting rid of the projective spaces.
+	\end{enumerate}
+	We now turn to the surjectivity. It would be wonderful if the one-sided inverse in the first step also showed surjectivity (even in the case $\dim X=\dim Y$), but this only works once we know that the maps $\mathrm H^\bullet(X\sqcup Y)\to\mathrm H^\bullet(X)$ and $\mathrm H^\bullet(X\sqcup Y)\to\mathrm H^\bullet(Y)$ are surjective. We will have to expend some effort for this.
+	\begin{enumerate}[resume]
+		\item Suppose that there is a morphism $f\colon Y\to X$. Then we show that the map $i_1^*\colon\mathrm H^\bullet(X\sqcup Y)\to\mathrm H^\bullet(X)$ is surjective. Indeed, the inclusion $i_1\colon X\subseteq X\sqcup Y$ admits a section $s\colon X\sqcup Y\to X$ by sending all of $Y$ along $f$. Thus, $s\circ i_1=\id_X$, meaning $i_1^*\circ s^*=\id_X^*$, so $i_1^*$ is surjective.
+
+		\item We show that the map $i_1^*\colon\mathrm H^\bullet(X\sqcup Y)\to\mathrm H^\bullet(X)$ is always surjective. This requires a trick: all objects among $F$-vector spaces are faithfully falt, so we may check surjectivity after applying $-\otimes\mathrm H^\bullet(Z)$ for any $Z$. By the K\"unneth formula, we see that we are reduced to checking if
+		\[i_1^*\colon\mathrm H^\bullet((X\times Z)\sqcup (Y\times Z))\to\mathrm H^\bullet(X\times Z)\]
+		is surjective. In light of the previous step, we are tasked with finding $Z$ such that there is a map $(Y\times Z)\to(X\times Z)$. Well, $X$ is nonempty and smooth, so it has some closed point $x\in X$ with separable residue field $\kappa(x)$; then there is a map $Y_{\kappa(x)}\to X_{\kappa(x)}$ given by mapping all of $Y$ to $x$.
+
+		\item We show that the map $i$ is surjective. We are not going to use an assumption like $\dim X=\dim Y$; instead, we interface directly with $e_X\coloneqq\op{cl}_{[X\sqcup Y]}([X])$ and $e_Y\coloneqq\op{cl}_{[X\sqcup Y]}([Y])$.
+
+		By the previous step, the map $i_1^*\mathrm H^\bullet(X\sqcup Y)\to\mathrm H^\bullet(X)$ is surjective, as is $i_2^*$ by symmetry. Thus, it suffices to show that $i$ surjects onto elements of the form $(i_1^*\gamma,i_2^*\delta)$. Well, we claim that
+		\[\begin{cases}
+			i_1^*(e_X\cup\gamma+e_Y\cup\delta)\stackrel?=i_1^*\gamma, \\
+			i_2^*(e_X\cup\gamma+e_Y\cup\delta)\stackrel?=i_2^*\delta.
+		\end{cases}\]
+		Indeed, because $i_1^*$ and $i_2^*$ are ring homomorphisms, it is enough to note that $i_1^*e_X=e_X$ and $i_1^*e_Y=0$ by cycle coherence for the first equality, and $i_2^*e_X=0$ and $i_2^*e_Y=e_Y$ by cycle coherence for the second equality.
+		\qedhere
+	\end{enumerate}
+\end{proof}
+\begin{remark} \label{rem:weil-union-equidim-inv}
+	If $X$ and $Y$ are equidimensional with $\dim X=\dim Y$, then the first step shows that there is a canonical inverse given by
+	\[(\alpha,\beta)\mapsto i_{1*}\alpha+i_{2*}\beta.\]
+	Importantly, these pushforwards really only make sense in the equidimensional case!
+\end{remark}
+\begin{corollary} \label{cor:weil-tr-union}
+	Fix a pre-Weil cohomology theory $\mathrm H^\bullet$ over $K$ with coefficients in $F$. Suppose $X,Y\in\mc P(K)$ are equidimensional of dimension $d$. For any $\alpha\in\mathrm H^{2d}(X\sqcup Y)(d)$, we have
+	\[\int_{X\sqcup Y}\alpha=\int_Xi_1^*\alpha+\int_Yi_2^*\alpha.\]
+\end{corollary}
+\begin{proof}
+	By \Cref{rem:weil-union-equidim-inv}, we see that $\alpha=i_{1*}i_1^*\alpha+i_{2*}i_2^*\alpha$. Thus, for example, we compute $\int_{X\sqcup Y}i_{1*}i_1^*\alpha$ is
+	\[\int_{X\sqcup Y}(1\cup i_{1*}i_1^*\alpha)=\int_X(1\cup i_1^*\alpha),\]
+	which is $\int_Xi_1^*\alpha$. Adding together a similar computation for $i_2^*\alpha$ completes the argument.
+\end{proof}
+As an application, we can now fairly easily compute the cohomology of multiple points.
+\begin{example} \label{ex:weil-zero}
+	Fix a pre-Weil cohomology theory $\mathrm H^\bullet$ over $K$ with coefficients in $F$. Suppose $X\in\mc P(K)$ is zero-dimensional. Then $\mathrm H^\bullet(X)$ is supported in degree $0$, and $\mathrm H^0(X)$ is a separable algebra over $F$ of dimension equal to the degree of $X\to\Spec K$. Further, $\int_X\colon\mathrm H^0(X)\to F$ is the trace.
+\end{example}
+\begin{proof}
+	For psychological reasons, we quickly reduce to the case where $X$ is a closed point. By decomposing $X$ into irreducible components (which are connected components by smoothness) and using \Cref{prop:weil-union}, it suffices to show the various claims in the case that $X$ is irreducible (indeed, the conclusion is closed under taking disjoint unions). Thus, we may assume that $X$ is irreducible.
+	
+	Because $X$ is zero-dimensional, the structure morphism $X\to\Spec K$ is finite, so $X$ is affine; we write $X=\Spec L$. Because $X$ is smooth and hence \'etale, we see that $L$ must be a finite-dimensional separable algebra over $K$. In fact, $L$ must be a field extension of $K$ because $X$ is irreducible. Let $M$ be a Galois closure of the separable extension $L/K$. Roughly speaking, the idea of the proof is to run all of our checks after extending up to $M$. We proceed in steps.
+	\begin{enumerate}
+		\item We explain how to base-change to $M$. Well, there is an isomorphism
+		\[\arraycolsep=1.2pt\begin{array}{rclccc}
+			L &\otimes& M &\to& \displaystyle\prod_{\sigma\in\op{Hom}_K(L,M)}M \\
+			a &\otimes& b &\mapsto& (\sigma(a)b)_\sigma
+		\end{array}\]
+		because $L/K$ is separable. This translates into the motivic input $X\times\Spec M=\bigsqcup_{\sigma\in\op{Hom}_K(L,M)}\Spec M$, which induces an isomorphism
+		\[\arraycolsep=1.2pt\begin{array}{rclccc}
+			\mathrm H^\bullet(X)&\otimes&\mathrm H^\bullet(\Spec M) &\to& \mathrm H^\bullet(\Spec M)^{\op{Hom}_K(L,M)} \\
+			\alpha&\otimes&\beta &\mapsto& (\sigma^*\alpha\cup\beta)_\sigma
+		\end{array}\]
+		by the K\"unneth formula and \Cref{prop:weil-union}.
+		
+		\item We check that $\mathrm H^\bullet(X)$ is concentrated in degree $0$, and $\mathrm H^0(X)$ is an algebra over $F$ of dimension equal to the degree of the structure morphism $X\to\Spec K$. (Note that this degree is $[L:K]$.) Well, taking dimensions on both sides of the last map in step 1 (and noting $\dim_FH^\bullet(\Spec M)\ge\dim_F\mathrm H^0(\Spec F)>0$ by \Cref{prop:weil-nontrivial}), we find that
+		\[\dim_F\mathrm H^\bullet(X)=\dim_F\mathrm H^0(X)=[L:K].\]
+		The needed claims follow.
+
+		\item We check that $\mathrm H^0(X)$ is separable over $F$. Well, $\mathrm H^0(Y)$ is faithfully flat over $F$ because it is a finite-dimensional separable algebra over $F$ by what we already know. Further, separability can be checked after a faithfully flat extension, so checking the separability of $\mathrm H^0(X)$ over $F$ can be seen by checking the separabiility of
+		\[\mathrm H^0(X)\otimes\mathrm H^0(Y)=\mathrm H^0(Y)^{\op{Hom}_K(L,M)}\]
+		over $\mathrm H^0(Y)$, which is now clear.
+
+		\item We show that $\int_X\colon\mathrm H^0(X)\to F$ is the trace. The main point is to compare the traces on $X\times\Spec M$ and $\bigsqcup_{\sigma\op{Hom}_K(L,M)}\Spec M$. Fix some $\alpha\in\mathrm H^0(X)$, and we would like to compute $\int_X\alpha$. On one hand, \Cref{lem:weil-pushforward-projection} gives $\int_X\alpha=\op{pr}_{2*}(\alpha\boxtimes1)$, but alternatively one can see via our explicit isomorphism that
+		\[\op{pr}_{2*}(\alpha\boxtimes1)=\sum_{\sigma\in\op{Hom}_K(L,M)}\sigma^*\alpha.\]
+		Indeed, for any $\beta\in\mathrm H^\bullet(\Spec M)$, we see $\sum_\sigma\int_{\Spec M}(\beta\cup\sigma^*\alpha)=\int_{X\times\Spec M}\op{pr}_2^*\beta\cup(\alpha\boxtimes1)$, where we have used \Cref{cor:weil-tr-union}. It remains to check that $\alpha\mapsto\sigma^*\alpha$ amounts to the full set of homomorphisms $\mathrm H^0(X)\to\ov F$. Well, upon choosing some map $\iota\colon\mathrm H^0(\Spec M)\to\ov F$, we see that there is an isomorphism
+		\[\arraycolsep=1.2pt\begin{array}{rclccc}
+			\mathrm H^0(X)&\otimes&\ov F &\to& \mathrm \ov F^{\op{Hom}_K(L,M)} \\
+			\alpha&\otimes&\beta &\mapsto& (\tau(\sigma^*\alpha)\cup\beta)_\sigma
+		\end{array}\]
+		which completes the proof because $\mathrm H^0(X)\otimes\overline F$ is supposed to be isomorphic to $\overline F^{\op{Hom}(\mathrm H^0(X),\ov F)}$ via this sort of map.
+		\qedhere
+	\end{enumerate}
+\end{proof}
+\begin{corollary} \label{cor:weil-deg-is-tr}
+	Fix a pre-Weil cohomology theory $\mathrm H^\bullet$ over $K$ with coefficients in $F$. Given $X\in\mc P(K)$ and some zero-dimensional cycle $Z\subseteq X$, we have
+	\[\deg[Z]=\int_X\op{cl}_X([Z]).\]
+\end{corollary}
+\begin{proof}
+	We may adjust $Z$ so that it is smooth divisor. Letting $i\colon Z\to X$ denote the inclusion, we get the motivic input that $[Z]=i_*[Z]$, so $\op{cl}_X([Z])=i_*1$ by \Cref{cor:weil-push-space} and cycle coherence. It follows that
+	\[\int_X\op{cl}_X([Z])=\int_Z1\]
+	by \Cref{rem:better-pushforward}. We now use \Cref{ex:weil-zero} to compute the right-hand side: because $\int_X\colon\mathrm H^0(Z)\to F$ is the trace, its evaluation on $1$ is the dimension $\dim_F\mathrm H^0(Z)$, which we know to be the degree of $Z\to\Spec K$. This completes the proof.
+\end{proof}
+Now that we've done work with our pre-Weil cohomology theories, let's introduce our last axiom.
+\begin{defihelper}[Weil cohomology theory] \nirindex{Weil cohomology!Weil cohomology theory}
+	Fix a pre-Weil cohomology theory $\mathrm H^\bullet$ over $K$ with coefficients in $F$. Then $\mathrm H^\bullet$ is a \textit{Weil cohomology theory} if and only if the induced map
+	\[\mathrm H^0(\Spec\Gamma(X,\OO_X))\to\mathrm H^0(X)\]
+	is an isomorphism for all $X\in\mc P(K)$.
+\end{defihelper}
+\begin{remark}
+	Let's explain where this map comes from. There is a natural map $X\to\Spec\Gamma(X,\OO_X)$; for example, this exists already on the level of locally ringed spaces, though one could alternatively define it by gluing together maps on affine open subschemes. However, we must check $\Spec\Gamma(X,\OO_X)\in\mc P(K)$: certainly $\Gamma(X,\OO_X)$ is some finite-dimensional $K$-algebra, so the issue is separability. For this, we base-change to $\ov K$, noting
+	\[\Gamma(X,\OO_X)_{\ov K}=\Gamma(X_{\ov K},\OO_{X_{\ov K}})\]
+	because cohomology is stable under base change. The right-hand side is a product of fields because $X_{\ov K}$ is still a proper variety, so it follows that $\Gamma(X,\OO_X)$ is separable and hence smooth over $K$.
+\end{remark}
+It is certainly desirable to have $\mathrm H^0(\Spec\Gamma(X,\OO_X))\to\mathrm H^0(X)$ be an isomorphism. Let's explain some of its applications.
+\begin{lemma} \label{lem:weil-top-cohom-gen-by-pts}
+	Fix a Weil cohomology theory $\mathrm H^\bullet$ over $K$ with coefficients in $F$. For any $X\in\mc P(K)$ of equidimension $d$, the space $\mathrm H^{2d}(X)(d)$ is generated by classes of points as an $\mathrm H^0(X)$-module. %Namely, the map $\op{cl}_X\colon\op{CH}^d(X)\to\mathrm H^{2d}(X)$ is surjective.
+\end{lemma}
+\begin{proof}
+	If $X=\emp$, there is nothing to do, so we assume that $X$ is nonempty. By \Cref{prop:weil-union}, we may assume that $X$ is irreducible. Define $L\coloneqq\Gamma(X,\OO_X)$ for brevity; because $X$ is irreducible, $L$ is a field, and we know that it is finite separable over $K$.
+	
+	Now, for each closed point $x\in X$ (which we assume to have residue field $\kappa(x)$ to be separable over $L$), let $i\colon\{x\}\to X$, and we would like to check that the class $\op{cl}_X([x])\in\mathrm H^{2d}(X)(d)$ generates as a module over $\mathrm H^0(X)=\mathrm H^0(\Spec L)$. Quickly, note that $\op{cl}_X([x])=i_*1$ by \Cref{cor:weil-push-space} and cycle coherence. As such, we want to show that the map $\mathrm H^0(X)\to\mathrm H^{2d}(X)(d)$ given by $\alpha\mapsto(\alpha\cup i_*1)$ is surjective. Now, \Cref{lem:weil-projection-formula} explains $\alpha\cup i_*1=i_*i^*\alpha$, so we might as well show that the map $i_*\colon\mathrm H^0(\{x\})\to\mathrm H^{2d}(X)(d)$ is surjective.
+	
+	Continuing, it is enough to check that the transpose $i^*\colon\mathrm H^0(X)\to\mathrm H^0(\{x\})$ is injective. Now, let $p\colon X\to\Spec L$ be the canonical projection, and then $p^*\colon\mathrm H^0(\Spec L)\to\mathrm H^0(X)$ is an isomorphism! Thus, it is enough to show that $i^*p^*\colon\mathrm H^0(\Spec L)\to\mathrm H^0(\{x\})$ is injective. There are a few ways to conclude, but here is one using \Cref{ex:weil-zero}: it is enough to check injectivity after faithfully flat base change, so we may check injectivity after tensoring with the separable $K$-algebra $\mathrm H^0(\Spec M)$, where $M$ is some Galois closure of $L\kappa(x)/K$. Then both $\mathrm H^0(\Spec L)$ and $\mathrm H^0(\{x\})$ split up into products of $\mathrm H^0(\Spec M)$, from which the injectivity follows.
+\end{proof}
+\begin{remark}
+	It turns out that the conclusion of the lemma also implies that $\mathrm H^0(\Spec\Gamma(X,\OO_X))\to\mathrm H^0(X)$ is an isomorphism, but we will not need this. We refer to \cite[Tag~\texttt{0FI0}]{stacks}.
+\end{remark}
+\begin{lemma} \label{lem:weil-tr-on-finite-map}
+	Fix a Weil cohomology theory $\mathrm H^\bullet$ over $K$ with coefficients in $F$. If $f\colon X\to Y$ is a finite map of equidimensional varieties of dimension $d$ with $Y$ geometrically irreducible, then $f_*f^*=(\deg f)$.
+	% each $\beta\in\mathrm H^{2e}(Y)(e)$ has
+	% \[\int_Xf^*\beta=(\deg f)\int_Y\beta.\]
+\end{lemma}
+\begin{proof}
+	We begin with a couple reductions.
+	\begin{itemize}
+		\item It is enough to check that $f_*f^*=(\deg f)$ on homogeneous elements of $\mathrm H^\bullet(Y)$, and in fact, it is enough to merely check equality of traces on elements in $\mathrm H^{2d-i}(Y)(d)$. Indeed, to check that $f_*f^*\beta=(\deg f)\beta$ for any $\beta\in\mathrm H^{2d-i}(Y)(d)$, \Cref{rem:better-pushforward} explains that it is enough to check
+		\[\int_Xf^*\beta'\cup f^*\beta\stackrel?=\int_Y\beta'\cup(\deg f)\beta\]
+		for all $\beta'\in\mathrm H^i(Y)$. This now follows by applying $\int_Y\circ(f_*f^*)=(\deg f)\int_Y$ to $\beta'\cup\beta\in\mathrm H^{2d}(Y)(d)$; in particular, recall $\int_Y\circ f_*=\int_X$ by \Cref{rem:better-pushforward}.
+
+		\item We show that it is enough to check the equality $\int_X\circ f^*=(\deg f)\int_Y$ on the image of $\op{cl}_X\colon\op{CH}^d(Y)\to\mathrm H^{2d}(Y)(d)$. Because $Y$ is geometrically irreducible, we see that $\Gamma(Y,\OO_Y)=K$ (this can be checked after passing to the algebraic closure), so $\mathrm H^{2d}(Y)(d)$ is isomorphic to $\mathrm H^0(Y)$ (by Poincar\'e duality), which is isomorphic to $\mathrm H^0(\Spec K)$ (because this is a Weil cohomology theory), which is simply $F$ (by \Cref{ex:weil-cohom-pt}). It is thus enough to check the result at a single vector in $\mathrm H^{2d}(Y)(d)$, such as the class of a point (which is nonzero by \Cref{lem:weil-top-cohom-gen-by-pts}).
+	\end{itemize}
+	As such, our ``motivic'' input will come from checking $\int_X\circ f^*=(\deg f)\int_Y$ on classes of points: because $f$ is finite, any $q\in Y$ has
+	\[f^*[q]=\sum_{p\in f^{-1}(\{q\})}m_p\cdot[p],\]
+	where $m_p$ is a multiplicity satisfying $\sum_pm_p[\kappa(p):K]=\deg f$. Then passing this through $\op{cl}_X$ (and using cycle coherence), followed by applying $\int_X$ (and \Cref{cor:weil-deg-is-tr}) completes this check.
+\end{proof}
+\begin{lemma} \label{lem:cohomology-correct-degs}
+	Fix a Weil cohomology theory $\mathrm H^\bullet$ over $K$ with coefficients in $F$. For any $X\in\mc P(K)$ of dimension $d$, the graded algebra $\mathrm H^\bullet(X)$ is supported in degrees $[0,2d]$.
+\end{lemma}
+\begin{proof}
+	By \Cref{prop:weil-union}, it is enough to check this in the case that $X$ is irreducible. Then $X$ has equidimension $d$, so Poincar\'e duality implies that it is enough to show that $\mathrm H^\bullet(X)$ is supported in nonnegative degrees.
+
+	We will show that $\mathrm H^\bullet(X)$ is supported in nonnegative degrees by an awkward contraposition: we will show that any pre-Weil cohomology theory $\mathrm H^\bullet$ admitting some $Y\in\mc P(Y)$ with $\mathrm H^\bullet(Y)$ supported at a negative index must fail to be a Weil cohomology theory. By replacing $Y$ with $Y\times Y$ and using the K\"unneth formula, we may assume that $\mathrm H^{-2n}(Y)\ne0$ for some $n>0$. We now set $X\coloneqq Y\times\PP_K^n$, so the K\"unneth formula gives
+	\[\mathrm H^0(X)=\bigoplus_{i\in\ZZ}\mathrm H^i(Y)\otimes\mathrm H^{-i}(\PP_K^n)\]
+	For example, $\mathrm H^0(X)$ contains the summands $\mathrm H^0(Y)\subseteq\mathrm H^0(X)$ and $\mathrm H^{-2n}(Y)\otimes\mathrm H^{2n}(\PP_K^n)$, so
+	\[\dim_F\mathrm H^0(X)>\dim_F\mathrm H^0(Y).\]
+	(Note $\mathrm H^{2n}(\PP_K^n)$ is nonzero by \Cref{prop:weil-nontrivial} and Poincar\'e duality.) However, $\Gamma(X,\OO_X)=\Gamma(Y,\OO_Y)$: a global section is a map to $\AA^1$, and the only maps $\PP_K^n\to\AA^1$ are constants anyway. Thus, it is impossible to have both $\mathrm H^0(X)\cong\mathrm H^0(\Gamma(X,\OO_X))$ and $\mathrm H^0(Y)\cong\mathrm H^0(\Gamma(Y,\OO_Y))$!
+\end{proof}
+We have now cobbled together enough of a theory of Weil cohomology. Let's work towards an application: the Lefschetz trace formula. After everything we've done, this proof is purely formal. Our exposition follows \cite[Section~25]{milne-lec}.
+
+Given a regular map $f\colon X\to X$, the Lefschetz trace formula computes the intersection number $\Gamma_f\cdot\Delta$ in terms of cohomology. Thus, our proof will begin by understanding the graph $\Gamma_f$.
+\begin{lemma} \label{lem:weil-graph-correspondence}
+	Fix a pre-Weil cohomology theory $\mathrm H^\bullet$ over $K$ with coefficients in $F$. For any regular map $f\colon X\to Y$ of equidimensional projective varieties and $\beta\in\mathrm H^\bullet(Y)$, we have
+	\[\op{pr}_{1*}\big(\op{cl}_{X\times Y}([\Gamma_f])\cup\op{pr}_2^*\beta\big)=f^*\beta.\]
+\end{lemma}
+\begin{proof}
+	Our motivic input is that $[\Gamma_f]=({\id_X},f)_*([X])$, by definition. Then cycle coherence and \Cref{cor:weil-push-space} shows $\op{cl}_{X\times Y}([\Gamma_f])=({\id_X},f)_*1$. Thus, the projection formula (\Cref{lem:weil-projection-formula}) implies
+	\[\op{pr}_{1*}(\op{cl}_{X\times Y}([\Gamma_f])\cup\op{pr}_2^*\beta)=\op{pr}_{1*}({\id_X},f)_*({\id_X},f)^*\op{pr}_2^*\beta.\]
+	Functoriality reveals this is $f^*\beta$.
+\end{proof}
+\begin{lemma} \label{lem:weil-graph-decomposition}
+	Fix a pre-Weil cohomology theory $\mathrm H^\bullet$ over $K$ with coefficients in $F$. For equidimensional $X\in\mc P(K)$ with $d\coloneqq\dim X$, let $\{e_{ij}\}_{1\le j\le\beta_i}$ be a basis of $\mathrm H^i(X)$ for each $i$; further, choose a dual basis $\{e_{2d-i,j}^\lor\}_{1\le j\le\beta_i}$ of $\mathrm H^{2d-i}(X)(d)$ so that $\int_X(e_{2d-i,j}^\lor\cup e_{ij'})=1_{j=j'}$ for each $j$ and $j'$. Then any regular map $f\colon X\to X$ admits a decomposition
+	\[\op{cl}_{X\times X}([\Gamma_f])=\sum_{\substack{i\in\ZZ\\1\le j\le\beta_i}}f^*e_{ij}\boxtimes e_{2d-i,j}^\lor.\]
+\end{lemma}
+\begin{proof}
+	Note that the $e_{2d-i,j}^\lor$s exist by Poincar\'e duality. Now, the K\"unneth formula tells us that $\mathrm H^d(X\times X)(d)=\bigoplus_{i\in\ZZ}\mathrm H^i(X)\otimes\mathrm H^{2d-i}(X)(d)$, so $\op{cl}_{X\times X}([\Gamma_f])$ admits some decomposition
+	\[\op{cl}_{X\times X}([\Gamma_f])=\sum_{\substack{i\in\ZZ\\1\le j\le\beta_i}}\alpha_{ij}\boxtimes e_{2d-i,j}^\lor,\]
+	where $\alpha_{ij}\in\mathrm H^i(X)$ is some class. We would like to show $\alpha_{ij}=f^*e_{ij}$. To extract out the needed coefficients, we need to cup with a basis vector and apply the pairing. As such, we compute
+	\[\op{pr}_{1*}\big(\op{cl}_{X\times X}([\Gamma_f])\cup\op{pr}_2^*e_{ij}\big)=\sum_{\substack{i\in\ZZ\\1\le j\le\beta_i}}\op{pr}_{1*}\big(\alpha_{ij}\boxtimes(e_{2d-i,j}^\lor\cup e_{ij})\big),\]
+	which collapses down to $\alpha_{ij}$ by \Cref{lem:weil-pushforward-projection} and construction of the $e_{2d-i,j}^\lor$s. We now complete the proof by recognizing the left-hand side as $f^*e_{ij}$ by \Cref{lem:weil-graph-correspondence}.
+\end{proof}
+\begin{example} \label{ex:weil-diagonal-decomposition}
+	Taking $f=\id_X$ shows that the diagonal $\Delta\subseteq X\times X$ has a decomposition
+	\[\op{cl}_{X\times X}([\Delta])=\sum_{\substack{i\in\ZZ\\1\le j\le\beta_i}}e_{ij}\boxtimes e_{2d-i,j}^\lor.\]
+\end{example}
+\begin{remark}
+	It may appear that \Cref{lem:weil-graph-decomposition} needs some finiteness condition like \Cref{lem:cohomology-correct-degs}, but our proof actually shows that all but finitely many of the $f^*e_{ij}$ are allowed to vanish.
+\end{remark}
+We are now ready for the proof.
+\begin{theorem}[Lefschetz trace formula] \label{thm:weil-lefschetz-tr}
+	Fix a Weil cohomology theory $\mathrm H^\bullet$ over $K$ with coefficients in $F$. For equidimensional $X\in\mc P(K)$ and endomorphism $f\colon X\to X$, we have
+	\[\deg([\Gamma_f]\cdot[\Delta])=\sum_{i=0}^{2d}(-1)^i\tr\left(f^*;\mathrm H^i(X)\right).\]
+\end{theorem}
+\begin{proof}
+	This proof is essentially a direct computation. By \Cref{cor:weil-deg-is-tr}, we see that
+	\[\deg([\Gamma_f]\cdot[\Delta])=\int_{X\times X}\op{cl}_{X\times X}([\Gamma_f])\cup\op{cl}_{X\times X}([\Delta]),\]
+	where we have quietly also used cycle coherence. We now fix a basis $\{e_{ij}\}_{ij}$ of $\mathrm H^\bullet(X)$ and a dual basis $\{e_{2d-i,j}\}_{ij}$ of $\mathrm H^{2d-\bullet}(X)$ as in \Cref{lem:weil-graph-decomposition}. Then \Cref{lem:weil-graph-decomposition} (and a reversed \Cref{ex:weil-diagonal-decomposition}) allows us to compute this as
+	\[\deg([\Gamma_f]\cdot[\Delta])=\sum_{\substack{i,i'\in\ZZ\\1\le j,j'\le \beta_i}}\int_{X\times X}\left(f^*e_{ij}\boxtimes e_{2d-i,j}^\lor\right)\cup\left((-1)^{i'}e_{2d-i',j'}^\lor\boxtimes e_{i'j'}\right).\]
+	By expanding out $\alpha\boxtimes\beta=\op{pr}_1^*\alpha\cup\op{pr}_2^*\beta$ and rearranging, we may rewrite the right-hand side as
+	\[\deg([\Gamma_f]\cdot[\Delta])=\sum_{\substack{i,i'\in\ZZ\\1\le j,j'\le \beta_i}}(-1)^{i+ii'}\int_{X\times X}(f^*e_{ij}\cup e_{2d-i',j'}^\lor)\boxtimes(e_{2d-i,j}^\lor\boxtimes e_{i',j'}),\]
+	which by the K\"unneth formula is
+	\[\deg([\Gamma_f]\cdot[\Delta])=\sum_{\substack{i,i'\in\ZZ\\1\le j,j'\le \beta_i}}(-1)^{i+ii'}\int_X(f^*e_{ij}\cup e_{2d-i',j'}^\lor)\int_X(e_{2d-i,j}^\lor\cup e_{i',j'}).\]
+	Now, the right-hand integral is $1_{i=i'}1_{j=j'}$ by construction of our dual basis, so we are left with
+	\[\deg([\Gamma_f]\cdot[\Delta])=\sum_{\substack{i\in\ZZ\\1\le j\le \beta_i}}\int_X(f^*e_{ij}\cup e_{2d-i,j}^\lor).\]
+	Because technically $\{e_{ij}\}_j$ and $\{(-1)^ie_{2d-i,j}^\lor\}_j$ are the dual bases with $\int_X(e_{ij}\cup(-1)^ie_{2d-i,j'}^\lor)=1_{j=j'}$, we see that the right-hand integral collapses down to $(-1)^i\tr(f^*;\mathrm H^i(X))$. This completes the proof upon using \Cref{lem:cohomology-correct-degs} to restrict the sum to $i\in[0,2d]$.
+\end{proof}
+\begin{remark}
+	Technically, this argument works for pre-Weil cohomology theories, provided we sum over all $i\in\ZZ$ instead of $i\in[0,2d]$.
+\end{remark}
+Let's apply some of the theory we built to do one last calculation.
+\begin{example} \label{ex:weil-p1}
+	Fix a pre-Weil cohomology theory $\mathrm H^\bullet$ over $K$ with coefficients in $F$. Then
+	\[\mathrm H^i(\PP^1_K)=\begin{cases}
+		F & \text{if }i=0, \\
+		F(-1) & \text{if }i=2, \\
+		0 & \text{else}.
+	\end{cases}\]
+\end{example}
+\begin{proof}
+	The main claim is that $\dim_F\mathrm H^\bullet(\PP^1_K)=2$. Quickly, let's explain why the main claim completes the proof. Certainly $\mathrm H^0(\PP^1_K)\ne0$ by \Cref{prop:weil-nontrivial}, so $\mathrm H^2(\PP^1_K)(1)\ne0$ by Poincar\'e duality as well, which provides the lower bound $\dim_F\mathrm H^\bullet(\PP^1_K)\ge2$. If we were to have equality, then we must have $\mathrm H^\bullet(\PP^1_K)=\mathrm H^0(\PP^1_K)\oplus\mathrm H^2(\PP^1_K)$, and $\mathrm H^0(\PP^1_K)=F$ and $\mathrm H^2(\PP^1_K)(1)=F$ become forced.
+	
+	We now prove the main claim. It remains to show $\dim_F\mathrm H^\bullet(\PP^1_K)\le2$. Technically, \Cref{thm:weil-lefschetz-tr} will not be enough for our purposes because the Euler characteristic includes a $-\dim_F\mathrm H^1(X)$ term. Our motivic input is that the cycle class $[\Delta]$ in $\PP^1_K\times\PP^1_K$ is equal to $\op{pr}_1^*[\infty]+\op{pr}_2^*[\infty]$, where $\infty\in\PP^1_K$ is a point at infinity. Indeed, consider the function $f\colon\PP^1\times\PP^1\to\PP^1$ given by $f(x,y)\coloneqq x-y$. Then $f$ has zero-set given by $\Delta$ and poles given by $\{\infty\}\times\PP^1_K$ and $\PP^1\times\{\infty\}$, so
+	\[\op{div}f=\op{pr}_1^*[\infty]+\op{pr}_2^*[\infty]-\Delta\]
+	must be a trivial divisor class. We conclude that
+	\[\op{cl}_{\PP^1_K\times\PP^1_K}([\Delta])=\op{cl}_{\PP^1_K}([\infty])\boxtimes1+1\boxtimes\op{cl}_{\PP^1_K}([\infty]).\]
+	Now, \Cref{ex:weil-diagonal-decomposition} shows that the left-hand side has no expression in terms of fewer than $\dim_F\mathrm H^\bullet(X)$ total pure tensors, so we concldue that $\dim_F\mathrm H^\bullet(X)\le2$!
+\end{proof}
+
+\subsection{Tannakian Formalism}
+It was frequently apparent from our discussion of Weil cohomology theories that proofs frequently have some geometric component, from which some algebraic calculations derived an interesting result. As such, we are motivated to look for a conjectural category where we can run such geometric calculations. Of course, it would be lovely to work directly with $\mc P(K)$ (or $\mc P(K)\opp$) directly, but this is a pretty bad category; for example, it is very far from abelian.
+
+Instead, we will attempt to ``close up'' the category $\mc P(K)$ in various ways to produce a well-behaved category. In this subsection, we will make rigorous what we mean by ``well-behaved'': we are hoping for (neutral) Tannakian categories. Our exposition follows \cite{milne-tannakian} and \cite[Chapters~2 and~6]{andre-motive}.
+\begin{warn}
+	We will not need any proofs from the theory of Tannakian formalism, so we will not provide them.
+\end{warn}
+Intuitively, a Tannakian category is one that looks like the category $\op{Rep}_F(G)$ of finite-dimensional representations of an affine $F$-group $G$. An important property of $\op{Rep}_F(G)$ is the ability to take tensor products, so we codify how useful tensor products are.
+\begin{definition}[monoidal]
+	A \textit{monoidal category} or \textit{$\otimes$-category} is a category $\mc C$ equipped with a bifunctor $\otimes\colon\mc C\times\mc C\to\mc C$ and identity object $1\in\mc C$ with the following identities.
+	\begin{itemize}
+		\item Associativity: there is a natural isomorphism $\alpha\colon((-\otimes-)\otimes-)\Rightarrow(-\otimes(-\otimes-))$.
+		\item Identity: there are natural isomorphisms $(1\otimes-)\Rightarrow-$ and $(-\otimes1)\Rightarrow1$.
+	\end{itemize}
+	These isomorphisms satisfy certain coherence properties ensuring that one can associate and apply identity naturally in any suitable situation.
+\end{definition}
+In fact, $\op{Rep}_F(G)$ has a symmetry property.
+\begin{definition}[symmetric monoidal]
+	A \textit{symmetric monoidal category} is a monoidal category $\mc C$ further equipped with a symmetry isomorphism $(-\otimes-)\Rightarrow(-\otimes-)$ such that the composite
+	\[(A\otimes B)\to(B\otimes A)\to(A\otimes B)\]
+	is the identity.
+\end{definition}
+The reason we restricted $\op{Rep}_F(G)$ to finite-dimensional representations is so that we can take duals.
+\begin{definition}[rigid]
+	A \textit{rigid} symmetric monoidal category is a symmetric monoidal category $\mc C$ further equipped with a natural isomorphism $(-)^\lor\colon\mc C\to\mc C\opp$ such that each $A\in\mc C$ makes $(-\otimes A^\lor)$ is left adjoint to $(-\otimes A)$, and $(A^\lor\otimes-)$ is right adjoint to $(A\otimes-)$.
 \end{definition}
 \begin{remark}
+	Rigidity allows one to define an internal hom by $\op{Hom}(X,Y)\coloneqq X^\lor\otimes Y$. For example, one may define the trace $\tr_X$ as the composite
+	\[\op{End}(X)=X^\lor\otimes X\to1,\]
+	where the second map is canonically given by the adjunction. With a trace, one can also define a rank by $\op{rank}X\coloneqq\tr_X({\id_X})$.
+\end{remark}
+% \begin{remark}
+% 	Rigidity permits a notion of dimension of an object $A\in\mc C$ as the composite
+% 	\[1\to A^\lor\otimes A\to A\otimes A^\lor\to1.\]
+% \end{remark}
+Lastly, $\op{Rep}_F(G)$ has a forgetful functor to $\op{Vec}_F$, akin to the forgetful functor $\op{Set}(G)\to\op{Set}$ which appears in Grothendieck's Galois theory (used to define the \'etale fundamental group).
+\begin{definition}[fiber functor]
+	Fix an abelian rigid symmetric monoidal category $\mc C$ such that $F'\coloneqq\op{End}(1)$ is a field. A \textit{fiber functor} is a faithful exact $\otimes$-functor $\omega\colon\mc C\to\op{Vec}_F$ for some finite field extension $F$ of $F$. If $F=F'$, then we say that $\mc C$ is \textit{neutral Tannakian over $F$}.
+\end{definition}
+What is remarkable is that it turns out that one can recover the affine $F$-group $G$ from the (forgetful) fiber functor $\omega\colon\op{Rep}_F(G)\to\op{Vec}_F$ as ``$\underline{\op{Aut}}^\otimes(\omega)$.'' Explicitly, for an $F$-algebra $R$, an element of $\underline{\op{Aut}}^\otimes(\omega)(R)$ is a collection of automorphisms $(g_X)_{X\in\op{Rep}_F(G)}$ where $g_X$ is an $R$-linear automorphism of $\omega(X)\otimes_FR$, and these automorphisms are natural in $G$-linear maps $X\to Y$.
+
+This process can in general recover a group $G$ from a neutral Tannakian category.
+\begin{theorem}
+	Fix a neutral Tannakian category $\mc C$ over a field $F$ equipped with fiber functor $\omega\colon\mc C\to\op{Vec}_F$.
+	\begin{listalph}
+		\item The functor $\underline{\op{Aut}}^\otimes(\omega)$ (defined analogously as above) is represented by an affine $F$-group $G$.
+		\item The fiber functor $\omega$ then upgrades to a $\otimes$-equivalence $\mc C\to\op{Rep}_F(G)$.
+	\end{listalph}
+\end{theorem}
+\begin{proof}
+	See \cite[Theorem~2.11]{milne-tannakian}.
+\end{proof}
+In fact, a careful review of the proof reveals that one can do away with many hypotheses on $\mc C$.
+\begin{theorem} \label{thm:better-tannaka}
+	Suppose that $\mc C$ is an essentially small $F$-linear category equipped with an $F$-linear symmetric monoidal functor $\otimes\colon\mc C\times\mc C\to\mc C$. Further, suppose that there is an exact faithful functor $\omega\colon\mc C\to\mathrm{Vec}_F$ satisfying the following.
+	\begin{listroman}
+		\item $\omega(X\otimes Y)=\omega(X)\otimes\omega(Y)$ for all $X,Y\in\mc C$.
+		\item The functor $\omega$ preserves the commutativity and associativity coherences.
+		\item The functor $\omega$ sends the unit $1$ to $F\in\mathrm{Vec}_F$, and $\omega$ preserves the unit coherences.
+		\item Each $X\in\mc C$ such that $\dim_F\omega(X)=1$ has some object $Y\in\mc C$ such that $X\otimes Y\cong1$.
+	\end{listroman}
+	Then $\mc C$ is neutral Tannakian, and $\omega$ is a fiber functor.
+\end{theorem}
+\begin{proof}
+	See \cite[Theorem~9.24]{milne-alg-groups}.
+\end{proof}
+Let's see some examples.
+\begin{example}
+	Of course, $\op{Rep}_F(G)$ is a neutral Tannakian category for any affine group $G$ over $F$, where the fiber functor is given by the forgetful functor $\omega\colon\op{Rep}_F(G)\to\mathrm{Vec}_F$.
+\end{example}
+\begin{example}
+	For any profinite group $G$ and field $F$, the category $\op{Rep}_FG$ of continuous representations of $G$ succeeds at being neutral Tannakian. The fiber functor is still the forgetful functor.
+\end{example}
+\begin{example}
+	The category $\mathrm{GrVec}_F$ of $\ZZ$-graded vector spaces is a neutral Tannakian category, where the fiber functor is the forgetful functor. In fact, by diagonalizing, we can see that a graded vector space has exactly the same data as a representation of $\mathbb G_{m,F}$, where the graded piece in degree $d\in\ZZ$ corresponds to the eigenvector with eigenvalue $T\mapsto T^d$.
+\end{example}
+\begin{example} \label{ex:hs-is-tannakian}
+	The category $\mathrm{HS}_\RR$ of real Hodge structures is Tannakian. Indeed, \Cref{lem:hodge-by-s} explains that a real Hodge structure corresponds to a representation of the Deligne torus $\mathbb S=\mathrm{Res}_{\CC/\RR}\mathbb G_{m,\CC}$. In fact, one can check (e.g., with \Cref{thm:better-tannaka}) that the category $\mathrm{HS}_\QQ$ of rational Hodge structures continues to be a Tannakian category.
+\end{example}
+\begin{example} \label{ex:functorial-tannaka}
+	If $\mc C$ is a neutral Tannakian category over a field $F$ with fiber functor $\omega$, and $\mc D$ is an abelian rigid symmetric monoidal category equippd with a faithful exact $\otimes$-functor $\mc D\to\mc C$, then the composite
+	\[\mc D\to\mc C\stackrel\omega\to\mathrm{Vec}_F\]
+	becomes a fiber functor for $\mc D$, thereby making $\mc D$ neutral Tannakian.
+\end{example}
+For more examples, we pass to subcategories.
+\begin{definition}[$\otimes$-subcategory]
+	Fix an abelian rigid symmetric monoidal category $\mc C$. Then the \textit{full $\otimes$-subcat\-egory} generated by a subset $S\subseteq\mc C$ of objects, denoted $\langle S\rangle^{\otimes}$ is the smallest full abelian rigid monoidal subcategory.
+\end{definition}
+\begin{remark}
+	One can see (e.g., via \Cref{ex:functorial-tannaka}) that a fiber functor for $\mc C$ will induce a fiber functor for a full abelian rigid monoidal subcategory.
+\end{remark}
+\begin{example} \label{ex:mumford-tate-as-monodromy}
+	Given a rational Hodge structure $V$, we claim that the Mumford--Tate group $\mathrm{MT}(V)$ is exactly the group corresponding to the subcategory $\langle V\rangle^{\otimes}\subseteq\mathrm{HS}_\QQ$. Indeed, we can see that $\langle V\rangle^{\otimes}$ consists of the Hodge substructures $W$ of large tensors $T$ which look like
+	\[T\coloneqq\bigoplus_{i=1}^N\left(V^{\otimes m_i}\otimes(V^\lor)^{\otimes n_i}\right),\]
+	but \Cref{prop:tensors-of-mt} explains that $W\subseteq T$ is a rational Hodge substructure if and only if $W$ is a subrepresentation of $\op{MT}(V)$. This implies $\langle V\rangle^{\otimes}\subseteq\mathrm{Rep}_\QQ(\mathrm{MT}(V))$, and this embedding is essentially surjective because all representations of $\mathrm{MT}(V)$ can be generated by the (faithful) standard representation $V$ \cite[Theorem~4.14]{milne-alg-groups}.
+\end{example}
+The above example is in fact extremely important: it is the guiding principle behind what a monodromy group is. In particular, this idea of monodromy group is akin to the definition of a fundamental group as the automorphism group of the category of covering spaces, and it is akin to defining the \'etale fundamental group as the automorphism group of the category of finite \'etale covering spaces. Let's codify this intuition into some notation.
+\begin{notation}
+	Fix a neutral Tannakian category $\mc C$ over a field $F$. Given a fiber functor $\omega\colon\mc C\to\mathrm{Vec}_F$, we set $G_\omega\coloneqq\underline{\op{Aut}}^\otimes\omega$ to be the corresponding group. For any subset $S\subseteq\mc C$, we define $G_\omega(S)$ to be the group corresponding to the tensor subcategory $\langle S\rangle^\otimes$.
+\end{notation}
+\begin{remark}
+	If $S\subseteq T$, then $\langle T\rangle^\otimes\subseteq\langle S\rangle^\otimes$, so we induce a surjection $G_\omega(T)\onto G_\omega(S)$.
+\end{remark}
+While we're discussing (neutral) Tannakian categories, we take a moment to define some useful language. Because we will be interested in constructing a useful neutral Tannakian category from the category $\mc P(K)\opp$, it will be helpful to have a notion of some gradings and ``Tate twist'' in our category.
+\begin{definition}[grading]
+	Fix a field $F$. A \textit{$\ZZ$-grading} on an $F$-linear abelian symmetric monoidal category $\mc C$ is a homomorphism $\mathbb G_m\to\underline{\mathrm{Aut}}^\otimes({\id_{\mathcal C}})$.
+\end{definition}
+\begin{remark}
+	The data of the homomorphism $w\colon\mathbb G_m\to\underline{\mathrm{Aut}}^\otimes({\id_{\mathcal C}})$ is equivalent to the data of a homomorphism $\mathbb G_m\to\op{Aut}_{\mc C}X$ for each object $X\in\mc C$ which is functorial in $X$ and respects tensor products, where the latter means that $w(t)(X\otimes Y)=w(t)(X)\otimes w(t)(Y)$ for any $t\in\mathbb G_m$ and $X,Y\in\mc C$. By diagonalizing the $\mathbb G_m$-action in the usual way, we see that this is equivalent to producing a functorial $\ZZ$-grading on each object $X\in\mc C$ (say, $X=\bigoplus_{n\in\ZZ}X_n$) which also preserves tensor products, in that
+	\[(X\otimes Y)_n=\bigoplus_{i+j=n}X_i\otimes Y_j.\]
+	This particular grading of the tensor product arises from the (diagonalization) identification $\op{Rep}_F\mathbb G_m=\mathrm{GrVec}_F$.
+\end{remark}
+\begin{definition}[Tate triple]
+	Fix a field $F$. A \textit{Tate triple} is a triple $(\mc C,w,\mathrm T)$ of a neutral Tannakian category $\mc C$ over $F$, a \textit{weight $\ZZ$-grading} $w\colon\mathbb G_m\to\underline{\mathrm{Aut}}^\otimes({\id_{\mathcal C}})$, and an invertible object $\mathrm T\in\mc C$ (called the Tate twist) whose induced $\ZZ$-grading is supported in degree $-2$. A morphism of Tate triples is a tensor functor preserving the grading and Tate twist.
+\end{definition}
+\begin{notation}
+	Fix a Tate triple $(\mc C,w,\mathrm T)$ over a field $F$. For any object $X\in\mc C$ and integer $n\in\ZZ$, we may write $X(n)\coloneqq X\otimes\mathrm T^{\otimes n}$.
+\end{notation}
+\begin{example}
+	The category $\mathrm{HS}_\QQ$ of rational Hodge structures is aready neutral Tannakian. Continuing, we note that all Hodge structures already come with a functorial weight grading which preserves tensor products. (Explicitly, for a Hodge structure $V$, the decomposition $V_\CC=\bigoplus_{i,j}V^{ij}$ may define the grading by $V_n\coloneqq\bigoplus_{i+j=n}V$.) This becomes a Tate triple after defining the Tate twist $\mathrm T\coloneqq\QQ(1)$.
+\end{example}
+\begin{remark} \label{rem:tate-twist-monodromy-group}
+	Because $\mathrm T$ is invertible, we see that $\langle\mathrm T\rangle^\otimes$ simply has quotients of objects of the form $\bigoplus_i\mathrm T^{\otimes n_i}$. Because $\mathrm T$ has pure nonzero weight, we see that $\langle\mathrm T\rangle^\otimes$ admits a fully faithful functor to $\mathrm{GrVec}_F$ with essential image in fact equivalent to $\mathrm{GrVec}_F$. We conclude that $G_\omega(T)=\mathbb G_m$.
+\end{remark}
+It is helpful to have some more concrete ways to understand $G$ from its Tannakian category. Here are a few incarnations of this by ``functoriality.''
+\begin{proposition} \label{prop:tannaka-functorial}
+	Fix a morphism $f\colon G\to G'$ of affine $F$-groups $G$, and let $\omega\colon\op{Rep}_F(G')\to\op{Rep}_F(G)$ be the corresponding functor.
+	\begin{listalph}
+		\item Suppose $\op{Rep}_F(G)$ is semisimple and that $F$ has characteristic $0$. Then $f$ is faithfully flat if and only if the following holds: for given $X'\in\op{Rep}_F(G')$, every subobject of $\omega(X')$ is isomorphic to $\omega(Y')$ for some subobject $Y'$ of $X'$.
+		\item Then $f$ is a closed embedding if and only if every object $X\in\op{Rep}_F(G)$ is isomorphic to a subquotient of $\omega(X')$ for some $X'\in\op{Rep}_F(G')$.
+	\end{listalph}
+\end{proposition}
+\begin{proof}
+	Combine \cite[Remark~2.29]{milne-tannakian} with \cite[Proposition~2.21]{milne-tannakian}.
+\end{proof}
+\begin{proposition} \label{prop:tannaka-finiteness}
+	Fix an affine $F$-group $G$.
+	\begin{listalph}
+		\item Then $G$ is finite if and only if there is an object $X$ such that every object of $\op{Rep}_F(G)$ is a subquotient of $X^{\oplus n}$ for some nonnegative $n$.
+		\item Then $G$ is algebraic (namely, finite type over $F$) if and only if $\op{Rep}_F(G)$ equals $\langle X\rangle^{\otimes}$ for some object $X$.
+	\end{listalph}
+\end{proposition}
+\begin{proof}
+	See \cite[Proposition~2.20]{milne-tannakian}.
+\end{proof}
+\begin{proposition} \label{prop:tannaka-get-reductive}
+	Fix a field $F$ of characteristic $0$ and an affine $F$-group $G$. Then $G^\circ\subseteq G$ is a projective limit of reductive $F$-groups if and only if $\op{Rep}_F(G)$ is semisimple.
+\end{proposition}
+\begin{proof}
+	See \cite[Remark~2.28]{milne-tannakian}.
+\end{proof}
+\begin{example}
+	The category of polarizable Hodge structures is semisimple, so its corresponding affine group is pro-reductive by \Cref{prop:tannaka-get-reductive}.
+\end{example}
+
+\subsection{Chow Motives}
+In this subsection, we explain how to (conjecturally!) turn the category $\mc P(K)\opp$ into a neutral Tannakian category. Roughly speaking, we are looking for a graded, neutral Tannakian category $\mc M(K)$ such that each object $X\in\mc P(K)$ gives rise to an object $h(X)\in\mc M(K)$. In fact, each $h(X)$ should also spawn objects
+\[h^0(X),h^1(X),\ldots,h^{2d}(X)\in\mc M(K),\]
+where $d\coloneqq\dim X$. Additionally, regular maps $f\colon X\to Y$ should produce pullback maps $f^*\colon h(Y)\to h(X)$ which respect the grading.
+
+However, it turns out to be desirable to have access to more maps than just these pullbacks. A basic deficiency is that arbitrary regular maps cannot be added together. Here is one incarnation of this: for any $i\in\ZZ$, it is natural to expect the composite
+\[h(X)\onto h^i(X)\into h(X)\]
+to be an endomorphism of $h(X)$,\footnote{Such an endomorphism is called a ``K\"unneth projector.''} but this map cannot come from an endomorphism $f\colon X\to X$ in general.
+\begin{example}
+	Fix a Weil cohomology theory $\mathrm H^\bullet$ over $K$ with coefficients in $F$. Then there is no endomorphism $f\colon\PP^1_K\to\PP^1_K$ such that $f^*\colon\mathrm H^\bullet(\PP^1_K)\to\mathrm H^\bullet(\PP^1_K)$ equals the composite
+	\[\mathrm H^\bullet(\PP^1_K)\onto\mathrm H^2(\PP^1_K)\into\mathrm H^\bullet(\PP^1_K).\]
+\end{example}
+\begin{proof}
+	There are two cases for an endomorphism $f\colon\PP^1_K\to\PP^1_K$.
+	\begin{itemize}
+		\item If $f$ is a constant map to a point $x\in\PP^1_K$, then $f$ factors into $i\circ p$, where $p\colon\PP^1_K\to\{x\}$ is some projection and $i\colon\{x\}\into\PP^1_K$ is some inclusion. It follows that $f^*=p^*\circ i^*$ must factor through $\mathrm H^\bullet(\{x\})$. However, $\mathrm H^\bullet(\{x\})$ is supported in degree $0$ by \Cref{ex:weil-zero}, so the image of $f^*$ must also be supported in degree $0$, so we are done.
+		\item If $f$ is non-constant, then it is a finite map of some degree $\deg f$. Then \Cref{lem:weil-tr-on-finite-map} explains that $f_*f^*$ is multiplication by $\deg f$, so it is not possible for $f^*$ to be zero in degree $0$ and the identity in degree $2$.
+		\qedhere
+	\end{itemize}
+\end{proof}
+To ``linearize'' our regular maps, we use correspondences.
+\begin{definition}[correspondence]
+	Given $X$ and $Y$ in $\mc P(K)$, we define \textit{correspondences} as the cycles in $\op{Corr}(X,Y)\coloneqq\op{CH}(X\times Y)$. For $\gamma\in\op{Corr}(X,Y)$, we define $\gamma^*\colon\op{CH}(Y)\to\op{CH}(X)$ by
+	\[\gamma^*(\beta)\coloneqq\op{pr}_{1*}\left(\gamma\cdot\op{pr}_2^*\beta\right)\]
+	% For $i\in\ZZ$, we also set $\op{Corr}^i(X,Y)\coloneqq\op{CH}^i(X\times Y)$, and we note that $\gamma\in\op{Corr}^i(X,Y)$ induces a map $\gamma^*\colon\op{CH}^j(Y)\to\op{CH}^{i+j}(X)$.
+\end{definition}
+\begin{example}
+	Let's explain why this is a reasonable definition of $\gamma^*$: if $f\colon X\to Y$ is a regular map, then $[\Gamma_f]\in\op{Corr}(X,Y)$, and \Cref{lem:weil-graph-correspondence} shows that our pullback (on cohomology) satisfies
+	\[f^*\beta=\op{pr}_{1^*}\left([\Gamma_f]\cdot\op{pr}_2^*\beta\right).\]
+\end{example}
+Thus, we have expanded our regular maps to include sums and differences, but our new expansion needs a notion of composition.
+\begin{definition}
+	Given $X,Y,Z\in\mc P(K)$ and $\gamma\in\op{Corr}(X,Y)$ and $\delta\in\op{Corr}(Y,Z)$, we define the composite $(\delta\circ\gamma)\in\op{Corr}(X,Z)$ by
+	\[(\delta\circ\gamma)\coloneqq\op{pr}_{13*}\left(\op{pr}_{12}^*\gamma\cdot\op{pr}_{23}^*\delta\right).\]
+\end{definition}
+Here are some basic checks.
+\begin{notation}
+	Given $\gamma\in\op{Corr}(X,Y)$, we define $\gamma^\intercal\in\op{Corr}(Y,X)$ to be $\op{sw}^*\gamma=\op{sw}_*\gamma$, where $\op{sw}\colon X\times Y\to Y\times X$ is the isomorphism swapping the two coordinates.
+\end{notation}
+\begin{lemma} \label{lem:corr-is-z-linear}
+	Fix a ground field $K$, and choose $W,X,Y,Z\in\mc P(K)$.
+	\begin{listalph}
+		\item The operation $\circ$ is $\ZZ$-bilinear.
+		\item Associativity: given $\gamma\in\op{Corr}(W,X)$ and $\delta\in\op{Corr}(X,Y)$ and $\varepsilon\in\op{Corr}(Y,Z)$, we have $\varepsilon\circ(\delta\circ\gamma)=(\varepsilon\circ\delta)\circ\gamma$.
+		\item Function composition: given $\gamma\in\op{Corr}(X,Y)$ and $f\colon W\to X$ and $h\colon Z\to Y$, we have
+		\[[\Gamma_h^\intercal]\circ\gamma\circ[\Gamma_f]=(f,h)^*\gamma.\]
+		\item Functoriality: given $\gamma\in\op{Corr}(X,Y)$ and $\delta\in\op{Corr}(Y,Z)$, we have $(\delta\circ\gamma)^*=\gamma^*\circ\delta^*$.
+	\end{listalph}
+\end{lemma}
+\begin{proof}
+	All these proofs are basically direct computation with the projection formula and base-change of cycles. Throughout this proof, we may write things like $\op{pr}_{ABC,AC}$ or $\op{pr}_{AC}$ for the projection $A\times B\times C\to A\times C$.
+	\begin{listalph}
+		\item Pullbacks are ring homomorphisms, and multiplication is $\ZZ$-bilinear, so this follows from the definition of $\circ$.
+
+		\item By a direct expansion, we see that $\varepsilon\circ(\delta\circ\gamma)$ is
+		\[\op{pr}_{WYZ,WZ*}\left(\op{pr}_{WYZ,WY}^*\op{pr}_{WXY,WY*}(\op{pr}_{WXY,WX}^*\gamma\cdot\op{pr}_{WXY,XY}^*\delta)\cdot\op{pr}_{WYZ,YZ}^*\varepsilon\right).\]
+		By base-change, we see that ${\op{pr}_{WYZ,WY}^*\op{pr}_{WXY,WY*}}={\op{pr}_{WXYZ,WYZ*}\op{pr}_{WXYZ,WXY}^*}$, so the projection formula allows us to collapse the above into
+		\[\op{pr}_{WXYZ,WZ*}\left(\op{pr}^*_{WXYZ,WX}\gamma\cdot\op{pr}^*_{WXYZ,XY}\delta\cdot\op{pr}^*_{WXYZ,YZ}\varepsilon\right).\]
+		A symmetric argument shows that this is also equal to $(\varepsilon\circ\delta)\circ\gamma$.
+
+		\item Note that the expression $[\Gamma_h^\intercal]\circ\gamma\circ[\Gamma_f]$ makes sense because we already checked associativity. For clarity, we will show this in two parts.
+		\begin{itemize}
+			\item We show that $\gamma\circ[\Gamma_f]=(f,{\id_Y})^*\gamma$. Well, $[\Gamma_f]=({\id_W},f)_*[W]$, so $\gamma\circ[\Gamma_f]$ is
+			\[\op{pr}_{WY*}\left(\op{pr}_{WX}^*({\id_W},f)_*[W]\cdot\op{pr}_{XY}^*\gamma\right).\]
+			Now, base-change implies that $\op{pr}_{WXY,WX}^*({\id_W},f)_*=({\id_W},f,{\id_Y})_*\op{pr}_{WX,W}^*$, so the projection formula shows that this equals
+			\[\op{pr}_{WY*}({\id_W},f,{\id_Y})_*\left(\op{pr}_{W}^*[W]\cdot({\id_W},f,{\id_Y})^*\op{pr}_{XY}^*\gamma\right)\]
+			Functoriality and the fact that $[W]$ is the unit for the intersection product finishes.
+			\item We show that $[\Gamma_h^\intercal]\circ\gamma=({\id_X},h)^*\gamma$. This proof is the same. Note that $[\Gamma_h^\intercal]=(h,{\id_Z})_*[Z]$, so $[\Gamma_h^\intercal]\circ\gamma$ is
+			\[\op{pr}_{XZ*}\left(\op{pr}_{XY}^*\gamma\cdot\op{pr}_{YZ}^*(h,{\id_Z})_*[Z]\right).\]
+			Now, base-change implies that $\op{pr}_{XYZ,YZ}^*(h,{\id_Z})_*=({\id_X},h,{\id_Z})_*\op{pr}_{XZ,Z}^*$, so the projection formula shows that this equals
+			\[\op{pr}_{XZ*}({\id_X},h,{\id_Z})_*\left(({\id_X},h,{\id_Z})^*\op{pr}_{XY}^*\gamma\cdot\op{pr}_Z^*[Z]\right).\]
+			The same sort of functoriality and fact that $[Z]$ is the multiplicative unit finishes.
+		\end{itemize}
+		Combining the above two points completes the proof.
+
+		\item Choose $\alpha\in\op{CH}(Z)$, and we must show that $(\delta\circ\gamma)^*\alpha=\gamma^*\delta^*\alpha$.
+		
+		On one hand, $\gamma^*\delta^*\alpha$ is
+		\[\op{pr}_{XY,X*}\left(\gamma\cdot\op{pr}_{XY,Y}^*\op{pr}_{YZ,Y*}(\delta\cdot\op{pr}_{YZ,Z}^*\alpha)\right).\]
+		Now, base-change gives ${\op{pr}_{XY,Y}^*\op{pr}_{YZ,Y*}}=\op{pr}_{XYZ,Y*}\op{pr}_{XYZ,YZ}^*$, so we may use the projection formula to collapse the above expression into
+		\[\op{pr}_{XYZ,X*}\left(\op{pr}_{XYZ,XY}^*\gamma\cdot\op{pr}_{XYZ,YZ}^*\delta\cdot\op{pr}_{XYZ,Z}^*\alpha\right)\]
+		after a little functoriality.
+
+		On the other hand, $(\delta\circ\gamma)^*\alpha$ is
+		\[\op{pr}_{XZ,X*}\left(\op{pr}_{XYZ,XZ*}(\op{pr}_{XYZ,XY}^*\gamma\cdot\op{pr}_{XYZ,YZ}^*\delta)\cdot\op{pr}_{XZ,Z}^*\alpha\right).\]
+		An application of the projection formula reveals this to be
+		\[\op{pr}_{XYZ,X*}\left(\op{pr}_{XYZ,XY}^*\gamma\cdot\op{pr}_{XYZ,YZ}^*\delta\cdot\op{pr}_{XYZ,Z}^*\alpha\right),\]
+		so we are done.
+		\qedhere
+	\end{listalph}
+\end{proof}
+\begin{example} \label{ex:compose-graphs}
+	Letting $\gamma$ be the diagonal class in (c), we see that $f\colon X\to Y$ and $g\colon Y\to Z$ will have
+	\[[\Gamma_f^\intercal]\circ[\Gamma_g^\intercal]=[\Gamma_{g\circ f}^\intercal].\]
+\end{example}
+Thus, $\mc P(K)$ with correspondences for its morphisms produces a $\ZZ$-linear category. We will not show it now (because we do not need it), but this category admits sums given by $\sqcup$, and it is a symmetric monoidal category where the tensor product is given by $\times$.
+
+Quickly, it is worthwhile to note that we ought to not work with all correspondences for our morphisms because many ``shift degree'' in a way that the graph of a regular map would not.
+\begin{notation}
+	Given $X$ and $Y$ in $\mc P(K)$, subdivide $X$ into $\bigcup_{d\ge0}X_d$,w here $X_d$ is the union of $d$-dimen\-sional irreducible components. For each $i\in\ZZ$, we define
+	\[\op{Corr}^i(X,Y)\coloneqq\bigoplus_{d\ge0}\op{CH}^{d+i}(X_d\times Y).\]
+\end{notation}
+\begin{example} \label{ex:graph-in-cor-0}
+	If $f\colon Y\to X$ is a regular map and $\dim X=d$, then $[\Gamma_f^\intercal]$ is a class of codimension $d$ in $X\times Y$. If $X$ is no longer equidimensional, then we still have $[\Gamma_f^\intercal]\in\op{Corr}^0(X,Y)$ by construction.
+\end{example}
+\begin{remark} \label{rem:composition-preserves-codim}
+	Because pullback preserves codimension, and pushforward preserves dimension, we see that $\circ$ defines an operation
+	\[\circ\colon\op{Corr}^j(Y,Z)\times\op{Corr}^i(X,Y)\to\op{Corr}^{i+j}(X,Z)\]
+	for any $i,j\in\ZZ$. Indeed, by dividing everything into connected components, we may assume that everything in sight is connected. Then $\gamma\in\op{Corr}^i(X,Y)$ and $\delta\in\op{Corr}^j(Y,Z)$ makes $\op{pr}_{12}^*\gamma\cdot\op{pr}_{23}^*\delta$ have codimension $i+j+\dim X+\dim Y$ and hence dimension $\dim Z-(i+j)$, so the pushforward has codimension $(i+j)+\dim X$.
+\end{remark}
+Thus, we may want to consider a category $\mc C_\QQ(K)$ where the objects are given by $h(X)$ for any $X\in\mc P(K)$, and the morphisms are given by
+\[\op{Mor}_{\mc C_\QQ(K)}(h(X),h(Y))\coloneqq\op{Corr}^0(X,Y)_\QQ.\]
+(The composition is well-defined by \Cref{rem:composition-preserves-codim}.) The category $\mc C_\QQ(K)$ already has some desirable properties. We know that it is $\QQ$-linear (by \Cref{lem:corr-is-z-linear}), and there is already a canonical faithful contravariant functor $h\colon P(K)\opp\to\mc C_\QQ(K)$ given by sending $X\mapsto h(X)$ and a morphism $f\colon Y\to X$ to $[\Gamma_f^\intercal]\in\op{Corr}^0(X,Y)$ (by \Cref{ex:graph-in-cor-0,ex:compose-graphs}). Here are two more easy checks.
+\begin{lemma} \label{lem:corr-is-additive}
+	The category $\mc C_\QQ(K)$ is additive. In fact, $h(X)\times h(Y)\cong h(X\sqcup Y)$.
+\end{lemma}
+\begin{proof}
+	% For any third object $h(Z)$ equipped with correspondences $\alpha\colon h(Z)\to h(X)$ and $\beta\colon h(Z)\to h(Y)$, we must find a unique correspondence $\gamma\colon h(Z)\to h(X\sqcup Y)$ making the diagram
+	% % https://q.uiver.app/#q=WzAsNCxbMSwxLCJoKFhcXHNxY3VwIFkpIl0sWzEsMiwiaChZKSJdLFsyLDEsImgoWCkiXSxbMCwwLCJoKFopIl0sWzAsMV0sWzAsMl0sWzMsMiwiXFxhbHBoYSIsMCx7ImN1cnZlIjotMn1dLFszLDEsIlxcYmV0YSIsMix7ImN1cnZlIjoyfV0sWzMsMCwiXFxnYW1tYSIsMSx7InN0eWxlIjp7ImJvZHkiOnsibmFtZSI6ImRhc2hlZCJ9fX1dXQ==&macro_url=https%3A%2F%2Fraw.githubusercontent.com%2FdFoiler%2Fnotes%2Fmaster%2Fnir.tex
+	% \[\begin{tikzcd}[cramped]
+	% 	{h(Z)} \\
+	% 	& {h(X\sqcup Y)} & {h(X)} \\
+	% 	& {h(Y)}
+	% 	\arrow["\gamma"{description}, dashed, from=1-1, to=2-2]
+	% 	\arrow["\alpha", curve={height=-12pt}, from=1-1, to=2-3]
+	% 	\arrow["\beta"', curve={height=12pt}, from=1-1, to=3-2]
+	% 	\arrow[from=2-2, to=2-3]
+	% 	\arrow[from=2-2, to=3-2]
+	% \end{tikzcd}\]
+	% commute. Letting $i_X\colon X\to(X\sqcup Y)$ and $i_Y\colon Y\to(X\sqcup Y)$ denote the canonical inclusions, we see that we are looking for $\gamma\in\op{CH}((X\sqcup Y)\times Z)$ satisfying $\alpha=\gamma\circ[\Gamma_{i_X}^\intercal]$ and $\beta=\gamma\circ[\Gamma_{i_Y}^\intercal]$.
+	The empty product is $h(\emp)$. As for products of two objects, after undoing the transposition, we need to show that the inclusions induce a natural isomorphism
+	\[\op{Corr}^0(X\sqcup Y,-)\stackrel?\simeq\op{Corr}^0(X,-)\times\op{Corr}^0(Y,-),\]
+	which amounts to checking
+	\[\bigoplus_{d,e\ge0}\op{CH}^{d+e}((X_d\sqcup Y_e)\times-)\stackrel?\simeq\bigoplus_{d\ge0}\op{CH}^d(X_d\times-)\oplus\bigoplus_{e\ge0}\op{CH}(Y_e\times-),\]
+	where $X_d$ is the union of the $d$-dimensional irreducible components of $X$ (with $Y_e$ defined analogously). Well, $(X\sqcup Y)\times-$ is isomorphic to $(X\times-)\sqcup(Y\times-)$ already as schemes, so this follows because any cycle on a disjoint union can be uniquely decomposed into a cycle on either part. In other words, we see that the inclusions induce a natural isomorphism
+	\[\op{CH}(X\times-)\times\op{CH}(Y\times-)\to\op{CH}((X\times-)\sqcup(Y\times-)),\]
+	so we are done after tracking that the codimensions pass through correctly on each irreducible component
+\end{proof}
+\begin{lemma} \label{lem:corr-is-sym-monoidal}
+	The category $\mc C_\QQ(K)$ admits the structure of a symmetric monoidal category with unit $h(\mathrm{pt})$ and product $h(X)\otimes h(Y)\coloneqq h(X\times Y)$.
+\end{lemma}
+\begin{proof}
+	In fact, $\mc P(K)$ is already a symmetric monoidal category with unit $\mathrm{pt}$ and product $\times$. We already have commutativity and associativity constraints induced by the universal property of the fiber product, and there is a canonical isomorphism $X\times\mathrm{pt}\to X$. The various coherences required for $\times$ here are automatically satisfied by the universal property of the fiber product.
+\end{proof}
+Thus, we can see that $\mc C_\QQ(K)$ is pretty close to our category of motives, but it has two key failures at being neutral Tannakian.
+\begin{itemize}
+	\item The category $\mc C_\QQ(K)$ fails to be abelian. Glaringly, there are many correspondences which fail to have kernels.
+	\item The category $\mc C_\QQ(K)$ fails to be rigid. Namely, we want to have duals, which by an expected Poincar\'e duality axiom, more or less amounts to adding a Tate twist.
+\end{itemize}
+We are going to handle each of these concerns individually. To begin, we will not add all kernels and cokernels or even all kernels; it turns out that it will be enough to merely add kernels of idempotents. This is a rather explicit construction in pure category theory.
+\begin{definition}[Karoubian]
+	A $\QQ$-linear category $\mc C$ is \textit{Karoubian} or \textit{pre-abelian} if and only if any $X\in\mc C$ and idempotent $p\colon X\to X$ admits a kernel.
+\end{definition}
+\begin{remark} \label{rem:idempotent-decomposition}
+	Because $p\colon X\to X$ is idempotent, we see that $(1-p)\colon X\to X$ is also an idempotent. As such, we claim that
+	\[X\stackrel?=\ker(p)\oplus\ker(1-p).\]
+	Indeed, this follows by writing out what it means to be a direct sum in an additive category and noting that the relevant equations are satisfied because $1=p+(1-p)$ and $p(1-p)=(1-p)p=0$. In particular, we see that $p\colon X\to X$ factors through $\ker(1-p)$, and $(1-p)\colon X\to X$ factors through $\ker(p)$.
+\end{remark}
+\begin{lemma} \label{lem:karoubian-envelope}
+	Fix a $\QQ$-linear category $\mc C$, and define the category $\op{Split}(\mc C)$ to be the category whose objects are pairs $(X,p)$ where $X\in\mc C$ and $p\colon X\to X$ is idempotent, and morphisms are given by
+	\[\op{Mor}_{\op{Split}(\mc C)}((X,p),(Y,q))\coloneqq q\circ\op{Mor}_{\mc C}(X,Y)\circ p.\]
+	Then $\op{Split}(\mc C)$ is $\QQ$-linear and Karoubian. Further, any $\QQ$-linear functor $F\colon\mc C\to\mc D$ to a Karoub\-ian category factors uniquely through $\op{Splic}(\mc C)$.
+\end{lemma}
+\begin{proof}
+	We have many checks. Intuitively, the point is that $(X,p)$ should be the image of the idempotent of $p\colon X\to X$; in particular, because $1=p+(1-p)$, the object $(X,p)$ should be the kernel of the idempotent $(1-p)$.
+	\begin{enumerate}
+		\item We check that $\op{Split}(\mc C)$ makes sense as an additive $\QQ$-linear category. Note $\op{Mor}((X,p),(Y,q))$ is a $\QQ$-subspace of $\op{Mor}(X,Y)$, and with composition defined as usual, we still have identity morphisms (where $p\in\op{Mor}((X,p),(X,p))$ behaves as an identity), and composition is well-defined and $\QQ$-bilinear by construction.
+
+		While we're here, we note that there is a $\QQ$-linear faithful functor $h\colon\mc C\to\op{Split}(\mc C)$ sending objects $X$ to $(X,1)$ and morphisms to themselves.
+
+		\item We check that $\op{Split}(\mc C)$ is Karoubian. Well, let $pfp\colon(X,p)\to(X,p)$ be some idempotent, and we need to show that this map has a kernel. For brevity, we $q\coloneqq pfp$, and we note that $pq=q=qp$ because $p$ is itself idempotent. Now, $q\colon X\to X$ is already some endomorphism, and $q$ and hence $(1-q)$ are idempotent by hypothesis, so $(X,1-q)$ is an object in $\op{Split}(\mc C)$ which we expect to be the kernel. Note that there is a canonical map $(X,p-q)\to(X,p)$ given by $p(p-q)=p-q$.
+
+		It remains to check that we have actually constructed the kernel. Suppose we have some morphism $pgr\colon(Z,r)\to(X,p)$ such that $pqgr=0$. We would like this $pgr$ to factor uniquely through $(X,1-q)$. Namely, we are looking for some unique $(p-q)g'r\colon(Z,r)\to(X,p-q)$ such that
+		\[p(p-q)g'r=pgr.\]
+		Certainly $g=g'$ works because $pqgr=0$ by hypothesis; on the other hand, if some other $g'$ has $p(1-q)g'r=p(1-q)gr$, then we note that $(1-p)(p-q)g'r=(1-p)(p-q)gr$ as well because $(1-p)(p-q)=0$, so summing gives $(p-q)g'r=(p-q)gr$.
+
+		\item Suppose that $F\colon\mc C\to\mc D$ is a $\QQ$-linear functor to a Karoubian category, which we would like to uniquely factor through $h$. Well, we will simply describe how to extend the functor $F$ on $\mc C$ to a functor $G$ on $\op{Split}(\mc C)$. For each $(X,p)\in\op{Split}(\mc C)$, we must determine $G((X,p))\in\mc D$; well, $G$ needs to be an additive functor, so \Cref{rem:idempotent-decomposition}'s decomposition
+		\[(X,1)=(X,p)\oplus(X,1-p)\]
+		shows that $G((X,p))$ must be the kernel of $F(1-p)\colon FX\to FX$ (which is equivalently the image of $Fp$). (This provides uniqueness up to some natural isomorphism.) Continuing, any morphism $qfp\colon(X,p)\to(Y,q)$ must factor through the aforementioned decompositions,\footnote{Explicitly, the morphism $(X,p)\to(Y,q)$ can be expressed as a composite $(X,p)\into X\stackrel f\to Y\to(Y,q)$, whose behavior upon being passed through $G$ is now forced by $F$.} and therefore must be sent to the induced map on $G(qfp)$. Lastly, we ought to check that this functor is well-defined: well, $G$ sends identities to identities by construction, and the relevant uniqueness in place provides functoriality.
+		\qedhere
+	\end{enumerate}
+\end{proof}
+\begin{definition}[Karoubian envelope]
+	Given a $\QQ$-linear category $\mc C$, we define the $\QQ$-linear additive category $\op{Split}(\mc C)$ of \Cref{lem:karoubian-envelope} to be the \textit{Karoubian envelope}.
+\end{definition}
+\begin{remark} \label{rem:kar-env-is-additive}
+	If $\mc C$ is additive, then $\op{Split}(\mc C)$ is also: the direct sum of $(X,p)$ and $(Y,q)$ can simply be given by $(X\oplus Y,(p,q))$. Indeed, note a pair of morphisms $rfp\colon(X,p)\to(Z,r)$ and $rgq\colon(Y,q)\to(Z,r)$ amount to the same data as a single morphism $(rfp,rgq)\colon(X\oplus Y,(p,q))\to(Z,r)$.
+\end{remark}
+\begin{remark} \label{rem:kar-env-monoidal}
+	If $\mc C$ admits a symmetric monoidal structure given by $\otimes$, then $\op{Split}(\mc C)$ does as well, where we define
+	\[(X,p)\otimes(Y,q)\coloneqq(X\otimes Y,p\otimes q).\]
+	The relevant coherences for $\otimes$ all lift from $\mc C$ to $\op{Split}(\mc C)$.
+\end{remark}
+\begin{example} \label{ex:karoubian-section-decomp}
+	Let's exhibit the sort of decompositions we can exhibit in $\op{Split}(\mc C)$. Suppose that we have a ``projection'' $p\colon X\to Y$ in $\mc C$ with a section $s\colon Y\to X$, meaning that $ps=\id_Y$. Then we note that $sp\colon X\to X$ is an idempotent, and we claim that $(X,sp)\cong(Y,{\id_Y})$, meaning that $Y$ is not a sub-object of $X$ in $\op{Split}(\mc C)$! To show this, we note that $p=psp$ is a map $(X,sp)\to(Y,{\id_Y})$, and $s=sps$ is a map $(Y,{\id_Y})\to(X,sp)$, and we know $ps=\id_Y$ and $sp=\id_{(X,sp)}$.
+\end{example}
+Thus, to make $\mc C_\QQ(K)$ more abelian, we can take its Karoubian envelope. This produces the category of effective Chow motives.
+\begin{definition}[effective Chow motives]
+	Fix a ground field $K$. The category $\op{ChMot}_\QQ^+(K)$ of \textit{effective Chow motives} is the Karoubian envelope of $\mc C_\QQ(K)$.
+\end{definition}
+\begin{remark} \label{rem:eff-chow-is-good}
+	Because $\mc C_\QQ(K)$ is $\QQ$-linear, additive, and symmetric monoidal, the same holds for its Karoubian envelope $\op{ChMot}_\QQ^+(K)$ (see \Cref{rem:kar-env-is-additive,rem:kar-env-monoidal}), but effective Chow motives now succeed at being Karoubian. Notably, the canonical functor $h\colon\mc P(K)\opp\to\mc C_\QQ(K)$ extends to $\op{ChMot}_\QQ^+(K)$, and we may write the effective Chow motive $(h(X),p)$ as simply $ph(X)$.
+\end{remark}
+\begin{example}[K\"unneth projector]
+	It is a standard conjecture that there is a correspondence $h(X)\to h(X)$ giving rise to the K\"unneth projections, so $h^i(X)$ can be defined as the image.
+\end{example}
+As our standard example, let's begin computing the motive of $\PP^1$: by \Cref{ex:weil-p1}, we are expecting $h(\mathrm{pt})$ and some other piece given by a Tate twist.
+\begin{lemma} \label{lem:pt-in-motive}
+	Fix a ground field $K$. Suppose some irreducible $X\in\mc P(K)$ has a $K$-rational point $\infty\in X(K)$. Then $h(\mathrm{pt})$ is a sub-object of $h\left(X\right)$.
+\end{lemma}
+\begin{proof}
+	We use \Cref{ex:karoubian-section-decomp}. Consider the structure morphism $p\colon X\to\mathrm{pt}$ and the embedding $i\colon\mathrm{pt}\to X$. Then $pi=\id_{\mathrm{pt}}$, so $h(i)\circ h(p)=\id_{h(\mathrm{pt})}$ by functoriality, so the result follows.
+\end{proof}
+Next up, we would like to add in a Tate twist to recover our rigidity. Namely, we would like to have duals. For example, \Cref{lem:pt-in-motive} tells us that $h(\PP^1)$ decomposes as
+\[h(\PP^1)=h(\mathrm{pt})\oplus\mathrm L\]
+for some effective Chow motive $\mathrm L$, which is expected to be the dual of the Tate twist by \Cref{ex:weil-p1}. Thus, to ensure that $\mathrm L$ has a dual, we must add in its inverse! Note that once we have Tate twists, Poincar\'e duality tells us that we expect all of our Chow motives to have duals. We are now ready to define the category of Chow motives.
+\begin{definition}[Chow motives]
+	Fix a ground field $K$. The category $\op{ChMot}_\QQ(K)$ of \textit{Chow motives} is defined as the category of triples $(X,p,i)$ where $X\in\mc C_\QQ(K)$ and $p\in\op{Corr}^0(X,X)$ is an idempotent and $i\in\ZZ$, where morphisms are given by
+	\[\op{Hom}_{\op{ChMot}_\QQ(K)}((X,p,i),(Y,q,j))\coloneqq q\circ\op{Corr}^{j-i}(X,Y)_\QQ\circ p.\]
+	For brevity, we define the \textit{Tate motive} $\mathrm T\coloneqq(\mathrm{pt},{\id},1)$ and the \textit{Lefschetz motive} $\mathrm L\coloneqq(\mathrm{pt},{\id},-1)$.
+\end{definition}
+\begin{remark}
+	As usual, we remark that composition makes sense by \Cref{rem:composition-preserves-codim} and is $\QQ$-linear by \Cref{lem:corr-is-z-linear}.
+\end{remark}
+\begin{remark}
+	The canonical faithful, essentially surjective, $\QQ$-linear functor $h\colon\mc P(K)\opp\to\mc C_\QQ(K)$ extends to $\mathrm{ChMot}_\QQ(K)$ by $X\mapsto(X,\Delta_X,0)$, where $\Delta_X\subseteq X\times X$ is the diagonal. (The idea is that the ``degree-$0$'' part of our Chow motives simply recovers the effective Chow motives.) As such, we may write the Chow motive $(X,p,i)$ as $ph(X)(i)$.
+\end{remark}
+\begin{remark}
+	One may alternatively define Chow motives by taking $\mc C_\QQ(K)$, first adding in Tate twists by considering pairs $(X,i)$ where $i\in\ZZ$, and then taking the Karoubian envelope. We have not done this because the intermediate category of pairs $(X,i)$ is not obviously additive: for example, how should one add $(\mathrm{pt},0)$ and $(\mathrm{pt},1)$?
+\end{remark}
+\begin{remark} \label{rem:ch-mot-karoubian}
+	Note that $\op{ChMot}_\QQ(K)$ continues to be Karoubian. The point is that an idempotent $q$ of some triple $(X,p,i)$ will have $q\in\op{Hom}((X,p),(X,p))$ anyway, so letting $(X,p)=\ker(q)\oplus\im(q)$ be the sum of \Cref{rem:idempotent-decomposition} in the category of effective Chow motives, we see
+	\[(X,p,i)=(\ker(q),i)\oplus(\im(q),i)\]
+	by shifting the Tate twist by $i$ everywhere, so we conclude that $(\ker(q),i)$ is the kernel of $q\colon(X,p,i)\to(X,p,i)$.
+\end{remark}
+Here are our basic checks on this category.
+\begin{lemma} \label{lem:ch-mot-sym-monoidal}
+	The category $\mathrm{ChMot}_\QQ(K)$ admits the structure of a symmetric monoidal category with unit $h(\mathrm{pt})(0)$.
+\end{lemma}
+\begin{proof}
+	Unsurprisingly, we define
+	\[(X,p,i)\otimes(Y,q,j)\coloneqq(X\times Y,p\times q,i+j).\]
+	Then one can simply repeat the proof of \Cref{lem:corr-is-sym-monoidal}, carrying around commutativity and associativity of addition in $\ZZ$ to upgrade the commutativity and associativity constraints.
+\end{proof}
+\begin{remark} \label{rem:ch-mot-needs-anti-comm}
+	This is not actually the correct symmetric monoidal structure!
+	% For example, suppose $X\in\mc P(K)$ is equidimensional of dimension $d$, and let's assume that $h(X)$ admits a decomposition as $\bigoplus_{i=0}^{2d}h^i(X)$ as in cohomology. Then $h^i(X)$ and $h^{2d-i}(X)(d)$ are expected to be dual via the cup product, allowing us to efficiently compute the rank of $h(X)$:
+	In short, the problem is the commutativity constraint does not take into account the fact that $h(X)$ should behavae as a graded commutative algebra. Explicitly, given any Weil cohomology theory $\mathrm H^\bullet$, we would like the commutativity constraint $h(X)\otimes h(Y)\to h(Y)\otimes h(X)$ to be given by
+	\[\mathrm H^\bullet(X)\otimes\mathrm H^\bullet(Y)=\mathrm H^\bullet(X\times Y)\stackrel{\mathrm{sw}}\to\mathrm H^\bullet(Y\times X)=\mathrm H^\bullet(Y)\otimes\mathrm H^\bullet(X).\]
+	But $\mathrm{sw}$ needs to be an isomorphism of graded commutative rings, so the map $\mathrm H^i(X)\otimes\mathrm H^j(Y)\to\mathrm H^j(Y)\otimes\mathrm H^i(X)$ needs to have the sign $(-1)^{ij}$.
+	% The issue is that the rank of $h(X)$ is expected to be the Euler characteristic
+	% \[\sum_{i=0}^{2\dim X}(-1)^i\dim\mathrm H^i(X),\]
+	% which does not have to be positive. This will be made more precise and fixed later when we actually construct our category of motives.
+\end{remark}
+\begin{example}
+	We now see that $ph(X)(i)=ph(X)\otimes\mathrm T^i$, thus explaining why we might view the category of Chow motives as simply the category of effective Chow motives extended by the Tate twist $\mathrm T=h(\mathrm{pt})(1)$.
+\end{example}
+\begin{example} \label{ex:mot-p1}
+	Fix a ground field $K$. Then
+	\[h\left(\PP^1_K\right)=h(\mathrm{pt})\oplus\mathrm L.\]
+	In particular, $\mathrm L$ is an effective Chow motive.
+\end{example}
+\begin{proof}
+	We imitate \Cref{ex:weil-p1}. For brevity, set $X\coloneqq\PP^1_K$. Upon choosing a point $\infty\in X$, we recall from \Cref{ex:weil-p1} that we had a ``motivic'' input
+	\[[\Delta_X]=[\infty\times X]+[X\times\infty],\]
+	where $\Delta_X\subseteq X\times X$ is the diagonal. Notably, $[\Delta_X]=\id_{h(X)}$, so the above is a decomposition of the identity. In fact, it is a decomposition into idempotents: for example, $[\infty\times X]$ is $[\Gamma_i^\intercal]$, where $i\colon X\to X$ is the constant map sending all points to $\infty$, so the equality $i\circ i=i$ implies that $[\Gamma_i^\intercal]$ is an idempotent by \Cref{ex:compose-graphs}. It follows that $[X\times\infty]$ is the orthogonal idempotent.
+
+	Now, \Cref{lem:pt-in-motive} tells us that $h(\mathrm{pt})$ is already a sub-object of $h(X)$, and in fact the proof shows that $h(\mathrm{pt})$ is in fact the image of $h(i)\colon h(X)\to h(X)$; in other words, $h(\mathrm{pt})$ is isomorphic to $(X,[\infty\times X])$. Thus, it remains to check that
+	\[\mathrm L\stackrel?\cong(X,[X\times\infty]).\]
+	In fact, we suspect that $\mathrm L$ should be the image of $[X\times\mathrm{pt}]\in\op{Corr}^0(X,X)$. Indeed, $[X\times\mathrm{pt}]$ is an element of
+	\[\op{Hom}_{\mathrm{ChMot}_\QQ(K)}((X,[X\times\infty],0),(\mathrm{pt},{\id},-1))=\op{CH}^0(X\times\mathrm{pt})\circ[X\times\infty]\]
+	because $[X\times\mathrm{pt}]\circ[X\times\infty]=[X\times\mathrm{pt}]$ by a direct calculation of the composition. On the other hand, $[\mathrm{pt}\times\infty]$ is an element of
+	\[\op{Hom}_{\mathrm{ChMot}_\QQ(K)}((\mathrm{pt},{\id},-1),(X,[X\times\infty],0))=[X\times\infty]\circ\op{CH}^1(\mathrm{pt}\times X)\]
+	because $[X\times\infty]\circ[\mathrm{pt}\times x]=[\mathrm{pt}\times\infty]$ for any $x\in X(K)$. It remains to calculate $[X\times\mathrm{pt}]\circ[\mathrm{pt}\times\infty]=[\mathrm{pt}\times\mathrm{pt}]$ and $[\mathrm{pt}\times\infty]\circ[X\times\mathrm{pt}]=[X\times\infty]$ are both their respective identities, so we are done.
+\end{proof}
+\begin{lemma} \label{lem:ch-mot-additive}
+	The category $\mathrm{ChMot}_\QQ(K)$ is additive.
+\end{lemma}
+\begin{proof}
+	The empty product is $h(\emp)$. We exhibit our sums in two steps.
+	\begin{enumerate}
+		\item Copying the proof of \Cref{lem:corr-is-additive} with an appropriate degree change shows $ph(X)(i)\times qh(Y)(i)=(p\sqcup q)h(X\sqcup Y)(i)$, so the main problem is dealing with degree shifts. (In degree $i=0$, we already knew this from \Cref{rem:eff-chow-is-good}.) To be slightly more explicit, after decomposing $X$ and $Y$ as $X=\bigsqcup_{d\ge0}X_d$ and $Y=\bigsqcup_{e\ge0}Y_e$ into equidimensional pieces, we find
+		\[\op{Hom}_{\mathrm{ChMot}_\QQ(K)}((X\sqcup Y,p\sqcup q,i),(Z,r,j))=\bigoplus_{d\ge0}r\circ\op{CH}^{d+j-i}((X_d\sqcup Y_d)\times Z)\circ(p\sqcup q),\]
+		which then decomposes into cycles on $X$ and $Y$ individually as in the proof of \Cref{lem:corr-is-additive}.
+
+		\item We now reduce to the previous case. For any Chow motives $(X,p,i)$ and $(Y,q,j)$, we note that there is an integer $n$ large enough so that $(X,p,i)\otimes\mathrm L^{\otimes n}$ and $(Y,q,j)\otimes\mathrm L^{\otimes n}$ are both effective: for example, $(X,p,i-n)$ becomes effective as soon as $i-n$ is nonpositive, for then we get $(X,p,0)\otimes\mathrm L^{-(i-n)}$, which is effective by \Cref{ex:mot-p1}. Thus, we may define the sum of $(X,p,i)$ and $(Y,q,j)$ as
+		\[\left((X,p,i)\otimes\mathrm L^{\otimes n}\oplus(Y,q,j)\otimes\mathrm L^n\right)\otimes\mathrm T^{\otimes n}.\]
+		The fact that $\mathrm L$ and $\mathrm T$ are inverses shows that this is in fact a valid sum.\footnote{One can see that $\op{Hom}(-\otimes\mathrm T,-)\simeq\op{Hom}(-,-\otimes\mathrm L)$ already on the level of correspondences.}
+		\qedhere
+	\end{enumerate}
+\end{proof}
+Thus, we have built a $\QQ$-linear, additive, and Karoubian category $\op{ChMot}_\QQ(K)$ of Chow motives. The remaining properties are only conjectural.
+\begin{conj}[Grothendieck]
+	The category $\op{ChMot}_\QQ(K)$ is a semisimple neutral Tannakian category.
+\end{conj}
+\begin{remark}
+	It turns out that any pre-Weil cohomology theory $\mathrm H^\bullet\colon\mc P(K)\opp\to\mathrm{GrVec}_F$ extends to a unique $\QQ$-linear symmetric monoidal functor $\mathrm{ChMot}_\QQ(K)\to\mathrm{GrVec}_F$, fulfilling a prophecy from the start of this subsection. In fact, one expects this functor to be a fiber functor for our neutral Tannakian category! We will not need this fact, and the proof is rather involved, so we will not prove it. Instead, we refer to \cite[Proposition~\texttt{0FHM}]{stacks}, and we note that \Cref{thm:mot-tannaka} proves a version of this in the next section.
+\end{remark}
+% We take a moment to remark that $\op{ChMot}_\QQ(K)$ is already seen to be universal with respect to Weil cohomology, so this category of motives would be a ``universal'' cohomology theory in some sense.
+% \begin{proposition}
+% 	Fix a ground field $K$ and a field $F$ of characteristic $0$. Then any Weil cohomology theory $\mathrm H^\bullet\colon\mc P(K)\opp\to\mathrm{Vec}_F$ factors uniquely through $\op{ChMot}_F(K)=\op{ChMot}_\QQ(K)_F$.
+% \end{proposition}
+% \begin{proof}
+	
+% \end{proof}
+
+\subsection{Motives from Absolute Hodge Cycles}
+The goal of the present subsection is to build a concrete category $\mathrm{Mot}_\QQ(K)$ of motives which we can prove satisfies the required properties (namely, it is semisimple neutral Tannakian and lives in a Tate triple) and is conjecturally equivalent to $\mathrm{ChMot}_\QQ(K)$. The idea is to add in more correspondences to $\op{Corr}(X,Y)$. For example, the previous subsection repeatedly asked for an idempotent $h(X)\to h(X)$ whose image is $h^i(X)$, but the existence of such correspondences in $\op{Corr}^0(X,X)$ is still conjectural. Thus, we will want the category $\mathrm{Mot}_\QQ(K)$ to admit such correspondences.
+
+In particular, isntead of having $\op{Corr}(X,Y)$ be made up of algebraic cycle classes, we will use absolute Hodge classes, following \cite{deligne-hodge}. For motivation, we want the Hodge classes on a complex K\"ahler manifold $X$ to be elements of the cohomology group $\mathrm H^{2i}_{\mathrm{dR}}(X,\CC)(i)$ of bidegree $(0,0)$ and satisfying some rationality condition. The definition of an absolute Hodge class comes from trying to be agnostic about the embedding of the base field of $X$.
+\begin{definition}[absolute Hodge class]
+	Fix a smooth projective variety $X$ over a field $K$ algebraic over $\QQ$. An \textit{absolute Hodge class} is an element $t$ of some $\mathrm H^{2i}_\AA(X_{\ov K})(i)$ if and only if it satisfies the following properties.
+	\begin{itemize}
+		\item $\pi_\infty(t)$ lives in the component $(0,0)$ of $\mathrm H^{2i}_{\mathrm{dR}}(X,\CC)$.
+		\item For each embedding $\sigma\colon K\into\CC$, the element $t$ is in the image of the embedding $\mathrm H^{2i}_{\mathrm B}(X,\QQ)(i)$ into $\mathrm H^{2i}_\AA(X)(i)$.
+	\end{itemize}
+	We denote the collection of these absolute Hodge classes by $C^i_{\mathrm{AH}}(X_{\ov K})$ or $C^i_{\mathrm{AH}}(X)$.
+\end{definition}
+\begin{remark} \label{rem:general-abs-hodge}
 	Deligne \cite[Section~2]{deligne-hodge} gives a definition for smooth projective varieties defined over a general field of characteristic $0$. The above definition makes sense essentially verbatim for any field $K$ of characteristic $0$ and finite transcendence degree because then one has access to embeddings into $\CC$. For the general case, one must argue that any class with sufficient rationality properties will descend to a field of finite transcendence degree and that the choice of this descent does not matter.
 \end{remark}
-% While we're here, we give an application of absolute Hodge classes.
-% definition of absolute hodge cycles
-% construction works
-% \begin{theorem}[Deligne] \label{thm:hodge-to-abs-hodge}
-	
-% \end{theorem}
-% \begin{theorem}[Principle B] \label{thm:principle-b}
-	
-% \end{theorem}
-% \begin{proposition} \label{prop:construct-abs-hodge}
-% 	Construction of absolute Hodge cycle. \cite[Proposition~7.1]{deligne-hodge}.
-% \end{proposition}
+\begin{example}
+	Any algebraic class $\gamma\in\op{CH}^i(X)$ produces cycle classes in the various cohomology theories. Because $\gamma$ ought to arise rationally (over $K$) because it already produces a cycle class in Betti cohomology, we see that taking the corresponding cycle class in $\mathrm H^{2i}_\AA(X)(i)$ successfully produces an absolute Hodge class. Note that the Hodge conjecture would imply that all absolute Hodge classes arise in this way.
+\end{example}
+\begin{remark} \label{rem:abs-hodge-galois-rep}
+	Here is a notable advantage of working with absolute Hodge classes over typical Hodge classes: there is an action of $\op{Gal}(\ov K/K)$ on $\mathrm H_\AA^{2i}(X_{\ov K})(i)$ given by the pullback of the action on $X_{\ov K}$, but this Galois action may very well permute the image of $\mathrm H_{\mathrm B}^{2i}(X,\QQ)(i)$ for a given $\sigma\colon K\into\CC$. Indeed, $\tau\in\op{Gal}(\ov K/K)$ has $\tau^*\mathrm H_\sigma=\mathrm H_{\tau\sigma}$. As such, the space of Hodge classes is not obviously a Galois representation, but the space of absolute Hodge classes is!
+\end{remark}
+We are ready to (re)define our correspondences in terms of absolute Hodge classes.
+\begin{notation}
+	Fix a field $K$ algebraic over $\QQ$. For any $X,Y\in\mc P(K)$, we define
+	\[\op{Corr}_{\mathrm{AH}}(X,Y)\coloneqq C_{\mathrm{AH}}(X\times Y).\]
+	Upon decomposing $X$ into equidimensional components as $\bigsqcup_{d\ge0}X_d$, we may set the degree-$i$ component as
+	\[\op{Corr}_{\mathrm{AH}}^i(X,Y)\coloneqq\bigoplus_{d\ge0}C_{\mathrm{AH}}^{i+d}(X_d\times Y).\]
+\end{notation}
+It is worthwhile to describe these correspondences cohomologically.
+\begin{definition}[absolute Hodge correspondence]
+	Fix a field $K$ algebraic over $\QQ$ and $X,Y\in\mc P(K)$. Then an \textit{absolute Hodge correspondence of degree $i$} is a triple $((f_\ell)_\ell,f_{\mathrm{dR}},(f_\sigma)_\sigma)$ as follows.
+	\begin{itemize}
+		\item For each prime $\ell$, the element $f_\ell$ is a Galois-invariant graded homomorphism $\mathrm H_{\mathrm{\acute et}}^\bullet(X_{\ov K},\QQ_\ell)\to\mathrm H_{\mathrm{\acute et}}^\bullet(Y_{\ov K},\QQ_\ell)(i)$.
+		\item The element $f_{\mathrm{dR}}$ is a graded homomorphism $\mathrm H^\bullet_{\mathrm{dR}}(X,\CC)\to\mathrm H^\bullet_{\mathrm{dR}}(Y,\CC)(i)$ preserving the Hodge structure.
+		\item For each embedding $\sigma\colon K\into\CC$, the element $f_{\sigma}$ is a graded homomorphism $\mathrm H_\sigma^\bullet(X)\to\mathrm H_\sigma^\bullet(Y)(i)$. Further, we require $f_\ell$ and $f_{\mathrm{dR}}$ to agree with $f_\sigma$ after applying the suitable comparison isomorphism (\Cref{thm:betti-dr-comparison,thm:betti-etale-comparison}).
+	\end{itemize}
+\end{definition}
+\begin{lemma} \label{lem:better-abs-hodge-corr}
+	Fix a field $K$ algebraic over $\QQ$ and $X,Y\in\mc P(K)$. The group $\op{Corr}^i_{\mathrm{AH}}(X,Y)$ is isomorphic to the vector space of absolute Hodge correspondences of degree $i$.
+\end{lemma}
+\begin{proof}
+	This is \cite[Proposition~6.1]{milne-tannakian}. We go ahead and decompose $X=\bigsqcup_{d\ge0}X_d$, where $X_d$ is equidimensional of dimension $d$. The point is to describe how a correspondence should give rise to a morphism in cohomology. To be explicit, our correspondences are just some classes in $\bigoplus_d\mathrm H_\AA^{2i+2d}(X_d\times Y)(i+d)$, which the K\"unneth formula and Poincar\'e duality tell us give rise to elements in
+	\begin{align*}
+		\mathrm H_\AA^{2i+2d}(X_d\times Y)(i+d) &= \bigoplus_{p+q=2i+2d}\mathrm H_\AA^p(X_d)(d)\otimes\mathrm H_\AA^q(Y)(i) \\
+		&= \bigoplus_p\mathrm H_\AA^p(X_d)^\lor\otimes\mathrm H_\AA^{p+2i}(Y)(i) \\
+		&= \op{Hom}\left(\mathrm H_\AA^\bullet(X_d),\mathrm H_\AA^\bullet(Y)(i)\right).
+	\end{align*}
+	This explains how $\op{Corr}^p_{\mathrm{AH}}(X,Y)$ embeds into the group of tuples $((f_\ell),f_{\mathrm{dR}})$. (Note that the $f_\sigma$ are uniquely determined if they exist by the nature of the comparison isomorphisms.) It remains to characterize the image, so pick up some $f\in\op{Corr}^i_{\mathrm{AH}}(X,Y)$, and we must describe what the image tuple must look like. Here are our checks.
+	\begin{itemize}
+		\item Note $f$ is a Hodge cycle by definition, so it must be in the $(0,0)$ component in all the above equalities, eventually causing the induced map $f_{\mathrm{dR}}$ on de Rham cohomology to preserve the Hodge structures.
+		\item Because our $f\in\op{Corr}^i_{\mathrm{AH}}(X,Y)$ is required to be absolutely Hodge, it will come from a rational element $f_\sigma\in\mathrm H_\sigma^{2i+2d}(X\times Y)(i)$ for each embedding $\sigma\colon K\into\CC$, from which the above equalities explain how to produce morphisms $f_\sigma\colon\mathrm H_\sigma(X)\to\mathrm H_\sigma(X)(i)$. This explains why the $f_\sigma$ exist.
+		\item Lastly, because $f$ arises rationally, it must be a Galois-invariant class, so because the equalities above are Galois-invariant at each $\ell$, we conclude that the $f_\ell$s are Galois-invariant at the end.
+	\end{itemize}
+	Conversely, given an absolute Hodge correspondence $((f_\ell),f_{\mathrm{dR}},(f_\sigma)_\sigma)$, we may go backwards to produce $f\in\bigoplus_{d}\mathrm H_\AA^{2i+2d}(X_d\times Y)(i+d)$, and the above checks are all reversible and thus tell us that the provided $f$ is an absolute Hodge class.
+\end{proof}
+Intuitively, if one can canonically produce a class for all of our known cohomology theories, we receive an absolute Hodge class. Here are a few examples.
+\begin{example}[K\"unneth projectors] \label{ex:abs-hodge-kunneth}
+	For any pre-Weil cohomology $\mathrm H^\bullet$ and $X\in\mc P(K)$ of dimension $d$ and index $i\in[0,2d]$, the various projections
+	\[\mathrm H^\bullet(X)\onto\mathrm H^i(X)\into\mathrm H^\bullet(X)\]
+	assemble into an absolute Hodge correspondence. Indeed, this follows from properties of each cohomology theory and their comparison isomorphisms. We call this absolute Hodge correspondence $\pi_i$, and we may identify it with an element in $\op{Corr}^0(X,X)$ by \Cref{lem:better-abs-hodge-corr}.
+\end{example}
+\begin{example}[Poincar\'e duality] \label{ex:abs-hodge-poincare}
+	Fix a field $K$ algebraic over $\QQ$ and some $X\in\mc P(K)$ which is equidimensional of dimension $d$. Poincar\'e duality provides a perfect pairing
+	\[\mathrm H^{2d}_\AA(X\times X)=\bigoplus_i\mathrm H^i_\AA(X)\otimes\mathrm H^{2d-i}_\AA(X)\to\mathrm H^{2d}_\AA(X)\stackrel{\int_X}\to\mathrm H^0_\AA(\mathrm{pt})(-d),\]
+	which lives in Betti cohomology and is compatible for all of our cohomology theories. Thus, this perfect pairing arises from some absolute Hodge class $\psi\in\op{Corr}^{-d}(X\times X,\mathrm{pt})$.
+\end{example}
+\begin{example}[Hodge involution]
+	Fix a field $K$ algebraic over $\QQ$ and some $X\in\mc P(K)$ which is equidimensional of dimension $d$. For each index $i$, there is $^*\in\op{Corr}_{\mathrm{AH}}(X,X)$ such that the degree-$(-i)$ component induces an isomorphism
+	\[\mathrm H^i_\AA(X)\to\mathrm H^{2d-i}_\AA(X)(d-i).\]
+\end{example}
+\begin{proof}
+	This is the main content of \cite[Proposition~6.2]{milne-tannakian}. We use the Hard Lefschetz theorem \cite[p.~122]{griffiths-harris-ag}, whose statement we now recall. Upon choosing a projective embedding for $X$, we may find a generic hyperplane whose intersection $L$ with $X$ is smooth of codimension $1$. As such, $L$ produces a cycle class $\ell\in\mathrm H^2_\AA(X)(1)$. Then the Hard Lefschetz theorem asserts that the cup-product map
+	\[\ell^i\colon\mathrm H_\AA^{d-i}(X)\to\mathrm H_\AA^{d+i}(X)(i)\]
+	is an isomorphism for all $i\le d$. As an application, we are able to deduce the Lefschetz decomposition: note that $\ell^i$ being an isomorphism implies that $\ell^{i+1}\colon\mathrm H^{d-i}_\AA(X)\to\mathrm H^{d+i+2}_\AA(X)(i+1)$ is the first time one can see a kernel, so we define the primitive cohomology
+	\[\mathrm H_\AA^{d-i}(X)_{\mathrm{prim}}\coloneqq\ker\left(\ell^{i+1}\colon\mathrm H^{d-1}_\AA(X)\to\mathrm H^{d+i+2}_\AA(X)(i+1)\right)\]
+	as precisely this kernel. We now claim that
+	\[\mathrm H^{d-i}_\AA(X)\stackrel?=\mathrm H_\AA^{d-i}(X)_{\mathrm{prim}}\oplus\ell\mathrm H_\AA^{d-i-2}(X)(-1)\]
+	for each $i\le d$. Indeed, note the left-exact sequence
+	\[0\to\mathrm H_\AA^{d-i}(X)_{\mathrm{prim}}\to\mathrm H_\AA^{d-i}(X)\to\mathrm H_\AA^{d+i+1}(X)(i+1)\]
+	in fact is surjective on the right due to the Hard Lefschetz theorem providing a splitting map
+	\[\mathrm H_\AA^{d+i+1}(X)(i+1)\stackrel\sim\from\mathrm H_\AA^{d-i-1}(X)(-1)\stackrel\ell\subseteq\mathrm H_\AA^{d-i}(X).\]
+	Applying our claim inductively reveals that
+	\[\mathrm H^{d-i}_\AA(X)=\bigoplus_{j\ge0}\ell^j\mathrm H_\AA^{d-i-2j}(X)_{\mathrm{prim}}(-j)\]
+	for each $i\le d$. Applying the Hard Lefschetz theorem once more grants the equality
+	\[\mathrm H^{d+i}_\AA(X)=\bigoplus_{j\ge0}\ell^{i+j}\mathrm H_\AA^{d-i-2j}(X)_{\mathrm{prim}}(-j),\]
+	but we can synthesize the prior two assertions into the single Lefschetz decomposition
+	\[\mathrm H^i_\AA(X)=\bigoplus_{\substack{j\ge0\\i-2j\le d}}\ell^j\mathrm H_\AA^{i-2j}(X)_{\mathrm{prim}}(-j).\]
+	We are now ready to define our operator $^*$: for $x\in\mathrm H^i_\AA(X)$, this Lefschetz decomposition lets us expand $x=\sum_j\ell^jx_j$ for $x_j\in\mathrm H_\AA^{i-2j}(X)_{\mathrm{prim}}(-j)$, and then we define
+	\[^*x\coloneqq\sum_{\substack{j\ge0\\i-2j\le d}}(-1)^{(i-2j)(i-2j+1)/2}\ell^{d-i+j}x_j\]
+	so that $^*x\in\mathrm H^{2d-i}_\AA(X)(d-i)$. This operator $^*$ is defined compatibly for all of our cohomology theories, so it produces an absolute Hodge correspondence and so comes from an absolute Hodge class by \Cref{lem:better-abs-hodge-corr}. Additionally, we see that $^*$ merely rearranges the Lefschetz decomposition up to a sign, so it is an isomorphism.
+\end{proof}
+\begin{remark} \label{rem:hodge-star-gives-polarization}
+	The Hodge--Riemann relations \cite[p.~123]{griffiths-harris-ag} show that the induced composite
+	\[\mathrm H^i_\sigma(X)\otimes\mathrm H^i_\sigma(X)\to\mathrm H^{i}_\sigma(X)\otimes\mathrm H^{2d-i}_\sigma(X)(d-i)\to\mathrm H_\sigma^{0}(\mathrm{pt})(-i)\]
+	is a polarization of Hodge structures. We remark that one can sum this polarization over different $X$s, so its existence (coming from an absolute Hodge class) no longer requires that $X$ is equidimensional.
+\end{remark}
+We now repeat the story of the previous section to construct a category of motives from absolute Hodge classes. Let's take a moment to quickly review the constructions.
+\begin{itemize}
+	\item Pullbacks: any $\gamma\in\op{Corr}_{\mathrm{AH}}(X,Y)$ gives rise to a morphism $\gamma^*\colon C_{\mathrm{AH}}(Y)\to C_{\mathrm{AH}}(X)$ given by
+	\[\gamma^*(\beta)\coloneqq\op{pr}_{1*}(\gamma\cup\op{pr}_2^*\beta),\]
+	where we are using the $\cup$ product structure which exists on $\mathrm H_{\AA}^\bullet$.
+
+	\item Composition: any $\gamma\in\op{Corr}_{\mathrm{AH}}(X,Y)$ and $\delta\in\op{Corr}_{\mathrm{AH}}(Y,Z)$ can be composed via
+	\[\delta\circ\gamma\coloneqq\op{pr}_{13*}\left(\op{pr}_{12}^*\gamma\cup\op{pr}_{23}^*\delta\right).\]
+	The exact same proof as in \Cref{lem:corr-is-z-linear} (replacing the use of the projection formula with \Cref{lem:weil-projection-formula} and base-change with base-change formulae in our cohomology theories) establishes $\QQ$-linearity and associativity of $\circ$ and that $[\Gamma_f^\intercal]\circ[\Gamma_g^\intercal]=[\Gamma_{g\circ f}^\intercal]$. The same calculation aas in \Cref{rem:composition-preserves-codim} shows that $\circ$ is in fact a morphism of $\ZZ$-graded groups.
+
+	While we're here, we note that $(\delta\circ\gamma)^*=\gamma^*\circ\delta^*$ allows one to see that we may as well just compose the corresponding absolute Hodge correspondences.
+
+	\item We may now define a category $\mc C_{\mathrm{AH}}(K)$ whose objects are given by $h(X)$ for $X\in\mc P(K)$ and morphisms given by correspondences in degree $0$. Then we still have a faithful, essentially surjective, additive functor $h\colon\mc P(K)\opp\to\mc C_{\mathrm{AH}}(K)$. The same arguments as in \Cref{lem:corr-is-additive,lem:corr-is-sym-monoidal} show that $\mc C_{\mathrm{AH}}(K)$ is additive (with $h(X)\times h(Y)=h(X\sqcup Y)$) and symmetric monoidal (with $h(X)\otimes h(Y)=h(X\otimes Y)$).
+
+	\item We are now ready to define the category of effective motives as $\op{Mot}_\QQ^+(K)\coloneqq\op{Split}(\mc C_{\mathrm{AH}}(K))$, which is now also Karoubian. For example, one can use the idempotents $\pi_i$ from \Cref{ex:abs-hodge-kunneth} to define
+	\[h^i(X)\coloneqq(h(X),\pi_i).\]
+
+	\item Lastly, by adding in Tate twists, we may define the category of motives $\op{Mot}_\QQ(K)$ as the category of triples $(X,p,i)$ where $X\in\mc P(K)$ and $p\in\op{Corr}^0_{\mathrm{AH}}(X,X)$ is an idempotent and $i\in\ZZ$. Here, morphisms are given by
+	\[\op{Hom}_{\mathrm{Mot}_\QQ(K)}((X,p,i),(Y,q,j))\coloneqq q\circ\op{Corr}^{j-i}_{\mathrm{AH}}(X,Y)\circ p.\]
+	This category is still $\QQ$-linear, and the argument of \Cref{rem:ch-mot-karoubian} shows that it is still Karoubian. We continue to set $\mathrm T\coloneqq(\mathrm{pt},{\id},1)$ and $\mathrm L\coloneqq(\mathrm{pt},{\id},-1)$ to be the Tate and Lefschetz motives respectively, and we remark that the exact same argument as in \Cref{ex:mot-p1} shows that $\mathrm L$ is an effective motive. As such, the argument of \Cref{lem:ch-mot-additive} verifies that $\mathrm{Mot}_\QQ(K)$ is additive.
+\end{itemize}
+\begin{remark}
+	Later on, it will be useful to note that any embedding $K\subseteq K'$ of fields gives rise to a fully faithful base-change functor $\mathrm{Mot}_\QQ(K)\to\mathrm{Mot}_\QQ(K')$. To check that this functor is fully faithful, we are implicitly using \Cref{rem:general-abs-hodge}: we need to know that extending $K$ does not actually affect the rational subspace of absolute Hodge classes. By construction, we can also see that this functor is linear, and it will preserve the symmetric monoidal structure of \Cref{prop:mot-symm-mod} once we get there.
+\end{remark}
+Our present goal is to show that $\mathrm{Mot}_\QQ(K)$ is a neutral Tannakian category, for which we will use \Cref{thm:better-tannaka}; later, we will also want to place $\mathrm{Mot}_\QQ(K)$ in a Tate triple. Let's begin by showing that $\mathrm{Mot}_\QQ(K)$ is semisimple abelian. Here is a general test which explains how to do this upgrading.
+\begin{lemma} \label{lem:get-abelian-mot}
+	Let $\mc C$ be a $\QQ$-linear, additive, Karoubian category. Suppose that $\op{End}_{\mc C}(X)$ is a finite-dimensional semisimple algebra for all $X\in\mc C$. Then $\mc C$ is a semisimple abelian category.
+\end{lemma}
+\begin{proof}
+	This is \cite[Lemma~2]{jannsen-motive}. We proceed in steps.
+	\begin{enumerate}
+		\item We note that any object $X\in\mc C$ is a sum of finitely many indecomposable objects. Indeed, $\op{End}_{\mc C}(X)$ is a semisimple algebra, so Wedderburn's theorem allows us to write it as a product
+		\[\op{End}_{\mc C}(X)\cong M_{n_1}(A_1)\times\cdots\times M_{n_k}(A_k)\]
+		of matrix algebras over division algebras. Expanding $\op{End}_{\mc C}(X)$ out as a product like this produces an idempotent decomposition of $\id_X$, so \Cref{rem:idempotent-decomposition} (recall $\mc C$ is Karoubian!) shows
+		\[X\cong X_1\oplus\cdots\oplus X_k,\]
+		where $X_\bullet$ is the image of the idempotent in $\op{End}_{\mc C}(X)$ which corresponds to the identity in $M_{n_\bullet}(A_\bullet)$; in particular, $\op{End}_{\mc C}(X_\bullet)=M_{n_\bullet}(A_\bullet)$. (We can see this on the level of the construction of $\op{Split}(\mc C)$, which must be canonically equivalent to $\mc C$.) Next, we let $Y_\bullet$ be the projection of $X_\bullet$ along the idempotent in $M_{n_\bullet}(A_\bullet)$ which is the elementary matrix $E_{11}$. The idempotent decomposition $1_{n_\bullet}=E_{11}+\cdots+E_{n_\bullet n_\bullet}$ can be plugged into \Cref{rem:idempotent-decomposition} to show
+		\[X_\bullet\cong Y_\bullet^{n_\bullet}.\]
+		We now have $\op{End}_{\mc C}(Y_\bullet)=A_\bullet$. Because $A_\bullet$ is a division algebra, it has no idempotents other than $0$ and $1$, so $Y_\bullet$ must be indecomposable.
+
+		\item The main claim is that $X\cong Y$ if and only if $\op{Hom}_{\mc C}(X,Y)\ne0$ for any indecomposable $X,Y\in\mc C$. Let's quickly explain why the main claim implies the result.
+		\begin{itemize}
+			\item We check that every morphism has a kernel and cokernel. Using the previous step, we may suppose that our morphism $f$ is between the objects $\bigoplus_{i=1}^nX_i^{\oplus k_i}$ and $\bigoplus_{i=1}^nX_i^{\oplus \ell_i}$ for some indecomposables $X_\bullet$ and sequences $k_\bullet$ and $\ell_\bullet$ of nonnegative integers. But the hypothesis implies that the different indecomposables have no interaction with each other, so
+			\[\op{Hom}_{\mc C}\Bigg(\bigoplus_{i=1}^nX_i^{\oplus k_i},\bigoplus_{i=1}^nX_i^{\oplus\ell_i}\Bigg)=\bigoplus_{i=1}^nM_{\ell_i\times k_i}(\op{End}_{\mc C}X_i),\]
+			so we can realize $f$ as an $n$-tuple of matrices over division algebras. Doing some row-reduction (which amounts to changing bases of the $X_i^{\oplus k_i}$s and $X_i^{\oplus\ell_i}$s) lets us put the matrix form of $f$ into a row-reduced Echelon form, from which one can read off a kernel and cokernel for $f$ as one does for vector spaces.
+
+			\item We check that every monomorphism is a kernel; the check that every epimorphism is a cokernel is essentially the same. As in the previous point, we may write our morphism $f$ as some map $f\colon\bigoplus_{i=1}^nX_i^{\oplus k_i}\to\bigoplus_{i=1}^nX_i^{\oplus\ell_i}$ in a matrix form, which we may put into row-reduced Echelon form. Note then that all diagonal entries of all matrices must be nonzero, for otherwise $f$ has a nontrivial kernel, so $f$ will fail to be a monomorphism. It follows from the row-reduced Echelon form that $k_i\le\ell_i$ for each $i$, and $f$ is simply embedding $X_i^{\oplus k_i}$ into the first $k_i$ coordinates of $X_i^{\oplus\ell_i}$. In particular, $f$ will then be the kernel of projection
+			\[\bigoplus_{i=1}^nX_i^{\oplus\ell_i}\onto\bigoplus_{i=1}^nX_i^{\oplus(\ell_i-k_i)}\]
+			away from these coordinates.
+
+			\item We check that $\mc C$ is semisimple. By the previous step, it is enough to check that every indecomposable object $X\in\mc C$ is actually simple. Well, any nontrivial map $X'\to X$ must have quotient $0$. Indeed, after decomposing $X'$ into indecomposables, we may assume that $X'$ is indecomposable. But now the main claim implies $X'\cong X$, so because $\op{End}_{\mc C}(X)$ is a division algebra (by the previous step) and so the map $X'\to X$ is an isomorphism.
+		\end{itemize}
+
+		\item It remains to prove the main claim. Certainly $X\cong Y$ implies $\op{Hom}_{\mc C}(X,Y)\ne0$, so we merely must show the converse. As such, suppose that $\op{Hom}_{\mc C}(X,Y)\ne0$. Observe that we will be done as soon as we know that there are $f\colon X\to Y$ and $g\colon Y\to X$ such that $gf\ne0$ or $fg\ne0$; take $gf\ne0$ because the other case is similar. Well, because $X$ is indecomposable, $\op{End}_{\mc C}(X)$ is a division algebra (see the first step), so $gf\in\op{End}{\mc C}(X)$ has an inverse, so $f\colon X\to Y$ has a left inverse given by $g'\coloneqq(gf)^{-1}g$. Thus, \Cref{ex:karoubian-section-decomp} tells us that $Y$ decomposes into $X=\im fg'$ plus another object $\im(1-fg')$, but then $X\cong Y$ is forced because $Y$ is indecomposable.
+
+		It remains to show that such $f\colon X\to Y$ and $g\colon Y\to X$ exist. This will require a trick. As in the first step, we may view $\op{End}_{\mc C}(X\oplus Y)$ as some algebra $2\times2$ matrices
+		\[\left\{\begin{bmatrix}
+			a & b \\ c & d
+		\end{bmatrix}:a\in\op{End}_{\mc C}(X),b\in\op{Hom}_{\mc C}(Y,X),c\in\op{Hom}_{\mc C}(X,Y),\op{Hom}_{\mc C}(Y,Y)\right\}.\]
+		Now, consider the subgroup
+		\[N\coloneqq\left\{\begin{bmatrix}
+			0 & 0 \\ c & 0
+		\end{bmatrix}:c\in\op{Hom}_{\mc C}(X,Y)\right\}.\]
+		This subgroup $N$ is nonzero and nilpotent, so because $\op{End}_{\mc C}(X\oplus Y)$, it cannot be an ideal! Thus, we must be able to find morphisms such that
+		\[\begin{bmatrix}
+			a_1 & b_1 \\ c_1 & d_1
+		\end{bmatrix}\begin{bmatrix}
+			0 & 0 \\ c_2 & 0
+		\end{bmatrix}\begin{bmatrix}
+			a_3 & b_3 \\ c_3 & d_3
+		\end{bmatrix}\notin N\]
+		A quick calculation shows that this matrix is $\begin{bsmallmatrix}
+			b_1c_2a_3 & b_1c_2b_3 \\
+			d_1c_1a_3 & d_1c_2b_3
+		\end{bsmallmatrix}$, so $b_1c_2\ne0$ or $c_2b_3\ne0$, as needed.
+		\qedhere
+	\end{enumerate}
+\end{proof}
+\begin{remark}
+	We needed to assume that $\mc C$ was additive in order to be able to write down the sum $X\oplus Y$. This seems to be the only place where we need to use the existence of arbitrary finite sums.
+\end{remark}
+Thus, we would like to check that $\op{End}_{\mathrm{Mot}_\QQ(K)}(M)$ is a finite-dimensional semisimple algebra for each $M\in\mathrm{Mot}_\QQ(K)$. Finite-dimensionality is easy.
+\begin{lemma} \label{lem:end-mot-is-fd}
+	Fix a field $K$ algebraic over $\QQ$. For any $M\in\mathrm{Mot}_\QQ(K)$, we have
+	\[\dim_\QQ\op{End}_{\mathrm{Mot}_\QQ(K)}(M)<\infty.\]
+\end{lemma}
+\begin{proof}
+	Write $M=(X,p,i)$, and then
+	\[\op{End}_{\mathrm{Mot}_\QQ(K)}(M)\subseteq\op{Corr}^0_{\mathrm{AH}}(X,X)\]
+	by construction, so we are reduced to checking that $\dim_\QQ C_{\mathrm{AH}}(X)<\infty$ for any $X\in\mc P(K)$. Well, for any fixed index $i$ and embedding $\sigma\colon K\into\CC$, the space $C_{\mathrm{AH}}(X)$ is contained in the image of $\mathrm H^{2i}_{\mathrm B}(X)(i)$ in $\mathrm H^{2i}_\AA(X)(i)$, and $\dim_\QQ\mathrm H^{2i}_{\mathrm B}(X)(i)<\infty$ by properties of $\mathrm H_{\mathrm B}^\bullet$.
+\end{proof}
+To check that $\op{End}_{\mathrm{Mot}_\QQ(K)}(M)$ is semisimple will require a trick: we will use polarizations.
+\begin{lemma} \label{lem:get-semisimple}
+	Fix a $\QQ$-algebra $A$. Suppose that there is an involution $(\cdot)^\dagger\colon A\opp\to A$ such that $aa^\dagger\ne0$ for all nonzero $a\in A$. Then $A$ is semisimple.
+\end{lemma}
+\begin{proof}
+	We will show that any nonzero two-sided ideal $I\subseteq A$ fails to be nilpotent. Define the function $N\colon (I\setminus\{0\})\to (I\setminus\{0\})$ by
+	\[N(a)\coloneqq aa^\dagger\]
+	We are given that $N$ is well-defined. Note that $N(a)^\dagger=N(a)$ for each $a$, so $N$ becomes squaring on its image. We conclude that all iterated squares of any $b\in\im N$ continue to be nonzero, so $\im N\subseteq I\setminus\{0\}$ fails to be nilpotent.
+\end{proof}
+\begin{lemma} \label{lem:get-end-semisimple}
+	Fix a field $K$ algebraic over $\QQ$. For any $M\in\mathrm{Mot}_\QQ(K)$, the algebra $\op{End}_{\mathrm{Mot}_\QQ(K)}(M)$ is semisimple.
+\end{lemma}
+\begin{proof}
+	We proceed in steps.
+	\begin{enumerate}
+		\item We reduce to the case of $M$ of the form $h(X)$. Indeed, we may write $M=(X,p,i)$, from which we find that
+		\[\op{End}_{\mathrm{Mot}_\QQ(K)}(M)=p\circ\op{End}_{\mathrm{Mot}_\QQ(K)}(h(X))\circ p.\]
+		% so because $p$ is an idempotent, we see that $\op{End}_{\mathrm{Mot}_\QQ(K)}(M)$ is a quotient of $\op{End}_{\mathrm{Mot}_\QQ(K)}(h(X))$. Thus, the semisimplicity for $h(X)$ implies the semisimplicity for $M$.
+		Now, if we know that $\op{End}_{\mathrm{Mot}_\QQ(K)}(h(X))$ is semisimple, we may use Wedderburn's theorem (finite-dimensionality follows from \Cref{lem:end-mot-is-fd}) to write it as a product
+		\[\op{End}_{\mathrm{Mot}_\QQ(K)}(h(X))=M_{n_1}(A_1)\times\cdots\times M_{n_k}(A_k)\]
+		of matrix algebras of division algebras. Our idempotent $p$ can now be viewed as some tuple of idempotent matrices in the $M_{n_\bullet}(A_\bullet)$s. After base-changing from $\QQ$ to $\CC$, we see that each of these matrices can be upper-triangularized and is thus diagonalizable with eigenvalues in $\{0,1\}$ because $p$ is an idempotent; by searching for this eigenbasis over $\QQ$, we see that $p$ is still diagonalizable over $\QQ$. It follows that $\op{End}_{\mathrm{Mot}_\QQ(K)}(M)$ is isomorphic to a product of submatrix algebras from the given product, so it continues to be semisimple.
+
+		\item We show that $\op{End}_{\mathrm{Mot}_\QQ(K)}(h(X))=\op{Corr}^0(X,X)$ is semisimple. We will use \Cref{lem:get-semisimple}. For each $i$, let $\psi_i$ be the polarization of $\mathrm H^i_\sigma(X)$ defined in \Cref{rem:hodge-star-gives-polarization} by using the Hodge involution and Poincar\'e duality. Polarizations are perfect pairings, so any $\gamma\in\op{Corr}^0_{\mathrm{AH}}(X,X)$ induces a pullback map $\gamma^*\in\op{End}(\mathrm H^\bullet_\AA(X))$, which then must have a unique transpose map $(\gamma^\dagger)^*\in\op{End}(\mathrm H^\bullet_\AA(X))$ satisfying
+		\[\psi_i(\gamma^*\alpha_i,\beta_i)=\psi_i\left(\alpha_i,(\gamma^\dagger)^*\beta_i\right)\]
+		for any $i\in\ZZ$ and $\alpha_i,\beta_i\in\mathrm H^i_\AA(X)$. The uniqueness (plugged into \Cref{lem:better-abs-hodge-corr}) shows that $(\gamma^\dagger)^*$ arises rationally and is compatible with all of our cohomology theories, so it comes from an element in $\op{Corr}^0_{\mathrm{AH}}(X,X)$.
+
+		The ambient uniqueness shows that $\gamma\mapsto\gamma^\dagger$ is $\QQ$-linear, involutive, and we can see that $(\gamma\delta)^\dagger=\delta^\dagger\gamma^\dagger$ by a computation with the uniqueness. To apply \Cref{lem:get-semisimple}, it remains to check that $\gamma\gamma^\dagger\ne0$ for each nonzero $\gamma$. It is enough to find $\alpha,\beta\in\mathrm H^\bullet_\AA(X)$ such that
+		\[\psi\left(\alpha,(\gamma\gamma^\dagger)^*\beta\right)=\psi\left(\gamma^*\alpha,\gamma^*\beta\right)\]
+		is nonzero. It is enough to check this on the de Rham component where $\psi$ becomes a polarization, and then we may as well base-change everything from $\QQ$ to $\RR$. In particular, we may take $\alpha\ne0$ and $\beta\coloneqq\sqrt{-1}\alpha$ (where $\sqrt{-1}$ acts on $\mathrm H_\sigma(X)_\RR$ via the Hodge structure), so the fact that $\gamma^*_{\mathrm{dR}}$ is a morphism of Hodge structures shows that the above value will be positive by the positive-definiteness of $\psi$.
+		\qedhere
+	\end{enumerate}
+\end{proof}
+\begin{proposition} \label{prop:mod-ab-ss}
+	The category $\mathrm{Mot}_\QQ(K)$ is a $\QQ$-linear, semisimple, abelian category.
+\end{proposition}
+\begin{proof}
+	The category $\mathrm{Mot}_\QQ(K)$ is already $\QQ$-linear, additive, and Karoubian essentially by its construction, so we may plug \Cref{lem:end-mot-is-fd,lem:get-end-semisimple} into \Cref{lem:get-abelian-mot}.
+\end{proof}
+We have completed our first major check leading up to the application of \Cref{thm:better-tannaka} showing that $\mathrm{Mot}_\QQ(K)$ is a neutral Tannakian category. Next up, we will show that $\mathrm{Mot}_\QQ(K)$ has a symmetric monoidal structure.
+\begin{proposition} \label{prop:mot-symm-mod}
+	Fix a field $K$ algebraic over $\QQ$. The category $\mathrm{Mot}_\QQ(K)$ has a symmetric monoidal structure.
+\end{proposition}
+\begin{proof}
+	Repeating the proof of \Cref{lem:ch-mot-sym-monoidal}, we may simply define
+	\[(X,p,i)\otimes(Y,q,j)\coloneqq(X\times Y,p\times q,i+j).\]
+	For example, we can see that the unit should be given by $(\mathrm{pt},{\id},0)$. The associativity coherence will be induced by the associativity of the fiber product (and addition in $\ZZ$), but \Cref{rem:ch-mot-needs-anti-comm} explains that we should be slightly careful with the commutativity coherence. Because we have K\"unneth projectors (\Cref{ex:abs-hodge-kunneth}), we may expand
+	\[ph(X)(i)=\bigoplus_nph^n(X)(i)\qquad\text{and}\qquad qh(Y)(j)=\bigoplus_mqh^m(Y)(j),\]
+	so we define the commutativity constraint $(X,p,i)\otimes(Y,q,j)\to(Y,q,j)\otimes(X,p,i)$ to be the obvious signs multiplied by the sign $(-1)^{mn}$ on each of the above graded pieces.
+\end{proof}
+And let's complete the proof.
+\begin{theorem} \label{thm:mot-tannaka}
+	Fix a field $K$ algebraic over $\QQ$. The category $\mathrm{Mot}_\QQ(K)$ is neutral Tannakian. In fact, for each embedding $\sigma\colon K\into\CC$, the Betti cohomology functor $\mathrm H_\sigma^\bullet$ induces a fiber functor $\omega_\sigma$.
+\end{theorem}
+\begin{proof}
+	We use \Cref{thm:better-tannaka} with $\omega=\mathrm H_\sigma^\bullet$. Explicitly, $\mathrm H_\sigma^\bullet$ is extended to $\mathrm{Mot}_\QQ(K)$ by
+	\[\omega_\sigma^\bullet((X,p,i))\coloneqq p_\sigma\mathrm H^\bullet_\sigma(X)(i),\]
+	where the notation $p_\sigma$ comes from viewing $p$ as an absolute Hodge correspondence via \Cref{lem:better-abs-hodge-corr}. Functoriality for absolute Hodge correspondences grants functoriality for $\mathrm H_\sigma^\bullet$.\footnote{Formally, one ought to appeal to \Cref{lem:karoubian-envelope} and then explain functoriality with the Tate twist by hand. We will not bother.}
+
+	\Cref{prop:mod-ab-ss} has shown that $\mathrm{Mot}_\QQ(K)$ is already a $\QQ$-linear abelian and semisimple category, and \Cref{prop:mot-symm-mod} gives it the structure of a symmetric monoidal category. Continuing, we note that the functor $\mathrm H_\sigma^\bullet$ is certainly $\QQ$-linear and faithful (see \Cref{lem:better-abs-hodge-corr}), and $\mathrm H_\sigma^\bullet$ is exact because $\mathrm{Mot}_\QQ(K)$ is already semisimple and $\mathrm H_\sigma^\bullet$ preserves sums because it is additive.
+
+	We now must check (i)--(iv) of \Cref{thm:better-tannaka}. For (i), the K\"unneth formula explains why $\mathrm H^\bullet_\sigma$ preserves products. For (ii), the construction of the symmetric monoidal structure explains that $\mathrm H^\bullet_\sigma$ successfully preserves the commutativity and associativity constraints; we refer to \Cref{rem:ch-mot-needs-anti-comm} to explain why $\mathrm{GrAlg}_\QQ$ requires the sign in the commutativity constraint. Additionally, for (iii), we note $\mathrm H^\bullet_\sigma(\mathrm{pt})=\QQ$, and one can check that the unit constraints are all preserved by $\mathrm H^\bullet_\sigma$ because they are all given by the canonical isomorphism $\op{pr}_1\colon X\times\mathrm{pt}\to X$.
+
+	Lastly, for (iv), it remains to understand the objects $(X,p,i)\in\mathrm{Mot}_\QQ(K)$ such that $\dim_\QQ\mathrm H^\bullet_\sigma((X,p,i))=1$. We may as well assume that $i=0$ because it will not affect the dimension, and $(X,p,0)$ admits an inverse if and only if $(X,p,i)=(X,p,0)\otimes\mathrm T^{\otimes i}$ admits an inverse. Upon decomposing $X$ into equidimensional pieces as $X=\bigsqcup_dX_d$ where $X_d$ is equidimensional of dimension $d$, we see that Poincar\'e duality (via \Cref{ex:abs-hodge-poincare}) gives a morphism
+	\[h(X)\otimes\underbrace{\bigoplus_{d\ge0}h(X_d)(d)}_{M'\coloneqq}\to\mathrm{pt}\]
+	which produces the Poincar\'e duality pairing upon applying $\mathrm H^\bullet_\sigma$ (or $\mathrm H^\bullet_\AA$). Now, setting $q\coloneqq1-p$ allows a decomposition $h(X)=ph(X)\oplus qh(X)$. Letting $p'$ and $q'$ be the dual maps (on $\mathrm H^\bullet_\AA$ or $\mathrm H^\bullet_\sigma$s) via Poincar\'e duality, we see that they produce absolute Hodge correspondences by the coherences, so we receive a dual decomposition $M'=p'M'\oplus q'M'$. Namely, the induced map $ph(X)\otimes p'M'\to\mathrm{pt}$ will induce a perfect pairing
+	\[p_\sigma\mathrm H^\bullet_\sigma(X)\otimes p'_\sigma\mathrm H^\bullet_\sigma(M')\to\mathrm H^0_\sigma(\mathrm{pt}).\]
+	For example, this implies that $\dim_\QQ p'_\sigma\mathrm H^\bullet_\sigma(M')=1$. Lastly, because $\mathrm H^\bullet_\sigma$ is faithful, we conclude that the induced map $ph(X)\otimes p'M'\to\mathrm{pt}$ is an isomorphism. This completes the check (iv) of \Cref{thm:better-tannaka} and thus the proof.
+\end{proof}
+\begin{remark} \label{rem:betti-is-hs-q}
+	The fiber functor $\omega_\sigma\colon\mathrm{Mot}_\QQ(K)$ in fact factors through $\mathrm{HS}_\QQ$. To begin, note $p_\sigma\mathrm H_\sigma^\bullet(X)(i)$ is a rational Hodge structure because $\mathrm H_\sigma^\bullet(X)$ and $\mathrm T$ are, and $p_\sigma$ is an endomorphism of Hodge structures (because $p_{\mathrm{dR}}$ is by \Cref{lem:better-abs-hodge-corr}). Furthermore, any morphism $f\colon(X,p,i)\to(Y,q,j)$ of motives arises from an absolute Hodge correspondence, which does induce a morphism of rational Hodge structures upon passing through $\omega_\sigma$ because $f_{\mathrm{dR}}$ preserves Hodge structuers (by \Cref{lem:better-abs-hodge-corr}).
+\end{remark}
+\begin{remark} \label{rem:ell-adic-is-galois-rep}
+	One can repeat this proof for $\ell$-adic or de Rham cohomology, provided that we base-change $\mathrm{Mot}_\QQ(K)$ to the corresponding $F$-linear category $\mathrm{Mot}_F(K)$, where $F$ is the coefficient field. In particular, each prime $\ell$ has $\mathrm H^\bullet_{\mathrm{\acute et}}$ induce a fiber functor $\omega_\ell\colon\mathrm{Mot}_{\QQ_\ell}(K)\to\mathrm{Vec}_{\QQ_\ell}$. But now, $\omega_\ell$ actually factors through $\op{Rep}_{\QQ_\ell}\op{Gal}(\ov K/K)$: the proof is the same as in \Cref{rem:betti-is-hs-q}, where the main point is that $\ell$-adic cohomology produces Galois representations, and our absolute Hodge correspondences specialize to Galois-invariant maps by their definition.
+\end{remark}
+\begin{remark} \label{rem:mot-betti-etale-comparison}
+	We remark that $\omega_\ell$ is naturally isomorphic to $(\cdot)_{\QQ_\ell}\circ\omega_\sigma$. Indeed, this follows from the fact that the comparison isomorphism \Cref{thm:betti-etale-comparison} is an isomorphism of Weil cohomology theories, so we can see (by hand, via the constructions suggested in \Cref{thm:mot-tannaka}) that the comparison isomorphism induces a natural isomorphism $(\cdot)_{\QQ_\ell}\circ\omega_\sigma\Rightarrow\omega_\ell$.
+\end{remark}
+While we're here, we remark that we can upgrade these things to Tate triples.
+\begin{corollary}
+	Fix a field $K$ algebraic over $\QQ$. The K\"unneth decompositions induce a $\ZZ$-grading $w$ on $\mathrm{Mot}_\QQ(K)$, thus making $(\mathrm{Mot}_\QQ(K),w,\mathrm T)$ into a Tate triple.
+\end{corollary}
+\begin{proof}
+	We already know $\mathrm{Mot}_\QQ(K)$ is neutral Tannakian by \Cref{thm:mot-tannaka}, and we are going put $\mathrm T$ in weight $-2$, so the main content of the argument arises from defining the weight grading. For any effective motive $ph(X)\in\mathrm{Mot}_\QQ(K)$, we claim that
+	\[ph(X)\stackrel?=\bigoplus_{i\in\ZZ}ph^i(X).\]
+	Indeed, $p$ is induced by an absolute Hodge correspondence $h(X)\to h(X)$, so $p$ has degree $0$, meaning that all the induced maps on cohomology preserve the degree. Thus, the map $\bigoplus_{i\in\ZZ}ph^i(X)\to ph(X)$ is an isomorphism on each of our cohomology theories, so its inverse also succeeds at being an absolute Hodge correspondence because the uniqueness of the inverse provides the needed compatibility. The equality follows.
+
+	Our weight grading is now given by the decomposition
+	\[ph(X)(n)=\bigoplus_{i\in\ZZ}ph^{i+2n}(X)(n).\]
+	(In particular, $\mathrm T$ sits in weight $-2$.) Here are the needed checks on this grading.
+	\begin{itemize}
+		\item Functorial: a morphism $ph(X)(n)\to qh(Y)(m)$ of motives arises from an absolute Hodge correspondence $\gamma$ of degree $m-n$. Such an absolute Hodge correspondence arises from graded maps $p\mathrm H^\bullet(X)(n)\to q\mathrm H^\bullet(Y)(m)$ on our cohomology. We conclude that our absolute Hodge correspondences preserve the K\"unneth projectors (we are implicitly using some functoriality) and thus the gradings.
+		\item Tensor: given two motives $ph(X)(n)$ and $qh(Y)(m)$, their tensor product has been given by
+		\[ph(X)(n)\otimes qh(Y)(m)=(p\times q)h(X\times Y)(n+m).\]
+		The K\"unneth isomorphism for our cohomology theories upgrades to an absolute Hodge correspondence by its compatibility, thereby ensuring
+		\[ph(X)(n)\otimes qh(Y)(m)=\bigoplus_{i,j}ph^i(X)(n)\otimes qh^j(Y)(m).\]
+		Thus, for any $k$, the degree-$k$ piece on the right-hand side is given by
+		\[(ph(X)(n)\otimes qh(Y)(m))_k=\bigoplus_{i+j=k}ph^{i+2n}(X)(n)\otimes qh^{j+2m}(Y)(m),\]
+		as required.
+		\qedhere
+	\end{itemize}
+\end{proof}
+\begin{remark}
+	In fact, for any embedding $\sigma\colon K\into\CC$, the functor $\omega_\sigma$ is a morphism of Tate triples $(\mathrm{Mot}_\QQ(K),w,\mathrm T)\to(\mathrm{HS}_\QQ,w,\QQ(1))$. Of course, $\mathrm T$ goes to $\QQ(1)$, so it remains to check that $\omega_\sigma$ preserves the weight gradings. But this is basically by construction: for any motive $ph(X)(n)$, we have
+	\[p_\sigma\mathrm H^\bullet_\sigma(X)(n)=\bigoplus_{i\in\ZZ}p_\sigma\mathrm H^{i-2n}_\sigma(X)(n)\]
+	because $p_\sigma$ is a morphism of rational Hodge structures.
+\end{remark}
+\begin{remark}
+	The category $\im\omega_\ell\subseteq\op{Rep}_{\QQ_\ell}\op{Gal}(\ov K/K)$ now has an induced weight grading by simply porting over the weight grading from $\mathrm{Mot}_\QQ(K)$. Noting that $\omega_\ell(\mathrm T)=\QQ_\ell(1)$ by construction of $\omega_\ell$, we find that $\omega_\ell\colon\mathrm{Mot}_\QQ(K)\to\im\omega_\ell$ upgrades to a morphism of Tate triples.
+\end{remark}
+We have thus completed the main content of the present subsection. Of course, even though we have found that $\mathrm{Mot}_\QQ(K)$ is neutral Tannakian, this does not make it easy to understand; for example, it is highly non-obvious what the corresponding affine group should be. We close this section with the easiest nontrivial subset of this question.
+\begin{definition}[Artin motive]
+	Fix a field $K$ algebraic over $\QQ$. The category $\mathrm{Mot}_\QQ^0(K)$ of \textit{Artin motives} is the full $\otimes$-subcategory
+	\[\left\langle h(X):\dim X=0\right\rangle^\otimes.\]
+\end{definition}
+\begin{example} \label{ex:artin-mot}
+	Fix a field $K$ algebraic over $\QQ$. The functor $\mathrm{Mot}_\QQ^0(K)\to\mathrm{Rep}_\QQ\op{Gal}(\ov K/K)$ defined by extending $h(X)\mapsto\op{Mor}(X(\ov K),\QQ)$ is an equivalence.
+\end{example}
+\begin{proof}
+	This is \cite[Proposition~6.17]{milne-tannakian}. For brevity, we will set $G\coloneqq\op{Gal}(\ov K/K)$. We proceed in steps.
+	\begin{enumerate}
+		\item Define the category $\mc C^0_{\mathrm{AH}}(K)$ as the full subcategory of $\mc C_{\mathrm{AH}}(K)$ given by $0$-dimensional varieties. Let's begin by defining a fully faithful functor $\omega\colon\mc C^0_{\mathrm{AH}}(K)\to\mathrm{Rep}_\QQ G$ on objects. Well, for any choice of embedding $\sigma\colon K\into\CC$, we note that
+		\[\mathrm H_\sigma^\bullet(X)=\op{Mor}(X(\ov K),\QQ),\]
+		and this embedding is independent of the choice of $\sigma$: we are simply getting a copy of $\QQ$ in degree $0$ for each geometric point. Note that the right-hand side is a permutation representation of a quotient of $G$ (note $\#X(\ov K)<\infty$ because $X$ is proper and zero-dimensional), so this does in fact produce an object in $\op{Rep}_\QQ G$.
+
+		\item We explain why the functor $\omega\colon\mc C^0_{\mathrm{AH}}(K)\to\mathrm{Rep}_\QQ G$ is well-defined and fully faithful. Well, for $X,Y\in\mc C^0_{\mathrm{AH}}(K)$, an absolute Hodge correspondence $f$ in $\op{Corr}^0_{\mathrm{AH}}(X,Y)$ amounts to a special map $\mathrm H_\AA^\bullet(X)\to\mathrm H_\AA^\bullet(Y)$ satisfying some properties and arising from Betti cohomology. By the previous paragraph, arising from Betti cohomology is equivalent to saying that $f$ arises from a linear map
+		\[r(f)\colon\op{Mor}(X(\ov K),\QQ)\to\op{Mor}(Y(\ov K),\QQ).\]
+		As for the extra properties, we note that the de Rham part $f_{\mathrm{dR}}$ automatically preserves the relevant Hodge structure because everything is already supported in degree $(0,0)$, and we note that $f_\ell$ being Galois-invariant is equivalent to $r(f)$ being Galois-invariant. We conclude that $r$ induces an isomorphism
+		\[\op{Corr}^0_{\mathrm{AH}}(X,Y)\to\op{Mor}_G\big(\op{Mor}(X(\ov K),\QQ),\op{Mor}(Y(\ov K),\QQ)\big).\]
+
+		\item Now, $\op{Rep}_\QQ G$ is Karoubian (indeed, it is abelian), so $\omega$ uniquely extends to the Karoubian envelope $\op{Split}\left(\mc C^0_{\mathrm{AH}}(K)\right)$ of $\mc C^0_{\mathrm{AH}}(K)$. We claim that the essential image $\im h\subseteq\mathrm{Mot}_\QQ(K)$ of $\op{Split}\left(\mc C^0_{\mathrm{AH}}(K)\right)$ is exactly $\mathrm{Mot}_\QQ^0(K)$. For this, we should show that $\im h$ is already a right abelian symmetric monoidal subcategory.
+		
+		Well, the same argument as in \Cref{prop:mod-ab-ss} explains that $\op{Split}\left(\mc C^0_{\mathrm{AH}}(K)\right)$ and hence $\im h$ is semi\-simple abelian. Further, the construction of the symmetric monoidal structure in \Cref{prop:mot-symm-mod} explains that $\im h$ is also closed udner $\otimes$. Lastly, the proof of \Cref{thm:mot-tannaka} shows that the dual of $h(X)$ is $h(X)(\dim X)=h(X)$ (with the perfect pairing given by Poincar\'e duality), so $\im h$ is rigid.
+
+		\item The previous steps have shown that the fiber functor $\omega_\sigma$ of $\mathrm{Mot}_\QQ^0(K)$ upgrades to a fully faithful functor $\omega_\sigma\colon\mathrm{Mot}_\QQ^0(K)\to\op{Rep}_\QQ G$. It remains to show that this last functor is essentially surjective.
+
+		To begin, we claim that the representation $\op{Mor}(S,\QQ)$ is in the essential image, for any $S\in\mathrm{FinSet}(G)$. Indeed, Grothendieck's theory of the \'etale fundamental group establishes that $\pi_1^{\mathrm{\acute et}}(\Spec K)=G$ (essentially reformulating Galois theory), meaning that taking geometric points produces an equivalence of categories from the category of finite \'etale covers of $\Spec K$ to the category $\mathrm{FinSet}(G)$. Namely, there is some smooth projective zero-dimensional scheme $X$ over $\Spec K$ such that $X(\ov K)\cong S$ as $G$-sets, implying that
+		\[\omega_\sigma(h(X))\cong\op{Mor}(S,\QQ).\]
+		Thus, $\op{Mor}(S,\QQ)$ is in our essential image.
+
+		It remains to show that the representations $\op{Mor}(S,\QQ)\in\op{Rep}_\QQ G$ generate the category. Indeed, any representation $V$ of $G$ has an open stabilizer $H\subseteq G$, so $V$ descends to a representaiton of $G/H$. But $G/H$ is a finite group, so $\op{Rep}_\QQ G/H$ is generated by the regular representation, which is a permutation representation, thereby completing the proof; explicitly, we have $V\in\langle\QQ[G/H]\rangle^\otimes$.
+		\qedhere
+	\end{enumerate}
+\end{proof}
 
 \end{document}

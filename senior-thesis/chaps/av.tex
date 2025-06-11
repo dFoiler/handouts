@@ -24,7 +24,7 @@ Let's begin with a definition.
 \end{remark}
 Here, a group variety refers to a group object in the category of varieties over $K$.
 \begin{remark}
-	With quite a bit of work, one can weaken the hypotheses of being an abelian variety quite significantly. For example, arguments involving group varieties are able to show that being connected and geometrically reduced implies geometrically integral, and it is a theorem that one can replace projectivity with properness. See \cite[Remark~0H2U]{stacks} for details.
+	With quite a bit of work, one can weaken the hypotheses of being an abelian variety quite significantly. For example, arguments involving group varieties are able to show that being connected and geometrically reduced implies geometrically integral, and it is a theorem that one can replace projectivity with properness. See \cite[Remark~\texttt{0H2U}]{stacks} for details.
 \end{remark}
 Here are the starting examples.
 \begin{example}[elliptic curves] \label{ex:ec}
@@ -76,7 +76,7 @@ Intuitively, an isogeny is a ``squishy isomorphism.''
 	In the complex analytic setting, an isogeny of two abelian varieties $A=\CC^g/\Lambda$ and $B=\CC^g/\Lambda'$ amounts (up to change of basis) an inclusion of lattices $\Lambda'\subseteq\Lambda$.
 \end{example}
 \begin{example}
-	Fix any abelian variety $A$. For any nonzero integer $n$, the multiplication-by-$n$ endomorphism $[n]_A\colon A\to A$ is an isogeny. To see this, note that it is enough to check that $A[n]\coloneqq\ker[n]_A$ is finite. In the complex analytic situation where $A=\CC^g/\Lambda$, this follows because $\frac1n\Lambda/\Lambda$ is finite; in general, one must show that $A[n]\coloneqq\ker[n]_A$ is zero-dimensional, which is somewhat tricky. See \cite[Lemma~0BFG]{stacks} for details. We remark that one can compute $\deg[n]_A=d^{2\dim A}$, which is again not so hard to see in the complex analytic situation.
+	Fix any abelian variety $A$. For any nonzero integer $n$, the multiplication-by-$n$ endomorphism $[n]_A\colon A\to A$ is an isogeny. To see this, note that it is enough to check that $A[n]\coloneqq\ker[n]_A$ is finite. In the complex analytic situation where $A=\CC^g/\Lambda$, this follows because $\frac1n\Lambda/\Lambda$ is finite; in general, one must show that $A[n]\coloneqq\ker[n]_A$ is zero-dimensional, which is somewhat tricky. See \cite[Lemma~\texttt{0BFG}]{stacks} for details. We remark that one can compute $\deg[n]_A=d^{2\dim A}$, which is again not so hard to see in the complex analytic situation.
 \end{example}
 Motivated by the complex analytic setting (and the ``squishy isomorphism'' intuition), one might hope that one can recover weak-ish inverses for isogenies. This turns into an important property of abelian varieties.
 \begin{lemma} \label{lem:dual-isogeny}
@@ -199,7 +199,7 @@ Most of the utility one achieves from the dual is that it allows us to the compl
 \[\langle x,y\rangle\coloneqq\psi_\RR(x,iy)\]
 on $\Lambda_\RR$ is symmetric and positive-definite. But now we see that this choice of $\psi$ determines a map $A\to A^\lor$ given by $v\mapsto\psi(v,\cdot)$.
 
-Thus, we would like our polarizations some kind of map $A\to A^\lor$. However, we need to keep track of all the adjectives that $\psi$ had in order to make this an honest definition. For example, perhaps we want to keep track of the constraint that $\psi$ is alternating. To do so, we use cohomology. We will shortly explain in \Cref{prop:cohom-ring-av} that the cup product provides an isomorphism $\land^2\mathrm H^1(A,\ZZ)\to\mathrm H^2(A,\ZZ)$, which induces an isomorphism
+Thus, we would like our polarizations some kind of map $A\to A^\lor$. However, we need to keep track of all the adjectives that $\psi$ had in order to make this an honest definition. For example, perhaps we want to keep track of the constraint that $\psi$ is alternating. To do so, we use cohomology. We will shortly explain in \Cref{thm:cohom-ring-av} that the cup product provides an isomorphism $\land^2\mathrm H^1(A,\ZZ)\to\mathrm H^2(A,\ZZ)$, which induces an isomorphism
 \[\op{Hom}_\ZZ\left(\land^2\Lambda,\ZZ\right)\cong\mathrm H^2(A,\ZZ)\]
 upon taking duals. Thus, $\psi$ being an alternating form can be traced backed to it coming from a class in $\mathrm H^2(A,\ZZ)$.
 
@@ -289,7 +289,7 @@ Here is the main corollary of \Cref{thm:riemann} that we will want.
 \end{proof}
 As another aside, we go ahead and restate the Albert classification (\Cref{thm:albert-classification}) for our abelian varieties.
 \begin{proposition} \label{prop:albert-av}
-	Fix a simple abelian variety $A$ of dimension $g$, defined over a field $K$ of characteristic $0$, and set $D\coloneqq\op{End}_K(A)_\QQ$ and $F\coloneqq Z(D)$. Letting $(\cdot)^\dagger$ be the Rosati involution on $D$, we also let $F^\dagger$ be the $(\cdot)^\dagger$-invariants of $F$. Further, set $d\coloneqq\sqrt{[D:F]}$ and $e\coloneqq[F:\QQ]$ and $e_0\coloneqq[F^\dagger:\QQ]$. Then we have the following table of restrictions on $(g,d,e,e_0)$.
+	Fix a simple abelian variety $A$ of dimension $g$, defined over a field $K$ of characteristic $0$, and set $D\coloneqq\op{End}_K(A)_\QQ$ and $E\coloneqq Z(D)$. Letting $(\cdot)^\dagger$ be the Rosati involution on $D$, we also let $E^\dagger$ be the $(\cdot)^\dagger$-invariants of $E$. Further, set $d\coloneqq\sqrt{[D:E]}$ and $e\coloneqq[E:\QQ]$ and $e_0\coloneqq[E^\dagger:\QQ]$. Then we have the following table of restrictions on $(g,d,e,e_0)$.
 	\begin{center}
 		\begin{tabular}{cccc}
 			Type & $e$ & $d$ & Restriction \\\hline
@@ -301,12 +301,12 @@ As another aside, we go ahead and restate the Albert classification (\Cref{thm:a
 	\end{center}
 \end{proposition}
 \begin{proof}
-	Recall that $D$ is amenable to the Albert classification as discussed in \Cref{rem:polarize-endos-av}. The middle two columns follow from the discussion of the various types; for example, in Type I, we see $d=1$ because $D=F$, and $e=e_0$ because $F$ is totally real. To receive the dimension restrictions, we note that some descent argument allows us to reduce to the case where $K=\CC$, where we receive an inclusion $D\subseteq\op{End}(\mathrm H^1_{\mathrm B}(A,\QQ))$ by \Cref{thm:riemann}.\footnote{It is still possible to get an inclusion like this in general. It requires a discussion of the $\ell$-adic representations, which we engage in later.} This is an inclusion of division $\QQ$-algebras, so we see that $\dim_\QQ D\mid 2g$; this implies
+	Recall that $D$ is amenable to the Albert classification as discussed in \Cref{rem:polarize-endos-av}. The middle two columns follow from the discussion of the various types; for example, in Type I, we see $d=1$ because $D=E$, and $e=e_0$ because $E$ is totally real. To receive the dimension restrictions, we note that some descent argument allows us to reduce to the case where $K=\CC$, where we receive an inclusion $D\subseteq\op{End}(\mathrm H^1_{\mathrm B}(A,\QQ))$ by \Cref{thm:riemann}.\footnote{It is still possible to get an inclusion like this in general. It requires a discussion of the $\ell$-adic representations, which we engage in later.} This is an inclusion of division $\QQ$-algebras, so we see that $\dim_\QQ D\mid 2g$; this implies
 	\[d^2e\mid2g,\]
 	which rearranges into the required restrictions.
 \end{proof}
 \begin{remark}
-	The requirement that $\op{char}F=0$ is necessary in the table; the restrictions are somewhat different (and weaker!) in positive characteristic.
+	The requirement that $\op{char}E=0$ is necessary in the table; the restrictions are somewhat different (and weaker!) in positive characteristic.
 \end{remark}
 While we're here, we state the main theorem of \cite{deligne-hodge} on absolutely Hodge cycles.
 \begin{theorem}[Deligne] \label{thm:hodge-to-abs-hodge}
@@ -314,14 +314,14 @@ While we're here, we state the main theorem of \cite{deligne-hodge} on absolutel
 \end{theorem}
 % We will not attempt a proof of this result, but we will remark that \Cref{thm:principle-b} allows us to reduce this result to the case of abelian varieties with many endomorphisms, which is more amenable. There is still much work to be done!
 
-\subsection{Complex Multiplication}
+\subsection{Complex Multiplication} \label{subsec:cm}
 Even though it is not strictly necessary for our exposition, we take a moment to discuss some theory surrounding complex multiplication. We refer to \cite{milne-cm} throughout for more details. The relevance of this discussion to us mostly arises because we have defined analogous notions in \cref{subsec:signature,subsec:reflex}.
 
 Intuitively, complex multiplication simply means that an abelian variety has many endomorphisms. To explain this properly, we note that the endomorphism algebra of a simple abelian variety $A$ is a division $\QQ$-algebra described in \Cref{prop:albert-av}; if we drop the assumption that $A$ is simple, then it could be a product of matrix algebras of such division $\QQ$-algebras. This motivates the following definition to properly account for such matrix algebras.
 \begin{definition}[reduced degree]
 	Write a semisimple algebra $D$ over a field $K$ as a product $D_1\times\cdots\times D_k$ of simple algebras. Then we define the \textit{reduced degree} as
-	\[[D:K]_{\mathrm{red}}\coloneqq\sum_{i=1}^k\sqrt{[D_i:F_i]}\cdot[D_i:K],\]
-	where $F_i\coloneqq Z(B_i)$ for each $i$
+	\[[D:K]_{\mathrm{red}}\coloneqq\sum_{i=1}^k\sqrt{[D_i:E_i]}\cdot[D_i:K],\]
+	where $E_i\coloneqq Z(D_i)$ for each $i$
 \end{definition}
 \begin{remark}
 	It is not technically obvious that $[D_i:F_i]$ is a square, but this follows from the theory of central simple algebras. Roughly speaking, one can show that $D_i\otimes\overline{D_i}\cong M_n(\overline{D_i})$ for some $n\ge0$, from which the result follows; see \cite[Corollary~IV.2.16]{milne-cft}.
@@ -394,49 +394,49 @@ In \Cref{prop:hodge-semisimple-not-type-iv}, we find that $Z(\op{Hg}(A))^\circ$ 
 \subsection{General Comments}
 In this subsection, we will mostly work with general polarizable Hodge structures $V$.
 \begin{lemma} \label{lem:hg-center-in-torus}
-	Fix $V\in\op{HS}_\QQ$ of pure weight, and set $D\coloneqq\op{End}_{\op{HS}}(V)$ with $F\coloneqq Z(D)$. Viewing $D$ as a $\QQ$-group, we have
-	\[Z(\op{Hg}(V))\subseteq\op{Res}_{F/\QQ}\mathbb G_{m,F},\]
-	where $\op{Res}_{F/\QQ}\mathbb G_{m,F}$ embeds into $\op{GL}(V)$ via the $D$-action on $V$.
+	Fix $V\in\op{HS}_\QQ$ of pure weight, and set $D\coloneqq\op{End}_{\op{HS}}(V)$ with $E\coloneqq Z(D)$. Viewing $D$ as a $\QQ$-group, we have
+	\[Z(\op{Hg}(V))\subseteq\op{Res}_{E/\QQ}\mathbb G_{m,E},\]
+	where $\op{Res}_{E/\QQ}\mathbb G_{m,E}$ embeds into $\op{GL}(V)$ via the $D$-action on $V$.
 \end{lemma}
 \begin{proof}
-	Here, $F$ is a product of number fields because it is a commutative semisimple $\QQ$-algebra. Recall from \Cref{lem:mt-hg-fixes-endos} that
+	Here, $E$ is a product of number fields because it is a commutative semisimple $\QQ$-algebra. Recall from \Cref{lem:mt-hg-fixes-endos} that
 	\[D=\op{End}_\QQ(V)^{\op{Hg}(V)},\]
 	which upgrades to an equality of algebraic subgroups of $\op{End}_\QQ(V)$ because $\QQ$-points are dense in these algebraic groups by combining \cite[Corollary~17.92]{milne-alg-groups} and \cite[Definition~12.59]{milne-alg-groups}. In particular, we see that $\op{Hg}(V)$ commutes with $D^\times$, so the double centralizer theorem enforces $Z(\op{Hg}(V))\subseteq D^\times$ even as algebraic groups. However, $Z(\op{Hg}(V))$ now commutes fully with $D^\times$, so in fact $Z(\op{Hg}(V))\subseteq Z(D)^\times$, which is what we wanted.
 \end{proof}
 \begin{remark} \label{rem:mt-center-in-torus}
-	One also has $Z(\op{MT}(V))\subseteq\op{Res}_{F/\QQ}\mathbb G_{m,F}$ because $\op{MT}(V)\subseteq\mathbb G_{m,\QQ}\op{Hg}(V)$ by \Cref{lem:mt-by-hg}, and the scalars $\mathbb G_{m,\QQ}$ already live in $\op{Res}_{F/\QQ}\mathbb G_{m,F}$.
-	% More generally, for any subfield $F'\subseteq F$, we can see that $V$ also becomes a vector space over $F'$, so we have inclusions
-	% \[\op{Res}_{F/\QQ}\mathbb G_{m,F}\subseteq\op{Res}_{F'/\QQ}\mathbb G_{m,F'}\subseteq\op{GL}(V).\]
+	One also has $Z(\op{MT}(V))\subseteq\op{Res}_{E/\QQ}\mathbb G_{m,E}$ because $\op{MT}(V)\subseteq\mathbb G_{m,\QQ}\op{Hg}(V)$ by \Cref{lem:mt-by-hg}, and the scalars $\mathbb G_{m,\QQ}$ already live in $\op{Res}_{E/\QQ}\mathbb G_{m,E}$.
+	% More generally, for any subfield $E'\subseteq E$, we can see that $V$ also becomes a vector space over $E'$, so we have inclusions
+	% \[\op{Res}_{E/\QQ}\mathbb G_{m,E}\subseteq\op{Res}_{E'/\QQ}\mathbb G_{m,E'}\subseteq\op{GL}(V).\]
 \end{remark}
-\Cref{lem:hg-center-in-torus} is that it places the center $Z(\op{Hg}(V))$ in an explicit torus $\op{Res}_{F/\QQ}\mathbb G_{m,F}$. Subgroups of tori are well-understood by (co)character groups, so this puts us in good shape. This torus will be important enough to have its own notation.
+\Cref{lem:hg-center-in-torus} is that it places the center $Z(\op{Hg}(V))$ in an explicit torus $\op{Res}_{E/\QQ}\mathbb G_{m,E}$. Subgroups of tori are well-understood by (co)character groups, so this puts us in good shape. This torus will be important enough to have its own notation.
 \begin{notation}
-	Fix a commutative semisimple $\QQ$-algebra $F$ (i.e., a product of number fields). Then we define the torus
-	\[\mathrm T_F\coloneqq\op{Res}_{F/\QQ}\mathbb G_{m,F}.\]
+	Fix a commutative semisimple $\QQ$-algebra $E$ (i.e., a product of number fields). Then we define the torus
+	\[\mathrm T_E\coloneqq\op{Res}_{E/\QQ}\mathbb G_{m,E}.\]
 \end{notation}
 \begin{remark} \label{rem:tf-of-algebra}
-	Writing $F$ as a product of number fields $F_1\times\cdots\times F_k$, we find
-	\[\mathrm T_F=\mathrm T_{F_1}\times\cdots\times\mathrm T_{F_k}\]
-	because $F=F_1\times\cdots\times F_k$ is an equality of $\QQ$-algebras.
+	Writing $E$ as a product of number fields $E_1\times\cdots\times E_k$, we find
+	\[\mathrm T_E=\mathrm T_{E_1}\times\cdots\times\mathrm T_{E_k}\]
+	because $E=E_1\times\cdots\times E_k$ is an equality of $\QQ$-algebras.
 \end{remark}
 \begin{remark}
-	Let's compute the character group $\mathrm X^*(\mathrm T_F)$. By \Cref{rem:tf-of-algebra}, it's enough to do this computation when $F$ is a field. The choice of a primitive element $\alpha\in F$ with minimal monic polynomial $f(x)$ yields an isomorphism $F\cong\QQ[x]/(f(x))$. Upon base-changing to $\ov\QQ$, we get a ring isomorphism
-	\[F\otimes_\QQ\ov\QQ\cong\prod_{i=1}^n\frac{\ov\QQ[x]}{(x-\alpha_i)},\]
-	where $\alpha_1,\ldots,\alpha_n\in\ov\QQ$ are the roots of $f(x)$ in $\ov\QQ$. Each root $\alpha_i$ provides a unique embedding $F\into\ov\QQ$, so we see that $(\mathrm T_F)_{\ov\QQ}\cong\mathbb G_{m,\ov\QQ}^n$, where the $n$ maps $(\mathrm T_F)_{\ov\QQ}\to\mathbb G_{m,\ov\QQ}$ are given by the embedding $\sigma_i\colon F\into\ov\QQ$ defined by $\sigma_i(\alpha)\coloneqq\alpha_i$. In total, we find that $\mathrm X^*(\mathrm T_F)$ is a free $\ZZ$-module spanned by the embeddings $\Sigma_F\coloneqq\{\sigma_1,\ldots,\sigma_n\}$, and it has the natural Galois action. Dually, $\mathrm X_*(\mathrm T_F)$ has the dual basis $\Sigma_F^\lor=\{\sigma_1^\lor,\ldots,\sigma_n^\lor\}$.
+	Let's compute the character group $\mathrm X^*(\mathrm T_E)$. By \Cref{rem:tf-of-algebra}, it's enough to do this computation when $E$ is a field. The choice of a primitive element $\alpha\in E$ with minimal monic polynomial $f(x)$ yields an isomorphism $E\cong\QQ[x]/(f(x))$. Upon base-changing to $\ov\QQ$, we get a ring isomorphism
+	\[E\otimes_\QQ\ov\QQ\cong\prod_{i=1}^n\frac{\ov\QQ[x]}{(x-\alpha_i)},\]
+	where $\alpha_1,\ldots,\alpha_n\in\ov\QQ$ are the roots of $f(x)$ in $\ov\QQ$. Each root $\alpha_i$ provides a unique embedding $E\into\ov\QQ$, so we see that $(\mathrm T_E)_{\ov\QQ}\cong\mathbb G_{m,\ov\QQ}^n$, where the $n$ maps $(\mathrm T_E)_{\ov\QQ}\to\mathbb G_{m,\ov\QQ}$ are given by the embedding $\sigma_i\colon E\into\ov\QQ$ defined by $\sigma_i(\alpha)\coloneqq\alpha_i$. In total, we find that $\mathrm X^*(\mathrm T_E)$ is a free $\ZZ$-module spanned by the embeddings $\Sigma_E\coloneqq\{\sigma_1,\ldots,\sigma_n\}$, and it has the natural Galois action. Dually, $\mathrm X_*(\mathrm T_E)$ has the dual basis $\Sigma_E^\lor=\{\sigma_1^\lor,\ldots,\sigma_n^\lor\}$.
 \end{remark}
 In the light of the above remark, we will want the following notation.
 \begin{notation}
-	Given a number field $F$, we let $\Sigma_F$ denote the collection of embeddings $F\into\ov\QQ$. Given a product of number fields $F\coloneqq F_1\times\cdots\times F_k$, we define $\Sigma_F\coloneqq\Sigma_{F_1}\sqcup\cdots\sqcup\Sigma_{F_k}$.
+	Given a number field $E$, we let $\Sigma_E$ denote the collection of embeddings $E\into\ov\QQ$. Given a product of number fields $E\coloneqq E_1\times\cdots\times E_k$, we define $\Sigma_E\coloneqq\Sigma_{E_1}\sqcup\cdots\sqcup\Sigma_{E_k}$.
 \end{notation}
-The point of the above notation is that $\mathrm X^*(\mathrm T_F)=\ZZ[\Sigma_F]$ as Galois modules.
+The point of the above notation is that $\mathrm X^*(\mathrm T_E)=\ZZ[\Sigma_E]$ as Galois modules.
 
 It is possible to upgrade \Cref{lem:hg-center-in-torus} in the presence of a polarization.
 \begin{lemma} \label{lem:hg-center-in-u-torus}
-	Fix a polarizable $V\in\op{HS}_\QQ$ of pure weight, and set $D\coloneqq\op{End}_{\op{HS}}(V)$ with $F\coloneqq Z(D)$. Then
-	\[Z(\op{Hg}(V))\subseteq\left\{g\in\mathrm T_F:gg^\dagger=1\right\},\]
+	Fix a polarizable $V\in\op{HS}_\QQ$ of pure weight, and set $D\coloneqq\op{End}_{\op{HS}}(V)$ with $E\coloneqq Z(D)$. Then
+	\[Z(\op{Hg}(V))\subseteq\left\{g\in\mathrm T_E:gg^\dagger=1\right\},\]
 	where $(\cdot)^\dagger$ is the Rosati involution.
 \end{lemma}
 \begin{proof}
-	As usual, everything in sight upgrades to algebraic groups. Let $\varphi$ be a polarization. Fix some $g\in\op{Hg}(V)$; note that \Cref{lem:hg-center-in-torus} implies $g\in\mathrm T_F$, so it makes sense to write down $g^\dagger$.
+	As usual, everything in sight upgrades to algebraic groups. Let $\varphi$ be a polarization. Fix some $g\in\op{Hg}(V)$; note that \Cref{lem:hg-center-in-torus} implies $g\in\mathrm T_E$, so it makes sense to write down $g^\dagger$.
 	
 	Now, by the non-degeneracy of $\varphi$, it is enough to show that
 	\[\varphi\left(gg^\dagger v\otimes w\right)\stackrel?=\varphi(v\otimes w)\]
@@ -444,8 +444,8 @@ It is possible to upgrade \Cref{lem:hg-center-in-torus} in the presence of a pol
 \end{proof}
 Once again, this torus is important enough to earn its own notation.
 \begin{notation}
-	Fix a commutative semisimple $\QQ$-algebra $F$ with involution $(\cdot)^\dagger$. Then we define the torus
-	\[\mathrm U_F\coloneqq\left\{g\in\mathrm T_F:xx^\dagger=1\right\}.\]
+	Fix a commutative semisimple $\QQ$-algebra $E$ with involution $(\cdot)^\dagger$. Then we define the torus
+	\[\mathrm U_E\coloneqq\left\{g\in\mathrm T_E:xx^\dagger=1\right\}.\]
 \end{notation}
 Here is an application of \Cref{lem:hg-center-in-u-torus}.
 \begin{proposition} \label{prop:hodge-semisimple-not-type-iv}
@@ -454,67 +454,67 @@ Here is an application of \Cref{lem:hg-center-in-u-torus}.
 \begin{proof}
 	Quickly, recall from \Cref{lem:mt-hg-reductive} that $\op{Hg}(V)$ is reductive, so the finitness of $Z(\op{Hg}(V))$ implies that $Z(\op{Hg}(V))^\circ=1$ and thus $\op{Hg}(V)=\op{Hg}(V)^{\mathrm{der}}$, making $\op{Hg}(V)$ is semisimple. (See also \cite[Proposition~19.10]{milne-alg-groups}.) As such, we will focus on the first claim.
 	
-	Set $D\coloneqq\op{End}_{\op{HS}}(V)$ with $F\coloneqq Z(D)$ so that $\op{Hg}(V)\subseteq\mathrm U_F$ by \Cref{lem:hg-center-in-u-torus}. It is therefore enough to check that $\mathrm U_F$ is finite. Well, $F$ is a product of number fields, and upon comparing with \Cref{thm:albert-classification}, we see that avoiding Type IV implies that $F$ is a product of totally real fields. Totally real fields have only two units, so finiteness of $\mathrm U_F$ follows.
+	Set $D\coloneqq\op{End}_{\op{HS}}(V)$ with $E\coloneqq Z(D)$ so that $\op{Hg}(V)\subseteq\mathrm U_E$ by \Cref{lem:hg-center-in-u-torus}. It is therefore enough to check that $\mathrm U_E$ is finite. Well, $E$ is a product of number fields, and upon comparing with \Cref{thm:albert-classification}, we see that avoiding Type IV implies that $E$ is a product of totally real fields. Totally real fields have only two units, so finiteness of $\mathrm U_E$ follows.
 \end{proof}
 Thus, we see that we have pretty good control outside of Type IV factors, so we will spend the rest of this section on Type IV. For some applications outside Type IV, see (for example) \cite{lombardo-ell-adic-product}.
 
 \subsection{Type IV: The Signature} \label{subsec:signature}
 The arguments in the next two subsections are motivated by the computation of \cite[Lemma~4.2]{yu-mumford-tate-cm} and \cite[Proposition~1.1]{yanai-degenerate-cm-type}. For this subsection, $A$ is an abelian variety over $\CC$ whose irreducible factors are of Type IV in the sense of the Albert classification (\Cref{thm:albert-classification}). Note that $V\coloneqq\mathrm H^1_{\mathrm B}(A,\QQ)$ is a Hodge structure concentrated in $V^{0,1}$ and $V^{1,0}$, so we do so.
 
-By assumption, we know that $D\coloneqq\op{End}_{\op{HS}}(V)$ is a division algebra over its center $F\coloneqq Z(D)$, where $F$ is a CM algebra (i.e., a product of CM fields), and the Rosati involution $(\cdot)^\dagger$ restricts to complex conjugation on $F$. In particular, $F^\dagger$ is the product of the maximal totally real subfields of $F$.
+By assumption, we know that $D\coloneqq\op{End}_{\op{HS}}(V)$ is a division algebra over its center $E\coloneqq Z(D)$, where $E$ is a CM algebra (i.e., a product of CM fields), and the Rosati involution $(\cdot)^\dagger$ restricts to complex conjugation on $E$. In particular, $E^\dagger$ is the product of the maximal totally real subfields of $E$.
 % For simplicity, we will assume that
 % \[D=F\]
 % in the sequel.
 
-The basic approach of this subsection is that \Cref{lem:hg-center-in-torus} requires $Z(\op{Hg}(A))^\circ\subseteq\mathrm T_F$, and one can compute subtori using the machinery of (co)character groups. In particular, we recall that $\mathrm X^*(\Sigma_F)=\ZZ[\Sigma_F]$ and $\mathrm X_*(\Sigma_F)=\ZZ[\Sigma_F^\lor]$ as Galois modules.
+The basic approach of this subsection is that \Cref{lem:hg-center-in-torus} requires $Z(\op{Hg}(A))^\circ\subseteq\mathrm T_E$, and one can compute subtori using the machinery of (co)character groups. In particular, we recall that $\mathrm X^*(\Sigma_E)=\ZZ[\Sigma_E]$ and $\mathrm X_*(\Sigma_E)=\ZZ[\Sigma_E^\lor]$ as Galois modules.
 % \begin{remark}
 % 	It is worth noting that much of the literature uses character groups; for example, see \cite[Lemma~4.1]{lombardo-non-isgo-av} or \cite[Section~4.1]{ggl-fermat}. However, these arguments do not generalize as well, so we will use cocharacter groups following \cite{yu-mumford-tate-cm}.
 % \end{remark}
 % We will reduce the computation of $Z(\op{Hg}(V))^\circ$ to some explicit computations with matrices.
 We will need a way to work directly with the Hodge structure on $V$. It will be described by the following piece of combinatorial data. Recall that a CM algebra is a product of CM fields.
 \begin{definition}[signature] \label{def:signature}
-	Fix a CM algebra $F$, and recall that $\Sigma_F$ is the set of homomorphisms $F\into\ov\QQ$. Then a \textit{signature} is a function $\Phi\colon\Sigma_F\to\ZZ_{\ge0}$ such that the sum
+	Fix a CM algebra $E$, and recall that $\Sigma_E$ is the set of homomorphisms $E\into\ov\QQ$. Then a \textit{signature} is a function $\Phi\colon\Sigma_E\to\ZZ_{\ge0}$ such that the sum
 	\[\Phi(\sigma)+\Phi(\ov\sigma)\]
-	is constant with respect to $\sigma\in\Sigma_F$; here, $\ov\sigma$ denotes the complex conjugate embedding to $\sigma$. We may call the pair $(F,\Phi)$ a \textit{CM signature}.
+	is constant with respect to $\sigma\in\Sigma_E$; here, $\ov\sigma$ denotes the complex conjugate embedding to $\sigma$. We may call the pair $(E,\Phi)$ a \textit{CM signature}.
 \end{definition}
 \begin{remark}
-	One can also view $\Phi$ as an element of $\ZZ[\Sigma_F]$ as
+	One can also view $\Phi$ as an element of $\ZZ[\Sigma_E]$ as
 	\[\Phi\coloneqq\sum_{\sigma\in\Phi}\Phi(\sigma)\sigma.\]
 \end{remark}
 \begin{remark}
 	The case that $\Phi(\sigma)+\Phi(\ov\sigma)$ always equals $1$ corresponds to $\Phi$ being a CM type.
 \end{remark}
 \begin{remark}
-	If we expand $F$ as a product of CM fields $F=F_1\times\cdots\times F_k$, then $\Sigma_F=\Sigma_{F_1}\sqcup\cdots\sqcup\Sigma_{F_k}$. Thus, we see that a signature of $F$ has only a little more data than a signature on each of the $\Sigma_{F_\bullet}$s individually; in particular, one should make sure that $\Phi(\sigma)+\Phi(\ov\sigma)$ remains equal across the different fields.
+	If we expand $E$ as a product of CM fields $E=E_1\times\cdots\times E_k$, then $\Sigma_E=\Sigma_{E_1}\sqcup\cdots\sqcup\Sigma_{E_k}$. Thus, we see that a signature of $E$ has only a little more data than a signature on each of the $\Sigma_{E_\bullet}$s individually; in particular, one should make sure that $\Phi(\sigma)+\Phi(\ov\sigma)$ remains equal across the different fields.
 \end{remark}
 The idea is that we can keep track of a signature with a Hodge structure.
 \begin{lemma} \label{lem:hodge-to-signature}
-	Fix an abelian variety $A$ over $\CC$ such that $\op{End}(A)$ contains a CM algebra $F$, and define $V\coloneqq\mathrm H^1_{\mathrm B}(A,\QQ)$. Then the function $\Phi\colon\Sigma_F\to\ZZ_{\ge0}$ defined by
-	\[V^{1,0}\cong\bigoplus_{\sigma\in\Sigma_F}\CC_\sigma^{\Phi(\sigma)}\]
-	is a signature, which we will call the induced signature. This is an isomorphism of $F$-representations, where $\CC_\sigma$ is a complex $F$-representa\-tion via the embedding $\sigma$.
+	Fix an abelian variety $A$ over $\CC$ such that $\op{End}(A)$ contains a CM algebra $E$, and define $V\coloneqq\mathrm H^1_{\mathrm B}(A,\QQ)$. Then the function $\Phi\colon\Sigma_E\to\ZZ_{\ge0}$ defined by
+	\[V^{1,0}\cong\bigoplus_{\sigma\in\Sigma_E}\CC_\sigma^{\Phi(\sigma)}\]
+	is a signature, which we will call the induced signature. This is an isomorphism of $E$-representations, where $\CC_\sigma$ is a complex $E$-representa\-tion via the embedding $\sigma$.
 \end{lemma}
 \begin{proof}
-	In short, the condition that $\Phi(\sigma)+\Phi(\ov\sigma)$ is constant comes from the condition $V^{0,1}=\overline{V^{1,0}}$. To see this, note that $V$ is a free module over $F$, so $V_\CC$ is a free module over $F\otimes\CC$ of finite rank. As such, we may set $d\coloneqq[V:F]$ so that $V\cong F^d$ as $F$-representations, and then we find
-	\[V_\CC\cong\bigoplus_{\sigma\in\Sigma_F}\CC_\sigma^d.\]
-	Now, $V_\CC=V^{1,0}\oplus V^{0,1}$, and because $F$ acts by endomorphisms of Hodge structures, we get a well-defined action of $F$ on $V^{1,0}$ and $V^{0,1}$ individually. In particular, the definition of $\Phi$ also grants
-	\[V^{0,1}\cong\bigoplus_{\sigma\in\Sigma_F}\CC_\sigma^{d-\Phi(\sigma)}\]
-	as $F$-representations, so
-	\[\overline{V^{0,1}}\cong\bigoplus_{\sigma\in\Sigma_F}\CC_{\ov\sigma}^{d-\Phi(\sigma)}\]
-	To complete the proof, we note that $V^{0,1}=\overline{V^{1,0}}$ continues to be true as $F$-representations, so we must have $\Phi(\sigma)=d-\Phi(\ov\sigma)$ for all $\sigma$. The result follows.
+	In short, the condition that $\Phi(\sigma)+\Phi(\ov\sigma)$ is constant comes from the condition $V^{0,1}=\overline{V^{1,0}}$. To see this, note that $V$ is a free module over $E$, so $V_\CC$ is a free module over $E\otimes\CC$ of finite rank. As such, we may set $d\coloneqq[V:E]$ so that $V\cong E^d$ as $E$-representations, and then we find
+	\[V_\CC\cong\bigoplus_{\sigma\in\Sigma_E}\CC_\sigma^d.\]
+	Now, $V_\CC=V^{1,0}\oplus V^{0,1}$, and because $E$ acts by endomorphisms of Hodge structures, we get a well-defined action of $E$ on $V^{1,0}$ and $V^{0,1}$ individually. In particular, the definition of $\Phi$ also grants
+	\[V^{0,1}\cong\bigoplus_{\sigma\in\Sigma_E}\CC_\sigma^{d-\Phi(\sigma)}\]
+	as $E$-representations, so
+	\[\overline{V^{0,1}}\cong\bigoplus_{\sigma\in\Sigma_E}\CC_{\ov\sigma}^{d-\Phi(\sigma)}\]
+	To complete the proof, we note that $V^{0,1}=\overline{V^{1,0}}$ continues to be true as $E$-representations, so we must have $\Phi(\sigma)=d-\Phi(\ov\sigma)$ for all $\sigma$. The result follows.
 \end{proof}
-Of course, we cannot expect this signature $\Phi$ to remember everything about the Hodge structure. For example, if $\op{End}(A)$ contains a larger CM algebra $F'$ than $F$, then the signature induced by $F'$ knows more about the Hodge structure than the one induced by $F$. However, in ``generic cases,'' this signature is expected to suffice. For our purposes, we will take generic to mean that there are no more endomorphisms than the ones promised by $F$; i.e., this explains why we will assume $Z(\op{End}(A))=F$ in the sequel.
+Of course, we cannot expect this signature $\Phi$ to remember everything about the Hodge structure. For example, if $\op{End}(A)$ contains a larger CM algebra $E'$ than $E$, then the signature induced by $E'$ knows more about the Hodge structure than the one induced by $E$. However, in ``generic cases,'' this signature is expected to suffice. For our purposes, we will take generic to mean that there are no more endomorphisms than the ones promised by $E$; i.e., this explains why we will assume $Z(\op{End}(A))=E$ in the sequel.
 
 We now relate our signature to cocharacters of $Z(\op{Hg}(A))^\circ$. For this, it will be helpful to realize $Z(\op{Hg}(A))$ as some kind of monodromy group. The trick is to consider the determinant.
 \begin{lemma} \label{lem:z-hg-as-det-monodromy}
-	Fix an abelian variety $A$ over $\CC$ such that $Z(\op{End}(A))$ equals an algebra $F$, and define $V\coloneqq\mathrm H^1_{\mathrm B}(A,\QQ)$. Then $Z(\op{Hg}(A))^\circ$ equals the largest algebraic $\QQ$-subgroup of $\mathrm T_F$ containing the image of $({\det_F}\circ h)\colon\mathbb U\to(\mathrm T_F)_\RR$.
+	Fix an abelian variety $A$ over $\CC$ such that $Z(\op{End}(A))$ equals an algebra $E$, and define $V\coloneqq\mathrm H^1_{\mathrm B}(A,\QQ)$. Then $Z(\op{Hg}(A))^\circ$ equals the largest algebraic $\QQ$-subgroup of $\mathrm T_E$ containing the image of $({\det_E}\circ h)\colon\mathbb U\to(\mathrm T_E)_\RR$.
 \end{lemma}
 \begin{proof}
-	The point is that taking the determinant will kill $\op{Hg}(A)^{\mathrm{der}}$ because $\op{Hg}(A)\subseteq\op{GL}_F(V)$. There are two inclusions we must show.
+	The point is that taking the determinant will kill $\op{Hg}(A)^{\mathrm{der}}$ because $\op{Hg}(A)\subseteq\op{GL}_E(V)$. There are two inclusions we must show.
 	\begin{itemize}
-		\item We show that $Z(\op{Hg}(A))^\circ$ contains the image of $({\det F}\circ h|_{\mathbb U})$. Well, $\op{Hg}(A)$ contains the image of $h|_{\mathbb U}$, so it is enough to show that $Z(\op{Hg}(A))^\circ$ contains the image of $\det_F\colon\op{Hg}(A)\to\mathrm T_F$. For this, we recall that $\op{Hg}(A)$ is connected (by \Cref{rem:hg-connected}), so
+		\item We show that $Z(\op{Hg}(A))^\circ$ contains the image of $({\det E}\circ h|_{\mathbb U})$. Well, $\op{Hg}(A)$ contains the image of $h|_{\mathbb U}$, so it is enough to show that $Z(\op{Hg}(A))^\circ$ contains the image of $\det_E\colon\op{Hg}(A)\to\mathrm T_E$. For this, we recall that $\op{Hg}(A)$ is connected (by \Cref{rem:hg-connected}), so
 		\[\op{Hg}(A)=Z(\op{Hg}(A))^\circ\op{Hg}(A)^{\mathrm{der}}.\]
-		Note that $\det_F$ is simply $(\cdot)^{\dim_FV}$ on the torus $Z(\op{Hg}(V))^\circ$, so that piece surjects onto $Z(\op{Hg}(A))^\circ$! Thus, it is enough to check that $\det_F\colon\op{Hg}(A)^{\mathrm{der}}\to\mathrm T_F$ is trivial, which is true by the definition of the derived subgroup upon noting that $\det_F$ is a homomorphism with abelian target.
-		\item Suppose that $T\subseteq\mathrm T_F$ contains the image of $({\det_F}\circ h|_{\mathbb U})$. Then we claim that $T$ contains $Z(\op{Hg}(A))^\circ$. Let $H\subseteq\op{GL}_F(V)$ be the pre-image of $T$ under $\det_F\colon\op{GL}_F(A)\to\mathrm T_F$. Then $H$ must contain the image of $h|_{\mathbb U}$, so it contains $\op{Hg}(A)$ by defintion. In particular, $H$ contains $Z(\op{Hg}(A))^\circ$! Now, $T$ contains $\det_F(H)$, so $T$ contains $\det_F(Z(\op{Hg}(A))^\circ)$, but the previous point check remarked that this simply equals $Z(\op{Hg}(A))^\circ$, so we are done.
+		Note that $\det_E$ is simply $(\cdot)^{\dim_EV}$ on the torus $Z(\op{Hg}(V))^\circ$, so that piece surjects onto $Z(\op{Hg}(A))^\circ$! Thus, it is enough to check that $\det_E\colon\op{Hg}(A)^{\mathrm{der}}\to\mathrm T_E$ is trivial, which is true by the definition of the derived subgroup upon noting that $\det_E$ is a homomorphism with abelian target.
+		\item Suppose that $T\subseteq\mathrm T_E$ contains the image of $({\det_E}\circ h|_{\mathbb U})$. Then we claim that $T$ contains $Z(\op{Hg}(A))^\circ$. Let $H\subseteq\op{GL}_E(V)$ be the pre-image of $T$ under $\det_E\colon\op{GL}_E(A)\to\mathrm T_E$. Then $H$ must contain the image of $h|_{\mathbb U}$, so it contains $\op{Hg}(A)$ by defintion. In particular, $H$ contains $Z(\op{Hg}(A))^\circ$! Now, $T$ contains $\det_E(H)$, so $T$ contains $\det_E(Z(\op{Hg}(A))^\circ)$, but the previous point check remarked that this simply equals $Z(\op{Hg}(A))^\circ$, so we are done.
 		\qedhere
 	\end{itemize}
 \end{proof}
@@ -571,112 +571,112 @@ We now relate our signature to cocharacters of $Z(\op{Hg}(A))^\circ$. For this, 
 % 	One can also prove the above corollary by following the proof of \Cref{cor:compute-z-hg}. For example, this approach provides a monodromy interpretation of $Z(\op{MT}(V))^\circ$ analogous to \Cref{lem:z-hg-as-det-monodromy}.
 % \end{remark}
 \begin{proposition} \label{prop:signature-to-z-hg}
-	Fix an abelian variety $A$ over $\CC$ such that $Z(\op{End}(A))$ equals a CM algebra $F$, and define $V\coloneqq\mathrm H^1_{\mathrm B}(A,\QQ)$. Let $\Phi\colon\Sigma_F\to\ZZ_{\ge0}$ be the induced signature. Then the induced representation $({\det_F}\circ h)\colon\mathbb U\to(\mathrm T_F)_\RR$ sends the generator of $\mathrm X_*(\mathbb U)$ to
-	\[-\sum_{\sigma\in\Sigma_F}(\Phi(\sigma)-\Phi(\ov\sigma))\sigma^\lor.\]
+	Fix an abelian variety $A$ over $\CC$ such that $Z(\op{End}(A))$ equals a CM algebra $E$, and define $V\coloneqq\mathrm H^1_{\mathrm B}(A,\QQ)$. Let $\Phi\colon\Sigma_E\to\ZZ_{\ge0}$ be the induced signature. Then the induced representation $({\det_E}\circ h)\colon\mathbb U\to(\mathrm T_E)_\RR$ sends the generator of $\mathrm X_*(\mathbb U)$ to
+	\[-\sum_{\sigma\in\Sigma_E}(\Phi(\sigma)-\Phi(\ov\sigma))\sigma^\lor.\]
 \end{proposition}
 \begin{proof}
-	This boils down to computing the map ${\det_F}\circ h|_{\mathbb U}$. We proceed in steps.
+	This boils down to computing the map ${\det_E}\circ h|_{\mathbb U}$. We proceed in steps.
 	\begin{enumerate}
 		\item To set ourselves up, recall that
 		\[\mathbb U_\CC=\{(z,1/z):z\in\mathbb G_{m,\CC}\},\]
 		so one has an isomorphism cocharacter $z^\lor\colon\mathbb G_{m,\CC}\to\mathbb U_\CC$ given by $z^\lor\mapsto z\mapsto(z,1/z)$. Thus, we have left to show that
-		\[{\det}_F\circ h_\CC\circ z^\lor\stackrel?=-\sum_{\sigma\in\Sigma_F}(\Phi(\sigma)-\Phi(\ov\sigma))\sigma^\lor.\]
+		\[{\det}_E\circ h_\CC\circ z^\lor\stackrel?=-\sum_{\sigma\in\Sigma_E}(\Phi(\sigma)-\Phi(\ov\sigma))\sigma^\lor.\]
 		We may check this equality on geometric points.
-		\item We describe the map $h_\CC\colon\mathbb S_\CC\to\op{GL}(V)_\CC$. By definition, $h(z,w)\in\op{GL}(V)$ acts by $z^{-1}$ on $V^{1,0}$ and by $w^{-1}$ on $V^{0,1}$. Thus, the definition of $\Phi$ grants that $h(z,w)$ diagonalizes. To be more explicit, for each $\sigma\in\Sigma_F$, we define $V^{p,q}_\sigma$ to be the $\sigma$-eigenspace for the $F$-action on $V^{p,q}\subseteq V_\CC$. Then we see that $h(z,w)$ acts on $V^{1,0}_\sigma$ by the scalar $z^{-1}$ and on $V^{0,1}$ by the scalar $w^{-1}$.
-		\item We describe the map $({\det_F}\circ h_\CC)\colon\mathbb S_\CC\to(\mathrm T_F)_\CC$. Realizing geometric points in $(\mathrm T_F)_\CC$ as tuples in $\CC^{\Sigma_F}$, we see that ${\det_F}$ simply takes the determinant of the matrix $h_\CC(z,w)|_{V_\sigma}$ to the $\sigma$-component in $(\mathrm T_F)_\CC$. (One finds this by tracking through the definition of $\det_F$ as a morphism of algebraic groups.) As such, we see that
+		\item We describe the map $h_\CC\colon\mathbb S_\CC\to\op{GL}(V)_\CC$. By definition, $h(z,w)\in\op{GL}(V)$ acts by $z^{-1}$ on $V^{1,0}$ and by $w^{-1}$ on $V^{0,1}$. Thus, the definition of $\Phi$ grants that $h(z,w)$ diagonalizes. To be more explicit, for each $\sigma\in\Sigma_E$, we define $V^{p,q}_\sigma$ to be the $\sigma$-eigenspace for the $E$-action on $V^{p,q}\subseteq V_\CC$. Then we see that $h(z,w)$ acts on $V^{1,0}_\sigma$ by the scalar $z^{-1}$ and on $V^{0,1}$ by the scalar $w^{-1}$.
+		\item We describe the map $({\det_E}\circ h_\CC)\colon\mathbb S_\CC\to(\mathrm T_E)_\CC$. Realizing geometric points in $(\mathrm T_E)_\CC$ as tuples in $\CC^{\Sigma_E}$, we see that ${\det_E}$ simply takes the determinant of the matrix $h_\CC(z,w)|_{V_\sigma}$ to the $\sigma$-component in $(\mathrm T_E)_\CC$. (One finds this by tracking through the definition of $\det_E$ as a morphism of algebraic groups.) As such, we see that
 		\[\det h_\CC(z,w)|_{V_\sigma}=z^{-\Phi(\sigma)}w^{-\Phi(\ov\sigma)}\]
 		because $\Phi$ is a signature.
-		\item We complete the proof. The previous step shows that $({\det_F}\circ h_\CC\circ z^\lor)(z)$ goes to the element
-		\[\left(z^{-\Phi(\sigma)+\Phi(\ov\sigma)}\right)_{\sigma\in\Sigma(F)}\in\CC^{\Sigma_F}.\]
-		This completes the proof upon noting that the cocharacter $\sigma^\lor\colon\mathbb G_{m,\CC}\to\mathrm T_F$ simply maps into the $\sigma$-component of $\CC^{\Sigma_F}$ on geometric points.
+		\item We complete the proof. The previous step shows that $({\det_E}\circ h_\CC\circ z^\lor)(z)$ goes to the element
+		\[\left(z^{-\Phi(\sigma)+\Phi(\ov\sigma)}\right)_{\sigma\in\Sigma(E)}\in\CC^{\Sigma_E}.\]
+		This completes the proof upon noting that the cocharacter $\sigma^\lor\colon\mathbb G_{m,\CC}\to\mathrm T_E$ simply maps into the $\sigma$-component of $\CC^{\Sigma_E}$ on geometric points.
 		\qedhere
 	\end{enumerate}
 \end{proof}
 \begin{remark}
-	Notably, the given element sums to $0$, which corresponds to the fact that $\op{Hg}(A)\subseteq\op{SL}(V)$ as seen in \Cref{lem:mt-by-hg}. Indeed, by diagonalizing the $F$-action on $V$, we see that $(\mathrm T_F\cap\op{SL}(V))^\circ$ consists of the $g\in\mathrm T_F$ such that the product of the elements in $g$ equals $1$.
+	Notably, the given element sums to $0$, which corresponds to the fact that $\op{Hg}(A)\subseteq\op{SL}(V)$ as seen in \Cref{lem:mt-by-hg}. Indeed, by diagonalizing the $E$-action on $V$, we see that $(\mathrm T_E\cap\op{SL}(V))^\circ$ consists of the $g\in\mathrm T_E$ such that the product of the elements in $g$ equals $1$.
 \end{remark}
 \Cref{prop:signature-to-z-hg} easily translates into a computation of the cocharacter group $\mathrm X_*(\op{Hg}(A))^\circ$. In the next few results, saturated simply means that the induced quotient is torsion-free.
 \begin{corollary} \label{cor:compute-z-hg}
-	Fix an abelian variety $A$ over $\CC$ such that $Z(\op{End}(A))$ equals a CM algebra $F$, and define $V\coloneqq\mathrm H^1_{\mathrm B}(A,\QQ)$. Let $\Phi\colon\Sigma_F\to\ZZ_{\ge0}$ be the induced signature. Then $Z(\op{Hg}(A))^\circ\subseteq\mathrm T_F$ has cocharacter group equal to the smallest saturated Galois submodule of $\mathrm X_*(\mathrm T_F)=\ZZ[\Sigma_F^\lor]$ containing
-	\[\sum_{\sigma\in\Sigma_F}(\Phi(\sigma)-\Phi(\ov\sigma))\sigma^\lor.\]
+	Fix an abelian variety $A$ over $\CC$ such that $Z(\op{End}(A))$ equals a CM algebra $E$, and define $V\coloneqq\mathrm H^1_{\mathrm B}(A,\QQ)$. Let $\Phi\colon\Sigma_E\to\ZZ_{\ge0}$ be the induced signature. Then $Z(\op{Hg}(A))^\circ\subseteq\mathrm T_E$ has cocharacter group equal to the smallest saturated Galois submodule of $\mathrm X_*(\mathrm T_E)=\ZZ[\Sigma_E^\lor]$ containing
+	\[\sum_{\sigma\in\Sigma_E}(\Phi(\sigma)-\Phi(\ov\sigma))\sigma^\lor.\]
 \end{corollary}
 \begin{proof}
 	This is immediate from combining \Cref{lem:z-hg-as-det-monodromy} and \Cref{prop:signature-to-z-hg} with the equivalence of categories $\mathrm X_*$ between algebraic tori and Galois modules. See \cite[Theorem~12.23]{milne-alg-groups} for the proof that $\mathrm X^*$ is an equivalence, which is similar.
 \end{proof}
 \computezmt
 \begin{proof}
-	This follows from \Cref{cor:compute-z-hg}. By \Cref{lem:mt-by-hg}, it is enough to add in the cocharacter given by the scalars $\mathbb G_{m,\QQ}\to\mathrm T_F$, which is $\sum_{\sigma\in\Sigma_F}\sigma^\lor$. Thus, the fact that $\Phi$ is a signature implies that
-	\[\sum_{\sigma\in\Sigma_F}\Phi(\sigma)\sigma^\lor\]
-	certainly lives in $\mathrm X_*(\op{MT}(A))\subseteq\mathrm X_*(\mathrm T_F)$.
+	This follows from \Cref{cor:compute-z-hg}. By \Cref{lem:mt-by-hg}, it is enough to add in the cocharacter given by the scalars $\mathbb G_{m,\QQ}\to\mathrm T_E$, which is $\sum_{\sigma\in\Sigma_E}\sigma^\lor$. Thus, the fact that $\Phi$ is a signature implies that
+	\[\sum_{\sigma\in\Sigma_E}\Phi(\sigma)\sigma^\lor\]
+	certainly lives in $\mathrm X_*(\op{MT}(A))\subseteq\mathrm X_*(\mathrm T_E)$.
 	
-	Conversely, if $X$ is some saturated Galois submodule containing $\sum_{\sigma\in\Sigma_F}\Phi(\sigma)\sigma^\lor$, then we would like to show that $\mathrm X_*(\op{MT}(A))\subseteq X$. Well, $X$ is a Galois submodule, so it must contain the complex conjugate element $\sum_{\sigma\in\Sigma_F}\Phi(\ov\sigma)\sigma^\lor$. On one hand, this then sums with the given element to produce
-	\[\sum_{\sigma\in\Sigma_F}\sigma^\lor\in X\]
+	Conversely, if $X$ is some saturated Galois submodule containing $\sum_{\sigma\in\Sigma_E}\Phi(\sigma)\sigma^\lor$, then we would like to show that $\mathrm X_*(\op{MT}(A))\subseteq X$. Well, $X$ is a Galois submodule, so it must contain the complex conjugate element $\sum_{\sigma\in\Sigma_E}\Phi(\ov\sigma)\sigma^\lor$. On one hand, this then sums with the given element to produce
+	\[\sum_{\sigma\in\Sigma_E}\sigma^\lor\in X\]
 	because $X$ is saturated. On the other hand, we can take a difference to see that
-	\[\sum_{\sigma\in\Sigma_F}(\Phi(\sigma)-\Phi(\ov\sigma))\sigma^\lor\in X.\]
-	We conclude that $X$ contains the cocharacter of the scalars $\mathbb G_{m,\QQ}\subseteq\mathrm T_F$ and the cocharacter lattice of $Z(\op{Hg}(A))^\circ\subseteq\mathrm T_F$, so we conclude that $X$ must also contain the cocharacter lattice of $Z(\op{MT}(A))^\circ$.
+	\[\sum_{\sigma\in\Sigma_E}(\Phi(\sigma)-\Phi(\ov\sigma))\sigma^\lor\in X.\]
+	We conclude that $X$ contains the cocharacter of the scalars $\mathbb G_{m,\QQ}\subseteq\mathrm T_E$ and the cocharacter lattice of $Z(\op{Hg}(A))^\circ\subseteq\mathrm T_E$, so we conclude that $X$ must also contain the cocharacter lattice of $Z(\op{MT}(A))^\circ$.
 \end{proof}
 \begin{remark} \label{rem:z-mt-as-det-monodromy}
-	One can also prove the above corollary by following the proof of \Cref{cor:compute-z-hg}. For example, this approach provides a monodromy interpretation of $Z(\op{MT}(A))^\circ$ analogous to \Cref{lem:z-hg-as-det-monodromy}. Here, one replaces the generator of $\mathrm X_*(\mathbb U)$ with the cocharacter $\mu\in\mathrm X_*(\mathbb S)$, and one finds that ${\det_F}\circ h_\CC$ sends $\mu$ to $\sum_{\sigma\in\Sigma_F}\Phi(\sigma)\sigma^\lor$. One is then able to prove statements analogous to \Cref{prop:signature-to-z-hg} and \Cref{cor:compute-z-hg}.
+	One can also prove the above corollary by following the proof of \Cref{cor:compute-z-hg}. For example, this approach provides a monodromy interpretation of $Z(\op{MT}(A))^\circ$ analogous to \Cref{lem:z-hg-as-det-monodromy}. Here, one replaces the generator of $\mathrm X_*(\mathbb U)$ with the cocharacter $\mu\in\mathrm X_*(\mathbb S)$, and one finds that ${\det_E}\circ h_\CC$ sends $\mu$ to $\sum_{\sigma\in\Sigma_E}\Phi(\sigma)\sigma^\lor$. One is then able to prove statements analogous to \Cref{prop:signature-to-z-hg} and \Cref{cor:compute-z-hg}.
 \end{remark}
-Let's pause for a moment with an explanation of how one can use \Cref{cor:compute-z-mt} to compute $Z(\op{MT}(A))^\circ\subseteq\mathrm T_F$. The approach for $Z(\op{Hg}(A))^\circ$ is similar but only a little more complicated.
+Let's pause for a moment with an explanation of how one can use \Cref{cor:compute-z-mt} to compute $Z(\op{MT}(A))^\circ\subseteq\mathrm T_E$. The approach for $Z(\op{Hg}(A))^\circ$ is similar but only a little more complicated.
 
-We will only compute over a Galois extension $L/\QQ$ containing all factors of $F$. In this case, the $F$-action on $V_L$ diagonalizes, so one can identify $(\mathrm T_F)_L\subseteq\op{GL}(V)_L$ as the diagonal torus for some basis of $V_L$. In particular, for each $\sigma\in\Sigma_F$, the cocharacter $\sigma^\lor$ corresponds to one of the standard cocharacters for the diagonal torus of $\op{GL}(V)_L$. Now, \Cref{cor:compute-z-mt} tells us that $\mathrm X_*(Z(\op{MT}(A))^\circ)\subseteq\mathrm X_*(\mathrm T_F)$ equals the saturation of the sublattice spanned by the vectors
-\[g\Bigg(\sum_{\sigma\in\Sigma_F}\Phi(\sigma)\sigma^\lor\Bigg)=\sum_{\sigma\in\Sigma_F}\Phi(\sigma)(g\sigma)^\lor,\]
-where $g$ varies over $\op{Gal}(L/F)$. By computing a basis of the saturation of this sublattice, we get a family of $1$-parameter subgroups of the diagonal torus of $\op{GL}(V)_L$ which together generate $Z(\op{MT}(A))^\circ$. This more or less computes $Z(\op{MT}(A))^\circ$.
+We will only compute over a Galois extension $L/\QQ$ containing all factors of $E$. In this case, the $E$-action on $V_L$ diagonalizes, so one can identify $(\mathrm T_E)_L\subseteq\op{GL}(V)_L$ as the diagonal torus for some basis of $V_L$. In particular, for each $\sigma\in\Sigma_E$, the cocharacter $\sigma^\lor$ corresponds to one of the standard cocharacters for the diagonal torus of $\op{GL}(V)_L$. Now, \Cref{cor:compute-z-mt} tells us that $\mathrm X_*(Z(\op{MT}(A))^\circ)\subseteq\mathrm X_*(\mathrm T_E)$ equals the saturation of the sublattice spanned by the vectors
+\[g\Bigg(\sum_{\sigma\in\Sigma_E}\Phi(\sigma)\sigma^\lor\Bigg)=\sum_{\sigma\in\Sigma_E}\Phi(\sigma)(g\sigma)^\lor,\]
+where $g$ varies over $\op{Gal}(L/E)$. By computing a basis of the saturation of this sublattice, we get a family of $1$-parameter subgroups of the diagonal torus of $\op{GL}(V)_L$ which together generate $Z(\op{MT}(A))^\circ$. This more or less computes $Z(\op{MT}(A))^\circ$.
 
 \subsection{Type IV: The Reflex} \label{subsec:reflex}
-In the sequel, we will be most interested in equations cutting out $Z(\op{MT}(A))^\circ\subseteq\mathrm T_F$. One could imagine proceeding as above to compute $Z(\op{MT}(A))^\circ\subseteq\mathrm T_F$ via $1$-parameter subgroups and then afterwards finding the desired equations. This is somewhat computationally intensive, so instead we will turn our attention to computing character groups. As in \cite[Lemma~4.2]{yu-mumford-tate-cm}, this will require a discussion of the reflex.
+In the sequel, we will be most interested in equations cutting out $Z(\op{MT}(A))^\circ\subseteq\mathrm T_E$. One could imagine proceeding as above to compute $Z(\op{MT}(A))^\circ\subseteq\mathrm T_E$ via $1$-parameter subgroups and then afterwards finding the desired equations. This is somewhat computationally intensive, so instead we will turn our attention to computing character groups. As in \cite[Lemma~4.2]{yu-mumford-tate-cm}, this will require a discussion of the reflex.
 \begin{definition}[reflex signature]
-	Fix CM fields $F$ and $F^*$ and CM signatures $(F,\Phi)$ and $(F^*,\Phi^*)$. We say that these CM signatures are \textit{reflex} if and only if there is a Galois extension $L/\QQ$ containing $F$ and $F^*$ such that each $\sigma\in\op{Gal}(L/\QQ)$ has
-	\[\Phi(\sigma|_F)=\Phi^*\left(\sigma^{-1}|_{F^*}\right).\]
-	In this situation, we may call $(F^*,\Phi^*)$ a \textit{reflex signature} for $(F,\Phi)$.
+	Fix CM fields $E$ and $E^*$ and CM signatures $(E,\Phi)$ and $(E^*,\Phi^*)$. We say that these CM signatures are \textit{reflex} if and only if there is a Galois extension $L/\QQ$ containing $E$ and $E^*$ such that each $\sigma\in\op{Gal}(L/\QQ)$ has
+	\[\Phi(\sigma|_E)=\Phi^*\left(\sigma^{-1}|_{E^*}\right).\]
+	In this situation, we may call $(E^*,\Phi^*)$ a \textit{reflex signature} for $(E,\Phi)$.
 \end{definition}
 \begin{remark}
-	We check that $(F,\Phi)$ and $(F^*,\Phi^*)$ does not depend on the choice of Galois extension $L$. Indeed, suppose that we have another Galois extension $L'/\QQ$ containing $F$ and $F^*$; let $L''$ be a Galois extension containing both $L$ and $L'$. By symmetry, it is enough to check that $(F,\Phi)$ are reflex with respect to $L$ if and only if they are reflex with respect to $L''$. Well, for any $\sigma\in\op{Gal}(L''/\QQ)$, we see that $\Phi(\sigma|_F)=\Phi^*\left(\sigma^{-1}|_{F^*}\right)$ is equivalent to $\sigma|_L\in\op{Gal}(L/\QQ)$ satisfying $\Phi(\sigma|_L|_F)=\Phi^*\left(\sigma|_L^{-1}|_{F^*}\right)$, so we are done after remarking that restriction $\op{Gal}(L''/\QQ)\to\op{Gal}(L/\QQ)$ is surjective.
+	We check that $(E,\Phi)$ and $(E^*,\Phi^*)$ does not depend on the choice of Galois extension $L$. Indeed, suppose that we have another Galois extension $L'/\QQ$ containing $E$ and $E^*$; let $L''$ be a Galois extension containing both $L$ and $L'$. By symmetry, it is enough to check that $(E,\Phi)$ are reflex with respect to $L$ if and only if they are reflex with respect to $L''$. Well, for any $\sigma\in\op{Gal}(L''/\QQ)$, we see that $\Phi(\sigma|_E)=\Phi^*\left(\sigma^{-1}|_{E^*}\right)$ is equivalent to $\sigma|_L\in\op{Gal}(L/\QQ)$ satisfying $\Phi(\sigma|_L|_E)=\Phi^*\left(\sigma|_L^{-1}|_{E^*}\right)$, so we are done after remarking that restriction $\op{Gal}(L''/\QQ)\to\op{Gal}(L/\QQ)$ is surjective.
 \end{remark}
 \begin{remark}
-	We check that reflex signatures certainly exist: one can choose any Galois closure $L$ of $F$ and then define $\Phi^*\colon\op{Gal}(L/\QQ)\to\ZZ_{\ge0}$ by $\Phi^*(\sigma)\coloneqq\Phi\left(\sigma^{-1}|_L\right)$.
+	We check that reflex signatures certainly exist: one can choose any Galois closure $L$ of $E$ and then define $\Phi^*\colon\op{Gal}(L/\QQ)\to\ZZ_{\ge0}$ by $\Phi^*(\sigma)\coloneqq\Phi\left(\sigma^{-1}|_L\right)$.
 \end{remark}
 \begin{remark}
-	In the theory of abelian varieties with complex multiplication, it is customary to make $F^*$ as small as possible, which makes it unique. This is useful for moduli problems. However, this is not our current interest, and we are not requiring that the reflex signature be unique because it will be convenient later to take large extensions.
+	In the theory of abelian varieties with complex multiplication, it is customary to make $E^*$ as small as possible, which makes it unique. This is useful for moduli problems. However, this is not our current interest, and we are not requiring that the reflex signature be unique because it will be convenient later to take large extensions.
 \end{remark}
 The point of introducing the reflex is that it provides another monodromy interpretation of $Z(\op{MT}(A))^\circ$. To achieve this, we need the reflex norm.
 \begin{definition}[reflex norm]
-	Fix CM fields $F$ and $F^*$ and reflex CM signatures $(F,\Phi)$ and $(F^*,\Phi^*)$. Then we define the \textit{reflex norm} as the map $\op N_{\Phi^*}\colon F^*\to\ov\QQ$ by
-	\[\op N_{\Phi^*}(x)\coloneqq\prod_{\sigma\in\Sigma_{F^*}}\sigma(x)^{\Phi^*(\sigma)}.\]
-	Note that this is a character in $\mathrm X^*(\mathrm T_{F^*})$.
+	Fix CM fields $E$ and $E^*$ and reflex CM signatures $(E,\Phi)$ and $(E^*,\Phi^*)$. Then we define the \textit{reflex norm} as the map $\op N_{\Phi^*}\colon E^*\to\ov\QQ$ by
+	\[\op N_{\Phi^*}(x)\coloneqq\prod_{\sigma\in\Sigma_{E^*}}\sigma(x)^{\Phi^*(\sigma)}.\]
+	Note that this is a character in $\mathrm X^*(\mathrm T_{E^*})$.
 \end{definition}
-Technically, this definition does not require us to remember that $(F^*,\Phi^*)$ is reflex to $(F,\Phi)$, but we will want to know this in the following checks.
+Technically, this definition does not require us to remember that $(E^*,\Phi^*)$ is reflex to $(E,\Phi)$, but we will want to know this in the following checks.
 \begin{lemma} \label{lem:reflex-norm-descends}
-	Fix CM fields $F$ and $F^*$ and reflex CM signatures $(F,\Phi)$ and $(F^*,\Phi^*)$.
+	Fix CM fields $E$ and $E^*$ and reflex CM signatures $(E,\Phi)$ and $(E^*,\Phi^*)$.
 	\begin{listalph}
-		\item If $(F_1^*,\Phi^*_1)$ is a CM signature restricting to $(F^*,\Phi^*)$, then $(F,\Phi)$ and $(F_1^*,\Phi_1^*)$ are still reflex, and
-		\[{\op N_{\Phi_1^*}}={\op N_{\Phi^*}}\circ{\op N_{F_1^*/F^*}}.\]
-		\item The image of $\op N_{\Phi^*}$ lands in $F$.
+		\item If $(E_1^*,\Phi^*_1)$ is a CM signature restricting to $(E^*,\Phi^*)$, then $(E,\Phi)$ and $(E_1^*,\Phi_1^*)$ are still reflex, and
+		\[{\op N_{\Phi_1^*}}={\op N_{\Phi^*}}\circ{\op N_{E_1^*/E^*}}.\]
+		\item The image of $\op N_{\Phi^*}$ lands in $E$.
 	\end{listalph}
 \end{lemma}
 \begin{proof}
-	Here, ``restricting'' simply means that $F_1^*$ contains $F^*$ and $\Phi_1^*(\sigma)=\Phi^*(\sigma|_{F^*})$ for all $\sigma\in\Sigma_{F_1^*}$.
+	Here, ``restricting'' simply means that $E_1^*$ contains $E^*$ and $\Phi_1^*(\sigma)=\Phi^*(\sigma|_{E^*})$ for all $\sigma\in\Sigma_{E_1^*}$.
 	\begin{listalph}
-		\item That $(F,\Phi)$ and $(F_1^*,\Phi_1^*)$ are still reflex follows from the definition: choose a Galois extension $L$ containing $F$ and $F_1^*$, and then each $\sigma\in\op{Gal}(L/\QQ)$ has
+		\item That $(E,\Phi)$ and $(E_1^*,\Phi_1^*)$ are still reflex follows from the definition: choose a Galois extension $L$ containing $E$ and $E_1^*$, and then each $\sigma\in\op{Gal}(L/\QQ)$ has
 		\begin{align*}
-			\Phi(\sigma|_F) &= \Phi^*\left(\sigma^{-1}|_{F^*}\right) \\
-			&= \Phi_1^*\left(\sigma^{-1}|_{F_1^*}\right).
+			\Phi(\sigma|_E) &= \Phi^*\left(\sigma^{-1}|_{E^*}\right) \\
+			&= \Phi_1^*\left(\sigma^{-1}|_{E_1^*}\right).
 		\end{align*}
-		To check the equality of reflex norms, we extend each $\sigma\in\Sigma_{F^*}$ to some $\widetilde\sigma\in\op{Gal}(\ov\QQ/\QQ)$, and then we directly compute
+		To check the equality of reflex norms, we extend each $\sigma\in\Sigma_{E^*}$ to some $\widetilde\sigma\in\op{Gal}(\ov\QQ/\QQ)$, and then we directly compute
 		\begin{align*}
-			\op N_{\Phi^*}\left(\op N_{F_1^*/F^*}(x)\right) &= \prod_{\sigma\in\Sigma_{F^*}}\sigma\left(\op N_{F_1^*/F^*}(x)\right)^{\Phi^*(\sigma)} \\
-			&= \prod_{\substack{\sigma\in\Sigma_F^*\\\tau\in\op{Hom}_{F^*}(F_1^*,\ov\QQ)}}\widetilde\sigma\tau(x)^{\Phi^*(\sigma)} \\
-			&= \prod_{\substack{\sigma\in\Sigma_F^*\\\tau\in\op{Hom}_{F^*}(F_1^*,\ov\QQ)}}\widetilde\sigma\tau(x)^{\Phi^*_1(\widetilde\sigma\tau)} \\
-			% &= \prod_{\sigma\in\Sigma_{F_1^*}}\sigma(x)^{\Phi^*_1(\sigma)} \\
+			\op N_{\Phi^*}\left(\op N_{E_1^*/E^*}(x)\right) &= \prod_{\sigma\in\Sigma_{E^*}}\sigma\left(\op N_{E_1^*/E^*}(x)\right)^{\Phi^*(\sigma)} \\
+			&= \prod_{\substack{\sigma\in\Sigma_E^*\\\tau\in\op{Hom}_{E^*}(E_1^*,\ov\QQ)}}\widetilde\sigma\tau(x)^{\Phi^*(\sigma)} \\
+			&= \prod_{\substack{\sigma\in\Sigma_E^*\\\tau\in\op{Hom}_{E^*}(E_1^*,\ov\QQ)}}\widetilde\sigma\tau(x)^{\Phi^*_1(\widetilde\sigma\tau)} \\
+			% &= \prod_{\sigma\in\Sigma_{E_1^*}}\sigma(x)^{\Phi^*_1(\sigma)} \\
 			&= \op N_{\Phi_1^*}(x),
 		\end{align*}
-		where the last step holds by noting that $\widetilde\sigma\circ\tau$ parameterizes $\Sigma_{F^*}$.
+		where the last step holds by noting that $\widetilde\sigma\circ\tau$ parameterizes $\Sigma_{E^*}$.
 
-		\item We begin by reducing to the case where $F^*/\QQ$ is Galois. Indeed, the previous step tells us that extending $F^*$ merely passes to a norm subgroup of $F^*$, but norm subgroups are Zariski dense in $\mathrm T_{F^*}$, so it suffices to check the result on such norm subgroups. Thus, we may assume that $F^*/\QQ$ is Galois, contains $F$, and thus $\Phi^*(\sigma)=\Phi\left(\sigma^{-1}|_F\right)$. Now, for any $g\in\op{Gal}(F^*/F)$, we see $\Phi^*(\sigma)=\Phi^*\left(g^{-1}\sigma\right)$, so
+		\item We begin by reducing to the case where $E^*/\QQ$ is Galois. Indeed, the previous step tells us that extending $E^*$ merely passes to a norm subgroup of $E^*$, but norm subgroups are Zariski dense in $\mathrm T_{E^*}$, so it suffices to check the result on such norm subgroups. Thus, we may assume that $E^*/\QQ$ is Galois, contains $E$, and thus $\Phi^*(\sigma)=\Phi\left(\sigma^{-1}|_E\right)$. Now, for any $g\in\op{Gal}(E^*/E)$, we see $\Phi^*(\sigma)=\Phi^*\left(g^{-1}\sigma\right)$, so
 		\begin{align*}
-			g\left(\op N_{\Phi^*}(x)\right) &= \prod_{\sigma\in\op{Gal}(F^*/\QQ)}g\sigma(x)^{\Phi^*(\sigma)} \\
-			&= \prod_{\sigma\in\op{Gal}(F^*/\QQ)}\sigma(x)^{\Phi^*\left(g^{-1}\sigma\right)} \\
+			g\left(\op N_{\Phi^*}(x)\right) &= \prod_{\sigma\in\op{Gal}(E^*/\QQ)}g\sigma(x)^{\Phi^*(\sigma)} \\
+			&= \prod_{\sigma\in\op{Gal}(E^*/\QQ)}\sigma(x)^{\Phi^*\left(g^{-1}\sigma\right)} \\
 			&= \op N_{\Phi^*}(x),
 		\end{align*}
 		as required.
@@ -685,59 +685,346 @@ Technically, this definition does not require us to remember that $(F^*,\Phi^*)$
 \end{proof}
 At long last, we move towards our monodromy interepretation using the reflex. The following argument generalizes \cite[Lemma~4.2]{yu-mumford-tate-cm}.
 \begin{lemma} \label{lem:reflex-norm-cochar}
-	Fix reflex CM signatures $(F,\Phi)$ and $(F^*,\Phi^*)$. Suppose that $F^*$ contains $F$ and is Galois over $\QQ$. For each $g\in\op{Gal}(F^*/\QQ)$, the reflex norm $\op N_{\Phi^*}\colon\mathrm T_{F^*}\to\mathrm T_F$ sends the cocharacter $g^\lor\in\mathrm X_*(\mathrm T_{F^*})$ to
-	\[\mathrm X_*\left(\op N_{\Phi^*}\right)(g^\lor)=\sum_{\sigma\in\Sigma_F}\Phi(\sigma)(g\sigma)^\lor.\]
+	Fix reflex CM signatures $(E,\Phi)$ and $(E^*,\Phi^*)$. Suppose that $E^*$ contains $E$ and is Galois over $\QQ$. For each $g\in\op{Gal}(E^*/\QQ)$, the reflex norm $\op N_{\Phi^*}\colon\mathrm T_{E^*}\to\mathrm T_E$ sends the cocharacter $g^\lor\in\mathrm X_*(\mathrm T_{E^*})$ to
+	\[\mathrm X_*\left(\op N_{\Phi^*}\right)(g^\lor)=\sum_{\sigma\in\Sigma_E}\Phi(\sigma)(g\sigma)^\lor.\]
 \end{lemma}
 \begin{proof}
-	Notably, $\op N_{\Phi^*}$ outputs to $\mathrm T_F$ by \Cref{lem:reflex-norm-descends}. To begin, we expand
-	\[\mathrm X_*\left(\op N_{\Phi^*}\right)(g^\lor)=\sum_{\sigma\in\Sigma_{F^*}}\Phi^*(\sigma)\mathrm X_*(\sigma)(g^\lor).\]
-	We now check $\mathrm X_*(\sigma)(g^\lor)=\left(g\sigma^{-1}\right)^\lor$: for any $\tau\in\mathrm X^*(\mathrm T_{F^*})$, we compute the perfect pairing
+	Notably, $\op N_{\Phi^*}$ outputs to $\mathrm T_E$ by \Cref{lem:reflex-norm-descends}. To begin, we expand
+	\[\mathrm X_*\left(\op N_{\Phi^*}\right)(g^\lor)=\sum_{\sigma\in\Sigma_{E^*}}\Phi^*(\sigma)\mathrm X_*(\sigma)(g^\lor).\]
+	We now check $\mathrm X_*(\sigma)(g^\lor)=\left(g\sigma^{-1}\right)^\lor$: for any $\tau\in\mathrm X^*(\mathrm T_{E^*})$, we compute the perfect pairing
 	\[\langle\tau,\mathrm X_*(\sigma)(g^\lor)\rangle=\langle\tau\sigma,g^\lor\rangle,\]
 	which is the indicator function for $\tau\sigma=g$ and hence equals $\left\langle\cdot,(g\sigma^{-1})^\lor\right\rangle$. We are now able to write
-	\[\mathrm X_*\left(\op N_{\Phi^*}\right)(g^\lor)=\sum_{\sigma\in\Sigma_{F^*}}\Phi^*(\sigma)\left(g\sigma^{-1}\right)^\lor.\]
-	Replacing $\sigma$ with $\sigma^{-1}$, we are done upon recalling $\Phi^*\left(\sigma^{-1}\right)=\Phi(\sigma|_F)$ and collecting terms which together restrict to the same embedding of $F$.
+	\[\mathrm X_*\left(\op N_{\Phi^*}\right)(g^\lor)=\sum_{\sigma\in\Sigma_{E^*}}\Phi^*(\sigma)\left(g\sigma^{-1}\right)^\lor.\]
+	Replacing $\sigma$ with $\sigma^{-1}$, we are done upon recalling $\Phi^*\left(\sigma^{-1}\right)=\Phi(\sigma|_E)$ and collecting terms which together restrict to the same embedding of $E$.
 \end{proof}
 \begin{proposition} \label{prop:z-mt-as-reflex-monodromy}
-	Fix an abelian variety $A$ over $\CC$ such that $Z(\op{End}(A))$ equals a CM algebra $F=F_1\times\cdots\times F_k$, and define $V\coloneqq\mathrm H^1_{\mathrm B}(A,\QQ)$. Let $\Phi\colon\Sigma_F\to\ZZ_{\ge0}$ be the induced signature, which we decompose as $\Phi=\Phi_1\sqcup\cdots\sqcup\Phi_k$ where $(F_\bullet,\Phi_\bullet)$ is a CM signature for all $F_\bullet$. Suppose $F^*$ is a CM field equipped with CM signatures $\Phi_1^*,\ldots,\Phi_k^*$ such that $(F_i,\Phi_i)$ and $(F^*,\Phi_i^*)$ are reflex for all $i$. Then $Z(\op{MT}(A))^\circ\subseteq\mathrm T_F$ is the image of
-	\[({\op N_{\Phi^*_1}},\ldots,{\op N_{\Phi_k^*}})\colon\mathrm T_{F^*}\to\mathrm T_F.\]
+	Fix an abelian variety $A$ over $\CC$ such that $Z(\op{End}(A))$ equals a CM algebra $E=E_1\times\cdots\times E_k$, and define $V\coloneqq\mathrm H^1_{\mathrm B}(A,\QQ)$. Let $\Phi\colon\Sigma_E\to\ZZ_{\ge0}$ be the induced signature, which we decompose as $\Phi=\Phi_1\sqcup\cdots\sqcup\Phi_k$ where $(E_\bullet,\Phi_\bullet)$ is a CM signature for all $E_\bullet$. Suppose $E^*$ is a CM field equipped with CM signatures $\Phi_1^*,\ldots,\Phi_k^*$ such that $(E_i,\Phi_i)$ and $(E^*,\Phi_i^*)$ are reflex for all $i$. Then $Z(\op{MT}(A))^\circ\subseteq\mathrm T_E$ is the image of
+	\[({\op N_{\Phi^*_1}},\ldots,{\op N_{\Phi_k^*}})\colon\mathrm T_{E^*}\to\mathrm T_E.\]
 \end{proposition}
 \begin{proof}
-	Note that norms are surjective on these algebraic tori, so \Cref{lem:reflex-norm-descends} tells us that the image of $\op N_{\Phi^*}$ will not change if we pass to an extension of $F^*$. As such, we will go ahead and assume that $F^*$ contains $F$ and is Galois over $\QQ$.
+	Note that norms are surjective on these algebraic tori, so \Cref{lem:reflex-norm-descends} tells us that the image of $\op N_{\Phi^*}$ will not change if we pass to an extension of $E^*$. As such, we will go ahead and assume that $E^*$ contains $E$ and is Galois over $\QQ$.
 
-	In light of \Cref{cor:compute-z-mt}, it is enough to show that the image of $\mathrm X_*({\op N_{\Phi^*}})$ (which we note is already a Galois submodule) has saturation equal to the smallest saturated Galois submodule of $\mathrm X_*(\mathrm T_F)$ containing $\sum_{\sigma\in\Sigma_F}\Phi(\sigma)\sigma^\lor$. This follows from the computation of \Cref{lem:reflex-norm-cochar} upon letting $g$ vary over $\op{Gal}(F^*/\QQ)$. 
+	In light of \Cref{cor:compute-z-mt}, it is enough to show that the image of $\mathrm X_*({\op N_{\Phi^*}})$ (which we note is already a Galois submodule) has saturation equal to the smallest saturated Galois submodule of $\mathrm X_*(\mathrm T_E)$ containing $\sum_{\sigma\in\Sigma_E}\Phi(\sigma)\sigma^\lor$. This follows from the computation of \Cref{lem:reflex-norm-cochar} upon letting $g$ vary over $\op{Gal}(E^*/\QQ)$. 
 \end{proof}
-Let's explain how \Cref{prop:z-mt-as-reflex-monodromy} is applied to compute equations cutting out $Z(\op{MT}(A))^\circ\subseteq\mathrm T_F$, where $F=F_1\times\cdots\times F_k$ is a CM algebra. As before, we will only compute over an extension $L=F^*$ of $F$ which is Galois over $\QQ$; let $\Phi^*_1,\ldots,\Phi_k^*$ be the signatures on $L$ making $(L,\Phi^*_i)$ and $(F_i,\Phi_i)$ reflex for each $i$. Note, we know that $(\mathrm T_F)_L\subseteq\op{GL}(V)_L$ may embed as a diagonal torus.
+Let's explain how \Cref{prop:z-mt-as-reflex-monodromy} is applied to compute equations cutting out $Z(\op{MT}(A))^\circ\subseteq\mathrm T_E$, where $E=E_1\times\cdots\times E_k$ is a CM algebra. As before, we will only compute over an extension $L=E^*$ of $E$ which is Galois over $\QQ$; let $\Phi^*_1,\ldots,\Phi_k^*$ be the signatures on $L$ making $(L,\Phi^*_i)$ and $(E_i,\Phi_i)$ reflex for each $i$. Note, we know that $(\mathrm T_E)_L\subseteq\op{GL}(V)_L$ may embed as a diagonal torus.
 
-An equation cutting out $Z(\op{MT}(A))^\circ_L$ in the (subtorus of the) diagonal torus $(\mathrm T_F)_L\subseteq\op{GL}(V)_L$ then becomes a character of $(\mathrm T_F)_L$ which is trivial on $Z(\op{MT}(A))^\circ$. In other words, these equations are given by the kernel of
-\[\mathrm X^*(\mathrm T_F)\to\mathrm X^*(Z(\op{MT}(A))^\circ).\]
-We now use \Cref{prop:z-mt-as-reflex-monodromy}. We know that $Z(\op{MT}(A))^\circ\subseteq\mathrm T_F$ is the image of $({\op N_{\Phi^*_1}},\ldots,{\op N_{\Phi_k^*}})\colon\mathrm T_L\to\mathrm T_F$, so the kernel of the above map is the same as the kernel of
-\[\mathrm X^*\left(({\op N_{\Phi^*_1}},\ldots,{\op N_{\Phi_k^*}})\right)\colon\mathrm X^*(\mathrm T_F)\to\mathrm X^*(\mathrm T_L).\]
+An equation cutting out $Z(\op{MT}(A))^\circ_L$ in the (subtorus of the) diagonal torus $(\mathrm T_E)_L\subseteq\op{GL}(V)_L$ then becomes a character of $(\mathrm T_E)_L$ which is trivial on $Z(\op{MT}(A))^\circ$. In other words, these equations are given by the kernel of
+\[\mathrm X^*(\mathrm T_E)\to\mathrm X^*(Z(\op{MT}(A))^\circ).\]
+We now use \Cref{prop:z-mt-as-reflex-monodromy}. We know that $Z(\op{MT}(A))^\circ\subseteq\mathrm T_E$ is the image of $({\op N_{\Phi^*_1}},\ldots,{\op N_{\Phi_k^*}})\colon\mathrm T_L\to\mathrm T_E$, so the kernel of the above map is the same as the kernel of
+\[\mathrm X^*\left(({\op N_{\Phi^*_1}},\ldots,{\op N_{\Phi_k^*}})\right)\colon\mathrm X^*(\mathrm T_E)\to\mathrm X^*(\mathrm T_L).\]
 To compute this kernel cleanly, note \Cref{lem:reflex-norm-cochar} computes $\mathrm X_*\left(\op N_{\Phi_i^*}\right)$ for each $i$, so we see $\mathrm X^*\left(\op N_{\Phi^*_i}\right)$ can be computed as the transpose of the matrix of $\mathrm X_*\left(\op N_{\Phi^*}\right)$. Attaching these matrices together gives a matrix representation for the above map, and we get our equations by computing the kernel of this matrix.
 \begin{remark}
-	In practice, one can expand $V=V_1\oplus\cdots\oplus V_k$ into irreducible Hodge substructures and then work with $E\coloneqq F_1\times\cdots\times F_k$ where $F_i\coloneqq Z(\op{End}_{\op{HS}}(V_i))$ for each $i$. Technically speaking, $F$ may only embed into $E$ ``diagonally'' because some $V_\bullet$s may be isomorphic to each other. However, this does not really affect anything we do because we may as well work with the image of $Z(\op{MT}(A))^\circ$ under the inclusion $\mathrm T_F\subseteq\mathrm T_E$. Working with $\mathrm T_E$ is more convenient because it can actually be identified with the diagonal torus of $\op{GL}(V)_E$ instead of merely a diagonally embedded subtorus.
+	In practice, one can expand $V=V_1\oplus\cdots\oplus V_k$ into irreducible Hodge substructures and then work with $E\coloneqq E_1\times\cdots\times E_k$ where $E_i\coloneqq Z(\op{End}_{\op{HS}}(V_i))$ for each $i$. Technically speaking, $E$ may only embed into $E$ ``diagonally'' because some $V_\bullet$s may be isomorphic to each other. However, this does not really affect anything we do because we may as well work with the image of $Z(\op{MT}(A))^\circ$ under the inclusion $\mathrm T_E\subseteq\mathrm T_E$. Working with $\mathrm T_E$ is more convenient because it can actually be identified with the diagonal torus of $\op{GL}(V)_E$ instead of merely a diagonally embedded subtorus.
 \end{remark}
-
-% \subsection{Reducible Type IV} \label{subsec:reducible-iv}
-% For the rest of this subsection, $V\in\op{HS}_\QQ$ is the sum of irreducible Hodge structures of type IV in the sense of the Albert classification (\Cref{thm:albert-classification}). Say
-% \[V=V_1^{\oplus m_1}\oplus\cdots\oplus V_k^{\oplus m_k},\]
-% where $V_1,\ldots,V_k$ are pairwise non-isomorphic, and $m_1,\ldots,m_k$ are positive integers. Then $D\coloneqq\op{End}_{\op{HS}}(V)$ equals
-% \[\bigoplus_{i=1}^kM_{m_i}(\op{End}_{\op{HS}}(V_i)),\]
-% where $D_i\coloneqq\op{End}_{\op{HS}}(V_i)$ is a division algebra over its center $F_i\coloneqq Z(D_i)$, and $F_i$ is a CM field. We know $F\coloneqq Z(D)$ equals $F_1\times\cdots\times F_k$, and the Rosati involution $(\cdot)^\dagger$ induces complex conjugation on $F$; set $F_i\coloneqq F_i^\dagger$ to be the totally real subfield, and $F^\dagger\coloneqq F_1^\dagger\times\cdots\times F_k^\dagger$.
 
 \section{The \texorpdfstring{$\ell$}{l}-Adic Representation} \label{sec:l-adic}
 In this subsection, we now define the $\ell$-adic representation and give some of its basic properties.
 
-\subsection{The Construction}
-A priori, an abelian variety $A$ gives rise to many $\ell$-adic Galois representations via each of its cohomology groups $\mathrm H^\bullet_{\mathrm{\acute et}}(A_{K^{\mathrm{sep}}},\QQ_\ell)$. However, it turns out that we are allowed to only care about one of them.
-\begin{proposition} \label{prop:cohom-ring-av}
-	Fix an abelian variety $A$ over a field $K$, and let $\mathrm H$ be a Weil cohomology theory. Then the cup product defines an isomorphism between the exterior algebra $\land\mathrm H^1(A)$ and the cohomology ring $\mathrm H^*(A)$.
+\subsection{The Cohomology of Abelian Varieties}
+Fix an abelian variety $A$ over a field $K$. In this section, we will compute the Weil cohomology ring $\mathrm H^\bullet(A)$, for many Weil cohomology theories $\mathrm H^\bullet$ defined over $K$ with coefficients in $F$. As usual, $\op{char}F=0$. More precisely, we will show that $\dim_F\mathrm H^1(A)=2\dim A$ implies that the cup product defines an isomorphism
+\[\land^\bullet\mathrm H^1(A)\to\mathrm H^\bullet(A).\]
+As is usual with our discussions of Weil cohomology, our argument will have a linear algebraic component and a motivic component; the ``motivic'' component will be this equality $\dim_F\mathrm H^1(A)=2\dim A$. Our exposition follows \cite[Corollary~13.32]{egm-av}.
+
+Let's begin with the linear algebraic component. Our exposition follows \cite[Section~3.C]{hatcher}. The key point is that the group structure on $A$ will endow $\mathrm H^\bullet(A)$ with extra structure: $\mathrm H^\bullet(A)$ becomes a Hopf algebra. The following definition is a bit non-standard, but it will suffice for our purposes.
+\begin{definition}[Hopf algebra]
+	Fix a field $F$. A \textit{graded Hopf algebra} $H^\bullet$ over $F$ is a $\ZZ_{\ge0}$-graded commutative algebra over $F$ equipped with graded $F$-algebra homomorphisms $e\colon H^\bullet\to F$ (called the co-unit) and $m\colon H^\bullet\to H^\bullet\otimes H^\bullet$ (called the co-multiplication). Further, $e$ and $m$ are required to satisfy the following.
+	\begin{listalph}
+		\item Co-identity: $(e\otimes{\id})\circ m$ and $m\circ(e\otimes{\id})$ both equal to $\id\colon H^\bullet\to H^\bullet$.
+		\item Co-associativity: we have $(m\otimes{\id})\circ m=m\circ(m\otimes{\id})$ as maps $ H^\bullet\to H^\bullet\otimes H^\bullet\otimes H^\bullet$.
+	\end{listalph}
+	If the structure map $F\to H^0$ is an isomorphism, then $H^\bullet$ is \textit{connected}.
+\end{definition}
+It turns out that we can get by with less information. For our purposes, we will really only need the following fact about the co-multiplication.
+\begin{lemma} \label{lem:easier-hopf-algebra}
+	Let $H^\bullet$ be a connected, graded Hopf algebra over a field $F$.
+	\begin{listalph}
+		\item The co-unit $e\colon H^\bullet\to F$ is the inverse of $F\to H^0$ in degree $0$ and vanishes in higher degrees.
+		\item For each $\alpha\in H^n$ with $n>0$, we have
+		\[m(\alpha)-(\alpha\otimes1+1\otimes\alpha)\in\bigoplus_{i,j>0}H^i\otimes H^j.\]
+	\end{listalph}
+\end{lemma}
+\begin{proof}
+	We show each part in separately.
+	\begin{listalph}
+		\item Because $e$ is a homomorphism of graded $F$-algebras, $e$ automatically vanishes in positive degrees. As for degree $0$, we already know that the structure map $F\to H^0$ is an isomorphism, so $e\colon H^0\to F$ must be its inverse because it maps the ``basis vector'' $1\in H^0$ back to $1\in F$.
+		\item This follows from the co-identity axiom. To begin, the grading structure on $H^\bullet\otimes H^\bullet$ implies that we may write
+		\[m(\alpha)=\sum_{i,j=0}^\infty\alpha_i\otimes\alpha_j',\]
+		where $\alpha_i,\alpha_i'\in H^i$ for each $i$. Thus, applying $(e\otimes{\id})$ to this expression reveals
+		\[\alpha=\sum_{j=0}^\infty\alpha_0\otimes\alpha_j'.\]
+		We conclude that $\alpha_j'$ automatically vanishes except at degree $n$, where $\alpha=\alpha_0\alpha_n'$. A symmetric argument (using $({\id}\otimes e)\circ m=\id$) shows that $\alpha_i$ vanishes except at degree $n$, where $\alpha=\alpha_0'\alpha_n$. We conclude that
+		\[m(\alpha)-(\alpha\otimes1+1\otimes\alpha)=\sum_{i,j=1}^\infty\alpha_i\otimes\alpha_j',\]
+		as required.
+		\qedhere
+	\end{listalph}
+\end{proof}
+% We are going to want another adjective for our application.
+% \begin{definition}[commutative]
+% 	Fix a field $F$. For any $F$-algebra $A$, let $\op{sw}\colon A\otimes A\to A\otimes A$ denote the map defined on pure tensors by $a\otimes a'\mapsto a'\otimes a$. Then a graded Hopf algebra $H^\bullet$ is \textit{commutative} if and only if ${\op{sw}}\circ m=m$.
+% \end{definition}
+Here are some basic examples.
+\begin{example}
+	If $A^\bullet$ and $B^\bullet$ are graded commutative Hopf algebras over $F$, then $A^\bullet\otimes B^\bullet$ is as well.
+\end{example}
+\begin{proof}
+	Let $e_A$ and $m_A$ be the co-unit and co-multiplication for $A^\bullet$, respectively; define $e_B$ and $m_B$ analogously for $B^\bullet$. Now, we can define $e\colon A^\bullet\otimes B^\bullet\to F$ by $e_A\otimes e_B$, and we define $m\colon(A^\bullet\otimes B^\bullet)\to(A^\bullet\otimes B^\bullet)^{\otimes2}$ on pure homogeneous tensors by $m(a\otimes b)\coloneqq(-1)^{\deg(a)\deg(b)}m(a)\otimes m(b)$, where we have identified
+	\[(A^\bullet\otimes B^\bullet)^{\otimes2}=(A^\bullet)^{\otimes2}\otimes(B^\bullet)^{\otimes2}\]
+	by swapping the middle two entries. Here are our checks.
+	\begin{itemize}
+		\item Homomorphisms: note $e$ is a homomorphism because it is the tensor product of two homomorphisms ($e_A$ and $e_B$). Similarly, $m$ is also a tensor product of two homomorphisms ($m_A$ and $m_B$) but now followed up with a swap
+		\[B^\bullet\otimes A^\bullet\to A^\bullet\otimes B^\bullet,\]
+		which we can see is also a homomorphism of graded algebras. (The sign is present to account for graded commutativity!)
+
+		\item Co-identity: this follows by taking the tensor product of the co-identity axioms for $A$ and $B$ and then swapping to correct the order of the factors. We won't write out these manipulations.
+
+		\item Co-associativity: the same discussion as for co-identity applies.
+		\qedhere
+	\end{itemize}
+\end{proof}
+\begin{example}
+	Let $V$ be a graded vector space over $F$ with $\op{char}F\ne2$, supported in positive degree.
+	\begin{listalph}
+		\item If $V$ is supported in even degree, then the symmetric algebra $S^\bullet V$ is a graded commutative Hopf algebra.
+		\item If $V$ is supported in odd degree, then the exterior algebra $\land^\bullet V$ is a graded commutative Hopf algebra.
+	\end{listalph}
+\end{example}
+\begin{proof}
+	In both cases, let the given algebra be $A^\bullet$, and then the co-unit $e\colon A^\bullet\to F$ is defined in degree $0$ by $\id\colon A^0\to F$ and vanishing in higher degrees. Additionally, the co-multiplication is defined by $m\colon A^\bullet\to A^\bullet\otimes A^\bullet$ is defined by extending $m(v)\coloneqq(1\otimes v)+(v\otimes1)$ for any $v\in V$. Notably, given vectors $v_1,\ldots,v_n\in V$, we see that we have to define
+	\[m(v_1\otimes\cdots\otimes v_n)\coloneqq\prod_{i=1}^n(v_i\otimes1+1\otimes v_i).\]
+	% For psychological reasons, we quickly reduce to the case where $\dim_FV=1$. If $V=0$, then $S^\bullet(V)=\land^\bullet(V)=F$, so there is nothing to do. Now, for any graded $F$-vector spaces $V$ and $V'$, there is a canonical graded linear map $T^\bullet(V)\otimes T^\bullet(V')\to T^\bullet(V\oplus V')$ induced by the two inclusions. 
+	It remains to run our checks.
+	\begin{itemize}
+		\item Connected: because $V^0=0$, we have $A^\bullet V=F$ in both cases.
+
+		\item Homomorphisms: in both cases, $e$ can be described as the quotient of the functional on the tensor algebra $T^\bullet V$ which just sends all the generators to $0$. This functional $T^\bullet V\to F$ is a homomorphism of graded $F$-algebras, so $e$ is as well.
+
+		It remains to check that $m$ is a well-defined homomorphism. Once again, $m$ begins its life as a graded linear map $T^\bullet V\to T^\bullet V\otimes T^\bullet V$ on the tensor algebra, given by the above formula on pure tensors. We now go down to $A^\bullet$ in cases.
+		\begin{itemize}
+			\item If $V$ is supported in even degrees, then we consider the quotient map $T^\bullet V\to S^\bullet V\otimes S^\bullet V$. For any $v,w\in V$, we can compute that $m(v\otimes w)$ and $m(w\otimes v)$ are both equal to $2(vw\otimes1+1\otimes vw)$ by commutativity, so we find that this descends to a well-defined graded linear map $S^\bullet V\to S^\bullet V\otimes S^\bullet V$. As for multiplicativity, it is now enough to check multiplicativity on generators, where it follows by definition.
+			\item If $V$ is supported in odd degrees, then we consider the quotient map $T^\bullet V\to\land^\bullet V\to\land^\bullet V$. Once again, for any $v\in V$, we can compute that $m(v\otimes v)=2(v\otimes v)$, which vanishes because $(v\otimes1)(1\otimes v)=-(1\otimes v)(v\otimes1)$ forces $v\otimes v=0$. Thus, we descend to a graded linear map $\land^\bullet V\to\land^\bullet V\otimes\land^\bullet V$, and multiplicativity follows because it is true on generators by definition.
+		\end{itemize}
+
+		\item Co-identity: it is enough to check the equality of two maps $A^\bullet\to A^\bullet$ on generators. By symmetry, it will be enough to check that $(e\otimes{\id})\circ m=\id$. Well, for any $v\in V$, we see that $(e\otimes{\id})(m(v))$ is
+		\[(e\otimes{\id})(v\otimes1+1\otimes v)=v.\]
+		
+		\item Co-associativity: again, it is enough to check the equality of two maps $A^\bullet\to(A^\bullet)^{\otimes3}$ on generators. As such, for any $v\in V$, we compute that $(m\otimes{\id})(m(v))$ is
+		\[(m\otimes{\id})(1\otimes v+v\otimes1)=1\otimes1\otimes v+1\otimes v\otimes1+v\otimes1\otimes1,\]
+		which by a similar argument is the same as $({\id}\otimes m)(m(v))$.
+		\qedhere
+	\end{itemize}
+\end{proof}
+\begin{remark} \label{rem:decompose-exterior-power}
+	Fix graded vector spaces $V$ and $W$ supported in odd positive degree. (There is an analogous remark for positive even degree.) Then the inclusions provide a canonical graded linear map
+	\[\land^\bullet V\otimes\land^\bullet W\to\land^\bullet(V\oplus W).\]
+	(Explicitly, this map sends $v\otimes1\mapsto v$ and $1\otimes w\mapsto w$.) If $V$ and $W$ are finite-dimensional, then one can see on graded components that this graded linear map restricts to a bijection of bases, so this is an isomorphism. In fact, this map can be quickly checked to be multiplicative, and in fact it is an isomorphism of graded commutative Hopf algebras.
+\end{remark}
+Unsurprisingly, here is our main example.
+\begin{example} \label{ex:h-av-hopf}
+	Fix a Weil cohomology theory $\mathrm H^\bullet$ over $K$ with coefficients in $F$. For any abelian variety $A$, the graded $F$-algebra $\mathrm H^\bullet(A)$ has the structure of a connected, graded commutative Hopf algebra over $F$.
+\end{example}
+\begin{proof}
+	It suffices to define the co-unit and the co-multiplication, and then we need to check the required properties. Here is the data.
+	\begin{itemize}
+		\item Co-unit: the identity map $e\colon\Spec K\to A$ of our abelian variety defines a pullback $e^*\colon\mathrm H^\bullet(A)\to\mathrm H^\bullet(\Spec K)$. Because $\mathrm H^\bullet(\Spec K)=F$ by \Cref{ex:weil-cohom-pt}, we may let $e^*$ be our co-unit.
+		\item Co-multiplication: the multiplication map $m\colon A\times A\to A$ defines a pullback $m^*\colon\mathrm H^\bullet(A)\to\mathrm H^\bullet(A\times A)$. This becomes our co-multiplication as soon as we identify $\mathrm H^\bullet(A\times A)=\mathrm H^\bullet(A)\otimes\mathrm H^\bullet(A)$ via the K\"unneth formula.
+	\end{itemize}
+	And here are our checks.
+	\begin{itemize}
+		% \item Commutative: this follows from the commutativity of the abelian variety. Indeed, $m\circ{\op{sw}_A}=m$ by this commutativity (here, $\op{sw}_A\colon A\times A\to A\times A$ is the swapping map)
+		\item Co-identity: by symmetry, it will be enough to check $(e^*\otimes{\id_{\mathrm H^\bullet(A)}})\circ m^*=\id_{\mathrm H^\bullet(A)}$. This comes from the identity law on the abelian variety, which tells us $m\circ(e\times{\id_A})=\id_A$. Indeed, this implies that
+		\[(e\times{\id_{A}})^*\circ m^*=\id_A^*.\]
+		We can see that $\id_A^*=\id_{\mathrm H^\bullet(A)}$, so we are done as soon as we note that $(e\times{\id_A})^*=e^*\otimes\id_A^*$ by \Cref{lem:weil-product-morphism}.
+
+		\item Co-associativity: this follows from the associativity law on abelian varieties. Indeed, we know that
+		\[m\circ(m\times{\id_A})=m\circ({\id_A}\times m),\]
+		so taking pullbacks gives
+		\[(m\times{\id_A})^*\circ m^*=({\id_A}\times m)^*\circ m^*.\]
+		We are done after plugging in \Cref{lem:weil-product-morphism}.
+
+		\item Connected: this follows because $A$ is proper and geometrically irreducible. Indeed, this implies that $\Gamma(A,\OO_A)=K$, so the fact that $\mathrm H^\bullet$ is a Weil cohomology theory enforces a structure isomorphism $\mathrm H^0(\Spec K)\to\mathrm H^0(A)$. But $\mathrm H^0(K)=F$ by \Cref{ex:weil-cohom-pt}, so we are done.
+		\qedhere
+	\end{itemize}
+\end{proof}
+The benefit to having given ourselves extra structure is that it severely cuts down on the possibilities for the ring structure of $\mathrm H^\bullet(A)$.
+\begin{theorem}[Hopf] \label{thm:hopf}
+	Let $H^\bullet$ be a connected, graded commutative Hopf algebra over $F$, where $\op{char}F=0$. Suppose that $\dim_FH^i<\infty$ for all $i$. Then the $F$-algebra $H^\bullet$ is isomorphic to a tensor product of exterior and symmetric power algebras.
+\end{theorem}
+\begin{proof}
+	We follow \cite[Theorem~3.C.4]{hatcher}. We proceed in steps.
+	\begin{enumerate}
+		\item Let's set up some generators. Because $\dim_FH^i<\infty$ for all $i$, we may find a countable list $\{x_1,x_2,\ldots\}$ of generators of $H^\bullet$ as an $F$-algebra. By decomposing these generators into homogeneous componenents, we may assume that our generators are homogeneous of positive degree. Additionally, the finite-dimensional constraint implies that we may rearrange our generators so that $\deg x_1\le\deg x_2\le\cdots$.
+	
+		\item Our proof is going to proceed by induction, so let's set this up. For each $n\ge0$, set $H^\bullet_n$ to be the connected, graded commutative $F$-algebra generated by the elements $\{x_1,\ldots,x_n\}$. For example, for each $n$, $H^\bullet_n$ has all the needed generators in degree less than $\deg x_n$, so
+		\[H^i_n\subseteq H^\bullet_n\]
+		for each $i<\deg x_n$. Quckly, we claim that $H^\bullet_n\subseteq H^\bullet$ is a Hopf subalgebra. For example, one can simply restrict the co-identity $e$ to $H^\bullet_n$, and one can use \Cref{lem:easier-hopf-algebra} to see that $m$ also restricts to $H^\bullet_n$: by induction, it is enough to check $m(x_n)\in H^\bullet_n$, which is true because $m(x_n)$ only uses the terms $x_n$ and ones of strictly smaller degree! The co-identity and co-associativity axioms now hold by restriction.
+	
+		We will use induction to show that $H^\bullet_n$ is a tensor product of exterior and symmetric power algebras for each $n\ge0$. Because $H^\bullet=\bigcup_nH^\bullet_n$, the conclusion will then follow for $H^\bullet$ because tensor products commute with colimits. As for our induction, we quickly note that $H^\bullet_0=F$, so there is noting to show for our base case $n=0$.
+
+		\item We explain the main claim in the inductive step. Suppose $H^\bullet_n$ is a product of exterior and symmetric power algebras, and we want to show the same for $H^\bullet_{n+1}$. If $x_{n+1}\in H^\bullet_n$, then $H^\bullet_{n+1}=H^\bullet_n$, and there is nothing to do. Otherwise, we let $V$ be the one-dimensional vector space spanned by $x_{n+1}$. Then there is a canonical map $A^\bullet V\to H^\bullet_{n+1}$ of $F$-algebras, where
+		\[A^\bullet V\coloneqq\begin{cases}
+			\land^\bullet V & \text{if }\deg x_{n+1}\text{ is even}, \\
+			S^\bullet V & \text{if }\deg x_{n+1}\text{ is odd}.
+		\end{cases}\]
+		Indeed, there is certainly a canonical map $T^\bullet V\to H^\bullet_{n+1}$ sending $x_{n+1}\mapsto x_{n+1}$, but $T^\bullet V=S^\bullet V$, so we are done in the even-degree case. In the odd-degree case, it remains to note that $x_{n+1}^2=0$ if $\deg x_{n+1}$ is odd, so our map descends to $\land^\bullet V$. Now, because $H^\bullet_{n+1}$ is generated by $H^\bullet_n$ and $x_{n+1}$, there is a canonical surjection
+		\[p\colon H^\bullet_n\otimes A^\bullet V\to H^\bullet_{n+1}.\]
+		The main claim of this proof is that this map is injective, hence an isomorphism, which completes the inductive step and hence the proof.
+
+		\item We define a linear map which will help us ``take derivatives.'' Let $I\subseteq H^\bullet_{n+1}$ be the ideal generated by $H^\bullet_n$ and $x_{n+1}^2$, and we will be interested in the map $f\colon H^\bullet_{n+1}\to H^\bullet_{n+1}\otimes H^\bullet_{n+1}/I$ defined by the composite
+		\[H^\bullet_{n+1}\stackrel m\to H^\bullet_{n+1}\otimes H^\bullet_{n+1}\onto H^\bullet_{n+1}\otimes H^\bullet_{n+1}/I.\]
+		For example, any $\alpha\in H^\bullet_n$ vanishes in the quotient, so it goes to $\alpha\otimes1$ (where we have quietly used \Cref{lem:easier-hopf-algebra}). Also, $x_{n+1}$ goes to $x_{n+1}\otimes1+1\otimes x_{n+1}$ because the remaining terms given in \Cref{lem:easier-hopf-algebra} all live in $I$. We conclude that a generic element $\sum_{i=0}^\infty\alpha_ix_{n+1}^i$ of $H^\bullet_{n+1}$ is mapped to
+		\[\sum_{i=0}^\infty(\alpha_i\otimes1)(x_{n+1}\otimes1+1\otimes x_{n+1})^i=\sum_{i=0}^\infty\alpha_ix_{n+1}^i\otimes1+\sum_{i=1}^\infty i\alpha_ix_{n+1}^{i-1}\otimes x_i.\]
+
+		\item We show that $p$ is injective $\deg x_{n+1}$ is odd. In this case, a generic element of $H_n^\bullet\otimes\land^\bullet V$ looks like $\alpha_0\otimes1+\alpha_1\otimes x_{n+1}$ for some $\alpha_0,\alpha_1\in H_n^\bullet$. If this element lived in $\ker p$, then $\alpha_0+\alpha_1x_{n+1}=0$, and we will show that $\alpha_0=\alpha_1=0$. Indeed, passing the relation $\alpha_0+\alpha_1x_{n+1}=0$ through $f$, we find that $\alpha_1=0$, so $\alpha_0=0$ follows.
+
+		\item We show that $p$ is surjective when $\deg x_{n+1}$ is even. In this case, a generic element of $H_n^\bullet\otimes S^\bullet V$ looks like $\beta\coloneqq\sum_{i=0}^d\alpha_i\otimes x_{n+1}^i$. We will show that $\beta\in\ker p$ implies $\beta=0$ by induction on $d$. Indeed, given $\beta\in\ker p$, we can pass the equality $\sum_{i=0}^d\alpha_ix_{n+1}^i=0$ through $f$ to see
+		\[\sum_{i=1}^d i\alpha_ix_{n+1}^{i-1}=0.\]
+		This is some element with strictly smaller $x_{n+1}$-degree, so we see that $i\alpha_i=0$ for $i\in\{1,\ldots,d\}$. Thus, $\beta=\alpha_0$, but now $\alpha_0=p(\beta)=0$ as well.
+		\qedhere
+	\end{enumerate}
+\end{proof}
+\begin{remark}
+	This proof does not use the co-associativity axiom anywhere.
+\end{remark}
+\begin{corollary} \label{cor:exterior-hopf}
+	Let $H^\bullet$ be a connected, graded commutative Hopf algebra over $F$, where $\op{char}F=0$. If $\dim_FH^\bullet<\infty$, then $H^\bullet$ is isomorphic (as an $F$-algebra) to $\land^\bullet V$ for some graded vector space $V$ supported in odd degrees.
+\end{corollary}
+\begin{proof}
+	Because $\dim_FH^\bullet<\infty$, we see that \Cref{thm:hopf} forces $H^\bullet$ to be a finite tensor product of exterior and symmetric power algebras, but symmetric power algebras are infinite-dimensional and hence also disallowed. The result now follows from \Cref{rem:decompose-exterior-power}.
+\end{proof}
+% \begin{remark}
+% 	In the situation of the above corollary, we get to write
+% 	\[H^\bullet\cong\land^{d_1}V_1\otimes\land^{d_3}V_3\otimes\cdots,\]
+% 	where $d_i\coloneqq\dim V_i$, and $V_i$ is a graded vector space supported exactly in degree $i$. 
+% \end{remark}
+% \Cref{cor:exterior-hopf} is our linear-algebraic input. Our motivic input will be a weak form of the existence of K\"unneth projectors. Let's explain this. For a smooth projective scheme $X$ over $\Spec K$, there are canonical projections $\mathrm H^\bullet(X)\to\mathrm H^i(X)$ for any Weil cohomology theory $\mathrm H^\bullet$ and degree $i$. Whenever one has a collection of canonical maps in cohomology like this, it is reasonable to expect them to come from an algebraic correspondence. Thus, one expects to have some $\gamma_i\in\op{CH}^i(X\times X)$ such that the induced map
+% \[[\gamma_i]\colon\mathrm H^\bullet(X)\to\mathrm H^\bullet(X)\]
+% is the projection onto the $i$th component.
+
+% Now, if $X=A$ is an abelian variety, then we will later find that $[n]$ acts by multiplication-by-$n^i$ on $\mathrm H^i(A)$. Thus, the following theorem approximately asserts the existence of K\"unneth projectors.
+% \begin{theorem}[Deninger--Murre] \label{thm:av-decompose-diagonal}
+% 	Fix an abelian variety $A$ over a field $K$ of dimension $g$. Then the diagonal class $\Delta\subseteq A\times A$ admits a unique decomposition
+% 	\[[\Delta]=\sum_{i=0}^{2g}\pi_i\]
+% 	such that $\pi_i\circ\pi_j=1_{i=j}\pi_i$ and $[{}^t\Gamma_{[n]}]\circ\pi_i=n^i\pi_i$ for all $i$.
+% \end{theorem}
+% \begin{proof}
+% 	Proving this would require a discussion of the Fourier--Mukai transform, which we omit for space reasons. We refer to \cite[Theorem~13.29]{egm-av}.
+% \end{proof}
+% We are now ready for our main result.
+% \begin{theorem} \label{thm:cohom-ring-av}
+% 	Fix a Weil cohomology theory $\mathrm H^\bullet$ over a field $K$ with coefficients in $F$. For any abelian variety $A$ over $K$, the cup product defines an isomorphism $\land\mathrm H^1(A)\to\mathrm H^\bullet(A)$ of $F$-algebras.
+% \end{theorem}
+% \begin{proof}
+% 	We proceed in steps.
+% 	\begin{enumerate}
+% 		\item By \Cref{ex:h-av-hopf}, we find that $\mathrm H^\bullet(A)$ is a connected, graded commutative Hopf algebra over $F$, and Poincar\'e duality (and \Cref{lem:cohomology-correct-degs}) tell us that $\dim_F\mathrm H^\bullet(A)<\infty$, so \Cref{cor:exterior-hopf} kicks in to provide with an isomorphism
+% 		\[\mathrm H^\bullet(A)\cong\land^\bullet V_1\otimes\land^\bullet V_3\otimes\cdots\]
+% 		of $F$-algebras, where $V_i$ is some finite-dimensional graded vector space over $F$ supported in degree $i$. Because $\mathrm H^\bullet(A)$ is only supported in degrees $i\in[0,2g]$, we see immediately that $V_i=0$ for $i>2g$.
+
+% 		\item For each $i$, set $d_i\coloneqq\dim_FV_i$. The main claim of this proof is that only $d_1$ is nonzero, and $d_1=2g$. Let's explain why this completes the proof: indeed, checking degree $1$ reveals our isomorphism must send $\mathrm H^1(A)\cong V^1$, so inverting this produces our required isomorphism $\land^\bullet\mathrm H^1(A)\to\mathrm H^\bullet(A)$ of $F$-algebras.
+
+% 		\item We provide a relation among the $d_i$s. Indeed, $\dim_F\mathrm H^0(A)=1$ because $A$ is geometrically irreducible (so that $\Gamma(A,\OO_A)=K$, where we are quietly using \Cref{ex:weil-cohom-pt}), so $\dim_F\mathrm H^{2g}(A)=1$ as well by Poincar\'e duality. The only way to get a one-dimesional vector space out of our tensor product of exterior powers is to have
+% 		\[\mathrm H^{2g}(A)\cong\land^{d_1}V_1\land\cdots\land^{d_{2g-1}}V_{2g-1},\]
+% 		so $d_1+\cdots+d_{2g-1}=2g$ follows.
+
+% 		\item We use our motivic input to provide another relation among the $d_i$s. Define $\pi_\bullet$s as in \Cref{thm:av-decompose-diagonal}, and we define $\mathrm H^\bullet(A)_i$ to be the image of the induced map $\op{cl}_{X\times X}(\pi_i)\colon\mathrm H^\bullet(X)\to\mathrm H^\bullet(X)$. (We expect that $\mathrm H^\bullet(A)_i=\mathrm H^i(A)$, but we do not know this yet!) In particular, for each $n\in\ZZ$, the action of $[n]$ on $\mathrm H^\bullet(A)_i$ is multiplication-by-$n^i$ by \Cref{thm:av-decompose-diagonal}, so these subspaces are providing an eigen-decomposition.
+
+% 		We now make two observations about ``primitive'' elements of $\mathrm H^\bullet(A)$, which are elements $\alpha\in\mathrm H^\bullet(A)$ such that $m^*\alpha=(1\otimes\alpha)+(\alpha\otimes1)$.
+% 		\begin{itemize}
+% 			\item If $\alpha\in\mathrm H^\bullet(A)$ is primitive, then we claim $\alpha\in\mathrm H^\bullet(A)_1$. Because $[2]=m\circ\Delta$, we see that $[2]^*\alpha$ is
+% 			\[\Delta^*(1\otimes\alpha)+\Delta^*(\alpha\otimes1).\]
+% 			By writing $\alpha\boxtimes1=\op{pr}_1^*\alpha\cup\op{pr}_2^*1$ (and similar for 
+% 			\item By construction of the \todo{}
+% 		\end{itemize}
+% 	\end{enumerate}
+% \end{proof}
+And here is our application of this linear algebraic input.
+\begin{proposition} \label{prop:get-av-cohom}
+	Fix a Weil cohomology theory $\mathrm H^\bullet$ over a field $K$ with coefficients in $F$. For any abelian variety $A$ over $K$, if $\dim_F\mathrm H^1(A)=2\dim A$, then the cup product defines an isomorphism
+	\[\land^\bullet\mathrm H^1(A)\to\mathrm H^\bullet(A)\]
+	of graded commutative $F$-algebras.
 \end{proposition}
 \begin{proof}
-	In the complex analytic case, we proceed as in \cite[Proposition~2.6]{milne-cm}. Write $A=\CC^g/\Lambda$ for a lattice $\Lambda$. Fixing some index $p$, we will show that the cup product defines an isomorphism
-	\[\land^p\mathrm H^1_{\mathrm B}(A,\ZZ)\to\mathrm H^p_{\mathrm B}(A,\ZZ).\]
-	Well, we note that $A$ is homeomorphic to $\left(S^1\right)^{2g}$, so the K\"unneth formula allows us to reduce the question to $S^1$, where the result is true by a direct computation. In the general case, one notes that the group structure on $A$ induces a Hopf bialgebra structure on both $\land\mathrm H^1(A)$ and $\mathrm H^*(A)$; then one can appeal to some structure theory to deduce the equality. See \cite[Corollary~6.13]{egm-av} or more precisely \cite[Corollary~13.32]{egm-av}.
+	We proceed in steps. Set $g\coloneqq\dim A$ for brevity.
+	\begin{enumerate}
+		\item By \Cref{ex:h-av-hopf}, we find that $\mathrm H^\bullet(A)$ is a connected, graded commutative Hopf algebra over $F$, and Poincar\'e duality (and \Cref{lem:cohomology-correct-degs}) tell us that $\dim_F\mathrm H^\bullet(A)<\infty$, so \Cref{cor:exterior-hopf} kicks in to provide with an isomorphism
+		\[\mathrm H^\bullet(A)\cong\land^\bullet V_1\otimes\land^\bullet V_3\otimes\cdots\]
+		of $F$-algebras, where $V_i$ is some finite-dimensional graded vector space over $F$ supported in degree $i$. Because $\mathrm H^\bullet(A)$ is only supported in degrees $i\in[0,2g]$, we see immediately that $V_i=0$ for $i>2g$.
+
+		\item For each $i$, set $d_i\coloneqq\dim_FV_i$. We provide a relation among the $d_i$s. Indeed, $\dim_F\mathrm H^0(A)=1$ because $A$ is geometrically irreducible (so that $\Gamma(A,\OO_A)=K$, where we are quietly using \Cref{ex:weil-cohom-pt}), so $\dim_F\mathrm H^{2g}(A)=1$ as well by Poincar\'e duality. The only way to get a one-dimesional vector space out of our tensor product of exterior powers is to have
+		\[\mathrm H^{2g}(A)\cong\land^{d_1}V_1\land\cdots\land^{d_{2g-1}}V_{2g-1},\]
+		so $d_1+\cdots+d_{2g-1}=2g$ follows. 
+
+		\item We complete the proof. Because we have assumed $d_1=2g$, we see that $d_i=0$ for all other $i$. Now, checking degree $1$ reveals our isomorphism must send $\mathrm H^1(A)\cong V^1$, so inverting this produces our required isomorphism $\land^\bullet\mathrm H^1(A)\to\mathrm H^\bullet(A)$ of $F$-algebras.
+		\qedhere
+	\end{enumerate}
 \end{proof}
-Thus, in $\ell$-adic cohomology (where $\op{char}K\nmid\ell$ in $K$), we see that one can understand all cohomology groups of $A$ by merely understanding $\mathrm H^1_{\mathrm{\acute et}}(A_{K^{\mathrm{sep}}},\ZZ_\ell)$. Analogous to the complex analytic case, we will be able to work with the dual ``homology group'' more concretely.
+% \begin{example}
+% 	Let $A$ be an abelian variety of dimension $g$ over $\CC$, and we show that $\dim_\QQ\mathrm H^1_{\mathrm B}(A(\CC),\QQ)=2g$. 
+% \end{example}
+\begin{theorem} \label{thm:cohom-ring-av}
+	Fix a Weil cohomology theory $\mathrm H^\bullet$ over a field $K$ with coefficients in $F$, among those defined in \cref{subsec:review-cohom}. For any abelian variety $A$ over $K$, the cup product defines an isomorphism
+	\[\land^\bullet\mathrm H^1(A)\to\mathrm H^\bullet(A)\]
+	of graded commutative $F$-algebras.
+\end{theorem}
+\begin{proof}
+	By \Cref{prop:get-av-cohom}, we must show that $\dim_F\mathrm H^1(A)=2g$, where $g\coloneqq\dim A$. We proceed in cases.
+	\begin{itemize}
+		\item Suppose that $A$ is defined over $\CC$, and we show $\dim_\QQ\mathrm H^1_{\mathrm B}(A,\QQ)=2g$; note this gives $\dim_\RR\mathrm H^1_{\mathrm{dR}}(A,\RR)=2g$ as well by the comparison isomorphism in \Cref{thm:betti-dr-comparison}. We proceed as in \cite[Proposition~2.6]{milne-cm}. Write $A=\CC^g/\Lambda$ for a lattice $\Lambda$. Fixing some index $p$, we will show that the cup product defines an isomorphism
+		\[\dim_\QQ\mathrm H^1_{\mathrm B}(A,\ZZ)=2g.\]
+		Well, we note that $A$ is homeomorphic to $\left(S^1\right)^{2g}$, so the K\"unneth formula allows us to reduce the question to $S^1$, where the result is true by a direct computation.
+		\item It remains to handle $\ell$-adic cohomology. In this case, we must show that $\dim_{\QQ_\ell}\mathrm H^1_{\mathrm{\acute et}}(A,\QQ_\ell)=2g$. In the following section, we will show that $\mathrm H^1_{\mathrm{\acute et}}(A,\QQ_\ell)$ is dual to the $\ell$-adic Tate module $T_\ell A$, which can be directly computed to be $2g$-dimensional.
+		\qedhere
+	\end{itemize}
+\end{proof}
+\begin{remark} \label{rem:weil-cohom-ab-var}
+	One does have $\dim_F\mathrm H^1(A)=2\dim A$ for any Weil cohomology theory $\mathrm H^\bullet$, but this requires more significant motivic input (and possibly more linear algebraic input) than we would like to introduce here. We refer to \cite[Corollary~13.32]{egm-av} for a proof.
+\end{remark}
+Because we are able to prove a theorem for many cohomology theories, it should not be surprising that we can show a motivic variant as well.
+\begin{definition}
+	Let $\mc C$ be an abelian symmetric monoidal category. For any object $X\in\mc C$ and some $n\ge0$, we consider the natural action of $S_n$ on $X^{\otimes n}$. Then we define $\op{Sym}^nX$ as the eigenspace of the trivial character $S_n\to\{\pm1\}$. Further, we define $\op{Sym}^\bullet X\coloneqq\bigoplus_{n\ge0}\land^nX$ provided that this sum exists.
+\end{definition}
+\begin{remark}
+	Equivalently, if $\mc C$ is $\QQ$-linear, we may define $\land^nX$ as the kernel of the idempotent
+	\[\frac1{n!}\sum_{\sigma\in S_n}\sigma\in\QQ[S_n]\]
+	acting on $X$. This is a definition which also works for symmetric monoidal, Karoubian categories.
+\end{remark}
+\begin{example} \label{ex:exterior-product-rep}
+	If $\mc C=\mathrm{Rep}_F(G)$ for some affine group $G$ over $F$, then $\op{Sym}^nV$ and $\op{Sym}^\bullet V$ are exactly the expected objects for any $V\in\mathrm{Rep}_F(G)$.
+\end{example}
+\begin{example} \label{ex:sym-of-h1-is-ext}
+	One must be careful with $\mathrm{Mot}_\QQ(K)$ because the symmetric monoidal structure is set up to be graded commutative. For any $X\in\mc P(K)$, we in fact claim that
+	\[\mathrm H^\bullet_\sigma\left(\op{Sym}^\bullet h^1(X)\right)=\land^\bullet\mathrm H^1_\sigma(X),\]
+	where the right-hand exterior product is the usual exterior power of vector spaces. The point is that the exterior power of vector spaces will actually be the symmetric power for $\mathrm H^1_\sigma$ in the category of graded vector spaces because the grading adds a sign for every transposition. The result follows by properties of the fiber functor $\mathrm H^\bullet_\sigma$ (see \Cref{thm:mot-tannaka}).
+\end{example}
+% \begin{example}
+% 	For any motive $M\in\mathrm{Mot}_\QQ(K)$ over a number field $K$, we may write $M=(X,p,i)$. We claim that $\op{Sym}^\bullet M$ is a well-defined object; in fact, we will show that $\op{Sym}^nM=0$ for $n$ large enough. Because $\mathrm H^\bullet_\sigma$ is a fiber functor for any embedding $\sigma\colon K\into\CC$, it is enough by exactness to check $\mathrm H^\bullet_\sigma(\land^nM)=0$, but properties of the fiber functor imply that $\mathrm H^\bullet_\sigma(\op{Sym}^nM)$ is
+% 	\[\land^n\mathrm H^\bullet_\sigma(M)=\land^np\mathrm H^\bullet_\sigma(X)(i),\]
+% 	which vanishes for $n$ large enough because $\mathrm H^\bullet_\sigma(X)$ is a finite-dimensional space. (The graded commutativity explains why 
+% \end{example}
+\begin{corollary} \label{cor:ab-mot-is-h1}
+	Fix an abelian variety $A$ over a field $K$ algebraic over $\QQ$. Then the cup product defines an isomorphism
+	\[\op{Sym}^\bullet h^1(A)\to h(A)\]
+	of motives in $\mathrm{Mot}_\QQ(K)$.
+\end{corollary}
+\begin{proof}
+	Quickly, we refer to \Cref{ex:sym-of-h1-is-ext} to explain why we are taking the symmetric power instead of the exterior power in the statement. The map $\land^\bullet\mathrm H^1(A)\to\mathrm H^\bullet(A)$ is defined for any Weil cohomology theory $\mathrm H^\bullet$, so upon noting the compatibility of the cup product, \Cref{lem:better-abs-hodge-corr} explains that there is an absolute Hodge correspondence giving rise to the map $\op{Sym}^\bullet h^1(A)\to h(A)$ which specializes to the cup-product map for any of our cohomology theories.
+	
+	To show that this map is an isomorphism on motives, it is enough to explain how to construct the inverse absolute Hodge correspondence. Well, \Cref{thm:cohom-ring-av} does promise that the cup-product map does have a (unique) inverse on each cohomology theory, which will be compatible among our cohomology theories by the ambient uniqueness, so \Cref{lem:better-abs-hodge-corr} promises that we have an inverse on the level of absolute Hodge classes.
+\end{proof}
+\begin{remark}
+	As in \Cref{rem:weil-cohom-ab-var}, we note that one can actually exhibit this isomorphism on the level of the Chow motives $\mathrm{ChMot}_\QQ(K)$. Once again, this requires more motivic input than we would like to introduce, so we merely refer to \cite[Theorem~13.47]{egm-av}. To give a taste for why one might expect this to be difficult, we note that the statement requires one to define $h^1(A)$, so one has to explain why K\"unneth projectors exist for abelian varieties.
+\end{remark}
+\begin{remark} \label{rem:ab-mot-is-h1}
+	\Cref{cor:ab-mot-is-h1} explains that the tensor subcategory $\langle h(A)\rangle^\otimes\subseteq\mathrm{Mot}_\QQ(K)$ may in fact merely be generated by $h^1(A)$ and $\QQ(1)$. 
+\end{remark}
+
+% \begin{proof}
+% 	In the complex analytic case, we proceed as in \cite[Proposition~2.6]{milne-cm}. Write $A=\CC^g/\Lambda$ for a lattice $\Lambda$. Fixing some index $p$, we will show that the cup product defines an isomorphism
+% 	\[\land^p\mathrm H^1_{\mathrm B}(A,\ZZ)\to\mathrm H^p_{\mathrm B}(A,\ZZ).\]
+% 	Well, we note that $A$ is homeomorphic to $\left(S^1\right)^{2g}$, so the K\"unneth formula allows us to reduce the question to $S^1$, where the result is true by a direct computation. In the general case, one notes that the group structure on $A$ induces a Hopf bialgebra structure on both $\land\mathrm H^1(A)$ and $\mathrm H^*(A)$; then one can appeal to some structure theory to deduce the equality. See \cite[Corollary~6.13]{egm-av} or more precisely \cite[Corollary~13.32]{egm-av}.
+% \end{proof}
+
+\subsection{The Construction}
+A priori, an abelian variety $A$ gives rise to many $\ell$-adic Galois representations via each of its cohomology groups $\mathrm H^\bullet_{\mathrm{\acute et}}(A_{K^{\mathrm{sep}}},\QQ_\ell)$. However, by \Cref{thm:cohom-ring-av}, we see that one can understand all cohomology groups of $A$ by merely understanding $\mathrm H^1_{\mathrm{\acute et}}(A_{K^{\mathrm{sep}}},\ZZ_\ell)$. Analogous to the complex analytic case, we will be able to work with the dual ``homology group'' more concretely.
 
 Let's spend some time giving a more elementary description of $\mathrm H^1_{\mathrm{\acute et}}(A_{K^{\mathrm{sep}}},\ZZ_\ell)^\lor$. We refer to \cite[Corollary~10.38]{egm-av} and the surrounding discussion for more details. We will do this by passing to the fundamental group. In particular, note that there is a Galois-invariant isomorphism
 \[\mathrm H^1(A_{K^{\mathrm{sep}}},\ZZ_\ell)\cong\op{Hom}\left(\pi_1(A_{K^{\mathrm{sep}}},a),\ZZ_\ell\right),\]
@@ -760,7 +1047,7 @@ as Galois representations. We are now allowed to define the Tate module.
 \begin{remark}
 	Intuitively, $T_\ell A$ should be thought of as an $\ell$-adic stand-in for $\mathrm H_1(A)$.
 \end{remark}
-The discussion above suggesets that $T_\ell A$ should be a free $\ZZ_\ell$-module of rank $2$. Let's check this directly. By taking limits, it is enough to show the following.
+The discussion above suggests that $T_\ell A$ should be a free $\ZZ_\ell$-module of rank $2$. Let's check this directly. By taking limits, it is enough to show the following.
 \begin{lemma}
 	Fix an abelian variety $A$ over a field $K$, and suppose $\ell$ is a prime such that $\op{char}K\nmid\ell$. For each $\nu\ge0$, there is a group isomorphism
 	\[A\left[\ell^\nu\right](K^{\mathrm{sep}})\cong\ZZ/\ell^{2\nu\dim A}\ZZ.\]
@@ -791,11 +1078,17 @@ Now that we have a representation, we may as well define a monodromy group.
 	\[\op{Gal}(K^{\mathrm{sep}}/K)\to\op{GL}\left(\mathrm H^1_{\mathrm{\acute et}}(A_{K^{\mathrm{sep}}},\QQ_\ell)\right).\]
 \end{defihelper}
 \begin{remark}
-	By taking duals, we see that one produces an isomorphic Galois representation by working with $T_\ell A$ instead. Note that this dual is not very expensive: by using the Weil pairing of \Cref{lem:weil-pairing-h1}, we can remove the dual in exchange for a twist, writing
+	By taking duals, we see that one produces an isomorphic Galois representation by working with $T_\ell A$ instead. Note this dual is not very expensive: by using the Weil pairing of \Cref{lem:weil-pairing-h1}, we can remove the dual in exchange for a twist, writing
 	\[\mathrm H^1_{\mathrm{\acute et}}(A_{K^{\mathrm{sep}}},\ZZ_\ell)\cong T_\ell A(-1).\]
 \end{remark}
 \begin{remark} \label{rem:k-conn-a}
 	Unlike $\op{MT}(A)$ and $\op{Hg}(A)$, we do not expect $G_\ell(A)$ to be connected in general. However, being an algebraic $\QQ_\ell$-group, it will only have finitely many connected components. Thus, we see that the pre-image of $G_\ell(A)^\circ$ in $\op{Gal}(K^{\mathrm{sep}}/K)$ is an open subgroup of finite index, so there is a unique minimal field extension $K^{\mathrm{conn}}_A/K$ such that $G_\ell(A_{K^{\mathrm{conn}}_A})=G_\ell(A)^\circ$. Thus, our group becomes connected, only at the cost of a field extension.
+\end{remark}
+\begin{remark} \label{rem:conn-component-monodromy-field-extension}
+	For a finite extension $K'$ of $K$, \Cref{rem:k-conn-a} explains that we may easily have $G_\ell(A)\ne G_\ell(A_{K'})$, but we now remark that $G_\ell(A)^\circ=G_\ell(A_{K'})^\circ$. %Indeed, we may as well assume that $K'$ contains $K_A^{\mathrm{conn}}$ and then that $K=K_A^{\mathrm{conn}}$. Then we would like to show that the inclusion $G_\ell(A_{K'})\subseteq G_\ell(A)$;
+	Well,
+	\[\rho_\ell(\op{Gal}(K^{\mathrm{sep}}/K'))\subseteq\rho_\ell(\op{Gal}(K^{\mathrm{sep}}/K))\]
+	is some finite-index subgroup, so $G_\ell(A_{K'})\subseteq G_\ell(A)$ is a finite-index subgroup (upon taking the closure). It follows these groups must have the same connected component; for example, one can pass to $\CC$ and then see that a closed subgroup of a Lie group with smaller dimension necessarily has infinite index due to being able to continuously translate the smaller subgroup.
 \end{remark}
 The interesting geometric objects arising from Hodge theory were the Hodge classes, which \Cref{rem:hodge-class-by-s} explains were exactly the vectors fixed by the group action. Analagously, we pick up the following definition.
 \begin{definition}[Tate class]
@@ -804,7 +1097,12 @@ The interesting geometric objects arising from Hodge theory were the Hodge class
 	where the $n_\bullet$s, $m_\bullet$s, and $p_\bullet$s are some nonnegative integers, fixed by the action of $\op{Gal}(K^{\mathrm{sep}}/K)$
 \end{definition}
 \begin{remark} \label{rem:tate-class-by-monodromy}
-	We remark as in \Cref{cor:hodge-classes-by-mt} that a vector $v$ as above is a Tate class if and only if it is fixed by the indcued action by $G_\ell(A)$. Indeed, the subset of $\op{GL}\left(\mathrm H^1_{\mathrm{\acute et}}(A_{K^{\mathrm{sep}}},\QQ_\ell)\right)$ fixing $v$ is some algebraic $\QQ_\ell$-subgroup, so if it contains the image of $\op{Gal}\left(K^{\mathrm{sep}}/K\right)$, then it contains $G_\ell(A)$. We also take a moment to note that \Cref{prop:reductive-group-by-invariants} explains that one can now cut out $G_\ell(A)$ by requiring it to hold all the Tate classes invariant, as discussed in \Cref{cor:mt-by-classes}.
+	We remark as in \Cref{prop:tensors-of-mt} that a subspace $V$ as above is fixed by the Galois action if and only if it is fixed by the indcued action by $G_\ell(A)$. Indeed, the subset of $\op{GL}\left(\mathrm H^1_{\mathrm{\acute et}}(A_{K^{\mathrm{sep}}},\QQ_\ell)\right)$ fixing $V$ is some algebraic $\QQ_\ell$-subgroup, so if it contains the image of $\op{Gal}\left(K^{\mathrm{sep}}/K\right)$, then it contains $G_\ell(A)$. We also take a moment to note that \Cref{prop:reductive-group-by-invariants} explains that one can now cut out $G_\ell(A)$ by requiring it to hold all the Tate classes invariant, as discussed in \Cref{cor:mt-by-classes}.
+\end{remark}
+\begin{remark} \label{rem:l-adic-as-tannaka}
+	The same argument as in \Cref{ex:mumford-tate-as-monodromy} explains that $G_\ell(A)$ is the algebraic group corresponding to the tensor subcategory
+	\[\left\langle\mathrm H^1_{\mathrm{\acute et}}(A_{\ov K},\QQ_\ell)\right\rangle^\otimes\subseteq\op{Rep}_{\QQ_\ell}(\op{Gal}(\ov K/K)).\]
+	Notably, the application of \Cref{prop:tensors-of-mt} is replaced by the discussion in \Cref{rem:tate-class-by-monodromy}.
 \end{remark}
 Analogous to \Cref{conj:hodge}, one has a Tate class, which we will only state for abelian varieties.
 \begin{conj}[Tate] \label{conj:tate}
@@ -874,26 +1172,121 @@ While we're here, we remark on another property of $G_\ell(A)$ due to Faltings.
 \begin{remark} \label{rem:frob-semisimple}
 	Over finite fields, Tate \cite{tate-endomorphisms} has proven that the Galois representation $\mathrm H^1_{\mathrm{\acute et}}(A_{\ov{\FF_q}},\QQ_\ell)$ is semisimple. Because the Galois group is (topologically) generated by the Frobenius, this amounts to checking that the endomorphism $\op{Frob}_q$ has semisimple action.
 \end{remark}
-To finish up our discussion of computational tools for $G_\ell(A)$, we repeat the results \Cref{lem:product-of-hg,lem:hg-isotypic} for our new context. Their proofs are exactly the same, replacing $\mathbb U$ (or $\mathbb S$) with $\op{Gal}(\ov F/F)$ and then making the same minimality arguments for our monodromy groups.
+To finish up our discussion of computational tools for $G_\ell(A)$, we repeat the results \Cref{lem:product-of-hg,lem:hg-isotypic} for our new context. Their proofs are exactly the same, replacing $\mathbb U$ (or $\mathbb S$) with $\op{Gal}(\ov K/K)$ and then making the same minimality arguments for our monodromy groups.
 \begin{lemma} \label{lem:product-of-monodromy}
-	Fix abelian varieties $A_1,\ldots,A_k$ over a field $F$.
+	Fix abelian varieties $A_1,\ldots,A_k$ over a field $K$.
 	\begin{listalph}
 		\item The subgroup
-		\[G_\ell(A_1\times\cdots\times A_k)\subseteq\op{GL}(\mathrm H^1_{\mathrm{\acute et}}((A_1\times\cdots\times A_k)_{F^{\mathrm{sep}}},\QQ_\ell))\]
+		\[G_\ell(A_1\times\cdots\times A_k)\subseteq\op{GL}(\mathrm H^1_{\mathrm{\acute et}}((A_1\times\cdots\times A_k)_{K^{\mathrm{sep}}},\QQ_\ell))\]
 		is contained in $G_\ell(A_1)\times\cdots\times G_\ell(A_k)$.
 		\item For each $i$, the projection map $\op{pr}_i\colon G_\ell(A_1\times\cdots\times A_k)\to G_\ell(A_i)$ is surjective.
 	\end{listalph}
 \end{lemma}
 \begin{lemma} \label{lem:monodromy-isotypic}
-	Fix abelian varieties $A_1,\ldots,A_k$ over a field $F$, and let $m_1,\ldots,m_k\ge1$ be positive integers. Then the diagonal embeddings $\Delta_i\colon\op{GL}\left(\mathrm H^1_{\mathrm{\acute et}}(A_{i,F^{\mathrm{sep}}},\QQ_\ell)\right)\to\op{GL}\left(\mathrm H^1_{\mathrm{\acute et}}(A_{i,F^{\mathrm{sep}}}^{m_i},\QQ_\ell)\right)$ induce an isomorphism
+	Fix abelian varieties $A_1,\ldots,A_k$ over a field $K$, and let $m_1,\ldots,m_k\ge1$ be positive integers. Then the diagonal embeddings $\Delta_i\colon\op{GL}\left(\mathrm H^1_{\mathrm{\acute et}}(A_{i,K^{\mathrm{sep}}},\QQ_\ell)\right)\to\op{GL}\left(\mathrm H^1_{\mathrm{\acute et}}(A_{i,K^{\mathrm{sep}}}^{m_i},\QQ_\ell)\right)$ induce an isomorphism
 	\[G_\ell(A_1\times\cdots\times A_k)\to G_\ell\left(A_1^{m_1}\times\cdots\times A_k^{m_k}\right).\]
 \end{lemma}
-% main theorem of cm?
+
+\section{Computational Tools}
+In this section, we give some tools to compute the $\ell$-adic representation and the $\ell$-adic monodromy group in particular.
+
+\subsection{The Fundamental Theorem of Complex Multiplication}
+Before continuing, we give essentially the only class of examples in which one is able to imagine computing the $\ell$-adic representation. For this subsection, we will let $A$ be an abelian variety of dimension $g$ defined over a number field $K$ with complex multiplication by an order $\OO$ of a CM number field $E$. We let $\Phi$ denote the CM type, which we now think of as a subset of $\Sigma_E$, and we let $(E^*,\Phi^*)$ be a reflex CM type; we may as well descend $(E^*,\Phi^*)$ to be as small as possible. Our exposition closely follows \cite[Section~3]{conrad-cm}. It is slightly beyond the scope of our current discussion to give a precise statement of the Fundamental theorem of complex multiplication; instead, we will work with the following consequence.
+
+Ultimately, we are interested in computing the Galois action of $\op{Gal}(\ov\QQ/K)$ on the Tate module of $A$. In order to avoid fixing a prime $\ell$, we pick up the following notation.
+\begin{notation}
+	Fix an abelian variety $A$ defined over a field $L$ of characteristic $0$. Then we define the adelic Tate modules $\widehat T_f(A)\coloneqq\prod_\ell T_\ell(A)$ and $\widehat V_f(A)\coloneqq T_f(A)\otimes_\ZZ\QQ$.
+\end{notation}
+\begin{remark}
+	Note that $\widehat T_fA$ is a free $\widehat\ZZ$-module of rank $2g$, and $\widehat V_fA$ is a free $\AA_{\QQ,f}$-module of rank $2g$.
+\end{remark}
+Thus, we are interested in the Galois representation
+\[\rho_A\colon\op{Gal}(\ov\QQ/K)\to\op{GL}(\widehat V_fA).\]
+Suitably interpreted, this Galois representation will turn out to be the reflex norm, up to a root of unity.
+
+Because $A$ has complex multiplication by $E$ defined over $K$, the image of $\rho_A$ commutes with the action of $K$ on $\widehat V_fA$, so $\rho_A$ actually factors through $\op{GL}_{E\otimes_\ZZ\widehat\ZZ}(V_fA)$. By looking factor-by-factor (on each $\ell$), we see that this target is contained in $E\otimes_\ZZ\widehat\ZZ$ because $K$ is its own commutator. Thus, $\rho_A$ factors as a Galois representation
+\[\rho_A\colon\op{Gal}(\ov\QQ/K)\to(E\otimes_\ZZ\widehat\ZZ)^\times,\]
+where the embedding $E\otimes_\ZZ\widehat\ZZ\into\op{GL}(T_fA)$ is given by the action of $E$ on $A$. We take a moment to note that this target is $(E\otimes_\ZZ\widehat\ZZ)^\times=(E\otimes_\QQ\AA_{\QQ,f})^\times=\AA_{E,f}^\times$. Anyway, because the target is now abelian, we see that $\rho_A$ factors through
+\[\rho_A\colon\op{Gal}(K^{\mathrm{ab}}/K)\to\AA_{E,f}^\times.\]
+Artin reciprocity provides a canonical map $\op{Art}_K\colon\AA_K^\times\to\op{Gal}(K^{\mathrm{ab}}/K)$, so we may as well work with the composite $\ov\rho_A$
+\[\AA_K^\times\to\op{Gal}(K^{\mathrm{ab}}/K)\stackrel{\rho_A}\to\AA_{E,f}^\times.\]
+We take a moment to remark that we may as well work with a quotint of $\AA_K^\times$.
+\begin{remark} \label{rem:artin-map-kernel}
+	By \cite[Corollary~8.2.2]{neukirch-cohom}, we note that $\op{Art}_K$ is surjective with kernel containing $K^\times$ and $\AA_{K,\infty}^\times\subseteq\AA_K^\times$. To see $\AA_{K,\infty}^\times$ is in the kernel, we need to know that $K$ has no real places, which holds because $K$ contains the CM field $E^*$ because $E^*$ is the field of definition for the endomorphisms of $A$.
+\end{remark}
+For example, this implies that $\ov\rho_A$ factors through $\AA_K^\times\onto\AA_{K,f}^\times$.
+
+It is this induced map $\ov\rho_A$ which will essentially turn out to be the reflex norm. Here is our statement of the Fundamental theorem of complex multiplication, which we will not prove.
+\begin{theorem}[Fundamental] \label{thm:fundamental}
+	Fix an abelian variety $A$ with complex multiplication by $(E,\Phi)$ defined over a number field $K$. Then there is a continuous homomorphism $\lambda\colon\AA_{K,f}^\times\to E^\times$ such that any $s_f\in\AA_{K,f}^\times$ has
+	\[\rho_A(\op{Art}_Ks_f)=\lambda(s_f)\op N_\Phi(\op N_{K/E^*}(s_f))^{-1}.\]
+	Here, $\lambda$ is continuous where $E^\times$ has been given the discrete topology.
+\end{theorem}
+\begin{remark}
+	Technically, the definition of $\op N_{K/E^*}$ depends on a choice of reflex $E^*$ inside $K$, which depends on a choice of embedding $K\into\ov\QQ$. However, it turns out that the composite $\mathrm N_\Phi\circ\mathrm N_{K/E^*}$ does not depend on the choice of embedding $L\into\ov\QQ$. We will not need this, so we will not show it; we remark that this is essentially shown in \Cref{lem:reflex-norm-descends}.
+\end{remark}
+\begin{remark}
+	\Cref{thm:fundamental} is frequently cited as merely a corollary of the Fundamental theorem, and the Fundamental theorem is indeed a more precise statement about the Galois action on $A$. However, the precise statement of the usual Fundamental theorem is rather technical, and we will not need it, so we will be happy merely using \Cref{thm:fundamental} in this article.
+\end{remark}
+Let's give a few properties of this mysterious character $\lambda$ for future use.
+\begin{proposition} \label{prop:use-fundamental}
+	Fix an abelian variety $A$ with complex multiplication by $(E,\Phi)$ defined over a number field $K$. Define the continuous character $\lambda\colon\AA_{K,f}^\times\to E^\times$ as in \Cref{thm:fundamental}.
+	\begin{listalph}
+		\item For $s_f\in\AA_{K,f}^\times$, the fractional ideal generated by $\op N_{\Phi}(\op N_{K/E^*}(s_f))$ is $\lambda(s_f)\OO_E$.
+		\item Choose a prime $\mf P$ of $K$. Then $A$ has good reduction at $\mf P$ if and only if $\lambda$ is trivial on $\OO_{\mf P}^\times\subseteq\AA_{K,f}^\times$.
+		\item Choose a prime $\mf P$ of $K$ with uniformizer $\varpi_\mf P\in\OO_{\mf P}^\times$. Suppose $A$ has good reduction at $\mf P$. Then $\lambda(\varpi_\mf P)\in\OO_K$, and it agrees with the $q_\mf P$-Frobenius endomorphism on the reduction $A_{\kappa(\mf P)}$ (where $q_\mf P\coloneqq\#\kappa(\mf P)$).
+	\end{listalph}
+\end{proposition}
+\begin{proof}
+	We show these parts one at a time. For (b) and (c), it will help to fix a rational prime $\ell$ not lying under $\mf P$.
+	\begin{listalph}
+		\item For each finite prime $\mf P$ of $K$, we must show $\op N_\Phi(\op N_{K/E^*}(s_f))$ and $\lambda(s_f)$ have the same $\mf P$-valuations. Equivalently, we would like to check that
+		\[u(s_f)\coloneqq\lambda(s_f)\op N_\Phi(\op N_{K/E^*}(s_f))^{-1}\stackrel?\in\prod_{\mf P}\OO_{E,\mf P}^\times.\]
+		Well, by \Cref{thm:fundamental}, we see that $u(s_f)$ acts on the Tate module $\widehat V_fA$ as $\rho_A(\op{Art}_Ls_f)$, which is notably an automorphism fixing the integral sublattice $\widehat T_fA\subseteq\widehat V_fA$. We conclude that $u(s_f)$ is a unit at all finite places.
+
+		\item We use the N\'eron--Ogg--Shafaverich criterion \cite{good-reduction-serre-tate}, which tells us that $A$ has good reduction at $\mf P$ if and only if $\rho_A\colon\op{Gal}(\ov\QQ/K)\to V_\ell A$ is trivial on the inertia subgroup $I_\mf P$. The Artin map $\op{Art}_K\colon\AA_{K,f}^\times\to\op{Gal}(\ov\QQ/K)$ is surjective, and the image of $\OO_{\mf P}^\times\subseteq\AA_{K,f}^\times$ is precisely $I_{\mf P}$, so $A$ has good reduction at $\mf P$ if and only if the composite
+		\[\OO_{\mf P}^\times\subseteq\AA_{K,f}^\times\onto\op{Gal}(K^{\mathrm{ab}}/K)\to\AA_{E,f}^\times\onto\AA_{E,\ell}^\times\]
+		is trivial. Well, by \Cref{thm:fundamental}, we see that this composite is $\lambda$ multiplied by the reflex norm. The image of the reflex norm on $\OO_{\mf P}^\times\subseteq\AA_{K,f}^\times$ will land away from $\AA_{K,\ell}^\times\subseteq\AA_{E,f}^\times$, so it does not affect whether this composite is trivial. Thus, we conclude that the composite is trivial if and only if $\lambda|_{\OO_{\mf P}^\times}$ is trivial.
+		% p adic proof?
+
+		\item Quickly, observe that $\lambda(\varpi_{\mf P})\in\OO_E^\times$ follows from agreeing with the Frobenius on the reduction. Indeed, agreeing with the Frobenius on the reduction implies that $\lambda(\varpi_{\mf P})$ is the root of the characteristic polynomial of the Frobenius, which is monic with coefficients in $\ZZ$.
+		
+		It remains to check agreement with the Frobenius on the reduction. The computation of the composite used in the proof of (b) explains that the Galois action of $\mathrm{Frob}_{\mf P}=\op{Art}_K(\varpi_{\mf P})$ on $V_\ell A$ is given by $\lambda(\varpi_{\mf P})_\ell\in\AA_{E,\ell}^\times$. Thus, the action of $\lambda(\varpi_{\mf P})$ on the Tate module $T_\ell A_{\kappa(\mf P)}$ of the reduction also agrees with the action of the Frobenius, which lifts to an equality of actions on the actual reduction $A_{\kappa(\mf P)}$ because passing to the Tate module is faithful (see \Cref{rem:tate-endomorphisms}).
+		\qedhere
+	\end{listalph}
+\end{proof}
+\begin{remark}
+	For (c), one may want to say that $\lambda(\varpi_{\mf P})$ is a characteristic-$0$ lifting of the Frobenius endomorphism on the reduction. However, if we do not have $\OO_E\subseteq\op{End}_K(A)$, then we cannot actually guarantee this lifting.
+\end{remark}
+Here is an example application of \Cref{thm:fundamental}.
+\begin{proposition} \label{prop:cm-mtc-l-adic}
+	Fix an abelian variety $A$ over a number field $K$ with complex multiplication by a CM algebra $E=E_1\times\cdots\times E_k$. Let $\Phi\colon\Sigma_E\to\ZZ_{\ge0}$ be the induced signature, which we decompose as $\Phi=\Phi_1\sqcup\cdots\sqcup\Phi_k$ where $(E_\bullet,\Phi_\bullet)$ is a CM signature for all $E_\bullet$. Extend $K$ to be a CM field equipped with CM signatures $\Phi_1^*,\ldots,\Phi_k^*$ such that $(E_i,\Phi_i)$ and $(K,\Phi_i^*)$ are reflex for all $i$. Then $G_\ell(A)^\circ\subseteq\mathrm T_E$ is the Zariski closure of the image of
+	\[(\mathrm N_{\Phi_1^*},\ldots,\mathrm N_{\Phi_k^*})\colon\mathrm T_K\to\mathrm T_E.\]
+\end{proposition}
+\begin{proof}
+	We follow \cite[Lemma~4.1]{yu-mumford-tate-cm}. We quickly explain why extending $K$ does not actually affect the conclusion. On one hand, $G_\ell(A)^\circ$ is independent of extending $K$ by \Cref{rem:conn-component-monodromy-field-extension}; on the other hand, passing to an extension cannot change the closure of the image of the reflex norms by \Cref{lem:reflex-norm-descends} and the fact that norms of field extensions have Zariski dense image.
+	
+	Technically, the rest of this subsection has dealt with simple abelian varieties, so we must do some work to handle the given CM algebra $E$. We may decompose $A=A_1\times\cdots\times A_k$, where $A_i$ is simple and has complex multiplication by $(E_i,\Phi_i)$. Define $\lambda_i$ for $A_i$ as in \Cref{thm:fundamental}. Then we see $\rho_A$ outputs to $\mathrm T_E=\mathrm T_{E_1}\times\cdots\times\mathrm T_{E_i}$, where the $i$th component is just given by $\rho_{A_i}$.
+
+	Recall from \Cref{rem:artin-map-kernel} that the Artin map $\op{Art}_K\colon\AA_{K,f}^\times/K^\times\to\op{Gal}(K^{\mathrm{ab}}/K)$ is surjectve, so it is enough to compute the image of $\rho_{A,\ell}\circ\op{Art}_K$, where the $\ell$ signifies that we are working with the $\ell$-component. In particular, for $s_f\in\AA_{K,f}^\times$, \Cref{thm:fundamental} implies that
+	\[(\rho_{A_i,\ell}\circ\mathrm{Art}_K)(s_f)=\lambda_i(s_f)(\mathrm N_{\Phi_i^*})^{-1}(s_\ell),\]
+	so
+	\[(\rho_{A,\ell}\circ\mathrm{Art}_K)(s_f)=\left(\lambda_1(s_f)(\mathrm N_{\Phi_1^*})^{-1}(s_\ell),\ldots,\lambda_k(s_f)(\mathrm N_{\Phi_k^*})^{-1}(s_\ell)\right).\]
+	We may as well compress the right-hand side into $\lambda(s_f)\op N_{\Phi^*}(s_f)_\ell^{-1}$, where $\lambda$ and $\op N_{\Phi^*}$ output to $k$-tuples in $\mathrm T_E$. The above equality explains where the image of the reflex norm is going to come from. We now have two inclusions; let $\mathrm T\subseteq\mathrm T_E$ denote the Zariski closure of $\op N_{\Phi^*}$.
+	\begin{itemize}
+		\item We claim that $G_\ell(A)^\circ\subseteq\mathrm T$. Note $\ker\lambda\subseteq\AA_{K,f}^\times$ is open by continuity of the $\lambda_i$s, so strong approximation implies that $K^\times\backslash\AA_{K,f}^\times/\ker\lambda$ is finite.\footnote{In this case, this reduces to finiteness of the class number $h_K$: being open means $\ker\lambda$ is commensurable with $\widehat\OO_K^\times$, and $K^\times\backslash\AA_{K,f}^\times/\widehat\OO_K^\times$ is isomorphic to the class group as a pointed set.} Thus, $\im\lambda/\mathrm T$ is finite, and we conclude that $G_\ell(A)$ is contained in $\mathrm T$ multiplied by some finite group $\im\lambda/\mathrm T$. Finite groups are disconnected, so $G_\ell(A)^\circ\subseteq\mathrm T$ follows.
+
+		\item We claim that $\mathrm T\subseteq G_\ell(A)$. Again, $\ker\lambda\subseteq\AA_{K,f}^\times$ is open, so
+		\[\rho_{A,\ell}(\op{Art}_K(\ker\lambda))=\op N_{\Phi^*}(\ker\lambda_\ell).\]
+		Now, $\ker\lambda_\ell$ is Zariski dense in $\QQ_\ell^\times$, so the right-hand side is Zariski dense in $\mathrm T$. The inclusion follows.
+		\qedhere
+	\end{itemize}
+\end{proof}
 
 \subsection{The Mumford--Tate Conjecture}
-Over the next two subsections, we will explain some tools used to compute $G_\ell(A)$. In this subsection, we will discuss $G_\ell(A)^\circ$. Suppose that $A$ is defined a number field $K$.
+Over the next few subsections, we will explain some tools used to compute $G_\ell(A)$. In this subsection, we will discuss $G_\ell(A)^\circ$. Suppose that $A$ is defined a number field $K$.
 
-A motivic perspective would have us hope that all the monodromy groups attached to $A$ are essentially the same. However, as explained in \Cref{rem:k-conn-a}, we only expect $G_\ell(A)$ to be connected after an extension $K$. Thus, for example, one can only hope that $\op{MT}(A)$ knows about $G_\ell(A)^\circ$. We may now state the following conjecture.
+A motivic perspective would have us hope that all the monodromy groups attached to $A$ are essentially the same. However, as explained in \Cref{rem:k-conn-a}, we only expect $G_\ell(A)$ to be connected after an extension $K$. Thus, for example, one can only hope that $\op{MT}(A)$ knows about $G_\ell(A)^\circ$; this now makes sense because $G_\ell(A)^\circ$ is independent of the base field $K$ by \Cref{rem:conn-component-monodromy-field-extension}. We may now state the following conjecture.
 \begin{conj}[Mumford--Tate] \label{conj:mt}
 	Fix an abelian variety $A$ over a number field $K$. For all primes $\ell$, we have
 	\[\op{MT}(A)_{\QQ_\ell}=G_\ell(A)^\circ\]
@@ -901,7 +1294,14 @@ A motivic perspective would have us hope that all the monodromy groups attached 
 \end{conj}
 Our work in \cref{chap:hodge} provides many tools for computing $\op{MT}(A)$, so \Cref{conj:mt} would allow us to translate this knowledge into a computation of $G_\ell(A)^\circ$.
 
-Even though \Cref{conj:mt} is not fully proven, there is a lot known. Let's review a small amount. For example, both groups are reductive by \Cref{lem:mt-hg-reductive} and \Cref{thm:monodromy-reductive}. Additionally, \Cref{thm:faltings} provides a suitable analogue of \Cref{thm:riemann}, telling us that both groups $\op{MT}(A)$ and $G_\ell(A)$ cut out endomorphisms in $\op{End}(A)$.
+Even though \Cref{conj:mt} is not fully proven, there is a lot known. Let's review a little.
+\begin{example} \label{ex:mtc-cm}
+	If $A$ is an absolutely simple abelian variety with complex multiplication by a CM algebra $E$, then both $G_\ell(A)^\circ$ and $\op{MT}(A)$ equal the Zariski closure of the image of a suitably defined reflex norm to $\mathrm T_F$. For the Mumford--Tate group, this is \Cref{prop:z-mt-as-reflex-monodromy}; for the $\ell$-adic monodromy group, this is \Cref{prop:cm-mtc-l-adic}.
+\end{example}
+\begin{remark} \label{rem:mtc-cm}
+	The Mumford--Tate conjecture for abelian varieties with complex multiplication is quite old: it is originally due to Pohlmann \cite[Theorem~4]{pohlmann-mumford-tate-cm}, but Ribet in \cite{ribet-review-of-l-adic} has pointed out that the result is a corollary of results due to Shimura and Tanimaya \cite{shimura-taniyama-cm}, and \cite{yu-mumford-tate-cm} has recently explicated this argument.
+\end{remark}
+Let's move on to some more general results. For example, both groups are reductive by \Cref{lem:mt-hg-reductive} and \Cref{thm:monodromy-reductive}. Additionally, \Cref{thm:faltings} provides a suitable analogue of \Cref{thm:riemann}, telling us that both groups $\op{MT}(A)$ and $G_\ell(A)$ cut out endomorphisms in $\op{End}(A)$.
 
 As a philosophical check, one can show that $G_\ell(A)^\circ$ ``contains'' the Hodge structure morphism; the following result is due to Sen \cite[Theorem~1]{sen-operator}.
 \begin{theorem}[Sen] \label{thm:sen-operator}
@@ -925,52 +1325,48 @@ One even knows that the centers of the groups coincide, due to Vaisu \cite[Theor
 \end{theorem}
 Vaisu \cite{vaisu-mt-conjecture} has in fact shown quite a bit about the Mumford--Tate conjecture; see in particular \cite[Theorem~1.3.4]{vaisu-mt-conjecture}.
 
-Much is known about products, especially products with restricted endomorphism types. For example, \Cref{thm:mtc-torus} immediately implies the Mumford--Tate conjecture for abelian varieties with complex multiplication by combiing with \Cref{prop:cm-is-mt-torus} and \Cref{rem:cm-is-l-adic-torus}.
-\begin{remark} \label{rem:mtc-cm}
-	In fact, the Mumford--Tate conjecture for abelian varieties with complex multiplication is much older: it is originally due to Pohlmann \cite[Theorem~4]{pohlmann-mumford-tate-cm}, but Ribet in \cite{ribet-review-of-l-adic} has pointed out that the result is a corollary of results due to Shimura and Tanimaya \cite{shimura-taniyama-cm}, and \cite{yu-mumford-tate-cm} has recently explicated this argument.\todo{Include proof if include CM theorem}
-\end{remark}
-Continuing, by combining \cite{ichikawa-alg-groups-av,lombardo-ell-adic-product}, one is able to compute both $\op{MT}(A)$ and $G_\ell(A)^\circ$ for many abelian varieties of Types I--III and control contributions coming from Type IV; this permits a proof of the Mumford--Tate conjecture for products of abelian varieties of dimension at most $3$. More generally, the following result is due to Commelin \cite[Theorem~1.2]{commelin-mtc-products}.
+Much is known about products, especially products with restricted endomorphism types. By combining \cite{ichikawa-alg-groups-av,lombardo-ell-adic-product}, one is able to compute both $\op{MT}(A)$ and $G_\ell(A)^\circ$ for many abelian varieties of Types I--III and control contributions coming from Type IV; this permits a proof of the Mumford--Tate conjecture for products of abelian varieties of dimension at most $3$. More generally, the following result is due to Commelin \cite[Theorem~1.2]{commelin-mtc-products}.
 \begin{theorem}[Commelin]
 	Fix abelian varieties $A$ and $B$ over a number field $K$. If the Mumford--Tate conjecture holds for both $A$ and $B$, then it holds for $A\times B$.
 \end{theorem}
 To give a taste for how some of these results are proven, we show the following, which follows from \cite[Theorem~1.3.4]{vaisu-mt-conjecture}.
 \mtcreldimtwo
 \begin{proof}
-	For special $\ell$, we will actually compute $\op{MT}(A)^{\mathrm{der}}$ and $G_\ell(A)^{\circ,\mathrm{der}}$ ``simultaneously'' to show that they are equal to the suitable version of $\op{GSp}_F(\varphi)^{\mathrm{der}}$ or $\op{GSp}_F(e_\varphi)^{\mathrm{der}}$. By adding in what we know about the centers from \Cref{thm:mtc-torus} (and the independence of $\ell$ given in \Cref{thm:lp-mtc-independence}), the Mumford--Tate conjecture follows for $A$. The outline is to base-change to $\CC$, where the Lie algebra of $\op L(A)^{\mathrm{der}}$ becomes a product of $\mf{sl}_2(\CC)$s, from which we can appeal to \Cref{lem:mz-product}.
+	For special $\ell$, we will actually compute $\op{MT}(A)^{\mathrm{der}}$ and $G_\ell(A)^{\circ,\mathrm{der}}$ ``simultaneously'' to show that they are equal to the suitable version of $\op{GSp}_E(\varphi)^{\mathrm{der}}$ or $\op{GSp}_E(e_\varphi)^{\mathrm{der}}$. By adding in what we know about the centers from \Cref{thm:mtc-torus} (and the independence of $\ell$ given in \Cref{thm:lp-mtc-independence}), the Mumford--Tate conjecture follows for $A$. The outline is to base-change to $\CC$, where the Lie algebra of $\op L(A)^{\mathrm{der}}$ becomes a product of $\mf{sl}_2(\CC)$s, from which we can appeal to \Cref{lem:mz-product}.
 
-	Before beginning the computation, we set up some notation. In practice, it will be convenient to only write down the computation for $\op{MT}(A)^{\mathrm{der}}$, but we will indicate along the way the changes that need to be made for $G_\ell(A)^{\circ,\mathrm{der}}$. Now, for brevity, set $V\coloneqq\mathrm H^1_{\mathrm B}(A,\QQ)$ so that $\op{Hg}(A)=\op{Hg}(V)$ and $\op L(A)=\op L(V)$; we remark that $V$ is a free module over $F$ of rank $2$.
+	Before beginning the computation, we set up some notation. In practice, it will be convenient to only write down the computation for $\op{MT}(A)^{\mathrm{der}}$, but we will indicate along the way the changes that need to be made for $G_\ell(A)^{\circ,\mathrm{der}}$. Now, for brevity, set $V\coloneqq\mathrm H^1_{\mathrm B}(A,\QQ)$ so that $\op{Hg}(A)=\op{Hg}(V)$ and $\op L(A)=\op L(V)$; we remark that $V$ is a free module over $E$ of rank $2$.
 
-	Continuing with the set-up, we recall some part of the computation from \Cref{lem:lefschetz-type-iv-1}. Fix a polarization $\varphi$ on $V$. Then let $\rho_{1},\ldots,\rho_{e_0}$ be the embeddings of $F_i^\dagger$ into a Galois closure $E^\dagger$, which is the totally real subfield of the Galois closure $E$ of $F$. Then we admit a decomposition
-	\[V_{E^\dagger}=V_1\oplus\cdots\oplus V_{e_0}\]
+	Continuing with the set-up, we recall some part of the computation from \Cref{lem:lefschetz-type-iv-1}. Fix a polarization $\varphi$ on $V$. Then let $\rho_{1},\ldots,\rho_{e_0}$ be the embeddings of $E_i^\dagger$ into a Galois closure $M^\dagger$, which is the totally real subfield of the Galois closure $M$ of $E$. Then we admit a decomposition
+	\[V_{M^\dagger}=V_1\oplus\cdots\oplus V_{e_0}\]
 	so that
-	\[\op L(V)_{E^\dagger}=\op{Sp}_{F\otimes_{\rho_{1}}E^\dagger}(\varphi|_{V_{1}})\times\cdots\times\op{Sp}_{F\otimes_{\rho_{e_{0}}}E^\dagger}(\varphi|_{V_{e_{0}}}).\]
+	\[\op L(V)_{M^\dagger}=\op{Sp}_{E\otimes_{\rho_{1}}M^\dagger}(\varphi|_{V_{1}})\times\cdots\times\op{Sp}_{E\otimes_{\rho_{e_{0}}}M^\dagger}(\varphi|_{V_{e_{0}}}).\]
 	% Thus, \Cref{lem:lefschetz-sums} allows us to expand
-	% \[\op L(V)_{E^\dagger}=op{Sp}_{F_i\otimes_{\rho_{i1}}E^\dagger}(\varphi|_{V_{1}})\times\cdots\times\op{Sp}_{F_i\otimes_{\rho_{ie_{0i}}}E^\dagger}(\varphi|_{V_{ie_{0i}}}).\]
-	We now also recall from \Cref{lem:lefschetz-type-iv-1} that each $\op{Sp}_{F\otimes_{\rho_{i}}E^\dagger}(\varphi|_{V_{i}})_E$ is isomorphic to $\op{GL}_2(E)$; in particular, this group is connected. In particular, to achieve this decomposition, we diagonalize the induced action of $E$ on $V_i$ and then projects onto one of the eigenspaces.
+	% \[\op L(V)_{M^\dagger}=op{Sp}_{E_i\otimes_{\rho_{i1}}M^\dagger}(\varphi|_{V_{1}})\times\cdots\times\op{Sp}_{E_i\otimes_{\rho_{ie_{0i}}}M^\dagger}(\varphi|_{V_{ie_{0i}}}).\]
+	We now also recall from \Cref{lem:lefschetz-type-iv-1} that each $\op{Sp}_{E\otimes_{\rho_{i}}M^\dagger}(\varphi|_{V_{i}})_M$ is isomorphic to $\op{GL}_2(M)$; in particular, this group is connected. In particular, to achieve this decomposition, we diagonalize the induced action of $M$ on $V_i$ and then projects onto one of the eigenspaces.
 
 	Now, we would like to show that the inclusion
-	\[\op{Hg}(V)_E^{\mathrm{der}}\subseteq\op{Sp}_{F\otimes_{\rho_{1}}E^\dagger}(\varphi|_{V_{1}})_E\times\cdots\times\op{Sp}_{F\otimes_{\rho_{e_{0}}}E^\dagger}(\varphi|_{V_{e_{0}}})_E\]
-	is an isomorphism, where the last group is embedded in $\op{GL}(V)_E$. All groups involved are connected, so we may check this inclusion on the level of the Lie algebra, so we would like for the inclusion
-	\[\op{Lie}\op{Hg}(V)_E^{\mathrm{der}}\subseteq\op{Sp}_{F\otimes_{\rho_{1}}E^\dagger}(\varphi|_{V_{1}})_E\times\cdots\times\op{Sp}_{F\otimes_{\rho_{e_{0}}}E^\dagger}(\varphi|_{V_{e_{0}}})_E\]
-	is surjective. For this, we use \Cref{lem:mz-product}. Here are our checks; for brevity, set $\mf{hg}(V)\coloneqq\op{Lie}\op{Hg}(V)_E$, and let $\mf{sl}_2(E)_{i}$ be the factor $\op{Lie}\op{Sp}_{F\otimes_{\rho_{i}}E^\dagger}(\varphi|_{V_{i}})_E^{\mathrm{der}}$, which we note is isomorphic to $\mf{sl}_2(E)$.
+	\[\op{Hg}(V)_M^{\mathrm{der}}\subseteq\op{Sp}_{E\otimes_{\rho_{1}}M^\dagger}(\varphi|_{V_{1}})_M\times\cdots\times\op{Sp}_{E\otimes_{\rho_{e_{0}}}M^\dagger}(\varphi|_{V_{e_{0}}})_M\]
+	is an isomorphism, where the last group is embedded in $\op{GL}(V)_M$. All groups involved are connected, so we may check this inclusion on the level of the Lie algebra, so we would like for the inclusion
+	\[\op{Lie}\op{Hg}(V)_M^{\mathrm{der}}\subseteq\op{Sp}_{E\otimes_{\rho_{1}}M^\dagger}(\varphi|_{V_{1}})_M\times\cdots\times\op{Sp}_{E\otimes_{\rho_{e_{0}}}M^\dagger}(\varphi|_{V_{e_{0}}})_M\]
+	is surjective. For this, we use \Cref{lem:mz-product}. Here are our checks; for brevity, set $\mf{hg}(V)\coloneqq\op{Lie}\op{Hg}(V)_M$, and let $\mf{sl}_2(M)_{i}$ be the factor $\op{Lie}\op{Sp}_{E\otimes_{\rho_{i}}M^\dagger}(\varphi|_{V_{i}})_M^{\mathrm{der}}$, which we note is isomorphic to $\mf{sl}_2(M)$.
 	\begin{listroman}
-		\item We claim that $\mf{hg}(V)^{\mathrm{der}}$ surjects onto $\mf{sl}_2(E)_{i}$, which we note is nonzero and simple. Because the $\mf{hg}(V)$ is semisimple, its image in $\mf{sl}_2(E)_{i}$ continues to be reductive.
+		\item We claim that $\mf{hg}(V)^{\mathrm{der}}$ surjects onto $\mf{sl}_2(M)_{i}$, which we note is nonzero and simple. Because the $\mf{hg}(V)$ is semisimple, its image in $\mf{sl}_2(M)_{i}$ continues to be reductive.
 		
-		Now, reductive subgroups of $\mf{sl}_2(E)$ are either tori of all of $\mf{sl}_2(E)$, so we merely need to check that the image cannot be a torus. If the image in some $\mf{sl}_2(E)_{i}$ is a torus, then because the Galois action $\op{Gal}(E/\QQ)$ permutes the decomposition of $V$ into $\{V_{i}\}_i$ (but will fix $\op{Hg}(V)$), so we see that the image in $\mf{sl}_2(E)_{i}$ will continue to be a torus for all $i$. Explicitly, we note that the image of $\op{Hg}(V)$ in $\op{Sp}_{F\otimes_{\rho_{i}}E^\dagger}(\varphi|_{V_{i}})_E$ needs to be preserved under $\op{Gal}(E/\QQ)$, so if the projection is commutative in one factor, then it is commutative in all factors because the $\QQ$-points are dense. %\todo{There is no Galois action. This doesn't make sense.}
-		% But then we note that $\op{Hg}(V)$ projects onto $\op{Hg}(V_i)$ by \Cref{lem:product-of-hg}, which then has an inclusion into $\op L(V_i)_E=\prod_j\op{Sp}_{F_i\otimes_{\rho_{ij}}E^\dagger}(\varphi|_{V_{ij}})_E$, where we see it must have commutative image by the preceding paragraph.
+		Now, reductive subgroups of $\mf{sl}_2(M)$ are either tori of all of $\mf{sl}_2(M)$, so we merely need to check that the image cannot be a torus. If the image in some $\mf{sl}_2(M)_{i}$ is a torus, then because the Galois action $\op{Gal}(M/\QQ)$ permutes the decomposition of $V$ into $\{V_{i}\}_i$ (but will fix $\op{Hg}(V)$), so we see that the image in $\mf{sl}_2(M)_{i}$ will continue to be a torus for all $i$. Explicitly, we note that the image of $\op{Hg}(V)$ in $\op{Sp}_{E\otimes_{\rho_{i}}M^\dagger}(\varphi|_{V_{i}})_M$ needs to be preserved under $\op{Gal}(M/\QQ)$, so if the projection is commutative in one factor, then it is commutative in all factors because the $\QQ$-points are dense. %\todo{There is no Galois action. This doesn't make sense.}
+		% But then we note that $\op{Hg}(V)$ projects onto $\op{Hg}(V_i)$ by \Cref{lem:product-of-hg}, which then has an inclusion into $\op L(V_i)_M=\prod_j\op{Sp}_{E_i\otimes_{\rho_{ij}}M^\dagger}(\varphi|_{V_{ij}})_M$, where we see it must have commutative image by the preceding paragraph.
 		In particular, $\op{Hg}(V)$ must be a torus, so $A$ has complex multiplication by \Cref{prop:cm-is-mt-torus}, which is a contradiction to its definition.
 
-		\item The first point of (ii) is automatic from the construction. The second point follows because all the $\mf{sl}_2(E)_{i}$s include as the standard representation into $\mf{gl}(V_{i})$.
+		\item The first point of (ii) is automatic from the construction. The second point follows because all the $\mf{sl}_2(M)_{i}$s include as the standard representation into $\mf{gl}(V_{i})$.
 		
-		For the last point, we use the Galois action together with the hypothesis on the signature. Arguing as in the proof of \Cref{lem:mz-product}, it is really enough to check the $(V_i)_E$s are non-isomorphic as $\mf{hg}(V)^{\mathrm{der}}_E$-modules. To make sense of the signature, we choose an embedding $\varepsilon\colon E\to\CC$, and then \Cref{lem:hodge-to-signature} grants a signature $\Phi_\varepsilon$ from the decomposition of $V_\varepsilon$ into $F\otimes_\varepsilon\CC$-eigenspaces: explicitly, for each embedding $\sigma\in\op{Hom}(F,E)$, we find
+		For the last point, we use the Galois action together with the hypothesis on the signature. Arguing as in the proof of \Cref{lem:mz-product}, it is really enough to check the $(V_i)_M$s are non-isomorphic as $\mf{hg}(V)^{\mathrm{der}}_M$-modules. To make sense of the signature, we choose an embedding $\varepsilon\colon M\to\CC$, and then \Cref{lem:hodge-to-signature} grants a signature $\Phi_\varepsilon$ from the decomposition of $V_\varepsilon$ into $E\otimes_\varepsilon\CC$-eigenspaces: explicitly, for each embedding $\sigma\in\op{Hom}(E,M)$, we find
 		\[\Phi_\varepsilon(\sigma)=\dim (V_\sigma)_\varepsilon^{1,0},\]
 		where $(\cdot)^{1,0}$ signifies that we are taking the eigenspace where $i\in\CC$ acts by $i^{-1}$. However, the choice of a different embedding $\varepsilon$ will permute the $V_\sigma$s in sight.
 
-		To explain how the signature is now used, we note that if $\{\Phi_\varepsilon(\sigma),\Phi_\varepsilon(\ov\sigma)\}\ne\{\Phi_\varepsilon(\tau),\Phi_\varepsilon(\ov\tau)\}$ for two embeddings $\sigma,\tau\in\op{Hom}(F,E)$ where $\rho_i=\sigma|_{F^\dagger}$ and $\rho_j=\tau|_{F^\dagger}$, then we must have $V_i\not\cong V_j$ as $\mf{hg}(V)^{\mathrm{der}}_\varepsilon$-modules. Indeed, unwrapping the definition of the signature, we know that the projection of $\mf{hg}(V)_\RR$ (where the embedding $E^\dagger\into\RR$ is given by the restriction of $\varepsilon$) into $\mf{gl}_4(\RR)$ is
+		To explain how the signature is now used, we note that if $\{\Phi_\varepsilon(\sigma),\Phi_\varepsilon(\ov\sigma)\}\ne\{\Phi_\varepsilon(\tau),\Phi_\varepsilon(\ov\tau)\}$ for two embeddings $\sigma,\tau\in\op{Hom}(E,M)$ where $\rho_i=\sigma|_{E^\dagger}$ and $\rho_j=\tau|_{E^\dagger}$, then we must have $V_i\not\cong V_j$ as $\mf{hg}(V)^{\mathrm{der}}_\varepsilon$-modules. Indeed, unwrapping the definition of the signature, we know that the projection of $\mf{hg}(V)_\RR$ (where the embedding $M^\dagger\into\RR$ is given by the restriction of $\varepsilon$) into $\mf{gl}_4(\RR)$ is
 		\[\mf{so}(\Phi_\varepsilon(\sigma),\Phi_\varepsilon(\ov\sigma)).\]
 		To see this, note that this a semisimple algebra of the correct rank, so it is enough remark that the image of $\mf{hg}(V)^{\mathrm{der}}$ must land in the above Lie subalgebra by tracking the action of $h(i)$. (One should use \Cref{thm:sen-operator} in the $\ell$-adic computation.) Thus, we are now able to remark that $\mf{so}(\Phi_\varepsilon(\sigma),\Phi_\varepsilon(\ov\sigma))\not\cong\mf{so}(\Phi_\varepsilon(\tau),\Phi_\varepsilon(\ov\tau))$.
 
-		To complete the proof, the hypothesis implies there exists exactly one pair $\{\sigma_0,\ov\sigma_0\}$ of embeddings $F\into\CC$ such that $\Phi_\varepsilon(\sigma_0)=\Phi_\varepsilon(\ov\sigma_0)=1$. Thus, for any two distinct embeddings $\sigma,\tau\in\op{Hom}(F,E)$, we can choose $\varepsilon$ so that $\varepsilon\sigma=\sigma_0$ but $\varepsilon\tau\ne\sigma_0$ and apply the previous paragraph.
+		To complete the proof, the hypothesis implies there exists exactly one pair $\{\sigma_0,\ov\sigma_0\}$ of embeddings $E\into\CC$ such that $\Phi_\varepsilon(\sigma_0)=\Phi_\varepsilon(\ov\sigma_0)=1$. Thus, for any two distinct embeddings $\sigma,\tau\in\op{Hom}(E,M)$, we can choose $\varepsilon$ so that $\varepsilon\sigma=\sigma_0$ but $\varepsilon\tau\ne\sigma_0$ and apply the previous paragraph.
 		\qedhere
 	\end{listroman}
 	% Similarly, we write $V_i\coloneqq\mathrm H^1_{\mathrm B}(A_i,\QQ)$ for each $i$. Recall that $\op{Hg}(V)\subseteq\op{L}(V)$ by \Cref{lem:mt-commutes-polarization} (the $\ell$-adic case uses \Cref{lem:l-adic-monodromy-commutes-polarization}). Thus, to achieve the equality of the derived subgroups, it is enough to achieve the equality after base-changing to an algebraic closure.
@@ -980,7 +1376,7 @@ To give a taste for how some of these results are proven, we show the following,
 	%
 	% In practice, it will be convenient to only write down the computation for $\op{MT}(A)^{\mathrm{der}}$, but we will indicate along the way the changes that need to be made for $G_\ell(A)^{\circ,\mathrm{der}}$. Quickly, we note that we may assume that the $A_\bullet$s are pairwise non-isomorphic because all groups involved are immune to adding a factor which already appears (see \Cref{lem:hg-isotypic} for $\op{MT}$, \Cref{lem:lefschetz-sums} for $\op L$, and \Cref{lem:monodromy-isotypic} for $G_\ell$).
 	%
-	% Now, for brevity, set $V\coloneqq\mathrm H^1_{\mathrm B}(A,\QQ)$ so that $\op{MT}(A)=\op{MT}(V)$ and $\op L(A)=\op L(V)$; we remark that $V$ is a free module over $F\coloneqq F_1\times\cdots\times F_k$ of rank $2$. Similarly, we set $V_i\coloneqq\mathrm H^1_{\mathrm B}(A_i,\QQ)$. Recall that $\op{MT}(V)\subseteq\op{L}(V)$ by \Cref{lem:mt-commutes-polarization} (the $\ell$-adic case uses \Cref{lem:l-adic-monodromy-commutes-polarization}). Thus, to achieve the equality of the derived subgroups, it is enough to achieve the equality after base-changing to an algebraic closure.
+	% Now, for brevity, set $V\coloneqq\mathrm H^1_{\mathrm B}(A,\QQ)$ so that $\op{MT}(A)=\op{MT}(V)$ and $\op L(A)=\op L(V)$; we remark that $V$ is a free module over $E\coloneqq E_1\times\cdots\times E_k$ of rank $2$. Similarly, we set $V_i\coloneqq\mathrm H^1_{\mathrm B}(A_i,\QQ)$. Recall that $\op{MT}(V)\subseteq\op{L}(V)$ by \Cref{lem:mt-commutes-polarization} (the $\ell$-adic case uses \Cref{lem:l-adic-monodromy-commutes-polarization}). Thus, to achieve the equality of the derived subgroups, it is enough to achieve the equality after base-changing to an algebraic closure.
 \end{proof}
 \begin{remark}
 	This argument is inspired by \cite[Remark~1.9.4]{zarhin-hg-k3}, where ``changing the embedding'' is used similarly to conclude that the Hodge group is large.
@@ -1078,5 +1474,201 @@ Thus, we see that the Galois reprentation to $\op{GL}(W)$ factors through the fi
 \end{remark}
 % spaces of tate classes
 % S8.2 of GGL
+
+\subsection{The Motivic Galois Group} \label{subsec:motivic-galois}
+In this last subsection, we recast some of our monodromy discussions motivically. The Mumford--Tate conjecture is more or less an assertion that there should really only be one monodromy group for an abelian variety. This indicates that there should be a motivic version of this conjecture. Here is one formulation, using our category of motives.
+\begin{definition}
+	Fix a motive $M$ over an algebraic extension $K$ of $\QQ$.
+	\begin{itemize}
+		\item For a fixed embedding $\sigma\colon K\into\CC$, we define the \textit{Mumford--Tate group} $\op{MT}(M)$ as the Mumford--Tate group of the rational Hodge stucture $\mathrm H_\sigma(M)$. (See \Cref{rem:betti-is-hs-q}.)
+		\item For each prime $\ell$, we define the \textit{$\ell$-adic monodromy group} as the smallest algebraic subgroup containing the image of
+		\[\op{Gal}(\ov K/K)\to\op{GL}\left(\omega_\ell(M)\right),\]
+		where $\omega_\ell\colon\mathrm{Mot}_\QQ(K)\to\mathrm{Rep}_{\QQ_\ell}\op{Gal}(\ov K/K)$ is given by $\ell$-adic cohomology. (See \Cref{rem:ell-adic-is-galois-rep}.)
+	\end{itemize}
+\end{definition}
+\begin{remark} \label{rem:motivic-monodromy-as-tannaka}
+	The same arguments as in \Cref{ex:mumford-tate-as-monodromy} and \Cref{rem:l-adic-as-tannaka} show that $\mathrm{MT}(M)$ is the algebraic group attached to the subcategory $\langle\mathrm H_\sigma^\bullet(M)\rangle^\otimes\subseteq\mathrm{HS}_\QQ$, and $G_\ell(M)$ is the algebraic group attached to the subcategory $\langle\omega_\ell(M)\rangle^\otimes\subseteq\op{Rep}_{\QQ_\ell}\op{Gal}(\ov K/K)$.
+\end{remark}
+\begin{example}
+	Fix an abelian variety $A$. Because $\langle\mathrm H_\sigma^\bullet(A)\rangle^\otimes=\langle\mathrm H_\sigma^1(A)\rangle^\otimes$ (by \Cref{thm:cohom-ring-av}) we see $\op{MT}(h(A))=\op{MT}(A)$. The same argument shows $G_\ell(h(A))=G_\ell(A)$.
+\end{example}
+\begin{conj}[Motivic Mumford--Tate] \label{conj:motivic-mt}
+	Fix a motive $M$ over a number field $K$. For each prime $\ell$, we have
+	\[\mathrm{MT}(M)_{\QQ_\ell}=G_\ell(M)^\circ.\]
+	(More precisely, these are isomorphic via the embeddings of \Cref{rem:mt-to-mot-canonical,rem:motivic-tate-map}.)
+\end{conj}
+\begin{example}
+	Let's prove the conjecture when $M$ is an Artin motive. On one hand, $H_\sigma^\bullet(M_{\ov K})$ has Hodge structure concentrated in bidegree $(0,0)$, so $\op{MT}(M)$ is trivial. On the other hand, $G_\ell(M)$ is algebraic (by its construction) and a quotient of the profinite group $\op{Gal}(\ov K/K)$ (by \Cref{ex:artin-mot}) and thus finite. We conclude $G_\ell(M)^\circ$ is trivial and thus agrees with $\op{MT}(M)_{\QQ_\ell}$.
+\end{example}
+However, a motivic formulation not only tells us what to expect more generally, but it will tell us what the more general monodromy group attached to a motive should be. Following \Cref{rem:motivic-monodromy-as-tannaka}, we are motivated to define a motivic monodromy group as follows.
+\begin{definition}[motivic Galois group]
+	Fix an algebraic extension $K$ of $\QQ$.
+	\begin{itemize}
+		\item For a set of motives $S\subseteq\mathrm{Mot}_\QQ(K)$, we define the \textit{motivic Galois group} $G_{\mathrm{mot},K}(S)$ to be the algebraic group associated with the tensor subcategory $\langle S\rangle\subseteq\mathrm{Mot}_\QQ(K)$.
+		\item If $S=\{M\}$ is a singleton, we may write $G_{\mathrm{mot},K}(M)$.
+		\item Further, if $M=h(X)$, we may write $G_{\mathrm{mot},K}(X)$.
+	\end{itemize}
+	We will omit the subscripted field $K$ from the notation as much as possible. If we want to specify the fiber functor $\omega_\sigma$ (for an embedding $\sigma\colon K\into\CC$) in this notation, we may write $G_\sigma$ instead of $G_{\mathrm{mot}}$.
+\end{definition}
+\begin{example} \label{ex:motivic-galois-artin}
+	Let $M$ be an Artin motive. In this case, \Cref{ex:artin-mot} explains that we may identify $M$ with the Galois representation $\omega_\sigma(M)$. Then the same argument as in \Cref{rem:l-adic-as-tannaka} shows that $G_{\mathrm{mot}}(M)$ is exactly the image of the structure map
+	\[\op{Gal}(\ov K/K)\to\op{GL}(\omega_\sigma(M)).\]
+\end{example}
+\begin{remark}
+	For an abelian variety $A$, \Cref{rem:ab-mot-is-h1} explains why $G_{\mathrm{mot}}(A)=G_{\mathrm{mot}}\left(h^1(A)\right)$: the tensor categories of these motives are the same!
+\end{remark}
+\begin{remark} \label{rem:g-mot-av-in-gl}
+	For an abelian variety $A$ of dimension $g$, we claim that $G_{\mathrm{mot}}(A)\subseteq\op{GL}_{2g,\QQ}$. Indeed, choosing an embedding $\omega\colon K\into\CC$ will induce a group homomorphism
+	\[\underline{\mathrm{Aut}}^\otimes\omega_\sigma|_{\langle h(A)\rangle^\otimes}\to\op{GL}\left(\mathrm H^1_\sigma(A)\right)\]
+	given by explaining how a given $\otimes$-automorphism of $\omega_\sigma$ acts on $\omega_\sigma\left(h^1(A)\right)$. The corresponding functor $\op{Rep}_\QQ\op{GL}\left(\mathrm H^1_\sigma(A)\right)\to\langle h(A)\rangle^\otimes$ simply takes the tensor generator $\mathrm H^1_\sigma(A)$ back to the tensor generator $h^1(A)$, so the above group homomorphism is an embedding by \Cref{prop:tannaka-get-reductive}.
+\end{remark}
+\begin{remark} \label{rem:g-mot-av-in-gsp}
+	In fact, $G_{\mathrm{mot}}(A)\subseteq\op{GSp}_{2g,\QQ}$. For a given polarization $A\to A^\lor$, the induced Weil pairing and polarization on Hodge structures assemble into an absolute Hodge correspondence $h^1(A)\otimes h^1(A)\to \mathrm L$. Now, each $g\in G_{\mathrm{mot}}(A)$ must commute with this absolute Hodge correspondence, which means (on the Betti realization, say) that $g$ preserves the induced perfect pairing on $\mathrm H^1_\sigma(A)$ up to a scalar given by the action of $g$ on $\mathrm L$.
+\end{remark}
+For example, one expects that $G_{\mathrm{mot}}(M)^\circ=\mathrm{MT}(M)$ and $G_{\mathrm{mot}}(M)_{\QQ_\ell}=G_\ell(M)$, but we cannot expect to be able to prove these equalities easily because they together imply the (Motivic) Mumford--Tate conjecture. Fortunately, we will be able to prove the former equality when $M$ is an abelian variety, and we will then be able to show that the latter equality is equivalent to the Mumford--Tate conjecture. This is the goal of the present section.
+
+Let's begin with the equality $G_{\mathrm{mot}}(A)^\circ=\mathrm{MT}(A)$.
+\begin{lemma} \label{lem:abs-mot-group-is-mt}
+	Let $A$ be an abelian variety defined over an algebraic extension $K$ of $\QQ$. Then $G_{\mathrm{mot}}(A_{\ov K})=\op{MT}(A)$.
+\end{lemma}
+\begin{proof}
+	This is \cite[Proposition~6.22(a)]{milne-tannakian}. Fix an embedding $\sigma\colon K\into\CC$. Then \Cref{rem:betti-is-hs-q} explains that the fiber functor $\omega_\sigma\colon\mathrm{Mot}_\QQ(K)\to\mathrm{HS}_\QQ$ is faithful, but because all Hodge classes on abelian varieties are in fact absolute Hodge classes, we will be able to show that the restricted functor
+	\[\omega_\sigma\colon\langle h(A)\rangle^\otimes\to\op{HS}_\QQ\]
+	is fully faithful. Indeed, $\langle h(A)\rangle^\otimes$ is made of quotients of objects which look like $\bigoplus_ih(A)^{n_i}\otimes (h(A)^\lor)^{m_i}$, but Poincar\'e duality (in \Cref{thm:mot-tannaka}) explains $h(A)^\lor=h(A)(\dim A)$, so we may work with quotients of objects which look like
+	\[\bigoplus_ih(A)^{n_i}(m_i\dim A).\]
+	But then correspondences between such quotients may as well be lifted up to absolute Hodge classes on disjoint unions of powers of $A$, which are the same as Hodge classes by \Cref{thm:hodge-to-abs-hodge}, so we may unwind our correspondences to merely be given by Hodge classes! This shows that $\omega_\sigma$ is fully faithful on the subcategory $\langle h(A)\rangle^\otimes$.
+
+	To finish the proof, we see that the induced functor
+	\[\omega_\sigma\colon\langle h(A)\rangle^\otimes\to\langle\mathrm H^\bullet_\sigma(A)\rangle^\otimes\]
+	is an equivalence (it is essentially surjective by construction), so the groups given by Tannakian reconstruction must be isomorphic.
+\end{proof}
+\begin{remark} \label{rem:g-mot-conn-is-mt-conj}
+	In fact, the proof shows that we expect to have $G_{\mathrm{mot}}(M_{\ov K})=\op{MT}(M)$, but we only know achieve this once we know that all Hodge classes in $\langle M\rangle^\otimes$ are absolute Hodge. Nonetheless, \Cref{prop:tannaka-functorial} explains that the proof may take $\omega_\sigma$ and produce an embedding $\op{MT}(M)\to G_{\mathrm{mot}}(M_{\ov K})$ for any motive $M$.
+\end{remark}
+\begin{lemma} \label{lem:arithmetic-geometric-monodromy-ses}
+	Fix any set $S$ of motives over an algebraic extension $K$ of $\QQ$, and let $\Gamma$ be the Tannakian group of the category $\langle S\rangle^\otimes\cap\mathrm{Mot}_\QQ^0(K)$. Then there is an exact sequence
+	\[1\to G_{\mathrm{mot}}(S_{\ov K})\to G_{\mathrm{mot}}(S)\to\Gamma\to1.\]
+\end{lemma}
+\begin{proof}
+	This is \cite[Proposition~6.23]{milne-tannakian}. Throughout this argument, we are fixing an algebraic closure $\ov K$ and $K$ along with a frequently implicit embedding $\iota\colon K\subseteq\ov K$. We will also need to choose an embedding $\sigma\colon\ov K\into\CC$. Anyway, we proceed in steps.
+	\begin{enumerate}
+		\item We describe the left map. There is a natural functor $\langle S\rangle^\otimes\to\langle S_{\ov K}\rangle^\otimes$ given by base-changing our motives (along $\iota$). By construction, \Cref{prop:tannaka-functorial} explains that the relevant group homomorphism $p\colon G_{\mathrm{mot}}(S_{\ov K})\to G_{\mathrm{mot}}(S)$ is an embedding.
+		
+		It will be worthwhile to explicate this map somewhat: given some $g\in G_{\mathrm{mot}}(S_{\ov K})$, we note that $g$ is really an automorphism of the $\otimes$-functor $\omega_{\sigma}$ on $\langle S_{\ov K}\rangle^\otimes$. But then $g$ induces an automorphism on $\langle S\rangle^\otimes$ (and hence an element $i(g)\in G_{\mathrm{mot}}(S)$) as
+		\[\omega_{\sigma\iota}(M)=\omega_\sigma(M_{\ov K})\stackrel g\to\omega_\sigma(M_{\ov K})=\omega_{\sigma\iota}(M).\]
+		Namely, because $g$ is already an automorphism of $\otimes$-functors, we see that $i(g)$ is as well.
+
+		\item We describe the right map. There is a fully faithful embedding $\langle S\rangle^\otimes\cap\mathrm{Mot}^0_\QQ(K)\subseteq\langle S\rangle^\otimes$, so our Tannakian formalism (\Cref{prop:tannaka-functorial}) induces an embedding $p\colon G_{\mathrm{mot}}(S)\to\Gamma$. As in the previous point, we may view $p$ as restricting an automorphism of the $\otimes$-functor $\omega_{\sigma\iota}$ from $\langle M\rangle^\otimes$ to the subcategory $\langle S\rangle^\otimes\cap\mathrm{Mot}_\QQ^0(K)$.
+
+		\item The above remarks have already provided exactness of our sequence on the left and right. It remains to show exactness at $G_{\mathrm{mot}}(S)$. One of these checks is easier: we start by showing that $p\circ i$ is trivial. Namely, for any $g\in G_{\mathrm{mot}}(S_{\ov K})$, we must show that $i(g)$ fixes $\omega_{\sigma\iota}(M)$ for any $M\in\langle S\rangle^\otimes\cap\mathrm{Mot}_\QQ(K)$. Upon unwinding the definition of $i(g)$, we see that we would like to check that $g$ fixes $\omega_\sigma(M_{\ov K})$. It will be enough to check that any $\otimes$-automorphism of $\omega_\sigma$ acting on $\langle S_{\ov K}\rangle^\otimes\cap\mathrm{Mot}_\QQ^0(\ov K)$ is trivial, but this is not hard: this category is just $\langle h(\Spec\ov K)\rangle^\otimes$, and any $\otimes$-automorphism will fix the unit.
+
+		\item We finish showing exactness in the middle. Suppose $g\in G_{\mathrm{mot}}(S)$ goes to the identity in $\Gamma$, and we want to show that $g\in\im i$. The main point is to show that $g_M\in\op{Aut}\omega_{\sigma\iota}(M)$ only depends on $M_{\ov K}$.
+		
+		For a moment, choose two motives $M,N\in\mathrm{Mot}_\QQ(K)$, which we will assume to be isomorphic after base-change to $\ov K$ in a moment. Observe that $\op{Hom}_{\mathrm{Mot}_\QQ(K)}(M_{\ov K},N_{\ov K})$ is some subspace of absolute Hodge classes, so it is a Galois representation by \Cref{rem:abs-hodge-galois-rep}.\footnote{Fixing a degree via Tate twists and taking idempotent subspaces are both Galois-invariant operations, so the subspace of absolute Hodge classes continues to be Galois-invariant.} It follows that we may view $\op{Hom}_{\mathrm{Mot}_\QQ(K)}(M_{\ov K},N_{\ov K})$ as an Artin motive in $\mathrm{Mot}^0_\QQ(K)$ via \Cref{ex:artin-mot}, so $g$ acts trivially on this motive. This means that the action of $g$ fixes the relevant absolute Hodge correspondences, which causes the diagram
+		% https://q.uiver.app/#q=WzAsNCxbMCwwLCJcXG9tZWdhX3tcXHNpZ21hXFxpb3RhfShNX3tcXG92IEt9KSJdLFsxLDAsIlxcb21lZ2Ffe1xcc2lnbWFcXGlvdGF9KE1fe1xcb3YgS30pIl0sWzAsMSwiXFxvbWVnYV97XFxzaWdtYVxcaW90YX0oTl97XFxvdiBLfSkiXSxbMSwxLCJcXG9tZWdhX3tcXHNpZ21hXFxpb3RhfShOX3tcXG92IEt9KSJdLFswLDEsImdfTSJdLFsyLDMsImdfTiJdLFswLDIsIlxcb21lZ2Ffe1xcc2lnbWFcXGlvdGF9KGYpIiwyXSxbMSwzLCJcXG9tZWdhX3tcXHNpZ21hXFxpb3RhfShmKSJdXQ==&macro_url=https%3A%2F%2Fraw.githubusercontent.com%2FdFoiler%2Fnotes%2Fmaster%2Fnir.tex
+		\[\begin{tikzcd}[cramped]
+			{\omega_{\sigma\iota}(M_{\ov K})} & {\omega_{\sigma\iota}(M_{\ov K})} \\
+			{\omega_{\sigma\iota}(N_{\ov K})} & {\omega_{\sigma\iota}(N_{\ov K})}
+			\arrow["{g_M}", from=1-1, to=1-2]
+			\arrow["{\omega_{\sigma\iota}(f)}"', from=1-1, to=2-1]
+			\arrow["{\omega_{\sigma\iota}(f)}", from=1-2, to=2-2]
+			\arrow["{g_N}", from=2-1, to=2-2]
+		\end{tikzcd}\]
+		to commute for any $f\colon M_{\ov K}\to N_{\ov K}$. For example, upon taking $f$ to be an isomorphism, we are left with the statement that $g_M$ and $g_N$ are the same automorphism.
+
+		As such, we may define $\ov g\in\underline{\op{Aut}}^\otimes\omega_{\sigma}$ by $\ov g_{M_{\ov K}}\coloneqq g_M$, which the previous paragraph promises is well-defined. (These motives generate our category, so $\ov g$ can be uniquely extended to kernels and tensor products because it is already a linear $\otimes$-automorphism where it is defined.) Then $i(\ov g)=g$ by construction.
+		\qedhere
+	\end{enumerate}
+\end{proof}
+\begin{proposition} \label{prop:id-comp-of-g-mot}
+	Fix an abelian variety $A$ over an algebraic extension $K$ of $\QQ$. Then
+	\[G_{\mathrm{mot}}(A)^\circ=\mathrm{MT}(A).\]
+\end{proposition}
+\begin{proof}
+	Plugging the equality $\op{MT}(A)=G_{\mathrm{mot}}(A_{\ov K})$ of \Cref{lem:abs-mot-group-is-mt} into \Cref{lem:arithmetic-geometric-monodromy-ses} yields the exact sequence
+	\[1\to\op{MT}(A)\to G_{\mathrm{mot}}(A)\to\Gamma\to1,\]
+	where $\Gamma$ is some quotient of $\op{Gal}(\ov K/K)$ by \Cref{ex:artin-mot}. In particular, $\Gamma$ is thus a quotient of a profinite group and an algebraic group $G_{\mathrm{mot}}(A)$ by \Cref{prop:tannaka-finiteness}, so $\Gamma$ must be finite.
+	
+	Now, on one hand, $\op{MT}(A)$ is connected by \Cref{rem:mt-connected}, so $\op{MT}(A)\subseteq G_{\mathrm{mot}}(A)^\circ$ follows. On the other hand, $\Gamma$ is discrete, so $G_{\mathrm{mot}}(A)^\circ$ must be contained in the kernel of the right-hand projection, which is exactly $\op{MT}(A)$ by exactness. The result follows.
+\end{proof}
+\begin{remark} \label{rem:mt-to-mot-canonical}
+	Continuing from \Cref{rem:g-mot-conn-is-mt-conj}, we see that this proof shows $G_{\mathrm{mot}}(M)^\circ=\op{MT}(M)$ for an arbitrary motive as soon as we know that all Hodge classes are absolutely Hodge, and one can always construct an embedding $\op{MT}(M)\to G_{\mathrm{mot}}(M)^\circ$.
+\end{remark}
+We now turn to the second equality $G_{\mathrm{mot}}(M)_{\QQ_\ell}=G_\ell(M)$, which is called a ``motivic analogue of the Tate conjecture'' in \cite{farfan-commelin-mtc-astc}.
+\begin{remark} \label{rem:motivic-tate-map}
+	One can construct a candidate isomorphism for \Cref{conj:motivic-tate}. The comparison isomorphism (in the form of \Cref{rem:mot-betti-etale-comparison}) shows that the fiber functors $\mathrm{Mot}_\QQ(K)\to\mathrm{Vec}_{\QQ_\ell}$ defined by $M\mapsto\omega_\sigma(M)_{\QQ_\ell}$ and $M\mapsto\omega_\ell(M)$ are naturally isomorphic. This induces a morphism $\langle M\rangle^\otimes\to\langle\omega_\ell(M)\rangle^\otimes$ of neutral Tannakian categories, which then induces the desired map $G_\ell(M)\to G_{\mathrm{mot}}(M)$. \Cref{ex:functorial-tannaka} explains that this map is an embedding.
+\end{remark}
+\begin{conj} \label{conj:motivic-tate}
+	Fix a motive $M$ over a number field $K$. For each prime $\ell$, the canonical map
+	\[G_\ell(M)\to G_{\mathrm{mot}}(M)_{\QQ_\ell}\]
+	of \Cref{rem:motivic-tate-map} is an isomorphism.
+\end{conj}
+\begin{example} \label{ex:artin-motivic-tate}
+	Let's prove the conjecture when $M$ is an Artin motive. Well, the comparison isomorphism \Cref{rem:mot-betti-etale-comparison} explains that there is an isomorphism $\omega_\sigma(M)_{\QQ_\ell}\to\omega_\ell(M)$ of Galois representations, so we are done as soon as we compare \Cref{ex:motivic-galois-artin} with the definition of $G_\ell(M)$.
+\end{example}
+Intuitively, one should expect \Cref{conj:motivic-tate} to follow by independently comparing identity components and component groups. \Cref{prop:id-comp-of-g-mot} indicates that comparing the identity components will require some input from the Mumford--Tate conjecture, but luckily, we can compare the component groups less conjecturally.
+\begin{lemma} \label{lem:motivic-tate-component}
+	Fix a motive $M$ over a number field $K$. Then the canonical map $G_\ell(M)\to G_{\mathrm{mot}}(M)$ of \Cref{rem:motivic-tate-map} induces a surjection
+	\[\pi_0G_\ell(M)\to\pi_0G_{\mathrm{mot}}(M)_{\QQ_\ell}.\]
+\end{lemma}
+\begin{proof}
+	The idea is that finite groups should correspond to Artin motives, where the conjecture is already known by \Cref{ex:artin-motivic-tate}. Let's begin by finding the relevant Artin motive: the quotient map $G_{\mathrm{mot}}(M)\onto\pi_0G_{\mathrm{mot}}(M)$ induces an embedding
+	\[\op{Rep}_\QQ\pi_0G_{\mathrm{mot}}(M)\into\langle M\rangle^\otimes.\]
+	The left-hand category has a tensor generator (e.g., take the regular representation of the finite group $\pi_0G_{\mathrm{mot}}(M)$), so the essential image has a tensor generator $N\in\langle M\rangle^\otimes$. To see that this is an Artin motive, we note that $\pi_0G_{\mathrm{mot}}(M)$ is a quotient of the motivic Galois group of $\langle M\rangle^\otimes\cap\mathrm{Mot}_\QQ^0(K)$ by \Cref{lem:arithmetic-geometric-monodromy-ses}, so we must have $N\in\mathrm{Mot}_\QQ^0(K)$.
+
+	Let's explain why $N$ is the Artin motive we are looking for: by the construction of $N$, the category $\langle N\rangle^\otimes$ is equivalent to $\op{Rep}_\QQ\pi_0G_{\mathrm{mot}}(M)$, so $G_{\mathrm{mot}}(N)=\pi_0G_{\mathrm{mot}}(M)$. We are now ready to complete the proof: the commutative diagram
+	% https://q.uiver.app/#q=WzAsNCxbMSwwLCJcXGxhbmdsZSBNXFxyYW5nbGVeXFxvdGltZXMiXSxbMCwwLCJcXGxhbmdsZSBOXFxyYW5nbGVeXFxvdGltZXMiXSxbMCwxLCJcXGxhbmdsZVxcb21lZ2FfXFxlbGwoTilcXHJhbmdsZV5cXG90aW1lcyJdLFsxLDEsIlxcbGFuZ2xlXFxvbWVnYV9cXGVsbChNKVxccmFuZ2xlXlxcb3RpbWVzIl0sWzEsMCwiIiwwLHsic3R5bGUiOnsidGFpbCI6eyJuYW1lIjoiaG9vayIsInNpZGUiOiJ0b3AifX19XSxbMCwzLCJcXG9tZWdhX1xcZWxsIl0sWzIsMywiIiwyLHsic3R5bGUiOnsidGFpbCI6eyJuYW1lIjoiaG9vayIsInNpZGUiOiJ0b3AifX19XSxbMSwyLCJcXG9tZWdhX1xcZWxsIiwyXV0=&macro_url=https%3A%2F%2Fraw.githubusercontent.com%2FdFoiler%2Fnotes%2Fmaster%2Fnir.tex
+	\[\begin{tikzcd}[cramped]
+		{\langle N\rangle^\otimes} & {\langle M\rangle^\otimes} \\
+		{\langle\omega_\ell(N)\rangle^\otimes} & {\langle\omega_\ell(M)\rangle^\otimes}
+		\arrow[hook, from=1-1, to=1-2]
+		\arrow["{\omega_\ell}"', from=1-1, to=2-1]
+		\arrow["{\omega_\ell}", from=1-2, to=2-2]
+		\arrow[hook, from=2-1, to=2-2]
+	\end{tikzcd}\]
+	induces a commutative diagram
+	% https://q.uiver.app/#q=WzAsNCxbMCwxLCJHX3tcXG1hdGhybXttb3R9fShNKSJdLFsxLDEsIkdfe1xcbWF0aHJte21vdH19KE4pIl0sWzAsMCwiR19cXGVsbChNKSJdLFsxLDAsIkdfXFxlbGwoTikiXSxbMiwwLCIiLDAseyJzdHlsZSI6eyJ0YWlsIjp7Im5hbWUiOiJob29rIiwic2lkZSI6InRvcCJ9fX1dLFswLDEsIiIsMSx7InN0eWxlIjp7ImhlYWQiOnsibmFtZSI6ImVwaSJ9fX1dLFszLDEsIiIsMSx7InN0eWxlIjp7InRhaWwiOnsibmFtZSI6Imhvb2siLCJzaWRlIjoidG9wIn19fV0sWzIsMywiIiwxLHsic3R5bGUiOnsiaGVhZCI6eyJuYW1lIjoiZXBpIn19fV1d&macro_url=https%3A%2F%2Fraw.githubusercontent.com%2FdFoiler%2Fnotes%2Fmaster%2Fnir.tex
+	\[\begin{tikzcd}[cramped]
+		{G_\ell(M)} & {G_\ell(N)} \\
+		{G_{\mathrm{mot}}(M)_{\QQ_\ell}} & {G_{\mathrm{mot}}(N)_{\QQ_\ell}}
+		\arrow[two heads, from=1-1, to=1-2]
+		\arrow[hook, from=1-1, to=2-1]
+		\arrow[hook, from=1-2, to=2-2]
+		\arrow[two heads, from=2-1, to=2-2]
+	\end{tikzcd}\]
+	where the right-hand arrow is in fact an isomorphism by \Cref{ex:artin-motivic-tate}. We conclude that the induced map $G_\ell(M)\to\pi_0G_{\mathrm{mot}}(M)$ is surjective, so the claim follows.
+\end{proof}
+\begin{proposition} \label{prop:mtc-motivic-tate}
+	Fi an abelian variety $A$ over a number field $K$. Then \Cref{conj:motivic-tate} for $A$ is equivalent to the Mumford--Tate conjecture for $A$.
+\end{proposition}
+\begin{proof}
+	This is part of \cite[Theorem]{farfan-commelin-mtc-astc}. \Cref{rem:motivic-tate-map} induces a morphism
+	% https://q.uiver.app/#q=WzAsMTAsWzAsMCwiMSJdLFsxLDAsIkdfXFxlbGwoQSleXFxjaXJjIl0sWzIsMCwiR19cXGVsbChBKSJdLFszLDAsIlxccGlfMEdfXFxlbGwoQSkiXSxbNCwwLCIxIl0sWzAsMSwiMSJdLFsxLDEsIkdfe1xcbWF0aHJte21vdH19KEEpXlxcY2lyYyJdLFsyLDEsIkdfe1xcbWF0aHJte21vdH19KEEpIl0sWzMsMSwiXFxwaV8wR197XFxtYXRocm17bW90fX0oQSkiXSxbNCwxLCIxIl0sWzAsMV0sWzEsMl0sWzIsM10sWzMsNF0sWzUsNl0sWzYsN10sWzcsOF0sWzgsOV0sWzEsNl0sWzIsNywiIiwxLHsic3R5bGUiOnsidGFpbCI6eyJuYW1lIjoiaG9vayIsInNpZGUiOiJ0b3AifX19XSxbMyw4XV0=&macro_url=https%3A%2F%2Fraw.githubusercontent.com%2FdFoiler%2Fnotes%2Fmaster%2Fnir.tex
+	\[\begin{tikzcd}[cramped]
+		1 & {G_\ell(A)^\circ} & {G_\ell(A)} & {\pi_0G_\ell(A)} & 1 \\
+		1 & {G_{\mathrm{mot}}(A)^\circ_{\QQ_\ell}} & {G_{\mathrm{mot}}(A)_{\QQ_\ell}} & {\pi_0G_{\mathrm{mot}}(A)_{\QQ_\ell}} & 1
+		\arrow[from=1-1, to=1-2]
+		\arrow[from=1-2, to=1-3]
+		\arrow[from=1-2, to=2-2]
+		\arrow[from=1-3, to=1-4]
+		\arrow[hook, from=1-3, to=2-3]
+		\arrow[from=1-4, to=1-5]
+		\arrow[from=1-4, to=2-4]
+		\arrow[from=2-1, to=2-2]
+		\arrow[from=2-2, to=2-3]
+		\arrow[from=2-3, to=2-4]
+		\arrow[from=2-4, to=2-5]
+	\end{tikzcd}\]
+	of short exact sequences. Quickly, we note that the left map is injective because the middle map is injective, and the right map is surjective by \Cref{lem:motivic-tate-component}. Additionally, we note that the canonical map $\op{MT}(A)\to G_{\mathrm{mot}}(A)^\circ$ is an isomorphism by \Cref{prop:id-comp-of-g-mot}.
+
+	Before continuing, we note that the Mumford--Tate conjecture (in the form \Cref{conj:mt}) is equivalent to the induced map $G_\ell(A)^\circ\to\mathrm{MT}(A)_{\QQ_\ell}$ being an isomorphism. Indeed, perhaps one can be worried that the map constructed in \Cref{conj:mt} is not this map, but it is: the embedding $\op{MT}(A)\to\op{GL}\left(\mathrm H^1_{\mathrm B}(A)\right)$ simply asks how $\op{MT}(A)$ should act on the vector space $\mathrm H^1_{\mathrm B}(A)$ and thus factors through $G_{\mathrm{mot}}(A)$ by \Cref{rem:g-mot-av-in-gl,rem:g-mot-conn-is-mt-conj}. Similarly, the embedding $G_\ell(A)\to\op{GL}\left(\mathrm H^1_{\mathrm{\acute et}}(A_{\ov K},\QQ_\ell)\right)$ again factors through $G_{\mathrm{mot}}(A)$ via the discussion of \Cref{rem:motivic-tate-map}.
+
+	We now show both directions of the proposition independently.
+	\begin{itemize}
+		\item Given the Mumford--Tate conjecture, the snake lemma now implies that the left and right maps being surjective implies that the middle map is surjective, thereby proving \Cref{conj:motivic-tate}.
+		\item Given \Cref{conj:motivic-tate}, we see that the left map is an isomorphism because taking identity components is functorial.
+		\qedhere
+	\end{itemize}
+\end{proof}
 
 \end{document}
