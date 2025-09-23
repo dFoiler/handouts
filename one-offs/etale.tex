@@ -1,0 +1,845 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+
+\newcommand{\nirpdftitle}{Etale Cohomology}
+\usepackage{import}
+\inputfrom{../../notes}{nir}
+\usepackage[backend=biber,
+    style=alphabetic,
+    sorting=ynt
+]{biblatex}
+\setcounter{tocdepth}{2}
+
+\pagestyle{contentpage}
+
+\setlength{\headheight}{13.19003pt}
+% (fancyhdr)	You might also make \topmargin smaller to compensate:
+\addtolength{\topmargin}{-1.19003pt}
+
+\title{\'Etale Cohomology}
+\author{Nir Elber}
+\date{25 September 2025}
+\usepackage{graphicx}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+	We review some basic theory of \'etale cohomology, building up to the cohomology of curves. We then define a Weil cohomology theory and state that \'etale cohomology is an example.
+\end{abstract}
+
+\tableofcontents
+
+\section{Basics of \'Etale Cohomology}
+In this section, we review some basic properties of \'etale cohomology, mostly to convince the audience that they are not too hard. For the most part, we follow \cite{deligne-sga-4.5}.
+
+\subsection{Sheaf Theory}
+We are going to need to establish a little more sheaf theory.
+\begin{definition}[\'etale site]
+    Fix a scheme $X$. Then the \textit{(small) \'etale site} $X_{\mathrm{\acute et}}$ is given by the category of \'etale morphisms $Y\to X$, where the coverings are given by collections $\{U_i\to U\}_i$ of \'etale morphisms (over $X$) such that the union $\bigsqcup_iU_i\to U$ is surjective.
+\end{definition}
+\begin{definition}[\'etale sheaf]
+    Fix a scheme $X$. Then an \textit{\'etale sheaf} is a presheaf $\mc F$ on $X_{\mathrm{\acute et}}$ satisfying the following sheaf condition: for any \'etale covering $\{U_i\to U\}_i$, we have that $\mc F(U)$ is the equalizer of the diagram
+    % https://q.uiver.app/#q=WzAsMixbMCwwLCJcXGRpc3BsYXlzdHlsZVxccHJvZF9pXFxtYyBGKFVfaSkiXSxbMSwwLCJcXGRpc3BsYXlzdHlsZVxccHJvZF97aSxqfVxcbWMgRihVX2lcXHRpbWVzX1VVX2opIl0sWzAsMSwiXFxvcHtwcn1faiIsMl0sWzAsMSwiXFxvcHtwcn1faSIsMCx7Im9mZnNldCI6LTN9XV0=&macro_url=https%3A%2F%2Fraw.githubusercontent.com%2FdFoiler%2Fnotes%2Fmaster%2Fnir.tex
+    \[\begin{tikzcd}[cramped]
+        {\displaystyle\prod_i\mc F(U_i)} & {\displaystyle\prod_{i,j}\mc F(U_i\times_UU_j).}
+        \arrow["{\op{pr}_j}"', shift right=1, from=1-1, to=1-2]
+        \arrow["{\op{pr}_i}", shift left=1, from=1-1, to=1-2]
+    \end{tikzcd}\]
+\end{definition}
+\begin{remark}
+    All our sheaves will be sheaves of abelian groups.
+\end{remark}
+\begin{example}[constant]
+    Fix an abelian group $A$. Then we may define the constant sheaf $\underline A_X$ on $X$ by sending any \'etale open subset $p\colon U\to X$ to
+    \[\Gamma(U,\underline A_X)\coloneqq\op{Mor}_{\mathrm{Top}}(U,A),\]
+    where $A$ has been given the discrete topology. We can see that this is a sheaf because $\Gamma(U,\underline A_X)$ factors through $\pi_0(U)$, which then allows us to check the sheaf condition by hand.
+\end{example}
+\begin{example}[kernels] \label{ex:sheaf-kernel}
+    For any morphism $\varphi\colon\mc F'\to\mc F$ of \'etale sheaves on $X$, we may define the kernel presheaf by sending an \'etale open subset $U$ of $X$ to
+    \[\ker\varphi(U)\coloneqq\ker(\mc F'(U)\to\mc F(U)).\]
+    An argument with the Snake lemma shows that $\ker\varphi$ succeeds at being an \'etale sheaf.
+\end{example}
+\begin{example} \label{ex:sheaf-on-pt}
+	Suppose $X$ is the point $\Spec k$ for a field $k$; set $G_k\coloneqq\op{Gal}(k^{\mathrm{sep}}/k)$ for brevity. Then there is a functor $\mathrm{Sh}(X_{\mathrm{\acute et}})\to\mathrm{Mod}(G_k)$ given by $\mc F\mapsto\mc F(k^{\mathrm{sep}})$, where we are using the fact that the covering $\Spec k^{\mathrm{sep}}\to\Spec k$ is \'etale. In fact, this functor is an equivalence: its inverse functor takes a continuous $G_k$-module $S$ to the \'etale presheaf $\mc F$ which sends some \'etale covering $\Spec L\to\Spec k$ (and note we may as well assume that $L/k$ is separable) to
+	\[\mc F(\Spec L)\coloneqq S^{\op{Gal}(L/k)}.\]
+	It is not hard to check that this is actually a sheaf and that the functors we have defined are inverse equivalences.
+\end{example}
+In general, we have two general techniques to build sheaves: sheafification and descent. Let's begin with sheafification.
+\begin{definition}[sheafification]
+    Fix a scheme $X$. For any \'etale presheaf $\mc F$ on $X$, we define the presheaf $\mc F^+$ on $X$ on some \'etale open subset $U$ of $X$ by
+    \[\mc F^+(U)\coloneqq\colim_{\text{cover }\{U_i\to U\}}\Bigg\{(s_i)_i\in\prod_i\mc F(U_i):s_i|_{U_i\times_UU_j}=s_j|_{U_i\times_UU_j}\text{ for all }i,j\Bigg\}.\]
+    We call $(-)^{++}$ the \textit{sheafification}.
+\end{definition}
+\begin{remark}
+    One can view the large collection of tuples $(s_i)_i$ as $\check H^0(U,\mc F)$. Thus, if $\mc F$ is a sheaf, then we see that the canonical map $\mc F\to\mc F^+$ is a natural isomorphism.
+\end{remark}
+\begin{remark}
+    If $\mc F$ is a presheaf, it turns out that $\mc F^+$ is a separated presheaf, meaning that the canonical map
+    \[\mc F(U)\to\prod_i\mc F(U_i)\]
+    is monic for any covering $\{U_i\to U\}$. Further, if $\mc F$ is a separated presheaf, then $\mc F^+$ is a sheaf. This explains why $(-)^{++}$ is the sheafification.
+\end{remark}
+The largest source of our sheaves will come from ``faithfully flat descent.'' In hopes of not being bogged down in commutative algebra, we content ourselves with only the application we need.
+\begin{theorem}[faithfully flat descent] \label{thm:ff}
+    Fix a scheme $X$. Define the functor $(-)_{\mathrm{\acute et}}\colon\mathrm{QCoh}(X_{\mathrm{Zar}})\to\mathrm{PSh}(X_{\mathrm{\acute et}})$ given by sending a quasicoherent sheaf $\mc F$ on $X_{\mathrm{\acute et}}$ to the \'etale presheaf $\mc F_{\mathrm{\acute et}}$ defined by sending the \'etale open subset $p\colon U\to X$ to
+    \[\Gamma(U,\mc F_{\mathrm{\acute et}})\coloneqq p^*\mc F(U).\]
+    Then $(-)_{\mathrm{\acute et}}$ is fully faithful and has image in $\mathrm{Sh}(X_{\mathrm{\acute et}})$.
+\end{theorem}
+\begin{remark}
+    In fact, the essential image is given by ``quasicoherent'' \'etale sheaves.
+\end{remark}
+\begin{example}
+    If $Y\to X$ is a commtative group scheme over $X$, then $Y$ defines a quasicoherent Zariski sheaf over $X$ and hence an \'etale sheaf over $X$. For example, taking $Y=\mathbb G_{m,X}$ defines the \'etale sheaf
+    \[\Gamma(U,\underline{\mathbb G_m})=\Gamma(U,\OO_U^\times).\]
+    There is a similar \'etale sheaf $\underline{\mu_n}$ for any positive integer $n\ge1$ given by the scheme $X\times_\ZZ\ZZ[T]/\left(T^n-1\right)$; on $U$, it outputs the $n$th roots of unity in $\OO_U^\times$.
+\end{example}
+\begin{remark}[Kummer] \label{rem:kummer}
+    Fix a scheme $X$ and a positive integer $n$ for which $m\in\Gamma(X,\OO_X^\times)$. Then we claim that the sequence
+    \[1\to\underline{\mu_n}\to\underline{\mathbb G_m}\stackrel n\to\underline{\mathbb G_m}\to1\]
+    is exact. Exactness on the left can be commuted on the level of presheaves by \Cref{ex:sheaf-kernel}. Lastly, for surjectivity on the right, we note that a section $u\in\OO_U^\times(U)$ for some \'etale affine open subset $U\to X$ admits a lift in $\underline{\mathbb G_m}$ at the \'etale open subset $U'\coloneqq\Spec\OO_U[T]/\left(T^n-u\right)$. In particular, $U'\to X$ continues to be \'etale over $X$ because the polynomial $T^n-u$ is separable!
+\end{remark}
+As with Zariski sheaves, we will get quite some utility out of the ability to take fibers.
+\begin{definition}[\'etale fiber]
+    Fix some \'etale presheaf $\mc F$ on a scheme $X$. Given a geometric point $\ov x\into X$, an \textit{\'etale open neighborhood} is an \'etale open subset $U\to X$ such that $\ov x$ factors through $U$. We then define the fiber
+    \[\mc F_{\ov x}\coloneqq\colim_{\substack{\text{\'etale }U\to X\\\ov x\in U}}\Gamma(U,\mc F).\]
+\end{definition}
+\begin{remark}
+    We claim that some \'etale sheaf $\mc F$ on $X$ vanishes if and only if all its stalks vanish. Indeed, the stalks vanishing implies that $\Gamma(\mc F,U)=0$ for any sufficiently small \'etale open neighborhood of $X$, which implies $\mc F^+=0$ and hence $\mc F=0$ because $\mc F$ is a sheaf.
+\end{remark}
+\begin{proposition}
+    Fix a scheme $X$. A sequence
+    \[0\to\mc F'\to\mc F\to\mc F''\to0\]
+    of \'etale sheaves on $X$ is exact if and only if the fibers
+    \[0\to\mc F'_{\ov x}\to\mc F_{\ov x}\to\mc F''_{\ov x}\to0\]
+    is exact for every geometric point $\ov x\into X$.
+\end{proposition}
+\begin{proof}
+    For the forward direction, exactness on the left follows because taking global sections is left-exact by \Cref{ex:sheaf-kernel} (and the fact that directed colimits commute with limits). Lastly, the fact that $\mc F_{\ov x}\to\mc F''_{\ov x}$ is surjective can be checked by using the fact that $\mc F\to\mc F''$ is epic on the skyscraper sheaf at $\ov x$.
+
+    For the reverse direction, it is enough to note that taking kernels and cokerenls commute with taking fibers, which follows in the case of cokernels because taking sheafification commutes with taking fibers, by the construction of the sheafification.
+\end{proof}
+
+\subsection{Cohomology: Starting Calculations}
+It turns out that $\mathrm{Sh}(X_{\mathrm{\acute et}})$ has enough injectives. In the sequel, we want access to two derived functors.
+\begin{definition}[\'etale cohomology]
+    Fix a scheme $X$. Then the functor $\Gamma(X,-)$ is left-exact by \Cref{ex:sheaf-kernel}, so we may define the \'etale cohomology functors
+    \[\mathrm H^\bullet(X_{\mathrm{\acute et}};-)\colon\mathrm{Sh}(X_{\mathrm{\acute et}})\to\mathrm{Ab}\]
+    as the right-derived functors $\mathrm R^\bullet\Gamma(X,-)$.
+\end{definition}
+\begin{definition}[pushforward]
+    Fix a morphism $f\colon X\to Y$ of schemes. Then we define the \textit{pushforward} $f_*\colon\mathrm{PSh}(X_{\mathrm{\acute et}})\to\mathrm{PSh}(Y_{\mathrm{\acute et}})$ by
+    \[f_*\mc F(-)\coloneqq\mc F(X\times_Y-).\]
+\end{definition}
+\begin{remark}
+    If $\mc F$ is an \'etale sheaf, then the sheaf condition on $X$ directly implies the sheaf condition for $f_*\mc F$ on $Y$. Furthermore, by checking on sections, we see that $f_*$ is exact on presheaves and hence left-exact on sheaves by \Cref{ex:sheaf-kernel}.
+\end{remark}
+\begin{remark}
+	As with Zariski sheaves, one can show that $f_*$ admits an exact left adjoint
+	\[f^*\mc G(U)\coloneqq\left(\colim_{U\into(X\times_YV)}\mc F(V)\right)^{++}.\]
+	As usual, the exactness of $f^*$ is seen on stalks.
+\end{remark}
+\begin{example}[skyscraper]
+    If $i\colon\{x\}\into X$ is the inclusion of a point, then we can take sheaves $\mc F$ on $\{x\}$ to the ``skyscraper'' sheaves $i_*\mc F$ on $X$. One can use these skyscraper sheaves to show that $X_{\mathrm{\acute et}}$ has enough injectives in the same way as for Zariski sheaves.
+\end{example}
+\begin{definition}[higher pushforward]
+    Fix a morphism $f\colon X\to Y$ of schemes. Then we define the \textit{higher pushforwards} as the right-derived functors
+    \[\mathrm R^\bullet f_*\colon\mathrm{Sh}(X_{\mathrm{\acute et}})\to\mathrm{Sh}(Y_{\mathrm{\acute et}}).\]
+\end{definition}
+\begin{remark} \label{rem:higher-push-by-sheafification}
+    Exactly as for Zariski sheaves, one can show that $\mathrm R^if_*\mc F$ is the sheafification of
+    \[U\mapsto\mathrm H^i(X\times_YU,\mc F).\]
+    For example, this follows by a consideration of $\delta$-functors because $\mathrm R^\bullet f_*$ is a universal $\delta$-functor \cite[Proposition~8.1]{hartshorne}.
+\end{remark}
+To show that we can actually compute these groups sometimes, let's give some easier calculations.
+\begin{example}[Galois cohomology] \label{ex:cohom-on-pt}
+	Suppose that $X$ is a point $\Spec k$, and set $G_k\coloneqq\op{Gal}(k^{\mathrm{sep}}/k)$ for brevity. Then \Cref{ex:sheaf-on-pt} provides an equivalence of categories
+	\[\mathrm{Sh}(X_{\mathrm{\acute et}})\cong\mathrm{Mod}(G_k),\]
+	and one can see that taking global sections on the left corresponds to taking Galois invariants on the right. Thus, \'etale cohomology corresponds to Galois cohomology. For example, $\mathrm H^1((\Spec k)_{\mathrm{\acute et}},\underline{\mathbb G_m})=0$ by Hilbert's theorem 90.
+\end{example}
+\begin{example} \label{ex:h0}
+    If $X$ is a smooth proper irreducible variety over an algebraically closed field $k$, then we can compute the global sections as $\OO_X(X)=k$, so
+    \[\mathrm H^0(X_{\mathrm{\acute et}},\underline{\mathbb G_m})=k^\times.\]
+\end{example}
+\begin{lemma} \label{lem:h1-as-torsor}
+	Fix a scheme $X$. Then
+	\[\mathrm H^1(X_{\mathrm{\acute et}},\underline{\mathbb G_m})=\op{Pic}(X).\]
+\end{lemma}
+\begin{proof}
+	The idea is that an invertible sheaf is a $\mathbb G_m$-torsor, and one expects $\mathrm H^1(X_{\mathrm{\acute et}},\underline{G})$ to classify $G$-torsors over $X$ up to isomorphism. Let's make this expectation more explicit.
+
+	One can show that $\mathrm H^1(X_{\mathrm{\acute et}},\underline{\mathbb G_m})$ can be computed via \v{C}ech cohomology, which means that $\mathrm H^1(X_{\mathrm{\acute et}},\underline{\mathbb G_m})$ is the colimit of the groups
+	\[\check{\mathrm H}^1(\{U_i\to X\}_i,\underline{\mathbb G_m})=\frac{\displaystyle\ker\Bigg(\prod_{ij}\OO_{U_{ij}}(U_{ij})^\times\to\prod_{i,j,k}\OO_{U_{ijk}}(U_{ijk})^\times\Bigg)}{\displaystyle\im\Bigg(\prod_i\OO_{U_i}(U_i)^\times\to\prod_{i,j}\OO_{U_{ij}}(U_{ij})^\times\Bigg)},\]
+	where the colimitis being taken over \'etale coverings $\{U_i\to X\}_i$. (Here, $U_{ij}=U_i\times_XU_j$ and $U_{ijk}=U_i\times_X U_j\times_XU_k$.) Now, given an invertible \'etale sheaf $\mc L$, we can produce an element of the above colimit by fixing some \'etale covering $\{U_i\to X\}_i$ trivializing $\mc L$ with given trivializations $\varphi_i\colon\mc L|_{U_i}\to\OO_{U_i}$. Then the scalars $\{c_{ij}\}_{i,j}$ defined by composing the isomorphisms
+	\[\OO_{U_{ij}}=\OO_{U_i}|_{U_j}\cong\mc L|_{U_i}|_{U_j}=\mc L|_{U_j}|_{U_i}\cong\OO_{U_j}|_{U_i}=\OO_{U_{ij}}\]
+	produce an element in the numerator of $\check{\mathrm H}^1(\{U_i\to X\}_i,\underline{\mathbb G_m})$. It turns out that the denominator is exactly given by the trivial \'etale invertible sheaves, so we conclude that the colimit $\mathrm H^1(X_{\mathrm{\acute et}},\underline{\mathbb G_m})$ classifies invertible \'etale sheaves up to isomorphism.
+
+	It now remains to check that the group of invertible \'etale sheaves up to isomorphism is isomorphic to the group of invertible Zariski sheaves up to isomorphism. For this, it is enough to show that there is an equivalence of full subcategories from invertible Zariski sheaves to invertible \'etale sheaves, for which we use the functor of \Cref{thm:ff}. This functor is already fully faithful, and it sends invertible Zariski sheaves to invertible \'etale sheaves.
+	
+	Lastly, to see that it is essentially surjective, we must use some descent. Note that any invertible \'etale sheaf is quasicoherent and this already of the form $\mc L^{\mathrm{\acute et}}$ for some quasicoherent Zariski sheaf $\mc L$. To check that $\mc L$ is Zariski-locally trivial, it is enough to take any \'etale open covering $\{p_i\colon U_i\to X\}_i$ and note that $\mc L|_{U_i}$ being trivial implies that $\mc L|_{p(U_i)}$ is trivial because being trivial can be checked after faithfully flat base change!
+\end{proof}
+
+\subsection{Cohomology: Curves}
+Our present goal is to show the following.
+\begin{theorem} \label{thm:curve-cohomology}
+    Fix a smooth projective irreduible curve $X$ over an algebraically closed field $k$. Then
+    \[\mathrm H^i(X_{\mathrm{\acute et}},\underline{\mathbb G_m})=\begin{cases}
+        k^\times & \text{if }i=0, \\
+        \op{Pic}X & \text{if }i=1, \\
+        0 & \text{if }i\ge2.
+    \end{cases}\]
+\end{theorem}
+Let's explain why we should care.
+\begin{corollary} \label{cor:curve-finite-cohomology}
+    Fix a smooth projective irreducible curve $X$ over an algebraically closed field $k$. Then for any positive integer $n$ which is nonzero in $k$,
+    \[\mathrm H^i(X_{\mathrm{\acute et}},\underline{\mu_n})=\begin{cases}
+        \mu_n & \text{if }i=0, \\
+        \op{Pic}^0(X)[n] & \text{if }i=1, \\
+        \ZZ/n\ZZ & \text{if }i=2, \\
+        0 & \text{if }i\ge3.
+    \end{cases}\]
+\end{corollary}
+\begin{proof}
+    In degree $0$, this follows because the $n$th roots of unity in $k^\times$ is everything in $\mu_n$. For the remaining calculations, we apply \Cref{thm:curve-cohomology} to the Kummer exact sequence
+    \[1\to\underline{\mu_n}\to\underline{\mathbb G_m}\stackrel n\to\underline{\mathbb G_m}\to1\]
+    of \Cref{rem:kummer}. Indeed, because the map $n\colon k^\times\to k^\times$ is surjective, the long exact sequence shows that $\mathrm H^i(X_{\mathrm{\acute et}},\mu_n)=0$ for $i\ge3$, and in lower degrees, the seequence
+    \[0\to\mathrm H^1(X_{\mathrm{\acute et}},\mu_n)\to\op{Pic}(X)\stackrel n\to\op{Pic}(X)\to\mathrm H^2(X_{\mathrm{\acute et}},\mu_n)\to0\]
+    is exact. We now compute $\mathrm H^1(X_{\mathrm{\acute et}},\mu_n)$ and $\mathrm H^2(X_{\mathrm{\acute et}},\mu_n)$ separately.%, using as an important input that $\op{Pic}^0(X)$ is the Jacobian of $X$, which is an abelian variety of dimension $2g$ where $g$ is the genus of $X$.
+    \begin{itemize}
+        \item In degree $1$, we see that any element in the kernel $n\colon\op{Pic}(X)\to\op{Pic}(X)$ must be in degree $0$, so $\mathrm H^1(X_{\mathrm{\acute et}},\mu_n)$ is also the kernel of $n\colon\op{Pic}^0(X)\to\op{Pic}^0(X)$. Of course, this is just $\op{Pic}^0(X)[n]$, as desired.
+        \item In degree $2$, we note that there is an isomorphism $\op{Pic}^0(X)\oplus\ZZ\to\op{Pic}(X)$ by sending $1\in\ZZ$ to any divisor in $\op{Pic}X$ of degree $1$. Now, we can compute the cokernel of $n\colon\op{Pic}(X)\to\op{Pic}(X)$ on each of $\op{Pic}^0(X)$ and $\ZZ$ separately. Well, because $\op{Pic}^0(X)$ is the Jacobian of $X$ and hence an abelian variety and hence a divisible group (over the algebraically closed field $k$), we see that the cokernel on $\op{Pic}^0(X)$ vanishes. Lastly, the cokernel of $n\colon\ZZ\to\ZZ$ produces the desired $\ZZ/n\ZZ$.
+        \qedhere
+    \end{itemize}
+\end{proof}
+\begin{remark}
+    If $X(\CC)$ is a smooth projective irreducible curve over $\CC$ of genus $g$, then Betti cohomology tells us to expect
+    \[\mathrm H^0(X,\ZZ/n\ZZ)=\begin{cases}
+        \ZZ/n\ZZ & \text{if }i=0, \\
+        (\ZZ/n\ZZ)^{2g} & \text{if }i=1, \\
+        \ZZ/n\ZZ & \text{if }i=2, \\
+        0 & \text{if }i\ge3.
+    \end{cases}\]
+    Thus, \Cref{cor:curve-finite-cohomology} explains that we are getting the correct Betti numbers on finite coefficients! (Namely, $\op{Pic}^0(X)[n]\cong(\ZZ/n\ZZ)^{2g}$ because $\op{Pic}^0(X)$ is an abelian variety of dimension $2g$.)
+\end{remark}
+We now embark on the proof of \Cref{thm:curve-cohomology}. By \Cref{ex:h0} and \Cref{lem:h1-as-torsor}, it remains to show vanishing in high degrees. To this end, we will require the following rather annoying algebraic input.
+\begin{lemma} \label{lem:upgrade-cohomological-trivial}
+	Fix a profinite group $G$ and a discrete $G$-module $M$. Suppose that $\mathrm H^i(H,M)=0$ for $i\in\{1,2\}$ for all closed subgroups $H\subseteq G$. Then $\mathrm H^i(G,M)=0$ for all $i>0$.
+\end{lemma}
+\begin{proof}
+	By realizing profinite group cohomology as a colimit, it is enough to handle the case where $G$ is finite. We show this in cases.
+	\begin{enumerate}
+		\item If $G$ is cyclic, this holds because $\mathrm H^i(G,-)$ is $2$-periodic for $i\ge1$.
+
+		\item Suppose $G$ is solvable. In this case, we induct on $\left|G\right|$, where the previous step handles the base case. Now, for the inductive step, we are granted a normal subgroup $H\subseteq G$ for which $G/H$ is cyclic. We would like to show that $\mathrm H^i(G,M)=0$ for all $i\ge1$, so fix an injective resolution $M\to I^\bullet$ of $M$, and we would like to show that this is injective after taking $G$-invariants. We will take $H$-invariants first and then take $(G/H)$-invariants afterwards.
+		
+		Note $\op{Res}^G_H$ has an exact left adjoint $\op{Ind}^G_H$, so $\op{Res}^G_H$ sends injectives to injectives, so $M\to I^\bullet$ is in fact an injective resolution for $M$ viewed as an $H$-module. Thus,
+		\[M^H\to\left(I^H\right)^\bullet\]
+		continues to be an exact resolution for $M^H$ because $\mathrm H^i(H,M)=0$ for all $i\ge1$ by the inductive hypothesis. In fact, the modules $I^H$ continue to be injective because $(-)^H=\op{Hom}_{\ZZ[H]}(\ZZ,-)$ has an exact left adjoint given by $-\otimes_{\ZZ[G]}\ZZ$, so the above is an injective resolution of $G$-modules! Accordingly, we can take its $G$-invariants to compute cohomology, so we find that
+		\[\mathrm H^i(G,M)=\mathrm H^i\left(G/H,M^H\right)\]
+		for all $i$. Accordingly, $\mathrm H^i\left(G/H,M^H\right)=0$ for $i\in\{1,2\}$, and the same works for any subgroup of $G/H$, so we conclude by the inductive hypothesis.
+
+		\item Lastly, we work in the general case. Let $G_p$ be a Sylow $p$-subgroup for each prime $p$, and we note that the solvable case above shows that $\mathrm H^i(G_p,M)=0$ for all primes $p$ and $i\ge1$. Thus, for each $i\ge1$, the composite
+		\[\mathrm H^i(G,M)\stackrel{\op{Res}}\to\mathrm H^i(G_p,M)\stackrel{\op{CoRes}}\to\mathrm H^i(G,M)\]
+		vanishes; but this composite is multiplication by $[G:G_p]$, so multiplying by $[G:G_p]$ kills $\mathrm H^i(G,M)$. Taking the greatest common divisor of all $[G:G_p]$ as $p$ varies verifies that $\mathrm H^i(G,M)=0$.
+		\qedhere
+	\end{enumerate}
+\end{proof}
+\begin{proposition}[Tsen] \label{prop:tsen}
+	Fix an algebraically closed field $k$, and let $K$ be an extension of trasncendence degree $1$. Then, for each $i\ge2$, we have
+	\[\mathrm H^i((\Spec K)_{\mathrm{\acute et}},\underline{\mathbb G_{m}})=0\]
+\end{proposition}
+\begin{proof}
+	%By considerations of cohomological dimension, it suffices to handle $i=2$.\footnote{In short, vanishing at $i=2$ (and Hilbert's theorem 90) approximately shows that $\mathrm H^2$ of $\mu_p$ vanishes for all primes $p$. This shows that the cohomological dimension is bounded by $2$, so we get vanishing in higher dimesions.}
+	%The hard part is to handle $i=2$, which we do now. 
+	By \Cref{lem:upgrade-cohomological-trivial} and Hilbert's theorem 90 (as in \Cref{ex:cohom-on-pt}) shows that we only have to handle $i=2$. Quickly, let's explain how to reduce this to an algebra problem. By \Cref{ex:cohom-on-pt}, we see that cohomology on the point $\Spec K$ corresponds to Galois cohomology of $G_K\coloneqq\op{Gal}(K^{\mathrm{sep}}/K)$, so we are interested in showing that the Galois cohomology group $\mathrm H^2(G_K,\ov K^\times)$ vanishes. Luckily, this group is understood to classify central simple algebras over $K$ up to equivalence, where two central simple algebras $A$ and $B$ are equivalent if and only if there are integers $m$ and $n$ for which $M_m(A)\cong M_n(B)$.
+
+	Thus, it remains to classify central simple algebras over $K$. This is done in two steps.
+	\begin{enumerate}
+		\item We show that $K$ is ``$C_1$,'' meaning that any homogeneous polynomial $f\in K[x_1,\ldots,x_n]$ of degree $d<n$ admits a nonzero solution. For this, we will use Riemann--Roch; let $X$ be the smooth proper curve over $k$ with function field $K$, and let $g$ be the genus of $X$. Fix a basepoint $x_0\in X$ and a positive integer $r$ to be made large later. Then evaluation of $f$ defines a map
+		\[f\colon\Gamma(X,\OO_X(rx_0))\to\Gamma(X,\OO_X(drx_0)).\]
+		We are on the hunt for a root of $f$, which may as well come from $\Gamma(X,\OO_X(rx_0))$. For $r$ large enough, we see that
+		\[\begin{cases}
+			\dim\Gamma(X,\OO_X(rx_0))=r-g+1, \\
+			\dim\Gamma(X,\OO_X(drx_0))=rd-g+1,
+		\end{cases}\]
+		in which case the induced map
+		\[f\colon\AA_k^{n(r-g+1)}\to\AA_k^{rd-g+1}.\]
+		Now, the fiber over $0$ (which is nonempty because it contains $0$) has dimension at least $(rd-g+1)-n(r-g+1)$ (indeed, this can be seen on the level of transcendence degrees of residue fields), which is positive and hence nonzero for $r$ large enough.
+
+		\item Given that $K$ is $C_1$, we now complete the proof. By the theory of central simple algebras (in particular, by Wedderburn's theorem), it is enough to show that any division algebra $D$ over $K$ is in fact isomorphic to $k$. Now, it is known that $D\otimes_K\ov K$ is isomorphic to $M_r(\ov K)$ for some positive integer $r$, so one may define a ``reduced norm'' $\op N\colon D\to K$ given by
+		\[\op N(a)\coloneqq{\det}_{\ov K}(a\otimes1).\]
+		It turns out that $\op N$ does not depend on the choice of isomorphism $D\otimes_K\ov K\cong M_r(\ov K)$, which one can show (for example) by the Skolem--Noether theorem.
+
+		In fact, once we give $D$ as basis over $K$ (which notably requires $r^2$ elements), we find that $\op N$ is a homogeneous polynomial of degree $r$ by its definition. However, it has no nonzero roots: any $a\in D^\times$ has $\op N(a)\ne0$ because $\op N(a)\op N(1/a)=1$. Thus, we must have $\dim_KD\le\deg\op N$, so $r^2\le r$, so $r=1$.
+		\qedhere
+	\end{enumerate}
+\end{proof}
+% \begin{corollary} \label{cor:higher-tsen}
+% 	Fix an algebraically closed field $k$, and let $K$ be an extension of trasncendence degree $1$. Then, for each $i\ge2$, we have
+% 	\[\mathrm H^i((\Spec K)_{\mathrm{\acute et}},\underline{\mathbb G_{m}})=0\]
+% 	for all $i\ge2$.
+% \end{corollary}
+% \begin{proof}
+% 	\todo{}
+% \end{proof}
+We are now ready to prove \Cref{thm:curve-cohomology}
+\begin{proof}[Proof of \Cref{thm:curve-cohomology}]
+	By \Cref{thm:curve-cohomology}. By \Cref{ex:h0} and \Cref{lem:h1-as-torsor}, it remains to show vanishing in high degrees, it remains to show that $\mathrm H^i(X_{\mathrm{\acute et}},\underline{\mathbb G_m})=0$ for $i\ge2$. Let $j\colon\eta\into X$ be the generic point of $X$. The idea is to consider the short exact sequence
+	\[0\to\underline{\mathbb G_m}\to j_*\underline{\mathbb G_m}\stackrel{\op{div}}\to\bigoplus_{\text{closed }i_x\colon x\into X}(i_x)_*\underline\ZZ\to0\]
+	of \'etale sheaves on $X$. Let's quickly explain where the maps come from and why this sequence is exact.
+	\begin{itemize}
+		\item The map $\underline{\mathbb G_m}\to j_*\underline{\mathbb G_m}$ is induced on sections: given some \'etale open subset $U\into X$, we see that $U$ must be one-dimensional, and we are mapping $\OO_U(U)^\times$ into $K(U)^\times$. This description allows us to see that this map is injective, so our sequence is exact at $\underline{\mathbb G_m}$.
+		\item The map $\op{div}$ is also induced on sections: given some \'etale open subset $U\into X$, we send $f\in K(U)^\times$ to its valuations at each given closed point of $U$. This description again allows us to see that this map is surjective: given any finite set of closed points $S\subseteq U$, we need to exhibit some $f\in K(U)^\times$ with prescribed valuations at each point in $S$. By shrinking $U$, we may assume that $U$ is not proper and hence affine, and we may further assume that the primes in $S$ are principal (because Dedekind domains localize to factorial domains). Then such a function $f$ can be found by considering the fraction field $K(U)$.
+		\item Lastly, we should check that our sequence is exact in the middle. We may once again do this on sections: on any \'etale open subset $U\into X$, this amounts to the statement that any $f\in K(U)^\times$ with no poles or zeroes must come from $\OO_U(U)^\times$. This follows from the algebraic version of Hartog's lemma.
+	\end{itemize}
+	The long exact sequence will now be complete the proof as soon as we show that $\mathrm H^i(X_{\mathrm{\acute et}},j_*\underline{\mathbb G_m})=0$ and $\mathrm H^i(X_{\mathrm{\acute et}},(i_x)_*\underline\ZZ)=0$ for $i\ge1$.
+	\begin{itemize}
+		\item We show that $\mathrm H^i(X_{\mathrm{\acute et}},(i_x)_*\underline\ZZ)=0$ for $i\ge1$. In fact, we will show that
+		\[\mathrm H^i(X_{\mathrm{\acute et}},(i_x)_*\underline\ZZ)\stackrel?=\mathrm H^i(\{x\},\underline\ZZ)\]
+		for any $i$, from which the claim follows from \Cref{ex:cohom-on-pt} because $x=\Spec k$, and $k$ is algebraically closed.
+
+		To show the claim, we compute on injective resolutions: give $\underline\ZZ\in\mathrm{Sh}(\{x\}_{\mathrm{\acute et}})$ an injective resolution $\underline\ZZ\to\mc I^\bullet$. Because $i_x$ is a closed embedding, we see that
+		\[(i_x)_*\underline\ZZ\to(i_x)_*\mc I^\bullet\]
+		is also a resolution; namely, exactness can be checked on stalks. However, $(i_x)_*$ as an exact left adjoint $(i_x)^*$, so it sends injectives to injectives, so this is actually an injective resolution. Thus, we may use the resolution $(i_x)_*\mc I^\bullet$ to compute cohomology, but its global sections are just given by the global sections of $\mc I^\bullet$, and the result follows.
+
+		\item We show that $\mathrm H^i(X_{\mathrm{\acute et}},j_*\underline{\mathbb G_m})=0$ for $i\ge1$. Once again, we will actually show that
+		\[\mathrm H^i(X_{\mathrm{\acute et}},j_*\underline{\mathbb G_m})\stackrel?=\mathrm H^i(\{\eta\},\underline{\mathbb G_m})\]
+		for all $i$, from which the result will follow from \Cref{prop:tsen}.
+
+		We once again show this on the level of injective resolutions: choose an injective resolution $\mc I^\bullet$ of $\underline{\mathbb G_m}\in\mathrm{Sh}(\{\eta\}_{\mathrm{\acute et}})$. Then $j_*$ still sends injectives to injectives because it has an exact left adjoint, so the argument of the previous point will allow us to conclude as soon as we know that
+		\[0\to j_*\underline{\mathbb G_m}\to j_*\mc I^0\to j_*\mc I^1\to\cdots\]
+		is actually exact. For this, we must check that $\mathrm R^ij_*\underline{\mathbb G_m}=0$ for all $i\ge1$, which we will do on stalks. Because $X$ is a smooth curve, it is enough to only consider the stalks at closed points $x\in X$. But by \Cref{rem:higher-push-by-sheafification}, the stalk at some geometric point $x\in X$ is the sheafification of the presheaf
+		\[U\mapsto\mathrm H^i(U\times_X\eta,\underline{\mathbb G_m}),\]
+		which vanishes by \Cref{prop:tsen} because $U\times_X\eta$ is a disjoint union of fields $K$ of transcendence degree $1$ over $k$.
+		\qedhere
+	\end{itemize}
+\end{proof}
+\begin{remark}
+	The end of the argument can be recast into a particularly simple application of the Leray spectral sequence. In order to avoid technicalities, we have not given this argument. See \cite[Section~III.3]{deligne-sga-4.5}
+\end{remark}
+
+\subsection{Base Change Theorems}
+Having done a little work with \'etale cohomology, we allow ourselves to state some big theorems of \'etale cohomology, without any proofs. In particular, we are morally obligated to record a statement of the Proper base change theorem.
+\begin{theorem}[Proper base change] \label{thm:proper-base-change}
+	Fix a pullback square as follows.
+	% https://q.uiver.app/#q=WzAsNCxbMSwwLCJYIl0sWzEsMSwiUyJdLFswLDEsIlMnIl0sWzAsMCwiWCciXSxbMCwxLCJmIl0sWzIsMSwiZyJdLFszLDAsImcnIl0sWzMsMiwiZiciLDJdXQ==&macro_url=https%3A%2F%2Fraw.githubusercontent.com%2FdFoiler%2Fnotes%2Fmaster%2Fnir.tex
+	\[\begin{tikzcd}[cramped]
+		{X'} & X \\
+		{S'} & S
+		\arrow["{g'}", from=1-1, to=1-2]
+		\arrow["{f'}"', from=1-1, to=2-1]
+		\arrow["f", from=1-2, to=2-2]
+		\arrow["g", from=2-1, to=2-2]
+	\end{tikzcd}\]
+	For any torsion \'etale sheaf $\mc F$ on $X$, the natural map
+	\[g^*\mathrm R^\bullet f_*\mc F\to\mathrm R^\bullet(f')_*((g')^*\mc F)\]
+	is an isomorphism if $f$ is proper.
+\end{theorem}
+\begin{remark}
+	Let's construct the natural map in degree $0$: note $((g')^*,(g')_*)$ forms an adjoint pair, so there is a unit map ${\id}\to(g')_*(g')^*$, which produces a map $f_*\to f_*(g')_*(g')^*$, but $f_*(g')_*=g_*(f')_*$, so we complete the construction of the map upon using the adjunction $((g')^*,(g')_*)$ again.
+\end{remark}
+\begin{example}
+	The key case of the theorem occurs when $S'$ is a single point $s\into S$ so that $X'$ is a fiber $X_s$. In this case, we can see that \Cref{thm:proper-base-change} amounts to saying that
+	\[(\mathrm R^\bullet f_*\mc F)_s=\mathrm H^\bullet(X_s,\mc F),\]
+	which intuitively means that the higher pushforward interpolates cohomology of the fibers.
+\end{example}
+\begin{remark}
+	There is also a base change theorem where $F$ is instead assumed be smooth. Unsurprisingly, this is referred to as the Smooth base change theorem.
+\end{remark}
+We are not going to do anything with base change today, but it is worth noting that it allows us to make sense of cohomology with proper supports.
+\begin{definition}
+	Fix a separated scheme $X$ which is of finite type over a field $k$. Then Nagata's theorem provides a compactificatio $i\colon X\into\ov X$. For any torsion \'etale sheaf $\mc F$ on $X$, we define the \textit{cohomology with proper supports} as
+	\[\mathrm H^\bullet_c(X_{\mathrm{\acute et}},\mc F)\coloneqq\mathrm H^\bullet(\overline X_{\mathrm{\acute et}},i_*\mc F).\]
+\end{definition}
+Indeed, checking that this definition is well-defined requires \Cref{thm:proper-base-change}.
+
+\section{Weil Cohomology Theories}
+It will be worth our time to encode everything we expect to be true for a good cohomology theories, and it then turns out that \'etale cohomology provides an example of such a theory. In essence, we are asking for a formalism of a cohomology theory, which is known as a Weil cohomology theory. Approximately speaking, a Weil cohomology theory is a cohomology theory with the minimum amount of data to prove the Lefschetz trace formula without too much pain. Our exposition here follows \cite[Tag~\texttt{0FFG}]{stacks}. Throughout, we freely use facts about intersection theory and Chow groups because the author is too ignorant to provide a suitable review of these notions; everything we need can be found in \cite{fulton-intersection-theory}.
+
+\subsection{The Data}
+Throughout, we fix a base field $K$ and a coefficient field $F$. We require $\op{char}F=0$, but we do not require $K$ to be algebraically closed. These hypotheses will not be repeated!
+\begin{notation}
+	Let $\mc P(K)$ denote the category of smooth projective varieties over $K$, with morphisms given by regular maps.
+\end{notation}
+Here is the data we will be working with.
+\begin{defihelper}[Weil cohomology datum] \nirindex{Weil cohomology!Weil cohomology datum}
+	A \textit{Weil cohomology datum} consists of the following data.
+	\begin{itemize}
+		\item A one-dimensional $F$-vector space $F(1)$.
+		\item A contravariant functor $\mathrm H^\bullet$ from $\mc P(K)$ to the category of $\ZZ$-graded commutative $F$-algebras. We will write the product as a cup $\cup$.
+		\item For $X\in\mc P(K)$ of equidimension $d$, there is a trace map $\int_X\colon\mathrm H^{2d}(X)(d)\to F$.
+		\item For $X\in\mc P(K)$, there is a cycle class map $\op{cl}_X\colon\mathrm{CH}^i(X)\to\mathrm H^{2i}(X)(i)$, which is required to be a group homomorphism.
+	\end{itemize}
+	Frequently, we will call $\mathrm H^\bullet$ alone the Weil cohomology datum, leaving the other inputs implied.
+\end{defihelper}
+In short, $F(1)$ is the Tate twist, $\mathrm H^\bullet$ are the vector spaces one usually remembers with Weil cohomology theories, $\int_X$ keeps track of Poincar\'e duality, and $\op{cl}_X$ relates cohomology to geometry.
+
+In order to keep us thinking ``cohomologically,'' we use some special notation.
+\begin{notation}
+	Fix a Weil cohomology datum $\mathrm H^\bullet$ over $K$ with coefficients in $F$.
+	\begin{itemize}
+		\item For any $F$-vector space $V$, we write $V(n)\coloneqq V\otimes F(1)^{\otimes n}$. Here, negative exponents denote duals.
+		\item If $f\colon X\to Y$ is a regular map, we let $f^*\colon\mathrm H^\bullet(Y)\to\mathrm H^\bullet(X)$ denote the induced ring homomorphism.
+	\end{itemize}
+\end{notation}
+\begin{remark}
+	In the sequel, we may note that $f*(\alpha\cup\beta)=f^*\alpha\cup f^*\beta$ without comment: indeed, this follows because $f^*$ is a ring homomorphism! Similarly, we may use the fact that $(g\circ f)^*=f^*\circ g^*$, which follows because the functor $\mathrm H^\bullet$ is contravariant.
+\end{remark}
+Let's explain what makes our Weil cohomology datum for \'etale cohomology.
+\begin{definition}[$\ell$-adic cohomology]
+	Fix a smooth projective variety $X$ over a field $k$. Then we define the \textit{$\ell$-adic cohomology} as
+	\[\lim\mathrm H^i((X_{\ov k})_{\mathrm{\acute et}},\underline{\ZZ/\ell^\bullet\ZZ})\otimes_\ZZ\QQ.\]
+	In the sequel, we will abbreviate this group to $\mathrm H^i_\ell(X)$.
+\end{definition}
+\begin{remark}
+	Note $\mathrm H^i_\ell(X)$ is a Galois representation: any $\sigma\in\op{Gal}(k^{\mathrm{sep}}/k)$ induces a pullback $\sigma^*\colon X_{k^{\mathrm{sep}}}\to X_{\ov k^{\mathrm{sep}}}$ and thus a morphism on cohomology.
+\end{remark}
+Thus, we see that we are going to take our ground field $F$ to be $\QQ_\ell$.  We should go ahead and explain what $\QQ_\ell(1)$ is.
+\begin{definition}[Tate twist]
+	Fix a scheme $X$. Then we define the \textit{Tate twist} $\underline{\ZZ/n\ZZ}(1)\coloneqq\underline{\mu_n}$ and extend our definition to $\underline{\ZZ/n\ZZ}(d)$ for any $d\in\ZZ$ additively. Then we define
+	\[\ZZ_\ell(d)\coloneqq\lim\ZZ/\ell^\bullet\ZZ(d).\]
+\end{definition}
+\begin{remark}
+	It may look like $\ZZ_\ell(d)$ and $\ZZ_\ell$ are the same, and indeed, they are isomorphic as vector spaces. However, $\ZZ_\ell$ has the trivial Galois action while $\ZZ_\ell(1)$ has a ``twisted'' Galois action!
+\end{remark}
+Next, we construct the cup product $\mathrm H^r_\ell(X)\otimes\mathrm H^s_\ell(X)\to\mathrm H^{r+s}_\ell(X)$. The easiest way to do this is via \v{C}ech cohomology: given some \'etale open cover $\{U_i\to X\}_i$ and sheaves $\mc F$ and $\mc G$, we get a pairing
+\[\prod_{i_0,\ldots,i_r}\mc F(U_{i_0\cdots i_r})\otimes\prod_{j_0,\ldots,j_s}\mc G(U_{j_0\cdots j_s})\to\prod_{i_0,\ldots,i_{r+s}}(\mc F\otimes\mc G)(U_{i_0\cdots i_{r+s}})\]
+by sending $f\otimes g$ to $(f\cup g)_{i_0\cdots i_{r+s}}\coloneqq f_{i_0\cdots i_r}\otimes g_{i_{r}\cdots i_{r+s}}$. One can check that this descends to cohomology and produces a $\QQ_\ell$-algebra structure on $H_\ell(X)$.
+
+It remains to construct the trace map and cycle class maps. These are significantly more technically involved, so we will largely skip them. Indeed, it is not infrequent that constructing the trace map and estabilishing its basic properties is about equally hard as proving Poincar\'e duality (which we will talk more about later). However, we mention that one can use Poincar\'e duality to construct the cycle class map as follows: given an irreducible subvariety $Z\subseteq X$ where $X$ has equidimension $d$ and $Z$ has equidimension $r$, we can compose the restriction
+\[\mathrm H^{2d-2r}_\ell(X)(d-r)\to\mathrm H^{2d-2r}(Z)(d-r)\]
+with the trace $\int_Z$ to produce a functional on $\mathrm H^{2d-2r}_\ell(X)(d-r)$. Poincar\'e duality will tell us that such functionals amount to the data of an element in $\mathrm H^{2r}(X)(r)$, which turns out to be our cycle class map!
+\begin{remark}
+	Here is another way to construct the cycle class map is to use Chern classes, which amounts to the data of a map
+	\[\op{Pic}(X)\to\mathrm H^2(X)(1).\]
+\end{remark}
+Now, a Weil cohomology datum is going to be required to satisfy many axioms. Before going further, let's summarize them.
+\begin{itemize}
+	\item We need a K\"unneth formula to ensure that products of varieties go to products in graded algebras.
+	\item We need Poincar\'e duality, for example to define pushfowards. This adds some coherence to the cycle class maps.
+	\item To add some geometric input to the picture, we need some coherence of our cycle class maps.
+	\item Lastly, we will need another axiom to ensure that, for example, $\mathrm H$ is only supported in nonnegative indices.
+\end{itemize}
+
+\subsection{The K\"unneth Formula}
+Let's begin with the K\"unneth formula.
+\begin{defihelper}[K\"unneth formula] \nirindex{Weil cohomology!K\"unneth formula}
+	Fix a Weil cohomology datum $\mathrm H^\bullet$ over $K$ with coefficients in $F$. Then $\mathrm H^\bullet$ satisfies the \textit{K\"unneth formula} if and only if it satisfies the following for all $X,Y\in\mc P(K)$.
+	\begin{listalph}
+		\item K\"unneth formula: the map
+		\[\arraycolsep=1.2pt\begin{array}{rclcc}
+			\mathrm H^\bullet(X) &\otimes& \mathrm H^\bullet(Y) &\to& \mathrm H^\bullet(X\times Y) \\
+			\alpha &\otimes& \beta &\mapsto& \op{pr}_1^*\alpha\cup\op{pr}_2^*\beta
+		\end{array}\]
+		is an isomorphism of graded $F$-algebras. We may write $\alpha\boxtimes\beta\coloneqq\op{pr}_1^*\alpha\cup\op{pr}_2^*\beta$.
+		\item Fubini's theorem: if $X$ and $Y$ have equidimension $d$ and $e$, respectively, then
+		\[\int_{X\times Y}(\alpha\boxtimes\beta)=\int_X\alpha\cdot\int_Y\beta\]
+		for any $\alpha\in\mathrm H^{2d}(X)(d)$ and $\beta\in\mathrm H^{2e}(Y)(e)$.
+	\end{listalph}
+\end{defihelper}
+\begin{remark}
+	It is worth recalling the grading on the tensor product of two graded vector spaces: if $V$ and $W$ are $\ZZ$-graded vector spaces, then $(V\otimes W)$ has a grading given by
+	\[(V\otimes W)_n=\bigoplus_{i+j=n}V_i\otimes W_j.\]
+	In particular, we see that satisfying the K\"unneth formula implies that there is a canonical isomorphism
+	\[\bigoplus_{i+j=n}\mathrm H^i(X)\otimes\mathrm H^j(Y)\to\mathrm H^n(X\times Y).\]
+\end{remark}
+It is worth noting that the K\"unneth formula has good functoriality properties.
+\begin{lemma} \label{lem:weil-product-morphism}
+	Fix a Weil cohomology datum $\mathrm H^\bullet$ over $K$ with coefficients in $F$ satisfying the K\"unneth formula. Given morphisms $f\colon X\to X'$ and $g\colon Y\to Y'$ in $\mc P(K)$, we have
+	\[(f\times g)^*=f^*\otimes g^*.\]
+\end{lemma}
+\begin{proof}
+	Note that these are both automatically ring maps $\mathrm H^\bullet(X'\times Y')\to\mathrm H^\bullet(X\times Y)$. By the K\"unneth formula, it is enough to check this on elements of the form $\alpha\boxtimes\beta=\op{pr}_1^*\alpha\cup\op{pr}_2^*\beta$, where $\alpha\in\mathrm H^\bullet(X)$ and $\beta\in\mathrm H^\bullet(Y)$. Well, we note
+	\[(f\times g)^*\op{pr}_1^*\alpha=f^*\alpha,\]
+	and similarly $(f\times g)^*\op{pr}_2^*\beta=g^*\beta$. Combining completes the proof.
+\end{proof}
+
+\subsection{Poincar\'e Duality}
+We now move on to Poincar\'e duality.
+\begin{defihelper}[Poincar\'e duality] \nirindex{Weil cohomology!Poincar\'e duality}
+	Fix a Weil cohomology datum $\mathrm H^\bullet$ over $K$ with coefficients in $F$. Then $\mathrm H^\bullet$ satisfies \textit{Poincar\'e duality} if and only if it satisfies the following for all $X\in\mc P(K)$ of equidimension $d$.
+	\begin{listalph}
+		\item Finite type: we have $\dim_F\mathrm H^i(X)<\infty$ for all $i\in\ZZ$.
+		\item Poincar\'e duality: for each index $i$, the composite
+		\[\mathrm H^i(X)\times\mathrm H^{2d-i}(X)(d)\stackrel\cup\to\mathrm H^{2d}(X)(d)\stackrel{\int_X}\to F\]
+		is a perfect pairing of vector spaces over $F$.
+	\end{listalph}
+\end{defihelper}
+\begin{remark}
+	Notably, our definition allows cohomology to be supported in negative degrees! We will remedy this later in \Cref{lem:cohomology-correct-degs} when we have a full definition of a Weil cohomology theory.
+\end{remark}
+An important feature of Poincar\'e duality is that it lets us define the pushforward.
+\begin{notation}
+	Fix a Weil cohomology datum $\mathrm H^\bullet$ over $K$ with coefficients in $F$ satisfying Poincar\'e duality. If $f\colon X\to Y$ is a regular map of smooth projective varieties of equidimensions $d$ and $e$ respectively, we define the index-$i$ pushforward
+	\[f_*\colon\mathrm H^{2d-i}(X)(d)\to\mathrm H^{2e-i}(Y)(e)\]
+	as the transpose of the pullback $f^*$ under Poincar\'e duality.
+\end{notation}
+\begin{remark} \label{rem:better-pushforward}
+	Explicitly, given $\alpha\in\mathrm H^{2d-i}(X)(d)$, then $f_*\alpha\in\mathrm H^{2e-i}(X)(e)$ is defined as the unique element such that
+	\[\int_X(f^*\beta\cup\alpha)=\int_Y(\beta\cup f_*\alpha)\]
+	for all $\beta\in\mathrm H^{i}(Y)$. For example, if $\alpha\in\mathrm H^{2d}(X)(d)$, we may choose $\beta=1$ to see that $\int_X\alpha=\int_Yf_*\alpha$.
+\end{remark}
+\begin{remark}
+	The pushforward construction is functorial: given maps $f\colon X\to Y$ and $g\colon Y\to Z$, we check that $(g\circ f)_*=g_*\circ f_*$. Well, we already know that $(g\circ f)^*=f^*\circ g^*$ by functoriality of $\mathrm H^\bullet$, so this follows by taking the transpose along Poincar\'e duality.
+\end{remark}
+\begin{remark} \label{rem:push-equidimension}
+	If $\dim X=\dim Y$, then $f_*$ preserves the grading. Further, we can undo the twisting to see that $f_*$ becomes a graded linear map $f_*\colon\mathrm H^\bullet(X)\to\mathrm H^\bullet(Y)$.
+\end{remark}
+We know that $f^*(\alpha\cup\beta)=f^*\alpha\cup f^*\beta$. We would like a similar way to compute $f_*$ on products. This is not quite possible, but one can do something.
+\begin{lemma}[Projection formula] \label{lem:weil-projection-formula}
+	Fix a Weil cohomology datum $\mathrm H^\bullet$ over $K$ with coefficients in $F$ satisfying Poincar\'e duality. If $f\colon X\to Y$ is a regular map of smooth projective varieties of equidimensions $d$ and $e$ respectively, then
+	\[f_*(f^*\beta\cup\alpha)=\beta\cup f_*\alpha\]
+	for each $\alpha\in\mathrm H^{2d-i}(X)(d)$ and $\beta\in\mathrm H^{j}(Y)$.
+\end{lemma}
+\begin{proof}
+	We unravel the definition, following \Cref{rem:better-pushforward}. Indeed, for any $\beta'\in\mathrm H^{i-j}(X)$ has
+	\[\int_Xf^*\beta'\cup(f^*\beta\cup\alpha)=\int_Y\beta'\cup(\beta\cup f_*\alpha)\]
+	by definition of $f_*\alpha$.
+\end{proof}
+\begin{remark} \label{lem:chow-projection-formula}
+	This projection formula is expected on the level of cycles: for $\alpha\in\op{CH}(X)$ and $\beta\in\op{CH}(Y)$, one has $f_*(f^*\beta\cdot\alpha)=\beta\cdot f_*\alpha$ for any proper map $f\colon X\to Y$.
+\end{remark}
+\begin{lemma} \label{lem:weil-pushforward-projection}
+	Fix a Weil cohomology datum $\mathrm H^\bullet$ over $K$ with coefficients in $F$ satisfying the K\"unneth formula and Poincar\'e duality. Given $X,Y\in\mc P(K)$ which are equidimensional of dimensions $d$ and $e$ respectively, then
+	\[\op{pr}_{2*}(\alpha\boxtimes\beta)=\left(\int_X\alpha\right)\beta\]
+	for any $\alpha\in\mathrm H^{2d}(X)(d)$ and $\beta\in\mathrm H^\bullet(Y)(e)$.
+\end{lemma}
+\begin{proof}
+	It is enough to consider the case where $\beta$ is homogeneous, so say $\beta\in\mathrm H^{2d-j}(Y)(e)$. Then we must check that
+	\[\int_{X\times Y}\op{pr}_2^*\beta'\cup(\alpha\boxtimes\beta)\stackrel?=\int_Y\beta'\cup\left(\int_X\alpha\right)\beta\]
+	for any $\beta'\in\mathrm H^j(Y)$. Well, $\beta'\cup(\alpha\boxtimes\beta)=\alpha\boxtimes(\beta'\beta)$, so this follows from the K\"unneth formula.
+\end{proof}
+% \begin{lemma}
+% 	Fix a Weil cohomology datum $\mathrm H^\bullet$ over $K$ with coefficients in $F$ satisfying Poincar\'e duality and the K\"unneth formula. Given $\alpha\in\mathrm H^{2d}(X)(d)$ and $\beta\in\mathrm H^{2e}(Y)(e)$, we have
+% 	\[\op{pr}_{2*}(\alpha\boxtimes\beta)=\left(\int_X\alpha\right)\beta.\]
+% \end{lemma}
+% \begin{proof}
+%
+% \end{proof}
+
+\subsection{Cycle Coherence}
+Our last collection of coherence assumptions on $\mathrm H^\bullet$ is for the cycle class maps.
+\begin{defihelper}[cycle coherence] \nirindex{Weil cohomology!cycle coherence}
+	Fix a Weil cohomology datum $\mathrm H^\bullet$ over $K$ with coefficients in $F$ satisfying Poincar\'e duality. Then $\mathrm H^\bullet$ satisfies \textit{cycle coherence} if and only if it satisfies the following.
+	\begin{listalph}
+		\item Pullbacks: if $f\colon X\to Y$ is a regular map of smooth projective varieties, then $\op{cl}_X(f^!\beta)=f^*\op{cl}_X(\beta)$ for any $\beta\in\op{CH}^\bullet(Y)$.
+		\item Pushforwards: if $f\colon X\to Y$ is a regular map of smooth equidimensional projective varieties, then $\op{cl}_Y(f_*\alpha)=f_*\op{cl}_X(\alpha)$ for any $\alpha\in\op{CH}^\bullet(X)$.
+		\item Cup products: given $\alpha,\alpha'\in\op{CH}^\bullet(X)$, we have $\op{cl}_X(\alpha\cdot\alpha')=\op{cl}_X(\alpha)\cup\op{cl}_X(\alpha')$.
+		\item Non-degeneracy: we have $\int_{\Spec K}\op{cl}_{\Spec K}([\Spec K])=1$.
+	\end{listalph}
+\end{defihelper}
+We now have enough axioms to start proving some results, so let's give a name for our current stopping point.
+\begin{defihelper}[pre-Weil cohomology theory] \nirindex{Weil cohomology!pre-Weil cohomology theory}
+	Fix a Weil cohomology datum $\mathrm H^\bullet$ over $K$ with coefficients in $F$ satisfying Poincar\'e duality. Then $\mathrm H^\bullet$ is a \textit{pre-Weil cohomology theory} if and only if $\mathrm H^\bullet$ satisfies the K\"unneth formula, Poincar\'e duality, and cycle coherence.
+\end{defihelper}
+As we start to move into proving things, it is worth keeping track of the following idea.
+\begin{idea}
+	To prove something about all Weil cohomology theories, one proves something ``motivic'' (i.e., ``geometric'') and then does linear algebra.
+\end{idea}
+We will point out the various places we use motivic input; typically, one can see it as where we apply anything about cycle class maps. As an example, let's compute the cohomology of the point.
+\begin{example} \label{ex:weil-cohom-pt}
+	Fix a pre-Weil cohomology theory $\mathrm H^\bullet$ over $K$ with coefficients in $F$. Then the cohomology ring $\mathrm H^\bullet(\Spec K)$ is supported in degree $0$, and
+	\[\int_{\Spec K}\colon\mathrm H^0(\Spec K)\to F\]
+	is an isomorphism of algebras over $F$.
+\end{example}
+\begin{proof}
+	Our pieces of motivic input will be that $\Spec K\times\Spec K=\Spec K$ and that $[\Spec K]\cdot[\Spec K]=[\Spec K]$ in $\op{CH}^0(\Spec K)$.
+	
+	Note $\Spec K\times\Spec K\cong\Spec K$, so $\dim_F\mathrm H^\bullet(\Spec K\times\Spec K)=\dim_F\mathrm H^\bullet(\Spec K)$. Thus, the K\"unneth formula requires $\dim_F\mathrm H^\bullet(\Spec K)\in\{0,1\}$. However, the non-degeneracy part of cycle coherence forces $\mathrm H^0(\Spec K)\ne0$, so we conclude $\dim_F\mathrm H^\bullet(\Spec K)=1$. Now, Poincar\'e duality tells us that $\dim_F\mathrm H^i(X)=\dim_F\mathrm H^{-i}(X)$ for all $i\in\ZZ$, so $\mathrm H^\bullet$ must be supported in degree $0$.
+
+	It remains to show that $\int_{\Spec K}\colon\mathrm H^0(\Spec K)\to F$ is an isomorphism of algebras. This map is certainly an $F$-linear map of one-dimensional $F$-vector spaces, so it takes the form $a\mapsto a\int_{\Spec K}1$ where $1\in\mathrm H^0(\Spec K)$ is the unit. It thus suffices to check that $\int_{\Spec K}1=1$. Well, cycle coherence requires $\int_{\Spec K}\op{cl}_{\Spec K}([\Spec K])=1$, so we would like to show $\op{cl}_{\Spec K}([\Spec K])=1$. For this, we note that
+	\[[\Spec K]\cdot[\Spec K]=[\Spec K],\]
+	so cycle coherence forces $\op{cl}_{\Spec K}([\Spec K])\in\{0,1\}$, and zero it is not permitted by non-degeneracy.
+\end{proof}
+\begin{corollary} \label{cor:weil-push-space}
+	Fix a pre-Weil cohomology theory $\mathrm H^\bullet$ over $K$ with coefficients in $F$. If $X\in\mc P(K)$, then $\op{cl}_X([X])=1$.
+\end{corollary}
+\begin{proof}
+	Let $p_X\colon X\to\Spec K$ be the structure map. Then we have some motivic input $[Y]=p_Y^*([\Spec K])$, so cycle coherence tells us that
+	\[\op{cl}_Y([Y])=p_Y^*(\op{cl}_{\Spec K}([\Spec K])),\]
+	from which $\op{cl}_Y([Y])=1$ follows by \Cref{ex:weil-cohom-pt}.
+\end{proof}
+We can also check that our cohomology is sufficiently nontrivial.
+\begin{proposition} \label{prop:weil-nontrivial}
+	Fix a pre-Weil cohomology theory $\mathrm H^\bullet$ over $K$ with coefficients in $F$. If $X\in\mc P(K)$ is nonempty, then $\mathrm H^0(X)\ne0$.
+\end{proposition}
+\begin{proof}
+	Throughout, for $Y\in\mc P(K)$, the structure morphism is denoted by $p_Y\colon Y\to\Spec K$. The proof has two steps.
+	\begin{enumerate}
+		\item We show that $\mathrm H^\bullet(X)\ne0$ if $X$ is nonempty and irreducible. It suffices to show that $\mathrm H^\bullet$ has some nonzero functional, for which we use points. Because $X$ is smooth, it has a closed point $x\in X$ with residue field $\kappa(x)$ finite and separable over $K$; let $i\colon\{x\}\to X$ denote the inclusion. Then $(p_X\circ i)\colon\{x\}\to\Spec K$ is given by the inclusion $K\into\kappa(x)$, from which we can compute
+		\[(p_X)_*i_*[x]=[\kappa(x):K]\cdot[\Spec K].\]
+		(At the level of intersection theory, one can see this by passing to the algebraic closure, whereupon $x$ splits into $[\kappa(x):K]$ distinct geometric points.) This provides our geometric input. Then cycle class coherence and \Cref{cor:weil-push-space} show that
+		\[(p_X)_*(\op{cl}_X(i_*[x]))=[\kappa(x):K].\]
+		Because $F$ has characteristic $0$, we see that the right-hand is nonzero, so $\op{cl}_X(i_*[x])\ne0$, so $\mathrm H^\bullet(X)\ne0$.
+		\item We reduce to the irreducible case. Suppose $X$ is nonempty, and let $X'\subseteq X$ be an irreducible component. We would like to show that $1\ne0$ in $\mathrm H^\bullet(X)$. Well, there is a ring map $\mathrm H^\bullet(X)\to\mathrm H^\bullet(X')$ given by the inclusion, so it is actually enough to check that $1\ne0$ in $\mathrm H^\bullet(X')$. This has been done in the previous step.
+		\qedhere
+	\end{enumerate}
+\end{proof}
+\begin{example}
+	Fix a pre-Weil cohomology theory $\mathrm H^\bullet$ over $K$ with coefficients in $F$. Then $\mathrm H^\bullet(\emp)=0$.
+\end{example}
+\begin{proof}
+	For any $X\in\mc P(K)$, our geometric input is that $\emp\times X=\emp$, from which the K\"unneth formula requires
+	\[\dim_F\mathrm H^\bullet(\emp)\cdot\dim_F\mathrm H^\bullet(X)=\dim_F\mathrm H^\bullet(\emp).\]
+	Now, we choose $X$ to be nonempty of dimension at least $1$ (for example, $X=\PP^1_K$), then \Cref{prop:weil-nontrivial} shows $\mathrm H^0(X)\ne0$, from which Poincar\'e duality yields $\dim_F\mathrm H^\bullet(X)\ge2$. Plugging this in to the above equality gives $\mathrm H^0(X)$ $\dim_F\mathrm H^\bullet(\emp)=0$, from which the result follows.
+\end{proof}
+In the sequel, we will also want more general control over unions.
+\begin{proposition} \label{prop:weil-union}
+	Fix a pre-Weil cohomology theory $\mathrm H^\bullet$ over $K$ with coefficients in $F$. Given $X,Y\in\mc P(K)$, let $i_1\colon X\to X\sqcup Y$ and $i_2\colon Y\to X\sqcup Y$ denote the canonical inclusions. Then the map
+	\[\arraycolsep=1.2pt\begin{array}{ccrclc}
+		\mathrm H^\bullet(X\sqcup Y) &\to& \mathrm H^\bullet(X) &\times& \mathrm H^\bullet(Y) \\
+		\gamma &\mapsto& (i_1^*\gamma &,& i_2^*\gamma)
+	\end{array}\]
+	is an isomorphism.
+\end{proposition}
+\begin{proof}
+	If $X=\emp$ or $Y=\emp$, then the other inclusion is an isomorphism, and there is nothing to do. Let the given map be denoted $i$. Ultimately, the difficulty in this proof arises from the fact that there is no canonical inverse map, so we will have to apply various tricks to put ourselves in situations where we have approximations.
+	
+	Quickly, we note that $i$ is a product of algebra maps and hence an algebra map, so the main content comes from checking that this is a bijection. We will check injectivity and surjectivity, both in steps. Let's start with injectivity.
+	\begin{enumerate}
+		\item We show that $i$ is injective if $X$ and $Y$ are equidimensional with $\dim X=\dim Y$. This hypothesis will be used to allow us to think of pushforwards along $i_1$ and $i_2$ at the level of the full graded vector spaces, as in \Cref{rem:push-equidimension}. In particular, we will show that
+		\[\gamma\stackrel?=i_{1*}i_1^*\gamma+i_{2*}i_2^*\gamma\]
+		for any $\gamma\in\mathrm H^\bullet(X\sqcup Y)$; injectivity follows because this shows that $(\alpha,\beta)\sqcup i_{1*}\alpha+i_{2*}\beta$ is a one-sided inverse for $i$.
+
+		By the projection formula (\Cref{lem:weil-projection-formula}), it is enough to check that
+		\[1\stackrel?=i_{1*}1+i_{2*}1,\]
+		from which one can apply $\gamma\cup-$. Well, by \Cref{cor:weil-push-space}, this is equivalent to asking for
+		\[\op{cl}_{X\sqcup Y}([X\sqcup Y])=i_{1*}\op{cl}_X([X])+i_{2*}\op{cl}_Y([Y]),\]
+		We now see that this has motivic input given by the equation $[X\sqcup Y]=[X]+[Y]$, from which the result follows after using cycle coherence.
+
+		\item We show that $i$ is injective in the general case. This will require a geometric trick. Given $X$ and a positive integer $d>\dim X$, we will construct $X'$ of dimension $d$ for which there is an embedding $j_X\colon X\to X'$ and a projection $q_X\colon X'\to X$ such that $q_X\circ j_X=\id_X$. If we choose $d$ to exceed $\max\{\dim X,\dim Y\}$ and apply the same construction to $Y$, then we can conclude as follows. The diagrams
+		% https://q.uiver.app/#q=WzAsOCxbMywwLCJcXG1hdGhybSBIXlxcYnVsbGV0KFhcXHNxY3VwIFkpIl0sWzQsMCwiXFxtYXRocm0gSF5cXGJ1bGxldChYKVxcdGltZXNcXG1hdGhybSBIXlxcYnVsbGV0KFkpIl0sWzMsMSwiXFxtYXRocm0gSF5cXGJ1bGxldChYJ1xcc3FjdXAgWScpIl0sWzQsMSwiXFxtYXRocm0gSF5cXGJ1bGxldChYJylcXHRpbWVzXFxtYXRocm0gSF5cXGJ1bGxldChZJykiXSxbMCwwLCJYXFxzcWN1cCBZIl0sWzAsMSwiWCdcXHNxY3VwIFknIl0sWzEsMCwiWCxZIl0sWzEsMSwiWCcsWSciXSxbMCwxXSxbMiwzXSxbMCwyLCIocV9YXFxzcWN1cCBxX1kpXioiLDJdLFsxLDMsInFfWV4qIiwwLHsib2Zmc2V0IjotMn1dLFsxLDMsInFfWF4qIiwyLHsib2Zmc2V0IjoyfV0sWzUsNCwicV9YXFxzcWN1cCBxX1kiXSxbNiw0XSxbNyw1XSxbNyw2LCJxX1giLDAseyJvZmZzZXQiOi0yfV0sWzcsNiwicV9ZIiwyLHsib2Zmc2V0IjoyfV1d&macro_url=https%3A%2F%2Fraw.githubusercontent.com%2FdFoiler%2Fnotes%2Fmaster%2Fnir.tex
+		\[\begin{tikzcd}[cramped]
+			{X\sqcup Y} & {X,Y} && {\mathrm H^\bullet(X\sqcup Y)} & {\mathrm H^\bullet(X)\times\mathrm H^\bullet(Y)} \\
+			{X'\sqcup Y'} & {X',Y'} && {\mathrm H^\bullet(X'\sqcup Y')} & {\mathrm H^\bullet(X')\times\mathrm H^\bullet(Y')}
+			\arrow[from=1-2, to=1-1]
+			\arrow[from=1-4, to=1-5]
+			\arrow["{(q_X\sqcup q_Y)^*}"', from=1-4, to=2-4]
+			\arrow["{q_Y^*}", shift left=2, from=1-5, to=2-5]
+			\arrow["{q_X^*}"', shift right=2, from=1-5, to=2-5]
+			\arrow["{q_X\sqcup q_Y}", from=2-1, to=1-1]
+			\arrow["{q_X}", shift left=2, from=2-2, to=1-2]
+			\arrow["{q_Y}"', shift right=2, from=2-2, to=1-2]
+			\arrow[from=2-2, to=2-1]
+			\arrow[from=2-4, to=2-5]
+		\end{tikzcd}\]
+		commute (the right diagram is induced from the left by functoriality), and the bottom row of the right diagram is injective by the previous step. Now, $q_\bullet\circ i_\bullet=\id_\bullet$, so $i_\bullet^*\circ q_\bullet^*=\id_\bullet^*$, meaning that the vertical $q_\bullet^*$s in the right diagram are all injective. Thus, the diagonal morphism of the right diagram is injective, so its top morphism is injective as well.
+
+		It remains to construct $X'$. Decompose $X$ into irreducible components $\{X_1,\ldots,X_n\}$, and we note that the smoothness of $X$ implies that its irreducible components are connected components as well. Thus, $X=X_1\sqcup\cdots\sqcup X_n$, allowing us to define
+		\[X'\coloneqq\left(X_1\times\PP_K^{d-\dim X_1}\right)\sqcup\cdots\sqcup\left(X_n\times\PP_K^{d-\dim X_n}\right).\]
+		Choosing a point of the projective spaces gives an inclusion $X\into X'$, and there is an obvious projection $X'\onto X$ by getting rid of the projective spaces.
+	\end{enumerate}
+	We now turn to the surjectivity. It would be wonderful if the one-sided inverse in the first step also showed surjectivity (even in the case $\dim X=\dim Y$), but this only works once we know that the maps $\mathrm H^\bullet(X\sqcup Y)\to\mathrm H^\bullet(X)$ and $\mathrm H^\bullet(X\sqcup Y)\to\mathrm H^\bullet(Y)$ are surjective. We will have to expend some effort for this.
+	\begin{enumerate}[resume]
+		\item Suppose that there is a morphism $f\colon Y\to X$. Then we show that the map $i_1^*\colon\mathrm H^\bullet(X\sqcup Y)\to\mathrm H^\bullet(X)$ is surjective. Indeed, the inclusion $i_1\colon X\subseteq X\sqcup Y$ admits a section $s\colon X\sqcup Y\to X$ by sending all of $Y$ along $f$. Thus, $s\circ i_1=\id_X$, meaning $i_1^*\circ s^*=\id_X^*$, so $i_1^*$ is surjective.
+
+		\item We show that the map $i_1^*\colon\mathrm H^\bullet(X\sqcup Y)\to\mathrm H^\bullet(X)$ is always surjective. This requires a trick: all objects among $F$-vector spaces are faithfully falt, so we may check surjectivity after applying $-\otimes\mathrm H^\bullet(Z)$ for any $Z$. By the K\"unneth formula, we see that we are reduced to checking if
+		\[i_1^*\colon\mathrm H^\bullet((X\times Z)\sqcup (Y\times Z))\to\mathrm H^\bullet(X\times Z)\]
+		is surjective. In light of the previous step, we are tasked with finding $Z$ such that there is a map $(Y\times Z)\to(X\times Z)$. Well, $X$ is nonempty and smooth, so it has some closed point $x\in X$ with separable residue field $\kappa(x)$; then there is a map $Y_{\kappa(x)}\to X_{\kappa(x)}$ given by mapping all of $Y$ to $x$.
+
+		\item We show that the map $i$ is surjective. We are not going to use an assumption like $\dim X=\dim Y$; instead, we interface directly with $e_X\coloneqq\op{cl}_{[X\sqcup Y]}([X])$ and $e_Y\coloneqq\op{cl}_{[X\sqcup Y]}([Y])$.
+
+		By the previous step, the map $i_1^*\mathrm H^\bullet(X\sqcup Y)\to\mathrm H^\bullet(X)$ is surjective, as is $i_2^*$ by symmetry. Thus, it suffices to show that $i$ surjects onto elements of the form $(i_1^*\gamma,i_2^*\delta)$. Well, we claim that
+		\[\begin{cases}
+			i_1^*(e_X\cup\gamma+e_Y\cup\delta)\stackrel?=i_1^*\gamma, \\
+			i_2^*(e_X\cup\gamma+e_Y\cup\delta)\stackrel?=i_2^*\delta.
+		\end{cases}\]
+		Indeed, because $i_1^*$ and $i_2^*$ are ring homomorphisms, it is enough to note that $i_1^*e_X=e_X$ and $i_1^*e_Y=0$ by cycle coherence for the first equality, and $i_2^*e_X=0$ and $i_2^*e_Y=e_Y$ by cycle coherence for the second equality.
+		\qedhere
+	\end{enumerate}
+\end{proof}
+\begin{remark} \label{rem:weil-union-equidim-inv}
+	If $X$ and $Y$ are equidimensional with $\dim X=\dim Y$, then the first step shows that there is a canonical inverse given by
+	\[(\alpha,\beta)\mapsto i_{1*}\alpha+i_{2*}\beta.\]
+	Importantly, these pushforwards really only make sense in the equidimensional case!
+\end{remark}
+\begin{corollary} \label{cor:weil-tr-union}
+	Fix a pre-Weil cohomology theory $\mathrm H^\bullet$ over $K$ with coefficients in $F$. Suppose $X,Y\in\mc P(K)$ are equidimensional of dimension $d$. For any $\alpha\in\mathrm H^{2d}(X\sqcup Y)(d)$, we have
+	\[\int_{X\sqcup Y}\alpha=\int_Xi_1^*\alpha+\int_Yi_2^*\alpha.\]
+\end{corollary}
+\begin{proof}
+	By \Cref{rem:weil-union-equidim-inv}, we see that $\alpha=i_{1*}i_1^*\alpha+i_{2*}i_2^*\alpha$. Thus, for example, we compute $\int_{X\sqcup Y}i_{1*}i_1^*\alpha$ is
+	\[\int_{X\sqcup Y}(1\cup i_{1*}i_1^*\alpha)=\int_X(1\cup i_1^*\alpha),\]
+	which is $\int_Xi_1^*\alpha$. Adding together a similar computation for $i_2^*\alpha$ completes the argument.
+\end{proof}
+As an application, we can now fairly easily compute the cohomology of multiple points.
+\begin{example} \label{ex:weil-zero}
+	Fix a pre-Weil cohomology theory $\mathrm H^\bullet$ over $K$ with coefficients in $F$. Suppose $X\in\mc P(K)$ is zero-dimensional. Then $\mathrm H^\bullet(X)$ is supported in degree $0$, and $\mathrm H^0(X)$ is a separable algebra over $F$ of dimension equal to the degree of $X\to\Spec K$. Further, $\int_X\colon\mathrm H^0(X)\to F$ is the trace.
+\end{example}
+\begin{proof}
+	For psychological reasons, we quickly reduce to the case where $X$ is a closed point. By decomposing $X$ into irreducible components (which are connected components by smoothness) and using \Cref{prop:weil-union}, it suffices to show the various claims in the case that $X$ is irreducible (indeed, the conclusion is closed under taking disjoint unions). Thus, we may assume that $X$ is irreducible.
+	
+	Because $X$ is zero-dimensional, the structure morphism $X\to\Spec K$ is finite, so $X$ is affine; we write $X=\Spec L$. Because $X$ is smooth and hence \'etale, we see that $L$ must be a finite-dimensional separable algebra over $K$. In fact, $L$ must be a field extension of $K$ because $X$ is irreducible. Let $M$ be a Galois closure of the separable extension $L/K$. Roughly speaking, the idea of the proof is to run all of our checks after extending up to $M$. We proceed in steps.
+	\begin{enumerate}
+		\item We explain how to base-change to $M$. Well, there is an isomorphism
+		\[\arraycolsep=1.2pt\begin{array}{rclccc}
+			L &\otimes& M &\to& \displaystyle\prod_{\sigma\in\op{Hom}_K(L,M)}M \\
+			a &\otimes& b &\mapsto& (\sigma(a)b)_\sigma
+		\end{array}\]
+		because $L/K$ is separable. This translates into the motivic input $X\times\Spec M=\bigsqcup_{\sigma\in\op{Hom}_K(L,M)}\Spec M$, which induces an isomorphism
+		\[\arraycolsep=1.2pt\begin{array}{rclccc}
+			\mathrm H^\bullet(X)&\otimes&\mathrm H^\bullet(\Spec M) &\to& \mathrm H^\bullet(\Spec M)^{\op{Hom}_K(L,M)} \\
+			\alpha&\otimes&\beta &\mapsto& (\sigma^*\alpha\cup\beta)_\sigma
+		\end{array}\]
+		by the K\"unneth formula and \Cref{prop:weil-union}.
+		
+		\item We check that $\mathrm H^\bullet(X)$ is concentrated in degree $0$, and $\mathrm H^0(X)$ is an algebra over $F$ of dimension equal to the degree of the structure morphism $X\to\Spec K$. (Note that this degree is $[L:K]$.) Well, taking dimensions on both sides of the last map in step 1 (and noting $\dim_FH^\bullet(\Spec M)\ge\dim_F\mathrm H^0(\Spec F)>0$ by \Cref{prop:weil-nontrivial}), we find that
+		\[\dim_F\mathrm H^\bullet(X)=\dim_F\mathrm H^0(X)=[L:K].\]
+		The needed claims follow.
+
+		\item We check that $\mathrm H^0(X)$ is separable over $F$. Well, $\mathrm H^0(Y)$ is faithfully flat over $F$ because it is a finite-dimensional separable algebra over $F$ by what we already know. Further, separability can be checked after a faithfully flat extension, so checking the separability of $\mathrm H^0(X)$ over $F$ can be seen by checking the separabiility of
+		\[\mathrm H^0(X)\otimes\mathrm H^0(Y)=\mathrm H^0(Y)^{\op{Hom}_K(L,M)}\]
+		over $\mathrm H^0(Y)$, which is now clear.
+
+		\item We show that $\int_X\colon\mathrm H^0(X)\to F$ is the trace. The main point is to compare the traces on $X\times\Spec M$ and $\bigsqcup_{\sigma\op{Hom}_K(L,M)}\Spec M$. Fix some $\alpha\in\mathrm H^0(X)$, and we would like to compute $\int_X\alpha$. On one hand, \Cref{lem:weil-pushforward-projection} gives $\int_X\alpha=\op{pr}_{2*}(\alpha\boxtimes1)$, but alternatively one can see via our explicit isomorphism that
+		\[\op{pr}_{2*}(\alpha\boxtimes1)=\sum_{\sigma\in\op{Hom}_K(L,M)}\sigma^*\alpha.\]
+		Indeed, for any $\beta\in\mathrm H^\bullet(\Spec M)$, we see $\sum_\sigma\int_{\Spec M}(\beta\cup\sigma^*\alpha)=\int_{X\times\Spec M}\op{pr}_2^*\beta\cup(\alpha\boxtimes1)$, where we have used \Cref{cor:weil-tr-union}. It remains to check that $\alpha\mapsto\sigma^*\alpha$ amounts to the full set of homomorphisms $\mathrm H^0(X)\to\ov F$. Well, upon choosing some map $\iota\colon\mathrm H^0(\Spec M)\to\ov F$, we see that there is an isomorphism
+		\[\arraycolsep=1.2pt\begin{array}{rclccc}
+			\mathrm H^0(X)&\otimes&\ov F &\to& \mathrm \ov F^{\op{Hom}_K(L,M)} \\
+			\alpha&\otimes&\beta &\mapsto& (\tau(\sigma^*\alpha)\cup\beta)_\sigma
+		\end{array}\]
+		which completes the proof because $\mathrm H^0(X)\otimes\overline F$ is supposed to be isomorphic to $\overline F^{\op{Hom}(\mathrm H^0(X),\ov F)}$ via this sort of map.
+		\qedhere
+	\end{enumerate}
+\end{proof}
+\begin{corollary} \label{cor:weil-deg-is-tr}
+	Fix a pre-Weil cohomology theory $\mathrm H^\bullet$ over $K$ with coefficients in $F$. Given $X\in\mc P(K)$ and some zero-dimensional cycle $Z\subseteq X$, we have
+	\[\deg[Z]=\int_X\op{cl}_X([Z]).\]
+\end{corollary}
+\begin{proof}
+	We may adjust $Z$ so that it is smooth divisor. Letting $i\colon Z\to X$ denote the inclusion, we get the motivic input that $[Z]=i_*[Z]$, so $\op{cl}_X([Z])=i_*1$ by \Cref{cor:weil-push-space} and cycle coherence. It follows that
+	\[\int_X\op{cl}_X([Z])=\int_Z1\]
+	by \Cref{rem:better-pushforward}. We now use \Cref{ex:weil-zero} to compute the right-hand side: because $\int_X\colon\mathrm H^0(Z)\to F$ is the trace, its evaluation on $1$ is the dimension $\dim_F\mathrm H^0(Z)$, which we know to be the degree of $Z\to\Spec K$. This completes the proof.
+\end{proof}
+
+\subsection{Fixing \texorpdfstring{$H^0$}{ H0}}
+Now that we've done work with our pre-Weil cohomology theories, let's introduce our last axiom.
+\begin{defihelper}[Weil cohomology theory] \nirindex{Weil cohomology!Weil cohomology theory}
+	Fix a pre-Weil cohomology theory $\mathrm H^\bullet$ over $K$ with coefficients in $F$. Then $\mathrm H^\bullet$ is a \textit{Weil cohomology theory} if and only if the induced map
+	\[\mathrm H^0(\Spec\Gamma(X,\OO_X))\to\mathrm H^0(X)\]
+	is an isomorphism for all $X\in\mc P(K)$.
+\end{defihelper}
+\begin{remark}
+	Let's explain where this map comes from. There is a natural map $X\to\Spec\Gamma(X,\OO_X)$; for example, this exists already on the level of locally ringed spaces, though one could alternatively define it by gluing together maps on affine open subschemes. However, we must check $\Spec\Gamma(X,\OO_X)\in\mc P(K)$: certainly $\Gamma(X,\OO_X)$ is some finite-dimensional $K$-algebra, so the issue is separability. For this, we base-change to $\ov K$, noting
+	\[\Gamma(X,\OO_X)_{\ov K}=\Gamma(X_{\ov K},\OO_{X_{\ov K}})\]
+	because cohomology is stable under base change. The right-hand side is a product of fields because $X_{\ov K}$ is still a proper variety, so it follows that $\Gamma(X,\OO_X)$ is separable and hence smooth over $K$.
+\end{remark}
+It is certainly desirable to have $\mathrm H^0(\Spec\Gamma(X,\OO_X))\to\mathrm H^0(X)$ be an isomorphism. Let's explain some of its applications.
+\begin{lemma} \label{lem:weil-top-cohom-gen-by-pts}
+	Fix a Weil cohomology theory $\mathrm H^\bullet$ over $K$ with coefficients in $F$. For any $X\in\mc P(K)$ of equidimension $d$, the space $\mathrm H^{2d}(X)(d)$ is generated by classes of points as an $\mathrm H^0(X)$-module. %Namely, the map $\op{cl}_X\colon\op{CH}^d(X)\to\mathrm H^{2d}(X)$ is surjective.
+\end{lemma}
+\begin{proof}
+	If $X=\emp$, there is nothing to do, so we assume that $X$ is nonempty. By \Cref{prop:weil-union}, we may assume that $X$ is irreducible. Define $L\coloneqq\Gamma(X,\OO_X)$ for brevity; because $X$ is irreducible, $L$ is a field, and we know that it is finite separable over $K$.
+	
+	Now, for each closed point $x\in X$ (which we assume to have residue field $\kappa(x)$ to be separable over $L$), let $i\colon\{x\}\to X$, and we would like to check that the class $\op{cl}_X([x])\in\mathrm H^{2d}(X)(d)$ generates as a module over $\mathrm H^0(X)=\mathrm H^0(\Spec L)$. Quickly, note that $\op{cl}_X([x])=i_*1$ by \Cref{cor:weil-push-space} and cycle coherence. As such, we want to show that the map $\mathrm H^0(X)\to\mathrm H^{2d}(X)(d)$ given by $\alpha\mapsto(\alpha\cup i_*1)$ is surjective. Now, \Cref{lem:weil-projection-formula} explains $\alpha\cup i_*1=i_*i^*\alpha$, so we might as well show that the map $i_*\colon\mathrm H^0(\{x\})\to\mathrm H^{2d}(X)(d)$ is surjective.
+	
+	Continuing, it is enough to check that the transpose $i^*\colon\mathrm H^0(X)\to\mathrm H^0(\{x\})$ is injective. Now, let $p\colon X\to\Spec L$ be the canonical projection, and then $p^*\colon\mathrm H^0(\Spec L)\to\mathrm H^0(X)$ is an isomorphism! Thus, it is enough to show that $i^*p^*\colon\mathrm H^0(\Spec L)\to\mathrm H^0(\{x\})$ is injective. There are a few ways to conclude, but here is one using \Cref{ex:weil-zero}: it is enough to check injectivity after faithfully flat base change, so we may check injectivity after tensoring with the separable $K$-algebra $\mathrm H^0(\Spec M)$, where $M$ is some Galois closure of $L\kappa(x)/K$. Then both $\mathrm H^0(\Spec L)$ and $\mathrm H^0(\{x\})$ split up into products of $\mathrm H^0(\Spec M)$, from which the injectivity follows.
+\end{proof}
+\begin{remark}
+	It turns out that the conclusion of the lemma also implies that $\mathrm H^0(\Spec\Gamma(X,\OO_X))\to\mathrm H^0(X)$ is an isomorphism, but we will not need this. We refer to \cite[Tag~\texttt{0FI0}]{stacks}.
+\end{remark}
+\begin{lemma} \label{lem:weil-tr-on-finite-map}
+	Fix a Weil cohomology theory $\mathrm H^\bullet$ over $K$ with coefficients in $F$. If $f\colon X\to Y$ is a finite map of equidimensional varieties of dimension $d$ with $Y$ geometrically irreducible, then $f_*f^*=(\deg f)$.
+	% each $\beta\in\mathrm H^{2e}(Y)(e)$ has
+	% \[\int_Xf^*\beta=(\deg f)\int_Y\beta.\]
+\end{lemma}
+\begin{proof}
+	We begin with a couple reductions.
+	\begin{itemize}
+		\item It is enough to check that $f_*f^*=(\deg f)$ on homogeneous elements of $\mathrm H^\bullet(Y)$, and in fact, it is enough to merely check equality of traces on elements in $\mathrm H^{2d-i}(Y)(d)$. Indeed, to check that $f_*f^*\beta=(\deg f)\beta$ for any $\beta\in\mathrm H^{2d-i}(Y)(d)$, \Cref{rem:better-pushforward} explains that it is enough to check
+		\[\int_Xf^*\beta'\cup f^*\beta\stackrel?=\int_Y\beta'\cup(\deg f)\beta\]
+		for all $\beta'\in\mathrm H^i(Y)$. This now follows by applying $\int_Y\circ(f_*f^*)=(\deg f)\int_Y$ to $\beta'\cup\beta\in\mathrm H^{2d}(Y)(d)$; in particular, recall $\int_Y\circ f_*=\int_X$ by \Cref{rem:better-pushforward}.
+
+		\item We show that it is enough to check the equality $\int_X\circ f^*=(\deg f)\int_Y$ on the image of $\op{cl}_X\colon\op{CH}^d(Y)\to\mathrm H^{2d}(Y)(d)$. Because $Y$ is geometrically irreducible, we see that $\Gamma(Y,\OO_Y)=K$ (this can be checked after passing to the algebraic closure), so $\mathrm H^{2d}(Y)(d)$ is isomorphic to $\mathrm H^0(Y)$ (by Poincar\'e duality), which is isomorphic to $\mathrm H^0(\Spec K)$ (because this is a Weil cohomology theory), which is simply $F$ (by \Cref{ex:weil-cohom-pt}). It is thus enough to check the result at a single vector in $\mathrm H^{2d}(Y)(d)$, such as the class of a point (which is nonzero by \Cref{lem:weil-top-cohom-gen-by-pts}).
+	\end{itemize}
+	As such, our ``motivic'' input will come from checking $\int_X\circ f^*=(\deg f)\int_Y$ on classes of points: because $f$ is finite, any $q\in Y$ has
+	\[f^*[q]=\sum_{p\in f^{-1}(\{q\})}m_p\cdot[p],\]
+	where $m_p$ is a multiplicity satisfying $\sum_pm_p[\kappa(p):K]=\deg f$. Then passing this through $\op{cl}_X$ (and using cycle coherence), followed by applying $\int_X$ (and \Cref{cor:weil-deg-is-tr}) completes this check.
+\end{proof}
+\begin{lemma} \label{lem:cohomology-correct-degs}
+	Fix a Weil cohomology theory $\mathrm H^\bullet$ over $K$ with coefficients in $F$. For any $X\in\mc P(K)$ of dimension $d$, the graded algebra $\mathrm H^\bullet(X)$ is supported in degrees $[0,2d]$.
+\end{lemma}
+\begin{proof}
+	By \Cref{prop:weil-union}, it is enough to check this in the case that $X$ is irreducible. Then $X$ has equidimension $d$, so Poincar\'e duality implies that it is enough to show that $\mathrm H^\bullet(X)$ is supported in nonnegative degrees.
+
+	We will show that $\mathrm H^\bullet(X)$ is supported in nonnegative degrees by an awkward contraposition: we will show that any pre-Weil cohomology theory $\mathrm H^\bullet$ admitting some $Y\in\mc P(Y)$ with $\mathrm H^\bullet(Y)$ supported at a negative index must fail to be a Weil cohomology theory. By replacing $Y$ with $Y\times Y$ and using the K\"unneth formula, we may assume that $\mathrm H^{-2n}(Y)\ne0$ for some $n>0$. We now set $X\coloneqq Y\times\PP_K^n$, so the K\"unneth formula gives
+	\[\mathrm H^0(X)=\bigoplus_{i\in\ZZ}\mathrm H^i(Y)\otimes\mathrm H^{-i}(\PP_K^n)\]
+	For example, $\mathrm H^0(X)$ contains the summands $\mathrm H^0(Y)\subseteq\mathrm H^0(X)$ and $\mathrm H^{-2n}(Y)\otimes\mathrm H^{2n}(\PP_K^n)$, so
+	\[\dim_F\mathrm H^0(X)>\dim_F\mathrm H^0(Y).\]
+	(Note $\mathrm H^{2n}(\PP_K^n)$ is nonzero by \Cref{prop:weil-nontrivial} and Poincar\'e duality.) However, $\Gamma(X,\OO_X)=\Gamma(Y,\OO_Y)$: a global section is a map to $\AA^1$, and the only maps $\PP_K^n\to\AA^1$ are constants anyway. Thus, it is impossible to have both $\mathrm H^0(X)\cong\mathrm H^0(\Gamma(X,\OO_X))$ and $\mathrm H^0(Y)\cong\mathrm H^0(\Gamma(Y,\OO_Y))$!
+\end{proof}
+
+\subsection{The Lefschetz Trace Formula}
+We have now cobbled together enough of a theory of Weil cohomology. Let's work towards an application: the Lefschetz trace formula. After everything we've done, this proof is purely formal. Our exposition follows \cite[Section~25]{milne-lec}.
+
+Given a regular map $f\colon X\to X$, the Lefschetz trace formula computes the intersection number $\Gamma_f\cdot\Delta$ in terms of cohomology. Thus, our proof will begin by understanding the graph $\Gamma_f$.
+\begin{lemma} \label{lem:weil-graph-correspondence}
+	Fix a pre-Weil cohomology theory $\mathrm H^\bullet$ over $K$ with coefficients in $F$. For any regular map $f\colon X\to Y$ of equidimensional projective varieties and $\beta\in\mathrm H^\bullet(Y)$, we have
+	\[\op{pr}_{1*}\big(\op{cl}_{X\times Y}([\Gamma_f])\cup\op{pr}_2^*\beta\big)=f^*\beta.\]
+\end{lemma}
+\begin{proof}
+	Our motivic input is that $[\Gamma_f]=({\id_X},f)_*([X])$, by definition. Then cycle coherence and \Cref{cor:weil-push-space} shows $\op{cl}_{X\times Y}([\Gamma_f])=({\id_X},f)_*1$. Thus, the projection formula (\Cref{lem:weil-projection-formula}) implies
+	\[\op{pr}_{1*}(\op{cl}_{X\times Y}([\Gamma_f])\cup\op{pr}_2^*\beta)=\op{pr}_{1*}({\id_X},f)_*({\id_X},f)^*\op{pr}_2^*\beta.\]
+	Functoriality reveals this is $f^*\beta$.
+\end{proof}
+\begin{lemma} \label{lem:weil-graph-decomposition}
+	Fix a pre-Weil cohomology theory $\mathrm H^\bullet$ over $K$ with coefficients in $F$. For equidimensional $X\in\mc P(K)$ with $d\coloneqq\dim X$, let $\{e_{ij}\}_{1\le j\le\beta_i}$ be a basis of $\mathrm H^i(X)$ for each $i$; further, choose a dual basis $\{e_{2d-i,j}^\lor\}_{1\le j\le\beta_i}$ of $\mathrm H^{2d-i}(X)(d)$ so that $\int_X(e_{2d-i,j}^\lor\cup e_{ij'})=1_{j=j'}$ for each $j$ and $j'$. Then any regular map $f\colon X\to X$ admits a decomposition
+	\[\op{cl}_{X\times X}([\Gamma_f])=\sum_{\substack{i\in\ZZ\\1\le j\le\beta_i}}f^*e_{ij}\boxtimes e_{2d-i,j}^\lor.\]
+\end{lemma}
+\begin{proof}
+	Note that the $e_{2d-i,j}^\lor$s exist by Poincar\'e duality. Now, the K\"unneth formula tells us that $\mathrm H^d(X\times X)(d)=\bigoplus_{i\in\ZZ}\mathrm H^i(X)\otimes\mathrm H^{2d-i}(X)(d)$, so $\op{cl}_{X\times X}([\Gamma_f])$ admits some decomposition
+	\[\op{cl}_{X\times X}([\Gamma_f])=\sum_{\substack{i\in\ZZ\\1\le j\le\beta_i}}\alpha_{ij}\boxtimes e_{2d-i,j}^\lor,\]
+	where $\alpha_{ij}\in\mathrm H^i(X)$ is some class. We would like to show $\alpha_{ij}=f^*e_{ij}$. To extract out the needed coefficients, we need to cup with a basis vector and apply the pairing. As such, we compute
+	\[\op{pr}_{1*}\big(\op{cl}_{X\times X}([\Gamma_f])\cup\op{pr}_2^*e_{ij}\big)=\sum_{\substack{i\in\ZZ\\1\le j\le\beta_i}}\op{pr}_{1*}\big(\alpha_{ij}\boxtimes(e_{2d-i,j}^\lor\cup e_{ij})\big),\]
+	which collapses down to $\alpha_{ij}$ by \Cref{lem:weil-pushforward-projection} and construction of the $e_{2d-i,j}^\lor$s. We now complete the proof by recognizing the left-hand side as $f^*e_{ij}$ by \Cref{lem:weil-graph-correspondence}.
+\end{proof}
+\begin{example} \label{ex:weil-diagonal-decomposition}
+	Taking $f=\id_X$ shows that the diagonal $\Delta\subseteq X\times X$ has a decomposition
+	\[\op{cl}_{X\times X}([\Delta])=\sum_{\substack{i\in\ZZ\\1\le j\le\beta_i}}e_{ij}\boxtimes e_{2d-i,j}^\lor.\]
+\end{example}
+\begin{remark}
+	It may appear that \Cref{lem:weil-graph-decomposition} needs some finiteness condition like \Cref{lem:cohomology-correct-degs}, but our proof actually shows that all but finitely many of the $f^*e_{ij}$ are allowed to vanish.
+\end{remark}
+We are now ready for the proof.
+\begin{theorem}[Lefschetz trace formula] \label{thm:weil-lefschetz-tr}
+	Fix a Weil cohomology theory $\mathrm H^\bullet$ over $K$ with coefficients in $F$. For equidimensional $X\in\mc P(K)$ and endomorphism $f\colon X\to X$, we have
+	\[\deg([\Gamma_f]\cdot[\Delta])=\sum_{i=0}^{2d}(-1)^i\tr\left(f^*;\mathrm H^i(X)\right).\]
+\end{theorem}
+\begin{proof}
+	This proof is essentially a direct computation. By \Cref{cor:weil-deg-is-tr}, we see that
+	\[\deg([\Gamma_f]\cdot[\Delta])=\int_{X\times X}\op{cl}_{X\times X}([\Gamma_f])\cup\op{cl}_{X\times X}([\Delta]),\]
+	where we have quietly also used cycle coherence. We now fix a basis $\{e_{ij}\}_{ij}$ of $\mathrm H^\bullet(X)$ and a dual basis $\{e_{2d-i,j}\}_{ij}$ of $\mathrm H^{2d-\bullet}(X)$ as in \Cref{lem:weil-graph-decomposition}. Then \Cref{lem:weil-graph-decomposition} (and a reversed \Cref{ex:weil-diagonal-decomposition}) allows us to compute this as
+	\[\deg([\Gamma_f]\cdot[\Delta])=\sum_{\substack{i,i'\in\ZZ\\1\le j,j'\le \beta_i}}\int_{X\times X}\left(f^*e_{ij}\boxtimes e_{2d-i,j}^\lor\right)\cup\left((-1)^{i'}e_{2d-i',j'}^\lor\boxtimes e_{i'j'}\right).\]
+	By expanding out $\alpha\boxtimes\beta=\op{pr}_1^*\alpha\cup\op{pr}_2^*\beta$ and rearranging, we may rewrite the right-hand side as
+	\[\deg([\Gamma_f]\cdot[\Delta])=\sum_{\substack{i,i'\in\ZZ\\1\le j,j'\le \beta_i}}(-1)^{i+ii'}\int_{X\times X}(f^*e_{ij}\cup e_{2d-i',j'}^\lor)\boxtimes(e_{2d-i,j}^\lor\boxtimes e_{i',j'}),\]
+	which by the K\"unneth formula is
+	\[\deg([\Gamma_f]\cdot[\Delta])=\sum_{\substack{i,i'\in\ZZ\\1\le j,j'\le \beta_i}}(-1)^{i+ii'}\int_X(f^*e_{ij}\cup e_{2d-i',j'}^\lor)\int_X(e_{2d-i,j}^\lor\cup e_{i',j'}).\]
+	Now, the right-hand integral is $1_{i=i'}1_{j=j'}$ by construction of our dual basis, so we are left with
+	\[\deg([\Gamma_f]\cdot[\Delta])=\sum_{\substack{i\in\ZZ\\1\le j\le \beta_i}}\int_X(f^*e_{ij}\cup e_{2d-i,j}^\lor).\]
+	Because technically $\{e_{ij}\}_j$ and $\{(-1)^ie_{2d-i,j}^\lor\}_j$ are the dual bases with $\int_X(e_{ij}\cup(-1)^ie_{2d-i,j'}^\lor)=1_{j=j'}$, we see that the right-hand integral collapses down to $(-1)^i\tr(f^*;\mathrm H^i(X))$. This completes the proof upon using \Cref{lem:cohomology-correct-degs} to restrict the sum to $i\in[0,2d]$.
+\end{proof}
+\begin{remark}
+	Technically, this argument works for pre-Weil cohomology theories, provided we sum over all $i\in\ZZ$ instead of $i\in[0,2d]$.
+\end{remark}
+Let's apply some of the theory we built to do one last calculation.
+\begin{example} \label{ex:weil-p1}
+	Fix a pre-Weil cohomology theory $\mathrm H^\bullet$ over $K$ with coefficients in $F$. Then
+	\[\mathrm H^i(\PP^1_K)=\begin{cases}
+		F & \text{if }i=0, \\
+		F(-1) & \text{if }i=2, \\
+		0 & \text{else}.
+	\end{cases}\]
+\end{example}
+\begin{proof}
+	The main claim is that $\dim_F\mathrm H^\bullet(\PP^1_K)=2$. Quickly, let's explain why the main claim completes the proof. Certainly $\mathrm H^0(\PP^1_K)\ne0$ by \Cref{prop:weil-nontrivial}, so $\mathrm H^2(\PP^1_K)(1)\ne0$ by Poincar\'e duality as well, which provides the lower bound $\dim_F\mathrm H^\bullet(\PP^1_K)\ge2$. If we were to have equality, then we must have $\mathrm H^\bullet(\PP^1_K)=\mathrm H^0(\PP^1_K)\oplus\mathrm H^2(\PP^1_K)$, and $\mathrm H^0(\PP^1_K)=F$ and $\mathrm H^2(\PP^1_K)(1)=F$ become forced.
+	
+	We now prove the main claim. It remains to show $\dim_F\mathrm H^\bullet(\PP^1_K)\le2$. Technically, \Cref{thm:weil-lefschetz-tr} will not be enough for our purposes because the Euler characteristic includes a $-\dim_F\mathrm H^1(X)$ term. Our motivic input is that the cycle class $[\Delta]$ in $\PP^1_K\times\PP^1_K$ is equal to $\op{pr}_1^*[\infty]+\op{pr}_2^*[\infty]$, where $\infty\in\PP^1_K$ is a point at infinity. Indeed, consider the function $f\colon\PP^1\times\PP^1\to\PP^1$ given by $f(x,y)\coloneqq x-y$. Then $f$ has zero-set given by $\Delta$ and poles given by $\{\infty\}\times\PP^1_K$ and $\PP^1\times\{\infty\}$, so
+	\[\op{div}f=\op{pr}_1^*[\infty]+\op{pr}_2^*[\infty]-\Delta\]
+	must be a trivial divisor class. We conclude that
+	\[\op{cl}_{\PP^1_K\times\PP^1_K}([\Delta])=\op{cl}_{\PP^1_K}([\infty])\boxtimes1+1\boxtimes\op{cl}_{\PP^1_K}([\infty]).\]
+	Now, \Cref{ex:weil-diagonal-decomposition} shows that the left-hand side has no expression in terms of fewer than $\dim_F\mathrm H^\bullet(X)$ total pure tensors, so we concldue that $\dim_F\mathrm H^\bullet(X)\le2$!
+\end{proof}
+
+\printbibliography
+
+\end{document}

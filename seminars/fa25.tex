@@ -1,0 +1,891 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+
+\newcommand{\nirpdftitle}{Seminars: Fall 2025}
+\usepackage{import}
+\inputfrom{../../notes}{nir}
+\usepackage[backend=biber,
+    style=alphabetic,
+    sorting=ynt
+]{biblatex}
+\setcounter{tocdepth}{2}
+
+\pagestyle{contentpage}
+
+\setlength{\headheight}{13.19003pt}
+% (fancyhdr)	You might also make \topmargin smaller to compensate:
+\addtolength{\topmargin}{-1.19003pt}
+
+\title{Seminars}
+\author{Nir Elber}
+\date{Fall 2025}
+\usepackage{graphicx}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+	This semester, I will just record all seminars I go to in an uncategorized manner. I will try to record the date, the speaker, and which seminar it was to maintain some semblance of organization.
+\end{abstract}
+
+\tableofcontents
+
+\section{September 3: Arthur Representations and the Unitary Dual}
+This talk was given by David Vogan at MIT for the Lie groups seminar.
+
+\subsection{The Orbit Method}
+Given a group $G$, we would like to understand its unitary representations, which more or less amounts to understanding the unitary dual of $G$. There is a long history of trying to solve this problem for various classes of groups $G$, and we will focus on reductive groups, roughly speaking because it is suitable for inductive arguments. In particular, we will focus on real reductive groups.
+
+Our story begins with the ideas of Bertram Kostant. This is the method of coadjoint orbits, which explains where one should look for representations of Lie groups. The point is that unitary representations provide operators on a Hilbert space, as do quantum mechanical systems, so one might want to undo the quantization. It turns out then that a unitary representation un-quantizes to a Hamiltonian $G$-space, which is a symplectic manifold with $G$-action (and a moment map).
+\begin{idea}
+	Irreducible representations of $G$ correspond to a quantization of covers of coadjoint orbits.
+\end{idea}
+One must make precise what a quantization is, which is not known in general.
+
+Anyway, the point is that want to construct our unitary representations geometrically (which amounts to quantizing coadjoint operators), and then we want to show that we have all them. For real reductive groups, there are not so many kinds of coadjoint orbits.
+\begin{itemize}
+	\item Hyperbolic (diagonalizable with real eigenvalues): quantization is real parabolic induction. Here, para\-bolic induction takes unitary representations to unitary representations.
+	\item Elliptic (diagonalizable with non-real eigenvalues): quantization is cohomological parabolic induction. Here, we take unitary representations (of some Levi subgroups) to unitary representations under some positivity requirement on the codomain.
+	\item Nilpotent: quantization is not totally understood, though something partial was suggested by Arthur and worked out completely by other authors.
+\end{itemize}
+In total, here is how one can construct unitary representations using the orbit method.
+\begin{enumerate}
+	\item Choose a ``$\theta$-stable'' Levi subgroup $L_\theta\subseteq L_\RR$, meaning that it is the centralizer of a compact torus.
+	\item Fix some unipotent representation $\pi_\theta$ of $L_\theta$.
+	\item Twist $\pi_\theta$ by a positive unitary character $\lambda$ of $L_\theta$.
+	\item Take cohomological induction of $\pi_\theta(\lambda)$ to $\pi_\RR(\lambda)$ on $L_\RR$.
+	\item Twist further by some unitary character $\nu$ of $L_\RR$.
+	\item Take real induction up to $G$.
+\end{enumerate}
+There is even an explicit way to compute the infinitsemial character at the end, and it is explicit when $\pi_\theta$ is a ``special'' unipotent representation.
+\begin{remark}
+	One may want the infinitesimal character to be integral, but it is rarely so.
+\end{remark}
+\begin{example}
+	We work some of this out for $\op{Sp}_{2n}(\RR)$.
+\end{example}
+\begin{proof}
+	Decompose $n=n_r+\cdots+n_1+n_0$ into nonnegative integers, and we get a Levi subgroup which looks like
+	\[L_\RR=\op{GL}(n_m,\RR)\times\cdots\times\op{GL}(n_1,\RR)\times\op{Sp}(2n_0,\RR).\]
+	Having lots of $\op{GL}$s is fairly typical for Levi subgroups, which one can see by suitably taking subgraphs of the Dynkin diagram. One then choose a compact torus suitably and writes down some $L_\theta\subseteq L_\RR$. We then see that our orbit method asks for many unipotent representations of groups of smaller rank (mostly $\op{GL}$s or $\op U$s) and do some inductions and twisting by controlled characters.
+\end{proof}
+\begin{remark}
+	The orbit method cannot provide a complete list of our representations, roughly speaking because of the hyperbolic step. The point is that we only allowed twisting by unitary characters, but sometimes you can twist by a non-unitary character and still end up with a unitary representation at the end due to frequent coincidences.
+\end{remark}
+
+\subsection{Arthur's Conjecture}
+For the rest of the talk, we will be interested in the following conjecture.
+\begin{conj}
+	Suppose $G$ is a real reductive algebraic group and $\pi$ is a unitary representation of $G$ having integral infinitesimal character. Then $\pi$ is an Arthur representation, meaning that we get it from the orbit method.
+\end{conj}
+Much is known: there are no known counterexamples for classical $G$, nor are there any for $G_2$ or $E_6$. However, there are a few counterexamples for some exceptional groups: it fails for two representations of split $F_4$, at most six representations for split $E_7$, and at most twenty-seven representations for split $E_8$. (The ``at most'' phrase is present here because the definition of Arthur representation is difficult to calculate.)
+
+\section{Sepember 8: The Affine Chabauty Method}
+This talk was given by Marius Leonhardt at Boston University for the number theory seminar.
+
+\subsection{The Statement}
+We are interested in finding the integral solutions to curves, such as hyperelliptic curves. Fix a smooth projective curve $X$ over $\QQ$; after removing some finite number of ``cusps'' $D\subseteq X$ (which are just some closed points), we can form the affine curve $Y$; today, we will study the $S$-integral points on $Y$ for some finite set $S$ of primes.
+\begin{remark}
+	Technically, in order to make sense $S$-integral points, one should choose a regular model $\mc X$ of $X$ over $\ZZ_S$, choose a closure $\mc D$ of $D\subseteq X$ in $\mc X$, and set $\mc Y\coloneqq\mc X\setminus\mc D$. Then, we can speak coherently about $S$-integral points on $\mc Y$.
+\end{remark}
+We will want a few more invariants. Choose a basepoint $P_0\in Y(\QQ)$, and set $g$ to be the genus of $X$, $r$ to be the rank of the Jacobian, and $n$ to be the number of geometric points in $D$. Note we can write $n=n_1+2n_2$ for the totally real and (classes) of complex points.
+
+We are interested in making the following classical result effective.
+\begin{theorem}[Siegel]
+	If $Y$ is hyperbolic, then $\mc Y(\ZZ_S)$ is finite.
+\end{theorem}
+Here is our main result.
+\begin{theorem} \label{thm:affine-chab}
+	Fix everything as above.
+	\begin{listalph}
+		\item If
+		\[r+\#S+n_1+n_2-\#D<g+n-1,\]
+		then $\mc Y(\ZZ_S)$ is contained in a finite computable subset of $\mc Y(\ZZ_p)$.
+		\item If we also have $p>2g+n$, then $\#\mc Y(\ZZ_S)$ is bounded above by $\#\mc Y(\FF_p)+2g+n-2$ multiplied by the number of reduction types.
+	\end{listalph}
+\end{theorem}
+\begin{remark}
+	This result even works if the genus is $0$ or $1$!
+\end{remark}
+\begin{remark}
+	The reduction type is a piece of combinatorial data $\Sigma=(\Sigma_\ell)_\ell$ partitioning $\mc Y(\ZZ_S)$; namely, we choose the component or cusp of $\mc X_{\FF_\ell}$ where the point reduces.
+\end{remark}
+Before stating our modifications, let's recall the usual Chabauty method. Consider the following diagram.
+% https://q.uiver.app/#q=WzAsNSxbMCwwLCJYKFxcUVEpIl0sWzAsMSwiXFxvcHtKYWN9WChcXFFRKSJdLFsxLDEsIlxcb3B7SmFjfVgoXFxRUV9wKSJdLFsxLDAsIlgoXFxRUV9wKSJdLFsyLDEsIlxcbWF0aHJtIEheMChYX3tcXFFRX3B9LFxcT21lZ2FeMSleXFxsb3IiXSxbMCwzLCIiLDAseyJzdHlsZSI6eyJ0YWlsIjp7Im5hbWUiOiJob29rIiwic2lkZSI6InRvcCJ9fX1dLFsxLDIsIiIsMCx7InN0eWxlIjp7InRhaWwiOnsibmFtZSI6Imhvb2siLCJzaWRlIjoidG9wIn19fV0sWzMsNCwiXFxpbnQiXSxbMiw0LCJcXGxvZyIsMl0sWzMsMiwiXFxvcHtBSn0iLDJdLFswLDEsIlxcb3B7QUp9IiwyXV0=&macro_url=https%3A%2F%2Fraw.githubusercontent.com%2FdFoiler%2Fnotes%2Fmaster%2Fnir.tex
+\[\begin{tikzcd}[cramped]
+	{X(\QQ)} & {X(\QQ_p)} \\
+	{\op{Jac}X(\QQ)} & {\op{Jac}X(\QQ_p)} & {\mathrm H^0(X_{\QQ_p},\Omega^1)^\lor}
+	\arrow[hook, from=1-1, to=1-2]
+	\arrow["{\op{AJ}}"', from=1-1, to=2-1]
+	\arrow["{\op{AJ}}"', from=1-2, to=2-2]
+	\arrow["\int", from=1-2, to=2-3]
+	\arrow[hook, from=2-1, to=2-2]
+	\arrow["\log"', from=2-2, to=2-3]
+\end{tikzcd}\]
+The Jacobian has rank $r$, and the last cohomology group has dimension $g$, so $r<g$ provides a nontrivial differential $\omega$ for which $X(\QQ)$ is contained in the set of $p$-adic points $A$ with $\int_{P_0}^A\omega=0$. This last condition is computable, which is the point of the method.
+
+\subsection{How to Fix Chabauty}
+Let's say something about the proof of \Cref{thm:affine-chab}.
+\begin{itemize}
+	\item Using logarithmic (instead of holomorphic) differentials, meaning that we allow some simple poles at $D$, then
+	\[\dim\mathrm H^0(X_{\QQ_p},\Omega^1(D))=g+n-1,\]
+	which exhibits the right-hand side of the inequality in (a).
+	\item One should use generalized Jacobians to build a Jacobian $J_Y$ of $Y$. For example, one definition is given by $J_Y(K)$ to be the divisors of $Y_K$ of degree zero modulo principal divisors $\op{div}f$ where $f\in K(X)^\times$ has value $1$ on $D$. Notably, $J_Y$ is a semiabelian variety, so it fits into a diagram
+	\[0\to T_D\to J_Y\to J\to0,\]
+	where $T_D$ is some torus. This means that $J_Y(\QQ)$ has little chance of being finitely generated, so it is not enough to just write out the same Chabauty diagram as before.
+	\item Instead, we look at $\ZZ_S$-points. Build the Chabauty diagram as follows.
+	% https://q.uiver.app/#q=WzAsNyxbMCwwLCJcXG1jIFkoXFxaWl9TKSJdLFsxLDAsIlxcbWMgWShcXFpaX3ApIl0sWzAsMSwiWShcXFFRKSJdLFsxLDEsIlkoXFxRUV9wKSJdLFswLDIsIkpfWShcXFFRKSJdLFsxLDIsIkpfWShcXFFRX3ApIl0sWzIsMiwiXFxtYXRocm0gSF4wKFhfe1xcUVFfcH0sXFxPbWVnYV4xKEQpKV5cXGxvciJdLFszLDYsIlxcaW50Il0sWzAsMl0sWzAsMV0sWzEsM10sWzIsM10sWzIsNF0sWzMsNV0sWzUsNl0sWzQsNV1d&macro_url=https%3A%2F%2Fraw.githubusercontent.com%2FdFoiler%2Fnotes%2Fmaster%2Fnir.tex
+	\[\begin{tikzcd}[cramped]
+		{\mc Y(\ZZ_S)} & {\mc Y(\ZZ_p)} \\
+		{Y(\QQ)} & {Y(\QQ_p)} \\
+		{J_Y(\QQ)} & {J_Y(\QQ_p)} & {\mathrm H^0(X_{\QQ_p},\Omega^1(D))^\lor}
+		\arrow[from=1-1, to=1-2]
+		\arrow[from=1-1, to=2-1]
+		\arrow[from=1-2, to=2-2]
+		\arrow[from=2-1, to=2-2]
+		\arrow[from=2-1, to=3-1]
+		\arrow[from=2-2, to=3-2]
+		\arrow["\int", from=2-2, to=3-3]
+		\arrow[from=3-1, to=3-2]
+		\arrow[from=3-2, to=3-3]
+	\end{tikzcd}\]
+	We need to show that the image of $\mc Y(\ZZ_S)$ in $J_Y(\QQ)$ is contained in a (small) finitely generated subgroup; in fact, we can get this rank down to
+	\[r+\#S+n_1+n_2-\#D,\]
+	from which (a) follows. From here, (b) follows by arguing as in the Chabauty--Coleman method.
+	\item It remains to prove the bound on the rank, which is done using arithmetic intersection theory. Inspired by something with $p$-adic heights, we may take mod-$\ell$ intersections of points in $J_Y(\QQ)$ with reductions of the cusps, and one can compute that $\mc Y(\ZZ_S)$ has controlled image.
+\end{itemize}
+
+\section{September 9th: Singularities of Secant Varieties}
+The (pre-)talk was given by Debaditya Raychaudhury at the Harvard--MIT algebraic geometry seminar, and it takes up the first two subsections; it was titled ``The Hodge Filtration on Local Cohomology.'' The rest is from the main talk.
+
+\subsection{Properties of Local Cohomology}
+Fix a subvariety $Z$ of a smooth variety $X$ over $\CC$. Then one has local cohomology sheaves $\mc H^\bullet_Z(-)$, which are understod as the derived functors of $\mathrm H^0_Z(-)$, which is the sheaf of sections supported on $Z$.
+\begin{example}
+	Locally, we can make everything affine, so say $X=\Spec R$ and $Z=\Spec R/I$. Then $H^0_I(R)$ consists of the $r\in R$ for which $I^kr=0$ for some $k$ large enough.
+\end{example}
+We would like to compute these sheaves.
+
+One way is geometric. With $U\coloneqq X\setminus Z$, we let $j\colon U\into X$ be the inclusion. Then there is an exact sequence
+\[0\to\OO_X\to j_*\OO_U\to\mathcal H^1(\OO_X)\to0\]
+and $\mathrm R^{q-1}j_*\OO_U\cong\mathcal H^q_Z(\OO_X)$ for $q\ge2$.
+\begin{example}
+	Continuing with the affine situation, suppose further that $I=(f)$. Then we get an exact sequence
+	\[0\to R\to R_f\to\mathrm H^1_{(f)}(R)\to0,\]
+	so we can compute $\mathrm H^1_{(f)}(R)$ via some \v Cech complex. In general, with $I=(f_1,\ldots,f_s)$, one builds the \v Cech complex
+	\[0\to R\to\bigoplus_{i_1}R_{f_{i_1}}\to\bigoplus_{i_1\le i_2}R_{f_{i_1}f_{i_2}}\to\cdots\]
+	to compute the cohomology $\mathrm H^q_I(R)$; here, the differential maps are the usual ones for the \v Cech complex. For example, if $q>s$, then $\mathrm H^q_I(R)=0$ automatically!
+\end{example}
+Thus, we see that $\mathcal H^q_Z(\OO_X)$ vanishes for $q$ not so large: it vanishes as soon as $q$ is larger than the number of local defining equations. We are now allowed to make the following definition.
+\begin{definition}
+	We define the \textit{local cohomological dimension} $\op{lcd}(X,Z)$ to be the maximum $q$ such that $\mathcal H^q_Z(\OO_X)$ is nonzero.
+\end{definition}
+\begin{remark}
+	It turns out that the minimal $q$ such that $\mathcal H^q_Z(\OO_X)$ is equal to the codimension of $Z\subseteq X$, which can be seen by a computation on affines.
+\end{remark}
+\begin{remark}
+	As discussed above, if $Z\subseteq X$ is a local complete intersection, then $\op{lcd}(Z,X)$ will equal the codimension.
+\end{remark}
+Thus, we see that the local cohomological dimension does a reasonable job keeping track of singularities.
+\begin{notation}
+	We define $\op{lcdef}(Z)\coloneqq\op{lcd}(X,Z)-\op{codim}_X(Z)$
+\end{notation}
+\begin{remark}
+	This quantity does not depend on $Z$! One way to see this is to show that $\op{lcdef}(Z)$ is the maximum $j$ for which
+	\[\mathcal H^j(\QQ_Z^H[\dim Z])\ne0,\]
+	which is more manifestly independent of $X$. Here, $\QQ_X^H$ is the Hodge module.
+\end{remark}
+
+\subsection{The Hodge Filtration}
+It turns out that $\mathcal H^q_Z(\OO_X)$ has the structure of aa filtered $\mc D_X$-module, where $\mc D_X$ is defined as the (dual) differential ring, given on affines $U$ by
+\[\mc D_X(U)\coloneqq\bigoplus_{\alpha\in\NN^n}\OO_X(U)\del^\alpha,\]
+where $\del^\alpha=\del_1^{\alpha_1}\cdots\del_n^{\alpha_n}$; here $\del_i$ is dual to $dx_i$. Approximately speaking, this arises because $\mathcal H^q_Z(\OO_X)$ is the underling $\mc D$-module for the filtered module $\mathcal H^q(i_*i^!\QQ_X^H[z])$, where $i\colon Z\into X$ is the inclusion.
+
+We would like to compute the Hodge filtration $F_\bullet\mathcal H^q_Z(\OO_X)$. Suppose we have a ``resolution of singularities'' $f\colon Y\to X$ fitting into a pullback square
+% https://q.uiver.app/#q=WzAsNCxbMCwwLCJZXFxzZXRtaW51cyBFIl0sWzAsMSwiVSJdLFsxLDEsIlgiXSxbMSwwLCJZIl0sWzMsMiwiZiJdLFswLDNdLFsxLDJdLFswLDEsIiIsMix7ImxldmVsIjoyLCJzdHlsZSI6eyJoZWFkIjp7Im5hbWUiOiJub25lIn19fV1d&macro_url=https%3A%2F%2Fraw.githubusercontent.com%2FdFoiler%2Fnotes%2Fmaster%2Fnir.tex
+\[\begin{tikzcd}[cramped]
+	{Y\setminus E} & Y \\
+	U & X
+	\arrow[from=1-1, to=1-2]
+	\arrow[equals, from=1-1, to=2-1]
+	\arrow["f", from=1-2, to=2-2]
+	\arrow[from=2-1, to=2-2]
+\end{tikzcd}\]
+where $Z\coloneqq f^{-1}(Z)$ is some simple normal crossings divisor. Namely, one uses the complex
+\[0\to f^*\mathcal D_X\to\Omega^1_Y(\log E)\otimes f^*\mc D_X\to\cdots\to\omega_Y(E)\otimes f^*\mc D_X\to0.\]
+Roughly speaking, one hits this with $F_{k-n}$ and computes the image of some cohomology of this complex.
+
+Here is the sort of thing that one can prove.
+\begin{theorem}
+	Suppose $q\ge1$ and $\mathcal H^k_Z(\OO_X)=0$ for $k>q$. Then $F_\bullet\mc H^q_Z(\OO_X)$ is generated at level $\ell$ if and only if $\mathrm R^{q-1+i}f_*\Omega_Y^{n-i}(\log E)=0$.
+\end{theorem}
+We end this talk by defining one more invariant.
+\begin{definition}
+	We say that $c(Z)\ge k$ if and only if $F_p\mc H^q_Z(\OO_X)=0$ for all $p\le k$ and $q>\op{codim}_X(Z)$.
+\end{definition}
+Roughly speaking, this is expected to ``cohomologically'' generalize local complete intersections.
+\begin{theorem}
+	One has $c(Z)\ge k$ if and only if $\op{depth}\Omega_Z^p\ge\dim Z-p$ for all $p\le k$.
+\end{theorem}
+\begin{theorem}
+	One has that $\dim Z-\op{lcdef}(Z)$ is the minimal value of $\op{depth}\Omega_Z^k+k$.
+\end{theorem}
+
+\subsection{The Secant Variety}
+Given an ample line bundle $\mc L$ on a smooth variety $X$ of dimension $n$, we get an embedding $X\into\mathrm H^0(\mc L)$. Then we define the secant variety $\Sigma$ as the closure of the line spanned by any pair $x_1,x_2\in X$.
+\begin{remark}
+	With $\dim X=n$, we expect $\dim\Sigma=2n+1$: each point has $n$ degrees of freedom, and then the line adds another degree of freedom.
+\end{remark}
+\begin{example}
+	If $X$ is $\PP^1$ embedded in $\PP^2$ (via $\OO(2)$), then $\Sigma=\PP^2$, which is smaller than expected.
+\end{example}
+\begin{example}
+	If $X$ is $\PP^2$ embedded in $\PP^3$ (via $\OO(3)$), then $\dim\Sigma=3$.
+\end{example}
+The moral is that $\Sigma$ only achieves the expected dimension for sufficiently positive line bundles.
+\begin{proposition}
+	Suppose that $\mc L$ is $3$-very ample (which we won't define), then $\dim\Sigma=2n+1$, and the singular locus of $\Sigma$ is precisely $X$ unless $\Sigma$ is the whole space.
+\end{proposition}
+Thus, we will focus on our secant varieties arising from $3$-very ample line bundles.
+
+With more positivity, we get more.
+\begin{theorem}[Ullery--Chou--Song]
+	If $\mc L=\mc K_X+(2n+2)\mc A+\mc B$ where $\mc A$ is very ample, and $\mc B$ is nef, then $\Sigma$ is normal, has DB singularities, is Cohen--Macaulay (CM), weakly rational, and thus has rational singularities if and only if $\mathrm H^i(\OO_X)=0$ for all $i>0$. 
+\end{theorem}
+To improve this result, one needs to know something about $\QQ_\Sigma^H[2n+1]$, where the $H$ adds emphasizes that it is a Hodge module.
+
+\subsection{Mixed Hodge Modules}
+Let's quickly say something about mixed Hodge modules. Suppose $Z$ is a smooth variety.
+\begin{definition}
+	A \textit{Hodge module $M$} is the data of a left $\mc D_Z$-module $M$ along with a Hodge filtration $F_\bullet M$ on $M$, satisfying some conditions, together with a $\QQ$-perverse sheaf $K$ and isomorphism $\alpha\colon K\otimes_\QQ\CC\to\mathrm{DR}_Z(M)$, where $\mathrm{DR}_Z(M)$ is the de Rham complex of $M$.
+\end{definition}
+Here, the de Rham complex is $M$ tensored with
+\[\OO_Z\to\Omega^1_Z\to\cdots\to\omega_Z.\]
+We remark that once we take graded pieces with respect to $F$, we get an object in $D^b(\mathrm{Coh}(Z))$.
+\begin{remark}
+	There is a derived category $D^b(\mathrm{MHM}(Z))$, even when $Z$ fails to be singular, and it admits the six functors. Thus, we may define
+	\[\QQ_Z^H\coloneqq p^*\QQ_{\mathrm{pt}}^H,\]
+	where $p\colon Z\to\mathrm{pt}$ is the constant map.
+\end{remark}
+
+\subsection{Main Result}
+For our application, we need a log resolution of $X$. Let $X^{[2]}$ be the Hilbert scheme of lines on $X$. Then there is a tautological $\Phi\subseteq X^{[2]}\times X$ of pairs $(\xi,x)$ where $x\in\xi$. (Equivalently, $\Phi$ is the blow up of $X\times X$ along the diagonal.) Let $\theta\colon\Phi\to X^{[2]}$ and $q\colon\Phi\to X$ be the projections, so we may define $\mc E\coloneqq\theta_*q^*\mc L$. It turns out that $\mathrm H^0(\mc E)=\mathrm H^0(\mc L)$, and it turns out that $\PP\mc E$ projects onto $\Sigma$. We are now able to draw the following diagram.
+% https://q.uiver.app/#q=WzAsNyxbMywxLCJcXFBQXFxtYXRocm0gSF4wKFxcbWMgTCkiXSxbMiwwLCJcXFBQXFxtYXRoY2FsIEUiXSxbMiwxLCJcXFNpZ21hIl0sWzEsMSwiWCJdLFsxLDAsIlxcUGhpIl0sWzAsMSwiXFx7eFxcfSJdLFswLDAsIlxcb3B7Qmx9X3tcXHt4XFx9fVgiXSxbMSwyLCJ0IiwwLHsic3R5bGUiOnsiaGVhZCI6eyJuYW1lIjoiZXBpIn19fV0sWzEsMF0sWzIsMCwiIiwwLHsic3R5bGUiOnsidGFpbCI6eyJuYW1lIjoiaG9vayIsInNpZGUiOiJ0b3AifX19XSxbMywyLCIiLDAseyJzdHlsZSI6eyJ0YWlsIjp7Im5hbWUiOiJob29rIiwic2lkZSI6InRvcCJ9fX1dLFs0LDEsIiIsMCx7InN0eWxlIjp7InRhaWwiOnsibmFtZSI6Imhvb2siLCJzaWRlIjoidG9wIn19fV0sWzQsMywicSJdLFs2LDQsIiIsMCx7InN0eWxlIjp7InRhaWwiOnsibmFtZSI6Imhvb2siLCJzaWRlIjoidG9wIn19fV0sWzUsMywiIiwwLHsic3R5bGUiOnsidGFpbCI6eyJuYW1lIjoiaG9vayIsInNpZGUiOiJ0b3AifX19XSxbNiw1XV0=&macro_url=https%3A%2F%2Fraw.githubusercontent.com%2FdFoiler%2Fnotes%2Fmaster%2Fnir.tex
+\[\begin{tikzcd}[cramped]
+	{\op{Bl}_{\{x\}}X} & \Phi & {\PP\mathcal E} \\
+	{\{x\}} & X & \Sigma & {\PP\mathrm H^0(\mc L)}
+	\arrow[hook, from=1-1, to=1-2]
+	\arrow[from=1-1, to=2-1]
+	\arrow[hook, from=1-2, to=1-3]
+	\arrow["q", from=1-2, to=2-2]
+	\arrow["t", two heads, from=1-3, to=2-3]
+	\arrow[from=1-3, to=2-4]
+	\arrow[hook, from=2-1, to=2-2]
+	\arrow[hook, from=2-2, to=2-3]
+	\arrow[hook, from=2-3, to=2-4]
+\end{tikzcd}\]
+The squares are all pullback squares.
+
+Here is our main theorem. Recall that there is a complex $\underline\Omega_Z^p$ given by
+\[\op{gr}_{-p}\mathrm{DR}(\QQ_Z^H[\dim Z])[p-\dim Z].\]
+\begin{theorem}
+	Suppose $\mc L$ is sufficiently positive.
+	\begin{listalph}
+		\item $\underline\Omega^p_\Sigma\cong\Omega_Z^{[p]}$ for all $0\le p\le k$ is equivalent to $\mathrm H^i(\OO_X)$ for all $1\le p\le k$. In particular, this implies that $\underline\Omega^p_\Sigma$ is a sheaf.
+		\item $\mathcal Ext^i(\underline\Omega_\Sigma^{2n},\omega_\Sigma^\bullet[-2n-2])=0$ for all $i\ge1$ if and only if $X\cong\PP^1$.
+		\item If $\mc L$ is $3$-very ample, and $\Sigma\ne\PP^n$, then
+		\[\op{lcdef}(\Sigma)=\begin{cases}
+			n-1 & \text{if }n\ge2\text{ and }\mathrm H^1(\OO_X)\ne0, \\
+			n-2 & \text{if }n\ge2\text{ and }\mathrm H^1(\OO_X)=0, \\
+			0 & \text{if }n=1.
+		\end{cases}\]
+	\end{listalph}
+\end{theorem}
+The speaker then did some intricate calculation to prove a partial result of (c), that $\op{lcdef}(\Sigma)\le n-1$.
+\begin{remark}
+	There are other theorems with more calculations of these invariants of secant varieties. For example, under the hypothesis of (c) above, the defect
+	\[\sigma(Z)\coloneqq\dim_\QQ\frac{\op{WeilDiv}_\QQ(Z)}{\op{CarDiv}_\QQ(Z)}\]
+	is finite if and only if $\mathrm H^1(\OO_X)=0$, and it is zero if and only if $X$ is $\PP^1$.
+\end{remark}
+
+\section{September 10: Unipotent Representations: Changing \texorpdfstring{$q$}{q} to \texorpdfstring{$-q$}{-q}}
+This talk was given by George Lusztig at MIT for the Lie groups seminar.
+
+\subsection{A Special Basis}
+For today, $G$ is a split, connected reductive group over $k=\FF_q$. Each Weyl element $w\in W$ produces a subvariety $X_w$ of the flag variety $\mc B\times\mc B$ (where $\mc B$ is made of all the Borel subgroups) consisting of the pairs $(B,FB)$ for $w\in\OO_w$. It turns out that a unipotent representation of $G(k)$ appears in the cohomology of $X_w$ if and only if it appears in the Euler characteristic.
+
+These unipotent representations have been classified as follows: as the Weyl group $W$ has its irreducible representations in canonical bijection with the conjugacy classes, the unipotent representations also have a classification according to these conjugacy classes. To explain how this bijection works, we give each $c$ a finite group $\Gamma_c$, then the unipotent representations are parameterized by pairs $(g,\rho)$ (up to conjugacy) where $g\in\Gamma_c$ and $\rho$ is an irreducible representation of $Z(g)$. We let $M(\Gamma_c)$ be this collection of pairs. For a pair $m$, we may write $\xi_m$ for the corresponding unipotent representation.
+
+Here is the sort of thing that we are able to prove.
+\begin{theorem}
+	There is an ordered basis of $\CC[M(\Gamma_c)]$ where all the matrices relating the elements are upper-triangular with $1$s on the diagonal and otherwise positive entries; in fact, these entries are natural always except for a single $c$ in the case of $E_8$, in which case the entry is in $\ZZ[\zeta_5]$.
+\end{theorem}
+\begin{remark}
+	It turns out that there is a canonical pairing on $\CC[M(\Gamma_c)]$ (which is akin to a nonabelian Fourier transform), and the basis of the theorem makes this pairing be represented by a matrix with nonnegative rational entries always except for one exception.
+\end{remark}
+
+\subsection{Negating Dimensions}
+It turns out that the dimensions of the unipotent representations $\xi_m$ are polynomials in $q$, and we will write $D(\xi_m)$ for this dimension. We will assume that the long Weyl element is central. By tabulating these dimensions, one can show that there is an involution $(\cdot)'$ on the unipotent representations so that
+\[D(\xi')(q)=\pm D(\xi)(-q).\]
+However, this involution is not uniquely determined by this property.
+
+Let's try to exhibit this involution. It turns out that $M(\Gamma_c)$ can be viewed as the set of irreducible objects in the tensor category of $\Gamma_c$-equivariant vector bundles. Then one can do something categorical.
+
+\section{September 11: Statements of the Weil Conjectures}
+This talk was given by Ari Krishna and Sophie Zhu at MIT for the STAGE seminar.
+
+\subsection{Some History}
+For today, $X$ will be a smooth proper variety over a finite field $\FF_q$. Let's give a statement of the Weil conjectures in the spirit of counting points.
+\begin{conj}[Weil]
+	Fix a finite field $\FF_q$.
+	\begin{listalph}
+		\item Fix a scheme $X$ of finite type over a field $\FF_q$. Then there are algebraic integers $\{\alpha_1,\ldots,\alpha_r\}$ and $\{\beta_1,\ldots,\beta_s\}$ such that
+		\[\#X(\FF_{q^n})=\left(\alpha_1^n+\cdots+\alpha_r^n\right)-\left(\beta_1^n+\cdots+\beta_r^n\right)\]
+		for all $n\ge0$.
+		\item Rationality: suppose further that $X$ is proper of equidimension $d$. Then we can arrange these algebraic integers as
+		\[\#X(\FF_{q^n})=\sum_{i=0}^{2d}(-1)^i\Bigg(\sum_{j=0}^{b_i}\alpha_{ij}^n\Bigg).\]
+		\item Poincar\'e duality: with $X$ proper, the multi-sets $\{\alpha_{2d-i,j}:1\le j\le b_i\}$ and $\{q^d/\alpha_{ij}:1\le j\le b_i\}$ agree.
+		\item Riemann hypothesis: with $X$ proper, $\left|\alpha_{ij}\right|=q^{i/2}$ for all $i$ and $j$.
+		\item Betti numbers: with $X$ proper, if $X$ admits an integral model $\mc X$ over some subring $R\subseteq\CC$, then $b_i$ is the $i$th Betti number of $\mc X(\CC)$.
+	\end{listalph}
+\end{conj}
+The history of these conjectures is long and fraught.
+\begin{itemize}
+	\item In the 1930s, Artin, Hasse, and Schmidt proved everything but the Riemann hypothesis for curves, and they proved the Riemann hypothesis for curves of genus at most $1$.
+	\item In 1948, Weil proved the Weil conjectures for curves of any genus. This arose by combining two observations: first, counting $\#X(\FF_{q^n})$ should equal the number of fixed points of $F^n$, and second, these counts could be understood in terms of intersection theory with the graph of the Frobenius.
+	\item In 1949, Weil proved the Riemann hypothesis for other varieties, namely certain Fermat varieties. At this point, the conjectures were finally stated.
+	\item In the 1950s, Grothendieck and many others developed the theory of \'etale cohomology. By rather formal arguments, this proves everyting but the Riemann hypothesis.
+	\item In 1974, Deligne finishes his first proof of the Weil conjectures.
+	\item In 1980, Deligne strengthens his proof of the Weil conjectures.
+\end{itemize}
+
+\subsection{\texorpdfstring{$\zeta$}{zeta}-Functions}
+The Weil conjectures admit an important reformulation in terms of $\zeta$-functions. Let's begin with the classical $\zeta$-function.
+\begin{definition}
+	The \textit{Riemann $\zeta$-function} $\zeta(s)$ is defined as the analytic continuation of the series
+	\[\zeta(s)\coloneqq\sum_{n=1}^\infty\frac1{n^s}.\]
+\end{definition}
+The Riemann $\zeta$-function admits the following properties.
+\begin{itemize}
+	\item Euler product: one can write $\zeta(s)$ as a product
+	\[\zeta(s)=\prod_{\text{prime }p}\frac1{1-p^{-s}}.\]
+	\item Continuation: there is a meromorphic continuation to the plane, and it has only a simple pole at $s=1$.
+	\item Functional equation: upon completing the $\zeta$-function as
+	\[\xi(s)\coloneqq(s-1)\pi^{-s/2}\Gamma\left(\frac s2+1\right)\zeta(s),\]
+	we have the functional equation $\xi(s)=\xi(1-s)$.
+	\item Riemann hypothesis: it is expected that the only zeroes of $\zeta$ occur at the negative integer integers and along $\{s\in\CC:\Re s=1/2\}$.
+\end{itemize}
+This generalizes as follows.
+\begin{definition}
+	Fix a scheme $X$ of finite type over $\ZZ$. Then we define the \textit{arithmetic $\zeta$-function} $\zeta_X(s)$ as
+	\[\zeta_X(s)\coloneqq\prod_{\text{closed }\mf p\in X}\frac1{1-\#\kappa(\mf p)^{-s}}.\]
+\end{definition}
+\begin{example}
+	The Euler product implies that $\zeta(s)=\zeta_{\Spec\ZZ}(s)$.
+\end{example}
+In order to relate this to point-counts, we produce the following definition.
+\begin{definition}
+	Fix a scheme $X$ of finite type over $\FF_q$. Then we define
+	\[Z_X(T)\coloneqq\exp\Bigg(\sum_{n\ge1}\#X(\FF_q)\frac{T^n}n\Bigg).\]
+\end{definition}
+\begin{remark}
+	A direct calculation shows that $Z_X(q^{-s})=\zeta_X(s)$.
+\end{remark}
+We are now able to rewrite the Weil conjectures.
+\begin{conj}[Weil]
+	Fix a finite field $\FF_q$.
+	\begin{listalph}
+		\item Fix a scheme $X$ of finite type over $\FF_q$. There are algebraic integers $\{\alpha_1,\ldots,\alpha_r\}$ and $\{\beta_1,\ldots,\beta_s\}$ such that
+		\[Z_X(T)\frac{(1-\beta_1T)\cdots(1-\beta_sT)}{(1-\alpha_1T)\cdots(1-\alpha_rT)}\]
+		for some algebraic integers $\alpha_\bullet$s and $\beta_\bullet$s.
+		\item Rationality: let $X$ be a smooth proper variety over $\FF_q$ of equidimension $d$. Then $Z_X$ admits a factorization as
+		\[\frac{P_1(T)\cdots P_{2d-1}(T)}{P_0(T)\cdots P_{2d}(T)},\]
+		where $P_i\in1+T\ZZ[T]$ for each $T$.
+		\item Functional equation: with $X$ proper, we have $Z_X(1/q^dT)=\pm q^{d\chi/2}T^\chi Z_X(T)$, where $\pm$ is some sign, and $\chi$ is the Euler characteristic.
+		\item Riemann hypothesis: with $X$ proper, we have $\left|\alpha_{ij}\right|=q^{i/2}$ for all $i$.
+		\item Betti numbers: with $X$ proper, if $X$ admits an integral model $\mc X$ over some subring $R\subseteq\CC$, then $\deg P_i$ is the $i$th Betti number of $\mc X(\CC)$.
+	\end{listalph}
+\end{conj}
+These statements are shown to be equivalent by expanding out the definition of $Z_X$ and taking logarithms.
+
+\subsection{Proof for Curves}
+We prove many of the Weil conjectures for curves. By keeping track of completions, we may as well assume that $X$ is smooth and proper. Let's start with rationality.
+\begin{proposition}
+	Fix a smooth proper curve $X$ over $\FF_q$. Then $Z_X(T)$ is a rational function of $T$.
+\end{proposition}
+\begin{proof}
+	The point is to write $Z_X(T)$ out in terms of divisors, which will allow us to use Riemann--Roch. Recall $Z_X(T)$ is the product
+	\[Z_X(T)=\prod_{\text{closed }p\in X}\left(1-T^{\deg p}\right)^{-1},\]
+	which then expands out into the sum
+	\[Z_X(T)=\sum_{\substack{D\in\op{Div}X\\D\ge0}}T^{\deg D},\]
+	where $D\ge0$ means that $D$ is effective. There are now two cases: if $\deg D\le 2g-2$, we will handle this separately. Otherwise, when $\deg D\ge2g-2$, then Riemann--Roch implies that the number of effective divisors with this degree is $\left(q^{d-g+1}-1\right)/(q-1)$. (Namely, Riemann--Roch allows one to compute the dimension of the space of effective divisors with given degree; this is a finite vector space over $\FF_q$, so we can now compute its size!) This finishes the proof upon rewriting this out as a geometric series.
+\end{proof}
+\begin{remark}
+	By inputting more effort, one can use this proof to prove the functional equation. If one is careful, then one can achieve an expansion
+	\[Z_X(T)=\frac{f(T)}{(1-T)(1-qT)}\]
+	for some polynomial $f(T)$ of degree $2g$ with integral coefficients. Note that this includes the Betti numbers conjecture!
+\end{remark}
+We now turn to the Riemann hypothesis, which of course is the hard part. This will depend on the following size bound.
+\begin{theorem}[Hasse--Weil]
+	Fix a smooth proper curve $C$ over a finite field $\FF_q$. Then
+	\[\left|\#C(\FF_q)-(q+1)\right|\le2g\sqrt q.\]
+\end{theorem}
+Let's explain why this produces the Riemann hypothesis. Because we already have an expression
+\[Z_X(T)=\frac{f(T)}{(1-T)(1-qT)},\]
+we may factor $f(T)=\prod_{i=1}^{2g}(1-\alpha_iT)$, and we note that we are trying to show $\left|\alpha_i\right|=\sqrt q$ for all $i$. By the functional equation, it is enough to show merely that $\left|\alpha_i\right|\le\sqrt q$ for all $i$. Now, by definition of $Z_X(T)$, we see that
+\[\sum_{n\ge1}\#C(\FF_{q^n})T^n=\frac d{dT}\log Z_X(T),\]
+which can be computed directly to be
+\[\sum_{n\ge1}\#C(\FF_{q^n})T^n=\sum_{i=1}^{2g}\Bigg(\frac{-\alpha_i}{1-\alpha_iT}+\frac1{1-T}+\frac1{1-qT}\Bigg),\]
+which after expanding out the geometric series becomes
+\[\sum_{n\ge1}\#C(\FF_{q^n})T^n=\sum_{n\ge1}\left(q^n+1-\sum_{i=1}^{2g}\alpha_i^n\right).\]
+Thus, the Hasse--Weil bound shows that
+\[\left|\sum_{i=1}^{2g}\alpha_i^n\right|\le2g\sqrt{q^n}.\]
+Now, if $\left|\alpha_i\right|>\sqrt q$ for any $i$, then we can send $i\to\infty$ to achieve a contradiction because the left-hand side is too large.
+
+\subsection{Intersection Theory on a Surface}
+We will want to know something about intersection theory on a surface. We're in a talk, so we're allowed to just state the result we want.
+\begin{theorem}
+	Fix a smooth projective surface $X$ over an algebraically closed field $k$. Then there is a unique integral symmetric bilinear pairing $(\cdot,\cdot)$ on $\op{Div}X$ such that any two transverse curves $C,C'\subseteq X$ have
+	\[(C,C')=\#(C\cap C').\]
+\end{theorem}
+There are many ways to the pairing $(C,C')$. The most geometric is to show that one can always wiggle one of the curves to make the intersection transverse.
+
+For our bound, we need the following geometric input.
+\begin{theorem}[Hodge index] \label{thm:hodge-index}
+	Fix a smooth projective surface $X$ over an algebraically closed field $k$. Further, fix an ample line bundle $H$ in $\op{Div}X$. If we are given a divisor $D$ on $X$ which is not linearly equivalent to $0$ while $D\cdot H=0$, then $D\cdot D<0$.
+\end{theorem}
+\begin{proof}
+	We will prove this in steps.
+	\begin{enumerate}
+		\item Suppose instead that $D\cdot H>0$ and $D^2>0$. Then we claim $mD$ is linearly equivalent to an effective divisor for sufficiently large $m$. Well, beacuse $D\cdot H>0$, $(K_X-mD)\cdot H<0$ for $m$ sufficiently large, so $K_X-mD$ cannot be effective. Thus, $\mathrm H^0(K_X-mD)=0$, so $\mathrm H^2(mD)=0$ by Serre duality. However, by Riemann--Roch for surfaces, one has
+		\[h^0(mD)=h^1(mD)+\frac12mD\cdot(mD-K_X)+\chi(\OO_X),\]
+		which becomes positive for $m$ large enough.
+
+		\item Now, suppose for the sake of contradiction that $D^2>0$. Then we can take $H'\coloneqq D+nH$ to be ample for $n$ large enough, from which we find $D\cdot H'=D^2>0$, so the lemma implies that $mD$ is effective for $m$ large enough, which contradicts having $D\cdot H=0$.
+
+		\item Lastly, suppose for the sake of contradiction that $D^2=0$. Because $D\cdot H=0$, we can find an effective divisor $E$ such that $D\cdot E\ne0$ while $E\cdot H=0$. Now, consider $D'\coloneqq nD+E$. One can calculate $(D')^2>0$ while $D'\cdot H=0$, so we reduce to the previous step.
+		\qedhere
+	\end{enumerate}
+\end{proof}
+To apply this, we will want to understand ample divisors.
+\begin{theorem} \label{thm:get-ample}
+	Fix a divisor $D$ on $X$. Then $D$ is ample if and only if $D^2>0$ and $D\cdot C>0$ for all irreducible curves $C$ on $X$.
+\end{theorem}
+Here is how this is applied.
+\begin{theorem} \label{thm:apply-hodge-index}
+	Let $X=C\times C'$ where $C$ and $C'$ are smooth projective curves. Set $\ell\coloneqq C\times\mathrm{pt}$ and $m\coloneqq\{\mathrm{pt}\}\times C'$. Then for any divisor $D$, we have
+	\[D^2\le2(D\cdot\ell)(D\cdot m).\]
+\end{theorem}
+\begin{proof}
+	As a lemma, we claim that if $H$ is ample, then
+	\[\left(D^2\right)\cdot\left(H^2\right)\le(D\cdot H)^2.\]
+	For this, one uses the Hodge index theorem on $E\coloneqq\left(H^2\right)D-(H\cdot D)H$, from which one can calculate $E^2<0$. Thus, as long as $D\ne0$, we get $\left(D^2\right)\left(H^2\right)-(D\cdot H)^2<0$; in all cases, we get the inequality.
+
+	Now, by \Cref{thm:get-ample}, the divisor $H\coloneqq\ell+m$ is ample. Applying the above argument with $D'$ defined as
+	\[D'=\left(H^2\right)\left(E^2\right)D-\left(E^2\right)(D\cdot H)H-\left(H^2\right)(D\cdot E)E\]
+	where $E\coloneqq\ell-m$.
+\end{proof}
+We are now ready to prove the Hasse--Weil bound. We will do intersection theory on the surface $X\coloneqq C\times C$. Let $\Delta\subseteq X$ be the diagonal, and let $\Gamma\subseteq X$ be the graph. Then $\#C(\FF_q)=(\Delta\cdot\Gamma)$, which is what we want to bound. Here are our steps.
+\begin{enumerate}
+	\item We claim $\Delta^2=(2-2g)$. By the adjunction formula (note $\Delta\cong C$), we see
+	\[2g-2=\Delta^2+\Delta\cdot K_X.\]
+	However, one can expand out $K_X$ as $\mathrm{pr}_1^*C+\mathrm{pr}_2^*C$, which each have intersection number $2g-2$ with $\Delta$ by using the adjunction formula, so the result follows. 
+	\item We claim $\Gamma^2=q(2-2g)$. By the adjunction formula (note $\Gamma\cong C$), we see
+	\[2g-2=\Gamma^2+\Gamma\cdot K_X.\]
+	After doing the same expansion of $K_X$, one calculates that $\Gamma\cdot\mathrm{pr}_1^*K_C=q(2g-2)$ and $\Gamma\cdot\mathrm{pr}_2^*K_C=2g-2$ by using the adjunction formula.
+	\item We now apply \Cref{thm:apply-hodge-index} to $X=C\times C$. Take large integers $r$ and $s$, and set $D\coloneqq r\Gamma+s\Delta$. Then $D\cdot\ell=rq+s$ and $D\cdot m=r+s$. From \Cref{thm:apply-hodge-index}, one calculates that
+	\[\left|N-(q+1)\right|\le g\left(\frac{rg}s+\frac sr\right),\]
+	so the result follows by sending $\frac rs\to\frac1{\sqrt q}$.
+\end{enumerate}
+
+\section{September 15: Rational Points on \texorpdfstring{$X_0(N)^*$}{X0(N)+} for \texorpdfstring{$N$}{N} Non-Squarefree}
+This talk was given by Sachi Haschimoto at Boston University of the Boston University number theory seminar. We are discussing joint work with Timo Keller and Samuel Le Fourn.
+
+\subsection{Overview}
+The motivation for our results arises from the following theorem of Mazur.
+\begin{theorem} \label{thm:mazur}
+	Fix a prime $p$, and let $E$ be an elliptic curve over $\QQ$ with (potential) complex multiplication. If $E$ admits a rational isogeny of degree $p$, then
+	\[p\in\{2,3,5,7,13,37\}.\]
+\end{theorem}
+This is proved by classifying the points on certain modular curves.
+\begin{definition}
+	Fix a positive integer $N$. Then there is an affine curve $Y_0(N)$ defined over $\QQ$ such that $Y_0(N)(K)$ is in bijection with the $\overline K$-isomorphism classes of pairs $(E,C_N)$, where $E$ is an elliptic curve over $K$, and $C_N\subseteq E(K)$ is a cyclic subgroup of order $N$. We let $X_0(N)$ be the completion, and we set $J_0(N)\coloneqq\op{Jac}X_0(N)$.
+\end{definition}
+Thus, we see that \Cref{thm:mazur} is equivalent to saying that $Y_0(p)(\QQ)$ only has CM points except when $p$ is among the listed exceptions: simply take any such elliptic curve $E$ with rational isogeny $\varphi$ of degree $p$, and we can produce the pair $(E,\ker\varphi)\in Y_0(p)(\QQ)$. Equivalently, we may say that $X_0(p)(\QQ)$ only has CM points or cusps.
+\begin{definition}[trivial]
+	A modular curve $X_0(N)$ is \textit{trivial} if and only if $X_0(N)(\QQ)$ only has cusps and CM points.
+\end{definition}
+\begin{remark}
+	The exceptional $p$ have $X_0(p)\cong\PP^1_\QQ$ (and therefore must have many points) except for $p=37$. When $p=37$, it turns out that $X_0(37)$ is genus $2$ and hence hyperelliptic, and one finds that the hyperelliptic involution produces the non-CM, non-cuspidal points.
+\end{remark}
+For this talk, we are interested in certain quotients of $X_0(N)$ rather than $X_0(N)$ itself.
+\begin{definition}[Atkin--Lehner involution]
+	Fix a positive integer $N$ and a divisor $Q\mid N$ with $\gcd(Q,N/Q)=1$. Then we define the \textit{Atkin--Lehner involution} $w_Q\colon X_0(N)\to X_0(N)$ by
+	\[w_Q((E,C_N))\coloneqq\left(\frac E{C_N[Q]},\frac{C_N+E[Q]}{C_N[Q]}\right)\]
+	One can check that this definition is smooth and therefore extends from $Y_0(N)$ to $X_0(N)$. One can also check that $w_Q^2=\id$.
+\end{definition}
+\begin{remark}
+	We see that $w_Q$ also extends to $J_0(N)$ by pullback, and it still has $w_Q^2=\id$. To relate to modular forms, we note that $S_2(\Gamma_0(N))$ is the cotangent space of $0\in J_0(N)$, from which it follows that $w_Q$ also acts on $S_2(\Gamma_0(N))$. But $S_2(\Gamma_0(N))$ is just some finite-dimensional complex vector space, so we end up with some linear algebra.
+\end{remark}
+\begin{notation}
+	We define $X_0(N)^*$ as the quotient of $X_0(N)$ by all the Atkin--Lehner involutions.
+\end{notation}
+\begin{remark}
+	It turns out that rational points of $X_0(N)^*$ (minus cusps) correspond to elliptic curves which are isogenous to all their Galois conjugates, where the isogenies have degree dividing by $N$.
+\end{remark}
+Here is what is currently known, which is due to many people.
+\begin{theorem}
+	Fix a positive integer $N$. If $N$ is a prime-power, and the genus of $X_0(N)^*$ is positive, then all rational points of $X_0(N)^*(\QQ)$ are trivial, except when $N=5^3$, in which case there is only one interesting point.
+\end{theorem}
+\begin{remark}
+	The hardest part of the theorem covers the cases $N\in\{125,169\}$, where the rank of the Jacobian equals the genus, so one has to work harder to make something like the Chabauty--Coleman method work.
+\end{remark}
+Here is what is expected
+\begin{conj}[Elkies]
+	For $N$ large enough, all rational points on $X_0(N)^*(\QQ)$ are either CM points or cusps.
+\end{conj}
+
+\subsection{Formal Immersion Method}
+We will be interested in the following morphisms.
+\begin{definition}[formal immersion]
+	Fix locally Noetherian schemes $X$ and $Y$. A map $f\colon X\to Y$ is a \textit{formal immersion} at some point $x\in X$ if and only if it induces an isomorphism of residue fields and is injective on tangent spaces.
+\end{definition}
+Here is how these are used.
+\begin{theorem}[Mazur] \label{thm:use-formal-immersion}
+	Fix a morphism $f\colon X_0(N)\to A$ of schemes over $\ZZ$, where $A$ is an abelian scheme over $\ZZ$ of rank $0$. Suppose that $f$ is a formal immersion at $\infty$, where $f(\infty)=0$. Then any $(E,C_N)\in X_0(N)(\QQ)$ has $E$ with potentially good reduction at all primes $p>2$.
+\end{theorem}
+The point is that we have upgraded rationality of $E$ to some integrality. Indeed, an equivalent statement is that $j(E)\in\ZZ[1/2]$.
+\begin{proof}[Sketch]
+	Suppose not. Then $E$ becomes a cusp at some prime $p$, so by using Atkin--Lehner involutions, one can move $E$ to become $\infty$ at $p$. Now, $f((E,C_N))\in A(\QQ)$ is torsion because $A(\QQ)$ is torsion, so because torsion reduces$\pmod p$ injectively, we see that $f((E,C_N))\equiv f(\infty)\equiv0\pmod p$ and therefore $f(x)=f(\infty)=0$. But then our tangent spaces will fail to be injective.
+\end{proof}
+\begin{remark}
+	If $N$ is squarefree, then the simple factors of $J_0(N)^*$ over $\QQ$ are all expected to have positive rank (by the Birch--Swinnerton-Dyer conjecture), so one does not expect \Cref{thm:use-formal-immersion} to be particularly helpful.
+\end{remark}
+Here is what we are able to prove.
+\begin{theorem}
+	Fix $N\ge1$ which is not $99$ or $147$ but is not squarefree and not a prime-power. For any $P\in Y_0(N)^*(\QQ)$, choose a lift $(E,C_N)$ to $Y_0(N)(K)$ for some number field $K$. Then
+	\[\left(8\cdot3\cdot25\cdot49\cdot31\right)^Nj(E)\in\OO_K.\]
+	In fact, if $p^2\mid N$ for some $p\notin\{2,3,5,7,13\}$, then $j(E)\in\OO_K$.
+\end{theorem}
+\begin{remark}
+	The $N\in\{99,147\}$ cases have positive rank, so we do not have hope for an integrality statement.
+\end{remark}
+\begin{remark}
+	The exponent $N$ is more or less sharp. The $31$ is never expected to appear.
+\end{remark}
+Our method proof, following Mazur, uses the following.
+\begin{theorem}[Mazur]
+	If $p\notin\{2,3,5,7,13\}$, then $J_0(p)^-\coloneqq J_0(p)/(1+w_p)$ has a rank zero quotient.
+\end{theorem}
+The exceptions arise because $\dim J_0(p)=0$, so there is no way to find such a quotient. These rank zero abelian varieties are good enough for our purposes most of the time, but we have also proven the following.
+\begin{theorem}
+	Fix distinct primes $p$ and $q$ with $p\in\{2,3,5,7,13\}$ and $q>23$. Then $J_0(pq)^{-p,+q}\coloneqq J_0(pq)/(1+w_p,1-w_q)$ has a rank $0$ quotient.
+\end{theorem}
+This is proven using some analytic techniques showing that some $L$-functions vanish. Now, the point of the proof of the main theorem is to do some reduction of levels to construct formal immersions to abelian varieties of rank $0$.
+
+% Let's explain how we can prove our results. The moral is to reduce to squarefree levels.
+
+\section{September 16: Higher Siegel--Weil Formula for Unitary Groups}
+This talk was given by Mikayel Mkrtchyan at MIT for the MIT number theory seminar.
+
+\subsection{The Kudla Program}
+Let's start by recalling the classical formulation of the Siegel--Weil formula. An approximate statement is that an Eisenstein series $E(g,s_0)$ is approximately equal to a period $\int_{[H]}\theta(g,h)\,dh$ for some $\theta$-function $\theta$. This was proved for a dual pair $(G,H)$ of reductive groups over a global field $F$ in the case where $(G,H)=(\op U(2n),\op U(n))$.
+
+The Kudla program geometrizes this into a statement that $E(g,s_0)$ should be equal to the degree of some $0$-cycle on a Shimura variety. There is also an arithmetic Siegel--Weil formula, which describes the derivative of the Eisenstein series as the degree of a $0$-cycle on the integral model(!) of a Shimura variety.
+
+For this talk, we will be working over function fields. As such, we go ahead and fix a morphism $X'\to X$ of smooth curves over a finite field $k\coloneqq\FF_q$, and we will assume that $X'\to X$ is an \'etale double cover, where $\sigma\colon X'\to X'$ is the automorphism. We also set $F\coloneqq k(X)$ and $F'\coloneqq k(X')$.
+
+With the above motivation in mind, we are now ready to set some notation. Let's describe the automorphic side of our Siegel--Weil formula.
+\begin{definition}[Siegel--Eisenstein series]
+	Fix the group $G\coloneqq\op U(n,n)$ over a global field, and let $P\subseteq G$ be a parabolic subgroup. Consider the induction
+	\[\op{Ind}_{P(\AA)}^{G(\AA)}\left(\chi\left|\det\right|^{s+n/2}\right),\]
+	where $\chi$ is some auxiliary character, and $s\in\CC$. To produce an automorphic form, we may choose some $\varphi(g,s)$ in this induction satisfying $\varphi(1,s)=1$, and then we define our Eisenstein series as
+	\[E(g,s)\coloneqq\sum_{\gamma\in P(F)\backslash G(F)}\varphi(\gamma g,s).\]
+	We may normalize this to $\widetilde E(g,s)$ via some silent process.
+\end{definition}
+\begin{remark}
+	The Eisenstein series $E(g,s)$ admits a Fourier decomposition, indexed by Hermitian $n\times n$ matrices $T\in\op{Herm}_n(F)$. These can alternatively be parameterized by pairs $(\mc E,a)$ where $\mc E$ is a vector bundle of rank $n$, and $a\colon\mc E\to\sigma^*\mc E^\lor$ is some map. %In particular, $E_T(g,s)$ takes some pair $(\mc E,a)$ of a rank-$n$ vector bundle $\mc E$ on $X'$
+\end{remark}
+We now turn to the geometric side. Instead of Shimura varieties, we are able to use shtukas.
+\begin{definition}
+	A \textit{$\op U(n)$-bundle} on $X'$ is a pair $(\mc F,h)$ of a rank-$n$ vector bundle on $X'$ and some isomorphism $h\colon\mc F\to\sigma^*\mc F$. We let $\op{Bun}_{\op U(n)}$ denote the relevant moduli space.
+\end{definition}
+\begin{definition}
+	We define the \textit{Hecke modification} $\op{HK}^1_{\op U(n)}$ as the collection of tuples $(x,\mc F_0,\mc F_1,f_{1/2},\iota_0,\iota_1)$ where $x\in X'$, $\mc F_0$ and $\mc F_1$ are $\op U(n)$-bundles, and $\iota_0\colon\mc F_{1/2}\to\mc F_0$ and $\iota_1\colon\mc F_{1/2}\to\mc F_1$ are some maps respeecting the unitary structure.
+\end{definition}
+\begin{remark}
+	It turns out that the canonical map ${\op{HK}^1_{\op U(n)}}\to X'\times\op{Bun}_{\op U(n)}$ onto the first two coordinates is a $\PP^{n-1}$-bundle.
+\end{remark}
+\begin{definition}
+	We define $\op{Sht}^r_{\op U(n)}$ as the moduli space of chains of $r$ Hecke modifications
+	\[\mc F_0\to\mc F_1\to\cdots\to\mc F_r,\]
+	where $\mc F_r$ is isomorphic to the Frobenius twist of $\mc F_0$. This is a Deligne--Mumford stack.
+\end{definition}
+\begin{remark}
+	It turns out that $\dim\op{Sht}^r_{\op U(n)}=rn$ for even $r$ and vanishes for odd $r$. (One should modify the definition slightly to get interesting statements when $r$ is odd.)
+\end{remark}
+With our analogue of Shimura varieties in hand, we are able to define our special cycles.
+\begin{definition}
+	Fix a pair $(\mc E,a)$ of a vector bundle $\mc E$ of rank $m$ and a map $a\colon\mc E\to\sigma^*\mc E^\lor$. Then we define the special cycle $Z^r_{\mc E}(a)\to\op{Sht}^r_{\op U(n)}$ to parameterize the data of an $r$-shtuka
+	\[\mc F_0\to\mc F_1\to\cdots\to\mc F_r\]
+	equipped with commuting maps $\mc E\to\mc F_0$ which commute with our Frobenius twists and pullbacks by $\sigma$.
+\end{definition}
+\begin{remark}
+	The map $Z^r_{\mc E}(a)\to\op{Sht}^r_{\op U(n)}$ is finite, so we are more or less producing a cycle.
+\end{remark}
+\begin{remark}
+	If $a$ in the pair $(\mc E,a)$ is an isomorphism, then $\mc Z^r_{\mc E}(a)\cong\op{Sht}^r_{\op U(n-\op{rank}\mc E)}$.
+\end{remark}
+\begin{remark}
+	The expected dimension of $Z^r_{\mc E}(a)$ is $r(n-\op{rank}\mc E)$.
+\end{remark}
+We are now raedy to state our main theorem.
+\begin{theorem}
+	Fix the following data.
+	\begin{itemize}
+		\item A pair $(\widetilde{\mc E},\widetilde a)$, where $\op{rank}\widetilde E=n$ with $\op{rank}\im\widetilde a=n-1$. Then $Z^r_{\widetilde{\mc E}}(\widetilde a)$ is proper, and the degree of the corresponding cycle equals
+		\[\del_{s=0}^r\left(\widetilde E_{(\widetilde E,\widetilde a)(s)}\right)\]
+		up to some explicit constant.
+	\end{itemize}
+\end{theorem}
+
+\section{September 18th: The \'Etale Site}
+This talk was given by Yutong Chen for the STAGE seminar at MIT.
+
+\subsection{\'Etale Morphisms}
+We will be interested in \'etale morphisms today. Intuitively, they are supposed to be the algebro-geometric version of a covering space in topology. Here is the easiest definition.
+\begin{definition}[\'etale]
+	A morphism $f\colon X\to S$ of schemes is \textit{\'etale} if and only if it is locally of finite presentation, flat, and unramified.
+\end{definition}
+While locally of finite presentation and flatness are fairly common notions, we should define what it means for a morphism to be unramified. We will define this in steps.
+\begin{definition}[unramified]
+	Fix an extension $A\subseteq B$ of discrete valuation rings with uniformizers $\pi_A$ and $\pi_B$, respectively. Then $A\subseteq B$ is \textit{unramified} if and only if $(\pi_B)=\pi_A\cdot B$ and the extension of residue fields is separable.
+\end{definition}
+\begin{definition}[unramified]
+	Fix a map $f\colon A\subseteq B$ of local rings. Then $f$ is \textit{unramified} if and only if $f(\mf m_A)=\mf m_B$ and the field extension
+	\[A/\mf m_A\to B/\mf m_B\]
+	is separable.
+\end{definition}
+\begin{definition}[unramified]
+	Fix a morphism $f\colon X\to S$ of schemes. Then $f$ is \textit{unramified} if and only if the local maps
+	\[\OO_{S,f(x)}\to\OO_{X,x}\]
+	are unramified for all $x\in X$.
+\end{definition}
+\begin{example}
+	Open and closed immersions are unramified.
+\end{example}
+\begin{nex}
+	Consider the squaring map $\AA^1_k\to\AA^1_k$ given by the ring map $k[t]\to k[t^2]$ defined by $t\mapsto t^2$. Then this map is not ramified at $0$. Indeed, this map is locally given by
+	\[k[t^2]_{\left(t^2\right)}\to k[t]_{(t)},\]
+	but the maximal ideal fails to go to the maximal ideal.
+\end{nex}
+There are many ways to think about \'etale morphisms.
+\begin{definition}[\'etale]
+	A morphism $f\colon X\to S$ is \textit{\'etale} if and only if it is smooth of relative dimension $0$.
+\end{definition}
+Here is one version of smoothness which is fairly hands-on.
+\begin{definition}[smooth]
+	Fix a morphism $f\colon X\to S$. Given $x\in X$, we say that $f$ is \textit{smooth} at $x$ if and only if the morphism locally looks like
+	\[\Spec\frac{A[t_1,\ldots,t_n]}{(g_{r+1},\ldots,g_n)}\to\Spec A\]
+	and the corresponding Jacobian matrix has full rank $n-r$. We may also say that $f$ is smooth of \textit{relative dimension $r$} in this situation.
+\end{definition}
+Of course, there are also many ways to define smoothness. Here is another useful criterion.
+\begin{proposition}
+	Fix a flat morphism $f\colon X\to S$ of irreducible varieties over a field $k$, and set $r\coloneqq\dim X-\dim S$. Then $f$ is smooth of relative dimension $r$ if and only if $\Omega_{X/S}$ is locally free of rank $r$.
+\end{proposition}
+Here are a few more ways to work with the yoga of \'etale morphisms.
+\begin{proposition} \label{prop:basic-etale}
+	Fix a ring $A$, an extension $B=A[t]/(p)$ where $p\in A[t]$ is monic, and a localization $C=B\left[q^{-1}\right]$ for some $q$. If $p'(t)\in C^\times$, then the natural map $\Spec C\to\Spec A$.
+\end{proposition}
+We will not prove this (all of these proofs are horribly annoying), but we will content ourselves with an example.
+\begin{example}
+	Fix $A\coloneqq k[x]$ and $B\coloneqq k[x,y]/\left(y^2-x(x-1)(x+1)\right)$. Then $\Spec B\to\Spec A$ is basically the projection from an elliptic curve to the affine line, so we expect to have some ramification at $(0,0)$, $(1,0)$, and $(-1,0)$. Accordingly, if we localize out by $x^3-x$, then we see that the map $\Spec C\to\Spec A$ is successfully \'etale, which can be checked because the derivative of $p(y)=y^2-\left(x^3-x\right)$ is in $C^\times$.
+\end{example}
+\begin{remark}
+	It turns out that all \'etale morphisms can locally be factored like \Cref{prop:basic-etale}.
+\end{remark}
+\begin{proposition}
+	Fix a smooth morphism $f\colon X\to S$ of relative dimension $r$ at a point $x\in X$. Further, fix some local functions $g_1,\ldots,g_r\in\OO_{X,x}$. Then the following are equivalent.
+	\begin{listroman}
+		\item The elements $dg_1,\ldots,dg_r$ form a local basis for $\Omega_{X/S}\otimes k(x)$.
+		\item The elements $g_1,\ldots,g_r$ extend to an open neighborhood $U$ of $x$ such that $(g_1,\ldots,g_r)\colon U\to\AA^r_S$ is \'etale.
+	\end{listroman}
+\end{proposition}
+\begin{remark}
+	Property (i) is relatively easy to satisfy, so we know that such functions surely exist.
+\end{remark}
+\begin{remark}
+	The point of (ii) is that $f$ now factors as
+	\[X\supseteq U\to\AA_S^r\to S,\]
+	where the map $U\to\AA_S^r$ is \'etale. Thus, smooth morphisms are ``just'' projections up to an \'etale map.
+\end{remark}
+
+\subsection{The Fundamental Group}
+Continuing with our intuition that \'etale morphisms are covering spaces, we now try to define a fundamental group. It is difficult to make sense of paths in algebraic geometry, so instead we will use covering spaces. Here is the construction that we will try to generalize.
+\begin{example}
+	For a nice topological space $X$ (e.g., a manifold) with a basepoint $x\in X$, then there is a natural ``fiber'' functor
+	\[\op{Fib}_x\colon\op{Cover}(X)\to\mathrm{Set}\]
+	from the category of covering spaces of $X$ to sets given by sending $p\colon Y\to X$ to the fiber $p^{-1}(\{x\})$. By a path-lifting argument, one shows that
+	\[\pi_1(X,x)=\op{Aut}({\op{Fib}_x}).\]
+	(In particular, path-lifting desribes an action of $\pi_1(X,x)$ on all fibers in a compatible way.) We remark that this allows us to upgrade the fiber functor into an equivalence
+	\[\op{Fib}_x\colon\op{Cover}(X)\to\mathrm{Set}(\pi_1(X,x)).\]
+\end{example}
+\begin{remark}
+	Topology is aided by the existence of a universal cover. For example, one has a universal cover of $S^1$ given by $\RR\onto S^1$, but this covering space fails to be finite; similarly, the universal cover of $\CC^\times$ is the exponential map $\exp\colon\CC\onto\CC^\times$, which is not algebraic. Algebra is going to have some trouble producing coverings which are not finite (or algebraic), so we will have to content ourselves with some finite quotients.
+\end{remark}
+Accordingly, we find that we are contenting ourselves to work with finite covering spaces, which amounts to working with finite \'etale covers.
+\begin{definition}[\'etale fundamental group]
+	Fix a scheme $X$ and a geometric point $\ov x\into X$, and consider the corresponding category $\op{Fin\acute Et}(X)$ of finite \'etale covers of $X$. Then we define the \textit{\'etale fundamental group} $\pi_1(X,\ov x)$ to be the automorphism group of the fiber functor
+	\[\op{Fib}_x\colon\op{Fin\acute Et}(X)\to\mathrm{Set}\]
+	given by sending the cover $p\colon Y\to X$ to the covering to the fiber $Y\times_p\ov x$.
+\end{definition}
+\begin{remark}
+	As in the topological case, one finds that $\mathrm{Fib}_x$ upgrades to an equivalence
+	\[\op{Fib}_x\colon\op{Fin\acute Et}(X)\to\mathrm{Set}(\pi_1(X,\ov x)).\]
+\end{remark}
+As a sanity check, we note the following comparison theorem.
+\begin{theorem}
+	Fix an irreducible variety $X$ over $\CC$. Then $Y\mapsto Y(\CC)$ upgrades to an equivalence of categories between the finite \'etale covers of $X$ and the finite covers of $X(\CC)$.
+\end{theorem}
+\begin{example}
+	Consider $X=\CC\left[x,x^{-1}\right]$ so that $X(\CC)=\CC^\times$. Then we see that $\pi_1^{\mathrm{\acute et}}(X,\ov 1)$ will be $\widehat\ZZ$ because it is the colimit of the automorphism groups of the finite covers of $\CC^\times$.
+\end{example}
+But now that we can do algebraic geometry, we can add in some arithmetic information.
+\begin{example}
+	Consider the point $X=\Spec k$ and an algebraic closure $\ov x=\Spec\ov k$. Then a finite \'etale cover $Y\to X$ will be a finite disjoint union of points. To describe our category, we are allowed to work with just the connected covers of $X$, which amounts to making $Y$ a point, so we may write $Y=\Spec L$. In order for the map $Y\to X$ to be an \'etale cover, it is equivalent to ask for the induced field extension $k\subseteq L$ to be finite and separable. The fiber of such an $L$ is given by
+	\[(Y\times\ov x)(\ov k)=\Spec(L\otimes\ov k)(\ov k)=\op{Hom}_k(L,\ov k).\]
+	Thus, $\mathrm{F\acute Et}(X)$ amounts to the category of finite separable extensions of $k$, and it is not hard to see that the automorphism group is simply $\op{Gal}(\ov k/k)$.
+\end{example}
+
+\subsection{Grothendieck Topologies}
+The point of a Grothendieck topology is to recognize that what makes a topology important is not its open sets but instead the notion of covers. Thus, to specify a Grothendieck topology, we will try to specify the covers and make do with that.
+\begin{definition}[Grothendieck topology]
+	Fix a category $\mc C$ closed under finite products. A \textit{Grothendieck topology} on $\mc C$ is a collection of families $\mc T$ of the form $\{f_i\colon U_i\to U\}_i$ and satisfying the following.
+	\begin{listalph}
+		\item Isomorphisms: the family $\mc T$ contains all isomorphisms.
+		\item Refinement: given a covering $\{U_i\to U\}_i$ in $\mc T$ and some coverings $\{V_{ij}\to U_i\}_j$, then the composite $\{V_{ij}\to U_i\to U\}_{i,j}$ continues to be in $\mc T$.
+		\item Pullback: given a covering $\{U_i\to U\}_i$ in $\mc T$ and some object $V$ with a map $V\to U$, then the pullback $\{U_i\times_U V\to V\}_i$ is in $\mc T$.
+	\end{listalph}
+	In this situation, the pair $(\mc C,\mc T)$ is a site.
+\end{definition}
+Here is the motivating example.
+\begin{example}[Zariski site]
+	If $X$ is a topological space, then we can let $\mc C$ be the category of open sets in $X$ with morphisms given by inclusion. We can endow $\mc C$ with the structure of a Grothendieck topology by letting the covers simply be the open covers. If $X$ is a scheme, then this site is called the Zariski site.
+\end{example}
+Here is the site for today.
+\begin{definition}[small \'etale site]
+	Fix a scheme $X$, and consider the category $\op{\acute Et}(X)$ of all \'etale covers of $X$. Then we endow $\op{\acute Et}(X)$ with the structure of a Grothendieck topology by saying that a collection of morphisms $\{U_i\to U\}_i$ is a covering if and only if $\bigsqcup_i U_i\to U$ is surjective. This is called the \textit{(small) \'etale site} and is denoted $X_{\mathrm{\acute et}}$.
+\end{definition}
+\begin{remark}
+	It turns out that a morphism of \'etale covers of $X$ is automatically \'etale. This can be proven using the usual techniques of cancellation.
+\end{remark}
+\begin{remark}
+	By replacing the word \'etale with other adjectives, we also have an fppf site and fpqc site. We note that the Zariski site has the same definition where \'etale is replaced with open embeddings.
+\end{remark}
+As usual, once we have an object, we want some morphisms.
+\begin{definition}[continuous]
+	A \textit{continuous} map $F\colon(\mc C',\mc T')\to(\mc C,\mc T)$ is the data of a functor $F\colon\mc C\to\mc C'$ satisfying the following.
+	\begin{listalph}
+		\item For any covering $\{U_i\to U\}_i$ in $\mc T$, we require that $\{FU_i\to FU\}_i$ to be in $\mc T'$.
+		\item Given a covering $\{U_i\to U\}_i$ in $\mc T$ and a map $V\to U$, then we require that $F(V\times_UU_i)\to FV\times_{FU}FU_i$ to be an isomorphism.
+	\end{listalph}
+\end{definition}
+\begin{remark}
+	If $f\colon X'\to X$ is a continuous map of topological spaces, then taking the pre-image indueces a functor of the categories of open sets, and one can see directly that taking the pre-image produces a continuous map of the Grothendieck topologies.
+\end{remark}
+\begin{remark}
+	For any scheme $X$, there is a continuous map between the \'etale site
+	\[X_{\mathrm{fpqc}}\to X_{\mathrm{fppf}}\to X_{\mathrm{\acute et}}\to X_{\mathrm{Zar}}.\]
+\end{remark}
+The point of having a notion of topology is that it lets us do sheaf theory.
+\begin{definition}
+	Fix a Grothendieck topology on a category $\mc C$. Then a presheaf $\mc F\colon\mc C\opp\to\mathrm{Ab}$ is a \textit{sheaf} if and only if the usual exact sequence
+	\[\mc F(U)\to\prod_i\mc F(U_i)\to\prod_{i,j}\mc F(U_i\times_UU_j)\]
+	is exact for all covers $\{U_i\to U\}_i$.
+\end{definition}
+\begin{example}
+	A sheaf on the Zariski site is the usual notion of sheaf in scheme theory.
+\end{example}
+\begin{remark}
+	Because open embeddings are already \'etale, fppf, and fpqc, we see that a sheaf on any of these sites must be a Zariksi sheaf as well.
+\end{remark}
+\begin{remark}
+	Because the sites we care about are closed under arbitrary coproduct, it is enough to check it on coverings which look like $U'\to U$, though of course one cannot require either $U'$ or $U$ to be connected.
+\end{remark}
+We have yet to construct any sheaves! Here is the usual way to do so.
+\begin{definition}
+	Fix a scheme $X$. For any Zariski quasicoherent sheaf $\mc F$ on $X$, we define the \'etale pre\-sheaf $\mc F^{\mathrm{\acute et}}$ on $X_{\mathrm{\acute et}}$ by sending the cover $p\colon U\to X$ to
+	\[\mc F_{\mathrm{\acute et}}(U)\coloneqq\op{Hom}(p^*\OO_X,p^*\mc F).\]
+\end{definition}
+\begin{remark}
+	It turns out that this construction produces a sheaf. Something similar works for the fppf sites and fpqc sites. Let's explain this for the fpqc site. Indeed, fix a fpqc morphism $p\colon S'\to S$, so we set $S'\coloneqq S'\times_SS'$ with projection $q\colon S''\to S$, and we need to check that the usual sequence
+	\[\mc F_{\mathrm{fpqc}}(S)\to\mc F_{\mathrm{fpqc}}(S')\to\mc F_{\mathrm{fpqc}}(S'')\]
+	is exact. Accordingly, we see that we may as well replace $\mc F$ with the pullback to $S$ (so that $X=S$), and we have left to check that
+	\[\op{Hom}(\OO_S,\mc F)\to\op{Hom}(\OO_{S'},p^*\mc F)\to\op{Hom}(\OO_{S''},q^*\mc F)\]
+	is exact. Exactness now follows from some notion of descent.
+\end{remark}
+The last remark we should make about sheaves on a site is that we can do sheafification.
+\begin{definition}[sheafification]
+	Fix a site $\mc C$. Then there is a left adjoint to the forgetful functor $\mathrm{Sh}(\mc C)\to\mathrm{PSh}(\mc C)$, which we call sheafification.
+\end{definition}
+
+\section{September 22nd: Uniform Boundedness over Function Fields}
+This talk was given by Jit Wu Yap at Boston University for the Boston University number theory seminar.
+
+\subsection{The Main Theorems}
+For today, we will work over a function field $K\coloneqq\CC(B)$, where $B$ is a smooth projective curve over $\CC$. We are interested in abelian varieties with semistable reduction.
+\begin{definition}[semistable reduction]
+	Fix an abelian variety $A$ over $K$. We say that $A$ has \textit{semistable reduction} if and only if there is a semiabelian scheme $G$ over $B$ such that $G_K\cong A$.
+\end{definition}
+Here are two theorems.
+\begin{theorem} \label{thm:bounded-torsion-ff}
+	Fix an integer $g$. Then there is an integer $N$ only depending on $g$ and the genus of $B$ such that all $g$-dimensional abelian varieties $A$ over $K$ of semistable reduction has
+	\[\op{ord}(x)\le N\]
+	for all $x\in A(K)_{\mathrm{tors}}$.
+\end{theorem}
+\begin{remark}
+	Intuitively, this is a result on the boundedness of torsion, analogous to Maur's theorem for $g=1$ over $K=\QQ$. There is a long history of such results. In the 1990s, results were achieved for $g=1$ over a number field. For $g\ge2$, Silverberg showed the result when $A$ has complex multiplication. Cadoret--Tamagawa's results were used as an input to Bakkar--Tsiermann showing this for $g\ge2$ when $A$ has real multiplication in 2018.
+\end{remark}
+\begin{theorem} \label{thm:lang-silverman-ff}
+	Fix an integer $g$. Then there is a positive constant $c$ depending only on $g$ and the genus of $B$ such that all $g$-dimensional abelian varieties $A$ of semistable reduction, then the N\'eron--Tate height of any $x\in A(K)$ for which $\overline{\ZZ x}=A$ is bounded below by $ch_{\mathrm{Fal}}(A)$.
+\end{theorem}
+The Faltings height and the Weil height machine work just fine for function fields over $\CC$. For example, one can define the Faltings height as the usual Weil height of the point $A\in\mc A_{g,3}^*$ against some canonically defined ample line bundle.
+\begin{remark}
+	This is referred to as a ``Lang--Silverman'' result because it was conjectured by them. In the case of $g=1$, this was shown by Hindry--Silverman in 1988.
+\end{remark}
+\begin{remark}
+	The methods are largely arithmetic. The fact that we are working over $\CC$ is used only once in the proof: we use Faltings's Arakelov inequality, which asserts that there is a positive constant $c$ depending only on $g=\dim A$ for which
+	\[h_{\mathrm{Fal}}(A)\le c\left(\left|S\right|+g(B)+1\right),\]
+	where $S$ is the set of places of bad reduction of $A$. Accordingly, if this inequality is true over number fields $K$ (which is known as a higher-dimensional Szpiro conjecture), then \Cref{thm:bounded-torsion-ff,thm:lang-silverman-ff} hold. However, Szpiro's conjecture is known to be hard: just in $g=1$, it is known to imply the $abc$ conjecture.
+\end{remark}
+
+\subsection{Some Ideas}
+Here is the main idea for the results.
+\begin{enumerate}
+	\item If $x\in A(K)$, then the Arakelov inequality is able to place constraints on $x\in A(K_v)$ for many places $v$.
+
+	\item However, $K$-points of small N\'eron--Tate height will equidistribute. Here is a formal statement for elliptic curves: given ascending collections $F_n\subseteq A(\ov K)$ of Galois-invariant points, then it is known that
+	\[\frac1{\#F_n}\sum_{x\in F_n}\delta_x\to\mu,\]
+	for some suitably defined Haar measure $\mu$. Thus, we cannot expeect to have too many points in $A(K)$ of small N\'eron--Tate height.
+\end{enumerate}
+Here are a couple of tools.
+\begin{enumerate}
+	\item Over $\CC$, there is a notion of ``transfinite diameter'' of a sequence of points $\{x_1,\ldots,x_n\}$ defined as
+	\[\frac1{n^2}\sum_{i\ne j}-\log\left|x_i-x_j\right|.\]
+	This turns out to measure how close a given set of points are to a large-degree hypersurface.
+
+	\item It turns out that abelian varieties over local fields satisfies ``degeneration by ultrafilters.'' Roughly speaking, given a countable collection $\{K_n\}_n$ of complete, algebraically closed field, nonarchimedean fields, and $g$-dimensional principally polarized abelian varieties $A_n$ over $K_n$, then there is a ``limit'' $A_\omega$ over some complete, algebraically closed, nonarchimedean field $K_\omega$ for any ultrafilter $\omega$ on $\NN$. Roughly speaking, one fixes a compactification $\ov X$ of $X\coloneqq\mc A_{g,3}$. Then define $\lambda_{\del X}(A)$ to be $-\log$ of the distance of $A$ to $\del\ov X$. Then we may define
+	\[A^\varepsilon\coloneqq\Bigg\{(x_n)_n\in\prod_{n=1}^\infty K_n:\left|x_n\right|^{1/\lambda_{\del X}(A_n)}\text{ is bounded}\Bigg\}.\]
+	It now turns out that there is a morphism $\Spec A^\varepsilon\to\mc A_{g,3}$ making the diagram
+	% https://q.uiver.app/#q=WzAsMyxbMCwwLCJcXFNwZWMgQV5cXHZhcmVwc2lsb24iXSxbMCwxLCJcXFNwZWMgS19uIl0sWzEsMCwiXFxtYyBBX3tnLDN9Il0sWzEsMiwiQV9uIiwyXSxbMCwxLCJcXG9we3ByfV9uIiwyXSxbMCwyXV0=&macro_url=https%3A%2F%2Fraw.githubusercontent.com%2FdFoiler%2Fnotes%2Fmaster%2Fnir.tex
+	\[\begin{tikzcd}[cramped]
+		{\Spec A^\varepsilon} & {\mc A_{g,3}} \\
+		{\Spec K_n}
+		\arrow[from=1-1, to=1-2]
+		\arrow["{\op{pr}_n}"', from=1-1, to=2-1]
+		\arrow["{A_n}"', from=2-1, to=1-2]
+	\end{tikzcd}\]
+	commute. Of course, one can certainly induce a map to $\ov X$, so the difficulty is showing that we do not end up in the boundary in the limit.
+\end{enumerate}
+
+\end{document}

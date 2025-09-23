@@ -822,11 +822,11 @@ For our last setting, let $X$ be a smooth projective variety over a field $K$. H
 \begin{notation}
 	Fix a smooth projective variety over a field $K$. For any embedding $\sigma\colon K\into\CC$, we define Betti cohomology relative to $\sigma$ as
 	\[\mathrm H^i_\sigma(X,R)\coloneqq\mathrm H^i_{\mathrm B}(X_\sigma(\CC),R)\]
-	forany ring $R$. Frequently, we will have fixed once and for all an embedding of $K$ into $\CC$, so we may abbreviate $\mathrm H^i_\sigma(X,R)$ to just $\mathrm H^i_{\mathrm B}(X,R)$.
+	for any ring $R$. Frequently, we will have fixed once and for all an embedding of $K$ into $\CC$, so we may abbreviate $\mathrm H^i_\sigma(X,R)$ to just $\mathrm H^i_{\mathrm B}(X,R)$.
 \end{notation}
 Similarly, one is now able to define de Rham cohomology for $X$, though we do make a moment to remark that there is a theory of algebraic de Rham cohomology that is able to work in greater generality.
 
-Working with varieties gives access to the last cohomology theory we will need.
+Working with varieties gives access to another cohomology theory we will need.
 \begin{defihelper} \nirindex{cohomology!etale cohomology@cohomology!\'etale cohomology}
 	Fix a smooth projective variety $X$ over a field $K$. For some \'etale sheaf $\mc F$, we are able to define the \'etale cohomology $\mathrm H^i(X,\mc F)$ in the same way as sheaf cohoomology. In particular, for any prime $\ell$ which is nonzero in $K$, we define the \textit{$\ell$-adic cohomology} by
 	\[\mathrm H^i_{\mathrm{\acute et}}(X_{\ov K},\QQ_\ell)\coloneqq\left(\limit\mathrm H^i_{\mathrm{\acute et}}(X_{\ov K},\underline{\ZZ/\ell^\bullet\ZZ})\right)\otimes_\ZZ\QQ\]
@@ -834,7 +834,7 @@ Working with varieties gives access to the last cohomology theory we will need.
 Importantly, we note that \'etale cohomology has the natural action by $\op{Gal}(\ov K/K)$. As usual, there is a comparison isomorphism.
 \begin{theorem} \label{thm:betti-etale-comparison}
 	Fix a smooth projective variety $X$ over $\CC$. Then there is a natural isomorphism
-	\[\mathrm H^i_{\mathrm B}(X,\QQ_\ell)\to\mathrm H^i_{\mathrm{\acute et}}(X_{\ov K},\QQ_\ell).\]
+	\[\mathrm H^i_{\mathrm B}(X,\QQ_\ell)\to\mathrm H^i_{\mathrm{\acute et}}(X,\QQ_\ell).\]
 \end{theorem}
 We may find it convenient to glue our cohomology theories together.
 \begin{notation}
@@ -847,6 +847,19 @@ We may find it convenient to glue our cohomology theories together.
 	\[\mathrm H^i_{\mathrm{dR}}(X,\RR)\times\prod_\ell\left(\mathrm H^i_{\mathrm{\acute et}}(X_{\ov K},\QQ_\ell),\mathrm H^i_{\mathrm{\acute et}}(X_{\ov K},\ZZ_\ell)\right),\]
 	which provides some motivation for the $\AA$ in the notation.
 \end{remark}
+The above cohomology theories have mostly worked in characteristic $0$, but it is notable that \'etale cohomology has managed to work with $\op{char}K\nmid\ell$. This does leave a gap in positive characteristic, where we may want to define a cohomology ``at'' $\op{char}K=\ell$. This is achieved by crystalline cohomology; we will not use crystalline cohomology very much, but we go ahead and give some of its basic properties. We refer to \cite{illusie-crystalline} for a more thorough review.
+\begin{defihelper} \nirindex{cohomology!crsytalline cohomology}
+	Fix a smooth projective variety $X$ over a perfect field $K$ of positive characteristic $p$. Let $W$ be the ring of Witt vectors over $K$, and define $W_n\coloneqq W/p^nW$ for each $n\ge0$. Then we define the \textit{crystalline cohomology} $\mathrm H^\bullet_{\mathrm{crys}}(X,W)$ as
+	\[\mathrm H^i_{\mathrm{crys}}(X,W)\coloneqq\limit\mathrm H^i_{\mathrm{crys}}(X,W_n),\]
+	where the right-hand cohomology is the cohomology on the crystalline site of $X$ over $W_n$.
+\end{defihelper}
+\begin{remark}
+	Because $X$ has an absolute Frobenius, the crystalline cohomology groups come with the action by an absolute Frobenius.
+\end{remark}
+\begin{theorem}
+	Fix a smooth projective variety $X$ over a perfect field $K$ of positive characteristic $p$, and set $W\coloneqq W(K)$. If there is a smooth projective variety $Z$ over $W$ such that $Z_K=X$, then there is a natural isomorphism
+	\[\mathrm H^\bullet_{\mathrm{crys}}(X,W)\to\mathrm H^\bullet_{\mathrm{dR}}(Z,W).\]
+\end{theorem}
 Thus far, we have defined many cohomology theories, so it is worthwhile to explain why one may expect them to somehow be related to one another. We have already mentioned a few comparison isomorphisms, but it also turns out that they all have other properties which tie them together. For example, they all have a cup product, which turn the collection of cohomology groups $\mathrm H^i(X)$ into a graded commutative ring $\mathrm H^\bullet(X)$. There is also some functoriality: for a map $f\colon X\to Y$ of spaces, there is always an induced pullback map
 \[f^*\colon\mathrm H^\bullet(Y)\to\mathrm H^\bullet(X),\]
 which turns out to be a homomorphism of graded algebras.
