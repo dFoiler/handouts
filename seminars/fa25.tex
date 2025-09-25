@@ -888,4 +888,58 @@ Here are a couple of tools.
 	commute. Of course, one can certainly induce a map to $\ov X$, so the difficulty is showing that we do not end up in the boundary in the limit.
 \end{enumerate}
 
+\section{September 23: Unlikely Intersections}
+This talk was given by Xinyu Fang as a pre-talk for the Harvard--MIT algebraic geometry seminar.
+
+\subsection{The Ax--Schanuel Theorem}
+Today, we are going to discuss the following result, which is a version of unlikely intersections for $\exp$. Define $\pi\colon\CC^n\to\left(\CC^\times\right)^n$ by
+\[\pi(z_1,\ldots,z_n)\coloneqq(\exp(2\pi iz_1),\ldots,\exp(2\pi iz_n)).\]
+We are interested in when $\pi$ sends algebraic subvarieties to algebraic subvarieties.
+\begin{definition}[bialgebraic]
+	A subvariety $L\subseteq\CC^n$ is \textit{bialgebraic} if and only if $\pi(L)$ continues to be algebraic. 
+\end{definition}
+\begin{example}
+	If $L\subseteq\CC^n$ is a linear subspace cut out by some (rational) equations of the form
+	\[\sum_ia_iz_i=c,\]
+	then $\pi(L)$ continues to be an algebraic subvariety now cut out by
+	\[\prod_iw_i^{a_i}=1,\]
+	where $w_i$ is $\exp(2\pi iz_i)$.
+\end{example}
+\begin{theorem}
+	Every bialgebraic subvariety over $\CC$ is a linear subspace.
+\end{theorem}
+Here is a slightly easier corollary.
+\begin{theorem}[Ax--Lindermann--Weierstrass]
+    Let $V\subseteq\left(\CC^\times\right)^n$ be an algebraic subvariety. Then any maximal algebraic subvariety $W\subseteq\pi^{-1}(V)$ is bialgebraic.
+\end{theorem}
+Here is our theorem.
+\begin{theorem}[weak Ax--Schanuel]
+	Fix algebraic subvarities $V_1\subseteq\CC^n$ and $V_2\subseteq(\CC^\times)^n$ such that the analytic component $U$ of the intersection $V_1\cap V_2$ admits unexpected codimension, meaning
+	\[\codim U<\codim V_1+\codim V_2.\]
+	Then $U$ is contained in a proper bialgebraic subvariety.
+\end{theorem}
+Intuitively, we are saying that having large intersection is explained by having large linear subspaces.
+
+We will be interested in applications to Shimura varieties. These are some fancy quotients $\Gamma\backslash\Omega$ where $\Omega$ is some complex manifold, and $\Gamma\subseteq\Omega$ is a discrete subgroup. Having such a quotient gives us some uniformization map $\pi\colon\Omega\onto Y$.
+\begin{example}[Modular curve]
+	The group $\mathrm{SL}_2(\ZZ)$ acts on the upper-half plane $\HH$, and the quotient is named $Y(1)$.
+\end{example}
+\begin{example}[PEL type]
+	The symplectic group $\mathrm{Sp}_{2g}(\ZZ)$ acts on
+	\[\HH_g\coloneqq\{M\in M_g(\CC):Z^\intercal=Z\text{ and }\im Z>0\}\]
+	via similar fractional linear transformations
+	\[\begin{bmatrix} A & B \\ C & D \end{bmatrix}\cdot Z\coloneqq(AZ+B)(CZ+D)^{-1}.\]
+	The quotient is $\mc A_g$, which turns out to be a moduli space of principally polarized $g$-dimensional abelian varieties.
+\end{example}
+Here is our version of the Ax--Schanuel theorem.
+\begin{theorem}
+	Let $\pi\colon\Omega\to Y$ be the uniformization map of a Shimura variety $Y$. Fix algebraic subvarieties $V_1\subseteq\Omega$ and $V_2\subseteq Y$ such that the analytic component $U$ of the intersection $V_1\cap V_2$ admits unexpected codimension, meaning
+	\[\codim_\Omega U<\codim_\Omega V_1+\codim_YV_2.\]
+	Then $U$ is contained in a proper weakly special subvariety of $\Omega$.
+\end{theorem}
+Here, weakly special means a translate of a special subvareity, where a special subvariety is roughly speaking one which is itself a Shimura variety.
+\begin{example}
+	The special subvarieties of $Y(1)^n$ are given by $Y(1)^m\times\{0\}$ up to rearranging the coordinates.
+\end{example}
+
 \end{document}

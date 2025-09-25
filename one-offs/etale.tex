@@ -410,8 +410,9 @@ It remains to construct the trace map and cycle class maps. These are significan
 \[\mathrm H^{2d-2r}_\ell(X)(d-r)\to\mathrm H^{2d-2r}(Z)(d-r)\]
 with the trace $\int_Z$ to produce a functional on $\mathrm H^{2d-2r}_\ell(X)(d-r)$. Poincar\'e duality will tell us that such functionals amount to the data of an element in $\mathrm H^{2r}(X)(r)$, which turns out to be our cycle class map!
 \begin{remark}
-	Here is another way to construct the cycle class map is to use Chern classes, which amounts to the data of a map
-	\[\op{Pic}(X)\to\mathrm H^2(X)(1).\]
+	There is another way to construct the cycle class map is to use Chern classes, which amounts to the data of a map
+	\[c_1\colon\op{Pic}(X)\to\mathrm H^2(X)(1).\]
+	For example, such a map gives us the data for the mp $\op{CH}^i(X)\to\mathrm H^2(X)(1)$. But we may multiplicatively extend $c_1$ to all vector bundles, and then cycle classes can somehow be found inside vector bundles.
 \end{remark}
 Now, a Weil cohomology datum is going to be required to satisfy many axioms. Before going further, let's summarize them.
 \begin{itemize}
@@ -522,7 +523,7 @@ Our last collection of coherence assumptions on $\mathrm H^\bullet$ is for the c
 \begin{defihelper}[cycle coherence] \nirindex{Weil cohomology!cycle coherence}
 	Fix a Weil cohomology datum $\mathrm H^\bullet$ over $K$ with coefficients in $F$ satisfying Poincar\'e duality. Then $\mathrm H^\bullet$ satisfies \textit{cycle coherence} if and only if it satisfies the following.
 	\begin{listalph}
-		\item Pullbacks: if $f\colon X\to Y$ is a regular map of smooth projective varieties, then $\op{cl}_X(f^!\beta)=f^*\op{cl}_X(\beta)$ for any $\beta\in\op{CH}^\bullet(Y)$.
+		\item Pullbacks: if $f\colon X\to Y$ is a regular map of smooth projective varieties, then $\op{cl}_X(f^!\beta)=f^*\op{cl}_Y(\beta)$ for any $\beta\in\op{CH}^\bullet(Y)$.
 		\item Pushforwards: if $f\colon X\to Y$ is a regular map of smooth equidimensional projective varieties, then $\op{cl}_Y(f_*\alpha)=f_*\op{cl}_X(\alpha)$ for any $\alpha\in\op{CH}^\bullet(X)$.
 		\item Cup products: given $\alpha,\alpha'\in\op{CH}^\bullet(X)$, we have $\op{cl}_X(\alpha\cdot\alpha')=\op{cl}_X(\alpha)\cup\op{cl}_X(\alpha')$.
 		\item Non-degeneracy: we have $\int_{\Spec K}\op{cl}_{\Spec K}([\Spec K])=1$.
@@ -570,7 +571,7 @@ We can also check that our cohomology is sufficiently nontrivial.
 		\[(p_X)_*i_*[x]=[\kappa(x):K]\cdot[\Spec K].\]
 		(At the level of intersection theory, one can see this by passing to the algebraic closure, whereupon $x$ splits into $[\kappa(x):K]$ distinct geometric points.) This provides our geometric input. Then cycle class coherence and \Cref{cor:weil-push-space} show that
 		\[(p_X)_*(\op{cl}_X(i_*[x]))=[\kappa(x):K].\]
-		Because $F$ has characteristic $0$, we see that the right-hand is nonzero, so $\op{cl}_X(i_*[x])\ne0$, so $\mathrm H^\bullet(X)\ne0$.
+		Because $F$ has characteristic $0$, we see that the right-hand is nonzero, so $\op{cl}_X(i_*[x])\ne0$, so $\mathrm H^0(X)\ne0$.
 		\item We reduce to the irreducible case. Suppose $X$ is nonempty, and let $X'\subseteq X$ be an irreducible component. We would like to show that $1\ne0$ in $\mathrm H^\bullet(X)$. Well, there is a ring map $\mathrm H^\bullet(X)\to\mathrm H^\bullet(X')$ given by the inclusion, so it is actually enough to check that $1\ne0$ in $\mathrm H^\bullet(X')$. This has been done in the previous step.
 		\qedhere
 	\end{enumerate}
@@ -639,7 +640,7 @@ In the sequel, we will also want more general control over unions.
 
 		\item We show that the map $i$ is surjective. We are not going to use an assumption like $\dim X=\dim Y$; instead, we interface directly with $e_X\coloneqq\op{cl}_{[X\sqcup Y]}([X])$ and $e_Y\coloneqq\op{cl}_{[X\sqcup Y]}([Y])$.
 
-		By the previous step, the map $i_1^*\mathrm H^\bullet(X\sqcup Y)\to\mathrm H^\bullet(X)$ is surjective, as is $i_2^*$ by symmetry. Thus, it suffices to show that $i$ surjects onto elements of the form $(i_1^*\gamma,i_2^*\delta)$. Well, we claim that
+		By the previous step, the map $i_1^*\colon\mathrm H^\bullet(X\sqcup Y)\to\mathrm H^\bullet(X)$ is surjective, as is $i_2^*$ by symmetry. Thus, it suffices to show that $i$ surjects onto elements of the form $(i_1^*\gamma,i_2^*\delta)$. Well, we claim that
 		\[\begin{cases}
 			i_1^*(e_X\cup\gamma+e_Y\cup\delta)\stackrel?=i_1^*\gamma, \\
 			i_2^*(e_X\cup\gamma+e_Y\cup\delta)\stackrel?=i_2^*\delta.
@@ -683,7 +684,7 @@ As an application, we can now fairly easily compute the cohomology of multiple p
 		\end{array}\]
 		by the K\"unneth formula and \Cref{prop:weil-union}.
 		
-		\item We check that $\mathrm H^\bullet(X)$ is concentrated in degree $0$, and $\mathrm H^0(X)$ is an algebra over $F$ of dimension equal to the degree of the structure morphism $X\to\Spec K$. (Note that this degree is $[L:K]$.) Well, taking dimensions on both sides of the last map in step 1 (and noting $\dim_FH^\bullet(\Spec M)\ge\dim_F\mathrm H^0(\Spec F)>0$ by \Cref{prop:weil-nontrivial}), we find that
+		\item We check that $\mathrm H^\bullet(X)$ is concentrated in degree $0$, and $\mathrm H^0(X)$ is an algebra over $F$ of dimension equal to the degree of the structure morphism $X\to\Spec K$. (Note that this degree is $[L:K]$.) Well, taking dimensions on both sides of the last map in step 1 (and noting $\dim_F\mathrm H^\bullet(\Spec M)\ge\dim_F\mathrm H^0(\Spec F)>0$ by \Cref{prop:weil-nontrivial}), we find that
 		\[\dim_F\mathrm H^\bullet(X)=\dim_F\mathrm H^0(X)=[L:K].\]
 		The needed claims follow.
 
@@ -695,7 +696,7 @@ As an application, we can now fairly easily compute the cohomology of multiple p
 		\[\op{pr}_{2*}(\alpha\boxtimes1)=\sum_{\sigma\in\op{Hom}_K(L,M)}\sigma^*\alpha.\]
 		Indeed, for any $\beta\in\mathrm H^\bullet(\Spec M)$, we see $\sum_\sigma\int_{\Spec M}(\beta\cup\sigma^*\alpha)=\int_{X\times\Spec M}\op{pr}_2^*\beta\cup(\alpha\boxtimes1)$, where we have used \Cref{cor:weil-tr-union}. It remains to check that $\alpha\mapsto\sigma^*\alpha$ amounts to the full set of homomorphisms $\mathrm H^0(X)\to\ov F$. Well, upon choosing some map $\iota\colon\mathrm H^0(\Spec M)\to\ov F$, we see that there is an isomorphism
 		\[\arraycolsep=1.2pt\begin{array}{rclccc}
-			\mathrm H^0(X)&\otimes&\ov F &\to& \mathrm \ov F^{\op{Hom}_K(L,M)} \\
+			\mathrm H^0(X)&\otimes&\ov F &\to& \ov F^{\op{Hom}_K(L,M)} \\
 			\alpha&\otimes&\beta &\mapsto& (\tau(\sigma^*\alpha)\cup\beta)_\sigma
 		\end{array}\]
 		which completes the proof because $\mathrm H^0(X)\otimes\overline F$ is supposed to be isomorphic to $\overline F^{\op{Hom}(\mathrm H^0(X),\ov F)}$ via this sort of map.
@@ -712,7 +713,7 @@ As an application, we can now fairly easily compute the cohomology of multiple p
 	by \Cref{rem:better-pushforward}. We now use \Cref{ex:weil-zero} to compute the right-hand side: because $\int_X\colon\mathrm H^0(Z)\to F$ is the trace, its evaluation on $1$ is the dimension $\dim_F\mathrm H^0(Z)$, which we know to be the degree of $Z\to\Spec K$. This completes the proof.
 \end{proof}
 
-\subsection{Fixing \texorpdfstring{$H^0$}{ H0}}
+\subsection{Fixing \texorpdfstring{$\mathrm H^0$}{ H0}}
 Now that we've done work with our pre-Weil cohomology theories, let's introduce our last axiom.
 \begin{defihelper}[Weil cohomology theory] \nirindex{Weil cohomology!Weil cohomology theory}
 	Fix a pre-Weil cohomology theory $\mathrm H^\bullet$ over $K$ with coefficients in $F$. Then $\mathrm H^\bullet$ is a \textit{Weil cohomology theory} if and only if the induced map

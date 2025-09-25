@@ -145,3 +145,4 @@
 {"rule":"IF_IS","sentence":"^\\QIf \\E(?:Dummy|Ina|Jimmy-)[0-9]+\\Q is a smooth projective irreducible curve over \\E(?:Dummy|Ina|Jimmy-)[0-9]+\\Q of genus \\E(?:Dummy|Ina|Jimmy-)[0-9]+\\Q, then Betti cohomology tells us to expect \\E(?:Dummy|Ina|Jimmy-)[0-9]+\\Q if \\E(?:Dummy|Ina|Jimmy-)[0-9]+\\Q if \\E(?:Dummy|Ina|Jimmy-)[0-9]+\\Q if \\E(?:Dummy|Ina|Jimmy-)[0-9]+\\Q if \\E(?:Dummy|Ina|Jimmy-)[0-9]+\\Q.\\E$"}
 {"rule":"HYPOTHESIS_TYPOGRAPHY","sentence":"^\\QH0.\\E$"}
 {"rule":"SENTENCE_WHITESPACE","sentence":"^\\QWeil cohomology theory Fix a pre-Weil cohomology theory \\E(?:Dummy|Ina|Jimmy-)[0-9]+\\Q over \\E(?:Dummy|Ina|Jimmy-)[0-9]+\\Q with coefficients in \\E(?:Dummy|Ina|Jimmy-)[0-9]+\\Q.\\E$"}
+{"rule":"PREPOSITION_VERB","sentence":"^\\QHere, weakly special means a translate of a special subvareity, where a special subvariety is roughly speaking one which is itself a Shimura variety.\\E$"}
