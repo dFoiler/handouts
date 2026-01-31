@@ -1,0 +1,103 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+
+\newcommand{\nirpdftitle}{Seminars: Fall 2025}
+\usepackage{import}
+\inputfrom{../../notes}{nir}
+\usepackage[backend=biber,
+    style=alphabetic,
+    sorting=ynt
+]{biblatex}
+\setcounter{tocdepth}{2}
+
+\pagestyle{contentpage}
+
+\setlength{\headheight}{13.19003pt}
+% (fancyhdr)	You might also make \topmargin smaller to compensate:
+\addtolength{\topmargin}{-1.19003pt}
+
+\title{Seminars}
+\author{Nir Elber}
+\date{Spring 2026}
+\usepackage{graphicx}
+\lhead{}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+	This semester, I will just record all seminars I go to in an uncategorized manner. I will try to record the date, the speaker, and which seminar it was to maintain some semblance of organization.
+\end{abstract}
+
+\tableofcontents
+
+\section{Multiplicity Formulae for Spherical Varieties}
+This talk was given by Toan Pham at Johns Hopkins University for the student automorphic representations seminar.
+
+\subsection{The Theorems}
+Fix a homogeneous spherical variety $X=G/H$ over a local field $F$. Also, choose a character $\chi\colon H(F)\to\CC^\times$ and an irreducible representation $\pi$ of $G(F)$. Then the local relative Langlands program is interested in the multiplicity
+\[m(\pi,\chi)\coloneqq\dim\op{Hom}_{H(F)}(\pi,\chi).\]
+Note that
+\[m(\pi,\chi)=\dim\op{Hom}_{G(F)}(\pi,C^\infty(X(F),\chi)).\]
+Here are some starting examples.
+\begin{example}[Whittaker] \label{ex:whittaker}
+	An interesting case is when $H\subseteq G$ is a unipotent subgroup. For example, one can take the unipotent radical $U$ of the Borel subgroup of $\op{GL}_2$. Then we can take $\chi$ to be lifted from any additive character $F\to\CC^\times$. One can generalize this example to work from any $\mf{sl}_2$-triple, and it produces Whittaker models of $\pi$ in $C^\infty(X(F),\chi)$.
+\end{example}
+\begin{example}[Gan--Gross--Prasad] \label{ex:ggp}
+	Fix a quadratic extension $E/F$. Then one can take $X={\op{SO}_n}\backslash(\mathrm{SO}_n\times\mathrm{SO}_{n+1})$ or $X=\mathrm U_n\backslash(\mathrm U_n\times\mathrm U_{n+1})$. In general, there are more examples arising from so-called ``GGP triples'' $(G,H,\chi)$.
+\end{example}
+\begin{remark}
+	It turns out that $m(\pi,\chi)\le1$ in \Cref{ex:whittaker,ex:ggp}, but this is not always true.
+\end{remark}
+Nonetheless, it becomes interesting to discover when $m(\pi,\chi)\ge1$. Here are some answers.
+\begin{theorem}
+	Fix everything as in \Cref{ex:whittaker,ex:ggp} and choose a Langlands parameter $\varphi\colon W_F\to {^LG}$. Then the Langlands packet $\Pi_\varphi$ contains exactly one $\pi$ for which $m(\pi,\chi)\ne0$.
+\end{theorem}
+\begin{theorem}
+	Fix everything as in \Cref{ex:ggp}, and choose a Langlands parameter $\varphi\colon W_F\to {^LG}$. Then $\pi\in\Pi_\varphi$ has $m(\pi,\chi)\ne0$ if and only if it maps to a speified unitary character.
+\end{theorem}
+Our method will be the so-called ``local trace formulae,'' developed originally by Waldspurger.
+
+\subsection{Local Trace Formulae}
+For the rest of the talk, we work in the context of \Cref{ex:ggp}. The type of result we are trying to prove rewrites $m(\pi,\chi)$ in terms of a sum of orbital integrals.
+\begin{example}
+	For finite groups $G$, we can use the character $\Theta_\pi$ of $\pi$ to see that
+	\[m(\pi,\chi)=\sum_{\text{conj. }[x]\subseteq H}\frac1{\#C_H(x)}\cdot\Theta_\pi(x)\ov\chi(h).\]
+	This right-hand side can be viewed as some twisted sum of sizes of conjugacy classes.
+\end{example}
+Our method to prove such formulae will rest on local trace formulae, which basically amount to finding two ways of expressing the trace of some $f\in C_c^\infty(G)$ acting on $L^p(H(F)\backslash G(F),\chi)$. On one hand, we may write
+\begin{align*}
+	(Rf\cdot\varphi)(x) &= \int_{G(F)}f(g)\varphi(xg)\,dg \\
+	&= \int_{H(F)\backslash G(F)}K_f(x,y)\varphi(y)\,dy,
+\end{align*}
+where $K_f(x,y)=\int_{H(F)}f\left(x^{-1}hy\right)\chi(h)\,dh$. We morally then expect the trace of $Rf$ to be the sum of $K_f$ along the diagonal, as one finds with finite groups.
+\begin{proposition}
+	Fix everything as above. Say that $f\in C_c^\infty(G(F))$ is strongly cuspidal if and only if
+	\[\int_{U(F)}f(um)\,du=0\]
+	for any parabolic $P$ with Levi decomposition $P=MU$. If $f$ is strongly cuspidal, then the trace of $Rf$ converges absolutely.
+\end{proposition}
+The local trace formula now amounts to expressing $J(f)$ either via a spectral or a geometric expansion.
+\begin{itemize}
+	\item The spectral expansion is
+	\[J_{\mathrm{spec}}(f)\coloneqq\int_{\mf X(G)}D(\pi)\widehat\Theta_f(\pi)m(\pi)\,d\pi.\]
+	Here, $\mf X(G)$ consists of the space of tempered representations (i.e., found in $L^2(G)$) arising from para\-bolic induction of elliptic representations. Then $\Theta_f$ is a weighted orbital ingeral of $f$, and $\widehat\Theta_f$ is its Fourier transform. The $D(\pi)$ is unknown, but we have been reassured that it is not important.
+
+	The idea to show that $J(f)=J_{\mathrm{spec}}(f)$ is to use the Plancheral formula
+	\[\langle f_1,f_2\rangle=\int_{\widehat G}J_\pi(f_1\otimes f_2)\,d_X\pi,\]
+	where $J_\pi$ is the natural composite
+	\[C_c^\infty(X\times X)\to\pi\otimes\widetilde\pi\to\CC.\]
+	It turns out that $J_\pi$ is non-vanishing if and only if $m(\pi,\chi)\ne0$. Yiannis claims that the forward direction is easy.
+
+	\item The geometric expansion associates a quasicharacter $\theta_f\colon G_{\mathrm{reg}}(F)\to\CC$ defined on the regular semi\-simple locus, and then we have
+	\[m_{\mathrm{geom}}(\theta)\coloneqq\lim_{s\to0}\int_{\Gamma(G,H)}D^G(x)^{1/2}c_\theta(x)\Delta^{s-1/2}\,dx.\]
+	Here, $\Gamma(G,H)$ is the space of semisimple conjugacy classes of $G(F)$ which are represented by an element in $H(F)$, and $c_\theta$ is some extension of $\theta$ to the semisimple locus $G_{\mathrm{ss}}(F)$. Our geometric expansion is then $J_{\mathrm{geom}}(f)\coloneqq m_{\mathrm{geom}}(\Theta_f)$.
+\end{itemize}
+It now turns out that
+\[J_{\mathrm{spec}}(f)=J(f)=J_{\mathrm{geom}}(f),\]
+though both of these equalities are theorems. Though it requires an argument, this turns out to be equivalent to a multiplicity formula $m_{\mathrm{geom}}(\pi)=m(\pi)$.
+\begin{conj}
+	One has $m_{\mathrm{geom}}(\pi)=m(\pi)$ for any spherical $X$.
+\end{conj}
+
+\end{document}

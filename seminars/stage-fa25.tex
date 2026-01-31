@@ -1,0 +1,1818 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+
+\newcommand{\nirpdftitle}{The Weil Conjectures}
+\usepackage{import}
+\inputfrom{../../notes}{nir}
+\usepackage[backend=biber,
+    style=alphabetic,
+    sorting=ynt
+]{biblatex}
+\setcounter{tocdepth}{2}
+
+\pagestyle{contentpage}
+
+\setlength{\headheight}{13.19003pt}
+% (fancyhdr)	You might also make \topmargin smaller to compensate:
+\addtolength{\topmargin}{-1.19003pt}
+
+\title{The Weil Conjectures}
+\author{Nir Elber}
+\date{Fall 2025}
+\usepackage{graphicx}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+	This document records the STAGE seminar for the fall of 2025.
+\end{abstract}
+
+\tableofcontents
+
+\section{September 11: Statements of the Weil Conjectures}
+This talk was given by Ari Krishna and Sophie Zhu at MIT for the STAGE seminar.
+
+\subsection{Some History}
+For today, $X$ will be a smooth proper variety over a finite field $\FF_q$. Let's give a statement of the Weil conjectures in the spirit of counting points.
+\begin{conj}[Weil]
+	Fix a finite field $\FF_q$.
+	\begin{listalph}
+		\item Fix a scheme $X$ of finite type over a field $\FF_q$. Then there are algebraic integers $\{\alpha_1,\ldots,\alpha_r\}$ and $\{\beta_1,\ldots,\beta_s\}$ such that
+		\[\#X(\FF_{q^n})=\left(\alpha_1^n+\cdots+\alpha_r^n\right)-\left(\beta_1^n+\cdots+\beta_r^n\right)\]
+		for all $n\ge0$.
+		\item Rationality: suppose further that $X$ is proper of equidimension $d$. Then we can arrange these algebraic integers as
+		\[\#X(\FF_{q^n})=\sum_{i=0}^{2d}(-1)^i\Bigg(\sum_{j=0}^{b_i}\alpha_{ij}^n\Bigg).\]
+		\item Poincar\'e duality: with $X$ proper, the multi-sets $\{\alpha_{2d-i,j}:1\le j\le b_i\}$ and $\{q^d/\alpha_{ij}:1\le j\le b_i\}$ agree.
+		\item Riemann hypothesis: with $X$ proper, $\left|\alpha_{ij}\right|=q^{i/2}$ for all $i$ and $j$.
+		\item Betti numbers: with $X$ proper, if $X$ admits an integral model $\mc X$ over some subring $R\subseteq\CC$, then $b_i$ is the $i$th Betti number of $\mc X(\CC)$.
+	\end{listalph}
+\end{conj}
+The history of these conjectures is long and fraught.
+\begin{itemize}
+	\item In the 1930s, Artin, Hasse, and Schmidt proved everything but the Riemann hypothesis for curves, and they proved the Riemann hypothesis for curves of genus at most $1$.
+	\item In 1948, Weil proved the Weil conjectures for curves of any genus. This arose by combining two observations: first, counting $\#X(\FF_{q^n})$ should equal the number of fixed points of $F^n$, and second, these counts could be understood in terms of intersection theory with the graph of the Frobenius.
+	\item In 1949, Weil proved the Riemann hypothesis for other varieties, namely certain Fermat varieties. At this point, the conjectures were finally stated.
+	\item In the 1950s, Grothendieck and many others developed the theory of \'etale cohomology. By rather formal arguments, this proves everyting but the Riemann hypothesis.
+	\item In 1974, Deligne finishes his first proof of the Weil conjectures.
+	\item In 1980, Deligne strengthens his proof of the Weil conjectures.
+\end{itemize}
+
+\subsection{\texorpdfstring{$\zeta$}{zeta}-Functions}
+The Weil conjectures admit an important reformulation in terms of $\zeta$-functions. Let's begin with the classical $\zeta$-function.
+\begin{definition}
+	The \textit{Riemann $\zeta$-function} $\zeta(s)$ is defined as the analytic continuation of the series
+	\[\zeta(s)\coloneqq\sum_{n=1}^\infty\frac1{n^s}.\]
+\end{definition}
+The Riemann $\zeta$-function admits the following properties.
+\begin{itemize}
+	\item Euler product: one can write $\zeta(s)$ as a product
+	\[\zeta(s)=\prod_{\text{prime }p}\frac1{1-p^{-s}}.\]
+	\item Continuation: there is a meromorphic continuation to the plane, and it has only a simple pole at $s=1$.
+	\item Functional equation: upon completing the $\zeta$-function as
+	\[\xi(s)\coloneqq(s-1)\pi^{-s/2}\Gamma\left(\frac s2+1\right)\zeta(s),\]
+	we have the functional equation $\xi(s)=\xi(1-s)$.
+	\item Riemann hypothesis: it is expected that the only zeroes of $\zeta$ occur at the negative integer integers and along $\{s\in\CC:\Re s=1/2\}$.
+\end{itemize}
+This generalizes as follows.
+\begin{definition}
+	Fix a scheme $X$ of finite type over $\ZZ$. Then we define the \textit{arithmetic $\zeta$-function} $\zeta_X(s)$ as
+	\[\zeta_X(s)\coloneqq\prod_{\text{closed }\mf p\in X}\frac1{1-\#\kappa(\mf p)^{-s}}.\]
+\end{definition}
+\begin{example}
+	The Euler product implies that $\zeta(s)=\zeta_{\Spec\ZZ}(s)$.
+\end{example}
+In order to relate this to point-counts, we produce the following definition.
+\begin{definition}
+	Fix a scheme $X$ of finite type over $\FF_q$. Then we define
+	\[Z_X(T)\coloneqq\exp\Bigg(\sum_{n\ge1}\#X(\FF_q)\frac{T^n}n\Bigg).\]
+\end{definition}
+\begin{remark}
+	A direct calculation shows that $Z_X(q^{-s})=\zeta_X(s)$.
+\end{remark}
+We are now able to rewrite the Weil conjectures.
+\begin{conj}[Weil]
+	Fix a finite field $\FF_q$.
+	\begin{listalph}
+		\item Fix a scheme $X$ of finite type over $\FF_q$. There are algebraic integers $\{\alpha_1,\ldots,\alpha_r\}$ and $\{\beta_1,\ldots,\beta_s\}$ such that
+		\[Z_X(T)\frac{(1-\beta_1T)\cdots(1-\beta_sT)}{(1-\alpha_1T)\cdots(1-\alpha_rT)}\]
+		for some algebraic integers $\alpha_\bullet$s and $\beta_\bullet$s.
+		\item Rationality: let $X$ be a smooth proper variety over $\FF_q$ of equidimension $d$. Then $Z_X$ admits a factorization as
+		\[\frac{P_1(T)\cdots P_{2d-1}(T)}{P_0(T)\cdots P_{2d}(T)},\]
+		where $P_i\in1+T\ZZ[T]$ for each $T$.
+		\item Functional equation: with $X$ proper, we have $Z_X(1/q^dT)=\pm q^{d\chi/2}T^\chi Z_X(T)$, where $\pm$ is some sign, and $\chi$ is the Euler characteristic.
+		\item Riemann hypothesis: with $X$ proper, we have $\left|\alpha_{ij}\right|=q^{i/2}$ for all $i$.
+		\item Betti numbers: with $X$ proper, if $X$ admits an integral model $\mc X$ over some subring $R\subseteq\CC$, then $\deg P_i$ is the $i$th Betti number of $\mc X(\CC)$.
+	\end{listalph}
+\end{conj}
+These statements are shown to be equivalent by expanding out the definition of $Z_X$ and taking logarithms.
+
+\subsection{Proof for Curves}
+We prove many of the Weil conjectures for curves. By keeping track of completions, we may as well assume that $X$ is smooth and proper. Let's start with rationality.
+\begin{proposition}
+	Fix a smooth proper curve $X$ over $\FF_q$. Then $Z_X(T)$ is a rational function of $T$.
+\end{proposition}
+\begin{proof}
+	The point is to write $Z_X(T)$ out in terms of divisors, which will allow us to use Riemann--Roch. Recall $Z_X(T)$ is the product
+	\[Z_X(T)=\prod_{\text{closed }p\in X}\left(1-T^{\deg p}\right)^{-1},\]
+	which then expands out into the sum
+	\[Z_X(T)=\sum_{\substack{D\in\op{Div}X\\D\ge0}}T^{\deg D},\]
+	where $D\ge0$ means that $D$ is effective. There are now two cases: if $\deg D\le 2g-2$, we will handle this separately. Otherwise, when $\deg D\ge2g-2$, then Riemann--Roch implies that the number of effective divisors with this degree is $\left(q^{d-g+1}-1\right)/(q-1)$. (Namely, Riemann--Roch allows one to compute the dimension of the space of effective divisors with given degree; this is a finite vector space over $\FF_q$, so we can now compute its size!) This finishes the proof upon rewriting this out as a geometric series.
+\end{proof}
+\begin{remark}
+	By inputting more effort, one can use this proof to prove the functional equation. If one is careful, then one can achieve an expansion
+	\[Z_X(T)=\frac{f(T)}{(1-T)(1-qT)}\]
+	for some polynomial $f(T)$ of degree $2g$ with integral coefficients. Note that this includes the Betti numbers conjecture!
+\end{remark}
+We now turn to the Riemann hypothesis, which of course is the hard part. This will depend on the following size bound.
+\begin{theorem}[Hasse--Weil]
+	Fix a smooth proper curve $C$ over a finite field $\FF_q$. Then
+	\[\left|\#C(\FF_q)-(q+1)\right|\le2g\sqrt q.\]
+\end{theorem}
+Let's explain why this produces the Riemann hypothesis. Because we already have an expression
+\[Z_X(T)=\frac{f(T)}{(1-T)(1-qT)},\]
+we may factor $f(T)=\prod_{i=1}^{2g}(1-\alpha_iT)$, and we note that we are trying to show $\left|\alpha_i\right|=\sqrt q$ for all $i$. By the functional equation, it is enough to show merely that $\left|\alpha_i\right|\le\sqrt q$ for all $i$. Now, by definition of $Z_X(T)$, we see that
+\[\sum_{n\ge1}\#C(\FF_{q^n})T^n=\frac d{dT}\log Z_X(T),\]
+which can be computed directly to be
+\[\sum_{n\ge1}\#C(\FF_{q^n})T^n=\sum_{i=1}^{2g}\Bigg(\frac{-\alpha_i}{1-\alpha_iT}+\frac1{1-T}+\frac1{1-qT}\Bigg),\]
+which after expanding out the geometric series becomes
+\[\sum_{n\ge1}\#C(\FF_{q^n})T^n=\sum_{n\ge1}\left(q^n+1-\sum_{i=1}^{2g}\alpha_i^n\right).\]
+Thus, the Hasse--Weil bound shows that
+\[\left|\sum_{i=1}^{2g}\alpha_i^n\right|\le2g\sqrt{q^n}.\]
+Now, if $\left|\alpha_i\right|>\sqrt q$ for any $i$, then we can send $i\to\infty$ to achieve a contradiction because the left-hand side is too large.
+
+\subsection{Intersection Theory on a Surface}
+We will want to know something about intersection theory on a surface. We're in a talk, so we're allowed to just state the result we want.
+\begin{theorem}
+	Fix a smooth projective surface $X$ over an algebraically closed field $k$. Then there is a unique integral symmetric bilinear pairing $(\cdot,\cdot)$ on $\op{Div}X$ such that any two transverse curves $C,C'\subseteq X$ have
+	\[(C,C')=\#(C\cap C').\]
+\end{theorem}
+There are many ways to the pairing $(C,C')$. The most geometric is to show that one can always wiggle one of the curves to make the intersection transverse.
+
+For our bound, we need the following geometric input.
+\begin{theorem}[Hodge index] \label{thm:hodge-index}
+	Fix a smooth projective surface $X$ over an algebraically closed field $k$. Further, fix an ample line bundle $H$ in $\op{Div}X$. If we are given a divisor $D$ on $X$ which is not linearly equivalent to $0$ while $D\cdot H=0$, then $D\cdot D<0$.
+\end{theorem}
+\begin{proof}
+	We will prove this in steps.
+	\begin{enumerate}
+		\item Suppose instead that $D\cdot H>0$ and $D^2>0$. Then we claim $mD$ is linearly equivalent to an effective divisor for sufficiently large $m$. Well, beacuse $D\cdot H>0$, $(K_X-mD)\cdot H<0$ for $m$ sufficiently large, so $K_X-mD$ cannot be effective. Thus, $\mathrm H^0(K_X-mD)=0$, so $\mathrm H^2(mD)=0$ by Serre duality. However, by Riemann--Roch for surfaces, one has
+		\[h^0(mD)=h^1(mD)+\frac12mD\cdot(mD-K_X)+\chi(\OO_X),\]
+		which becomes positive for $m$ large enough.
+
+		\item Now, suppose for the sake of contradiction that $D^2>0$. Then we can take $H'\coloneqq D+nH$ to be ample for $n$ large enough, from which we find $D\cdot H'=D^2>0$, so the lemma implies that $mD$ is effective for $m$ large enough, which contradicts having $D\cdot H=0$.
+
+		\item Lastly, suppose for the sake of contradiction that $D^2=0$. Because $D\cdot H=0$, we can find an effective divisor $E$ such that $D\cdot E\ne0$ while $E\cdot H=0$. Now, consider $D'\coloneqq nD+E$. One can calculate $(D')^2>0$ while $D'\cdot H=0$, so we reduce to the previous step.
+		\qedhere
+	\end{enumerate}
+\end{proof}
+To apply this, we will want to understand ample divisors.
+\begin{theorem} \label{thm:get-ample}
+	Fix a divisor $D$ on $X$. Then $D$ is ample if and only if $D^2>0$ and $D\cdot C>0$ for all irreducible curves $C$ on $X$.
+\end{theorem}
+Here is how this is applied.
+\begin{theorem} \label{thm:apply-hodge-index}
+	Let $X=C\times C'$ where $C$ and $C'$ are smooth projective curves. Set $\ell\coloneqq C\times\mathrm{pt}$ and $m\coloneqq\{\mathrm{pt}\}\times C'$. Then for any divisor $D$, we have
+	\[D^2\le2(D\cdot\ell)(D\cdot m).\]
+\end{theorem}
+\begin{proof}
+	As a lemma, we claim that if $H$ is ample, then
+	\[\left(D^2\right)\cdot\left(H^2\right)\le(D\cdot H)^2.\]
+	For this, one uses the Hodge index theorem on $E\coloneqq\left(H^2\right)D-(H\cdot D)H$, from which one can calculate $E^2<0$. Thus, as long as $D\ne0$, we get $\left(D^2\right)\left(H^2\right)-(D\cdot H)^2<0$; in all cases, we get the inequality.
+
+	Now, by \Cref{thm:get-ample}, the divisor $H\coloneqq\ell+m$ is ample. Applying the above argument with $D'$ defined as
+	\[D'=\left(H^2\right)\left(E^2\right)D-\left(E^2\right)(D\cdot H)H-\left(H^2\right)(D\cdot E)E\]
+	where $E\coloneqq\ell-m$.
+\end{proof}
+We are now ready to prove the Hasse--Weil bound. We will do intersection theory on the surface $X\coloneqq C\times C$. Let $\Delta\subseteq X$ be the diagonal, and let $\Gamma\subseteq X$ be the graph. Then $\#C(\FF_q)=(\Delta\cdot\Gamma)$, which is what we want to bound. Here are our steps.
+\begin{enumerate}
+	\item We claim $\Delta^2=(2-2g)$. By the adjunction formula (note $\Delta\cong C$), we see
+	\[2g-2=\Delta^2+\Delta\cdot K_X.\]
+	However, one can expand out $K_X$ as $\mathrm{pr}_1^*C+\mathrm{pr}_2^*C$, which each have intersection number $2g-2$ with $\Delta$ by using the adjunction formula, so the result follows. 
+	\item We claim $\Gamma^2=q(2-2g)$. By the adjunction formula (note $\Gamma\cong C$), we see
+	\[2g-2=\Gamma^2+\Gamma\cdot K_X.\]
+	After doing the same expansion of $K_X$, one calculates that $\Gamma\cdot\mathrm{pr}_1^*K_C=q(2g-2)$ and $\Gamma\cdot\mathrm{pr}_2^*K_C=2g-2$ by using the adjunction formula.
+	\item We now apply \Cref{thm:apply-hodge-index} to $X=C\times C$. Take large integers $r$ and $s$, and set $D\coloneqq r\Gamma+s\Delta$. Then $D\cdot\ell=rq+s$ and $D\cdot m=r+s$. From \Cref{thm:apply-hodge-index}, one calculates that
+	\[\left|N-(q+1)\right|\le g\left(\frac{rg}s+\frac sr\right),\]
+	so the result follows by sending $\frac rs\to\frac1{\sqrt q}$.
+\end{enumerate}
+
+\section{September 18th: The \'Etale Site}
+This talk was given by Yutong Chen for the STAGE seminar at MIT.
+
+\subsection{\'Etale Morphisms}
+We will be interested in \'etale morphisms today. Intuitively, they are supposed to be the algebro-geometric version of a covering space in topology. Here is the easiest definition.
+\begin{definition}[\'etale]
+	A morphism $f\colon X\to S$ of schemes is \textit{\'etale} if and only if it is locally of finite presentation, flat, and unramified.
+\end{definition}
+While locally of finite presentation and flatness are fairly common notions, we should define what it means for a morphism to be unramified. We will define this in steps.
+\begin{definition}[unramified]
+	Fix an extension $A\subseteq B$ of discrete valuation rings with uniformizers $\pi_A$ and $\pi_B$, respectively. Then $A\subseteq B$ is \textit{unramified} if and only if $(\pi_B)=\pi_A\cdot B$ and the extension of residue fields is separable.
+\end{definition}
+\begin{definition}[unramified]
+	Fix a map $f\colon A\subseteq B$ of local rings. Then $f$ is \textit{unramified} if and only if $f(\mf m_A)=\mf m_B$ and the field extension
+	\[A/\mf m_A\to B/\mf m_B\]
+	is separable.
+\end{definition}
+\begin{definition}[unramified]
+	Fix a morphism $f\colon X\to S$ of schemes. Then $f$ is \textit{unramified} if and only if the local maps
+	\[\OO_{S,f(x)}\to\OO_{X,x}\]
+	are unramified for all $x\in X$.
+\end{definition}
+\begin{example}
+	Open and closed immersions are unramified.
+\end{example}
+\begin{nex}
+	Consider the squaring map $\AA^1_k\to\AA^1_k$ given by the ring map $k[t]\to k[t^2]$ defined by $t\mapsto t^2$. Then this map is not ramified at $0$. Indeed, this map is locally given by
+	\[k[t^2]_{\left(t^2\right)}\to k[t]_{(t)},\]
+	but the maximal ideal fails to go to the maximal ideal.
+\end{nex}
+There are many ways to think about \'etale morphisms.
+\begin{definition}[\'etale]
+	A morphism $f\colon X\to S$ is \textit{\'etale} if and only if it is smooth of relative dimension $0$.
+\end{definition}
+Here is one version of smoothness which is fairly hands-on.
+\begin{definition}[smooth]
+	Fix a morphism $f\colon X\to S$. Given $x\in X$, we say that $f$ is \textit{smooth} at $x$ if and only if the morphism locally looks like
+	\[\Spec\frac{A[t_1,\ldots,t_n]}{(g_{r+1},\ldots,g_n)}\to\Spec A\]
+	and the corresponding Jacobian matrix has full rank $n-r$. We may also say that $f$ is smooth of \textit{relative dimension $r$} in this situation.
+\end{definition}
+Of course, there are also many ways to define smoothness. Here is another useful criterion.
+\begin{proposition}
+	Fix a flat morphism $f\colon X\to S$ of irreducible varieties over a field $k$, and set $r\coloneqq\dim X-\dim S$. Then $f$ is smooth of relative dimension $r$ if and only if $\Omega_{X/S}$ is locally free of rank $r$.
+\end{proposition}
+Here are a few more ways to work with the yoga of \'etale morphisms.
+\begin{proposition} \label{prop:basic-etale}
+	Fix a ring $A$, an extension $B=A[t]/(p)$ where $p\in A[t]$ is monic, and a localization $C=B\left[q^{-1}\right]$ for some $q$. If $p'(t)\in C^\times$, then the natural map $\Spec C\to\Spec A$.
+\end{proposition}
+We will not prove this (all of these proofs are horribly annoying), but we will content ourselves with an example.
+\begin{example}
+	Fix $A\coloneqq k[x]$ and $B\coloneqq k[x,y]/\left(y^2-x(x-1)(x+1)\right)$. Then $\Spec B\to\Spec A$ is basically the projection from an elliptic curve to the affine line, so we expect to have some ramification at $(0,0)$, $(1,0)$, and $(-1,0)$. Accordingly, if we localize out by $x^3-x$, then we see that the map $\Spec C\to\Spec A$ is successfully \'etale, which can be checked because the derivative of $p(y)=y^2-\left(x^3-x\right)$ is in $C^\times$.
+\end{example}
+\begin{remark}
+	It turns out that all \'etale morphisms can locally be factored like \Cref{prop:basic-etale}.
+\end{remark}
+\begin{proposition}
+	Fix a smooth morphism $f\colon X\to S$ of relative dimension $r$ at a point $x\in X$. Further, fix some local functions $g_1,\ldots,g_r\in\OO_{X,x}$. Then the following are equivalent.
+	\begin{listroman}
+		\item The elements $dg_1,\ldots,dg_r$ form a local basis for $\Omega_{X/S}\otimes k(x)$.
+		\item The elements $g_1,\ldots,g_r$ extend to an open neighborhood $U$ of $x$ such that $(g_1,\ldots,g_r)\colon U\to\AA^r_S$ is \'etale.
+	\end{listroman}
+\end{proposition}
+\begin{remark}
+	Property (i) is relatively easy to satisfy, so we know that such functions surely exist.
+\end{remark}
+\begin{remark}
+	The point of (ii) is that $f$ now factors as
+	\[X\supseteq U\to\AA_S^r\to S,\]
+	where the map $U\to\AA_S^r$ is \'etale. Thus, smooth morphisms are ``just'' projections up to an \'etale map.
+\end{remark}
+
+\subsection{The Fundamental Group}
+Continuing with our intuition that \'etale morphisms are covering spaces, we now try to define a fundamental group. It is difficult to make sense of paths in algebraic geometry, so instead we will use covering spaces. Here is the construction that we will try to generalize.
+\begin{example}
+	For a nice topological space $X$ (e.g., a manifold) with a basepoint $x\in X$, then there is a natural ``fiber'' functor
+	\[\op{Fib}_x\colon\op{Cover}(X)\to\mathrm{Set}\]
+	from the category of covering spaces of $X$ to sets given by sending $p\colon Y\to X$ to the fiber $p^{-1}(\{x\})$. By a path-lifting argument, one shows that
+	\[\pi_1(X,x)=\op{Aut}({\op{Fib}_x}).\]
+	(In particular, path-lifting desribes an action of $\pi_1(X,x)$ on all fibers in a compatible way.) We remark that this allows us to upgrade the fiber functor into an equivalence
+	\[\op{Fib}_x\colon\op{Cover}(X)\to\mathrm{Set}(\pi_1(X,x)).\]
+\end{example}
+\begin{remark}
+	Topology is aided by the existence of a universal cover. For example, one has a universal cover of $S^1$ given by $\RR\onto S^1$, but this covering space fails to be finite; similarly, the universal cover of $\CC^\times$ is the exponential map $\exp\colon\CC\onto\CC^\times$, which is not algebraic. Algebra is going to have some trouble producing coverings which are not finite (or algebraic), so we will have to content ourselves with some finite quotients.
+\end{remark}
+Accordingly, we find that we are contenting ourselves to work with finite covering spaces, which amounts to working with finite \'etale covers.
+\begin{definition}[\'etale fundamental group]
+	Fix a scheme $X$ and a geometric point $\ov x\into X$, and consider the corresponding category $\op{Fin\acute Et}(X)$ of finite \'etale covers of $X$. Then we define the \textit{\'etale fundamental group} $\pi_1(X,\ov x)$ to be the automorphism group of the fiber functor
+	\[\op{Fib}_x\colon\op{Fin\acute Et}(X)\to\mathrm{Set}\]
+	given by sending the cover $p\colon Y\to X$ to the covering to the fiber $Y\times_p\ov x$.
+\end{definition}
+\begin{remark}
+	As in the topological case, one finds that $\mathrm{Fib}_x$ upgrades to an equivalence
+	\[\op{Fib}_x\colon\op{Fin\acute Et}(X)\to\mathrm{Set}(\pi_1(X,\ov x)).\]
+\end{remark}
+As a sanity check, we note the following comparison theorem.
+\begin{theorem}
+	Fix an irreducible variety $X$ over $\CC$. Then $Y\mapsto Y(\CC)$ upgrades to an equivalence of categories between the finite \'etale covers of $X$ and the finite covers of $X(\CC)$.
+\end{theorem}
+\begin{example}
+	Consider $X=\CC\left[x,x^{-1}\right]$ so that $X(\CC)=\CC^\times$. Then we see that $\pi_1^{\mathrm{\acute et}}(X,\ov 1)$ will be $\widehat\ZZ$ because it is the colimit of the automorphism groups of the finite covers of $\CC^\times$.
+\end{example}
+But now that we can do algebraic geometry, we can add in some arithmetic information.
+\begin{example}
+	Consider the point $X=\Spec k$ and an algebraic closure $\ov x=\Spec\ov k$. Then a finite \'etale cover $Y\to X$ will be a finite disjoint union of points. To describe our category, we are allowed to work with just the connected covers of $X$, which amounts to making $Y$ a point, so we may write $Y=\Spec L$. In order for the map $Y\to X$ to be an \'etale cover, it is equivalent to ask for the induced field extension $k\subseteq L$ to be finite and separable. The fiber of such an $L$ is given by
+	\[(Y\times\ov x)(\ov k)=\Spec(L\otimes\ov k)(\ov k)=\op{Hom}_k(L,\ov k).\]
+	Thus, $\mathrm{F\acute Et}(X)$ amounts to the category of finite separable extensions of $k$, and it is not hard to see that the automorphism group is simply $\op{Gal}(\ov k/k)$.
+\end{example}
+
+\subsection{Grothendieck Topologies}
+The point of a Grothendieck topology is to recognize that what makes a topology important is not its open sets but instead the notion of covers. Thus, to specify a Grothendieck topology, we will try to specify the covers and make do with that.
+\begin{definition}[Grothendieck topology]
+	Fix a category $\mc C$ closed under finite products. A \textit{Grothendieck topology} on $\mc C$ is a collection of families $\mc T$ of the form $\{f_i\colon U_i\to U\}_i$ and satisfying the following.
+	\begin{listalph}
+		\item Isomorphisms: the family $\mc T$ contains all isomorphisms.
+		\item Refinement: given a covering $\{U_i\to U\}_i$ in $\mc T$ and some coverings $\{V_{ij}\to U_i\}_j$, then the composite $\{V_{ij}\to U_i\to U\}_{i,j}$ continues to be in $\mc T$.
+		\item Pullback: given a covering $\{U_i\to U\}_i$ in $\mc T$ and some object $V$ with a map $V\to U$, then the pullback $\{U_i\times_U V\to V\}_i$ is in $\mc T$.
+	\end{listalph}
+	In this situation, the pair $(\mc C,\mc T)$ is a site.
+\end{definition}
+Here is the motivating example.
+\begin{example}[Zariski site]
+	If $X$ is a topological space, then we can let $\mc C$ be the category of open sets in $X$ with morphisms given by inclusion. We can endow $\mc C$ with the structure of a Grothendieck topology by letting the covers simply be the open covers. If $X$ is a scheme, then this site is called the Zariski site.
+\end{example}
+Here is the site for today.
+\begin{definition}[small \'etale site]
+	Fix a scheme $X$, and consider the category $\op{\acute Et}(X)$ of all \'etale covers of $X$. Then we endow $\op{\acute Et}(X)$ with the structure of a Grothendieck topology by saying that a collection of morphisms $\{U_i\to U\}_i$ is a covering if and only if $\bigsqcup_i U_i\to U$ is surjective. This is called the \textit{(small) \'etale site} and is denoted $X_{\mathrm{\acute et}}$.
+\end{definition}
+\begin{remark}
+	It turns out that a morphism of \'etale covers of $X$ is automatically \'etale. This can be proven using the usual techniques of cancellation.
+\end{remark}
+\begin{remark}
+	By replacing the word \'etale with other adjectives, we also have an fppf site and fpqc site. We note that the Zariski site has the same definition where \'etale is replaced with open embeddings.
+\end{remark}
+As usual, once we have an object, we want some morphisms.
+\begin{definition}[continuous]
+	A \textit{continuous} map $F\colon(\mc C',\mc T')\to(\mc C,\mc T)$ is the data of a functor $F\colon\mc C\to\mc C'$ satisfying the following.
+	\begin{listalph}
+		\item For any covering $\{U_i\to U\}_i$ in $\mc T$, we require that $\{FU_i\to FU\}_i$ to be in $\mc T'$.
+		\item Given a covering $\{U_i\to U\}_i$ in $\mc T$ and a map $V\to U$, then we require that $F(V\times_UU_i)\to FV\times_{FU}FU_i$ to be an isomorphism.
+	\end{listalph}
+\end{definition}
+\begin{remark}
+	If $f\colon X'\to X$ is a continuous map of topological spaces, then taking the pre-image indueces a functor of the categories of open sets, and one can see directly that taking the pre-image produces a continuous map of the Grothendieck topologies.
+\end{remark}
+\begin{remark}
+	For any scheme $X$, there is a continuous map between the \'etale site
+	\[X_{\mathrm{fpqc}}\to X_{\mathrm{fppf}}\to X_{\mathrm{\acute et}}\to X_{\mathrm{Zar}}.\]
+\end{remark}
+The point of having a notion of topology is that it lets us do sheaf theory.
+\begin{definition}
+	Fix a Grothendieck topology on a category $\mc C$. Then a presheaf $\mc F\colon\mc C\opp\to\mathrm{Ab}$ is a \textit{sheaf} if and only if the usual exact sequence
+	\[\mc F(U)\to\prod_i\mc F(U_i)\to\prod_{i,j}\mc F(U_i\times_UU_j)\]
+	is exact for all covers $\{U_i\to U\}_i$.
+\end{definition}
+\begin{example}
+	A sheaf on the Zariski site is the usual notion of sheaf in scheme theory.
+\end{example}
+\begin{remark}
+	Because open embeddings are already \'etale, fppf, and fpqc, we see that a sheaf on any of these sites must be a Zariksi sheaf as well.
+\end{remark}
+\begin{remark}
+	Because the sites we care about are closed under arbitrary coproduct, it is enough to check it on coverings which look like $U'\to U$, though of course one cannot require either $U'$ or $U$ to be connected.
+\end{remark}
+We have yet to construct any sheaves! Here is the usual way to do so.
+\begin{definition}
+	Fix a scheme $X$. For any Zariski quasicoherent sheaf $\mc F$ on $X$, we define the \'etale pre\-sheaf $\mc F^{\mathrm{\acute et}}$ on $X_{\mathrm{\acute et}}$ by sending the cover $p\colon U\to X$ to
+	\[\mc F_{\mathrm{\acute et}}(U)\coloneqq\op{Hom}(p^*\OO_X,p^*\mc F).\]
+\end{definition}
+\begin{remark}
+	It turns out that this construction produces a sheaf. Something similar works for the fppf sites and fpqc sites. Let's explain this for the fpqc site. Indeed, fix a fpqc morphism $p\colon S'\to S$, so we set $S'\coloneqq S'\times_SS'$ with projection $q\colon S''\to S$, and we need to check that the usual sequence
+	\[\mc F_{\mathrm{fpqc}}(S)\to\mc F_{\mathrm{fpqc}}(S')\to\mc F_{\mathrm{fpqc}}(S'')\]
+	is exact. Accordingly, we see that we may as well replace $\mc F$ with the pullback to $S$ (so that $X=S$), and we have left to check that
+	\[\op{Hom}(\OO_S,\mc F)\to\op{Hom}(\OO_{S'},p^*\mc F)\to\op{Hom}(\OO_{S''},q^*\mc F)\]
+	is exact. Exactness now follows from some notion of descent.
+\end{remark}
+The last remark we should make about sheaves on a site is that we can do sheafification.
+\begin{definition}[sheafification]
+	Fix a site $\mc C$. Then there is a left adjoint to the forgetful functor $\mathrm{Sh}(\mc C)\to\mathrm{PSh}(\mc C)$, which we call sheafification.
+\end{definition}
+
+\section{October 2: The Lefschetz Trace Formula}
+This talk was given by Arav Karighattam for the STAGE seminar at MIT.
+
+\subsection{The Tools}
+We are going to use $\ell$-adic cohomology to prove all the Riemann conjectures, with the expception of the Riemann hypothesis. We willl recall the statements as we get to them.
+
+Let's recall our Chow groups.
+\begin{definition}[Chow group]
+	Fix a variety $X$ over a field $k$ of equidimension $d$. Then we define the \textit{Chow group} $\op{CH}^\bullet(X)$ as the graded ring, where $\op{CH}^i(X)$ contains the codimension-$i$ cycles (up to rational equivalence). The product $[A]\cdot[B]$ is given by the intersection $[A\cup B]$, which makes sense when $A$ and $B$ are generically transverse, meaning that a generic point $x$ in $A\cap B$ has $T_xA+T_xB=T_xX$.
+\end{definition}
+As usual, we will not bother to show that this product makes sense, which requires some notion of the Moving lemma or a different approach.
+
+Our main tool will be $\ell$-adic cohomology.
+\begin{definition}[$\ell$-adic cohomology]
+	Fix a variety $X$ over a field $k$. For a prime $\ell$ distinct from $\op{char}k$, we define \textit{$\ell$-adic cohomology} as
+	\[\mathrm H^i_\ell(X)\coloneqq\left(\lim\mathrm H^i(X_{k^{\mathrm{sep}}};\underline{\ZZ/\ell^\bullet\ZZ})\right)\otimes_\ZZ\QQ.\]
+	This cohomology groups assemble into a graded commutative ring $\mathrm H^\bullet_\ell(X)$, where the product is given by the cup product.
+\end{definition}
+\begin{remark}
+	As usual, the cup product can be defined on the level of \v{C}ech cocycles.
+\end{remark}
+It turns out that $\mathrm H^\bullet_\ell$ assembles into a Weil cohomology theory with coefficients in $\QQ_\ell$. Let's quickly review what we are given.
+\begin{itemize}
+	\item The cohomology groups $\mathrm H^\bullet_\ell$ are supported in degrees $[0,2\dim X]$.
+	\item There is a K\"unneth formula
+	\[\mathrm H^\bullet_\ell(X\times Y)\cong\mathrm H^\bullet_\ell(X)\otimes\mathrm H^\bullet_\ell(Y)\]
+	induced by the projections.
+	\item If $X$ has equidimension $d$, then the cup product produces a perfect pairing
+	\[\mathrm H^i_\ell(X)\times\mathrm H^i_\ell(X)(d)\to\mathrm H^{2d}_\ell(X)(d)\to\QQ_\ell,\]
+	where the last map is a trace map.
+	\item There is a cycle class map $\op{cl}_X\colon\op{CH}^i(X)\to\mathrm H^{2i}(X)(i)$.
+\end{itemize}
+These data are subject to many compatibilities.
+
+\subsection{The Lefschetz Trace Formula}
+Here is our theorem.
+\begin{theorem} \label{thm:lefschetz}
+	Fix a regular endomorphism $\varphi\colon X\to X$ of a smooth projective variety $X$ of equidimension $d$ over a field $k$. Then
+	\[(\Gamma_\varphi\cdot\Delta_X)=\sum_{r=0}^{2d}(-1)^r\tr\left(\varphi^*;\mathrm H^r_\ell(X)\right).\]
+	Here, $\Gamma_\varphi$ is the graph of $\varphi$, $\Delta_X$ is the diagonal, so $(\Gamma_\varphi\cdot\Delta_X)$ should be thought of as the number of fixed points of $\varphi$ (counted with the correct multiplicities).
+\end{theorem}
+\begin{proof}
+	This is purely formal from the construction of a Weil cohomology theory. It turns out that the intersection number $(\Gamma_\varphi\cdot\Delta_X)$ agrees with the scalar
+	\[\op{cl}_{X\times X}(\Gamma_\varphi\cdot\Delta)\in\mathrm H^{4d}(X\times X)(2d),\]
+	where the target is identified with $\QQ_\ell$ via Poincar\'e duality. By a coherence property, we see that we want to evaluate $\op{cl}_{X\times X}(\Gamma_\varphi)\cup\op{cl}_{X\times X}(\Delta)$.
+
+	Let's explain how to compute $\op{cl}_{X\times X}(\Gamma_\varphi)$, and then one can compute $\op{cl}_{X\times X}(\Delta)$ by setting $\varphi=\id_X$. Well, for each degree $r$, fix a basis $\{e_{i,r}\}$ of $\mathrm H^r_\ell(X)$, which then has a dual basis $\{f_{i,2d-r}\}$ of $\mathrm H^{2d-r}_\ell(X)(d)$. We will take $e_{i,r}\cup f_{2d-i,r}=1$ as our sign convention. The K\"unneth formula explains that $\mathrm H^\bullet(X\times X)$ can be identified with $\mathrm H^\bullet(X)\otimes\mathrm H^\bullet(X)$, so we get to write
+	\[\op{cl}_{X\times X}(\Gamma_\varphi)=\sum_{i,r}a_{i,r}\boxtimes f_{i,2d-r}\]
+	for some coefficients $a_{i,r}$ which we would like to solve for. To do so, we note that
+	\[\op{cl}_{X\times X}(\Gamma_\varphi)\cup(1\boxtimes e_{j,r})=a_{j,r}\boxtimes e_{2d},\]
+	where there graded commutative signs cancel out after expanding out $\boxtimes$ as a cup product. Thus,
+	\[\op{pr}_{1*}\left(\op{cl}_{X\times X}(\Gamma_\varphi)\cup(1\boxtimes e_{j,r})\right)=a_{j,r}.\]
+	We can now collapse the left-hand side. Note $\Gamma_\varphi=({\id_X},\varphi)_*1_X$, so we can rewrite this as
+	\[a_{j,r}=\op{pr}_{1*}\left(({\id_X},\varphi)_*1_X\cup\op{pr}_2^*e_{j,r}\right).\]
+	By the projection formula, this collapses to $\varphi^*e_{j,r}$, so
+	\[\op{cl}_{X\times X}(\Gamma_\varphi)=\sum_{i,r}\varphi^*e_{j,r}\boxtimes f_{i,2d-r}.\]
+	Plugging in $\varphi=\id_X$, we see similarly that
+	\[\op{cl}_{X\times X}(\Delta_X)=\sum_{i,r}e_{j,r}\boxtimes f_{i,2d-r}.\]
+	This is also
+	\[\op{cl}_{X\times X}(\Delta_X)=\sum_{i,r}(-1)^rf_{i,2d-r}\boxtimes e_{j,r},\]
+	so $\op{cl}_{X\times X}(\Gamma_\varphi)\cup\op{cl}_{X\times X}(\Delta)$ is
+	\[\sum_{j,r}(-1)^r\left(\varphi^*e_{j,r}\cup f_{j,2d-r}\right)\boxtimes e_{2d}\]
+	even after keeping track of signs in the graded commutativity. Now, the sum over $j$ of the piece in parantheses is exactly the trace of $\varphi^*$ acting on a given basis of $\mathrm H^i_\ell(X)$, so we conclude.
+\end{proof}
+
+\subsection{Some Weil Conjectures}
+Here is the main input to our proofs.
+\begin{proposition} \label{prop:frob-by-lefschetz}
+	Fix a smooth projective variety $X$ of equidimension $d$ over $\FF_q$. Then
+	\[\left|X(\FF_q)\right|=\sum_{r=0}^{2d}(-1)^r\tr\left(\mathrm{Frob}_q^*;\mathrm H^r_\ell(X)\right).\]
+\end{proposition}
+\begin{proof}
+	Let $\varphi$ be the Frobenius. By \Cref{thm:lefschetz}, we only need to show that $(\Gamma_\varphi\cdot\Delta_X)$ is in fact $\left|X(\FF_q)\right|$. Certainly the fixed points of the Frobenius acting on $X(\ov\FF_q)$ is precisely $X(\FF_q)$, so it remains to see that our intersection is actually transverse. This is true because all tangent spaces of $\Gamma_\varphi$ are horizontal (the derivative of $x^q$ vanishes in $\FF_q$) while tangent spaces of $\Delta_X$ are diagonal.
+\end{proof}
+\begin{corollary}
+	Fix a smooth projective variety $X$ of equidimension $d$ over $\FF_q$. Then
+	\[Z(X,T)=\exp\Bigg(\sum_{n=1}^\infty X(\FF_{q^n})\frac{T^n}n\Bigg)=\prod_{r=0}^{2d}\det\left(1-\mathrm{Frob}_q^*T;\mathrm H^i(X)\right)^{(-1)^{i+1}}.\]
+\end{corollary}
+\begin{proof}
+	We start with a linear algebraic fact. In general, if $\varphi\colon V\to V$ is a linear opeator over a field $k$, then we claim
+	\[-\log\det(1-\varphi T;V)\stackrel?=\sum_{n=1}^\infty\tr(\varphi^n;V)\frac{T^n}n.\]
+	Combining this linear algebraic fact with \Cref{prop:frob-by-lefschetz} completes the argument.
+
+	To see the claim, note that both sides of the identities are additive in the pair $(V,\varphi)$, and the case of scalars $c$ acting on a one-dimensional space amounts to the Taylor expansion of $\log$ as $-\log(1-\lambda T)=\sum_{n\ge1}\lambda^nT^n/n$. To complete the proof, we note that the identity is insensitive to changing the base field, so we may base-change to the algebraic closure, diagonalize $\varphi$, and reduce to the case of scalars.
+\end{proof}
+We will now have achieved rationality as soon as we can show that the polynomials
+\[P_i(T)\coloneqq\det\left(1-\mathrm{Frob}_q^*T;\mathrm H^i(X)\right)\]
+live in $1+T\ZZ[T]$. Certainly it is in $1+T\QQ_\ell[T]$, and the alternating product of these polynomials is $Z$ and therefore is in $1+T\ZZ[[T]]$, so one can make an argument that the $P_i$s must be in $1+T\ZZ[T]$.
+
+It remains to prove the functional equation. This follows from Poincar\'e duality. Indeed, $\mathrm{Frob}_*\mathrm{Frob}^*=q^d$ on cohomology, so
+\begin{align*}
+	Z\left(X,q^{-d}T^{-1}\right) &= \prod_{r=0}^{2d}\det\left(1-q^{-d}\mathrm{Frob}^*T^{-1};\mathrm H^i(X)\right)^{(-1)^{r+1}} \\
+	&= \prod_{r=0}^{2d}\det\left(1-q^{-d}\mathrm{Frob}_*T^{-1};\mathrm H^{2d-i}(X)(d)\right)^{(-1)^{r+1}}.
+\end{align*}
+This can be unwound into the functional equation.
+
+\section{October 9: Constructible Sheaves, Base Change, and \texorpdfstring{$L$}{ L}-functions}
+This talk was given by Mikayel Mkrtchyan for the STAGE seminar at MIT.
+
+\subsection{Constructible Sheaves}
+For today, all schemes will be finite type and separated over a field. Unless otherwise stated, $X_0$ and $\mc F_0$ will be objects defined over a finite field $\FF_q$, and $X$ and $\mc F$ will be their base-changes to the algebraic closure $\ov\FF_q$. This convention also holds for other similar letters. While we're here, we fix our characteristic to be $p>0$, and we choose a prime $\ell\ne p$. We work with the \'etale topology throughout.
+
+Let's begin by stating some foundational results.
+\begin{theorem}
+	Fix a smooth proper morphism $f\colon X\to Y$ of qcqs schemes. For any $\ell$-adic local system $\mc L$, the pushforward $\mathrm R^if_*\mc L$ is a local system on $Y$.
+\end{theorem}
+\begin{remark}
+	The topological intuition is that a proper submersion $f\colon X\to Y$ of real manifolds is a locally trivial fibration, which is known as Ehresmann's lemma.
+\end{remark}
+We may be interested in upgrading this, removing properness or smoothness. One no longer expects to get local systems from higher pushforwards: instead, we get constructible sheaves.
+\begin{definition}
+	Fix a sheaf $\mc F$ on $X$ with finite stalks coprime to $p$. Then $\mc F$ is \textit{constructible} if and only if there is a Zariski locally closed disjoint union $X=\bigsqcup_iX_i$ such that $\mc F|_{X_i}$ is a local system for each $i$.
+\end{definition}
+\begin{example}
+	If $i\colon Z\to X$ is a closed subset, then $i_*\underline{\ZZ/\ell\ZZ}$ is constructible.
+\end{example}
+\begin{remark}
+	We can also choose a stratification $\bigsqcup_iX_i$ to be some \'etale locally closed disjoint union. The point is that one can check if a sheaf is a local system after \'etale base change.
+\end{remark}
+Here are some indications that we have given a good definition.
+\begin{theorem}[finitude]
+	Fix a morphism $f\colon X\to Y$ of qcqs schemes. If $\mc F$ is constructible on $X$, then $\mathrm R^if_*\mc F$ is constructible.
+\end{theorem}
+\begin{theorem}
+	Fix an open subset $j\colon U\to X$, and set $i\colon Z\to X$ to be the complement. Then the data of a constructible sheaf on $X$ is equivalent to the data of a triple $(\mc F_Z,\mc F_U,f)$, where $\mc F_Z$ is a constructible sheaf on $Z$, and $\mc F_U$ is a constructible sheaf on $U$, and $f$ is a map $\mc F_Z\to i^*j_*\mc F_U$.
+\end{theorem}
+\begin{proof}[Sketch]
+	It is not hard to build the triple from $\mc F$ by restricting to $Z$ and $U$. Given a triple $(\mc F_Z,\mc F_U,f)$, surely we know what the stalks are, and $f$ tells us how to glue.
+\end{proof}
+\begin{example}
+	Fix a smooth curve $X$ over $\CC$, and choose a finite subset $Z\subseteq X$ of ``cusps,'' and let $U\coloneqq X\setminus Z$ be its kernel. Then a constructible sheaf on $X$ has equivalent data to a local system $\mc L$ on $U$ (which is equivalent to the data of a representation $\pi_1(U)\to\op{GL}(L)$ for some given vector space $L$), a finite group $V_z$ at each $z\in Z$, and the last map $f\colon\mc F_Z\to i^*j_*\mc F_U$ amounts to a map $V_z\to L^{I_z}$. To see this last map, we see that $i^*j_*\mc L$ is the colimit of $\mc L(U\setminus z)$ where $U$ is an open neighborhood of $z$, but these sections turn out to be given by $L^{I_z}$ via the Riemann--Hilbert correspondence. In particular, the maps $V_z\to L^{I_z}$ vanishing corresponds to adding skyscraper sheaves.
+\end{example}
+\begin{example}
+	Similarly, let $X_0$ be a smooth curve over $\FF_q$, let $U_0\subseteq X_0$ be a nonempty open subset, and set $Z_0\coloneqq X_0\setminus U_0$. Then the data of a constructible sheaf on $X_0$ is equivalent to the data of a local system $\mc L$ on $U_0$ (which is the data of a representation of $\pi_1^{\mathrm{\acute et}}(U)$ on some $L$), a representation of $\op{Gal}(\ov{k(z)}/k(z))$ on some $V_z$ for each $z\in Z_0$, and a map $V_z\to L^{I_z}$ for each $z$. Here, $I_z$ is the inertia subgroup which is the kernel of $\pi_1^{\mathrm{\acute et}}(U,z)\to\op{Gal}(\ov{k(z)}/k(z))$.
+\end{example}
+We are now allowed to make the following central definition.
+\begin{definition}[$\ell$-adic sheaf]
+	An \textit{$\ell$-adic sheaf} is a compatible system of constructible sheaves of constructible sheaves of $(\ZZ/\ell^\bullet\ZZ)$-modules. Here, the compatibility requires that the locally closed stratifications stabilize for higher powers of $\ell$. We think about this as by taking inverse limits over the compatible systems.
+\end{definition}
+\begin{remark}
+	The stalks of an $\ell$-adic sheaf are $\ZZ_\ell$-modules. We will frequently (and silently) make these $\QQ_\ell$-vector spaces.
+\end{remark}
+
+\subsection{Proper Base Change}
+Suppose we have a commutative square as follows.
+% https://q.uiver.app/#q=WzAsNCxbMSwwLCJYIl0sWzEsMSwiWSJdLFswLDEsIlknIl0sWzAsMCwiWCciXSxbMCwxLCJmIl0sWzMsMCwiZyciXSxbMywyLCJmJyIsMl0sWzIsMSwiZyJdXQ==&macro_url=https%3A%2F%2Fraw.githubusercontent.com%2FdFoiler%2Fnotes%2Fmaster%2Fnir.tex
+\[\begin{tikzcd}[cramped]
+	{X'} & X \\
+	{Y'} & Y
+	\arrow["{g'}", from=1-1, to=1-2]
+	\arrow["{f'}"', from=1-1, to=2-1]
+	\arrow["f", from=1-2, to=2-2]
+	\arrow["g", from=2-1, to=2-2]
+\end{tikzcd}\]
+Given an $\ell$-adic sheaf $\mc F$ on $X$, then there is a base-change morphism
+\[g^*f_*\mc F\to f'_*(g')^*\mc F\]
+defned by using various adjunctions: note
+\begin{align*}
+	\op{Hom}(g^*f_*\mc F,f'_*(g')^*\mc F) &= \op{Hom}(f_*\mc F,g_*f'_*(g')^*\mc F) \\
+	&= \op{Hom}(f_*\mc F,f_*g'_*(g')^*\mc F) \\
+	&\supseteq f_*\op{Hom}(\mc F,g_*(g')^*\mc F),
+\end{align*}
+and the last set has a canonical adjunction map. Using something about $\delta$-functors, one can upgrade our given map to a base change map
+\[g^*\mathrm R^if_*\mc F\to\mathrm R^if'_*(g')^*\mc F.\]
+These maps are in general not isomorphisms.
+\begin{example}
+	Consider the pullback square
+	% https://q.uiver.app/#q=WzAsNCxbMCwwLCJcXGVtcCJdLFsxLDAsIlxcbWF0aGJiIEdfbSJdLFsxLDEsIlxcQUFeMSJdLFswLDEsIjAiXSxbMCwxLCJnJyJdLFswLDMsImYnIiwyXSxbMywyLCJnIl0sWzEsMiwiZiJdXQ==&macro_url=https%3A%2F%2Fraw.githubusercontent.com%2FdFoiler%2Fnotes%2Fmaster%2Fnir.tex
+	\[\begin{tikzcd}[cramped]
+		\emp & {\mathbb G_m} \\
+		0 & {\AA^1}
+		\arrow["{g'}", from=1-1, to=1-2]
+		\arrow["{f'}"', from=1-1, to=2-1]
+		\arrow["f", from=1-2, to=2-2]
+		\arrow["g", from=2-1, to=2-2]
+	\end{tikzcd}\]
+	of intersections. Then one can compute that $g^*f_*\underline{\QQ_\ell}=\QQ_\ell$, but $f'_*(g')^*\underline{\QQ_\ell}$ vanishes.
+\end{example}
+However, in good situations, the result holds.
+\begin{theorem}[Proper base change] \label{thm:proper-base-change}
+	If the square
+	% https://q.uiver.app/#q=WzAsNCxbMSwwLCJYIl0sWzEsMSwiWSJdLFswLDEsIlknIl0sWzAsMCwiWCciXSxbMCwxLCJmIl0sWzMsMCwiZyciXSxbMywyLCJmJyIsMl0sWzIsMSwiZyJdXQ==&macro_url=https%3A%2F%2Fraw.githubusercontent.com%2FdFoiler%2Fnotes%2Fmaster%2Fnir.tex
+	\[\begin{tikzcd}[cramped]
+		{X'} & X \\
+		{Y'} & Y
+		\arrow["{g'}", from=1-1, to=1-2]
+		\arrow["{f'}"', from=1-1, to=2-1]
+		\arrow["f", from=1-2, to=2-2]
+		\arrow["g", from=2-1, to=2-2]
+	\end{tikzcd}\]
+	is a pullback with $f$ proper, then the map $g^*\mathrm R^if_*\mc F\to\mathrm R^if'_*g^*\mc F$ is an isomorphism.
+\end{theorem}
+One application is that we can make sense of cohomology with compact supports.
+\begin{definition}
+	Fix a Zariski open embedding $j\colon U\to X$ and a sheaf $\mc F$ on $U$. Then there is a functor $j_!\colon\op{Sh}(U)\to\op{Sh}(X)$ which is left adjoint to $j^*$. It is given by the sheafification of the presheaf sending some \'etale open $V\to X$ to
+	\[\begin{cases}
+		f(V) & \text{if }V\text{ factors through }U, \\
+		0 & \text{else}.
+	\end{cases}\]
+\end{definition}
+\begin{remark}
+	One can see that $j_!$ is exact: indeed, its stalks are identity in $U$ and vanish outside $U$.
+\end{remark}
+\begin{remark}
+	For a sheaf $\mc F$ on $X$, we let $j\colon U\to X$ be an open embedding and let $i\colon Z\to X$ be the complement. Then we have a short exact sequence
+	\[0\to j_!j^*\mc F\to\mc F\to i_*i^*\mc F\to0.\]
+	One can check exactness on stalks.
+\end{remark}
+\begin{definition}
+	Fix a morphism $f\colon X\to Y$ of separated schemes over a field $k$. Then we define the functor $f_!\colon\op{Sh}(X)\to\op{Sh}(Y)$ as follows. By a theorem of Nagata, $f$ factors through some compactification $j\colon X\to\ov X$ where the induced map $\overline f\colon\ov X\to Y$ is proper. Then we define
+	\[\mathrm R^if_!\mc F\coloneqq\mathrm R^i\overline f_*(j_!\mc F).\]
+	If $X$ is separated over a field $k$, then we can define $\mathrm H^i_c(X;\mc F)$ as $\mathrm R^ip_!\mc F$ where $p\colon X\to\Spec k$ is the structure morphism.
+\end{definition}
+\begin{remark}
+	One can use \Cref{thm:proper-base-change} (and the Leray spectral sequence) to show that this definition is independent of $j$.
+\end{remark}
+\begin{remark}
+	The functor $\mathrm R^if_!$ sends constructible sheaves to constructible sheaves.
+\end{remark}
+\begin{remark}
+	Given any Cartesian square
+	% https://q.uiver.app/#q=WzAsNCxbMSwwLCJYIl0sWzEsMSwiWSJdLFswLDEsIlknIl0sWzAsMCwiWCciXSxbMCwxLCJmIl0sWzMsMCwiZyciXSxbMywyLCJmJyIsMl0sWzIsMSwiZyJdXQ==&macro_url=https%3A%2F%2Fraw.githubusercontent.com%2FdFoiler%2Fnotes%2Fmaster%2Fnir.tex
+	\[\begin{tikzcd}[cramped]
+		{X'} & X \\
+		{Y'} & Y
+		\arrow["{g'}", from=1-1, to=1-2]
+		\arrow["{f'}"', from=1-1, to=2-1]
+		\arrow["f", from=1-2, to=2-2]
+		\arrow["g", from=2-1, to=2-2]
+	\end{tikzcd}\]
+	then the base change maps $g^*\mathrm Rf_!\to \mathrm R^if'_!(g')^*$ will always be an isomorphism.
+\end{remark}
+\begin{remark}
+	The functors $\mathrm R^if_!$ are not the derived functors of $f_!$.
+\end{remark}
+
+\subsection{\texorpdfstring{$L$}{ L}-Functions}
+We now settle into our conventions, where $X_0$ is a variety over $k\coloneqq\FF_q$, and $\mc F_0$ is a sheaf on $X_0$. Then one finds that there are Galois actions on $\mathrm H^i(X;\mc F)$ and $\mathrm H^i_c(X;\mc F)$ as follows: for $\sigma\in\op{Gal}(\ov k/k)$, then we have a morphism $(\sigma\times{\id_{X_0}})\colon X\to X$, so we induce a map
+\[\mathrm H^i(X;\mc F)\to\mathrm H^i(X;(\sigma\times{\id_{X_0}})^*\mc F)=\mathrm H^i(X;\mc F),\]
+where the last identification holds because $\mc F$ started its life over $k$.
+\begin{notation}
+	We let $\mathrm{Frob}_{\mathrm{arith}}\in\op{Gal}(\ov k/k)$ be the arithmetic Frobenius $x\mapsto x^{\left|k\right|}$, and we let $\mathrm{Frob}$ be the geometric Frobenius.
+\end{notation}
+The geometric Frobenius is convenient because it provides the correct morphism on points.
+
+For calculations later, it will be helpful to have $L$-functions of general sheaves.
+\begin{definition}
+	Fix a constructible $\ell$-adic sheaf $\mc F_0$ on $X_0$ over a finite field $k\coloneqq\FF_q$. Then we define the zeta function
+	\[Z(X_0;\mc F_0,T)\coloneqq\prod_{\text{closed }x\in X_0}\frac1{\det\left(1-\mathrm{Frob}T^{\deg x};\mc F_x\right)}.\]
+\end{definition}
+\begin{remark}
+	A short calculation shows that
+	\[Z(X_0,\mc F_0;T)=\exp\Bigg(\sum_{m\ge1}\Bigg(\sum_{x\in X_0(\mathbb F_{q^m})}\tr(\mathrm{Frob}_x;\mc F_x)\Bigg)\frac{T^m}m\Bigg).\]
+	Here, $\mathrm{Frob}_x\in\op{Gal}(\ov{k(x)}/k(x))$ is the geometric Frobenius, and it acts on the stalk of $\mc F_x$ by viewing the stalk as the pullback to the point.
+\end{remark}
+\begin{example}
+	One can check that $\mc F_0=\underline{\ZZ_\ell}$ recovers the usual zeta function.
+\end{example}
+One still has a rationality result.
+\begin{theorem}[Grothendieck--Lefschetz trace formula]
+	Fix a constructible $\ell$-adic sheaf $\mc F_0$ on $X_0$ over a finite field $k\coloneqq\FF_q$. Then
+	\[Z(X_0;\mc F_0,T)=\prod_{i=0}^{2\dim X}\det\left(1-\mathrm{Frob}T;\mathrm H^i_c(X;\mc F)\right)^{(-1)^{i+1}}.\]
+\end{theorem}
+\begin{remark}
+	One can view this as a ``global expression'' for the ``locally defined'' Euler product.
+\end{remark}
+The result becomes more memorable if we pass through the sheaf-function dictionary.
+\begin{definition}
+	Fix a constructible $\ell$-adic sheaf $\mc F_0$ on $X_0$ over a finite field $k\coloneqq\FF_q$. Then we define the function $G_{\mc F_0}\colon X_0(\FF_{q^m})\to\overline\QQ_\ell$ by
+	\[G_{\mc F_0}(x)\coloneqq\tr(\mathrm{Frob}_x;\mc F_x).\]
+\end{definition}
+\begin{remark}
+	Note $G\colon\mathrm{Sh}(X)\to\mathrm{Fun}(X(\FF_{q^m}),\QQ_\ell)$ factors through the Grothendieck group $K_0(\mathrm{Sh}(X))$.
+\end{remark}
+This gives a relative version of the trace formula.
+\begin{theorem}[Grothendieck--Lefschetz trace formula]
+	Fix a morphism $f_0\colon X_0\to Y_0$ and a sheaf $\mc F_0$. Then the diagram
+	% https://q.uiver.app/#q=WzAsOCxbMCwwLCJLXzAoXFxtYXRocm17U2h9KFhfMCkpIl0sWzAsMSwiS18wKFxcbWF0aHJte1NofShZXzApKSJdLFsxLDAsIlxcbWF0aHJte0Z1bn0oWF8wKFxcRkZfe3FebX0pLFxcUVFfXFxlbGwpIl0sWzEsMSwiXFxtYXRocm17RnVufShZXzAoXFxGRl97cV5tfSksXFxRUV9cXGVsbCkiXSxbMiwwLCJcXG1jIEYiXSxbMiwxLCJcXGRpc3BsYXlzdHlsZVxcc3VtX2koLTEpXmlcXG1hdGhybSBSXmlmXyFcXG1jIEYiXSxbMywwLCJnIl0sWzMsMSwieVxcbWFwc3RvXFxzdW1fe2coeCk9eX1nKHgpIl0sWzAsMSwiXFxtYXRocm0gUmZfISIsMl0sWzIsMywiXFxpbnQiXSxbMCwyLCJHIl0sWzEsMywiRyJdLFs0LDUsIiIsMCx7InN0eWxlIjp7InRhaWwiOnsibmFtZSI6Im1hcHMgdG8ifX19XSxbNiw3LCIiLDAseyJzdHlsZSI6eyJ0YWlsIjp7Im5hbWUiOiJtYXBzIHRvIn19fV0sWzQsNiwiIiwxLHsic3R5bGUiOnsidGFpbCI6eyJuYW1lIjoibWFwcyB0byJ9fX1dLFs1LDcsIiIsMSx7InN0eWxlIjp7InRhaWwiOnsibmFtZSI6Im1hcHMgdG8ifX19XV0=&macro_url=https%3A%2F%2Fraw.githubusercontent.com%2FdFoiler%2Fnotes%2Fmaster%2Fnir.tex
+	\[\begin{tikzcd}[cramped]
+		{K_0(\mathrm{Sh}(X_0))} & {\mathrm{Fun}(X_0(\FF_{q^m}),\QQ_\ell)} & {\mc F} & g \\
+		{K_0(\mathrm{Sh}(Y_0))} & {\mathrm{Fun}(Y_0(\FF_{q^m}),\QQ_\ell)} & {\displaystyle\sum_i(-1)^i\mathrm R^if_!\mc F} & {y\mapsto\sum_{g(x)=y}g(x)}
+		\arrow["G", from=1-1, to=1-2]
+		\arrow["{\mathrm Rf_!}"', from=1-1, to=2-1]
+		\arrow["\int", from=1-2, to=2-2]
+		\arrow[maps to, from=1-3, to=1-4]
+		\arrow[maps to, from=1-3, to=2-3]
+		\arrow[maps to, from=1-4, to=2-4]
+		\arrow["G", from=2-1, to=2-2]
+		\arrow[maps to, from=2-3, to=2-4]
+	\end{tikzcd}\]
+	commutes.
+\end{theorem}
+
+\section{October 16: Katz's Proof of the Riemann Hypothesis for Curves}
+This talk was given by Jane Shi at MIT for the STAGE seminar.
+
+\subsection{Review}
+Kat'z idea is to ``spread out'' the Riemann hypothesis over a family of curves.  More precisely, suppose that we already have the Riemann hypothesis for a given curve $C_0$ over $\FF_q$. Then given a family of curves $f\colon X\to U$ where one fiber is $C_0$, then we will be able to prove the Riemann hypothesis for the full family.
+
+Let's begin by reviewing some $\ell$-adic cohomology. Fix a scheme $X$ of finite type over $\FF_q$. Then we have a zeta function
+\[Z(X,T)\coloneqq\exp\Bigg(\sum_{n\ge1}\#X(\FF_{q^n})\frac{T^n}n\Bigg).\]
+We already know rationality, which tells us that if $X$ is smooth proper of equidimension $d$, then it can be written as an alternating product. Here is our goal.
+\begin{theorem} \label{thm:rh-for-curve}
+	Fix a smooth projective irreducible curve $X_0$ over $\FF_q$ of genus $g$. Then
+	\[Z(X,T)=\frac{P_1(T)}{(1-T)(1-qT)},\]
+	where $P_1(T)$ is a polynomial of degree $2g$, where all roots have absolute value $q^{1/2}$.
+\end{theorem}
+\begin{remark}
+	Previously, we showed that we can take $P_1(T)$ to be
+	\[\det\left(1-T\mathrm{Frob};\mathrm H^1(X_{\ov{\FF_q}};\QQ_\ell)\right).\]
+\end{remark}
+Let's be more precise about our Frobenius polynomials.
+\begin{itemize}
+	\item There is an arithmetic Frobenius $\sigma_q$, which is the generator of $\op{Gal}(\ov\FF_q/\FF_q)$.
+	\item The inverse of the arithmetic Frobenius $\sigma_q$ is the geometric Frobenius $F_q$.
+	\item For our variety $X$ defined over $\FF_q$, the base-change $X_{\ov\FF_q}$ admits a Frobenius morphism acting on the $\Spec\ov\FF_q$ factor.
+	\item Given a closed point $x\colon\Spec k\to X$ of a variety $X$ over $k$, there is an induced map
+	\[\pi_1(\Spec k)\to\pi_1(X)\]
+	of \'etale fundamental groups. Accordingly, if $k=\FF_q$, then the left-hand group is $\op{Gal}(\ov\FF_q/\FF_q)$, so we can choose a (geometric) Frobenius element generating it (well-defined up to conjugacy). We will call this element $\mathrm{Frob}_x$.
+\end{itemize}
+\begin{remark}
+	Given an $\ell$-adic local system $\mc F$, we produce a representation
+	\[\pi_1(X)\to\op{GL}(\mc F_{\ov x})\]
+	of the fiber. The target is some finite-dimensional $\QQ_\ell$-vector space, so we are allowed to consider the action of our Frobneius $\mathrm{Frob}_x$ on this vector space.
+\end{remark}
+\begin{remark}
+	In the sequel, we will have reason to work with non-constant coefficients. Namely, we will be working with a family $f\colon X\to U$ of curves, so the sheaf $\mathrm R^if_*\QQ_\ell$ will be interesting to us. In particular, by the Proper base change theorem, we know that
+	\[\left(\mathrm R^if_*\QQ_\ell\right)_s=\mathrm H^i(X_{s,\ov\FF_q};\QQ_\ell)\]
+	for any point $s\into X$.
+\end{remark}
+Let's apply the previous remark. For our family $f\colon X\to U$, we see that
+\begin{align*}
+	L(\mathrm R^if_*\QQ_\ell;T) &= \prod_{\text{closed }p\in U}\det\left(1-T^{\deg p}\mathrm{Frob}_p;(\mathrm R^if_*\QQ_\ell)_s\right)^{-1} \\
+	&= \prod_{\text{closed }p\in U}\det\left(1-T^{\deg p}F_q;\mathrm H^i_{\mathrm{\acute et}}(X_{p,\ov\FF_q};\QQ_\ell)\right)^{-1}.
+\end{align*}
+By the trace formula (and Poincar\'e duality), if $U$ is an affine curve, one can alternatively write
+\[L(\mc F;T)=\frac{\det\left(1-TF_q;\mathrm H^1_c(U;\mc F)\right)}{\det\left(1-TF_q;\mathrm H^2_c(U;\mc F)\right)},\]
+but by Poincar\'e duality, this last demoninator is simply
+\[\det\left(1-qTF_q;\mc F_{\pi_1^{\mathrm{geo}}}\right),\]
+where we are silently keeping track of some Tate twist (which turns the $TF_q$ into $qTF_q$). The subscript $(-)_{\pi_1^{\mathrm{geo}}}$ refers to co-invariants.
+
+\subsection{Redution to a Single Curve}
+For our reduction, we will require the notion of purity. Throughout, the base $U$ is a smooth affine geometrically connected curve.
+\begin{definition}
+	Fix an embedding $\iota\colon\ov\QQ_\ell\into\CC$. For an $\ell$-adic local system $\mc F$ on $U$, we say that $\mc F$ is \textit{$\iota$-pure of weight $w$} if and only if
+	\[\left|\alpha\right|=\op Np^{w/2}\]
+	for all closd points $p\in U$ and all eigenvalues $\alpha$ of the action of $\mathrm{Frob}_p$ on $\mc F_p$. We say that $\mc F$ is \textit{$\iota$-real} if and only if the characteristic polynomial
+	\[\iota\det\left(1-T\mathrm{Frob}_p;\mc F_p\right)\]
+	has real coefficients for all closed points $p\in U$.
+\end{definition}
+\begin{remark}
+	For a family $f\colon X\to U$ of curves, our local system $\mc F=\mathrm R^if_*\QQ_\ell$ is $\iota$-real (for any $\iota$) by Lefschetz trace formula arguments.
+\end{remark}
+Here is our main result.
+\begin{theorem} \label{thm:spread-out-bound}
+	Fix an $\iota$-real $\ell$-adic local system $\mc F$ on a smooth affine geometrically connected curve $U$. Suppose that every eigenvalue $\beta$ of $F_q$ acting on $\left(\mc F^{\otimes 2k}\right)_{\pi_1^{\mathrm{geo}}}$ (for every $p$ and $k$) has $\left|\beta\right|\le1$. Then for every closed point $p$, every eigenvalue $\alpha$ of $\mathrm{Frob}_p$ acting on $\mc F_p$ has eigenvalue $\left|\alpha\right|\le1$.
+\end{theorem}
+\begin{proof}
+	We compare Euler factors of the $L$-function $L_{2k}$ of $\mc F^{\otimes2k}$ as $k$ gets large. The Euler factor ``at $p$'' is
+	\[L_{p,2k}\coloneqq\det\left(1-T^{\deg p}\mathrm{Frob}_p;\mc F^{\otimes2k}\right)^{-1}=\exp\Bigg(\sum_{n\ge1}\tr\left(\mathrm{Frob}_p^n;\mc F\right)^{2k}\frac{T^{n\deg p}}n\Bigg).\]
+	By looking at the roots and using the fact that $\mc F$ is $\iota$-real, we see that this Euler factor has nonnegative real coefficients, meaning it lives in $1+T\RR_{\ge0}[[T]]$. Thus, by multiplying our Euler factors together, we see that the power series $L_{p,2k}$ is bounded above by $L_{2k}$ term-wise.
+
+	Now, the radius of convergence of the full $L$-function $L$ can be read off of a calculation with $\mc F_{\pi_1^{\mathrm{geo}}}$, which is where we may apply the hypothesis. In particular, the radius of convergence is bounded above by $1$, so we find that the eigenvalues of $\mathrm{Frob}_p$ acting on $\mc F^{\otimes2k}$ has absolute value bounded above by $q^{\deg p}$. Sending $k\to\infty$ completes the proof.
+\end{proof}
+\begin{corollary}
+	Fix an $\iota$-real $\ell$-adic local system $\mc F$ on a smooth affine geometrically connected curve $U$. If there is a closed point $p$ on $U$ suc hthat the eigenvalues of $\mathrm{Frob}_p$ on $\mc F_p$ have eigenvalue bounded by $1$, then th same is true for all eigenvalues.
+\end{corollary}
+\begin{proof}[Sketch]
+	The key idea is that $F_q^d$ acts by $\mathrm{Frob}_p$ on $\left(\mc F^{\otimes{2k}}\right)_{\pi_1^{\mathrm{geo}}}$. (Roughly speaking, Frobenius can be transported to different points because the action will only differ by something in $\pi_1^{\mathrm{geo}}$.) The result then follows from the theorem.
+\end{proof}
+In light of the corollary, it remains to prove the Riemann hypothesis for a well-behaved curve and living in some rather general families. %(Bounding by $1$ can be turned into the required equality by doing some twisting.)
+\begin{lemma}
+	Fix a genus $g\ge1$, and choose two smooth projective geometrically connected curves $C_0$ and $C_1$ over $\FF_q$. After a field extension, there exists a smooth affine geometically connected curve $U$ and a family $f\colon C\to U$ so that $C_0$ and $C_1$ are some fibers of $f$.
+\end{lemma}
+\begin{proof}[Sketch]
+	For genus $1$, choose some $N\ge4$, and one can use the moduli space $Y(N)$ of a pair of an elliptic curve along with a point of order $N$. For large $N$, one finds that $U$ is a curve, and we can use the universal elliptic curve on $Y(N)$.
+
+	Now, for genus $g>1$, we recall (from Deligne and Mumford) that there is a moduli space $H_g^\circ$ classifying genus $g$ quasiprojectve smooth geometrically connected curves. We can get the required $U$ by choosing a generic curve which goes through every $\FF_q$-point.
+\end{proof}
+Let's now explain how the Riemann hypothesis gets transferred between curves.
+\begin{proof}[Proof of \Cref{thm:rh-for-curve} from a single curve]
+	Suppose we have the Riemann hypothesis for a single curve $C_0$ of genus $g$, and we want to move it to any other curve $C_1$ of genus $g$. Then we get an upper bound on the eigenvalues of the Frobenius on the full family $U$, which comes down to the required upper bound $\left|\alpha\right|<q^{1/2}$ of eigenvalues $\alpha$ for $C_1$. To complete the proof, we know that $\alpha\mapsto q/\alpha$ should be an involution of the roots by the functional equation, so the equality is forced!
+\end{proof}
+
+\subsection{Computations on a Family of Curves}
+We will compute with the Fermat curves. Choose some $d$ coprime to $q$, and we define the smooth projective Fermat curve
+\[F_d\colon X^d+Y^d=Z^d.\]
+The Weil conjectures in this case are due to Weil.
+\begin{theorem}[Weil]
+	The Riemann hypothesis holds for $F_d$ if $\gcd(d,q)=1$.
+\end{theorem}
+\begin{proof}[Sketch]
+	This is an explicit calculation with some character sums. Given two characters $\chi_1,\chi_2\colon\FF_q^\times\to\CC^\times$, we define their Jacobi sum as
+	\[J(\chi_1,\chi_2)\coloneqq\sum_{a\in\FF_q}\chi_1(a)\chi_2(1-a).\]
+	If both $\chi_1$ and $\chi_2$ are nontrivial, then one can calculate $\left|J(\chi_1,\chi_2)\right|^2=\sqrt q$.
+
+	Now, to calculate $\#F_d(\FF_{q^n})$, this amounts to calculating the solutions to $x^m+y^m=1$ and adding some points at infinity. Counting solutions to $x^m+y^m=1$ turns into a sum over Jacobi sums, which can then be compared to
+	\[\#F_d(\FF_{q^n})=1+q^n-\sum_\alpha\alpha^n,\]
+	where the sum is over the eigenvalues $\alpha$ of the Frobenius.
+\end{proof}
+Now, the genus of $F_d$ is $\binom{d-1}2$, so we have many remaining genera, for which we will take quotients.
+\begin{remark}
+	Note that a non-constant map $C\to C'$ will have the Riemann hypothesis transfer from $C$ to $C'$. Indeed, the Frobenius eigenvalues of $C'$ are a subset of the Frobenius eigenvalues of $C$. For example, one can see this by splitting $\op{Jac}C=\op{Jac}C'\oplus B$ for some other abelian variety $B$. Then, upon taking Tate modules, we find that the Frobenius eigenvalues of $C$ are precisely the Frobenius eigenvalues of $C'$ along with the Frobenius eigenvalues of $B$.
+\end{remark}
+\begin{lemma}
+	For any genus $g\ge1$, there is a Fermat curve $F_d$ (with $\gcd(d,q)=1$) and a curve $C$ of genus $g$ along with a quotient map $F_d\to C$.
+\end{lemma}
+\begin{proof}
+	If $p\ne2$, then use the hyperelliptic curves $y^2=x^d+1$, where we choose $d\in\{2g+1,2g+2\}$ to avoid $p$. If $p=2$, we can use the curves $y^2-y+x^{2g+1}$. A short calculation shows that these quotients recover all genera.
+\end{proof}
+
+\subsection{Persistence of Purity}
+We close the seminar by stating the following result.
+\begin{theorem}
+	Fix an $\iota$-real $\ell$-adic local system $\mc F$ on some smooth affine geometrically connected curve $U$. Suppose that there is a closed point $p$ for which every Frobenius eigenvalue of $\mathrm{Frob}_p$ acting on $\mc F_p$ has absolute value equal to $1$. Then this is true for all closed points on $\mc F$.
+\end{theorem}
+We will say more about this result next week. It upgrades \Cref{thm:spread-out-bound}.
+
+\section{October 23: The Riemann Hypothesis for Hypersurfaces}
+This talk was given by Leonid Gorodetskii at MIT for the STAGE seminar.
+
+\subsection{Spreading Out for Hypersurfaces}
+Today, we are giving Katz's proof of the Riemann hypothesis for hypersurfaces of $\PP^{n+1}$. The general idea is to spread out from a single example using moduli spaces. Let $f\colon X\to U$ be a smooth proper family over $\FF_q$. Then $\mathrm R^if_*\QQ_\ell$ defines some local system on $U$, and one has
+\[\det\left(1-T\mathrm{Frob}_u;\mathrm R^if_*\QQ_\ell\right)=\det\left(1-T\mathrm{Frob}_{q^{\deg u}};\mathrm H^i(X_u;\QQ_\ell)\right),\]
+where $u$ is a closed point of $U$. We called this polynomial $P_i(X_u,T)$. With $U$ a curve, we already know that $P_0$ and $P_2$ live in $1+\ZZ[T]$, so the known rationality results imply that $P_1(X_u,T)$ is in $1+\ZZ[T]$ as well.
+\begin{corollary}
+	Fix everything as above. Then $\mathrm R^if_*\QQ_\ell$ is real.
+\end{corollary}
+\begin{lemma}
+	Fix everything as above. Then the following are equivalent.
+	\begin{listroman}
+		\item The Riemann hypothesis holds for $X_u$.
+		\item $\mathrm H^i(X_u;\QQ_\ell)$ is pure of weight $i$.
+		\item $\mathrm R^if_*\QQ_\ell$ is pure of weight $i$ at $u$.
+	\end{listroman}
+\end{lemma}
+\begin{proof}
+	Unwind the definitions of purity.
+\end{proof}
+Our key spreading our result is the following.
+\begin{theorem}[Persistence of purity] \label{thm:persistence-purity}
+	Fix a smooth affine geometrically connected curve $U$ over $\FF_q$, and let $\mc F$ be a real $\ell$-adic local system on $U$. Then the following are equivalent.
+	\begin{listroman}
+		\item The $\ell$-adic local system $\mc F$ is pure of weight $w\in\frac12\ZZ$ at some point $u$.
+		\item The $\ell$-adic local system $\mc F$ is pure of weight $w\in\frac12\ZZ$ at all points $u$.
+	\end{listroman}
+\end{theorem}
+\begin{proof}[Sketch]
+	By twisting, we may assume that $w=0$. More precisely, we use the Tate twists $\QQ_\ell(i)$, which are the $\ell$-adic local systems in which the action by $\mathrm{Frob}_q$ in the \'etale fundamental group is given by $q^{-i}$. For example, we see that $\QQ_\ell(i)$ is pure of weight $-2i$.\footnote{Technically, we may need some half-integer twists, which requires us to consider field extensions of $\QQ_\ell$. This causes no problems as soon as we suitably generalize our definition of $\ell$-adic system.} The result now follows from \Cref{thm:spread-out-bound} and some careful duality.
+\end{proof}
+In order to work with hypersurfaces, we need to know something about their cohomology. Here is the cohomology of projective space.
+\begin{theorem}
+	Fix some $n\ge0$. Then
+	\[\mathrm H^i(\PP^n;\QQ_\ell)=\begin{cases}
+		0 & \text{if }i\text{ is odd}, \\
+		\QQ_\ell(-i/2) & \text{if }i\text{ is even}.
+	\end{cases}\]
+	In particular, the Riemann hypothesis holds.
+\end{theorem}
+\begin{proof}[Sketch]
+	Use the Gysin sequence on the decomposition $\PP^n=\AA^n\sqcup\PP^{n-1}$, and induct on $n$. Note that the statement has no content for $n=0$, and we also already know it for $n=1$. Approximately speaking, the given even-dimensional classes arise because the whole cohomology ring is generated by the hyperplane class in the image of the cycle class map $\op{CH}^1(\PP^n)\to\mathrm H^2(\PP^n;\QQ_\ell)(1)$.
+\end{proof}
+\begin{remark}
+	To check that this makes sense, we note that it gives $Z(\PP^n;T)$ is
+	\[\prod_{i=0}^n\frac1{\det\left(1-T\mathrm{Frob}_q;\QQ_\ell(-i)\right)}=\prod_{i=0}^n\frac1{1-q^iT},\]
+	which can then be expanded by hand.
+\end{remark}
+Now, by the weak Lefschetz theorem and Poincar\'e duality, we are able to say something about the cohomology of hypersurfaces as well.
+\begin{theorem}
+	Fix a smooth hypersurface $X\subseteq\PP^{n+1}$.
+	\begin{listalph}
+		\item For $i\in\{0,1,\ldots,2n\}\setminus\{n\}$, we have $\mathrm H^i(X;\QQ_\ell)=\mathrm H^i\left(\PP^{n+1};\QQ_\ell\right)$.
+		\item For $i=n$, we have $\mathrm H^n(X;\QQ_\ell)\supseteq\mathrm H^n\left(\PP^{n+1};\QQ_\ell\right)$.
+	\end{listalph}
+\end{theorem}
+\begin{proof}
+	Omitted.
+\end{proof}
+The hard Lefschetz theorem (which we do not currently know for \'etale cohomology at our point in the theory) motivates the following defintion.
+\begin{definition}
+	Fix a hypersurface $X\subseteq\PP^{n+1}$. Then
+	\[\op{Prim}^n(X)=\begin{cases}
+		\mathrm H^n(X;\QQ_\ell) & \text{if }n\text{ is odd}, \\
+		\mathrm H^n(X;\QQ_\ell)/\mc L^{n/2} & \text{if }n\text{ is even},
+	\end{cases}\]
+	where $\mc L$ is some class coming from a hyperplane class.
+\end{definition}
+\begin{lemma} \label{lem:check-primitive-rh}
+	Fix a hypersurface $X\subseteq\PP^{n+1}$ over $\FF_q$. Then the Riemann hypothesis holds for $X$ if and only if $\op{Prim}^n(X)$ is pure of weight $n$.
+\end{lemma}
+\begin{proof}
+	Define
+	\[P(T)\coloneqq\det\left(1-T\mathrm{Frob}_q;\mathrm{Prim}^n(X)\right).\]
+	Tracking through the definitions, we see that $Z(X;T)$ is $P(T)Z(\PP^n;T)$ if $n$ is odd and is $P(T)^{-1}Z(\PP^n;T)$ if $n$ is even. The result now follows because we already have the Riemann hypothesis for $\PP^n$.
+\end{proof}
+Thus, here is our spreading out result.
+\begin{theorem}
+	Suppose there is a smooth hypersurface $X_0\subseteq\PP^{n+1}$ of degree $d$ over $\FF_p$ satisfying the Riemann hypothesis. Then the Riemann hypothesis holds for all smooth hypersurfaces $X\subseteq\PP^{n+1}$ of degree $d$ over $\FF_q$ for any power $q$ of $p$.
+\end{theorem}
+\begin{proof}
+	Quickly, note that we may immediately upgrade the Riemann hypothesis from $X_0$ to $X_0\otimes\FF_q$ by computing some eigenvalues. Thus, we may assume that $X_0$ is defined over $\FF_q$.
+
+	Now, choose another smooth hypersurface $X_1\subseteq\PP^{n+1}$ of degree $d$ over $\FF_q$. Smoothness allows us to say that $X_0$ is cut out by a single equation $F_0$, and $X_1$ is smooth over $F_1$. Then the equation
+	\[tF_1(x)+(1-t)F_0(X)\]
+	defines a family of hypersurfaces in $\PP^{n+1}$ over $\AA^1$. After removing finitely many points $t\in\AA^1$, we may assume that this is a smooth family of smooth hypersurfaces over some affine curve $U\subseteq\AA^1$. The result now follows from \Cref{thm:persistence-purity} applied to $\mc F\coloneqq\mathrm R^if_*\ov\QQ_\ell(n/2)$. (The algebraic closure is desired here in order to take a half-twist.)
+\end{proof}
+
+\subsection{A Single Example}
+We are now reduced to proving the Riemann hypothesis for a single hypersurface.
+\begin{lemma}
+	Fix a smooth hypersurface $X\subseteq\PP^{n+1}$ of degree $d$ over $\FF_p$. Then the Riemann hypothesis is true for $X$ if and only if
+	\[\#X(\FF_q)=\#\PP^n(\FF_q)+O_X\left(q^{n/2}\right)\]
+	for all powers $q$ of $p$.
+\end{lemma}
+\begin{proof}
+	By \Cref{lem:check-primitive-rh}, we only have to check the eigenvalues in the primitive part, and by Poincar\'e duality, we are allowed to only check that the eigenvalues $\alpha$ satisfy $\left|\alpha\right|\le q^{n/2}$. Because we can expand out the size of $\#X(\FF_q)$ as sum of some powers of the eigenvalues, it is enough to consider the sum of all these eigenvalues (otherwise we get some domination), and the result follows.
+\end{proof}
+Let's now begin with our calculation. Here are the hypersurfaces used by Katz.
+\begin{itemize}
+	\item If $p\nmid d$, then we can take the Fermat hypersurface cut out by the equation $\sum_{i=1}^{n+2}x_i^d=0$. This calculation is due to Weil.
+	\item If $p\mid d$ and $d\ge3$, then we can use the Gabber hypersurface $x_1^d+\sum_{i=1}^{n+1}x_ix_{i+1}^{d-1}=0$.
+	\item If $p=d=2$ and $n$ is odd, then it turns out that $\mathrm{Prim}^n(X)=0$, so there is nothing to check.
+	\item Lastly, if $p=d=2$ and $n=2m$ is even, then we can use $\sum_{i=1}^{m+1}x_ix_{m+1+i}=0$.
+\end{itemize}
+We will only do the calculation in the Fermat case because the other ones are more of the same. We proceed in steps. Set $N\coloneqq n+2$ for brevity.
+\begin{enumerate}
+	\item Because $X\subseteq\PP^{n+1}$, it should be cut out by a single polynomial $F(x)=0$. Accordingly, let $X^{\mathrm{aff}}\subseteq\AA^{N}$ be cut out by this same polynomial $F$, and we see that
+	\[\#X^{\mathrm{aff}}(\FF_q)=1+(q-1)\#X(\FF_q).\]
+	Thus, it is now enough to show that
+	\[\#X^{\mathrm{aff}}(\FF_q)=q^{n+1}+O_{d,n}\left(q^{(n+2)/2}\right).\]
+	\item Define $V^*(\FF_q)\subseteq X^{\mathrm{aff}}(\FF_q)\cap\mathbb G_m(\FF_q)^{N}$ to have the nonzero solutions. We claim that it is enough to achieve
+	\[\#V^*(\FF_q)\stackrel?=\frac1q(q-1)^{N}+O_{d,n}\left(q^{N/2}\right).\]
+	This is a matter of stratifying $X^{\mathrm{aff}}$. Indeed, for a subset $S\subseteq\{1,2,\ldots,N\}$, let $V_S^*$ be the solutions in $X^{\mathrm{aff}}(\FF_q)$ whose nonzero entries are exactly in $S$. Then by choosing what our nonzero entries should be, we calculate
+	\begin{align*}
+		\#X^{\mathrm{aff}}(\FF_q) &= \sum_{S\subseteq\{1,\ldots,N\}}\#V_S^*(\FF_q) \\
+		&\stackrel*= \sum_{S\subseteq\{1,\ldots,N\}}\left(\frac1q(q-1)^{\#S}+O_d\left(q^{\#S/2}\right)\right) \\
+		&= \frac1q\sum_{S\subseteq\{1,\ldots,N\}}(q-1)^{\#S}+O\left(q^{N/2}\right),
+	\end{align*}
+	where the last error term holds because the smaller error terms get smaller exponentially (even though there are an exponential number of them). Notably, we have applied the hypothesis at $\stackrel*=$. The result now follows by noticing that the last sum collapses to $((q-1)+1)^{N}$ by the binomial theorem.
+\end{enumerate}
+Before continuing with the calculation, we recall some facts about characters.
+\begin{definition}[character]
+	Fix a finite abelian group $G$. Then a \textit{character} is a homomorphism $G\to\CC^\times$. We let $G^\lor$ denote the group of characters.
+\end{definition}
+\begin{remark}
+	Using the classification of finite abelian gruops, one can check that $G$ and $G^\lor$ have the same size. There is also a non-canonical isomorphism between $G$ and $G^\lor$.
+\end{remark}
+\begin{remark}
+	The restriction maps induce a natural isomorphism $(G\times H)^\lor\to G^\lor\times H^\lor$. The inverse is given by sending the pair $(\chi_G,\chi_H)$ to the character $\chi_G\chi_H$.
+\end{remark}
+\begin{remark}
+	Note that there are the dual identities
+	\[\frac1{\#G}\sum_{g\in G}\chi(g)=\begin{cases}
+		1 & \text{if }\chi=1, \\
+		0 & \text{else},
+	\end{cases}\qquad\text{and}\qquad\frac1{\#G}\sum_{\chi\in G^\lor}\chi(g)=\begin{cases}
+		1 & \text{if }g=1, \\
+		0 & \text{else}.
+	\end{cases}\]
+\end{remark}
+\begin{example}
+	Because $\FF_q^\times$ is cyclic, it is fairly easy to write down its multiplicative characters.
+\end{example}
+\begin{example}
+	For any $a\in\FF_q$, there is an additive character $\psi_a\colon\FF_q\to\CC$ given by
+	\[\psi_a(t)\coloneqq\exp\left(\frac{2\pi i}p\cdot\tr_{\FF_q/\FF_p}(ax)\right).\]
+	One can check that these characters are distinct, so these give all the characters.
+\end{example}
+Our bounds will come from knowledge of Gauss sums.
+\begin{definition}[Gauss sum]
+	Fix an additive character $\psi_a$ and a multiplicative character $\chi$ of $\FF_q$. Then we define
+	\[g(\chi;\psi_a)\coloneqq\sum_{t\in\FF_q^\times}\chi(t)\psi_a(t).\]
+\end{definition}
+\begin{remark}
+	These are in some sense analogous to the function
+	\[\Gamma(z)=\int_{\RR^+}t^ze^{-t}\,\frac{dt}t.\]
+	Roughly speaking, we are integrading an additive and multiplicative character together over a multiplicative group.
+\end{remark}
+\begin{remark}
+	Provided $a\ne0$, one can calculate
+	\[\left|g(\chi;\psi_a)\right|^2=\begin{cases}
+		q & \text{if }\chi\ne1, \\
+		1 & \text{if }\chi=1.
+	\end{cases}\]
+	This sort of fact is used in many proofs of quadratic reciprocity, where one frequently takes $\chi$ to be the Legendre symbol (and receives a ``quadratic Gauss sum.'')
+\end{remark}
+We now continue with our calculation.
+\begin{enumerate}[resume]
+	\item To ease our calcuation, we let $\varphi\colon\mathbb G_m^N\to\mathbb G_m^N$ be the $d$th power map, and we let $\sigma\colon\mathbb G_m^N\to\AA^1$ be the summing (i.e., trace) map. As such, $V^*$ is the zero locus of $\sigma\circ\varphi$. Accordingly, note that we have an exact sequence
+	\[1\to\ker\varphi\to\mathbb G_m^N\stackrel\varphi\to\mathbb G_m^N\coker\varphi\to1,\]
+	so for example we see that $\#\ker\varphi(\FF_q)$ is $\#\mu_d^N(\FF_q)\le d^N$ does not depend on $q$. We now see that
+	\[\#V^*(\FF_q)=\#\ker\varphi(\FF_q)\cdot\#\left\{t\in\mathbb G_m^N(\FF_q):t\in\im\varphi(\FF_q)\text{ and }\sigma(t)=0\right\}.\]
+	\item We use our character theory. By the orthogonality relations, we know that
+	\[1_{\sum t_i=0}=\frac1q\sum_{a\in\FF_q}\psi_a(t_1+\cdots+t_N)\qquad\text{and}\qquad1_{t\in\im\varphi}=\frac1{\#\coker\varphi(\FF_q)}\sum_{\chi\in\coker\varphi(\FF_q)^\lor}\chi(t).\]
+	Thus, by cancelling out the kernel and cokernel, we see that
+	\begin{align*}
+		\#V^*(\FF_q) &= \frac1q\sum_{a\in\FF_q}\sum_{\chi\in\coker\varphi(\FF_q)^\lor}\sum_{t\in\mathbb G_m^N(\FF_q)}\chi(t)\psi_a(t_1+\cdots+t_n).
+	\end{align*}
+	For example, we see that the $a=0$ succeeds at being nonzero only when $\chi$ is trivial, where we receive $\frac1q(q-1)^N$.
+	\item It remains to handle the values $a\ne0$, for which we use Gauss sums. Note that a character $\chi$ on $\coker\varphi$ can be lifted to $\mathbb G_m^N$ and therefore can be factored into $N$ characters $\chi_1\cdots\chi_N$. Thus, we may factor
+	\[\sum_{t\in\mathbb G_m^N(\FF_q)}\chi(t)\psi_a(t)=\prod_{i=1}^N\underbrace{\sum_{t_i\in\FF_q^\times}\chi_i(t_i)\psi_a(t_i)}_{g(\chi_i;\psi_a)},\]
+	so we see that the entire product has absolute value bounded by $q^{N/2}$ because $\left|g(\chi;\psi_a)\right|\le q^{N/2}$.
+	\item We conclude. Plugging in the previous two steps yields
+	\[\left|\#V^*(\FF_q)-\frac1(q-1)^N\right|\le\frac1q\underbrace{(q-1)}_a\cdot\underbrace{\#\coker\varphi(\FF_q)}_\chi\cdot q^{N/2}.\]
+	The term $\frac1q(q-1)$ dies, and the size of $\coker\varphi(\FF_q)$ is the size of $\ker\varphi(\FF_q)$ is bounded independently of $q$. The total error term comes out to $q^{N/2}$, so we are done!
+\end{enumerate}
+
+\section{October 30: Deligne's Proof of Weil I and the Main Lemma}
+This talk was given by Mohit Hulse at MIT for the STAGE seminar. The term ``main lemma'' is due to Milne; Deligne only names a consequence as ``the fundamental estimate.''
+
+\subsection{The \'Etale Fundamental Group}
+For today, we fix a connected scheme $X$ of finite type over a field $k$.
+\begin{definition}
+	Fix a scheme $X$ of finite type over a field $k$. For a geometric point $\ov x\into X$, we define the fiber functor $\omega_{\ov x}\colon\mathrm{F\acute Et}(X)\to\mathrm{Sets}$ by
+	\[\omega_x(Y)\coloneqq Y_{\ov x}.\]
+	We define $\pi_1^{\mathrm{\acute et}}(X,\ov x)$ as the automorphism group of $\omega_x$.
+\end{definition}
+\begin{remark}
+	Once $\pi_1^{\mathrm{\acute et}}(X,\ov x)$ has been defined, we may upgrade $\omega_{\ov x}$ to a functor
+	\[\omega_x\colon\mathrm{F\acute Et}(X)\to\mathrm{Sets}(\pi_1^{\mathrm{\acute et}}(X,\ov x)),\]
+	and this latter functor turns out to be an equivalence.
+\end{remark}
+The theory of the \'etale fundamental group proves the following ``pro-representatbility'' result.
+\begin{theorem}
+	Fix a scheme $X$ of finite type over a field $k$, and choose a geometric point $\ov x\into X$. There is a cofiltered sequence $\{X_i\}$ of finite \'etale covers of $X$ such that
+	\[\omega_{\ov x}=\colim_i\op{Hom}_X(X_i,-).\]
+	In fact, one can choose the covers $X_i\to X$ to be Galois.
+\end{theorem}
+\begin{corollary}
+	Fix a scheme $X$ of finite type over a field $k$, and choose a geometric point $\ov x\into X$. There is a cofiltered sequence $\{X_i\}$ of finite \'etale covers of $X$ such that
+	\[\pi_1(X,\overline x)=\lim_i\op{Aut}_X(X_i).\]
+\end{corollary}
+\begin{example}
+	If $X$ is the point $\Spec k$, then one can choose the $X_i$ to be finite Galois extensions of $k$, so we find that $\pi_1^{\mathrm{\acute et}}(X,\ov x)=\op{Gal}(k^{\mathrm{sep}}/k)$.
+\end{example}
+\begin{example}
+	If $X$ is a smooth projective variety over $\CC$, then we see that $\pi_1^{\mathrm{\acute et}}(X,\ov x)$ is the profinite completion of $\pi_1(X,x)$. For example, $X=\mathbb G_m$ admits covers $\mathbb G_m\to\mathbb G_m$ by $x\mapsto x^n$ (where $\op{char}k\nmid n$), allowing us to compute $\pi_1(X,\ov x)=\widehat{\ZZ}$ when $\op{char}k=0$. This sort of process works for general Riemann surfaces because the finite \'etale covers of a Riemann surface all come from varieties.
+\end{example}
+The reason we care about the \'etale fundamental group is that it will allow us to understand local systems.
+\begin{notation}
+	Fix a scheme $X$ of finite type over a field $k$. Then $\op{Loc}(X_{\mathrm{\acute et}},\mathrm{FinSet})$ consists of the locally constant \'etale sheaves on $X$ valued in finite sets. In other words, there is an \'etale covering $\{U_i\}$ of $X$ so that the sheaf is constant when restricted to any of the given $U_i$.
+\end{notation}
+\begin{theorem}
+	Fix a scheme $X$ of finite type over a field $k$, and choose a geometric point $\ov x\into X$. Then the fiber functor
+	\[\op{Loc}(X_{\mathrm{\acute et}},\mathrm{FinSet})\to\mathrm{FinSet}\left(\pi_1^{\mathrm{\acute et}}(X,\ov x)\right)\]
+	given by $\mc F\mapsto\mc F_{\ov x}$ is an equivalence, and any sheaf on the left-hand side is representable.
+\end{theorem}
+\begin{proof}[Sketch]
+	The point is to choose a cover trivializing the sheaf, and then one can prove representability over $X$ explicitly by finding some descent datum.
+\end{proof}
+Of course, we would like a way to extend this to $\ell$-adic sheaves, which we do as follows.
+\begin{notation}
+	Fix a scheme $X$ of finite type over a field $k$. Then $\op{Loc}(X_{\mathrm{\acute et}},\QQ_\ell)$ consists of the locally constant $\ell$-adic \'etale sheaves on $X$, meaning that they are valued in finite-dimensional $\QQ_\ell$-vector spaces.
+\end{notation}
+\begin{theorem}
+	Fix a scheme $X$ of finite type over a field $k$, and choose a geometric point $\ov x\into X$. Then the fiber functor
+	\[\op{Loc}(X_{\mathrm{\acute et}},\QQ_\ell)\to\mathrm{Rep}_{\QQ_\ell}\left(\pi_1^{\mathrm{\acute et}}(X,\ov x)\right)\]
+	given by $\mc F\mapsto\mc F_{\ov x}$ is an equivalence.
+\end{theorem}
+\begin{proof}
+	Unwind to the previous theorem.
+\end{proof}
+\begin{remark}
+	If the corresponding representation on the right-hand side does not factor through a finite quotient of $\pi_1^{\mathrm{\acute et}}(X,\ov x)$, then one does not expect to be able to find a single cover trivializing the entire $\ell$-adic local system.
+\end{remark}
+Of course, in this seminar, we are interested in computing cohomology, so we pick up a few resutls to do so.
+\begin{lemma} \label{lem:h0-by-etale}
+	Fix a scheme $X$ of finite type over a field $k$, and choose a geometric point $\ov x\into X$. Then for any locally constant $\ell$-adic sheaf $\mc F$, we have
+	\[\mathrm H^0(X;\mc F)\cong\left(\mc F_{\ov x}\right)^{\pi_1^{\mathrm{\acute et}}(X,\ov x)}.\]
+\end{lemma}
+\begin{proof}[Sketch]
+	There is nothing to do if $\mc F$ is constant. If $\mc F$ is non-constant, then we can locally pass to a Galois \'etale cover $Y\to X$ where it is constant, and then we can compute $\mathrm H^0(X;\mc F)$ via \v{C}ech cohomology to prove the result.
+\end{proof}
+
+\subsection{The Main Lemma}
+Recall the following definition.
+\begin{notation}
+	Fix a scheme $X$ of finite type over $\FF_q$, and let $\mc F$ be an $\ell$-adic local system. Then we define
+	\[Z(\mc F_0;T)\coloneqq\prod_{\text{closed }x\in X}\frac1{\det\left(1-F_{x_0}T^{\deg x_0};\mc F_0\right)}.\]
+\end{notation}
+Earlier, we proved the following formula.
+\begin{theorem}[Lefschetz trace formula]
+	Fix a scheme $X$ of finite type over $k\coloneqq\FF_q$, and let $\mc F$ be an $\ell$-adic local system. Then
+	\[Z(\mc F_0;T)=\prod_{i\ge0}\det\left(1-\mathrm{Frob}_qT;\mathrm H^i_c(X_{\ov k};\mc F)\right)^{(-1)^{i+1}}.\]
+\end{theorem}
+\begin{example}
+	If $X$ is an affine curve, then $\mathrm H^0_c(X_{\ov k};-)$ vanishes, so we only have to worry about $\mathrm H^1_c(X_{\ov k};-)$ and $\mathrm H^2_c(X;-)$. By Poincar\'e duality, we can recover $\mathrm H^2_c(X_{\ov k};\mc F)$ as $\mathrm H^0(X_{\ov k};\mc F)$ and compute via \Cref{lem:h0-by-etale}.
+\end{example}
+For the main lemma, we recover the following definition.
+\begin{definition}[weight]
+	Fix an $\ell$-adic local system $\mc F$ on a scheme $X$ of finite type over $\FF_q$. Then $\mc F$ is of \textit{weight $\beta$} if and only if, for each closd point $x\in X$, the eigenvalues of the Frobenius $F_x$ acting on $\mc F_{\ov x}$ are algebraic numbers all of whose Galois conjugates have absolute value $q^{\beta/2}$.
+\end{definition}
+% Now, choose an affine curve $U$, which we embed into $\PP^1$, and we set $S\coloneqq\PP^1\setminus U$.
+\begin{theorem}[Main lemma] \label{lem:main-deligne}
+	Fix an $\ell$-adic local system $\mc F$ on an affine curve $U$ of finite type over $\FF_q$. Choose an integer $\beta$, and assume the following.
+	\begin{listalph}
+		\item Symplectic: there is a perfect alternating pairing $\psi\colon\mc F\otimes\mc F\to\QQ_\ell(-\beta)$.
+		\item Big monodromy: the image of $\pi_1(U_{\ov\FF_q},\ov u)$ in $\op{GL}(\mc F_{\ov u})$ is open in $\op{Sp}(\mc F_{\ov u};\psi)$ in the $\ell$-adic topology for some geometric point $\ov u$.
+		\item Rationality: the characteristic polynomials of $F_{\ov u}$ acting on $\mc F_{\ov u}$ are rational for all geometric points.
+	\end{listalph}
+	Then $\mc F$ has weight $\beta$.
+\end{theorem}
+\begin{example} \label{ex:get-rh}
+	Fix a family $\pi\colon Y\to U$ of smooth projective hypersurfaces in $\PP^{d+1}$, where $d$ is odd. Then we will apply \Cref{lem:main-deligne} with $\mc F\coloneqq\mathrm R^d\pi_*\QQ_\ell$.
+	\begin{listalph}
+		\item Poincar\'e duality provides a pairing $\mathrm R^d\pi_*\QQ_\ell\times\mathrm R^d\pi_*\QQ_\ell\to\mathrm R^{2d}\pi_*\QQ_\ell=\QQ_\ell(-d)$. This is symplectic because $d$ is odd.
+		\item Big monodromy turns out to be hard to check (and of course, it is not always true: one can take a constant family).
+		\item Rationality follows from known cases of the Weil conjectures: the cohomology of the fiber of $\mathrm R^d\pi_*\QQ_\ell$ can be computed via proper base change to be $\mathrm H^d(Y_u;\QQ_\ell)$, which is known to be rational because the full zeta function is rational (and this is the only interesting cohomology group!).
+	\end{listalph}
+	The point is that having big monodromy proves the Riemann hypothesis.
+\end{example}
+\begin{proof}[Proof of \Cref{lem:main-deligne}]
+	We proceed in steps.
+	\begin{enumerate}
+		\item We can use hypotheses (a) and (b) to produce an isomorphism
+		\[\mathrm H^2_c(U_{\ov k},\mc F^{\otimes2k})\to\QQ_\ell(-k\beta-1)^{\oplus N}\]
+		for some integer $N$. Indeed, we chain together the isomorphisms
+		\begin{align*}
+			\mathrm H^2_c(U_{\ov k};\mc F^{\otimes2k}) &= \mathrm H^0(U_{\ov k};\mc F^{\lor\otimes2k})^{\lor}(-1) \\
+			&= \left(\mc F^{\lor\otimes2k}_{\ov u}\right)^{\pi_1^{\mathrm{\acute et}}(U;\ov u),\lor}(-1),
+			%  \\
+			% &= \left(\mc F^{\lor\otimes2k}_{\ov u}\right)_{\pi_1^{\mathrm{\acute et}}(U,\ov u)}(-1),
+		\end{align*}
+		where we have used Poinar\'e duality in the first line. We may identify $\mc F$ with its dual by (a), so we may ignore the dual. By the big monodromy result, we will reduce ourselves to understanding
+		\[\op{Hom}_{\op{Sp}(\mc F_u)}(\mc F^{\otimes2k},\QQ_\ell)\cong\QQ_\ell(k\beta)^{\oplus N},\]
+		for some $N$, which completes the proof after tracking through the various twists. (The isomorphism here follows from some representation theory: more or less, one can explicitly construct functionals on $\mc F_u^{\otimes2k}$ to be of the form $x_1\otimes\cdots\otimes x_{2k}\mapsto\psi(x_1,x_2)\cdots\psi(x_{2k-1},x_{2k})$.) Thus, we see that the main point is to check that $\pi_1$-invariants are $G$-invariants, where $G\coloneqq\op{Sp}(\mc F_u)$. Let $H$ be the Zariski closure of the image of $\pi_1$ in $G$; then $\pi_1$-invariants are $H$-invariants because fixing a vector is an algebraic equation. However, $H\subseteq G$ contains an $\ell$-adic open subgroup, so $\dim H=\dim G$, so $H=G$ follows because $G$ is connected.
+
+		\item We apply Rankin's trick. Our two versions of $Z(\mc F;T)$ show that
+		\[\prod_{\text{closed }u\into U}\frac1{\det\left(1-F_uT^{\deg u};\mc F^{\otimes2k}\right)}=\frac{\det\left(1-\mathrm{Frob}_qT;\mathrm H^1_c(U;\mc F^{\otimes2k})\right)}{\left(1-q^{k\beta+1}\right)^N},\]
+		where the denominator in the right-hand side is computed from the first step. Now, the left-hand side is assumed to live in $\QQ((t))$ (which we can see in fact needs to have positive coefficients), so the right-hand side also lives in $\QQ((t))$. Thus, the radius of convergence of the left-hand side is at most the radius of convergence of each factor in the product. However, the radius of convergence of the right-hand side is just $1/q^{k\beta+1}$, so we conclude that the eigenvalues $\alpha$ of the determinants on the left-hand side must have
+		\[\frac1{\left|\alpha\right|^{2k/\deg u}}\ge\frac1{q^{k\beta+1}}.\]
+		Sending $k\to\infty$ (which is Rankin's trick!) implies that $\left|\alpha\right|\le q_{u_0}^{\beta/2}$. Because $\mc F_u$ is symplectic, we can run the same argument for the dual, so $\mc F_u$ also has the eigenvalue $q^\beta/\alpha$. The result follows from comparing the two resulting inequalities.
+		\qedhere
+	\end{enumerate}
+\end{proof}
+\begin{remark}
+	The above proof basically features no algebraic geometry.
+\end{remark}
+
+\subsection{Applications}
+We now use \Cref{lem:main-deligne} to derive some estimates.
+\begin{lemma}
+	Embed an affine curve $U$ over $\FF_q$ as $j\colon U\into\PP^1$, and let $S$ be the complement. Further, fix an $\ell$-adic local system $\mc F$ on $U$. Then Poincar\'e duality induces a perfect pairing
+	\[\mathrm H^1\left(\PP^1;j_*\mc F^\lor\right)\otimes\mathrm H^1\left(\PP^1;j_*\mc F\right)\to\QQ_\ell(-1).\]
+\end{lemma}
+\begin{proof}
+	There is a pairing already for $\mathrm Rj_*\mc F^\lor$ and $j_!\mc F$, but the differences between $j_!\mc F$ and $j_*\mc F$ turns out to be cancelled out.
+\end{proof}
+\begin{corollary}
+	Embed an affine curve $U$ over $\FF_q$ as $j\colon U\into\PP^1$, and let $S$ be the complement.
+	\begin{listalph}
+		\item Let $\alpha$ be an eigenvalue of $\mathrm H^1\left(\PP^1;j_!\mc F\right)$. Then
+		\[\left|\alpha\right|\le q^{\frac{\beta+1}2+\frac12}.\]
+		\item Let $\alpha$ be an eigenvalue of $\mathrm H^1\left(\PP^1;j_*\mc F\right)$. Then
+		\[q^{\frac{\beta+1}2-\frac12}\le\left|\alpha\right|\le q^{\frac{\beta+1}2+\frac12}.\]
+	\end{listalph}
+\end{corollary}
+\begin{proof}
+	For (a), we start by noting $\mathrm H^1(\PP^1;j_!\mc F)=\mathrm H^1(U,\mc F)$. The same sort of calculation as in the first step of \Cref{lem:main-deligne} shows that our (inverse) zeta function is
+	\[\prod_{\text{closed }u\in U}\det\left(1-F_{u_0}T^{\deg u};\mc F_{\ov u}\right)=\frac1{\det\left(1-\mathrm{Frob}_qT;\mathrm H^1_c(U;\mc F)\right)}.\]
+	Now, the left-hand product coverges absolutely if and only if the sum of the individual eignevalues converges absolutely. The moral is that
+	\[\sum_{\alpha}q^{\beta\deg u/2}\left|t\right|^{\deg u}<\infty,\]
+	where the sum is taken over all eigenvalues $\alpha$ of all closed points $u\in U$. Now, one can bound the number of closed points of $U\subseteq\AA^1$ and bound the geometric series to achieve (a).
+
+	For (b), one uses the exact sequence
+	\[0\to j_!\mc F\to j_*\mc F\to i_*i^*j_*\mc F\to0,\]
+	where $i\colon S\into\PP^1$ is the inclusion. The right-hand term is supported on a finite set, so its $\mathrm H^1$ vanishes, so we achieve a surjection
+	\[\mathrm H^1(\PP^1;j_!\mc F)\onto\mathrm H^1(\PP^1;j_*\mc F).\]
+	We now get use the bound in (a), and the other bound follows from duality.
+\end{proof}
+
+\section{November 6: Lefschetz Principles}
+This talk was given by Jack Miller at MIT for the STAGE seminar.
+
+\subsection{Fibrations, Diffeomorphically}
+We are (still) trying to show the Riemann hypothesis part of the Weil conjectures. As usual, the veracity of the Riemann hypothesis is insensitive to base-change of the base finite field. After some reductions, it turns out that it will be enough to handle the middle-dimension cohomology of a smooth projective even-dimensional varieties. As such, we will let $n+1$ be the dimension of some varieties to be chosen later, where $n=2m+1$ is odd.
+
+As in our previous cases of the Weil conjectures, we are on the hunt for many fibrations $X\to\PP^1$. Such fibrations are the algebro-geometric version of finding some smooth submersions $M\to\RR$. In the real analytic case, this amounts to the following result.
+\begin{theorem}[Ehresmann]
+	If $f\colon M\to N$ is a smooth submersion of closed manifolds, then $f$ is a locally trivial fibration.
+\end{theorem}
+\begin{corollary}
+	Fix a closed manifold $M$. Every smooth map $M\to\RR$ admits a critical point.
+\end{corollary}
+\begin{remark}
+	Of course, is not hard to prove the corollary directly: a smooth map $M\to\RR$ must admit a maximum, which is critical.
+\end{remark}
+\begin{corollary}
+	Fix a closed manifold $M$. If $M\to S^1$ is a submersion, then $M$ is diffeomorphic to a mapping torus.
+\end{corollary}
+Thus, admitting a submersion to a curve places strong requirements on $M$.
+
+Here is the algebro-geometric version of this.
+\begin{theorem}[Ehresmann]
+	If $f\colon Y\to S$ is smooth proper, and $\mc F$ is a locally constant constructible \'etale sheaf on $Y$, then the higher pushforwards $\mathrm R^pf_*\mc F$ are locally constant constructible.
+\end{theorem}
+However, the real analytic version tells us that we are going to need to allow some singularities for our fibrations. Let's explain the sort of singularities one finds in the diffeomorphic setting.
+\begin{theorem}[Morse's lemma]
+	Fix a $d$-dimensional closed manifold $M$. Then there is an open subset $U\subseteq\op{Fun}(M,\RR)$ (using the $C^2$ topology) satisfying the following for each function in $U$.
+	\begin{itemize}
+		\item There are finitely many critical points, and at most one in each fiber.
+		\item The critical points $p$ are non-degenerate, and each bad fiber $f^{-1}(\{p\})$ looks like a conic of the form
+		\[0=x_1^2+\cdots+x_i^2-x_{i+1}^2-\cdots-x_d^2.\]
+		In other words, the Hessian is non-degenerate.
+	\end{itemize}
+\end{theorem}
+\begin{remark}
+	Picard and Lefschetz proved a variant of this for complex manifolds.
+\end{remark}
+
+\subsection{Lefschetz Pencils}
+Let's now try to find our fibrations in the algebro-geometric setting.
+\begin{definition}
+	Fix a projective variety $X$, and let $\mc L$ be a very ample line bundle on $X$ inducing $X\into\PP\Gamma(X,\mc L)$. Then a \textit{pencil} $D$ of $(X,\mc L)$ is a $1$-parameter line of hyperplanes of $\PP\Gamma(X,\mc L)^\lor$; in other words, $D$ is a map $\PP^1\to\PP\Gamma(X,\mc L)^\lor$.
+\end{definition}
+\begin{definition}
+	Fix a projective variety $X$, and let $\mc L$ be a very ample line bundle on $X$. The \textit{axis} of a pencil $D\colon\PP^1\to\PP\Gamma(X,\mc L)^\lor$ is
+	\[A(D)\coloneqq\bigcap_tD_t.\]
+\end{definition}
+\begin{remark}
+	In fact, $A=D_0\cap D_\infty$
+\end{remark}
+\begin{definition}
+	Fix a projective variety $X$, and let $\mc L$ be a very ample line bundle on $X$. Then a pencil $D\colon\PP^1\to\PP\Gamma(X,\mc L)^\lor$ is \textit{Lefschetz} if and only if it satisfies the following.
+	\begin{listalph}
+		\item Transverse: $A$ intersects $D$ transversely.
+		\item Smoothness: the intersectios $X\cap D_t$ are nonsingular for all but finitely many $t$. Let $S\subseteq\PP^1$ be the singular locus.
+		\item For each $t\in S$, the singularities $P$ in $X_t$ are single ordinary double points, meaning that
+		\[\widehat\OO_{X,p}=\frac{k[[x_1,\ldots,x_d]]}{Q(x_1,\ldots,x_{d+1})},\]
+		where $d=\dim X$ and $Q$ is a non-degenerate quadratic.
+	\end{listalph}
+\end{definition}
+This definition is a little involved, so we should make sure that such things exist.
+\begin{theorem}
+	Fix a projective variety $X$ over an algebraically closed field $k$ of characteristic $0$. For any very ample sheaf $\mc L$, there is a Lefschetz pencil.
+\end{theorem}
+\begin{remark}
+	If $\op{char}k>0$, then there is a Lefschetz pencil for some tensor power of $\mc L$.
+\end{remark}
+\begin{proof}[Sketch]
+	Suppose $X\ne\PP\Gamma(X,\mc L)$, and we go ahead and assume that $X$ is geometrically connected. As usual, set $d\coloneqq\dim X$ and $N\coloneqq\dim\Gamma(X,\mc L)$. We are going to use incidence correspondence
+	\[\Phi\coloneqq\{(x,H):x\in H\text{ and }T_xX\subseteq H\}.\]
+	To explain this, note that the ``enemy'' is basically where a hyperplane is tangent to $X$; otherwise, the intersection is automatically transverse! The condition $T_xX\subseteq H$ is equivalent to the tangency because $H$ has codimension $1$. Note that $\Phi$ is a correspondence fitting in the diagram
+	% https://q.uiver.app/#q=WzAsMyxbMSwwLCJcXFBoaSJdLFswLDEsIlgiXSxbMiwxLCJcXFBQXFxHYW1tYShYLFxcbWMgTCleXFxsb3IiXSxbMCwxLCJcXG9we3ByfV8xIiwyXSxbMCwyLCJcXG9we3ByfV8yIl1d&macro_url=https%3A%2F%2Fraw.githubusercontent.com%2FdFoiler%2Fnotes%2Fmaster%2Fnir.tex
+	\[\begin{tikzcd}[cramped]
+		& \Phi \\
+		X && {\PP\Gamma(X,\mc L)^\lor}
+		\arrow["{\op{pr}_1}"', from=1-2, to=2-1]
+		\arrow["{\op{pr}_2}", from=1-2, to=2-3]
+	\end{tikzcd}\]
+	so we let $X^\lor$ denote the image of $X$ in $\PP\Gamma(X,\mc L)^\lor$. (We call $X^\lor$ the dual variety, though it notably also depends on $\mc L$.) Here are some properties of this correspondence.
+	\begin{itemize}
+		\item The projection $\op{pr}_1\colon\Phi\to X$ is a projective bundle. Indeed, at each $x\in X$, the fiber above $x$ simply consists of the hyperplanes containing $T_xX\subseteq T_x\PP\Gamma(X,\mc L)$. As such, each fiber is isomorphic to $\PP^{N-d-1}$, which we can see by working out some equations of hyperplanes. It follows that $\Phi$ is irreducible, projective, and has dimension $N-1$.
+		\item The projection $\op{pr}_2\colon\Phi\to X^\lor$ has fibers consisting of the singular locus in $H\cap X$. Indeed, the fiber above $H$ is exactly the pairs $(x,H)$ where $H$ is tangent to $X$ at $x$. Approximately speaking, the ramification behavior of $\op{pr}_2$ controls the singularities we see.
+	\end{itemize}
+	Let's now sketch the rest of the proof. Bertini's theorem lets us find a single valid $H$ to start our Lefschetz pencil, so we just need to show that we can continue it to a pencil. Well, one simply controls the singularities of $X$ (they have positive codimension at least $2$), and then one argues that lines exist generically.
+\end{proof}
+Blowing up produces fibrations.
+\begin{definition}[Lefschetz fibration]
+	Fix a Lefschetz pencil $D$ for $(X,\mc L)$. Then the \textit{Lefschetz fibration} is the incidence correspondence $X^*$ sitting in the following diagram.
+	% https://q.uiver.app/#q=WzAsMyxbMSwwLCJYXioiXSxbMCwxLCJYIl0sWzIsMSwiRCJdLFswLDFdLFswLDJdXQ==&macro_url=https%3A%2F%2Fraw.githubusercontent.com%2FdFoiler%2Fnotes%2Fmaster%2Fnir.tex
+	\[\begin{tikzcd}[cramped]
+		& {X^*} \\
+		X && D
+		\arrow[from=1-2, to=2-1]
+		\arrow[from=1-2, to=2-3]
+	\end{tikzcd}\]
+\end{definition}
+\begin{remark}
+	It turns out that $X^*$ is the blow up of $X$ along $X\cap A(D)$.
+\end{remark}
+\begin{remark}
+	It also turns out that the map $X^*\to\PP^1$ is proper, flat, and it admits a section.
+\end{remark}
+
+\subsection{Symplectic Monodromy}
+Let's explain how we will get to use the Main lemma. Fix a nice variety $X\subseteq\PP^N$ over $\FF_q$, which we return to being $n$-dimensional, where $n=2m+1$. Then one can find a Lefschetz pencil over some extension of $\FF_q$: first find it over the algebraic closure, and then descend everything.
+\begin{remark}
+	It turns out that Lefschetz pencils also exist without doing the extensions. This is due to Poonen, Nguyen, and Gunther.
+\end{remark}
+Now, let $S\subseteq\PP^1$ be the collection of singular values, and we let $U\subseteq\PP^1\setminus S$ denote the complement. It turns out that the associated map $\pi\colon X^*\to\PP^1$ is now smooth and proper over $U$, so the higher pushforward $\mc V\coloneqq\mathrm R^n\pi_*\QQ_\ell$ is an $\ell$-adic local system over $U$ by the Proper base change theorem.
+
+Thus, we are granted some representation
+\[\pi_1(U)\to\op{GL}(V),\]
+where $V$ is some fiber of $\mc V$. The tameness of the singularities of $X^*\to\PP^1$ turns out to provide tameness of the representation. To be more precise, we say something about inertia.
+\begin{definition}
+	For some ramified $s\in S$, let $\mathbb D_s$ be the formal disk $\Spec\widehat{\OO}_{\PP^1,s}$ so that the puncture $\mathbb D_s^\circ$ is its fraction field. Then the \textit{inertia subgroup} is the image of the map
+	\[\pi_1(\mathbb D^\circ)\to\pi_1(U).\]
+\end{definition}
+\begin{remark}
+	The map is only defined up to conjugation because it has suppressed moving some basepoints around.
+\end{remark}
+\begin{example}
+	We work over $\CC$ for psychological reasons. Consider the Legendre family $\mc E\to\PP^1$ of elliptic curves given by
+	\[\mc E_\lambda\colon Y^2Z=X(X-Z)(X-\lambda Z).\]
+	This admits singularities at $\{0,1,\infty\}$, where we have nodal singularities. (There is someting variable change one has to do to produce a definition at $\lambda=\infty$.) Thus, we see that this is a Lefschetz pencil! So we set $U\coloneqq\PP^1\setminus\{0,1,\infty\}$, and we get a representation
+	\[\pi_1(U)\to\op{GL}_2\left(\mathrm H^1(E_\eta;\QQ_\ell)\right),\]
+	where $\eta$ is the generic point. It turns out that the monodromy loops $\gamma_0$ and $\gamma_1$ around $0$ and $1$ go to $\begin{bsmallmatrix}
+		1 & 2 \\ 0 & 1
+	\end{bsmallmatrix}$ and $\begin{bsmallmatrix}
+		1 & 0 \\ 2 & 1
+	\end{bsmallmatrix}$. There is apparently some geometric argument for this.
+\end{example}
+\begin{remark}
+	In general, for such tame representations, it turns out that each element of the monodromy fixes a codimension $1$ subspace, and it modifies the remaining one-dimensional subspace in a controlled way; for example, it turns out that we should output a matrix of determinant $1$. This is (definitionally) a transvection. Eventually, one can hope to use these transvections to prove a big monodromy result.
+\end{remark}
+\begin{remark}
+	In the specialization
+	\[\mathrm H_1(\mc E_\eta;\QQ_\ell)\to\mathrm H_1(\mc E_s;\QQ_\ell),\]
+	there is a cyclic which vanishes. Appropriately, this may be called a vanishing cycle.
+\end{remark}
+Thus, we see that we will be interested in some specializations. For example, letting $j\colon U\into\PP^1$ denote the inclusion, we may be interested in when the canonical map $\mc F\to j_*j^*\mc F$ is an isomorphism. It turns out that this is equivalent to the injectivity of the cospecialization map
+\[\mc F_s\to\mc F_\eta\]
+and has image in $\mc F_\eta^{I_s^{\mathrm{tame}}}$.
+\begin{definition}[vanishing cycle]
+	Fix everything as above and some $s\in S$. Then we define the space of \textit{vanishing cycles} to be the kernel of
+	\[E_s\coloneqq\left(\mathrm H^n(X_{\ov\eta};\QQ_\ell(n))^\lor\to\mathrm H^n(X_s;\QQ_\ell(n))^\lor\right),\]
+	where this is the dual of the cospecialization map.
+\end{definition}
+\begin{remark}
+	It turns out that $E_s$ is one-dimensional and hence isomorphic to some Tate twist $\QQ_\ell(m)$, so we may choose a generator $\delta_s(-m)\in E_s(-m)$.
+\end{remark}
+\begin{remark}
+	It turns out that there is an exact sequence
+	\[0\to\mathrm H^n(X_s;\QQ_\ell)\to\mathrm H^n(X_\eta;\QQ_\ell)\stackrel{\delta_s}\to\QQ_\ell(m-n)\to0.\]
+\end{remark}
+The point of all this is that we are able to compute some transvections.
+\begin{theorem}[Picard--Lefschetz]
+	Fix everything as above, and choose $\sigma_s\in I_s$. For each $x\in\mathrm H^n(X_\eta;\QQ_\ell)$, we have
+	\[\sigma_s(x)=x\pm t(\sigma_s)(x\cup\delta_s)\delta_s.\]
+	Here, $t\colon I_s\to\ZZ_\ell(1)$ is the winding number; alternatively, it is the natural projection once $I_s$ is identified with $\widehat{\ZZ}(1)^{(p)}$, where the superscript means we are taking prime-to-$p$ roots of unity.
+\end{theorem}
+\begin{remark}
+	One can verify that the Tate twists work out.
+\end{remark}
+\begin{remark}
+	The sign $\pm$ is $(-1)^{(n+1)(n+2)/2}$. In particular, it only depends on $n\pmod4$.
+\end{remark}
+Next time, we will show that these transvections to prove a big monodromy result.
+
+\section{November 13: The Riemann Hypothesis}
+This talk was given by Xinyu Zhou at MIT for the STAGE seminar.
+
+\subsection{Reduction to the Blowup}
+Today, we will use the technique of Lefschetz pencils in order to prove the Riemann hypothesis part of the Weil conjectures. In short, we would like to show that the action of the Frobenius on $\mathrm H^r(X;\QQ_\ell)$ has eigenvalues $\alpha$ with magnitude $q^{r/2}$. Note that we are allowed to extend the base field to prove this result.
+
+By embedding $X$ diagonally into $X\times X$ and using the K\"unneth formula to expand out the cohomology in middle dimension $d$, we see that it is enough to prove the Riemann hypothesis for $\mathrm H^d(X\times X;\QQ_\ell)$. Thus, we may assume that $\dim X=2m+2$, and we will prove the result for $\mathrm H^{m+1}(X;\QQ_\ell)$. Additionally, by taking powers using a tensor-power trick, it is enough to merely check that each Frobenius eigenvalue $\alpha$ satisfies
+\[q^{n/2}<\left|\alpha\right|<q^{n/2+1},\]
+were $n+1=\dim X$.
+
+We begin with a rather abstract result on weights.
+\begin{definition}
+	We say that an operator $F$ on a vector space $V$ satisfies $W_n$ if and only if all eigenvalues $\alpha$ of $F$ have
+	\[q^{n/2}<\left|\alpha\right|<q^{n/2+1}.\]
+\end{definition}
+\begin{lemma} \label{lem:up-and-down-rh}
+	Fix an operator $F$ on a vector space $V$.
+	\begin{listalph}
+		\item If $V$ satisfies $W_n$, and $W\subseteq V$ is some $F$-stable subspace, then both $W$ and $V/W$ satisfy $W_n$.
+		\item If there is an $F$-stable filtration
+		\[V\supseteq V_1\supseteq\cdots,\]
+		and each $V_i/V_{i+1}$ satisfies $W_n$, then $V$ satisfies $W_n$.
+	\end{listalph}
+\end{lemma}
+\begin{proof}
+	This is a linear algebra exercise. Namely, (a) follows by suitably upper-triangularizing $F$ using $W$, and (b) follows similarly.
+\end{proof}
+We now set up some notation around Lefschetz pencils. Fix a very ample line bundle $\mc L$ on some $X$ inducing an embedding $X\into\PP\Gamma(X,\mc L)$, and we know that there is a Lefschetz pencil $D\colon\PP^1\to\PP\Gamma(X,\mc L)^\lor$. The axis will be denoted $A=D_0\cap D_\infty$, which is smooth, and we let $X^*$ be the blow up of $X$ along the axis. Thus, there is a surjection $\varphi\colon X^*\to X$ providing the blow-up, and there is a projection $\pi\colon X^*\to\PP^1$ for which the fiber over $t\in\PP^1$ is $X_t\coloneqq X\cap D_t$.
+\begin{lemma}
+	Fix everything as above. It suffices to prove the Riemann hypothesis for $X^*$.
+\end{lemma}
+\begin{proof}
+	Let $N_{X/(A\cap X)}$ be the normal bundle of $A\cap X$ in $X$. It is a property of the Lefschetz pencil that
+	\[\varphi^{-1}(A\cap X)=\PP N_{X/(A\cap X)}.\]
+	For example, with $A\cap X$ of codimension in $2$, we see that the normal bundle has rank $2$.
+
+	Thus, some theory of Chern classes provides a decomposition
+	\[\mathrm H^*\left(\varphi^{-1}(A\cap X);\QQ_\ell\right)=\mathrm H^*(A\cap X;\QQ_\ell)\oplus\mathrm H^{*-2}(A\cap X;\QQ_\ell)(-1).\]
+	In short, one can choose a class $\xi\in\mathrm H^2(\PP^n_X;\QQ_\ell)(1)$ corresponding to the line bundle $\OO(1)$, so we get a Lefschetz decomposition
+	\[\mathrm H^*(\PP^n_X;\QQ_\ell)=\bigoplus_{i=0}^n\mathrm H^{*-2i}(X;\QQ_\ell)(-i)\xi^i.\]
+	Indeed, this decomposition can be proven by reducing to the case where $X$ is affine, and then it follows by careful calculations of the cohomology of projective space (as one does for fields). Something similar holds for $\PP\mc E$ even when $\mc E$ is no longer a trivial bundle, which is the requested decomposition.
+
+	For example, taking degree $0$ shows that there is an isomorphism $\QQ_\ell\to\varphi_*\QQ_\ell$. Additionally, one finds that $\mathrm R^\bullet\varphi_*\QQ_\ell$ is supported on $A\cap X$ in higher degrees (because $\varphi$ is an isomorphism away from $A\cap X$, so the fibers produce some trivial cohomology by proper base change). Further, the higher direct images $\mathrm R^\bullet\varphi_*\QQ_\ell$ vanishes outside degrees $0$ and $2$ (because the cohomology of the fiber at some $x\in A\cap X$ is cohomology of $\PP^1$, which is supported in degrees $0$ and $2$). Thus, the Leray spectral sequence
+	\[E_2^{pq}=\mathrm H^p(X;\mathrm R^q\varphi_*\QQ_\ell)\Rightarrow\mathrm H^{p+q}(X^*;\QQ_\ell)\]
+	degenerates,\footnote{It seems nontrivial to show that $d_3=0$, but it is true.} so we get a decomposition
+	\[\mathrm H^*(X^*;\QQ_\ell)=\mathrm H^*(X;\QQ_\ell)\oplus\mathrm H^{*-2}(A\cap X;\QQ_\ell)(-1)\]
+	from the spectral sequence. Thus, we obtain a splitting $\mathrm H^*(X;\QQ_\ell)\subseteq\mathrm H^*(X^*;\QQ_\ell)$, and the result follows by \Cref{lem:up-and-down-rh}.
+\end{proof}
+
+\subsection{The Three Groups}
+We are now reduced to $X^*$, which we may understand by understanding the projection $\pi\colon X^*\to\PP^1$. Once again, we have a spectral sequence
+\[E_2^{pq}=\mathrm H^p\left(\PP^1;\mathrm R^q\pi_*\QQ_\ell\right)\Rightarrow\mathrm H^{p+q}(X^*;\QQ_\ell).\]
+Note that $\PP^1$ has cohomology supported in degrees $\{0,1,2\}$, so we only have $p\in\{0,1,2\}$. Additionally, we are only interested in $\mathrm H^{n+1}(X^*;\QQ_\ell)$, so we see that we are only interested in the groups
+\[\mathrm H^0\left(\PP^1;\mathrm R^{n+1}\pi_*\QQ_\ell\right),\quad\mathrm H^1\left(\PP^1;\mathrm R^n\pi_*\QQ_\ell\right),\quad\text{and}\quad\mathrm H^2\left(\PP^1;\mathrm R^{n-1}\pi_*\QQ_\ell\right).\]
+We would like to show all three groups satisfy $W_n$, so $W_n$ is satisfied by any subquotient by \Cref{lem:up-and-down-rh}, and the result will follow for $\mathrm H^{n+1}(X^*;\QQ_\ell)$.
+\begin{remark}
+	Weil II tells us that each of the sheaves $\mathrm R^\bullet\pi_*\QQ_\ell$ have an expected weight. Thus, we see that the rest of the proof amounts to proving some special cases of Weil II. This explains why it is tricky: Weil II is genuinely hard!
+\end{remark}
+Each of the these groups will be handled separately. Let's quickly handle the left and right groups.
+\begin{itemize}
+	\item To handle $\mathrm H^2\left(\PP^1;\mathrm R^{n-1}\pi_*\QQ_\ell\right)$, we recall that our vanishing cycles live in $\mathrm H^n(X_t;\QQ_\ell)=\left(\mathrm R^n\pi_*\QQ_\ell\right)_t$, where $t\in\PP^1$, so we receive a specialization map
+	\[\mathrm H^*(X_t;\QQ_\ell)\to\mathrm H^*(X_\eta^*;\QQ_\ell)\]
+	which is an isomorphism. This amounts to saying that all the fibers of $\mathrm R^{n-1}\pi_*\QQ_\ell$ is constant on $\PP^1$, so we can compute its cohomology as
+	\[\mathrm H^2\left(\PP^1;\mathrm R^{n-1}\pi_*\QQ_\ell\right)=\left(\mathrm R^{n-1}\pi_*\QQ_\ell\right)_t(-1)=\mathrm H^{n-1}(X_t;\QQ_\ell)(-1).\]
+	Now, let $Y\subseteq X_t$ be some smooth hyperplane section so that $X_t\setminus Y$ is affine, so $\mathrm H^{n-1}(X_t\setminus Y;\QQ_\ell)=\mathrm H^{n+1}(X_t\setminus Y;\QQ_\ell)=0$ by Poincar\'e duality, so excision tells us that we have an injection
+	\[\mathrm H^{n-1}_c(X_t\setminus Y;\QQ_\ell)\to\mathrm H^{n-1}(X_t;\QQ_\ell)\to\mathrm H^{n-1}(Y;\QQ_\ell).\]
+	We are thus reduced to proving the statement to $Y$, which has smaller dimension than $X$, so we may induct down.
+	\item We omit details for the calculation for $\mathrm H^0\left(\PP^1;\mathrm R^{n+1}\pi_*\QQ_\ell\right)$ because it is done with similar tricks. In short, one again finds that $\mathrm R^{n+1}\pi_*\QQ_\ell$ is constant, and then the Gysin sequence provides a surjection
+	\[\mathrm H^{n-1}(Y;\QQ_\ell)(-1)\to\mathrm H^{n+1}(X_t;\QQ_\ell),\]
+	so we are done by an induction.
+\end{itemize}
+We now move on to the (hardest) middle cohomology group $\mathrm H^1\left(\PP^1;\mathrm R^n\pi_*\QQ_\ell\right)$. Let $S\subseteq\PP^1$ be the locus of singular fibers, and let $U$ be the complement of $S$, and we distinguish some basepoint $u\in U$. For brevity, set $V\coloneqq(\mathrm R^n\pi_*\QQ_\ell)_u$, and we let $E\subseteq V$ be the vanishing cycles. The cup product provides a symplectic pairing $V\times V\to\QQ_\ell(-n)$, so we may let $E^\perp\subseteq V$ be the orthogonal complement.
+\begin{remark}
+	The Hard Lefschetz theorem would imply that $E\cap E^\perp=0$. However, the first proof of the Hard Lefschetz theorem was strictly harder than the proof of the Riemann hypothesis.
+\end{remark}
+Without knowing that $E\cap E^\perp$ is trivial, we can still consider the filtration
+\[V\supseteq E\supseteq E\cap E^\perp\supseteq0.\]
+To start off, we note that any generator $\sigma_s$ in the inertia subgroup at $s$ of $\pi_1(U)$ has
+\[\sigma_s(x)=x\pm t(\sigma_s)(x\cup\delta_s)\delta_s,\]
+so one can check that $\pi_1(U)$ acts trivially on $V/E$ and $E\cap E^\perp$. As such, we may extend the above filtration into
+\[\mc V\supseteq\mc E\supseteq\mc E\cap\mc E^\perp=0\]
+of sheaves on $U$, where $\mc V=\mathrm R^n\pi_*\QQ_\ell|_U$. The aforementioned trivial action by $\pi_1$ implies that $\mc V/\mc E$ and $\mc E\cap\mc E^\perp$ are both constant sheaves. Pushing forward along $j\colon U\to\PP^1$, we ge a filtration
+\[\mathrm R^n\pi_*\QQ_\ell\supseteq j_*\mc E\supseteq j_*(\mc E\cap\mc E^\perp)=0.\]
+The main lemma is applied to the non-constant quotient.
+\begin{lemma}
+	For each $x\in U$, the action of $F_x$ on $\mc E/(\mc E\cap E^\perp)$ is rational. In other words, the characteristic polynomial has rational coefficients.
+\end{lemma}
+\begin{proof}
+	Omitted.
+\end{proof}
+From here, one applies the Main lemma to $E/(E\cap E^\perp)$. For example, the cup-product gives us our symplectic pairing, and it is a theorem of Kazhdan--Margulis that the monodromy group has open image, so we complete.
+
+It remains to handle the constant sheaves. There are two cases: either $E/(E\cap E^\perp)\ne0$ or $E\subseteq E^\perp$. We will focus on the first case because it is easier. It turns out that this means that there are no vanishing cycles in $E\cap E^\perp$ because having any vanishing cycles in $E\cap E^\perp$ implies that all of them are in there by the Picard--Lefschetz formula. Observe that there is an exact sequence
+\[0\to j_*\mc E\to j_*\mc V\to j_*(\mc V/\mc E)\to0\]
+of sheaves on $\PP^1$. Observe $j_*(\mc V/\mc E)$ is constant, so the map $\mathrm H^1\left(\PP^1;j_*\mc E\right)\to\mathrm H^1\left(\PP^1;\mathrm R^n\pi_*\QQ_\ell\right)$, is surjective, so we are reduced to handling $\mathrm H^1\left(\PP^1;j_*\mc E\right)$. For this, we note that we have a short exact sequence
+\[0\to j_*(\mc E\cap\mc E^\perp)\to j_*\mc E\to j_*(\mc E/\mc E\cap\mc E^\perp)\to0.\]
+Again, the left sheaf is constant, so we receive an injection
+\[\mathrm H^1\left(\PP^1;j_*\mc E\right)\to\mathrm H^1\left(\PP^1;j_*(\mc E/\mc E\cap\mc E^\perp)\right).\]
+Thus, we reduce to the quotient covered by the Main lemma.
+
+\section{November 20: The Statement of Weil II}
+This talk was given by Kenta Suzuki at MIT for the STAGE seminar.
+
+\subsection{The Statement}
+We have spent the last many lectures showing the following.
+\begin{theorem}[Deligne]
+	Fix a smooth projective variety $X$ over $\FF_q$. Then each eigenvalue $\alpha$ of the Frobenius $\mathrm{Frob}_q$ acting on $\mathrm H^i(X_{\ov\FF_q};\QQ_\ell)$ has absolute value $q^{i/2}$.
+\end{theorem}
+Observe that $\mathrm H^i(X_{\ov\FF_q};\QQ_\ell)$ is $\mathrm R^if_*\QQ_\ell$, where $f\colon X\to\Spec\FF_q$ is the structure morphism. Thus, we may want to find a relative analogue. Already, in the last lecture, we say that $\mathrm H^i(\PP^1;\mc L)$ had some controlled weights, where $\mc L$ was some local system.
+
+Let's recall the notion of weight.
+\begin{definition}[weight]
+	Fix a scheem $X$ over $\FF_q$ of finite type. Choose a $\ov\QQ_\ell$-sheaf $\mc F$ on $X$ and an isomorphism $\tau\colon\ov\QQ_\ell\to\CC$.
+	\begin{listalph}
+		\item Then $\mc F$ is \textit{$\tau$-pure of weight $w$} if and only if all eigenvalues $\alpha$ of the Frobenius acting on $\mc F_x$ have magnitude $\left|\tau(\alpha)\right|=q^{(\deg x)(w/2)}$ for all $x\in X(\ov\FF_q)$.
+		\item Then $\mc F$ is \textit{$\tau$-mixed} if and only if it admits a filtration by $\tau$-pure.
+	\end{listalph}
+	Similarly, pure means $\tau$-pure for all $\tau$, and mixed means it admits a filtration of pure sheaves.
+\end{definition}
+\begin{remark}
+	A priori, it seems that being $\tau$-mixed for all $\tau$ does not imply being mixed. It is unclear if these conditions are in fact equivalent.
+\end{remark}
+\begin{example}
+	The Tate twist $\ov\QQ_\ell(1)$ is pure of weight $-2$. This sign convention appears because the geometric Frobenius is the inverse of $(-)^q$, and $(-)^q$ acts by $q$ on $\lim\mu_{\ell^\bullet}$.
+\end{example}
+Here is our statement.
+\begin{theorem}[Weil II] \label{thm:weil-ii}
+	Fix a morphism $f\colon X\to Y$ of schemes of finite type over $\FF_q$. If $\mc F$ is a constructible $\ov\QQ_\ell$-sheaf on $X$ which is $\tau$-mixed with weights at most $n$, then for any $i\ge0$, the sheaf $\mathrm R^if_!\mc F$ is $\tau$-mixed with weights at most $n+i$.
+\end{theorem}
+\begin{remark}
+	Here, $f_!\mc F$ is the sheaf whose sections on an open subset $U$ are those sections $s\in\mc F(f^{-1}U)$ with proper support. Equivalently, one can choose a compactification $j\colon X\into X'$ so that $f'\colon X'\to Y$ is proper, and then $f_!=f'_*\circ j_!$.
+\end{remark}
+As a corollary, let's recover the Riemann hypothesis.
+\begin{example}
+	If we take $Y=\Spec\FF_q$, then $Rf_!\mc F=\mathrm H^i_c(X_{\ov\FF_q};\mc F)$, which we see is mixed of weights at most $n+i$.
+	, we see $\mathrm H^i_c(X_{\ov\FF_q};\mc F)$
+\end{example}
+\begin{example}
+	If $X$ is smooth and equidimensional of dimension $d$, then Poincar\'e duality provides a perfect pairing
+	\[\mathrm H^i(X_{\ov\FF_q};\mc F)\times\mathrm H^{2d-i}(X_{\ov\FF_q};\mc F^\lor)\to\QQ_\ell(-d).\]
+	Taking $Y$ to be $\Spec\FF_q$ again, we find that if $\mc F$ has weights at least $n$, then dualizing shows that $\mc F^\lor$ has weights at most $-n$, so $\mathrm H^{2d-i}_c(X_{\ov\FF_q};\mc F^\lor)$ has weights at most $(2d-i)-n$, so the perfect pairing shows that $\mathrm H^i(X_{\ov\FF_q};\mc F)$ has weights at least $n+i$.
+\end{example}
+\begin{example}
+	If $X$ is smooth, proper, and equidimensional, and $\mc F$ is pure of weight $n$, then $\mathrm H^i_c(X_{\ov\FF_q};\mc F)=\mathrm H^i(X_{\ov\FF_q};\mc F)$ is pure of weight $n$ by combining the two corollaries. Notably, $\mc F=\ov\QQ_\ell$ recovers the Riemann hypothesis.
+\end{example}
+
+\subsection{Reductions}
+We will spend the rest of the talk giving a very sketchy outline of the proof of Weil II. Let's start with some functoriality properties.
+\begin{lemma}
+	Fix a morphism $f\colon X\to Y$ of schemes of finite type over $\FF_q$.
+	\begin{listalph}
+		\item If $\mc F$ is pure of weight $n$ on $Y$, then $f^*\mc F$ is pure of weight $n$ on $X$.
+		\item Suppose $f$ is finite. If $\mc F$ is pure of weight $n$ on $X$, then $f_*\mc F$ is pure of weight $n$ on $Y$.
+		\item Weight is preserved by base-change.
+	\end{listalph}
+\end{lemma}
+\begin{proof}
+	For (a), simply note that $(f^*\mc F)_x=\mc F_{f(x)}$ for each geometric point $x$. For (b), simply note that
+	\[(f_*\mc F)_y=\bigoplus_{y\in f^{-1}(\{x\}}\mc F_x.\]
+	Lastly, for (c), one applies the argument of (b) to the morphism $X_{\FF_{q'}}\to X_{\FF_q}$ for any extension $\FF_q\subseteq\FF_{q'}$.
+\end{proof}
+\begin{lemma}
+	Fix a pure or mixed sheaf $\mc F$ on $X$. Then the same is true for any subquotient of $\mc F$.
+\end{lemma}
+\begin{proof}
+	There is nothing to say for the pure case. In the mixed case, we separate the statement into two steps.
+	\begin{itemize}
+		\item For any subsheaf $\mc F'\subseteq\mc F$, one can intersect the pure filtration of $\mc F$ with $\mc F'$.
+		\item For any quotient $\mc F\onto\mc F''$, one can project the pure filtration of $\mc F$ onto $\mc F''$.
+		\qedhere
+	\end{itemize}
+\end{proof}
+\begin{lemma}
+	Given an exact sequence
+	\[\mc F'\to\mc F\to\mc F''\]
+	of sheaves, if $\mc F'$ and $\mc F''$ are mixed, then $\mc F$ is sheaf.
+\end{lemma}
+\begin{proof}
+	By replacing $\mc F'$ with its image in $\mc F$ and $\mc F''$ with the image of $\mc F$, we may pass to a short exact sequence
+	\[0\to\mc F'\to\mc F\to\mc F''\to0.\]
+	Now, simply glue together the pure filtrations for $\mc F'$ and $\mc F''$ to build a pure filtration of $\mc F$.
+\end{proof}
+We now do some devissage for \Cref{thm:weil-ii}.
+\begin{enumerate}
+	\item Weights are preserved by field extensions, so we may extend $\FF_q$ at will.
+	\item Note that there is nothing to do if $f$ is quasi-finite because the fibers $(f_!\mc F)_x$ are give by $\bigoplus_{y\in f^{-1}(\{x\})}\mc F_y$.
+	\item Given a short exact sequence
+	\[0\to\mc F'\to\mc F\to\mc F''\to0\]
+	of sheaves on $X$, if we have the theorem for $\mc F'$ and $\mc F''$, then we have it for $\mc F$. Indeed, we simply have to note that the long exact sequence provides us with an exact sequence
+	\[\mathrm R^if_!\mc F'\to\mathrm R^i\mc F\to\mathrm R^i\mc F'',\]
+	so the left and right being mixed (with the correct weights) implies the same for the middle.
+	\item Suppose we have an open subset $j\colon U\subseteq X$ with complement $i\colon Z\into X$. Then we claim that having the theorem for both $\mc F|_U$ and $\mc F|_Z$ yields the theorem for $\mc F$. To see this, one simply uses the short exact sequence
+	\[0\to j_!j^*\mc F\to\mc F\to i_!i^*\mc F\to0,\]
+	so we use the previous reductino for $j^*\mc F=\mc F|_U$ and $i^*\mc F=\mc F|_Z$.
+	\item We may replace $X$ and $Y$ with their reduced subschemes because they have the same \'etale sites.
+	\item Because $\mc F$ is constructible, we see that we may replace it by some subquotients in order to assume that it is a local system.
+	\item Given morphisms $f\colon X\to Y$ and $g\colon Y\to Z$, if we have the theorem for both $f$ and $g$, then we have it for $g\circ f$. To see this, one uses the Grothendieck spectral sequence
+	\[E_2^{pq}=\mathrm R^pg_!(\mathrm R^qf_!\mc F)\Rightarrow\mathrm R^{p+q}(gf)_!\mc F.\]
+	The point is that the $E_2$ page is $\tau$-mixed with weights at most $n+p+q$, and then the $E_\infty$ page is simply subquotients of these, so they also have weights at most $n+p+q$. But now the $E_\infty$ page filters $\mathrm R^{p+q}(gf)_!\mc F$, so we conclude that this sheaf is still $\tau$-mixed with weights at most $n+p+q$.
+	\item By Noetherian induction, one can use the previous reduction to assume that $f\colon X\to Y$ is smooth of relative dimension $1$ (by fibering by curves). By some Noether normalization and other things, one can further reduce to the case that $f\colon X\to Y$ is a smooth, affine, surjective morphism whose fibers are geometrically connected irreducible smooth curves.
+\end{enumerate}
+
+\subsection{Sketch}
+To continue, we should recall the definition of a real sheaf.
+\begin{definition}
+	A sheaf $\mc F$ is \textit{$\tau$-real} if and only if each $x$ has
+	\[\tau\det(1-\mathrm{Frob}T;\mc F_x)\in\RR[t]\]
+	for all points $x$.
+\end{definition}
+This is fairly restrictive, but we will be able to use it.
+\begin{lemma}
+	Fix a local system $\mc G$ which is $\tau$-pure of weight $w$. Then $\mc G$ is the direct summand of a $\tau$-real, $\tau$-pure local system of weight $w$.
+\end{lemma}
+\begin{proof}
+	Consider $\mc G^\lor=\underline{\op{Hom}}(\mc G,\ov\QQ_\ell)$, and choose some $b\coloneqq\tau^{-1}\left(q^{2w}\right)$. Then we may define a local system $\mc L_b$ as being the Galois representation where $\mathrm{Frob}_b$ acts by $b$. Then one can take
+	\[\mc F\coloneqq\left(\mc G^\lor\otimes\mc L_b\right)\oplus\mc G.\]
+	Indeed, for each eigenvalue $\alpha$ of $\mc G$, we get an additional eigenvalue $\ov\alpha=q^{4w}/\alpha$ from the left summand, so the fact that $\mc F$ is real follows.
+\end{proof}
+\begin{lemma}
+	Let $\mc F$ be a local system on $X$. If $\mc F$ is $\tau$-real, then $\mc F$ is $\tau$-mixed.
+\end{lemma}
+\begin{proof}
+	One uses the Rankin--Selberg method. In other words, we obtain information about $\mc F$ from $\mc F^{\otimes k}$ for large $k$. For sanity, we will only do this in the case that $Y$ is a smooth affine geometrically irreducible curve and that $X$ is a point. Observe that we may reduce to the case that $\mc F$ is irreducible, so we want to show that $\mc F$ is $\tau$-pure.
+	
+	We will need the following fact: for any real $A\in M_n(\RR)$, one can check that $\det\left(1-(A\otimes\ov A)T\right)^{-1}$ is a power series (in $T$) with nonnegative coefficients. Thus, we find that
+	\[\frac1{\tau\det\left(1-\mathrm{Frob}_qT;\mc F_x^{\otimes2n}\right)}\]
+	has nonnegative real coefficients for any positive $n$. On the other hand, the Lefschetz fixed point theorem tells us that
+	\[\prod_x\frac1{\tau\det\left(1-\mathrm{Frob}_qT;\mc F_x^{\otimes2n}\right)}=\frac{\tau\det\left(1-\mathrm{Frob}_qT;\mathrm H^1_c(\mc F^{\otimes2n}\right)}{\tau\det\left(1-\mathrm{Frob}_qT;\mathrm H^2_c(\mc F^{\otimes2n}\right)}.\]
+	Now, the right-hand side absolutely converges for $\left|t\right|\ge q^{1/(n\beta+1)}$, where $\beta$ is an appropriately defined maximal weight. Thus, we get the same convergence for the left-hand side, which lets us bound eigenvalues on the left-hand side because each power series has nonnegative coefficients. (This is basically the same argument as \Cref{thm:spread-out-bound}.)
+\end{proof}
+
+\section{December 4: Local Monodromy}
+This talk was given by Daniel Hu at MIT for the STAGE seminar.
+
+\subsection{Grothendieck's Monodromy Theorem}
+Fix a smooth proper variety $X$ over a number field $K$, we may be interested in the \'etale cohomology groups $\mathrm H^i(X_{\ov K};\QQ_\ell)$. This is a Galois representation, and if $X$ has good reduction at some finite place $v$, then the Galois action by $\op{Gal}(\ov K_v/K_v)$ is unramified. However, in the case of bad reduction, there is action by ineria, and it will give us a monodromy filtration.
+\begin{definition}[inertia subgroup]
+	Let $R$ be a Henselian disrete valuation ring with fraction field $K$ and residue field $k\coloneqq R/\mf m$. Then the \textit{inertia subgroup} $I_K$ is the kernel of the map
+	\[\op{Gal}(\ov K/K)\to\op{Gal}(\ov k/k).\]
+\end{definition}
+\begin{remark}
+	The given map is well-defined because the Galois action preserves the valuation. It turns out to be surjective.
+\end{remark}
+The previous remark assembles into the following proposition.
+\begin{proposition}[Monodromy exact sequence]
+	Let $R$ be a Henselian disrete valuation ring with fraction field $K$ and residue field $k\coloneqq R/\mf m$. Then there is an exact sequence
+	\[0\to I_K\to\op{Gal}(\ov K/K)\to\op{Gal}(\ov k/k)\to1.\]
+\end{proposition}
+Because Galois groups on residue fields tend to be easier, we turn our attention to understanding inertia.
+\begin{notation}[Tate twist]
+	We write $\ZZ_\ell(1)$ for the dual of the Galois representation $\lim\mu_{\ell^\bullet}$.
+\end{notation}
+\begin{proposition}
+	Let $R$ be a Henselian disrete valuation ring with fraction field $K$ and residue field $k\coloneqq R/\mf m$. Then there is an exact sequence
+	\[1\to P_K\to I_K\to\prod_{\ell'\ne p}\ZZ_{\ell'}(1)\to1.\]
+\end{proposition}
+\begin{proof}
+	For a given prime $\ell$, the map $I_K\to\ZZ_\ell(1)$ is given by its Galois action.
+\end{proof}
+Thus, for a chosen prime $\ell$, we receive a chain of field extensions
+\[K\subseteq K^{\mathrm{unr}}\subseteq K^{\mathrm{tr},\ell}\subseteq K^{\mathrm{tr}}\subseteq\ov K.\]
+Here, $\op{Gal}(\ov K/K^{\mathrm{tr}})=P_K$, $\op{Gal}(\ov K/K^{\mathrm{tr},\ell})=P_{K,\ell}$, and $\op{Gal}(\ov K/K^{\mathrm{unr}})=I_K$.
+
+We will later be interested in studying lisse $\QQ_\ell$-sheaves, which we recall are in bijection with continuous representaions of $\pi_1(X_{\mathrm{\acute et}};\ov x)$. By passing to the generic point, we see that we will be interested in understanding representations of the absolute Galois group $G_K$.
+\begin{theorem}[Grothendieck monodromy] \label{thm:grothendieck-monodromy}
+	Let $R$ be a Henselian disrete valuation ring with fraction field $K$ and residue field $k\coloneqq R/\mf m$, and supposethat no finite extension of $k$ contains every $\ell$-power root of unity. Now, fix a representation $\rho\in\op{Rep}_{\QQ_\ell}(G_K)$. Then there is an open subgroup $J\subseteq I_K$ such that $\rho(\sigma)$is unipotent for all $\sigma\in J$.
+\end{theorem}
+\begin{remark}
+	The representations considered in the conclusion of the theorem are called potentially semistable. For example, we see that it turns out that $\mathrm H^\bullet(X_{\ov K};\QQ_\ell)$ is always potentially semistable even if $X$ is not of good reduction.
+\end{remark}
+This result will follow from a general fact about maps of profinite groups.
+\begin{lemma}
+	Fix a profinite group $G$ and a prime $\ell$ so that the pro-order of $G$ is coprime to $\ell$. Then every continuous homomorphism $\rho\colon G\to\op{GL}_n(\QQ_\ell)$ has finite image.
+\end{lemma}
+\begin{proof}
+	This comes down to an incompatibility of topologies.
+\end{proof}
+\begin{proof}[Proof of \Cref{thm:grothendieck-monodromy}]
+	We start with some reductions.
+	\begin{itemize}
+		\item After replacing $K$ by a finite extension (which will not affect the openness of a subgroup found later), we may use the previous lemma to see that $\rho$ factors through the maximal pro-$\ell$ extension of $K$, which is contained in $K^{\mathrm{tr},\ell}$. In particular, we may assume that the image is pro-$\ell$, so $\rho|_{I_K}$ factors through $\ZZ_\ell(1)=\op{Gal}(K^{\mathrm{tr},\ell}/K^{\mathrm{unr}})$ by some group theory with our prior exact sequence.
+		\item By taing another finite extension, we may further assume that $\rho$ lands in $1+\ell^2M_n(\ZZ_\ell)\subseteq\op{GL}_n(\QQ_\ell)$. The $\ell^2$ allows $\exp$ and $\log$ to both be well-defined.
+	\end{itemize}
+	We now claim that $I_K$ acts by unipotent matrices, so we have to show that $\log\rho(s)$ is nilpotent for any $s\in I_K$. In fact, we are really trying to understand a homomorphism $\ZZ_\ell(1)\to1+\ell^2M_n(\ZZ_\ell)$, so it suffices to handle a choice of topological generator $s\in\ZZ_\ell(1)$. A calculation in Galois theory shows that $s$ and $s^{\chi_\ell(t)}$ are conjugate for any $t$, where $\chi_\ell$ is the cyclotomic character; here, the $\chi_\ell$-action is induced by the exact sequence
+	\[1\to\op{Gal}(K^{\mathrm{tr},\ell}/K^{\mathrm{unr}})\to\op{Gal}(K^{\mathrm{tr},\ell}/K)\to\op{Gal}(K^{\mathrm{unr}}/K)\to1.\]
+	Taking a limit, we see that
+	\[\log\rho(s)^{\chi_\ell(t)}=\chi_\ell(t)\log\rho(s).\]
+	But because $s$ and $s^{\chi_\ell(t)}$ are conjugate, we see that $\log\rho(s)$ and $\log\rho(s)^{\chi_\ell(t)}$ are conjugate, so $\log\rho(s)$ and $\chi_\ell(t)\log\rho(s)$ are conjugate. Now, to show that $\log\rho(s)$ is nilpotent, we pass to the characteristic polynomial, where we see that
+	\[a_i(\log\rho(s))=a_i(\chi_\ell(t)\log\rho(s))=\chi_\ell(t)^ia_i(\log\rho(s))\]
+	for eah coefficient $a_i$. Thus, we will be done as soon as we know that there is some $t$ for which $\chi_\ell(t)$ is not a root of unity. But this follows from the hypothesis on $k$, which implies that the subgroup $\im\chi_\ell$ of $\ZZ_\ell^\times=\mu_{\ell-1}\times(1+\ell\ZZ_\ell)$ is open.
+\end{proof}
+
+\subsection{The Monodromy Operator}
+We are now ready to define our monodromy filtration. It will arise from a certain nilpotent operator.
+\begin{lemma}
+	Let $R$ be a Henselian disrete valuation ring with fraction field $K$ and residue field $k\coloneqq R/\mf m$, and supposethat no finite extension of $k$ contains every $\ell$-power root of unity. Now, fix a representation $\rho\in\op{Rep}_{\QQ_\ell}(G_K)$. Then there is a unique $N\colon V(1)\to V$ for which
+	\[\rho(\sigma)=\exp(N\circ t_\ell(\sigma))\]
+	for all $\sigma$ in a small enough open subgroup of $I_K$.
+\end{lemma}
+\begin{proof}
+	Track along the diagram
+	% https://q.uiver.app/#q=WzAsOCxbMCwwLCJKIl0sWzEsMCwiSV9LIl0sWzIsMCwiR19LIl0sWzMsMCwiXFxvcHtHTH1fe1xcUVFfXFxlbGx9KFYpIl0sWzAsMSwidF9cXGVsbChKKSJdLFsxLDEsIlxcWlpfXFxlbGwoMSkiXSxbMiwxLCJcXFFRX1xcZWxsKDEpIl0sWzMsMSwiXFxvcHtFbmR9X3tcXFFRX1xcZWxsfShWKSJdLFs2LDcsImRcXHJobyJdLFs1LDYsIiIsMCx7InN0eWxlIjp7InRhaWwiOnsibmFtZSI6Imhvb2siLCJzaWRlIjoidG9wIn19fV0sWzcsMywiXFxleHAiLDJdLFsyLDMsIlxccmhvIl0sWzEsMiwiXFxzdWJzZXRlcSIsMyx7InN0eWxlIjp7ImJvZHkiOnsibmFtZSI6Im5vbmUifSwiaGVhZCI6eyJuYW1lIjoibm9uZSJ9fX1dLFswLDEsIlxcc3Vic2V0ZXEiLDMseyJzdHlsZSI6eyJib2R5Ijp7Im5hbWUiOiJub25lIn0sImhlYWQiOnsibmFtZSI6Im5vbmUifX19XSxbMCw0LCIiLDMseyJzdHlsZSI6eyJoZWFkIjp7Im5hbWUiOiJlcGkifX19XSxbMSw1LCJ0X1xcZWxsIiwwLHsic3R5bGUiOnsiaGVhZCI6eyJuYW1lIjoiZXBpIn19fV0sWzQsNSwiXFxzdWJzZXRlcSIsMyx7InN0eWxlIjp7ImJvZHkiOnsibmFtZSI6Im5vbmUifSwiaGVhZCI6eyJuYW1lIjoibm9uZSJ9fX1dXQ==&macro_url=https%3A%2F%2Fraw.githubusercontent.com%2FdFoiler%2Fnotes%2Fmaster%2Fnir.tex
+	\[\begin{tikzcd}[cramped]
+		J & {I_K} & {G_K} & {\op{GL}_{\QQ_\ell}(V)} \\
+		{t_\ell(J)} & {\ZZ_\ell(1)} & {\QQ_\ell(1)} & {\op{End}_{\QQ_\ell}(V)}
+		\arrow["\subseteq"{marking, allow upside down}, draw=none, from=1-1, to=1-2]
+		\arrow[two heads, from=1-1, to=2-1]
+		\arrow["\subseteq"{marking, allow upside down}, draw=none, from=1-2, to=1-3]
+		\arrow["{t_\ell}", two heads, from=1-2, to=2-2]
+		\arrow["\rho", from=1-3, to=1-4]
+		\arrow["\subseteq"{marking, allow upside down}, draw=none, from=2-1, to=2-2]
+		\arrow[hook, from=2-2, to=2-3]
+		\arrow["{d\rho}", from=2-3, to=2-4]
+		\arrow["\exp"', from=2-4, to=1-4]
+	\end{tikzcd}\]
+	where $\QQ_\ell(1)$ is being viewed as a $1$-dimensional Lie algebra over $\QQ_\ell$. In particular, $N$ arises from the image of $\ov\rho$.
+\end{proof}
+\begin{remark}
+	Thus, we get a functor from continuous representations of $\op{Rep}_{\QQ_\ell}(G_K)$ (where $K$ is a $p$-adic local field) to pairs $(V,N)$ where $N\colon V\to V$ is nilpotent. This upgrades to a functor to the $\QQ_\ell$-representations of the so-called Weil--Deligne group.
+\end{remark}
+We now define our filtration from linear algebra.
+\begin{lemma}
+	Fix a finite-dimensional vector space $V$, and choose a nilpotent operator $N$ on $V$. Then there is a unique increasing filtration $\{M_\bullet\}$ satisfying the following.
+	\begin{itemize}
+		\item One has $N\colon M_iV\to M_{i-2}V$ for any $i$.
+		\item The operator $N^r$ induces an isomorphism $\op{gr}_rV\to\op{gr}_{-r}V$.
+	\end{itemize}
+\end{lemma}
+\begin{proof}
+	Write $N$ into Jordan normal form (using the structure theory of a PID), and then it can be explicitly completed to an $\mathfrak{sl}(2)$-triple $(e,f,h)$ where $N=f$. Then the filtration is given by the weight filtration by $h$.
+\end{proof}
+\begin{remark}
+	One can add Galois action everywhere: if $N$ acts by $V(1)\to V$, then the filtration has $N\colon M_iV(1)\to M_{i-2}V$, and $N^r\colon\op{gr}_rV(r)\to\op{gr}_{-r}V$ is an isomorphism.
+\end{remark}
+\begin{example}
+	If $N=0$, then is concentrated around $M_0=V$. This is what happens for good reduction.
+\end{example}
+
+\subsection{The Weight Filtration}
+Recall that we reduced the proof of Weil II to the case where $X\to Y$ is smooth, affine, surjective and of relative dimension $1$. By completing, we may assume that this family is instead projective. It turns out that one can further reduce to the case that $Y$ is a point, and in fact, it is enough to show the following.
+\begin{theorem}
+	Let $Y$ be a smooth geometrically connected projective curve over $\FF_q$ with generic point $\eta$. Suppose $\mc F$ is a smooth $\ov\QQ_\ell$-sheaf which is pointwise $\iota$-pure of weight $n$ on a dense open subset $U\subseteq Y$. Then $\op{gr}_i\mc F_{\ov\eta}$ is $\iota$-pure of weight $n+i$.
+\end{theorem}
+The moral of the reduction is that pointwise purity should follow from Weil I, and then we are achieving some global monodromy on $\op{gr}_i$.
+% In this situation, $\mc F$ is some smooth $\ov\QQ_\ell$-sheaf, and by passing through the filtration, we may assume that it is $\iota$-pure of weight $n$ on a dense open subscheme $U\subseteq Y$; set $S$ to be the complement. We are thus reduced to the following case.
+
+To prove the main case, let $K$ be the function field of $Y$ and set $k\coloneqq\FF_q$, and we recall the definition of the Weil groups $W_K$ and $W_k$ which fit into the following pullback
+% https://q.uiver.app/#q=WzAsMTAsWzAsMCwiMSJdLFsxLDAsIklfSyJdLFsyLDAsIldfSyJdLFszLDAsIldfayJdLFs0LDAsIjEiXSxbMywxLCJHX2siXSxbMiwxLCJHX0siXSxbNCwxLCIxIl0sWzAsMSwiMSJdLFsxLDEsIklfSyJdLFswLDFdLFsxLDJdLFsyLDNdLFszLDRdLFs4LDldLFs5LDZdLFs2LDVdLFs1LDddLFsxLDksIiIsMSx7ImxldmVsIjoyLCJzdHlsZSI6eyJoZWFkIjp7Im5hbWUiOiJub25lIn19fV0sWzIsNiwiIiwxLHsic3R5bGUiOnsidGFpbCI6eyJuYW1lIjoiaG9vayIsInNpZGUiOiJ0b3AifX19XSxbMyw1LCIiLDEseyJzdHlsZSI6eyJ0YWlsIjp7Im5hbWUiOiJob29rIiwic2lkZSI6InRvcCJ9fX1dLFsyLDUsIiIsMSx7InN0eWxlIjp7Im5hbWUiOiJjb3JuZXIifX1dXQ==&macro_url=https%3A%2F%2Fraw.githubusercontent.com%2FdFoiler%2Fnotes%2Fmaster%2Fnir.tex
+\[\begin{tikzcd}[cramped]
+	1 & {I_K} & {W_K} & {W_k} & 1 \\
+	1 & {I_K} & {G_K} & {G_k} & 1
+	\arrow[from=1-1, to=1-2]
+	\arrow[from=1-2, to=1-3]
+	\arrow[equals, from=1-2, to=2-2]
+	\arrow[from=1-3, to=1-4]
+	\arrow[hook, from=1-3, to=2-3]
+	\arrow["\lrcorner"{anchor=center, pos=0.125}, draw=none, from=1-3, to=2-4]
+	\arrow[from=1-4, to=1-5]
+	\arrow[hook, from=1-4, to=2-4]
+	\arrow[from=2-1, to=2-2]
+	\arrow[from=2-2, to=2-3]
+	\arrow[from=2-3, to=2-4]
+	\arrow[from=2-4, to=2-5]
+\end{tikzcd}\]
+where $W_k$ is cyclic generated by the Frobenius.
+\begin{remark}
+	Via this sequence, there is an equivalence of categories
+	\[\op{Rep}_{\QQ_\ell}(G_K)\to\op{Rep}_{\QQ_\ell}(\mathrm{WD}_K),\]
+	where the right-hand side consists of pairs $(V,N)$, where $V$ is a representation of $W_K$, and $N\colon V(1)\to V$ is $W_K$-equivariant and nilpotent.
+\end{remark}
+\begin{definition}[weight filtration]
+	Suppose that the weights of some representation $V$ are integers. Then there is a unique \textit{weight filtration} $\{W_\bullet\}$ of $V$ which is $W_K$-stable and such that $\op{gr}_iV$ is pure of weight $i$.
+\end{definition}
+\begin{remark}
+	Let's explain why this filtration ought to exist. Choose a lift $\Phi\in W_K$ of the Frobenius. Then define $V_i'$ to be the generalized eigenspaces of $\Phi$ with weight $i$, and we may take $W_i$ to be the sum of the $V_j'$s for $j\le i$. It turns out that this filtration does not depend on the choice of $\Phi$.
+\end{remark}
+\begin{remark}
+	One can show that $N(W_i(1))\subseteq W_{i-2}$. It is an open problem if this filtration agrees with the monodromy filtration. One would need to check if $N^r\colon\op{gr}_rV(r)\to\op{gr}_{-r}V$ is an isomorphism. Deligne has shown this when $K$ is the function field of a curve.
+\end{remark}
+
+\section{December 11: Applications of Weil II}
+This talk was given by Elia Gorokhovsky at MIT for the STAGE seminar. For today, we fix a finite field $\FF_q$ and a prime $\ell$ coprime to $q$. We also identify $\ov\QQ_\ell$ with $\CC$ whenever is convenient.
+
+\subsection{Semisimplicity}
+Here is our first main theorem for today.
+\begin{theorem}[Semisimplicity]
+	Fix a smooth scheme $X$ of finite type over $k\coloneqq\FF_q$, and choose some lisse pure sheaf $\mc F$ on $X$. Then the associated representation
+	\[\pi_1(X)\to\op{GL}(\mc F_{\ov x})\]
+	is semisimple.
+\end{theorem}
+\begin{proof}
+	The idea is to use our weight machinery to show that any obstruction to semisimplicity vanishes. Indeed, let $\mc F'_{\ov k}$ be the maximal semisimple subsheaf, and set $\mc F''_{\ov k}\coloneqq\mc F_{\ov k}/\mc F'_{\ov k}$. Our aim is to show that $\mc F''_{\ov k}$ vanishes. In fact, it is enough to show that the short exact sequence
+	\[0\to\mc F'_{\ov k}\to\mc F_{\ov k}\to\mc F''_{\ov k}\to0\]
+	merely splits: then any irreducible subsheaf of $\mc F''_{\ov k}$ could be moved into $\mc F'_{\ov k}$, violating its maximality; instead, $\mc F''_{\ov k}$ must contain no irreducible subsheaves, implying that it vanishes.
+	
+	Thus, it is enough to show that the corresponding class in $\op{Ext}^1(\mc F''_{\ov k},\mc F_{\ov k})$ vanishes. To this end, note that $\mc F$ is defined over $\FF_q$, and the irreducible subsheaves also live over $\FF_q$, so everything descends to $k$. We conclude that our extension is Frobenius-invariant, so it is enough to check that
+	\[\op{Ext}^1(\mc F''_{\ov k},\mc F_{\ov k})^{\op{Gal}(\ov k/k)}=0.\]
+	To understand these invariants, we note that a spectral sequence calculation shows that
+	\[\op{Ext}^1(\mc F''_{\ov k},\mc F_{\ov k})=\mathrm H^1(X_{\ov k};\underline{\op{Hom}}(\mc F''_{\ov k},\mc F_{\ov k})).\]
+	Thus, we would like to show that $\mathrm H^1(X_{\ov k};\underline{\op{Hom}}(\mc F''_{\ov k},\mc F_{\ov k}))$ admits no $F$-invariant vectors, so it is enough (by Weil II!) will be enough to show that $\mathrm H^1(X_{\ov k};\underline{\op{Hom}}(\mc F''_{\ov k},\mc F_{\ov k}))$ is mixed with weights at least $1$.
+
+	We now use the smoothness of $X$. By Poincar\'e duality, one can turn $\mathrm H^1$ into cohomology with compact supports, so Weil II tells us that it is enough to show that $\underline{\op{Hom}}(\mc F''_{\ov k},\mc F_{\ov k})$ is mixed of weights at least $0$. Well, note
+	\[\underline{\op{Hom}}(\mc F'',\mc F)\cong(\mc F'')^\lor\otimes\mc F'.\]
+	Both $\mc F''$ and $\mc F'$ are pure of the same weight (because they came from the pure sheaf $\mc F$), the tensor product on the right-hand side is pure of weight $0$, so we are done.
+\end{proof}
+Here are some applications.
+\begin{corollary}
+	Fix a smooth scheme $X$ of finite type over $k\coloneqq\FF_q$. For any pure sheaf $\mc F$, the image of
+	\[\pi_1^{\mathrm{\acute et}}(X_{\ov k})\to\op{GL}(\mc F_{\ov x})\]
+	is semisimple.
+\end{corollary}
+\begin{proof}
+	Reductivity follows from the above proof: this ``tautological'' faithful representation is semisimple. We will not explain why the center is finite.
+\end{proof}
+\begin{theorem}[Hard Lefschetz]
+	Fix a smooth projective variety $X$ over an algebraically closed field $k$ of equidimension $d$, and choose an ample line bundle $\mc L$ on $X$. Then the first Chern class $c_1(\mc L)\in\mathrm H^2(X;\ov\QQ_\ell)$ induces an isomorphism
+	\[\left(c_1(\mc L)^i\cup-\right)\colon\]
+\end{theorem}
+\begin{proof}
+	Semisimplicity is used to understand the cohomology groups. In a few more words, one places $X$ into a Lefschetz pencil, which gives some monodromy action on the cohomology groups. Then one uses semisimplicity.
+\end{proof}
+
+\subsection{Equidisitrubution}
+For motivation, we recall the following theorem.
+\begin{theorem}[Chebotarev]
+	Fix a finite Galois extension $L/K$ of number fields with Galois group $G$.
+	\begin{listalph}
+		\item Existence: for any conjugacy class $c$ of $G$, there is prime $\mf p$ of $K$ for which the conjugacy class $\mathrm{Frob}_{\mf p}$ is $c$.
+		\item Equidistribution: for any subset $c\subseteq G$ stable under conjugacy,
+		\[\lim_{X\to\infty}\frac{\#\{\mf p:\mathrm{Frob}_{\mf p}\in C,\op N\mf p\le X\}}{\#\{\mf p:\op N\mf p\le X\}}=\frac{\#C}{\#G}.\]
+	\end{listalph}
+\end{theorem}
+Here is a geometric way to view this theorem: $\Spec\OO_L\to\Spec\OO_K$ is some \'etale (open) cover with Galois group $G$. Then for any closed point $\mf p$ of $\Spec\OO_K$, we get a Frobenius element $\mathrm{Frob}_{\mf p}\in\pi_1(\Spec\OO_K)$, which then embeds into $G$. Thus, the above theorem is a special case of a more general question about the equidistribution of Frobenius elements in monodromy groups.
+
+Here is another such instance: recall that
+\[\left|\#E(\FF_p)-(p+1)\right|\le2\sqrt p\]
+for any elliptic curve $E$ over $\FF_p$. Thus, we may be interested in understanding the distribution of the error term
+\[a_p(E)\coloneqq(p+1)-\#E(\FF_p).\]
+Fixing $E$ and letting $p$ vary yields the Sato--Tate conjecture.
+\begin{conj}[Sato--Tate]
+	Fix an elliptic curve $E$ over $\QQ$ without potential complex multiplication. For each prime $p$ of good reduction, choose $\theta_p\in[0,\pi]$ so that $2\cos\theta_p=a_p$. Then $\theta_p\in[0,\pi]$ distribute according to $\frac2\pi\sin^2\theta\,d\theta$.
+\end{conj}
+\begin{remark}
+	In the form stated, this conjecture has been proven by Clozel--Harris--Taylor.
+\end{remark}
+\begin{remark}
+	Here is a geometric incarnation: this turns out to be equivalent to the equidistribution of Frobenius elements for the smooth model $\mc E\to\Spec\ZZ[1/N]$ in the monodromy group of the representation $\mathrm H^1(E_{\ov\QQ};\QQ_\ell)$.
+\end{remark}
+Alternatively, one could fix $p$ and let $E$ vary, which basically amounts to replacing $E$ with an elliptic surface. This produces the following theorem.
+\begin{theorem}[Deligne, Katz] \label{thm:katz-equidistribution}
+	Fix a smooth equidimensional scheme $X$ of finite type over $k\coloneqq\FF_q$, and let $\mc F$ be a smooth sheaf pure of weight $0$. Let $\rho\colon\pi_1(X)\to\op{GL}(\mc F_{\ov x})$ be the representation associated to $\mc F$, and let $G$ be the Zariski closure of $\im\rho|_{\pi_1(X_{\ov k}}$, which we assume contains $\im\rho$. Then the elements
+	\[\{\op{Conj}\rho(F_x)^{\mathrm{ss}}\}_{x\in X}\]
+	equidistribute in $\op{Conj}K$, where $K$ is the maximal compact subgroup of $G(\CC)$.
+\end{theorem}
+Here are some remarks explaining what this theorem means.
+\begin{remark}
+	The maximal compact subgroup $K$ of $G(\CC)$ exists because $G$ was found to be semisimple.
+\end{remark}
+\begin{remark}
+	The semisimple elements $\rho(F_x)$ have eigenvalues of absolute value $1$, so they generate a compact torus in $G(\CC)$. This explains why the conjugacy classes of $\rho(F_x)^{\mathrm{ss}}$ can be moved into conjugacy classes of $K$. It turns out that the intersection of the conjugacy class $\op{Conj}\rho(F_x)^{\mathrm{ss}}\subseteq G$ with $K$ consists of a single $K$-conjugacy class. This follows from the Peter--Weyl theorem, which says that the characters of the finite-dimensional representations of $K$ form an orthonormal basis of $L^2(K)$.
+\end{remark}
+\begin{remark}
+	Let's explain why we don't miss much when we move to $K$: the finite-dimensional (algebraic) representations of $G(\ov\QQ_\ell)$ are equivalent to the finite-dimensional (continuous) representations of $G(\CC)$. Being finite-dimensional and hence algebraic then tells us that this is equivalent to the finite-dimensional representations of $K$.
+\end{remark}
+\begin{remark}
+	Lastly, we should remark that ``equidistribution'' here means that our conjugacy classes equidistribute according to the pushforward of the Haar measure along the projection $K\onto\op{Conj}K$.
+\end{remark}
+\begin{example}
+	Suppose $G=\op{SL}(2)$, which is the case for generic elliptic curves. Then $K=\op{SU}(2)$. Because all unitary matrices are diagonalizable, each element of $K$ is conjugate to a diagonal one, and it turns out that $\op{Conj}K$ is then homeomorphic to $\ZZ/\pi\ZZ$ by sending $\theta\in[0,\pi]$ to $\op{diag}(\exp(i\theta),\exp(-i\theta))$. The pushforward measure turns out to be $\frac2\pi\sin^2\theta\,d\theta$, which one computes directly.
+\end{example}
+\begin{remark}
+	Let $\mu^\sharp$ be the pushforward to $\op{Conj}K$ of the Haar measure $\mu$ on $K$. Thus, \Cref{thm:katz-equidistribution} amounts to saying that there is a limit
+	\[\lim_{n\to\infty}\frac1{\#X(\FF_{q^n})}\sum_{x\in X_0(\FF_{q^n})}\delta_{\rho(F_x)^{\mathrm{ss}}}=\mu^\sharp\]
+	in the weak sense.
+\end{remark}
+\begin{proof}[Sketch of \Cref{thm:katz-equidistribution}]
+	There are two steps.
+	\begin{enumerate}
+		\item It is enough to check the weak convergence on continuous functions in $C(\op{Conj}K)$, but the Peter--Weyl theorem tells us that finite linear combinations of characters are dense in $C(\op{Conj}K)$. Thus, it is enough to check that
+		\[\lim_{n\to\infty}\frac1{\#X(\FF_{q^n})}\sum_{x\in X_0(\FF_{q^n})}\chi(\rho(F_x)^{\mathrm{ss}})\stackrel?=\int_K\chi\,\mu^\sharp\]
+		for any character $\chi$. This is automatically true for the trivial character, so it only remains to deal with the nontrivial irreducible characters. Thus, by the orthogonality relations, it is enough to check that
+		\[\lim_{n\to\infty}\frac1{\#X(\FF_{q^n})}\sum_{x\in X_0(\FF_{q^n})}\chi(\rho(F_x)^{\mathrm{ss}})\stackrel?=0.\]
+		Equivalently, we must check that
+		\[\sum_{x\in X_0(\FF_{q^n})}\chi(\rho(F_x)^{\mathrm{ss}})\stackrel?=O\left(\#X(\FF_{q^n})\right),\]
+		where $\chi$ is a nontrivial irreducible character of $K$. We may then extend this $\chi$ up to $G$, so we see that we are trying to show that
+		\[\sum_{x\in X_0(\FF_{q^n})}\tr\psi\rho(F_x)^{\mathrm{ss}}\stackrel?=O\left(\#X(\FF_{q^n})\right).\]
+		We may now ignore $\psi$ entirely because it is enough to check that the sum vanishes for any representation $\psi\rho$ of $\pi_1(X)$ landing in $G$. Note that the corresponding lisse sheaf continues to have weight $0$.
+
+		\item We are thus left to bound
+		\[\sum_{x\in X_0(\FF_{q^n})}\tr\rho(F_x)^{\mathrm{ss}},\]
+		where $\rho$ is some irreducible representation of $\pi_1(X)$. Let $\mc F$ be the associate lisse sheaf, and then we see that this sum collapses to
+		\[\sum_{i=0}^{2\dim X}(-1)^i\tr\left(\mathrm{Frob}_{q^n};\mathrm H^i_c(X_{\ov k};\mc F)\right).\]
+		By Weil II, we know that $\mathrm H^i_c(X_{\ov k};\mc F)$ is mixed of weight at most $i$, so the eigenvalues of the Frobenius are at most $q^{in/2}$. We would like to bound this by $\#X(\FF_{q^n})$, which by Noether normalization is approximately $q^{nd}$ (up to some constants). Thus, we see that we only have to worry about top dimension in the above sum, which is handled separately: $\mathrm H^{2d}_c(X;\mc F)=\mathrm H^0(X;\mc F^\lor)$, which vanishes because such global sections correspond to invariant elements for $\rho$, which do not exist because $\rho$ is irreducible.
+		\qedhere
+	\end{enumerate}
+\end{proof}
+
+\end{document}
