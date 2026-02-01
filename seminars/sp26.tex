@@ -32,7 +32,7 @@
 
 \tableofcontents
 
-\section{Multiplicity Formulae for Spherical Varieties}
+\section{January 30: Multiplicity Formulae for Spherical Varieties}
 This talk was given by Toan Pham at Johns Hopkins University for the student automorphic representations seminar.
 
 \subsection{The Theorems}
@@ -99,5 +99,559 @@ though both of these equalities are theorems. Though it requires an argument, th
 \begin{conj}
 	One has $m_{\mathrm{geom}}(\pi)=m(\pi)$ for any spherical $X$.
 \end{conj}
+
+\section{January 31: Finiteness Theorems in Arithmetic Statistics}
+This talk was given by Fatemehzahra Janbazi for the JHUnior number theory days.
+
+\subsection{The Birch--Merriman Theorems}
+For today, $K$ will be a number field, and $S$ is a finite set of places, including the infinite ones.
+\begin{notation}
+	For a ring $R$, we define $U_n(R)$ to be the set of binary forms $f$ which are homogeneous of degree $n$.
+\end{notation}
+Note that $\op{GL}_2$ naturally acts on $\op U_n$.
+\begin{definition}
+	There is also a discriminant $\Delta$ on $U_n$. We say that $f\in\op U_n(\QQ_p)$ has \textit{good reduction} if and only if $\Delta(f)\in\OO_p^\times$.
+\end{definition}
+\begin{remark}
+	The discriminant satisfies
+	\[\Delta(\gamma\cdot f)=\det\gamma^{n(n-1)}\Delta(f).\]
+\end{remark}
+We then have the following theorems.
+\begin{theorem}[Birch--Merriman]
+	The set $U_n(\OO_{K,S})$ with good reduction outside $S$ breaks into infinitely many $\op{GL}_2(\OO_{K,S})$-orbits.
+\end{theorem}
+\begin{theorem}
+	For any nonzero $D\in\OO_K$, the set of forms in $U_n(\OO_{K})$ with disciminant $D$ has finitely many equivalence classes for the action of $\op{GL}_2(\OO_K)$.
+\end{theorem}
+We are interested in analogous results for ternary forms.
+\begin{definition}
+	For a ring $R$, we define $V_n(R)$ to be the set of homogeneous ternary forms of degree $n$. There is also a discriminant $\Delta$ of ternary forms, and we say that $f$ has \textit{good reduction} at $p$ if and only if $\Delta(f)\in\OO_p^\times$.
+\end{definition}
+\begin{remark}
+	As usual, there is a natural $\op{GL}_3$-action on $V_n$, and it satisfies
+	\[\Delta(\gamma\cdot f)=\det\gamma^{n(n-1)}\Delta(f).\]
+\end{remark}
+Here are our main theorems.
+\begin{theorem} \label{thm:vn-finiteness}
+	The set of elements in $V_n(\OO_{K,S})$ with good reduction outside $S$ breaks up into finitely many $\op{GL}_3(\OO_{K,S})$-orbits.
+\end{theorem}
+\begin{theorem}
+	For any nonzero $D\in\OO_K$, the set of forms in $V_n(\OO_K)$ with discrimimant $D$ has finitely many equivalence classes for the action of $\op{GL}_3(\OO_K)$.
+\end{theorem}
+Here is another analogue.
+\begin{definition}
+	For a ring $R$, we define
+	\[V_{2,2}(R)\coloneqq\frac{R[x_1,x_2,x_3]_2\otimes_RR[z_1,z_2,z_3]_2}{\left(\sum_ix_iz_i\right)\cap R[x_1,x_2,x_3]_2\otimes_RR[z_1,z_2,z_3]_2}.\]
+\end{definition}
+\begin{remark}
+	There is now a natural action of $\op{GL}_3$ on $V_{2,2}$ given by $(\gamma\cdot f)(x,z)\coloneqq f(x\gamma,z\delta\gamma)$.
+\end{remark}
+\begin{definition}
+	A $K3$ surface $S$ is \textit{generic} if and only if it is smooth and cover $\PP^2$ via a natural projection from a flag variety. Some $f\in V_{2,2}$ has \textit{good reduction} if and only if it products a generic $K3$ surface.
+\end{definition}
+\begin{theorem}
+	The set of elements in $V_{2,2}(\OO_{K,S})$ with good reduction outside $S$ and Picard rank $2$ breaks up into finitely many orbits for the action of $\op{GL}_2(\OO_{K,S})$.
+\end{theorem}
+\begin{remark}
+	Let's sketch the idea of \Cref{thm:vn-finiteness}. Let $T_n(K,S)$ be the set of $f$ with discriminant in $\OO_{K,S}^\times$. Each such $f$ cuts out a curve $C_f$ which has good reduction outside $S$, but Faltings's theorem implies that there are only finitely many such curves, which can be enumerated by some invariants $I_1(f),\ldots,I_k(f)$. One can now chase around to prove the theorem.
+\end{remark}
+Here is an application.
+\begin{example}
+	Let $W_n(R)$ be the set of pairs $(F,G)$ of elements in $V_n$. This has a natural action of ${\op{GL}_2}\times{\op{GL}_3}$ given by
+	\[(\gamma_2,\gamma_3)\cdot(F,G)=(\gamma_3F,\gamma_3G)\gamma_2^\intercal.\]
+	One can prove a similar result about finiteness of elements in $W_n(\OO_K)$ with fixed discriminant. The proof uses both the finitenesses of $U_n$ and $V_n$.
+\end{example}
+
+\subsection{Geometric Reformulation}
+We will want more notation.
+\begin{notation}
+	Let $U_n(K,S)$ be the set of elements in $U_n(\OO_{K,S})$ and $\Delta(f)\in\OO_{K,S}^\times$ and which split over $K$. We also let $\Omega_n(\PP^1;S)$ to be the set of $n$ points with good reduction outside $S$.
+\end{notation}
+The point of introducing these sets is that there is a natural map $U_n(K,S)\to\Omega_n(\PP^1;S)$, preserving the $\op{GL}_2$-action, and finiteness theorems can be moved from one side to the other.
+
+Thus, we see that we may be interested in analogous questions for curves other than $\PP^1$.
+\begin{theorem} \label{thm:finite-good-pts}
+	Fix a smooth projective curve $C$ over $K$ with good redution at $S$. One can define $\Omega_n(C;S)$ in the same way. For any $n\ge1$, the set of classes in $\Omega_n(C;S)$ up to the action by $\op{Aut}_{\OO_{K,S}}(\mc C)$ is finite.
+\end{theorem}
+\begin{example}
+	For $C=\PP^1$ and $n=1$, finiteness is equivalent to finiteness of the class group of $\OO_{K,S}$.
+\end{example}
+\begin{example}
+	If $C=\PP^1$ and $n\ge3$, we recover the Birch--Merriman theorems. Alternatively, one can move some points to $\{0,1,\infty\}$, and then the remaining points are seen to be finite by the unit equation.
+\end{example}
+\begin{example}
+	If $C$ has genus $1$, then we have an elliptic curve; moving some point to the origin, we recover Siegel's theorem.
+\end{example}
+\begin{example}
+	Lastly, if $C$ has genus $2$, then at $n=1$, we recover Faltings's theorem.
+\end{example}
+The proof of \Cref{thm:finite-good-pts} more or less upgrades the above examples by doing some Galois cohomology.
+
+\section{January 31: Infinitely Many Supersingular Primes}
+This talk as given by Fangu Chen at Johns Hopkins University for the JHUnior number theory days.
+
+\subsection{Expectations for Supersingular Primes}
+Here are our definitions for elliptic curves.
+\begin{definition}[ordinary, supersingular]
+	Fix an elliptic curve $E$ over a finite field of characteristic $p$. Then $E$ is \textit{ordinary} if and only if $E[p]\cong\ZZ/p\ZZ$; it is \textit{supersingular} if and only if $E[p]=0$.
+\end{definition}
+\begin{remark}
+	There are equivalent formulations based on the Frobenius action or a calculation of the endomorphism ring.
+\end{remark}
+\begin{remark}
+	It turns out that every elliptic curve is ordinary or supersingular.
+\end{remark}
+\begin{ques}
+	Fix an elliptic curve $E$ over $\QQ$. For how many primes $p$ are there with $E_{\FF_p}$ admit supersingular reduction?
+\end{ques}
+Here is a heuristic argument: one knows $\left|\tr\mathrm{Frob}_p\right|\le2\sqrt p$, so one can expect that $p$ is supersingular with probability $\sim1/\sqrt p$.
+\begin{conj}[Lang--Trotter]
+	Fix an elliptic curve $E$ over $\QQ$ without complex multiplication. Then the number of primes $p<X$ for which $E_{\FF_p}$ has supersingular reduction is asymptotic to $c_E\sqrt x/\log x$ for some constant $c_E$.
+\end{conj}
+For example, Serre has proved that the set of supersingular primes has density $0$; Elkies has proved that there are infinitely many.
+
+We are interested in analogous questions for abelian varieties.
+\begin{remark}
+	In the case of complex multiplication, it is not so hard to study supersingularity via the Newton polygon and the Shimura--Taniyama formula.
+\end{remark}
+One expects that the non-ordinary abelian varieties (measured via the Newton polygon) should have density zero. Recent work has shown that the supersingular primes has density zero. We are interested in showing infinitude.
+
+\subsection{The Main Theorem}
+For our talk, we fix a totally real number field $F$ as our base and a quaternion algebra $B$ over $F$ which is split at exactly one real palce. Then let $V$ be the subset of $B$ with reduced trace equal to zero, and let $Q_F$ be the reduced norm of $V$.
+
+We will require all these to admit $F$-multiplication. In the case $[F:\QQ]=3$, Mumford has defined some abelian fourfolds with endomorphism algebra $\ZZ$ but admitting some extra Hodge classes in $\mathrm H^4(A;\QQ)$. There is a Kuga--Satake construction which takes $K3$ surfaces to abelian varieties; it turns out that $A^{64}$ is isogenous to an abelian variety coming from a $K3$ surface.
+\begin{remark}
+	We have recently computed some of these fourfolds as coming from some explicit Jacobians.
+\end{remark}
+In the case that $F$ has narrow class number $1$, the Shimura curve parameterizing Mumford's abelian fourfolds admits a canonical model $\mathrm{Sh}$.
+\begin{theorem}
+	Assume that $\mathrm{Sh}$ is isomorphic to $\PP^1_F$ as well as some technical conditions. If $A$ is in $\mathrm{Sh}$ and has field of moduli $F$, then $A$ admits infinitely many primes of supersingular reduction.
+\end{theorem}
+\begin{remark}
+	The extra conditions are as follows.
+	\begin{itemize}
+		\item For $F$: we want $2$ to be inert in $F$ and $F(\sqrt{-\varepsilon})$ to have class number $1$ for all $\varepsilon\in\OO_F^\times$ which is negative at exactly one real place $F$. This condition simplifies calculations at the archimedean place; some case-by-case analysis could relax this condition.
+		\item For $B$: there are also some ramification conditions.
+	\end{itemize}
+	There are many examples of such $F$; for example, there are cubic fields.
+\end{remark}
+\begin{remark}
+	Such extensions of Elkies's theorem have a long history. For example, there has been a lot of work on abelian surfaces with some quaternionic multiplication. Notably, all previous work has been done with Shimura curves of PEL type, isomorphic to $\PP^1$. This work is notable because the underlying Shimura curve merely has Hodge type.
+\end{remark}
+
+\subsection{Proof Idea}
+Let's review the proof idea for elliptic curves, due to Elkies.
+\begin{theorem}[Elkies]
+	Fix an elliptic curve $E$ over $\QQ$. Then $E$ admits supersingular reduction at infinitely many primes $p$.
+\end{theorem}
+\begin{proof}
+	Suppose $E$ has finitely many supersingular primes in a set $S$.
+	\begin{enumerate}
+		\item We start with some CM points. Fix CM elliptic curves $\{E_1,\ldots,E_h\}$ with $\ZZ[\sqrt{-\ell}]\subseteq\op{End}_{\ov\QQ}(E_\bullet)$, where $\ell\equiv-1\pmod4$ is prime. Then we set
+		\[P_\ell(x)=\prod_i(x-j(E_i)),\]
+		and it turns out to be in $\ZZ[x]$. We would like to consttruct $\ell$ for which $\nu_p(P_\ell(j(E)))>0$ (i.e., $E$ has supersinglar reduction) and $\left(\frac{-\ell}p\right)\ne1$ (i.e., $E_i\pmod p$ has supersingular reduction). Accordingly, let $N$ be the numerator of $P_\ell(j(E))$, and then we have two cases.
+		\begin{itemize}
+			\item We may want $\ell\mid N$, in which case we choose $p=\ell$.
+			\item We may want $\left(\frac{-\ell}N\right)=-1$, in which case we can still find some $p$.
+			\item Lastly, we may want $p\notin S$, given from $\left(\frac{-\ell}q\right)=_1$ for all $q\in S$.
+		\end{itemize}
+		We will achieve these many congruence conditions by some explicit analysis at finite and real places.
+
+		\item Now, at finite places, we may want $\left(\frac N\ell\right)=+1$. The point is that CM liftings are paired, so one finds that $\deg P_\ell(x)$ is even. It follows that $P_\ell(x)$ is a square$\pmod\ell$.
+
+		\item At the real place, one shows that the roots of $P_\ell$ are paired, and then we get a non-square at $N$.
+	\end{enumerate}
+	The proof is now completed upon some local calculations with quadratic reciprocity.
+\end{proof}
+Our proof uses the following inputs.
+\begin{enumerate}
+	\item CM points: these are parameterized by some conjugacy classes of embeddings of CM extensions into $B$. We then construct $P_\lambda(x)$ and do a quadratic reciprocity argument as before.
+	\item Finite places: we use something about integral models of Shimura varieties and do pairings as before.
+	\item Real places: we use something about Hecke equidistributino.
+\end{enumerate}
+
+\section{January 31: \texorpdfstring{$p$}{p}-adic Higher Green's Functions}
+This talk was given by Hazem Hassan for JHUnior number theory days.
+
+\subsection{Higher Green's Functions}
+We begin with a story of complex multiplication. Let $\mc H$ be the complex upper-half plane, and let $j\colon\mc H\to\CC$ is the $j$-invariant.
+\begin{definition}
+	A \textit{CM point} $\tau$ is a point in $\mc H$ such that $\QQ(\tau)$ is an imaginary quadratic field.
+\end{definition}
+\begin{theorem}
+	Fix a CM point $\tau\in\mc H$. Then $\QQ(\tau,j(\tau))$ is an abelian extension of $\QQ(\tau)$.
+\end{theorem}
+\begin{remark}
+	In fact, the theory of complex multiplication allows us to constuct all abelian extensions of $\QQ(\tau)$ by working only a little harder.
+\end{remark}
+We now introduce some modular forms.
+\begin{example}
+	Here are some modular forms of weight $0$.
+	\begin{itemize}
+		\item The function $j-j(\tau)$ is a holomorphic modular form of weight $0$. Here, ``holomorphic'' is on $\mc H$, not $\PP^1_\CC$.
+		\item The function $\log(j-j(\tau))$ is a multivalued holomorphic modular form of weight $0$.
+		\item The function $\log\left|j-j(\tau)\right|$ is a real analyti cfunction of weight $0$.
+		\item One can also take a logarithmic derivative $d\log(j-j(\tau))$, which is still holomorphic but now of weight $2$.
+	\end{itemize}
+\end{example}
+There are also higher-weight versions of some of these.
+\begin{example}
+	Fix some even $k\ge4$, and set $n\coloneqq k-2$. Then
+	\[f_{k,\tau}(z)\coloneqq\sum_{\gamma\in\op{SL}_2(\ZZ)}\left(\frac{\gamma\tau-\gamma\ov\tau}{(z-\gamma\tau)(z-\gamma\ov\tau)}\right)^{k/2}\]
+	is a meromorphic modular form of weight $k$ with (simple) poles on $\op{SL}_2(\ZZ)\cdot\tau$. We cannot evaluate this at our CM points because of the poles, so we would like a primitive.
+\end{example}
+\begin{remark}
+	We want a notion of differentiation to say something about $d\log$. However, differentiation is not totally $\op{SL}_2$-invariant: if $f$ has weight $-n$, then one finds
+	\[d^{n+1}(f|_{-n}\gamma)=\left(d^{n+1}f\right)|_{-k},\]
+	where $\cdot|_\bullet$ is the twisted action associated with a modular form.
+\end{remark}
+There is now a weight $-n$ modular form $\widetilde f_{k,\tau}(z)$ which is a multivalued modular form of weight $-n$; it is constructed via some repeated integration process. We may now define higher Green's functions.
+\begin{definition}[higher Green's function]
+	We define
+	\[G_{k/2}(\tau,\sigma)\coloneqq\Re\delta_{-n}^{n/2}\widetilde f_{k,\tau}(\sigma),\]
+	where $\delta_\ell\coloneqq\frac d{dz}+\frac\ell{z-\ov z}$.
+\end{definition}
+\begin{theorem}[Gross--Zagier conjecture]
+	Fix a normalized weakly holomorphic modular form $f$ of weight $-n$ with Laurent expansion $f=\sum_mc(m)q^m$. Then for CM points $\tau$ and $\sigma$,
+	\[\sum_{m>0}c(-m)m^{n/2}(T_m\cdot G_{k/2})(\tau,\sigma)\in\ov\QQ.\]
+\end{theorem}
+These numbers turn out to be intersections of Heegner cycles, which is why we may expect them to be algebraic (due to the standard conjectures). This is now known to Bruinier--Li--Yang, using regularized $\theta$-lifts.
+
+\subsection{Real Multiplication}
+We now try to tell a similar story for real multiplication, retelling the story of extensions of real quadratic fields via some geometric picture.
+\begin{itemize}
+	\item The analogue of $\mc H$ is the $p$-adic upper half-plane $\mc H_p\coloneqq\PP^1(\CC_p)\setminus\PP^1(\QQ_p)$.
+	\item The analogue of $\op{SL}_2(\ZZ)$ is $\Gamma\coloneqq\op{SL}_2(\ZZ[1/p])$.
+	\item Modular forms come from some sections $\mathrm H^0(\op{SL}_2(\ZZ);\mc M_k)$ of a line bundle. It turns out that the right analogue is $\mathrm H^1(\Gamma;\mc M_k)$, where we go up in a degree to see some modular symbols.
+	\item The Heegner points admit some archimedean intersection numbers $\log\left|j(\tau)-j(\sigma)\right|$. In the $p$-adic upper half-plane, one has some Stark--Heegner points, but they only conjecturally lie in the real quadratic field. There is something known about algebraicity.
+	\item Heegner cycles have some interesting higher Green's functions. We are interested in putting something on the real multiplication side called ``Stark--Heegner cycles.''
+\end{itemize}
+We cannot define Stark--Heegner cycles, but we can say something about their conjectural intersections, which should be $p$-adic higher Green's functions.
+\begin{theorem}
+	Fix an RM point $\tau\in\mc H_p$ and some integer $k\ge2$. Then there is a unique rigid meromorphic cocycle (up to analytic cocycles and scaling) $J_{k,\tau}\in\mathrm H^1(\Gamma;\mc M_k)$ with poles supported on $\Gamma\cdot\tau$. Conversely, such cocycles span the ``parabolic cohomology.''
+\end{theorem}
+\begin{remark}
+	In fact, the poles of $J_{k,\tau}$ have the same shape as the poles of the earlier defiend $f_{k,\tau}$.
+\end{remark}
+\begin{example}
+	By linearity, one can define $J_{k,D}$ for any divisor $D$ with real multiplication. If it has ``strong degree zero,'' then we find
+	\[J_{k,D}(\gamma)(z)=\sum_{\substack{b\in\Gamma\\\tau\in\left|D\right|}}i\left([r,\gamma r],[b\ov\tau,b\tau]\right)\left(\frac{b\tau-b\ov\tau}{(z-b\tau)(z-b\ov\tau)}\right)^{k/2}.\]
+	Here, $i\left([r,\gamma r],[b\ov\tau,b\tau]\right)$ is a signed intersection number of some geodesics (in $\mc H$!), where $r\in\QQ$ is arbitrary. Notably, these intersection numbers are necessary to make the sum converge.
+\end{example}
+One now again takes some repeated integration, and we can state a Gross--Zagier conjecture. In fact, one can conjecture something about the prime factorizations of the special values, coming from some intersection numbers on Shimura curves.
+
+\section{January 31: Geometric and Arithmetic Siegel--Weil Formulae}
+This talk was given by Yu Luo at Johns Hopkins University for the JHUnior number theory days.
+
+\subsection{The Geometric Formula}
+For motivation, we may be interested in how an elliptic curve can map into an abelian variety. To geometrize, we let $\mc A_g$ denote the moduli space of principally polarized abelian varieties of dimension $g$.
+\begin{definition}[Noether--Lefschetz cycle]
+	For each $m$, we define the functor $\op{NL}(m)$ as living over $\mc A_1\times\mc A_g$ and parameterizing tuples $(E,A,\lambda,h)$ such that $h\colon E\to A$ is some map, and $\lambda$ is the polarizatino of $A$, and $\deg h^*\mc L_\lambda=m$.
+\end{definition}
+\begin{example}
+	It turns out that $\op{NL}(1)\cong\mc A_1\times\mc A_{g-1}$.
+\end{example}
+These cycles are interesting but difficult. We will be interested in similar questions with a little additional structure, coming from unitary Shimura varieties.
+
+For today, $F$ is an imaginary quadratic field, and we let $V$ be a Hermitian spcae over $F$ with signature $(n-1,1)$ (where $n\coloneqq\dim V$). We also fix some level structure $K\subseteq\op U(V)(\AA^\infty_\QQ)$.
+\begin{definition}[unitary Shimura variety]
+	Fix everything as above. We define $\mc M_{K}$ to parameterize the data
+	\[(E,\iota_E,A,\iota,\lambda,\eta),\]
+	where $(E,\iota_E)$ is an elliptic curve with CM by $F$, $(A,\lambda)$ is a principally polarized abelian variety, $\iota$ is an $F$-structure on $A$ so that $\op{Lie}A$ has signature $(n-1,1)$, and $\eta$ is $K$-conjugacy class of a morphism $\widehat V(E)\to\widehat V(A)$.
+\end{definition}
+\begin{example} \label{ex:unitary-sv}
+	Choose a line $L\subseteq V$, and let $K$ be the stabilizer of a lattice $\widehat L$. Then $\mc M_K(\CC)$ consists of copies of symmetric spaces which look like $\op{Aut}(L)\backslash D$, where $D\subseteq\PP(V_\RR)$ consists of isotropic lines in $V_\RR$.
+\end{example}
+\begin{remark}
+	There is a pairing structure on $\op{Hom}_F(E,A)$ by sending a pair $(x,y)$ to the composite
+	\[E\stackrel x\to A\stackrel\lambda\to A^\lor\stackrel{y^\lor}\to E^\lor\cong E.\]
+	In particular, this maps to $\op{End}(E)\cong F$, so we receive a pairing analogous to the Rosati involution.
+\end{remark}
+Having given our analogue of $\mc A_g$, we need to give an analogue of our special cycles.
+\begin{definition}
+	Fix a positive definite Hermitian $r\times r$ matrix $T$ with coefficients in $F$, and choose some $\mu\in K\backslash V(\AA_f)^r$. Then we let $Z(T,\mu)$ parameterize triples $(E,A,u)$ where $u\in\op{Hom}_F(E,A)^r$ satisfies $(u,u)=T$ (and some level structure dictated by $\mu$).
+\end{definition}
+It turns out that $Z(T,\mu)$ lives in $\op{CH}^r(\mc M_K)$, so we may take some linear combinations.
+\begin{notation}
+	For any $\varphi_f\in\mc S(V(\AA_f)^r)^K$, we may define
+	\[Z(T,\varphi_f)\coloneqq\sum_\mu\varphi_f(\mu)[Z(T,\mu)].\]
+	By definition of $S$, this is a finite sum.
+\end{notation}
+\begin{example}
+	We continue from \Cref{ex:unitary-sv}. For $x\in L$, we define $D(x)$ to be the lines perpendicular to $x$. Then $Z(t,1_{\widehat L})$ on complex points is given by the projection
+	\[\op{Aut}(L)\mathbin{\bigg\backslash}\bigsqcup_{(x,x)=t}D(x)\to\op{Aut}(L)\backslash D.\]
+\end{example}
+The geometric Siegel--Weil formula arises when $\op{rank}T=r-1$.
+\begin{theorem}
+	Fix a positive definite Hermitian $r\times r$ matrix $T$ of rank $r-1$. Then
+	\[\deg Z(T,\varphi_f)\sim E_T(\tau,\varphi),\]
+	where $\sim$ means we are up to some explicit constant (coming from the Shimura variety), $\varphi$ is an automorphic form constructed with finite part $\varphi_f$, and $E_T$ refers to the $T$th Fourier coefficient for the Eisenstein series $E(\tau,\varphi)$ associated to $\varphi$.
+\end{theorem}
+
+\subsection{The Arithmetic Formula}
+For the arithmetic Siegel--Weil formulae, we need to pass to some integral models. Accordingly, let $S$ be a finite set of primes containing $2$ and the ramified primes of the extension $F/\QQ$. For simplicity, we will also assume that the lattice $L$ of $V$ is self-dual away from $S$, and we assume that $K^S=\op{Stab}(\widehat L^S)$. In this situation, $\mc M_K$ admits an integral model over $\OO_F\left[S^{-1}\right]$. If we derive, we also receive the special cycles $Z^{\mathbb L}(T,\varphi_f)$.
+
+In this case, we will be intersted in the case where $\op{rank}T=r$, which produces a cycle of codimension $1$ because $\mc M_K\to\Spec\OO_F\left[S^{-1}\right]$ has relative dimension $r$.
+\begin{notation}
+	We let $\op{Diff}(T,V)$ be the set of nonsplit primes $p$ for which $V_p\not\cong V(T)_p$, where $V(T)$ is the space with basis $\{e_1,\ldots,e_n\}$ satisfies $(e_i,e_j)=T_{ij}$.
+\end{notation}
+\begin{theorem}[Kudla--Rapoport]
+	The special cycle $Z(T,\varphi_f)$ is nonempty only if $\op{Diff}(T,V)$ is a single prime $p\notin S$. In this case, the special cycle is supersingular over $\FF_{p^2}$.
+\end{theorem}
+\begin{theorem}
+	Suppose $\op{Diff}(T,V)=\{p\}$. Then
+	\[\log\left(p^2\deg Z^{\mathbb L}(T,\varphi_f)\right)\sim E_T'(\tau,\varphi).\]
+\end{theorem}
+One can view this as a natural generalization of the Gross--Zagier formula to unitary Shimura varieties. The moral is that we are relating an intersection number to a modular form, which can then be related to a special value. Here are some ingredients of the proof.
+\begin{enumerate}
+	\item It turns out that
+	\[Z(\tau,\varphi)=\sum_{m>0}Z(m,\varphi)q^m\]
+	is a modular form. One can then take an arihetmic intersection with another special cycle to produce a genuine modular form. This produces a modular form whose coefficients are given by the left-hand side.
+	\item On the other hand, we can use the right-hand side to produce a modular form. It turns out that the coefficients are the same at all but finitely many coefficients, but the difference is a modular form, so full equality follows.
+\end{enumerate}
+
+\section{January 31: Higher Siegel--Weil Formulae}
+This talk was given by Mikayel Mkrtchyan at the Johns Hopkins University for the JHUnior number theory days.
+
+\subsection{Shtukas}
+We are interested in function field analogues of the geometric and arithmetic Siegel--Weil formulae. The analogue of (unitary) Shimura varieties are given by shtukas. For our setup, we fix some \'etale double cover $X'\to X$ of smooth proper curves over $k\coloneqq\FF_q$; let $\sigma$ be the nontrivial automorphism.
+\begin{definition}
+	A \textit{$\op U_n$-bundle} is a pair $(\mc F,h)$ of a rank $n$ bundle $\mc F$ on $X'$ and an isomorphism $h\colon\mc F\to\sigma^*\mc F^\lor$. A \textit{Hecke modification} is a diagram $x\colon\mc F_0\to\mc F_1$, where $\mc F_0$ and $\mc F_1$ are $\op U_n$-bundles, $x\in X'$ is a point, and we are euipped with an isomorphism $\mc F_0|_{X'\setminus\{x,\sigma x\}}\cong\mc F_1|_{X'\setminus\{x,\sigma x\}}$. We also require there to be a natural short exact sequence
+	\[0\to\mc F_0\to\mc F_1\to\delta_x\to0,\]
+	where $\delta_x$ is the skyscraper.
+\end{definition}
+\begin{example}
+	If $X'\to X$ is split, then a $\op U_n$-bundle is a vector bundle of rank $n$ on $X$.
+\end{example}
+\begin{definition}[shtuka]
+	We define $\op{Sht}^r_{\op U_n}$ to be the moduli stack parameterizing diagrams
+	\[\mc F_0\to\mc F_1\to\cdots\to\mc F_r\cong\mc F_0^\tau,\]
+	where each $\mc F_\bullet$ is a $\op U_n$-bundle, each arrow is a Hecke modification, and $\mc F_0^\tau$ is the Frobenius pullback.
+\end{definition}
+Here are some grounding remarks about shtukas.
+\begin{remark}
+	There is a ``leg morphism'' $\op{Sht}^r_{\op U_n}\to(X')^r$ recording the points where the Hecke modifications occur. This is analogous to the structure morphism for a Shimura variety. It turns out that this map is smooth of relative dimensino $r(n-1)$. Thus, $\dim\op{Sht}^r_{\op U_n}=rn$.
+\end{remark}
+\begin{example}
+	One has that $\op{Sht}^0_{\op U_n}=\op{Bun}_{\op U_n}k$, so functions on this space are basically unramified automorphic forms.
+\end{example}
+\begin{remark}
+	For $n>1$, the space $\op{Sht}^r_{\op U_n}$ is not quasicompact.
+\end{remark}
+\begin{remark}
+	Taking the fibers over the various Hecke modifications, we produce ``tautological'' line bundles $\mc L_1,\ldots,\mc L_r$ on $\op{Sht}^r_{\op U_n}$.
+\end{remark}
+\begin{remark}
+	It turns out that $\op{Sht}^r_{\op U_n}$ vanishes for odd $r$, but it is not too hard to define a suitable analogue.
+\end{remark}
+We will also want some special cycles. The following definition is due to Feng--Yun--Zhang.
+\begin{definition}
+	Fix a pair $(\mc E,a)$, where $\mc E$ is a vector bundle of rank $m$ on $X'$, and $a\colon\mc E\to\sigma^*\mc E^\lor$ is some Hermitian morphism.  (This is an analogue of a lattice.) Then $(\mc E,a)$ is \textit{non-degenerate} if and only if $a$ is injective. We let $\mc A(m)$ be the moduli stack of non-degenerate pairs.
+\end{definition}
+\begin{definition}
+	Fix a pair $(\mc E,a)$ as before. Then we define the special cycle $Z^r_{\mc E}(a)$ on $\op{Sht}^r_{\op U_n}$ to parameterize diagrams
+	% https://q.uiver.app/#q=WzAsNyxbMiwwLCJcXG1jIEUiXSxbMSwxLCJcXG1jIEZfMSJdLFsyLDEsIlxcY2RvdHMiXSxbMywxLCJcXG1jIEZfciJdLFswLDEsIlxcbWMgRl8wIl0sWzQsMSwiXFxtYyBGXzBeXFx0YXUiXSxbMiwyLCJcXHNpZ21hXipcXG1jIEVeXFxsb3IiXSxbMCw0LCJ0XzAiLDJdLFswLDEsInRfMSJdLFswLDMsInRfciIsMl0sWzAsNSwidF8wXlxcdGF1Il0sWzQsMV0sWzEsMl0sWzIsM10sWzMsNV0sWzQsNl0sWzEsNl0sWzMsNl0sWzUsNl1d&macro_url=https%3A%2F%2Fraw.githubusercontent.com%2FdFoiler%2Fnotes%2Fmaster%2Fnir.tex
+	\[\begin{tikzcd}[cramped]
+		&& {\mc E} \\
+		{\mc F_0} & {\mc F_1} & \cdots & {\mc F_r} & {\mc F_0^\tau} \\
+		&& {\sigma^*\mc E^\lor}
+		\arrow["{t_0}"', from=1-3, to=2-1]
+		\arrow["{t_1}", from=1-3, to=2-2]
+		\arrow["{t_r}"', from=1-3, to=2-4]
+		\arrow["{t_0^\tau}", from=1-3, to=2-5]
+		\arrow[from=2-1, to=2-2]
+		\arrow[from=2-1, to=3-3]
+		\arrow[from=2-2, to=2-3]
+		\arrow[from=2-2, to=3-3]
+		\arrow[from=2-3, to=2-4]
+		\arrow[from=2-4, to=2-5]
+		\arrow[from=2-4, to=3-3]
+		\arrow[from=2-5, to=3-3]
+	\end{tikzcd}\]
+	where the total composite is $a$.
+\end{definition}
+\begin{remark}
+	To see that this is an analogue, imagine that $\mc E$ is a CM elliptic curve, so we are asking for maps to abelian varieties which preserve some structure.
+\end{remark}
+\begin{example}
+	If $a$ is an isomorphism, then taking orthogonal complements shows that $\mc E$ embeds into the shtuka, so $Z^r_{\mc E}(a)\cong\op{Sht}^r_{\op U_{n-m}}$. Even if $a$ is merely generically an isomorphism, then such an isomorphism holds generically.
+\end{example}
+\begin{example}
+	If $a=0$, then there is a natural map ${\op{Sht}^r_{\op U_n}}\subseteq Z^r_{\mc E}[0]$ simply by setting the $t_\bullet$s to vanish.
+\end{example}
+\begin{remark}
+	One expects that $\dim Z^r_{\mc E}(a)=r(n-m)$, though the dimension could be much larger. For example, when $a$ is an isomorphism, equality holds, and when $a=0$, equality does not hold. 
+	Feng--Yun--Zhang have defined virtual fundamental classes $[Z^r_{\mc E}(a)]$ in $\op{CH}_{r(n-m)}Z^r_{\mc E}(a)$.
+\end{remark}
+
+\subsection{The Formulae}
+We will need to define some Eisenstein series.
+\begin{definition}
+	There is a Siegel Eisenstein series $\op{Eis}(g,s)_m$ for $\op U(m,m)$ such that each pair $(\mc E,a)$ (of rank $m$) has a Fourier coefficient $\op{Eis}_{(\mc E,a)}(s)_m$ with a rather technical definition. Our Eisenstein series are normalized so that the center of the functional equation is at $s=0$.
+\end{definition}
+\begin{remark}
+	The Eisenstein series turn out to have explicit combinatorial expansions. For example, if $\coker a$ has length two, then $\op{Eis}_{(\mc E,a)}=q^s\pm q^{-2}$, where the $+$ sign is used if we are split over a split point $x\in X$.
+\end{remark}
+\begin{theorem}[Feng--Yun--Zhang]
+	Fix everything as above, and take $m=n$ and a non-degenerate pair $(\mc E,a)$. Then for all $r\ge0$, we have
+	\[\deg\left[Z^r_{\mc E}(a)\right]\sim\del_{s=0}^r\op{Eis}_{(\mc E,a)}(s)_m.\]
+	Here, $\del_{s=0}^r$ means that we take $r$ derivatives and then evalaute at $0$.
+\end{theorem}
+\begin{theorem}
+	Fix everything as above, and take $m=n-1$ and a non-degenerate pair $(\mc E,a)$. Then for every even $r\ge0$, we have
+	\[\deg\left[Z^r_{\mc E}(a)\right]\cap[\mc L_1]\cap\cdots\cap[\mc L_r]\sim\del_{s=0}^r\left(q^{s\deg\omega_X}\op{Eis}_{(\mc E,a)}(s-1/2)_{n-1}L(\eta,2s)\right).\]
+\end{theorem}
+\begin{remark}
+	There is an analogous statement for $r\ge0$.
+\end{remark}
+\begin{remark}
+	There is some analogous thing known for number fields when $r=1$.
+\end{remark}
+Let's say something about the proofs. The main difficulty in the proof is calculating on the geometric side. One can view the function
+\[(\mc E,a)\mapsto\deg\left[Z^r_{\mc E}(a)\right]\]
+as a $k$-valued function on the moduli stack $\mc A(n)$, so we hope that it arises from a sheaf. (The same holds for the $m=n-1$ case.)
+\begin{definition}[Hitchin]
+	Let $\mc M(m,n)$ be the moduli stack of morphism composites $\mc E\to\mc F\cong\sigma^*\mc F^\lor$ so that the composite
+	\[\mc E\to\mc F\cong\sigma^*\mc F^\lor\to\sigma^*\mc E^\lor\]
+	is injective.
+\end{definition}
+There is a natural projection $\mc M(m,n)\to\mc A(m)$, and it turns out that there is a self-correspondence
+\[\mc M(m,n)\from\mathrm{Hk}^1_{\mc M}(m,n)\to\mc M(m,n).\]
+Thus, we can do cohomology to this correspondence, from which a Lefschetz trace formula for correspondences lets us compute $\deg\left[Z^r_{\mc E}(a)\right]$ as the trace of Frobenius acting via this correspondence. (Again, something similar happens for $m=n-1$.) We now discuss $m=n$ and $m=n-1$ separately.
+\begin{itemize}
+	\item Now, if $m=n$, there is a pullback square
+	% https://q.uiver.app/#q=WzAsNCxbMCwwLCJcXG1jIE0obixuKSJdLFswLDEsIlxcbWMgQShuKSJdLFsxLDEsIlxcb3B7SGVybX0iXSxbMSwwLCJcXG9we0xnfSJdLFswLDNdLFszLDJdLFswLDFdLFsxLDJdXQ==&macro_url=https%3A%2F%2Fraw.githubusercontent.com%2FdFoiler%2Fnotes%2Fmaster%2Fnir.tex
+	\[\begin{tikzcd}[cramped]
+		{\mc M(n,n)} & {\op{Lg}} \\
+		{\mc A(n)} & {\op{Herm}}
+		\arrow[from=1-1, to=1-2]
+		\arrow[from=1-1, to=2-1]
+		\arrow[from=1-2, to=2-2]
+		\arrow[from=2-1, to=2-2]
+	\end{tikzcd}\]
+	where the right arrow can be controlled \'etale-locally. Here, $\mathrm{Herm}$ is the moduli space of Hermitian torsion sheaves, and $\op{Lg}$ parameterizes Langrangians. This allows one to control the fibers of $\mc M(n,n)\to\mc A(n)$.
+
+	\item The case of $m=n-1$ is more difficult. Instead, one factors $\mc M(n-1,n)\to\mc A(n-1)$ through some $\mc A(n-1)\times\op{Bun}_{\op U_1}$, and this factored morpism is a $\left(\PP^1\right)^d$-fibration. It also turns out that this factored map has full support, allowing us to control the fibers.
+\end{itemize}
+
+\section{January 31: Hypergeometric Motives with CM}
+This talk was given by Esme Rosen at Johns Hopkins University for the JHUnior number theory days.
+
+\subsection{Hypergeometric Motives}
+Our modular forms are classical ones. As usual, they have $L$-functions, which have analytic continuation, and they frequently have Euler products, and so on. We will be considering normalized Hecke eigenforms $f$, which also have associated Galois representations $\rho_f$, which are known to come from elliptic curves.
+\begin{definition}[hypergeometric data]
+	Fix $z\in\PP^1(\QQ)\setminus\{0,1,\infty\}$ and two lists of rational numbers denoted $(a_0,\ldots,a_n)$ and $(b_0,\ldots,b_n)$ with $b_0=1$. Set $M$ to be their least common multiple. Then there is a hypergeometric motive defined over $\QQ(\zeta_M)$ related to classical hypergeometric functions
+	\[_{n+1}F_n\begin{bmatrix}
+		a_0 & \cdots & a_n & z \\
+		b_0 & \cdots & b_n
+	\end{bmatrix}=\sum\frac{(a_0)!\cdots(a_n)!}{(b_0)!\cdots(b_n)!}z^\bullet.\]
+	The associated hypergeometric functions give rise to the periods of the motives.
+\end{definition}
+\begin{example}
+	The data $((1/2,1/2),(1,1))$ gives rise to the Legendre family of elliptic curves $y^2=x(1-x)(1-zx)$.
+\end{example}
+\begin{example}
+	The data $((1/2,1/2,1/2),(1,1,1))$ gives rise to a family of $K3$ surfaces, which are known to be modular at the CM points. These are symmetric powers of elliptic curves. One expects these to be associated to weight $3$ modular forms.
+\end{example}
+\begin{example}
+	Let's construct the hypergeometric motives for $_2F_1$s; the general case is not too much harder. Start with the normalization $X_{\mathrm{HD}}$ of the curve
+	\[Y^M=X^i(1-X)^j(1-zX)^k\]
+	for some $i,j,k<M$ with $i+j+k\nmid M$. There is a standard $\gamma$ whose period is some quotient of $\Gamma$s along with a $_2F_1$ value. By diagonalizing the $\mu_M$ action on $X_{\mathrm{HD}}$, we can decompose the motive $X_{\mathrm{HD}}$. (For example, this certainly produces an absolute Hodge cycle.)
+\end{example}
+\begin{remark}
+	There are finite field versions of our hypergeometric series, basically obtained by replacing $\Gamma$s with some Gauss sums. Katz has shown that there are Galois representations whose traces are the correct hypergeometric sums over finite fields.
+\end{remark}
+Classical work in this de Rham realization has found that certain periods of modular forms (which are essential special values of the $L$-function) can be expressed as certain hypergeometric series. There is also work in the \'etale realization, expressing certain traces of Galois representations.
+
+\subsection{Some Theorems}
+Here is a main theorem.
+\begin{theorem}
+	There is explicit modularity for some hypergeometric motives of the type
+	\[((1/2,1/2,r),(1,1,s)),\]
+	where $(r,s)$ are some explicit pairs of rational numbers.
+\end{theorem}
+For another application, we consider Fermat motives. Fermat motives have complex multiplication, which means that their Galois representations are induced from Hecke characters. The periods of motives with CM by an imaginary quadratic field $\QQ(\sqrt{-D})$ are known by the Chowla--Selberg formula.
+\begin{remark}
+	Fermat motives arise in our story because they are $_2F_1(1)$ motives, which notably appear in the cohomology of Fermat curves. The associated Hecke characters are some Jacobi sums; we then take induction to get the associated modular form.
+\end{remark}
+\begin{theorem}
+	For many of these hypergeometric motives, one can descend the Galois representations from $\QQ(\zeta_M)$ to $\QQ(\sqrt{-D})$ for some explicit $D$.
+\end{theorem}
+In fact, the theory of complex multiplication now allows us to compute some special values.
+
+\section{January 31: Finiteness of Heights of Motives}
+This talk was given by Alice Lin at Johns Hopkins University for the JHUnior number theory days.
+
+\subsection{Our Statement}
+We are going to be interested in heights today. Here is one such example.
+\begin{theorem}[Faltings]
+	Fix $g\ge1$, a number field $F$, and a finite set $S$ of finite places. Then there are finitely many isomorphism classes of $g$-dimensional abelian varieties $A$ over $F$ with good reduction outside $S$.
+\end{theorem}
+\begin{proof}[Sketch]
+	The proof has two steps.
+	\begin{enumerate}
+		\item Show that there are only finitely many isogeny classes.
+		\item Show that each isogeny class has only finitely many isomorphism classes. This is done basically by understanding how the Faltings height changes along isogenies.
+		\qedhere
+	\end{enumerate}
+\end{proof}
+The second step has been better understood recently.
+\begin{theorem}[Kisin--Mocz]
+	Assume the Mumford--Tate conjecture for an abelian variety $A$ over a number field $F$. Then for any $cf>0$, the set of abelian varieties $B$ over $\ov\QQ$ isogenous to $A$ (over $\ov\QQ$) with Faltings height at most $c$.
+\end{theorem}
+\begin{remark}
+	Unlike in Faltings's situation, the set of abelian varieties $B$ (with unbounded Faltings height) is infinite.
+\end{remark}
+\begin{remark}
+	Recall that the Mumford--Tate conjecture asserts that the Mumford--Tate group agrees with the (connected component of the) $\ell$-adic monodromy group. Here, the Mumford--Tate group is the Tannakian algebraic group of $\mathrm H^1_{\mathrm B}(A(\CC);\QQ)$ in the category of Hodge structures, and the $\ell$-adic monodromy group is the Zariski closure of the Galois representation. The Mumford--Tate conjecture is wide open in the general case, but a lot is known.
+\end{remark}
+Here is our result, with definitions to follow.
+\begin{theorem}
+	Let $M$ be a Koshikawa motive defied over $F$, and assume the following.
+	\begin{itemize}
+		\item The adelic Mumford--Tate conjecture holds for $M$.
+		\item All Hodge classes are absolutely Hodge and compatible with \'etale--de Rham comparison maps.
+	\end{itemize}
+	Then for any $c>0$, the set of motives $M'$ equipped with an isogeny $M'\to M$ with height at most $c$ has only finitely many possible heights.
+\end{theorem}
+\begin{remark}
+	The second hypothesis is true for abelian varieties, due to Deligne and Blasius.
+\end{remark}
+\begin{remark}
+	If $\op{MT}(M)$ acts irreducibly, then we can achieve only finitely many isomorphism classes.
+\end{remark}
+\begin{corollary}
+	Fix a point $x$ on a Shimura variety $\op{Sh}(G,X)(F)$. Suppose that the Galois representation
+	\[\rho_x\colon\op{Gal}(\ov F/F)\to G(\AA_f)\]
+	has open image (so that the adelic Mumford--Tate conjecture holds). Then for any $c>0$, there are only finitely many $\ov F$-points in the Hecke orbit with height at most $c$.
+\end{corollary}
+Notably, this result is known due to Kisin--Mocz in the Hodge type case.
+
+\subsection{Explanation of the Theorem}
+Let's start by defining our motives.
+\begin{definition}[Koshikawa motive]
+	A \textit{Koshikawa (pure) motive} $M$ over a number field $F$ with weight $w$ is (roughly) a system of cohomological realizations, equipped with a $\widehat{\ZZ}$-integral Galois stable structure on the adelic \'etale realization. More precisely, we take
+	\begin{itemize}
+		\item A system of cohomological realizations: all the Betti cohomology realizations for each embedding $F\into\CC$, the de Rham cohomology, all the $\ell$-adic cohomology realizations, and
+		\item A lattice: such as the $\widehat{\ZZ}$-coefficients \'etale cohomology.
+	\end{itemize}
+\end{definition}
+\begin{definition}[isogeny]
+	An isogeny $M'\to M$ of Koshikawa motives is a Galois-stable inclusion of the underlying integral lattices.
+\end{definition}
+\begin{remark}
+	This is analogous to the fact that an isogeny of abelian varieties amounts to the data of an embedding of the (adelic) Tate modules.
+\end{remark}
+We also need to define our height.
+\begin{definition}[Kato--Koshikawa]
+	Fix a Koshikawa motive $M$, and set
+	\[V\coloneqq\bigotimes_{r\in\ZZ}{\det}_F\left(\op{gr}^rM_{\mathrm{dR}}\right)^{\otimes r}.\]
+	Then integral $p$-adic Hodge theory provides an $\mathcal O_{F_v}$-lattice in $V\otimes_FF_v$ arising from the $\widehat{\ZZ}$-lattice; these assemble into an $\mathcal O_F$-lattice $\mc L\subseteq V$. Then we define the height
+	\[h(M)=\frac1{[F:\QQ]}\left(\log\#\left(\frac{\mc L}{\OO_F\alpha}\right)-\sum_{\sigma\colon F\into\CC}\log\norm\alpha_\sigma\right).\]
+\end{definition}
+\begin{example}
+	When $M=\mathrm H^1(A)$, we find $V=\det\mathrm H^0(A;\Omega^1)=\mathrm H^0(A;\Omega^g_{A/F})$. The integral $p$-adic Hodge theory can be replaced with the N\'eron model $\mc A$ over $\OO_F$, allowing us to take $\mc L=\mathrm H^0(\mc A;\Omega^g_{\mc A/\OO_F})$. The height is then exactly the Faltings height.
+\end{example}
+Roughly speaking, the proof boils down to an isogeny formula for how our height changes in isogenies. The Mumford--Tate conjecture (and other inputs) are used in order to move the integral $p$-adic Hodge theory out into more controlled cohomology theories.
 
 \end{document}
