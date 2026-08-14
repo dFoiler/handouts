@@ -1,0 +1,1425 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+
+\newcommand{\nirpdftitle}{Gross--Zagier at 40}
+\usepackage{import}
+\inputfrom{../../notes}{nir}
+% \usepackage[backend=biber,
+%     style=alphabetic,
+%     sorting=ynt
+% ]{biblatex}
+% \addbibresource{bib.bib}
+\setcounter{tocdepth}{2}
+
+\pagestyle{contentpage}
+
+\title{The Gross--Zagier Formula, 40 Years Later}
+\author{Nir Elber}
+\date{August 2026}
+\usepackage{graphicx}
+\lhead{}
+\rhead{\textit{GROSS--ZAGIER AT 40}}
+
+\begin{document}
+
+\maketitle
+
+\tableofcontents
+
+\section{From Euclid to Gross--Zagier}
+This talk was given by Show-Wu Zhang. This talk will not have much mathematics.
+
+\subsection{The Congruent Number Problem}
+Here is a motivating question.
+\begin{ques}[Congruent number]
+	Classify triples $(a,b,c)$ of rational numbers such that the right triangle with side lengths $a$, $b$, and $c$ and hypothenuse $c$ has integral area $n$. Which integers $n$ are possible?
+\end{ques}
+This question has been studied for thousands of years. For example, Euclid parameterized the rational triples $(a,b,c)$.
+\begin{example}
+	Fibonacci showed that $5$, $6$, and $7$ are all congruent numbers.
+\end{example}
+\begin{example}
+	Fermat showed that $1$, $2$, and $3$ are not congruent numbers, using his method of infinite descent.
+\end{example}
+Essentially, using Euclid's parameterization, one finds that $n$ is a congruent number if and only if there is an integer triple $(u,v,w)$ such that
+\[n=\frac{uv\left(u^2-v^2\right)}{w^2}.\]
+A change of variables shows the following.
+\begin{lemma}
+	A positive integer $n$ is a congruent number if and only if the elliptic curve
+	\[E_n\colon ny^2=x^3-x\]
+	admits a rational point $(x,y)$ with $y\ne0$.
+\end{lemma}
+Thus, we see that we are interested in showing that $E_n(\QQ)\setminus E_n[2]$ is nonempty. In fact, one can show that $E_n[2]$ is the full torsion group, from which we deduce the following from the Mordell--Weil theorem.
+\begin{proposition}
+	A positive integer $n$ is a congruent number if and only if the group $E_n(\QQ)$ has positive rank.
+\end{proposition}
+\begin{example}
+	Heegner showed that primes $p$ satisfying $p\equiv5,7\pmod8$ are congruent numbers. He applied the theory of complex multiplication to the elliptic curve $E_n$ to produce these rational points.
+\end{example}
+\begin{remark}
+	Heegner was a German high school teacher. He is also known for (essentially) resolving Gauss's class number one problem.
+\end{remark}
+
+\subsection{\texorpdfstring{$L$}{L}-Functions}
+The Gross--Zagier formula will relate the height of a Heegner point with the derivative of an $L$-function. We have already mentioned something about Heegner's point, so we now discuss $L$-functions.
+\begin{example}
+	The story of $L$-functions began with Euler, who used Riemann's $\zeta$-function
+	\[\zeta(s)\coloneqq\sum_{n=1}^\infty\frac1{n^s}=\prod_p\frac1{1-p^{-s}}\]
+	to prove there are infinitely many primes.
+\end{example}
+\begin{example}
+	Dirichlet used the $L$-functions
+	\[L(s,\chi)\coloneqq\sum_{n=1}^\infty\frac{\chi(n)}{n^s},\]
+	where $\chi\colon(\ZZ/N\ZZ)^\times\to\CC^\times$ is some character, in order to prove there are infinitly many primes in arithmetic progressions. Dirichlet also proved the class number formula on the special value $L(1,\chi)$.
+\end{example}
+One can associate an $L$-function to an elliptic curve, and Gross--Zagier proved their formula for modular elliptic curves over $\QQ$. Later, a team of many mathematicians would prove that all elliptic curves over $\QQ$ are modular.
+
+\subsection{The Formula}
+The motivation for our discussion is the following.
+\begin{conj}[Birch--Swinnerton-Dyer]
+	For an elliptic curve $E$ over $\QQ$, one has
+	\[\op{rank}E(\QQ)=\op{ord}_{s=1}L(E,s).\]
+\end{conj}
+Roughly speaking, a positive resolution of the conjecture would allow us to algorithmically compute $E(\QQ)$.
+
+For example, if $L(E,1)=0$, then we should be able to find a point giving positive rank. Heegner proposed a way to find such points: given that $E$ is modular, modularity provides a surjection $X_0(N)\to E$, so it suffices to find points on $X_0(N)$. Well, $X_0(N)$ has some distinguished CM points, which is what provides our Heegner points.
+
+Relating this to $L$-functions yields the formula.
+\begin{theorem}[Gross--Zagier]
+	Under a Heegner condition, one has
+	\[\hat h(P)\simeq L'(E,1),\]
+	where the implied constant is explicit (and nonzero).
+\end{theorem}
+Thus, if $L'(E,1)\ne0$, one sees that $P$ is a point of positive rank! Kolyvagin was able to extend these ideas to prove the Birch--Swinnerton-Dyer conjecture in analytic ranks zero and one.
+\begin{remark}
+	Goldfeld has also used the Gross--Zagier formula to show that $\#\op{Cl}\QQ(\sqrt{-D})\to\infty$ as $D\to\infty$.
+\end{remark}
+\begin{remark}
+	Generalizations of the Gross--Zagier formula use heights of special cycles on Shimura varieties (instead of heights of Heegner points). Yun--Zhang managed to compute higher derivatives over function fields.
+\end{remark}
+
+\section{Refined Singular Moduli Through \texorpdfstring{$p$}{p}-Adic Deformations}
+This talk was given by Michael Daas.
+
+\subsection{Another Gross--Zagier Formula}
+Recall the following main theorem of complex multiplication.
+\begin{theorem}
+	Fix an imaginary quadratic field $K$. Choose an elliptic curve $E$ with complex multiplication by $\OO_K$. Then $K(j(E))$ is the Hilbert class field of $K$.
+\end{theorem}
+It is well-understood that $j(E)$ is highly smooth when $K$ has class number one. In fact, even the differences have remarkable factorizations.
+\begin{theorem}[Gross--Zagier] \label{thm:gz-singular-moduli}
+	Fix elliptic curves $E_1$ and $E_2$ with complex multiplication by maximal orders of coprime discriminants $D_1$ and $D_2$ with Hilbert class fields $H_1$ and $H_2$ (respectively). Then
+	\[\op N_{H_1H_2/\QQ}(j(E_1)-j(E_2))=\prod_{x<\sqrt D}\mc F\left(\frac{D-x^2}4\right),\]
+	where $\mc F(n)$ is always either a power of prime dividing $n$ or $1$.
+\end{theorem}
+We are interested in generalizing this formula of Gross--Zagier.
+
+Throughout today, we choose coprime fundamental negative discriminants $D_1$ and $D_2$. Define $K_i\coloneqq\QQ(\sqrt{D_i})$ for each $i$ and $F\coloneqq\QQ(\sqrt{D_1D_2})$ where $D\coloneqq D_1D_2$. We also set $L\coloneqq K_1K_2$. We also define $\chi$ to be the Dedekind character on ideals given by the extension $L/F$.
+\begin{proof}[Sketch of \Cref{thm:gz-singular-moduli}]
+	It is equivalent to show
+	\[\log\op N_{H_1H_2/\QQ}(j(E_1)-j(E_2))=\sum\chi(I)\log\op N(I)\]
+	for some sum over ideals $I$. It turns out that the right-hand side is the diagonal restriction of the weight-$k$ Hilbert Eisenstein series attached to the trivial character $1$ and $\chi$. One can show that the holomorphic projection of the derivative of this Eisenstein series must vanish. On the other hand, computing the Fourier coefficients produces (which must in total vanish) yields the proof.
+\end{proof}
+
+\subsection{Working at \texorpdfstring{$p$}{p}}
+We are interested in retelling this story for Shimura curves. For today, one can think about Shimura curves $X_N$ as quotients of $\mc H$ by the action of the unit group $B^\times$ where $B$ is an indefinite quaternion algebra of discriminant $N$. This produces a complex uniformization of what turns out to be an algebraic curve $X_N$. If $N\in\{6,10,22\}$, then $X_N$ has genus zero, so there is an isomorphism $j_N\colon X_N\to\PP^1$, which will be our analogue of the $j$-function.
+
+We are interested in working $p$-adically. Here is a $p$-adic uniformization.
+\begin{theorem}[\v{C}erednik--Drinfeld]
+	Let $B$ be a definite quaternion algebra with discriminant $M$ with $p\nmid M$, and choose $R\subseteq B$ to be a maximal order. Then the quotient of $\mc H_p$ by $\Gamma\coloneqq R[1/p]_1$ is isomorphic (as a rigid space) to $X_{M_p}(\CC_p)$.
+\end{theorem}
+We are interested in writing down the functions $j_N$.
+\begin{notation}
+	Define
+	\[\Theta(w_1,w_2;z)\coloneqq\prod_{\gamma\in\Gamma}\frac{z-\gamma w_1}{z-\gamma w_2}.\]
+\end{notation}
+This function $\Theta$ descends to $\Gamma\setminus\mc H_p$ with divisor $[w_1]-[w_2]$. Thus, there is a constant $c(w_1,w_2)\in\CC_p$ for which
+\[\Theta(w_1,w_2;z)=c(w_1,w_2)\cdot\frac{j_N(z)-j_N(w_1)}{j_N(z)-j_N(w_2)}.\]
+To get rid of the constant, we can evaluate both sides at some points. We will take some singular moduli $\tau_1$ for $w_1$ and its Galois conjugate for $w_2$. We see
+\[\frac{j_N(\tau_2)-j_N(\tau_2)}{j_N(\tau_2)-j_N(\tau_1')}\cdot\frac{j_N(\tau_2')-j_N(\tau_N')}{j_N(\tau_2')-j_N(\tau_1)}=\prod_{\gamma\in\Gamma}\frac{\tau_2-\gamma\tau_1}{\tau_2-\gamma\tau_1'}\cdot\frac{\tau_2'-\gamma\tau_1'}{\tau_2'-\gamma\tau_1}.\]
+Call this number $\Theta(z_1,z_2)$. One can now conjecture something similar to \Cref{thm:gz-singular-moduli}.
+\begin{conj}
+	One has
+	\[\op N_{H_1H_2/\QQ}\Theta(z_1,z_2)=\prod_{x<\sqrt D}\mc F\left(\frac{D-x^2}{4N}\right)^{\delta(x)}.\]
+\end{conj}
+This was proven by Daas in his thesis.
+\begin{remark}
+	There is motivation arising from explicit class field theory for totally real fields. Roughly speaking, one wants to pass from having an inert place at $\infty$ (for CM fields) to having an inert place at some finite prime $p$ for real fields. Thus, we want everything to work $p$-adically. Instead of studying $\mathrm H^0(\op{SL}_2(\ZZ[1/p]),\mc M_p^\times)$, which has only constants, one turns to studying $\mathrm H^1(\op{SL}_(\ZZ[1/p]),\mc M_p^\times)$ which look like singular moduli! Tracking this discussion through finds that we want to understand some algebraicity results of this singular moduli without knowing in advance that they come from geometry.
+\end{remark}
+Here is the main thesis result.
+\begin{theorem}[Daas]
+	Define $\Theta_p$ to be
+	\[\prod_{\gamma\in\Gamma}\frac{\tau_2-\gamma\pi\tau_1}{\tau_2-\gamma\pi\tau_1'}\cdot\frac{\tau_2'-\gamma\pi\tau_1'}{\tau_2'-\gamma\pi\tau_1}.\]
+	Then
+	\[\prod_{c_i\in\op{Pic}K_i}\frac{\Theta(c_1\tau_1,c_2\tau_2)}{\Theta_p(c_1\tau_1,c_2\tau_2)}\]
+	admits a factorization.
+\end{theorem}
+Thus, if $K_1$ and $K_2$ have class number one, the quotient is rational. One expects that the numerator and denominator already belong to $F$. The idea of the proof follows Zagier. There is something interesting necessarily going on because we had to take a derivative in the proof by Zagier. When working $p$-adically, this requires us to have a family of $p$-adic cusp forms, which requires us to think about deformations. This defomation is exhibited on the level of $p$-adic Galois representations; one returns from Galois representations to cusp forms via an $R=T$ theorem.
+\begin{remark}
+	Daas ended the talk by explaining what can be done if $K_1$ has trivial class group and $K_2$ has class number two.
+\end{remark}
+It seems that one can get pretty nice algebraicity results (or at least evidence) on ``rigid cycles'' in this manner, via deformations.
+
+\section{The \texorpdfstring{$p$}{p}-Adic Gross--Zagier Formula, 39 Years Later}
+This talk was given by Daniel Disegni.
+
+\subsection{The Formula}
+Our story begins one year after the paper of Gross and Zagier. Throughout, fix an elliptic curve $E$ over a quadratic imaginary field $K$. Choose an odd prime $p$ satisfying the following Heegner hypotheses: each $v\mid N_E$ split in $K$, $p$ has good ordinary reduction for $E$, and $p$ is split in $K$.
+\begin{theorem}[Perrin-Riou]
+	Fix notation as above.
+	\begin{listalph}
+		\item There is a $p$-adic $L$-function for $E$. Set $\Gamma_\QQ\coloneqq\op{Gal}(\QQ(\mu_{p^\infty})/\QQ)$, which is isomorphic to $\ZZ_p^\times$. Then there is a bounded analytic function $L_p\colon\widehat{\Gamma}_\QQ\to\CC_p$ such that
+		\[L_p(E_K,\chi)=e_p(E_K,\chi)\frac{L(E_K\otimes\chi,1)}{\Omega_{E/K}}\]
+		for each finite-order character $\chi$, where $e_p(E_K,\chi)$ is some local factor at $p$.
+		\item Let $z_E$ be a Heegner point in $E(K)$. Then the $p$-adic height of $z_E$ is $e_p(E_K,1)^{-1}L_p'(E_K,1)$.
+	\end{listalph}
+\end{theorem}
+\begin{remark}
+	There is a complicated definition of the $p$-adic height, given as a sum of local heights, following N\'eron.
+\end{remark}
+\begin{remark}
+	One can use this to prove a $p$-adic variant of the Birch--Swinnerton-Dyer conjecture for analytic ranks $0$ and $1$. It appears that Selmer groups have difficulty appearing in higher rank variants of the Gross--Zagier formula, but one does not have this issue for the $p$-adic versions.
+\end{remark}
+\begin{remark}
+	One can combine the $p$-adic Gross--Zagier formula with the classical one (along with some other inputs) in order to prove something about the $p$-part of the formula in the Birch--Swinnerton-Dyer conjecture.
+\end{remark}
+\begin{proof}[Sketch]
+	Let $f$ be the modular form attached to $E$. To construct the $p$-adic $L$-function, we note
+	\[\frac{L(E_K\otimes\chi,1)}{\Omega_{E,K}}\simeq\frac{\langle f,I(\chi)\rangle}{\langle f,f\rangle},\]
+	where $\simeq$ adds in some purely local zeta factors to the left, and $I(\chi)$ is related to a $p$-adic Eisenstein series. Following Hida, one can construct a family of modular forms $\mc I(\chi)$ interpolating the $p$-adic Eisenstein series. One then defines
+	\[L_p(E_K,\chi)\coloneqq\langle f^{\mathrm{ord}},\mc I(\chi)\rangle,\]
+	where the pairing is some interpolation of the Petersson inner product.
+
+	It remains to show (b). Using some Kolyvagin system property of the Heegner points, one finds that
+	\[h(z_E^{\mathrm{ord}})=\langle f^{\mathrm{ord}},Z\rangle,\]
+	where $Z$ is some formal power series in heights of $z_E$. Thus, it remains to relate $Z$ to $\mc I'(1)$. Because $Z$ is related to $p$-adic heights, it equals a sum of local heights. Similarly, because $\mc I$ is a product, $\mc I'(1)$ equals a sum of local factors. The remaining calculation is purely local; at primes away from $p$, one can follow the arguments of Gross--Zagier, and at primes dividing $p$, one has to make some explicit argument on the heights.
+\end{proof}
+\begin{remark}
+	In modern times, one can remove the Heegner hypotheses.
+	\begin{itemize}
+		\item Removing the hypothesis that $p$ is split is mostly technical. The height arguments at places dividing $p$ are more complicated.
+		\item Removing the hypothesis that $p$ is ordinary faces similar technical difficulties.
+		\item Removing the hypothesis that $p$ has good reduction has one of two cases. For example, it is possible that the first derivative vanishes, and one needs to pass to a second derivative.
+	\end{itemize}
+	Combining ways to remove hypotheses remains an active area of research.
+\end{remark}
+\begin{remark}
+	There are $p$-adic Gross--Zagier formulae beyond elliptic curves to more general Galois representations or automorphic representations. For example, there is a $p$-adic relative trace formula.
+\end{remark}
+
+\section{Modular Generating Series for Rigid Cocycles}
+This talk was given by Alice Pozzi. It is joint work with Ludwig, Negrina, Roenstajn, and Wiersema.
+
+\subsection{Motivation}
+We are interested in an ``equivariant'' version of the Birch--Swinnerton-Dyer conjecture for the pair of an elliptic curve $E$ over $\QQ$ and an Artin representation $V$. In the end, we hope to have an analogue of the theory of complex multiplication (e.g., singular moduli) for real quadratic fields.
+\begin{definition}[rigid theta cocycle]
+	Define $\mc H_p\coloneqq\PP^1(\CC_p)\setminus\PP^1(\QQ_p)$, and let $\mc A$ be the algebra of rigid analytic functions on $\mc H_p$. We also set $\Gamma\coloneqq\op{SL}_2(\ZZ[1/p])$, which has a natural action on $\mc H_p$. Then a \textit{rigid theta cocycle} is an element of
+	\[\mathrm H^1(\Gamma;\mc A^\times/\CC_p^\times).\]
+\end{definition}
+\begin{remark}
+	Here is one way to motivate this definition: classical modular forms live on $\op{SL}_2(\ZZ)\backslash\mc H$. Thus, we may expect to be looking for functions on $\op{SL}_2(\ZZ[1/p])\backslash\mc H_p$, but the action by $\op{SL}_2(\ZZ[1/p])$ is not discrete, so the only available functions are constant. To fix this problem, we pass to cohomology in one degree higher. Another way to find these cocycles is by trying to understand invariant functions on the quotient of $\mc H\times\mc H_p$ by a suitable action.
+\end{remark}
+\begin{remark}
+	One can still view these cocycles $J_\bullet\in\mathrm H^1(\Gamma;\mc A^\times/\CC_p^\times)$ as having values on real quadratic points $z\in\mc H_p$: simply define $\gamma_z$ to be a generator of the stabilizer of $z$ in $\Gamma$, and then we can take our value to be $J_{\gamma_z}(z)$.
+\end{remark}
+\begin{remark}
+	Suppose that $E$ is an elliptic curve over $\QQ$ with prime conductor $p$. Given a real quadratic field $K$ with discriminant $D$ prime to $p$ and a character $\chi\colon\op{Pic}K\to\CC^\times$, one has
+	\[L(E/K,\chi,s)=L(E,\op{Ind}_K^\QQ\chi,s)\]
+	has sign of the functional equation forcing a vanishing if $p$ is inert in $K$. Conjecturally, one can then find a ``Heegner'' $P_\tau$ point on $E$ by passing the output of a certain cocycle $J_E$ on real quadratic $\tau\in\mc H_p$ through the Tate uniformization $\CC_p^\times/q_E^\ZZ\cong E(\CC_p)$. Namely, Darmon conjectured that $P_\tau\in E(H)$, where $H$ is the Hilbert class field of $K$ and has some $\chi$-invariance.
+\end{remark}
+
+\subsection{Modular Generating Series}
+We now introduce our modular generating series. Let's recall the classical story. Again, let $E$ be an elliptic curve with conductor $p$, associated to a modular form $f$. We fix a quadratic field $K$ of discriminant $D$ satisfying the Heegner hypothesis $\left(\frac Dp\right)=1$. We also fix a character $\chi$ on $\op{Pic}K$.
+
+In the classical story with $D<0$, there is a Heegner divisor $c_\chi\in\op{Jac}(X_0(p))(H)_\CC$. Our replacement with $D>0$ is a Heegner cycle $c_\chi\in\mathrm H_1(X_0(p);\CC)$. Now, Gross--Zagier are able to show that the generating series
+\[G_{\chi_1,\chi_2}(q)\coloneqq\sum_{n=1}^\infty\langle c_{\chi_0},T_nc_{\chi_1}\rangle q^n\]
+lies in $S_2(\Gamma_0(p))$; here, $T_n$ is the $n$th Hecke correspondence, and the pairing is some intersection pairing.
+
+There is a similar result when $K_1$ and $K_2$ are both real quadratic.
+\begin{theorem}
+	Fix set-up as above for real quadratic fields $K_1$ and $K_2$. Suppose that $\left(\frac{D_1}p\right)=1$ so that we can find some $J_{\chi_1}\in\mathrm H^1(\Gamma;\mc A^\times/\CC_p^\times)$. Further, suppose $\left(\frac{D_2}p\right)=-1$ so that $c_{\chi_1}$ is some divisor on $\mc H_p$. Then we can form
+	\[G_{\chi_1,\chi_2}(q)\coloneqq\sum_{n=1}^\infty\log_p\left(T_nJ_{\chi_1}(c_{\chi_2})\right)q^n.\]
+	This series is in $S_2(\Gamma_0(p))$. In fact, if $f$ is a normalized cupsidal newform, then the $f$-coefficient $\lambda_f$ of $G_{\chi_1,\chi_2}(q)$ is proportional to $L(E/K_1,\chi_2,s)^{1/2}\log_pP_{\chi_2}$.
+\end{theorem}
+\begin{remark}
+	Let's quickly explain how $J_{\chi_1}$ is defined. Take $\chi_1=1$ for simplicity. We are hunting for a function $\Gamma\to\mc A^\times$ with some translation properties. We use
+	\[J_1(\gamma)(z)\coloneqq\prod_Q(?)\left(\frac{z-z_Q}{z-z_Q'}\right)^{d(Q)},\]
+	where $z_Q$ and $z_Q'$ are the roots of the quadratic form $Q$, where $Q$ has discriminant $Dp^\bullet$, and $d(Q)$ is some exponent related to the intersection of some geodesics in $\mc H$. Notably, there is some archimedean input here because $d(Q)$ is defined with $\mc H$!
+\end{remark}
+\begin{remark}
+	The series $G_{\chi_0,\chi_1}$ knows about the equivariant Birch--Swinnerton-Dyer conjecture for the pair $(E,V)$ where $V$ is the Artin representation $\op{Ind}^\QQ_{K_1}\chi_1\oplus\op{Ind}^\QQ_{K_2}\chi_2$. There is a variety of results one can achieve in this set-up with a pair of quadratic fields.
+\end{remark}
+
+\section{Automatic Convergence and Applications}
+This talk was given by Aaron Pollack.
+
+\subsection{Automatic Convergence of \texorpdfstring{$\op{Sp}_4$}{ Sp4}}
+Fix a reductive group $G$ of rank at least two. Then there are at least two conjugacy classes of maximal parabolic subgroups, so an automorphic form has two Fourier expansions. Automatic convergence is the idea that writing down Fourier expansions which satisfy certain symmetries required of an automorphic form actually produce automorphic forms.
+
+Today, we work with Siegel modular forms, which are higher-rank analogues of modular forms. We will work with level $\Gamma=\op{Sp}_{2n}(\ZZ)$ throughout. Siegel modular forms $f$ admit Fourier expansions
+\[f(Z)=\sum_{T\ge0}a_f(T)e^{2\pi i\tr TZ},\]
+where $T$ varies over nonnegative-definite symmetric matrices.
+\begin{remark}
+	It turns out that $a_f(\gamma^\intercal T\gamma)=a_f(T)$; indeed, one can see this directly from the automorphy. This is an example of a symmetry condition on the Fourier coefficients.
+\end{remark}
+We now take $n=2$.
+\begin{remark}[Pollack]
+	At the end of the talk, we will be in $E_8$.
+\end{remark}
+\begin{notation}
+	For a Siegel modular form $f$, we define
+	\[h_{m,\mu}(D)\coloneqq a_f(T),\]
+	where $T=\begin{bsmallmatrix}
+		m & \mu/2 \\ \mu/2 & *
+	\end{bsmallmatrix}$ has determinant $D/4$.
+\end{notation}
+\begin{remark}
+	It turns out that $\sum_Dh(D)q^D$ is a modular form of prescribed weight $\ell-1/2$ (where $\ell$ is the weight of $f$).
+\end{remark}
+We are now able to state some automatic convergence result.
+\begin{definition}
+	A function $A\colon\frac12M_2(\ZZ)\to\CC$ is a \textit{formal modular form} if and only if it satisfies the following.
+	\begin{itemize}
+		\item $A(T)$ is supported on $T\ge0$.
+		\item $A(\gamma^\intercal T\gamma)=A(T)$ for $\gamma\in\op{SL}_2(\ZZ)$.
+		\item For each $m$ and $\mu$, the series
+		\[\sum_{D\ge0}h(D)q^D\]
+		is the Fourier expansion of a modular form in $M_{\ell-1/2}(\Gamma_0(4m))$.
+	\end{itemize}
+	Let $M_\ell^f(\Gamma)$ be the space of all $A$.
+\end{definition}
+Notably, $A$ has no requirements on growth!
+\begin{theorem}
+	The embedding $M_\ell(\Gamma)\to M_\ell^f(\Gamma)$ given by taking Fourier coefficients is an isomorphism.
+\end{theorem}
+\begin{remark}
+	Convergence is the main point: as soon as we have some growth requirement on $A(T)$, the series
+	\[f(Z)=\sum_TA(T)e^{2\pi i\tr TZ}\]
+	automatically has symmetries by the Siegel parabolic and Klingen parabolic, which yields the total symmetry automatically.
+\end{remark}
+\begin{proof}[Sketch]
+	One inducts on $\det T$. The idea is to use reduction theory to force the top-left entry of $T$ to be small, and then we can use the modular form requirement to propagate smallness from small coefficients to large ones (using a Sturm bound).
+\end{proof}
+\begin{remark}
+	There are generalizations to many other groups by many people.
+\end{remark}
+
+\subsection{Automatic Convergence in General}
+Now, let $G$ be a reductive group over $\QQ$, and choose a parabolic subgroup $P\subseteq G$ with Levi decomposition $P=MN$. Choose some character $\chi\colon[N]\to\CC^\times$ and an automorphic form $\varphi$. One way to get a symmetry of the Fourier coefficients is by integrating against $\chi$.
+
+Our Fourier--Jacobi coefficients are defined using
+\[\theta_\varphi(h)=\sum_{\xi\in X(\QQ)}(\omega_\psi(h)\phi)(\xi),\]
+where $\phi\colon[Z]\to\CC^\times$ is a non-degenerate character, where $Z$ is the commutator of some unipotent radical of another parabolic subgroup $Q=LV$. Integration against $\theta_\varphi$ produces the Fourier--Jacobi coefficients, which are automorphic forms on $L'\coloneqq\op{Stab}\psi$.
+\begin{theorem}
+	The natural map sending automorphic forms to families of Fourier--Jacobi coefficients satisfying lower-rank automorphy satisfies automatic convergence.
+\end{theorem}
+The proof is similar to our argument for $\op{Sp}_4$.
+\begin{remark}
+	Pollack ended the talk by providing an automatic convergence result for quaternionic modular forms. As an application, one can show that quatenrionic modular forms have a basis with algebraic coefficients: an automatic convergence result allows one to pass to lower-rank groups, where the result is already known!
+\end{remark}
+\begin{idea}
+	Wei Zhang suggested that one can use automatic convergence to prove modularity of special cycles in Chow groups.
+\end{idea}
+
+\section{Arithmetic Siegel--Weil Formula}
+This talk was given by Chao Li.
+
+\subsection{The Hurwitz Class Number Formula}
+This talk is a survey of Kudla's program, focusing on the Siegel--Weil formula.
+\begin{definition}[Hurwitz class number]
+	Fix a positive integer $D$. Then the \textit{Hurwitz class number} $H(D)$ is the weighted size of quadratic forms of discriminant $-D$.
+\end{definition}
+Here, the weighting is taking a quotient by the size of the stabilizer.
+\begin{example}
+	We have $H(3)=1/3$ due to the single form $x^2+xy+y^2$ with stabilizer of size three.
+\end{example}
+These numbers satisfy the following recurrence.
+\begin{theorem}[Hurwitz]
+	Fix a positive integer $m$ which is not a perfect square. Then
+	\[\sum_{\substack{t\in\ZZ\\4m-t^2>0}}H\left(4m-t^2\right)=\sum_{dd'=m}\max\{d,d'\}.\]
+\end{theorem}
+\begin{proof}[Sketch]
+	Let $Y$ denote the modular curve $\op{SL}_2(\ZZ)\backslash\mc H$, which is the moduli space of (complex) elliptic curves. Define $X\coloneqq Y\times Y$, which for each positive integer $m$ admits the divisor $Z(m)\to X$ which parameterizes pairs $(E,E')$ of elliptic curves along with a degree-$m$ isogeny $\varphi\colon E\to E'$. For example, $Z(1)$ is the diagonal.
+
+	It turns out that
+	\[\langle Z(m),Z(1)\rangle_X=\sum_{dd'=m}\max\{d,d'\}.\]
+	Notably, this equality requires that $m$ is a perfect square, for $Z(1)\subseteq Z(m)$ when $m$ is a perfect square (as seen by the map sending an elliptic curve $E$ to the $m$-isogeny $[\sqrt m]\colon E\to E$). On the other hand, by counting the number of elliptic curves with self-isogenies of degree $m$, we may count
+	\[\langle Z(m),Z(1)\rangle_X=\sum_{\substack{t\in\ZZ\\4m-t^2>0}}H\left(4m-t^2\right).\]
+	In short, such elliptic curves with a degree-$m$ isogeny admit extra endomorphisms and therefore have complex multiplication, so we are counting elliptic curves with some amount of complex multiplication.
+\end{proof}
+Let's try to explain where $4m-t^2$ comes from. Let $\mc H_2$ be the Siegel upper-half space of genus $2$, givne by symmetric matrices $X+iY$ where $Y>0$. Then we can form the Eisenstein series
+\[E(\tau,s)=\sum\det\left(C\tau+D\right)^{-2}\frac{\det (y)^{s-s_0}}{\left|\det(C\tau+D)\right|^{2(s-s_0)}}.\]
+Then Hurwitz class numbers can be found inside the Fourier coefficients of $E$. The moral is that we have related a geometric theta series to a special value of an Eisenstein series.
+
+\subsection{The Gross--Keating Formula}
+The modular surface $X=Y\times Y$ admits an integral model $\mc X$, which is an arithmetic three-fold; the same is true for the divisors $Z(m)$.
+\begin{definition}[arithmetic intersection]
+	Fix notation as above. Then we define the \textit{arithmetic intersection number}
+	\[\langle\mc Z(m_1),\mc Z(m_2),\mc Z(m_3)\rangle_{\mc X}=\sum_p\langle\mc Z(m_1)_p,\mc Z(m_2)_p,\mc Z(m_3)_p\rangle_{\mc X_p}\log p.\]
+\end{definition}
+\begin{remark}
+	Suppose $\mc Z(m)$ is cut out by the modular polynomial $\Phi_m$. Then
+	\[\langle\mc Z(m_1),\mc Z(m_2),\mc Z(m_3)\rangle_{\mc X}=\log\left|\frac{\ZZ[X,Y]}{(\Phi_{m_1},\Phi_{m_2},\Phi_{m_3})}\right|.\]
+\end{remark}
+The size of these intersections tend to be very large, but it tends to have very small prime factors!
+\begin{theorem}[Gross--Keating]
+	The arithmetic intersection is finite if and only if there is no positive definite binary quadratic form representing all three integers $m_1$, $m_2$, and $m_3$. All its prime factors $p$ satisfy $p<4m_1m_2m_3$.
+\end{theorem}
+\begin{proof}[Sketch]
+	A point in the intersection is the data of a pair of elliptic curves $(E,E')$ with three isogenies $\{f_i\}_i$ of degrees $\{m_i\}_i$. However, $\op{Hom}(E,E')$ cannot have rank at most two. Roughly speaking, at the prime $p$, we find that $E$ and $E'$ are both supersingular, and one can use the isogenies to bound $p$.
+\end{proof}
+\begin{remark}
+	In fact, Gross--Keating managed to fully factor the arithmetic intersection. The proof is similar to the proof of the Hurwitz class formula, found by matching an Eisenstein series and the arithmetic intersection at each finite place.
+\end{remark}
+\begin{remark}
+	One can relate the Gross--Keating formula to the same Siegel--Weil framework: one relates arithmetic intersection numbers to the central derivative of a Siegel Eisenstein series of genus three.
+\end{remark}
+These developments led to the Kudla program.
+\begin{theorem}[Kudla--Rapoport]
+	Fix a regular integral model $\mc X$ of the Shimura variety attached to one of the groups $G=\op U(n-1,1)$ or $G=\op{GSpin}(n-1,2)$. Then there is a special divisor $\mc Z(m)\to\mc X$.
+\end{theorem}
+\begin{example}
+	For $G=\op{GSpin}(2,2)$, we recover $X=Y\times Y$.
+\end{example}
+Here is the arithmetic Siegel--Weil formula.
+\begin{theorem}
+	Fix a quadratic space $V$ over $\QQ$ of signature $(n-1,2)$, and set $G\coloneqq\op{GSpin}(V)$. Choose an odd prime $p$ and a self-dual lattice $\Lambda_p\subseteq V$, which allows us to choose a hyperspecial subgroup $K_p\subseteq G(\QQ_p)$, and we choose a smooth integral canonical model $\mc X$ for $X$. Then for a symmetric matrix $T$ with diagonal entries $(m_1,\ldots,m_n)$, we define the arithmetic intersection number
+	\[I_{T,p}\coloneqq\chi\left(\mc Z(T),\OO_{\mc Z(m_1)}\otimes^{\mathbb L}\cdots\otimes^{\mathbb L}\OO_{\mc Z(m_n)}\right)\log p,\]
+	and have a similarly defined derivative of an Eisenstein series. Then the intersection number equals the derivative.
+\end{theorem}
+This is known to Chao Li and Wei Zhang for the groups $\op{GSpin}(n,2)$; they also have a theorem for the groups $\op U(n,1)$.
+\begin{remark}
+	There are also theorems at the infinite prime.
+\end{remark}
+\begin{remark}
+	One can sometimes weaken the hyperspecial level structure $K_p$, which is an active area of research.
+\end{remark}
+
+\section{Singular Moduli and Bad Reduction of Curves}
+This talk was given by Jan Bruinier. This is joint work with Tonghai Yang and Peng Yu.
+
+\subsection{The Main Theorems}
+Let's recall the classical result.
+\begin{theorem}[Gross--Zagier]
+	Fix coprime negative discriminants $d_1$ and $d_2$. Define
+	\[J(d_1,d_2)\coloneqq\prod_{[z_1],[z_2]}(j(z_1)-j(z_2))^{4/(w_1w_2)},\]
+	where the product is taken over classes of CM points of discriminants $d_1$ and $d_2$, respectively. Then $J(d_1,d_2)$ has controlled prime factorization, admitting only small prime factors $p$ which split in each $\QQ(\sqrt{d_i})$ and satisfy $p<d_1d_2/4$.
+\end{theorem}
+Today, we are interested in curves with CM.
+\begin{definition}
+	A curve $C$ has \textit{complex multiplication} if and only if its Jacobian $\op{Jac}C$ has complex multiplication.
+\end{definition}
+\begin{remark}
+	Serre--Tate have shown that abelian varieties with complex multiplication have potentially good reduction everywhere.
+\end{remark}
+\begin{remark}
+	Even if $C$ has complex multiplication, it is possible for $C$ to have places of stable bad reduction. Of course, this does not happen in genus one.
+\end{remark}
+The previous remark motivates our target: we would like to know when our curves of genus two with complex multiplication admit primes of stable bad reduciton. Here are some preliminary facts.
+\begin{theorem}
+	Fix a curve $C$ over a number field $F$ of genus two and admitting complex multiplication by a biquadratic field $\widetilde k$. Then $\op{Jac}C$ is a product of two elliptic curves $E_1$ and $E_2$ with complex multiplication by orders $\OO_{d_1}$ and $\OO_{d_2}$ of some imaginary quadratic field $k$. We may even assume $d_2\mid d_1$.
+\end{theorem}
+\begin{remark}
+	The principal polarization of $\op{Jac}C$ must disagree with the product principal polarization of $E_1\times E_2$.
+\end{remark}
+Here is our first main theorem, which controls the places of bad reduction.
+\begin{theorem} \label{thm:control-bad}
+	Fix a curve $C$ over a number field $F$ of genus two and admitting complex multiplication by a biquadratic field $\widetilde k$. Suppose $C$ admits stable bad reduction by a prime $p$. Then $p$ is non-split in $k$, and $p\le\left|d_1\right|/4$.
+\end{theorem}
+\begin{remark}
+	This generalizes prior work when $\op{Jac}C$ is the square of an elliptic curve.
+\end{remark}
+Our second main theorem asserts existence.
+\begin{theorem}
+	Fix a curve $C$ over a number field $F$ of genus two and admitting complex multiplication by a biquadratic field $\widetilde k$. Then $C$ admits a prime of stable bad reduction.
+\end{theorem}
+\begin{example}
+	The curve $C$ defined by $y^2=x^6+x^3+4/17$ has complex multiplication by a biquadratic field containing $\QQ(\sqrt{-51})$, which turns out be our $k$. \Cref{thm:control-bad} controls stable bad reduction to the primes $\{2,3,7\}$. The curve $C$ only has bad reduction at the primes $\{2,3,17\}$; notably, $C$ admits good reduction above $17$ after base-change to $\QQ(\sqrt{-51},\sqrt[6]{17})$.
+\end{example}
+Let's give some generalities on principally polarized abelian surfaces $(A,\lambda)$, which let us state a final theorem. One has a lattice $\Lambda\coloneqq\mathrm H_1(A;\ZZ)$. Define $L$ to be the subspace of endomorphisms of $\Lambda$ which are invariant under $(\cdot)^\dagger$ and of trace zero, and it is equipped with a quadratic form $Q(f)\coloneqq\frac14\tr f^2$.
+
+We also define $P\coloneqq L\cap\op{End}A$ and $N\coloneqq P^\perp$, all taken inside $L$. Once $(A,\lambda)$ has complex multiplication, the lattice $P$ has signature $(3,0)$, and $N$ has signature $(0,2)$. There is an exceptional isomorphism $\op{GSpin}_4(\ZZ)\cong\op{GSpin}(L)$, which allows us to view $\mc A_2$ as a Shimura variety for the group $\op{GSpin}_4$.
+\begin{theorem} \label{thm:produce-cm-cycle}
+	Let $(A,\lambda)$ be a principally polarized abelian surface with complex multiplication. Then $(A,\lambda)$ is defined over the Hilbert class field $H_{d_1}$, and the CM cycle $Z(A,\lambda)$ of Galois conjugates comes from $N$.
+\end{theorem}
+We are now ready to sketch our theorems.
+\begin{proof}[Sketch of \Cref{thm:control-bad}]
+	Let $(A,\lambda)$ denote the principally polarized Jacobian. Because $A$ has potentially good reduction everywhere, we may find a field extension $K$ of $\QQ$ for which $A_K$ has good reduction everywhere. It turns out that $C$ has stable bad reduction above some prime $p$ if and only if $A_{\kappa(\mf p)}$ fails to be irreducible for some prime $\mf p\mid(p)$. In other words, $A_{\kappa(\mf p)}$ factors into a product of two elliptic curves, which means that
+	\[\langle A,\mc Z(1)\rangle_p\ne0,\]
+	where $\mc Z(1)$ is the Kudla--Rapaport special divisor $\mc A_1\times\mc A_1\to\mc A_2$.
+
+	Thus, we are tasked with computing a ``horizontal'' intersection with this special divisor. It turns out that the intersection number $\langle A,\mc Z(1)\rangle$ is proportional to the first Fourier coefficient of some automorphic form (namely, an Eisenstein series assocaited to $N$ multiplied by a theta function associated to $P$). The theorem follows by computing the desired Fourier coefficient.
+\end{proof}
+\begin{idea}
+	One can find arithmetic information in the arithmetic intersection of abelian varieties with special cycles. If the abelian variety has CM, then it's still a special cycle!
+\end{idea}
+
+\section{Waldspurger's Formula 41 Years Later}
+This talk was given by Rapha\"el Beuzart-Plessis.
+
+\subsection{Waldspurger's Formula}
+Fix a quadratic extension $E/F$ of number fields. For simplicity, we will work with the group $G\coloneqq\op{PGL}_{2,F}$, which admits an embedding by the maximal torus $T\coloneqq\op{Res}_{E/F}\mathbb G_{m,E}/\mathbb G_{m,F}$.
+\begin{definition}[automorphic period]
+	Choose a cuspidal automorphic representation $\pi\subseteq\mc A_{\mathrm{cusp}}(G)$ and some $\varphi\in\pi$. Given a character $\chi\colon[T]\to\CC^\times$, we define the \textit{automorphic period}
+	\[\mc P_T(\varphi\otimes\chi)\coloneqq\int_{[T]}\varphi(t)\chi(t)\,dt.\]
+\end{definition}
+\begin{theorem}[Waldspurger] \label{thm:waldspurger-formula}
+	Choose a cuspidal automorphic representation $\pi\subseteq\mc A_{\mathrm{cusp}}(G)$ and some $\varphi\in\pi$. Given a character $\chi\colon[T]\to\CC^\times$, one has
+	\[\left|\mc P_T(\varphi\otimes\chi)\right|^2\doteq\frac{\zeta(2)}2\cdot\frac{L(1/2,\pi_E\times\chi)}{L(1,\pi,\mathrm{Ad})L(1,\mathrm{sgn}_{E/F})},\]
+	where $\doteq$ means that equality holds up to some explicit local factors (depending on $\varphi$).
+\end{theorem}
+\begin{remark}
+	To give the correct right-hand side, we choose a finite set $S$ of places outside which eevrything is unramified, and then the right-hand side should be
+	\[\frac{\zeta^S(2)}2\cdot\frac{L^S(1/2,\pi_E\times\chi)}{L^S(1,\pi,\mathrm{Ad})L(1,\mathrm{sgn}_{E/F})}\prod_{v\in S}\mc P_{T_v}(\varphi_v\otimes\chi_v,\varphi_v\otimes\chi_v),\]
+	where the local period is
+	\[\int_{T_v}\langle\pi_v(t)\varphi_v,\varphi_v\rangle\chi_v(t)\,dt.\]
+\end{remark}
+\begin{remark}
+	\Cref{thm:waldspurger-formula} is presented as an equality of numbers, but it is more like an equality of functionals in
+	\[\op{Hom}_{T(\AA)}(\pi,\chi)\times\op{Hom}\left(\pi^\lor,\chi^{-1}\right).\]
+	Notably, this space of functionals is at most one-dimensional (possible zero). To get a meaningful equality in the case where these spaces vanish, one has to pass to inner forms $G_B$ of $G$, given by choices of quaternion algebras $B$ over $F$; then one should transfer $\pi$ to $G_B$ by the Jacquet--Langlands correspondence. By work of Tunnell and Saito, a suitable quaternion algebra $B$ exists if and only if the sign of the functional equation is $+1$; otherwise, we expect the central value to vanish already!
+\end{remark}
+\begin{remark}
+	One can replace $E$ by $F\times F$, thereby replacing $\pi_E\times\chi$ with $\pi\times\chi\oplus\pi^\lor\times\chi^{-1}$. In this case, the formula is much easier: it follows from the Hecke integral representation of the $L$-function.
+\end{remark}
+
+\subsection{The Gan--Gross--Prasad Program}
+We are interested in generalizing Waldspurger's formula.
+\begin{remark}
+	Given a quaterniona algebra $B$ over $\QQ$ ramified at infinity, the real points of $G_B\times T$ is simply $\op{SO}(3)\times\op{SO}(2)$. To this end, Gross--Prasad suggested generalizations of Waldspurger's formula for the pair $\op{SO}(n+1)\times\op{SO}(n)$.
+\end{remark}
+\begin{remark}
+	Gan--Groos--Prasad have more recently suggested generalizations of Waldspurger's formula to $\op U(n+1)\times\op U(n)$ or $\op U(n)\times\op U(n)$ or even $\op{Mp}(2n)\times\op{Sp}(2n)$.
+\end{remark}
+Most progress to date has come from the unitary case, so that it is where we will focus our energy. For our set-up, we let $(V,h)$ be a Hermitian $n$-dimensional space with respect to the quadratic extension $E/F$ of number fields. We define $V'$ either to be $V\oplus Ee$ (where $h(e,e)=1$) or to be $V$; the former is called the Bessel case, and the latter is called the Fourier--Jacobi case. Our large group will be $G_V\coloneqq\op U_V\times\op U_{V'}$, and our smaller group will be $H_V\coloneqq\op U_V$, embedded diagonally.
+
+Here are our periods.
+\begin{definition}[automorphic period]
+	In the Bessel case, we $\mc P_{\mathrm B}\colon\mc A_{\mathrm{cusp}}(G_V)\to\CC$ by
+	\[\mc P_{\mathrm B}(\varphi)\coloneqq\int_{[H_V]}\varphi(h)\,dh.\]
+	In the Fourier--Jacobi case, we define $\omega_\mu$ to be the Weil representation of $H_V(\AA_F)$; it depends on a choice of character $\mu\colon[\mathbb G_{m,E}]\to\CC^\times$ satisfing $\mu|_{\AA_F^\times}=\op{sgn}_{E/F}$. We choose some map $\theta_\bullet\colon\omega_\mu\to\mc A(H_V)$, and then we define $\mc P_{\mathrm{FJ}}\colon\mc A_{\mathrm{cusp}}(G_V)\otimes\omega_\mu\to\CC$ by
+	\[\mc P_{\mathrm{FJ}}(\varphi\otimes f)\coloneqq\int_{[H_V]}\varphi(h)\theta_f(h)\,dh.\]
+\end{definition}
+Here are our $L$-functions.
+\begin{notation}
+	In the Bessel case, we define $L(s)$ to be $L(s,\sigma_E\times\sigma_E')$, where $\sigma_E\boxtimes\sigma_E'$ is the base-change of $\pi$ to $E$. In the Fourier--Jacobi case, we define $L(s)$ similarly to be $L(s,\sigma_E\times\sigma_E'\times\mu)$.
+\end{notation}
+And here is the Gan--Gross--Prasad conjecture, which is now known.
+\begin{theorem}
+	Assue $\pi_E$ is a generic representation. Then the following are equivalent:
+	\begin{listroman}
+		\item $L(1/2)\ne0$, and
+		\item there is a Hermitian space $W$ of dimension of $n$ and a cuspidal automorphic representation $\pi'\subseteq\mc A_{\mathrm{cusp}}(G_W)$ such that $\pi'_v\cong\pi_v$ for cofinitely many $v$ and $\mc P|_{\pi'}\ne0$.
+	\end{listroman}
+\end{theorem}
+\begin{remark}
+	The second condition makes sense: it is possible for $\pi_v$ and $\pi'_v$ to be isomorphic for cofinitely many $v$ because $G_{V,v}$ and $G_{W,v}$ are isomorphic for cofinitely many $v$. Indeed, an $n$-dimensional Hermitian space, after diagonalization, is uniquely determined by its discriminant, and the discriminant will be in the trivial class for almost all places.
+\end{remark}
+One can refine this to something which looks like Waldspurger's formula.
+\begin{theorem}[Ichino--Ikeda, Harris, Liu]
+	Assume $\pi$ is tempered everywhere. Then for each pure tensor $\varphi\in\pi$ and $f\in\omega$, one has
+	\[\left|\mc P_{\mathrm{FJ}}(\varphi\otimes f)\right|^2\doteq\left|S_\pi\right|^{-1}\cdot\frac{L^S(1/2)}{L^S(1,\pi,\mathrm{Ad})}\prod_{v\in S}\mc P_{\mathrm{FJ},v}(\varphi_v\otimes f_v,\varphi_v\otimes f_v).\]
+	Here, $S_\pi$ is the centralizer of the $L$-parameter of $\pi$.
+\end{theorem}
+This is a consequence of work of many, many people.
+\begin{remark}
+	The original (orthogonal) conjectures of Gan and Prasad are still open.
+\end{remark}
+\begin{remark}
+	There are analogous conjectures for arbitrary pairs of Hermitian spaces $V'$ and $V$ with $V'\subseteq V$. Much is known in the corank zero and one cases.
+\end{remark}
+
+\subsection{The Relative Trace Formula Approach}
+Let's outline how the relative trace formula is used to prove results of this type. The idea is to relate automorphic periods iwth the spectral projection of certain generalized $\Theta$-series.
+
+Let's begin with the Bessel case. Then our $\Theta$-series look like $\Theta_\bullet\colon C_c^\infty(H(\AA_F)\backslash G(\AA_F))\to C^\infty([G])$ defined by
+\[\Theta_f(g)\coloneqq\sum_{\gamma\in H(F)\backslash G(F)}f(\gamma g).\]
+Then for each $\varphi\in\mc A_{\mathrm{cusp}}(G)$, we have a Petersson inner product
+\[\langle \varphi,\Theta_f\rangle\coloneqq\int_{H(\AA_F)\backslash G(\AA_F)}f(x)\mc P_{\mathrm B}(Rx(\varphi))\,dx.\]
+A similar construction works in the Fourier--Jacobi case, but we need to replace $C_c^\infty(H(\AA_F)\backslash G(\AA_F))$ must be replaced with $\op{ind}_{H(\AA_F)}^{G(\AA_F)}\omega$. Note that $C_c^\infty(H(\AA_F)\backslash G(\AA_F))$ is the induction of the trivial representation.
+\begin{notation}
+	Suppose we have two maps $\Theta_i\colon\Omega_i\to C^\infty([G])$ for $i\in\{1,2\}$. Given a pure tensor $f=f_1\otimes f_2$ in $\Omega_1\otimes\Omega_2$, then we define
+	\[\op{RTF}(f)\coloneqq\langle\Theta_{f_1},\Theta_{f_2}\rangle.\]
+	(One may need to stabilize this definition.)
+\end{notation}
+Formally speaking, $\op{RTF}(f)$ may be expanded spectrally as
+\[\op{RTF}(f)=\int_{\widehat{G(\AA_F)}}\langle\Theta_{f_1,\pi},\Theta_{f_2,\pi}\rangle\,d\pi,\]
+where $\widehat{G(\AA_F)}$ denotes the automorphic spectrum. Alternatively, $\op{RTF}(f)$ may be expanded geometrically: suppose $\Omega_1\otimes\Omega_2$ is isomorphic to some $C_c^\infty(X(\AA_F))$, where the isomorphism is $G(\AA_F)$-equivariant. Then we can hope that $\op{RTF}(f)$ may be expanded as
+\[\sum_{x\in X/G(F)}\op{RO}_x(f),\]
+which is a sum of some relative orbitral integrals.
+\begin{example}
+	In the Fourier--Jacobi case, we take two relative trace formulae so that we can compare them later.
+	\begin{itemize}
+		\item We take $\Omega_1$ and $\Omega_2$ to be $\op{ind}_{H(\AA_F)}^{G(\AA_F)}\omega$. Then $X=G\times^H(H\times V)$, and one can prove a relative trace formula. Call this $J$.
+		\item Define our group $G'$ to be $\op{GL}_{n,E}\times\op{GL}_{n,E}$. We define $\Omega_1'$ to be $\op{ind}_{\Delta\op{GL}_n(\AA_E)}^{G'(\AA_E)}\omega'_\mu$, and we define $\Omega_2'$ to be $\op{ind}^{G'(\AA_E)}_{\op{GL}_n(\AA_F)\times\op{GL}_n(\AA_F)}\eta$, where $\eta$ is the quadratic character. Let $I$ denote this second relative trace formula. Here, $X'=G'\times^{\Delta\op{GL}_{n,F}}(\mathrm{GL}_{n,E}/\mathrm{GL}_{n,F}\times F^n\oplus F^{n*})$.
+
+		Roughly speaking, a period for $\Omega_1'$ is related to a Rankin--Selberg period, which will give us $L(1/2)$. Similarly, a period for $\Omega_2'$ is related to the Flicker--Rallis period.
+	\end{itemize}
+	We now compare the two relative trace formulae by matching orbital integrals. For example, the two GIT quotients agree because they are the same over $E$, and one can check that the isomorphism over $E$ actually is defined over $F$. Proving the matching is done locally: for the unramified places, we need a fundamental lemma, and then for the remaining places, one needs a smooth transfer.
+\end{example}
+
+\section{\texorpdfstring{$p$}{p}-adic Deformations of Theta Series and the Gross-Zagier Formula}
+This talk was given by Henri Darmon.
+
+\subsection{}
+Today, we would like to ``reverse-engineer'' the calculations of Gross--Zagier to conjecture that some algebraic points on elliptic curves exist.
+\begin{example}
+	One can use class number formulae in order to conjecture the existence of Stark units.
+\end{example}
+Thus, we are on the hunt for some conjectural ``Stark--Heegner points.''
+\begin{example}
+	Alice Pozzi's lecture hunted for these Stark--Heegner points as values of some rigid cocycles.
+\end{example}
+To ground ourselves, we recall the following conjecture.
+\begin{conj}[Equivariant Birch--Swinnerton-Dyer] \label{conj:equiv-bsd}
+	Fix an elliptic curve $E$ over $\QQ$. Let $W$ be an Artin representation which splits over $H$. Then define $E(H)^W$ to be the $W$-multiplicity in $E(H)$. Then
+	\[\dim_LE(H)^W=\op{ord}_{s=1}L(E,W,s).\]
+\end{conj}
+\begin{remark}
+	If $L(E,W,1)\ne0$, then we know $\dim_LE(H)^W=0$ when $W$ is one-dimensional (due to Kato), when $W$ comes from an imaginary quadratic field (following Gross--Zagier--Kolyvagin), when $W$ is induced from a real quadratic field, or when $W$ is the tensor product of two odd irreducible Galois representations.
+\end{remark}
+Today, we will be more interested in analytic rank one because we want to actually find points on our elliptic curves. In these cases, $W$ must be self-dual in order to have an appropriate sign of the functional equation.
+\begin{remark}
+	In fact, it is conjectured that $L(E,\chi,1)=0$ for only finitely many characters $\chi$, unless $\chi$ is a quadratic character.
+\end{remark}
+For simplicity, we will suppose that the conductors of $E$ and $W$ are coprime, where $W$ is induced from a ring class character of a quadratic field $K$. Further, let $N$ be the conductor of $E$, and it turns out that the sign of the functional equation only depends on $K$ and $N$.
+\begin{example}
+	If $K$ is imaginary quadratic and the sign is $-1$, our nontrivial point is found by Heegner.
+\end{example}
+But if $K$ is real quadratic, then we don't know where the required point should come from!
+\begin{example}
+	Take $W$ to be the tensor product $W_1\otimes W_2$, where each $W_i$ is an odd two-dimensional Artin representation coming from weight-one cusp forms $g$ and $h$ with inverse nebentype. One knows \Cref{conj:equiv-bsd} in analytic rank zero for $W_1\otimes W_2$; in fact, the sign is always $+1$ here.
+\end{example}
+In order to get to analytic rank one, we need to fix the sign. Let $W_0$ be an odd two-dimensional Artin representation of $G_F$, where $F$ is a real quadratic field, and choose some $\tau\in G_\QQ$ which acts nontrivially on $F$. Then $\op{Ind}_F^\QQ W_0$ is isomorphic to $W_0\oplus W_0$, where $G_F$ acts on the pair by some twisted action by $\tau$. There is a similar description of the induction as $W_0\otimes W_0$. We let $W$ be the tensor induction. It is now possible to arrange to get sign $-1$, where we can hunt for Stark--Heegner points.
+
+This $W_0$ should come from a Hilbert modular form $G$ of parallel weight one. Classically, this $G$ can be viewed as a multiplicative function taking ideals of $F$ to $L^\times$ satisfying some properties at the primes. We let $G_{\mf M}$ be some associated series, define $\Phi_{DM}$ to be the diagonal restriction, and we let $\Phi_M$ be its trace to $M$. Thus, $\Phi_M$ is a classical modular form of weight two and level $M$.
+\begin{theorem}
+	The Petersson inner product $\langle f,\Phi_M\rangle$ is proportional to $L(f,W,1)$.
+\end{theorem}
+We are interested in $p$-adically deforming $\Phi_M$. I am now thoroughly lost.
+
+\section{Theta Classes on the Modular Curve}
+This talk was given by Marco Sangiovanni Vincentelli.
+
+\subsection{Motivation}
+We are motivated by the following conjecture, which we state in rough terms.
+\begin{conj}[Bloch--Kato]
+	Fix a lattice $\rho$ of a geometric $p$-adic Galois representation. Then the behavior of $L(\rho,s)$ at $s=0$ controls the Selmer group of $\rho^*(1)$.
+\end{conj}
+In the known cases of this conjecture, there tend to be two steps.
+\begin{enumerate}
+	\item Express $L(\rho,0)$ as a period integral, following Gross--Zagier.
+	\item Give a geometric interpretation to the terms of the period integral, following Kolyvagin.
+\end{enumerate}
+\begin{example}
+	The Waldspurger formula rewrites a special value as a period integral: roughly speaking,
+	\[\left|\int_{[T]}f\right|^2\doteq L(f_K).\]
+	To geometrize this, we view the left-hand side as viewing $f$ as $f\cdot1$, where $1$ is the trivial representation of $T$. Accordingly, we view this as equality as coming from embedding $\op{Sh}_T$ into $\op{Sh}_{\op{GL}_2}$. Pushing forward along a cycle class map produces an Euler system (following Kolyvagin).
+\end{example}
+\begin{example}
+	The Rankin--Selberg $L$-function is defined (at its start) as a period: for modular forms $f$ and $g$, one has
+	\[\int_{[\mathrm{GL}_2]}fg\cdot E=L(f\times g),\]
+	where $E$ is some Eisenstein series. Thus, we want to geometrize our Eisenstein series. Assuming we are in weight two, view $E$ as a section in the de Rham cohomology $\mathrm H^1_{\mathrm{dR}}(\mathrm{Sh}_{\op{GL}_2})$, arising from a modular unit $u$ as $d\log u$. By Kummer theory, one can then get a class in $\mathrm H^1_{\mathrm{\acute et}}(Y;\ZZ_p(1))$. These classes also produce an Euler system.
+\end{example}
+We would like to tell a similar story for $f_K$, where $K$ is an imaginary quadratic field, and $f$ is an elliptic new eigenform. One way to proceed is via the Rankin--Selberg method, taking $g$ to be a CM form $\theta_\chi$ associated to a character $\chi$. The key point is that geometrizing the period integral
+\[\int_{[\mathrm{GL}_2]}f\theta_\chi\cdot E\]
+can instead be done by geometrizing the period integral
+\[\int_{[\mathrm{GL}_2]}f\cdot\theta_\chi E.\]
+Thus, we want to geometrize $\theta_\chi E$.
+\begin{remark}
+	Kato has already explained how geometrize $GE$, where $G$ is another Eisenstein series: let $\kappa(u_G)$ be the image along the Kummer map of the corresponding modular unit $u_G$, and define $\kappa(u_E)$ similarly, and then we can take the cup product to get a class in $\mathrm H^2_{\mathrm{\acute et}}(\mathrm{Sh}_{\op{GL}_2};\ZZ_p(2))$.
+\end{remark}
+
+\subsection{Theta Classes}
+Let's now do some actual math. We start with some notation. Fix an imaginary quadratic field $K$ and an odd prime $p$ which splits as $\mf p\overline{\mf p}$ in $K$. The prime $\mf p$ corresponds to an embedding $\overline\QQ\into\CC_p$. Also, we let $K_\infty^{\mf p}$ be the maximal $\ZZ_p$-extension unamified at $\mf p$, and we let $K_\infty$ be the maximal $\ZZ_p^2$-extension. For a modulus $\mf m$, we will let $K[\mf m]$ denote a ray class field.
+
+Here is our analytic object.
+\begin{definition}
+	Let $\mf n\subseteq\OO_K$ be some integral ideal prime to $p$, and we choose a fractional ideal $\mf c$ coprime to $\mf p\mf n$. Then theta series is
+	\[\theta_{\mf c,r}(q)\coloneqq\sum_{\substack{\alpha\in\mf c\\\alpha\equiv1\pmod{\mf n\mf p^r}}}\alpha q^{\op N\left(\alpha\mf c^{-1}\right)}\]
+\end{definition}
+This is some $\theta$-series, and they satisfy some coherences.
+\begin{example}
+	One has $U_p\theta_{\mf c,r}=\theta_{\mf c\overline{\mf p},r}$.
+\end{example}
+\begin{example}
+	One has $\theta_{\mf c,r}(q)\,dq/q\in\mathrm H^0\left(X_r;\Omega^1\right)$, where $X_r\coloneqq X_1(Np^r)$.
+\end{example}
+Here is our main theorem.
+\begin{theorem}
+	There are classes
+	\[\theta_{\mf c,\mf n\mf p^r}^{\mathrm{\acute et}}\in\mathrm H^1_{\mathrm{\acute et}}(X_{r\overline\QQ};\ZZ_p(1))\]
+	satisfying the following.
+	\begin{listroman}
+		\item The comparison with de Rham cohomology gives $\Omega_{\mf n\mf p^r}\theta_{\mf c,\mf n\mf p^r}$, where $\Omega_{\mf n\mf p^r}$ is some explicit period.
+		\item There is a coherence condition on the Galois action.
+	\end{listroman}
+	In fact, the classes $\theta_{\mf c,\mf n\mf p^r}^{\mathrm{\acute et}}$ are unique.
+\end{theorem}
+\begin{remark}
+	Of course, to get an Euler system, we would like an absolute class instead of a geometric one. To this end, one finds classes
+	\[\theta_{\mf c,\mf n\mf p^r}^{\mathrm{\acute et},\mathrm{abs}}\in\mathrm H^2_{\mathrm{\acute et}}(S_{r,K[\overline{\mf n}\overline{\mf p}^r]};\ZZ_p(1)),\]
+	where $S_r\coloneqq X_r\times X_1(\op{disc}_Kp)$. These classes are found by pairing our geometric class with some dual class on the base field.
+\end{remark}
+Once we have such absolute classes, we can imitate what Kato does to produce our Euler system. Namely, to geometrize $\theta_\chi E$ from earlier, we simply pair our absolute class with the pullback of $\omega_E^{\mathrm{\acute et}}\in\mathrm H^1(Y_m;\ZZ_p(1))$. This produces elements in
+\[\mathrm H^3_{\mathrm{\acute et}}(S_{m,K[\mf n\mf p^r]};\ZZ_p(2)).\]
+By a spectral sequence argument, these classes project to
+\[\mathrm H^1\left(K[\overline{\mf n}\overline{\mf p}^r];\mathrm H^2_{\mathrm{\acute et}}(S_{m,\overline\QQ};\ZZ_p(2))\right).\]
+Now, our cup product does not touch the extra modular curve in $S_m$, so one can use some eigen-action via Hecke operators (with the K\"unneth formula) in order to project further onto
+\[\mathrm H^1\left(K[\overline{\mf n}\overline{\mf p}^r];\mathrm H^2_{\mathrm{\acute et}}(Y_{m,\overline\QQ};\ZZ_p(1))(\varepsilon_p)\right),\]
+where $\varepsilon_p$ is the cyclotomic character.
+\begin{theorem}
+	The elements just described form an Euler system. Notably, they are compatible along corestriction (up the $\mf p$-tower) and compatible along trace (up the $\mf n$-tower).
+\end{theorem}
+Now that we have an Euler system, we would like to know if it is nontrivial and ramified, which would provide the bounds on Selmer groups.
+\begin{remark}
+	It turns out that one can take an exponential dual of our Euler system to get a class in
+	\[\mathrm H^0\left(X_{r,\overline\QQ};\Omega^1_{X_r}(\log C)\right),\]
+	which is a modular form! The modular form is the product of an explicit Eisenstein series of weight one and an explicit $\Theta$-series.
+\end{remark}
+As an application of our Euler system, one can show that $L(f\times\chi,1)\ne0$ for finite-order character $\chi$ implies that $\mathrm H^1_f(\rho^*_{f,\chi}(1))$ is finite.
+\begin{idea}
+	I wonder if relative Langlands duality can bypass the difficult analysis establishing a Gross--Zagier formula and go straight to the desired Euler systems.
+\end{idea}
+
+\section{Cycle Integrals of Meromorphic Hilbert Modular Forms}
+This talk was given by Claudia Alfes. It is on joint work with Depouilly, Kiefer, and Schwagenscheidt.
+
+\subsection{Motivation}
+Our motivation begins with Green's functions.
+\begin{definition}[automorphic Green's function]
+	The \textit{automorphic Green's function} is the function
+	\[G_s(z_1,z_2)\coloneqq-2\sum_{\gamma\in\op{SL}_2(\ZZ)}Q_{s-1}\left(1+\frac{\left|z_1-\gamma z_2\right|}{2\op{Im}(z_1)\op{Im}(z_2)}\right).\]
+	Here, $Q_{s-1}$ is a Legendre function of the second kind.
+\end{definition}
+\begin{remark}
+	This converges absolutely for $s\in\CC$ in the region $\op{Re}s>1$, where $z_1,z_2\in\mc H$ and $z_1\notin\op{SL}_2(\ZZ)z_2$.
+\end{remark}
+\begin{remark}
+	By construction, $G_s$ is invariant under the action of $\op{SL}_2(\ZZ)$ in both variables.
+\end{remark}
+\begin{remark}
+	The function $G_s$ has a logarithmic singularity along the diagonal.
+\end{remark}
+\begin{remark}
+	The function $G_s$ admits a meromorphic continuation to all $s\in\CC$ along with a functional equation.
+\end{remark}
+In their original paper, Gross--Zagier conjectured the values of $G_s$ on singular moduli; in particular, they are logarithms of algebraic numbers (up to some values coming from cusp forms). Partial progress was made by many people, and a full proof appeared from Brunier--Li--Yang recently.
+
+Let's review the partial progress of Brunier--Ehlen--Yang.
+\begin{theorem}
+	Certain linear combinations of the numbers
+	\[G_k(C,z_2),\]
+	where $C$ is an average of CM points of a fixed discriminant, is the logarithm of an algebraic number.
+\end{theorem}
+Today, we want to understand what happens if we take a ``trace'' over geodesics instead of this ``trace'' of CM points. In other words, we want to understand
+\[\sum_Q\int G_k(z_1,z_2)\,\frac{dz_1}{Q(z_1,1)},\]
+where $z_2$ is some CM point.
+\begin{remark}
+	These integrals have been studied before: for even $k$, this is a geodesic cycle integral of the functions
+	\[f_{k,A}(z)=\frac{\left|d\right|^{(k+1)/2}}{\pi}\sum_{Q\in A}Q(z,1)^{-k},\]
+	where $A$ is a fixed eqivalence class of quadratic forms of negative discriminant $d$. Indeed, the point is that $R^kG_k$ evaluated at a CM point agrees with $f_{k,A}$, and the cycle integral of $R^kG_k$ and $G_k$ are equal up to some constants (for even $k$).
+\end{remark}
+And we have known understanding of $f_{k,A}$.
+\begin{theorem}
+	Certain linear combinations of the traces
+	\[\sum_Q\int f_{k,A}(z)Q(z,1)^{k-1}\,dz\]
+	are rational.
+\end{theorem}
+
+\subsection{The Main Result}
+Today, we will focus on these cycle integrals for Hilbert modular forms. For today, $F$ is a real quadratic field of discriminant $D$ and different $\mf d_F$.
+\begin{notation}
+	We let $L$ denote the set of $2\times2$ matrices
+	\[X=\begin{bmatrix}
+		a & v' \\ v & b
+	\end{bmatrix},\]
+	wher $a,b\in\ZZ$ and $v\in\OO_F$ and $Q(X)=-\det X$. The dual lattice $L'$ is defined in the same way but with $v\in\mf d_F^{-1}$. We then let $L_M$ denote the $X\in L'$ with $Q(x)=m/D$.
+\end{notation}
+\begin{remark}
+	The group $\Gamma\coloneqq\op{SL}_2(\OO_F)$ acts on $L$ by $\gamma\colon X\mapsto\gamma X(\gamma')^\intercal$. The quotient of $L_m$ by this action is finite.
+\end{remark}
+\begin{notation}
+	For $X\in L$, we define $q_Z(X)\coloneqq-bz_1z_2+vz_1+v'z_2-a$ and $p_Z(X)\coloneqq y_1^{-1}(-b\overline z_1z_2+v\overline z_1+v'z_2-a)$.
+\end{notation}
+Here are our special cycles.
+\begin{notation}
+	Define $T_X$ to consist of $Z\in\mc H^2$ for which $q_Z(X)=0$, and define $T_n$ to be the union of $T_X$ as $X$ varies over $L_n$.
+\end{notation}
+We also have real analytic cycles.
+\begin{notation}
+	Given $y$ for which $Q(y)>0$, we define $C_y$ to consist of those $Z\in\mc H^2$ for which $p_Z(y)=0$.
+\end{notation}
+And here are our automorphic forms.
+\begin{definition}
+	Choose $n<0$ and a weight $k$. Then we define
+	\[\omega_n^{\mathrm{mero}}(Z)\coloneqq\sum_{X\in L_n}q_z(X)^{-k}.\]
+\end{definition}
+\begin{remark}
+	This is a meromorphic Hilbert modular form of parallel weight $(k,k)$ and level $\op{SL}_2(\OO_F)$. There are poles along $T_n$, but $\omega_n^{\mathrm{mero}}$ decays like a cusp form along the cusps.
+\end{remark}
+\begin{remark}
+	There is another regime when $m>0$, which gives cuspidal modular forms $\omega_m^{\mathrm{cusp}}$; they were first studied by Zagier.
+\end{remark}
+We are now ready to state our main theorem.
+\begin{theorem}
+	Choose an even integer $k$ satisfying $k\ge4$, a positive intger $m$, and a negative integer $n$. Then (up to unstated technical assumptions)
+	\[\sum_{y\in\Gamma\backslash L_m}\int_{\op{Stab}(y)\backslash C_y}\omega_n(Z)q_Z(y)^{k-2}\,dZ\]
+	is a rational multiple of $\pi i$.
+\end{theorem}
+\begin{proof}[Sketch]
+	By an orthogonality argument, one finds $\langle\omega_n^{\mathrm{mero}},\omega_m^{\mathrm{cusp}}\rangle=0$. On the other hand,  $\langle\omega_n^{\mathrm{mero}},\omega_m^{\mathrm{cusp}}\rangle$ is a sum of cycle integrals and evaluations along the algebraic cycles. Thus, to prove the result, we need to understand the evaluation of $\omega_m^{\mathrm{cusp}}$ along an algebraic cycle.
+
+	To continue, we construct some $\Omega_m^{\mathrm{cusp}}$ satisfying
+	\[\omega_m^{\mathrm{cusp}}=\xi_k\Omega_m^{\mathrm{cusp}},\]
+	where $\xi_k$ is some explicit differential operator. Here, $\Omega_m^{\mathrm{cusp}}$ is a Hilbert analogue of a locally Harmonic Maass form. (Recall that a harmonic Mass form is a real analytic function on $\mc H$ of some level and weight which vanishes under a suitable Laplacian.) In the classical, setting, the differential operator is $\xi_k\coloneqq z_1\op{Im}(z)^k\overline{\del/\del\overline z}$; roughly speaking, $\xi_k$ extracts the non-holomorphic part.
+	\begin{remark}
+		Part of the novelty in this argument is the construction of these differential operators $\xi_k$!
+	\end{remark}
+	The problem now passes to evaluating $\Omega_m^{\mathrm{cusp}}$ on the algebraic cycles. One constructs $\Omega_m^{\mathrm{cusp}}$ via some theta lifting, and one can use a technique of Kudla and Schofer to evaluate theta liftings on algebraic cycles.
+\end{proof}
+It is ongoing research to provide geometric interpration of these period integrals. They should be related to ``arithmetic winding numbers.''
+
+\section{\texorpdfstring{$L$}{ L}-derivatives for General Weights}
+This talk was given by Yifeng Liu.
+
+\subsection{}
+We begin with some notation used to construct the (algebraic) representations of unitary groups.
+\begin{notation}
+	Let $W_m$ be the set of $m$-tuples of non-decreasing integers. Negation induces an involution on $W_m$. For $b\in W_m$, we let $b_{(\lambda)}$ be the sum of the entries in $b$, and we define $s(\lambda)$ to be the largest index $s$ with $b_s>0$, and we define $\lambda^+$ to be the strictly positive part of the weight.
+\end{notation}
+\begin{definition}
+	We say that a weight $\lambda\in W_m$ is \textit{$r$-balanced} if and only if $s(\lambda)\ge r$ and is \textit{balanced} if and only if it is $\floor{m/2}$-balanced.
+\end{definition}
+Let $E/F$ be a quadratic CM extension.
+\begin{notation}
+	Given a number field $F$, let $\Omega_F$ denote its embeddings into $\CC$.
+\end{notation}
+\begin{definition}
+	Fix a CM extension $E/F$. Then a \textit{Hermitian $E$-weight of rank $m$} is a tuple $(\lambda_u)_u\in W_m^{\Omega_E}$ such that $\overline\lambda_u=\lambda_{\overline u}$. The tuple is \textit{$r$-balanced} or \textit{balanced} if and only if each $\lambda_u$ is, respectively.
+\end{definition}
+From now on, we choose a Hermitian $E$-weight $\lambda$ of rank $m$.
+
+Here are our automorphic representations.
+\begin{definition}
+	Define $\op{HA}(\lambda)$ to be the set of isomorphism classes of irreducible representations $\Pi$ of $\op{GL}_n(\AA_E)$ satisfying the folllowing:
+	\begin{listalph}
+		\item $\Pi$ is an isobaric sum of distinct conjugate self-dual cuspidal automorphic representations, and
+		\item for each $u\in\Omega_E$, the local representation $\Pi_u$ is the local isobaric sum $\boxplus_{i=1}^m\op{arg}^{2b_i+(m-1)-i}$, where $\op{arg}\colon\CC^\times\to S^1$ is the argument character.
+	\end{listalph}
+\end{definition}
+For $\Pi\in\op{HA}(\lambda)$, we may let $\varepsilon(\Pi)$ denote the sign of its functional equation; then $\varepsilon(\Pi)=-1$, we may ask for the arithmetic meaning of the central derivative of $L(s,\Pi)$.
+\begin{remark}
+	Here is the relation to the Gross--Zagier formula: we take $m=2$, let $\sigma$ be a cuspidal automorphic representation of $\op{GL}_2(\AA_F)$, let $\chi$ be an automorphic character of $\AA_E^\times$.
+	Then we choose tuples $k\in\ZZ_{\ge2}^{\Omega_F}$ and $\ell\in\ZZ^{\Omega_E}$ (satisfying $\ell_{\overline u}=\ell_u$),
+	we define $\op{RS}(k,\ell)$ to consist of pairs $(\sigma,\chi)$ as before satisfying some technical conditins at the archimedean places. (Namely, each $\sigma_v$ is discrete series, and $\chi_u=\op{arg}^{\ell_u}$, and $\chi_\sigma\chi|_{\AA_F^\times}=1$.)
+	The Gross--Zagier formula asserts that the condition $\left|\ell_u\right|\le k_{v(u)}-2$ should provide arithmetic meaning to $L'(1/2,\sigma\times\chi)$.
+	One can check that the technical conditions between $\op{RS}$ and $\op{HA}$ align once one base-changes $\sigma$ and requires $\lambda$ to be balanced.
+\end{remark}
+For simplicity, we will require that $E$ contains an imaginary quadratic field $E_0/\QQ$. (It is possible to have more than one choice of $E_0$; for example, this may happen if $E$ is a CM biquadratic field.)
+\begin{notation}
+	Choose some open subgroup $U\subseteq\AA_{E_0}^{\infty,\times}$. Define $Y_U$ over $E_0$ to parameterize elliptic curves $A_0$ with $U$-level structure $\eta_0$ and action by $E_0$, and the action of $E_0$ on $\op{Lie}A_0$ is the correct one.
+\end{notation}
+We also choose $V$ over $\AA_E$ to be a totally positive definite incoherent\footnote{I think ``incoherent'' just means that $V$ might not be the base-change of a Hermitian space from $E$. Instead, $V$ is a collection of local Hermitian spaces which are cofinitely unramified and satisfying some global condition.} Hermitian space of rank $m$. Then we may define $H\coloneqq\op U(V)$ to be an algebraic group over $\AA_F$.
+\begin{notation}
+	For $L\subseteq H(\AA_F^{\infty,\times})$, we deifne $X_{L,U}$ to be a moduli space over $E$ consisting of tuples $(A_0,\eta_0,A,\lambda,\eta)$ where
+	\begin{itemize}
+		\item $(A_0,\eta_0)$ comes from $Y_U$,
+		\item $A$ is an abelian scheme with action by $E$ satisfying
+		\[\tr(e;\op{Lie}A)=m\tr_{E/E_0}e,\]
+		\item $\lambda$ is a polarization of $A$,
+		\item and $\eta$ is a level structure isomorphism $V^\infty\to\op{Hom}_{E_0}(\mathrm H_1(A_0,\AA^\infty),\mathrm H^1(A,\AA^\infty))$.
+	\end{itemize}
+\end{notation}
+\begin{remark}
+	There is a natural forgetful map $X_{L,U}\to Y_U$ which is equivariant under the action by the finite group $\Delta U\coloneqq E_0^\times\backslash\AA_{E_0}^{\infty,\times}/U$. The quotient of $X_{L,U}$ by this finite group is notated $X_L$ and does not depend on $U$.
+\end{remark}
+\begin{remark}
+	For each $u\in\Omega_E$, the base-change of $X_L$ along $u$ is the usual Shimura variety.
+\end{remark}
+We now hunt for the motives which we will use for our higher Gross--Zagier formula. These will be found relative $X_L$. All of our motives will be Chow motives.
+
+Fix some $U$ as before, so we may work over $X_{L,U}$. Then one has the two universal motives $h_1(A_0;\QQ)$ and $h_1(A;\QQ)$ over $X_{L,U}$, so we may form the standard motive
+\[M_{L,U}\coloneqq\op{Hom}_{E_0}(h_1(A_0;\QQ),h_1(A;\QQ)).\]
+Note that the target has an $E$-action, so the motive also has an $E$-action. It turns out that $\Delta U$ also acts on $M_{L,U}$ compatibly with $X_{L,U}$, so a recent result of Bruno Kahn allows us to descend $M_{L,U}$ to $M_L$ over $X_L$.
+\begin{remark}
+	The motive $M_L$ constructed at the end should not depend on the choice of $E_0\subseteq E$, but this is not known.
+\end{remark}
+We would now like to isolate some representations, which we do in the language of motives but following Lie theory. Now, let $\widetilde E$ be the Galois closure of $E$, so $\Omega_E$ may be identified with embeddings $E\into\widetilde E$. Thus, we may diagonalize our motive
+\[M_L\otimes_\QQ E=\bigoplus_{u\in\Omega_E}M_L[u],\]
+where this equality takes place among motives with coefficients in $\widetilde E$.
+
+We now return to our weight $\lambda$. Define $b_u\coloneqq b(\lambda_u^+)$ for each $u\in\Omega_E$, and then we define the tensor-power motive
+\[T_{b_v}M_L\coloneqq\bigotimes_{v(u)=v}T^{b_u}M_L[u].\]
+Notably, for each $i_u\le b_u$, there is a contraction map $C_{b_v}\colon T_{b_v}M_L\to T_{b_v-1}M_L$, and we let its kernel be $T_{[b_v]}$.\footnote{There is an important technical point here: we are working with Chow motives, so kernels only exist for idempotents. Luckily, we may use a recent result of Wildhaven showing the conservativity of abelian motives.}
+
+From here, we may consider the Schur quotient $S_{[\lambda_v]}M_L$ of $T_{[b_v]}M_L$. We remark that we may descend this motive from $\widetilde E$ a little bit: define
+\[S_{[\lambda]}M_L\coloneqq\bigotimes_{v\in\Omega_F}S_{[\lambda_v]}M_L.\]
+In fact, one can take a quotient by $\op{Gal}(\widetilde E/\widetilde E^\lambda)$ to descend the motive to $\widetilde E^\lambda$, where $\widetilde E^\lambda$ is the field of definition of $\lambda$. We denote this motive as $M_{\lambda,L}$, and it is our automorphic relative motive.
+
+Now that we have our motive, we will need a special cycle. For $x\in (V^\infty)^r$, there is a Kudla special cycle $s(x)_L\colon Z(x)_L\to X_L$. It turns out that the pullback $s(x)_L^*M_L^\lor$ admits a canonical map to $1_{Z(x)_L}^{\oplus r}$. Taking cohomology produces a map
+\[z(x)_L\colon S_{\lambda^+}\widetilde E^{\lambda\oplus r}\to\mathrm H^{2\op{rank}x}_{\mathrm{mot}}(X_L;M_L(\op{rank}x)).\]
+For simplciity, we assume that $x$ is non-degenerate so that the target is in our desired codimension.
+\begin{example}
+	If $\lambda=0$, then the associated motive is trivial, and the target of our map in cohomology is $\op{CH}^{\op{rank}x}(X_L)_\QQ$. The image of the map turns out to be the Kudla special cycle.
+\end{example}
+This $z(X)_L$ is a suitable cycle in cohomology. We can now produce some generating series and conjecture the usual results. For example, for a Schwarz function $\varphi^\infty$ on $(V^\infty)^r$ and an $r\times r$ positive-definite Hermitian matrix $T$, we may define
+\[Z_T^\lambda(\varphi^\infty)_L\coloneqq\sum_{\substack{x\in(V^\infty)^r\\T(x)=T}}\varphi^\infty(x)z(x)_L.\]
+This conjecturally has some modularity. Granting this, we can constuct a $\Theta$-lift, define a height pairing, and then conjecture an arithmetic inner product formula. Specializing to $r=1$ and $m=2$ recovers the Gross--Zagier formula.
+\begin{idea}
+	What does this story look like over function fields?
+\end{idea}
+
+\section{There and Back Again}
+This talk was given by Tony Feng. This talk will be quite informal.
+
+% \subsection{}
+We take the following motivation.
+\begin{idea}
+	Objects related to automorphic forms have many incarnations.
+\end{idea}
+\begin{example}
+	Fix a quadratic extension $K/\QQ$, and set $G\coloneqq\op{PGL}_{2,\QQ}$. Then the Waldspurger formula asserts that
+	\[\left|\int_{[T_K]}f(t)\,dt\right|^2\sim L(f_K,1/2)\]
+	for automorphic form $f$ on $G$. There is also a vaguely similar-looking reductive Gross--Zagier formula.
+\end{example}
+\begin{remark}
+	As a slogan, $\langle\varphi_*[T],\varphi_*[T]\rangle_{[G]}$ should be related to a base-change $L$-function for morphisms $\varphi\colon T\to G$ of reductive groups. Gross--Zagier arises by replacing the automorphic space $[G]$ with the Shimura variety.
+\end{remark}
+\begin{remark}
+	Morally, Shimura varieties is a shtuka with one leg, which is why we should take one derivative in our $L$-function. One cannot add more legs because this would require us to have more than one base $\Spec\ZZ$: the field with one element does not exist.
+\end{remark}
+In order to be able to take more derivatives, we would like to add legs to our shtukas, replacing our automorphic space with $\op{Sht}^r$.
+\begin{theorem}[Yun--Zhang]
+	Let $X'\to X$ be an \'etale double cover of curves over $\FF_q$. Let $T$ be the associated non-split torus in $G=\op{PGL}_2$. Then
+	\[\left\langle[\op{Sht}^r_T]_f,[\op{Sht}^r_T]_f\right\rangle\sim L^{(r)}(f,1/2).\]
+\end{theorem}
+We now turn to theta series $\theta$, which arise from quadratic forms $Q$. These produce modular forms. Roughly speaking, we are interested in theta lifting, which takes functions on the parabolic to functions on the group. When one upgrades to the arithmetic setting, the theta lifting should output special cycles on Shimura varieties. (This is the Kudla program.)
+\begin{idea}
+	Does the Rallis inner product formula fit into relative Langlands?
+\end{idea}
+The talk ended with trying to deform relative Langlands to Fargue--Scholze, where we have a notion of shtukas with many legs. Yiannis asked a question if one could take an arithmetic deformation (with more derivatives?), but this seems unknown even in the Waldspurger case.
+
+\section{Iwasawa Main Conjectures and Arithmetic Applications}
+This talk was given by Giada Grossi.
+
+% \subsection{}
+Choose an elliptic curve $E$ over a number field $F$. The Birch--Swinnerton-Dyer conjecture associates information about $L(E/F,s)$ to information about the rank of $E$ or more generally the Selmer group. One profitable way to approach these problems is via Kolyvagin systems. In Iwasawa theory, one works up $p$-ramification towers, but one has to replace the complex $L$-function with a $p$-adic one.
+
+Let $F_\infty$ be a fixed $\ZZ_p$-extension of $F$. Let $\Lambda$ be $\ZZ_p[[\op{Gal}(F_\infty/F)]]$.
+\begin{itemize}
+	\item We have a usual Selmer group $\op{Sel}_{p^\infty}$ inside $\mathrm H^1(F;E[p^\infty])$, which is connected to $L(E/F,s)$. More precisely, we should replace the Selmer group with $\Sha(E/\QQ)[p^\infty]$.
+
+	\item We have another Selmer group $\op{Sel}_\Lambda$ inside $\mathrm H^1(F;T_pE\otimes\Lambda^\lor)$. The Iwasawa main conjecture asserts that the torsion part of the Selmer group should be the same as the $p$-adic $L$-function $\mc L(E)$. Roughly speaking, we let $f(T)$ be a generator of $\op{Char}(\mathrm{Sel}_\Lambda^\lor)$, which we conjecture agrees with $\mc L(E)$ as an ideal in $\Lambda$.
+
+	In these settings, one also hopes for a control theorem that $\op{ord}_pf(0)$ should be $\op{ord}_p\#\Sha(E/\QQ)[p^\infty]$.
+\end{itemize}
+There are analogous conjectures when $F$ is a quadratic imaginary field $K$; we should let $F_\infty$ be the anti-cyclotomic $\ZZ_p$-extension. By an interpolation argument, one can hope to recover theorems about the complex setting from the $p$-adic setting.
+
+We are now motivated to prove the main conjectures. Showing $\op{Char}(\mathrm{Sel}_\Lambda^\lor)\supseteq(\mc L(E))$ amounts to the construction of a $\Lambda$-adic Euler system along with an explicit reciprocity law. Showing the other inclusion usually uses Eisenstein congruences for larger groups.
+\begin{theorem}
+	Let $p$ be an odd prime of good ordinary reduction, and suppose that $E$ admits a rational $p$-isogeny with some technical condition. Choose a quadratic imaginary field $K$ with some Heegner hypothesis (and that $p$ splits in $K$), the following hold.
+	\begin{itemize}
+		\item One has an anti-cyclotomic Iwasawa main conjecture.
+		\item One also has a cyclotomic Iwasawa main conjecture.
+	\end{itemize}
+\end{theorem}
+\begin{remark}
+	When the Iwasawa main conjecture has content (namely, does not read $0=0$), one can prove a $p$-converse theorem and the $p$-part of the exact formula. Here, $p$-converse means that we use finiteness at $p$ in order to show non-vanishing of the $L$-function (or its derivative).
+\end{remark}
+\begin{remark}
+	One can hope to say something even when the Iwasawa main conjecture has no content. They have recently proven Kolyvagin's conjecture on the non-triviality of the Kolyvagin system using the Iwasawa main conjecture. What is missing is the relationship to $L$-values.
+\end{remark}
+One can now try to go beyond elliptic curves. One can go to higher weight modular forms or Hilbert modular forms, due to many people, and one can go to higher-rank groups sometimes as well. In the higher-rank cases, much of the novelty arises from the construction of Euler systems.
+\begin{remark}
+	There is some difficulty in the cases where $E[p]$ is a reducible Galois representation. The talk explained how to reduce the Iwasawa main conjecture to the setting of characters.
+\end{remark}
+
+\section{Higher Green's Functions}
+This talk was given by Don Zagier.
+
+% \subsection{}
+Let $\mc H$ be the upper-half plane, and we let $\Gamma$ be a group acting on $\mc H$. Perhaps $\Gamma$ could be trivial, it could be $\ZZ$, or it could be $\op{PSL}_2(\ZZ)$. We set $X\coloneqq\mc H/\Gamma$, and then we have a Green's function $G(z,z')$ with the following properties.
+\begin{itemize}
+	\item The function $G$ is continuous and $G$-bi-invariant away from the diagoanl.
+	\item Near the diagonal, $G$ has a logarithmic singularity.
+	\item The growth is cuspidal near $\infty$.
+	\item The Laplacians in either coordinate vanish.
+\end{itemize}
+\begin{example}
+	If $\Gamma$ is trivial, we have
+	\[G(z,z')=\log\left|\frac{z-z'}{z-\overline{z'}}\right|^2.\]
+\end{example}
+\begin{example}
+	If $\Gamma=\ZZ$, we have
+	\[G(z,z')\coloneqq\log\left|\frac{q-q'}{1-q\overline{q'}}\right|^2,\]
+	where $q=e^{2\pi iz}$ and $q'=e^{2\pi iz'}$. Gross--Zagier used these functions at the archimedean place.
+\end{example}
+It turns out that one can deform $G$ to $G_s$ for a complex parameter $s\in\CC$, where we require that $\Delta_zG_s=\Delta_{z'}G_s=s(s-1)G$, where $\Delta$ is the hyperbolic Laplacian $y^2\left(\frac{\del^2}{\del x^2}+\frac{\del^2}{\del y^2}\right)$. For $\Gamma$ trivial, one has an equation $\Delta g_s=s(s-1)g_s$, which is some second-order ordinary differential equation. One can reduce this to the Legendre differential equation. This defines $g_s$, and then we take averages to define $G_s^\ZZ$ and $G_s^{\op{SL}_2(\ZZ)}$: one has
+\[G_s^\Gamma(z,z')\coloneqq\sum_{\gamma\in\Gamma}g_s(z,\gamma z').\]
+\begin{example}
+	In te regime $y>y'$, there is a Fourier expansion
+	\[G_s^{\mc H/\ZZ}(z,z')\coloneqq\frac{4\pi}{1-s}y^{1-s}(y')^s-4\pi\sqrt{yy'}\sum_{n\ne0}K_{s-1/2}(2\pi\left|n\right|y)J_{s-1/2}(2\pi\left|n\right|y)e^{2\pi in(x-x')},\]
+	where $K$ and $J$ denote Bessel functions. There is a similar formula for $\mc H/\op{SL}_2(\ZZ)$.
+\end{example}
+It turns out that these Green's functions can be found as polylogarithms.
+\begin{example}
+	For positive integers $k$ with $k>1$, we have
+	\[G_k^\ZZ(z,z')=\frac{-2}{\left(-4\pi yy'\right)^{k-1}}\sum_{\substack{n\in[0,2k]\\n\text{ odd}}}\alpha_m(2\pi y,2\pi y')(D_m(q/q')-D_m(q\overline q')),\]
+	where $\alpha_m$ is some explicit polynomial, and $D_m$ is a polylogarithm.
+\end{example}
+\begin{example}
+	There is a more complicated formula for $\op{SL}_2(\ZZ)$; namely,
+	\begin{align*}
+		G^{\op{SL}_2(\ZZ)}_k(z,z')&=-2\sum_{\substack{n\in[0,2k]\\n\text{ odd}}}\alpha_m(2\pi y,2\pi y')(D_m(q/q')-D_m(q\overline q')) \\
+		&\qquad{}+\sum_{(m,n)\in\ZZ}\pi_k(m,n)h_{k-1}(2\pi\left|n\right|y)h_{k-1}(2\pi\left|m\right|y').
+	\end{align*}
+	The coefficients $\pi_k(m,n)$ take on interesting values related to modular forms, especially if there are no cusp forms in $S_k$.
+\end{example}
+We close the lecture with a conjecture. Let $E/F$ be a Galois extension of number fields with Galois group $G$. Then $\zeta_E$ has an Euler product expansion with action by $G$. Similarly, there is an identity
+\[\mathrm{Reg}_F=\mathrm{Reg}_E\prod_pL_F(1,s),\]
+so we may conjecture if the regulator has the same group decomposition.
+
+\section{Modularity of CM Cycles on Unitary Shimura Curves}
+This talk was given by Andreas Mihatsch.
+
+\subsection{Motivation}
+Let $(G,X)$ be a Shimura datum, and let $M$ be the Shimura variety of level $K$. There is a natural adjoint representation of $G$ on its Lie algebra $\mf g$, so we receive a representation $G\to\op O(\mf g)$. We assume that we may extend the level $K$ to $\op O(\mf g)$, so there is a map from $M$ to the associated orthogonal locally symmetric space.
+\begin{notation}
+	Given $t\in\QQ$ and $\psi_f\in\mc S(\mf g(\AA_F))^K$, there is a special cycle $Z(t,\psi_f)$.
+\end{notation}
+It turns out that these special cycles fit into a generating series which is a modular form. To return to $M$, we may pull these cycles back to the series
+\[\sum_{t\ge0}\op{ad}^*Z(t,\psi_f)q^t\in\mathrm H^{\mathrm{top}}(M;\CC)[[q]].\]
+Modulo some convergence issues, this is a modular form.
+\begin{remark}
+	Generically, $\op{ad}^*Z(t,\psi_f)$ is a linear combination of CM points.
+\end{remark}
+Here is a motivating example.
+\begin{example}[Siegel]
+	Take $G=\op{GSp}_{2g}$ so that $M$ is the moduli of principally polarized abelian varieties (with some level structure). Let $\psi_f$ indicate $\mu\subseteq\op{Sp}_{2g}(\AA_F)$ which is $\op{Sp}_{2g}(\ZZ_p)$ at the odd primes and the set of $x\in\op{Sp}_{2g}(\ZZ_2)$ such that $\op{charpoly}(x)$ is irreducible at $p=2$.
+\end{example}
+\begin{theorem}
+	Define $C(t,\mu)$ to be the space of triples $(A,\lambda,x)$ where $(A,\lambda)$ is a principally polarized abelian variety, and $x$ is an endomorphism of $A$ satisfying $x^\dagger=-x$, $\tr x=0$, $\tr x^\dagger x=t$, and the characteristic polynomial of $x$ is irreducible. Then $\dim C(t,\mu)_\QQ=0$, and
+	\[\sum_{t\ge0}\deg C(t,\mu)_\QQ q^t\]
+	is a holomorphic modular form of weight $\frac12\dim\op{Sp}_{2g}$.
+\end{theorem}
+Now that we have a version of the usual Kudla program, we would like an arithmetic enhancement. This means that we would like to extend $C(t,\mu)$ to an integral model $\widehat{\mc C}(t,\tau,\psi_f)$ and then have a modular form with coefficients in the Chow group. The integral models exist already in the PEL setting using derived algebraic geometry.
+
+Here is our main result. For today, let $E$ be an imaginary quadratic field, let $V$ be a Hermitian space of signature $(n-1,1)$, and set $G\coloneqq\op U(V)$.
+\begin{theorem}
+	Take $n=2$. Let $E$ be an imaginary quadratic field, let $V$ be a Hermitian space of signature $(1,1)$, and set $G\coloneqq\op U(V)$. Then
+	\[\left\langle\widehat{\mc Z}^K,\sum_{t\in\QQ}\widehat{\mc C}(t,\tau,\psi_f)q^t\right\rangle=\frac d{ds}\bigg|_{s=0}\int_{[\mathrm{GL}_n]}\Theta_\Phi(\tau,g)\left|\det g\right|^s\eta_{E/\QQ}(g)\,dg,\]
+	where $\Phi$ is a suitable Schwartz function.
+\end{theorem}
+This is done by comparing some relative trace formulae. The nonarchimedean comparisons have been handled by Wei Zhang. Today, we are interested in the archimedean comparisons.
+
+\subsection{Green's Currents}
+Let $M$ be a complex manifold, and let $\mc E$ be a Hermitian holomorphic vector bundle on $M$ of rank $r$.
+\begin{definition}
+	A holomorphic section $s\in\Gamma(M;\mc E)$ is \textit{regular} if and only if $\op{codim}V(s)=r$.
+\end{definition}
+This allows us to define forms $\varphi_s\in A^{r,r}(M)$ and $\nu_s\in A^{r-1,r-1}(M)$ and $\xi_s\coloneqq\int_1^\infty\nu_{t,s}\,dt/t$. One has a Green current equation
+\[dd^c\xi_s+\delta_{V(s)}=\varphi_s.\]
+For our application, let $V$ be a Hermitian space over $\RR$ of signature $(n-1,1)$, and let $\mathbb D$ denote the space of negative-definite lines in $V$. For $x\in\mf u(V)$, we let $C(x)$ denote the lines in $\mathbb D$ stabilized by $x$.
+\begin{remark}
+	If $x$ is regular semisimple, then it turns out that $\dim C(x)=0$. Indeed, we are basically looking for an eigen-line, and only one of these may be negative-definite.
+\end{remark}
+\begin{notation}
+	Let $\mc L\subseteq\mathbb D\times V$ be the tautological bundle, and let $\mc F$ be the quotient of $\mathbb D\times V$ by $\mc F$. We also define $\mc E\coloneqq\mc Hom(\mc L,\mc F)$.
+\end{notation}
+\begin{notation}
+	For regular semisimple $x$, we define $s_x$ to be the second of $\mc E$ defined by
+	\[\mc L\subseteq\mathbb D\times V\stackrel x\to\mathbb D\times V\onto\mc F.\]
+\end{notation}
+By construction, $V(s_x)=C(x)$, and one can form a Green's current.
+
+\subsection{Smooth Transfer}
+For the comparison of trace formulae, we are interested in comparing some orbital integrals. Choose a smooth function $\nu$ on $\mf{su}(V)\times V$, and then we define the orbital integral
+\[\op{Orb}((x,u),\nu)\coloneqq\int_{\op U(V)}\nu(g\cdot(x,u))\,dg.\]
+For the comparison, we would like to pass unitary obital integrals to linear ones. To begin, we must match orbits: there is a canonical correspondence
+\[\mathrm{GL}_n\backslash(\mf{sl}_n\times\RR^n\times\RR^n)\leftrightarrow\bigsqcup_{p+q=n}\op U(V_{p,q})\backslash(\mf{su}(V_{p,q})\times V_{p,q}),\]
+which descends to a bijection on the regular semisimple orbits. Let $s_n$ denote the left space (before quotient), and define $t_{p,q}$ similarly.
+
+For our matching, it is enough to take $K$-finite vectors everywhere, which are dense anyway. Later on, we will even philosophically take a quotient by the $\mf g$-action.
+\begin{conj}[Smooth transfer]
+	Let $S_n\subseteq\mc S(s_n)$ denote the subspace of polynomial-type functions, and define $T_{p,q}$ similarly. Then
+	\[\op{Orb}(-,S_n)=\bigoplus_{p+q=n}\op{Orb}(-,T_{pq}).\]
+	This is an equality of subspaces of $C^\infty(Q(\RR)_{\mathrm{rs}})$.
+\end{conj}
+We will show this holds for $n=2$.
+\begin{proof}[Sketch for $n=2$]
+	On the $\op{GL}_n$-side, one has two invariant differntial operators.
+	\begin{itemize}
+		\item One can multiply by the algebra $A$ of invariant polynomials. Note that this action commutes with taking orbital integrals.
+		\item We can view $s_n$ as a quadratic space via quadratic form $Y\mapsto\tr Y^2$. There is then a Weil representation $\omega\colon\mf{sl}_2(\CC)\to\op{End}_{\op{GL}_n}(s_n)$.
+	\end{itemize}
+	Let $B$ be the subring of differential operators generated by these. We can then approximately form a commutator diagram
+	% https://q.uiver.app/#q=WzAsNCxbMCwwLCJcXG9wIE8oc19uKSJdLFswLDEsIlxcb3B7R0x9X24iXSxbMSwwLCJCIl0sWzEsMSwiXFxtZntzbH1fMiJdLFswLDEsIiIsMCx7InN0eWxlIjp7ImhlYWQiOnsibmFtZSI6Im5vbmUifX19XSxbMCwzLCIiLDIseyJzdHlsZSI6eyJoZWFkIjp7Im5hbWUiOiJub25lIn19fV0sWzIsMSwiIiwyLHsic3R5bGUiOnsiaGVhZCI6eyJuYW1lIjoibm9uZSJ9fX1dLFsyLDMsIiIsMCx7InN0eWxlIjp7ImhlYWQiOnsibmFtZSI6Im5vbmUifX19XV0=&macro_url=https%3A%2F%2Fraw.githubusercontent.com%2FdFoiler%2Fnotes%2Fmaster%2Fnir.tex
+	\[\begin{tikzcd}[cramped]
+		{\op O(s_n)} & B \\
+		{\op{GL}_n} & {\mf{sl}_2}
+		\arrow[no head, from=1-1, to=2-1]
+		\arrow[no head, from=1-1, to=2-2]
+		\arrow[no head, from=1-2, to=2-1]
+		\arrow[no head, from=1-2, to=2-2]
+	\end{tikzcd}\]
+	of reductive dual pairs, with the obvious caveat that $B$ is not a reductive group. We can now compute that $\op{Orb}(-,S_2)$ is generated by three particular vectors, two of which were already known to Kudla and Milson.
+
+	On the unitary side, one has the same $B$ appearing in the commutator diagram. It turns out that the relevant spaces of orbital integrals are cyclic generated by the Gaussian. Lastly, one just has to match the two sets of generators, which amounts to computing some orbital integrals.
+\end{proof}
+\begin{remark}
+	It follows from the proof that computing orbital integrals commutes with taking derivatives in $B$.
+\end{remark}
+Being able to take derivatives of orbital integrals in this way allows us to prove the desired arithmetic result.
+
+\section{Some Relative Trace Formula Comparisons}
+This talk was given by Chen Wan.
+
+\subsection{Motivation}
+For today, $K$ is a number field, and $G$ is a reductive group over $K$, usually assumed to be split (for reasons related to relative Langlands duality).
+\begin{definition}
+	A \textit{period integral} is the integral of an automorphic form along a subgroup, possibly against another automorphic form (such as a character).
+\end{definition}
+\begin{example}
+	For $\varphi\in\mc A_G$, there is a period integral
+	\[\int_{[H]}\varphi(h)\,dh.\]
+	In the case where $G=\mathrm{GL}_{n+1}\times\mathrm{GL}_n$ and $H=\mathrm{GL}_n^\Delta$, this is the Rankin--Selberg $L$-function for $G$.
+\end{example}
+\begin{example}
+	For $\varphi\in\mc A_G$ and a theta series $\Theta$, there is a period integral
+	\[\int_{[H]}\varphi(h)\Theta(h)\,dh.\]
+	In the case where $G=\mathrm{GL}_n\times\mathrm{GL}_n$ and $H=\mathrm{GL}_n^\Delta$, this is the Rankin--Selberg $L$-function for $G$.
+\end{example}
+\begin{example}
+	We may also take period integrals over non-reductive subgroups. For example, one may want to take $G=\mathrm{GL}_{2n}$ and integrate against $HU$ where $H=\mathrm{GL}_n\times\mathrm{GL}_n$ and $U$ is the unipotent radical of the Siegel parabolic. Then this gives the Shalika model.
+\end{example}
+For the relative trace formula approach, we want to relate period integrals together.
+\begin{notation}
+	Given a Schwartz function $f$ on $G(\AA_F)$, we define the automorphic kernel function
+	\[K_f(x,y)\coloneqq\sum_{\gamma\in G(F)}f\left(x^{-1}\gamma y\right).\]
+	The relative trace formula $\op{rtf}(f)$ is a double period against $\mc P_1$ and $\mc P_2$.
+\end{notation}
+The relative trace formula would like to compare the periods for two different groups.
+\begin{example}[Jacquet--Rallis] \label{ex:rtf-comparison}
+	We will compare traces for the following two groups.
+	\begin{itemize}
+		\item Take $G=\mathrm{GL}_{2n}$. Let $\mc P_1$ be the period integral over $\mathrm{Sp}_{2n}$, and let $\mc P_2$ be the period over the subgroup $N$ of upper-triangular matrices against a regular character $\xi\colon[N]\to\CC^\times$.
+		\item Take $G'=\mathrm{GL}_n\times\mathrm{GL}_n$. Let $\mc P_1'$ be the period integral over $\op{GL}_n^\Delta$, and let $\mc P_2'$ be the Whittaker period.
+		\item We could also take $G''=\mathrm{GL}_n$, and then let $\mc P_1''$ and $\mc P_2''$ to both be the Whittaker period.
+	\end{itemize}
+	These periods admit a comparison (i.e., a matching of relative trace formula).
+\end{example}
+The moral of the example is that we could pass from a group to a Levi subgroup. It turns out that this process takes an automorphic representation to a tempered one.
+
+\subsection{Relative Langlands Duality}
+The following material is due to Ben-Zvi--Sakellaridis--Venkatesh. Let $\widehat G$ be the dual group of $G$. For nice Hamiltonian spaces $M$ with $G$-action, one conjecturally has a corresponding space $\widehat M$ of $\widehat G$. Morally, one conjectures that periods for $M$ yield $L$-functions for $\widehat M$.
+
+Our nice space $M$ turns out to come from a tuple $\Delta\coloneqq(G,H,\iota,\rho_H)$, where $H\subseteq G$ is a subgroup, $\iota\colon\mathrm{SL}_2\to G$ is a representation, and $\rho_H$ is a symplectic representation of $H$. One also has a dual tuple $(\widehat G,\widehat H',\widehat\iota',\rho_{\widehat H'})$ for $\widehat M$.
+\begin{notation}
+	Define an automorphic form $\varphi$ of $G$. We define the period integral
+	\[\mc P_\Delta\coloneqq\int_{[H]}\mc P_\iota(\varphi)(h)\Theta_{\rho_H}(h)\,dh.\]
+	Here, $\mc P_\iota(\varphi)$ is basically a Fourier coefficient associated to the nilpotent orbit coming from $\iota$.
+\end{notation}
+\begin{example}
+	If $\iota$ is trivial and $\rho_H$ vanishes, then $M=T^*G/H$, and $\mc P_\Delta(\varphi)=\int_{[H]}\varphi(h)\,dh$. One refers to this case as the ``spherical variety'' case.
+\end{example}
+\begin{conj}
+	Fix an automorphic representation $\pi$ of $G(\AA_F)$. Then $\mc P_\Delta|_\pi\ne0$ if and only if the Arthur parameter of $\pi$, denoted $\Phi\colon L\times\op{SL}_2(\CC)\to\widehat G(\CC)$ where $L$ is the Langlands group, factors through $\widehat\iota'$. Furthermore, $\pi$ is the functorial lifting of an automorphic representation on $H'(\AA_F)$, and
+	\[\left|\mc P_\Delta(\varphi)\right|^2\sim\frac{L(1/2,\pi,\rho_H)}{L(1,\pi,\mathrm{Ad})}.\]
+\end{conj}
+The moral is that one can hope that periods have some matching once the dual objects are related, and the value of the period really only depends on $\rho_{\widehat H'}$.
+\begin{definition}
+	A tuple $\Delta=(G,H,\iota,\rho_H)$ is \textit{tempered} if and only if $\widehat\iota'=1$. Furthermore, $\Delta$ is \textit{strongly tempered} if and only if one also has $\widehat H'=\widehat G$.
+\end{definition}
+In terms of the conjecture, we see that we are asking for the Arthur parameter to vanish on the $\op{SL}_2(\CC)$ piece, which corresponds to being tempered. Notably, only $\rho_H$ relates to the value of the period: the other pieces of data only tell us about functoriality.
+\begin{notation}
+	Given $\Delta=(G,H,\iota,\rho_H)$, we define the strongly tempered tuple to be dual to
+	\[\widehat\Delta_{\mathrm{st}}\coloneqq\left(\widehat H',\widehat H',1,\rho_{\widehat H'}\right).\]
+\end{notation}
+\begin{remark}
+	In general, there is no algorithm to compute the dual for a particular tuple. It is only known how to do this in special cases.
+\end{remark}
+\begin{conj}[Mao--Wan--Zhang]
+	Fix notation as above with a tuple $\Delta\coloneqq(G,H,\iota,\rho_H)$ and its dual $\widehat\Delta$. Then define $\mc P_1\coloneqq\mc P_\Delta$ and $\mc P_2\coloneqq\mc P_{\iota'}$ and $\mc P_1'\coloneqq\mc P_{\Delta'}$ and $\mc P_2'$ to be the Whittaker period. Then there is a matching.
+\end{conj}
+\begin{example}
+	There is evidence for this conjecture in the case where $\Delta'=(\mathrm{PGL}_2,1,\iota_{\mathrm{reg}},0)$. It is done by some direct calculations.
+\end{example}
+This conjecture turns out to be quite hard. For example, beyond the rank-one case, it is difficult even to match the orbits in the GIT quotient. It is convenient to add an intermediate step.
+\begin{notation}
+	Given $\Delta=(G,H,\iota,\rho_H)$, we define the tempered tuple to be dual to
+	\[\widehat\Delta_{\mathrm{t}}\coloneqq\left(\widehat L,\widehat H',1,\rho_{\widehat H'}\right),\]
+	where $\widehat L$ is the centralizer of $\widehat\iota'(A)$, where $A\subseteq\op{SL}_2$ is the split maximal torus.
+\end{notation}
+The moral is that we are removing out the piece forcing us to give a tempered representation. This intermediate step is motivated by \Cref{ex:rtf-comparison}.
+\begin{remark}
+	It turns out from some structure theory that orbits can be canonically identified when passing from tempered to strongly tempered cases.
+\end{remark}
+\begin{theorem}
+	Assume $\Delta=(G,H,1,0)$ and $G$ is not of type $F$ or $E$. Then there is matching between $\Delta$ and $\Delta_{\mathrm t}$.
+\end{theorem}
+\begin{proof}[Idea]
+	One can directly map $G$ to the Levi subgroup to do the matching geometrically. Approximately speaking, the orbits from the Levi embed into the orbits from the full group.
+\end{proof}
+\begin{remark}
+	One must assume that the test function is supercuspidal somewhere in half the cases.
+\end{remark}
+\begin{idea}
+	I hope one can do matching for related groups by comparing their strongly tempered tuples.
+\end{idea}
+
+\section{Faltings Heights and Subleading Terms of Adjoint \texorpdfstring{$L$}{ L}-functions}
+This talk was given by Ryan Chen.
+
+\subsection{The Main Conjecture}
+Given a smooth projective variety $X$ over a number field $K$, and let $T\colon X\to X$ be a finite \'etale correspondence. We would like to count the fixed points of $T$, for which we could count the intersection number $\langle T,\Delta_X\rangle$. It is profitable to do this by passing to cohomology via the Lefschetz trace formula as
+\[\langle\Delta_X,T\rangle=\sum_i(-1)^i\tr\left(T;\mathrm H^i(X_{\ov K};\overline\QQ_\ell)\right).\]
+One could then further refine the right-hand side by decomposing the cohomology groups via the Galois action.
+
+One can now pass to an arithmetic setting by giving everything an integral model. Then we define
+\[h(\Delta,T)\coloneqq\langle\widehat\Delta,\widehat{\mc L},\widehat T\rangle,\]
+where $\widehat{\mc L}$ is a chosen line bundle on $X$. One would hope that this height could be decomposed as a trace, which would then be decomposed into some Galois representations. This talk will propose that we can do write this out as a trace when $X$ is a Shimura variety, and our representations will be automorphic representations.
+\begin{example}
+	Set $X\coloneqq X_0(N)$, and let $T$ be a Hecke correspondence. In the geometric setting, one has
+	\[\langle\Delta_X,T\rangle=\sum_i(-1)^i\tr\left(T;\mathrm H^i(X)\right)=\sum_\pi\pm\lambda_\pi(T)\dim\mathrm H^*(X)[\pi_f],\]
+	where the last sum varies over automorphic representations. In order to isolate the contribution of a single $\pi$, we note that the class $\Delta\in\op{CH}^1(X\times X)_\CC$ admits a decomposition against the action by the Hecke algebra, yielding
+	\[\Delta=\sum_\pi\Delta_{\pi\boxtimes\pi^\lor}.\]
+	Accordingly, $T=(T\otimes1)^*\Delta$ can be expanded as $\sum_\pi\Lambda_\pi(T)\Delta_{\pi\boxtimes\pi^\lor}$, which allows us to spectrally decompose $\langle\Delta_X,T\rangle$.
+\end{example}
+\begin{example}
+	We continue with the previous example, but we pass to the arithmetic setting. We choose the Hodge bundle $\mc E$ on $X$ to be our line bundle. Then we hope that the pairing $\langle\Delta,T,\mc E\rangle$ will admit a similar spectral decomposition.
+\end{example}
+Let's try to explain what's going on at a high level before we specialize. Fix an imaginary quadratic field $F$ with odd discriminant, and choose a Hermitian space $V$ of signature $(n-1,1)$. Let $X$ be the Shimura variety of level $K$ for the group $G'\coloneqq\op U(V)\times\op{Res}_{F/\QQ}\mathbb G_m$.
+\begin{conj}
+	Assume that
+	\[\op{CH}^{n-1}(X\times X)_\CC=\bigoplus_{\pi}\op{CH}^{n-1}(X\times X)_{\pi_f\boxtimes\pi_f'},\]
+	so we may decompose $\Delta$ spectrally. If $\pi$ is cuspidal, automorphic, cohomological, and tempered, then
+	\[h(\Delta_\pi,\Delta_\pi)\sim\frac{L'(0,\pi,\mathrm{Ad})}{L(0,\pi,\mathrm{Ad})}\cdot\dim\mathrm H^{n-1}(X)[\pi_f].\]
+\end{conj}
+\begin{remark}
+	The central point for these $L$-functions is at $s=1/2$, so the conjecture is away from the central point.
+\end{remark}
+There is a relative trace formula approach, and the proof has been carries through for compact Shimura curves $n=2$ modulo some problems at the places of bad reduction.
+\begin{remark}
+	Let's explain how the adjoint $L$-functions appear. Suppose $n-1=\frac12\dim(X\times X)$. Then we may decompose $L\left(s,\mathrm H^{n-1}(X\times X)\right)$ as a product of automorphic $L$-functions which look like $\pi\boxtimes\pi^\lor$. Then $\pi\boxtimes\pi^\lor$ further decomposes into some base-changes for the Asai $L$-function, and the Asai $L$-function for the base-change is related to the adjoint $L$-function.
+\end{remark}
+
+\subsection{Reduction to Local}
+It will turn out that counting our fixed points for the Hecke operator is related to counting CM points.
+\begin{example}
+	Continue with $X=X_0(N)$, and let $T_p$ be the Hecke operator at $p$. Then $\Delta\cap T_p$ is basically a sum of the special points plus the cusps.
+\end{example}
+The moral is that one can compare the height we want to compute to heights of CM cycles (up to some cusps, which are easy to understand). Our target is some linear combination of $L$-functions (and their derivatives), which the relative trace formula explains we can do by computing some orbital integrals.
+
+Let's explain this relative trace formula.
+\begin{example}[Jacquet--Zagier]
+	Let $H\coloneqq\mathrm{GL}_n$ and $H'\coloneqq\op{Res}_{F/\QQ}\op{GL}_n$, $f$ a Schwartz function on $H'(\AA_F)$, and let $\varphi$ be a Schwartz function on $W(\AA_F)$, where $W$ is the space of row vectors of length $n$. Then our relative trace is
+	\[J(f,\varphi,s)=\int_{[H]}'\int_{[H]}K_f(x,y)\Theta(x,\varphi)\left|x\right|^s\eta(x)^n\eta(y)^{n+1}\,dx\,dy,\]
+	where the outer integral must be regularized, and $\Theta(x,\varphi)$ is a theta function, and $\eta\coloneqq\op{sgn}_{F/\QQ}$.
+\end{example}
+The relative trace formula now relates $\frac d{ds}\big|_{s=0}J(f,\varphi,s)$ to the $L$-functions, and this value can now be related to some local orbital integals. More precisely, once the orbital integrals factorize, the derivative looks like
+\[\sum_v\frac{\op{Orb}_v'(\gamma,u,0)}{\op{Orb}_v(\gamma,u,0)}\]
+up to some normalizations and so on.
+
+We would now like a local decomposition of the Faltings heights of our CM special cycles, but there is no canonical decomposition of the Faltings height: one has to choose a section somewhere. Instead, we will introduce heights of CM $p$-divisible groups.
+\begin{remark}
+	For motivation, we note that Faltings has defined a height of $\ZZ$-lattices $\Lambda$, from which one recovers a height of abelian varieties $A$ by passing to $\mathrm H_1(A;\ZZ)$. (One could also add CM structure at all steps until we take a height.)
+\end{remark}
+Analogously, we note that the Tate module of an abelian variety takes in an abelian variety and outputs a $\ZZ_p$-lattice. Of course, one can expand the source category from abelian varieties to $p$-divisible groups, so it will be profittable to try to define a height of $p$-divisible groups.
+\begin{remark}
+	The Faltings height satisfies the following property: for an isogeny $\psi\colon A\to B$ defined over $\OO_K$, we have
+	\[h_{\mathrm{Fal}}(A)-h_{\mathrm{Fal}}(B)=\frac12\log\deg\psi-\frac1{[K:\QQ]}\]
+\end{remark}
+This same formula can be used to define a height for $p$-divisible groups, but one must check that our definition does not depend on the choice of isogeny. One can add CM structure everywhere. We can then attain
+\begin{proposition}
+	Given an abelian vareity $A$ with CM by $(E,\Phi)$, we have
+	\[h_{\mathrm{Fal}}(A)=h(E,\Phi)+\sum_ph_p(T_pA),\]
+	where $h(E,\Phi)$ is the Colmez height.
+\end{proposition}
+\begin{remark}
+	The Colmez conjecture relates $h(E,\Phi)$ to $L$-functions and their derivatives.
+\end{remark}
+It remains to relate the local heights $h_p(T_pA)$ to the orbital integral. At finite places, one uses a $p$-adic uniformization and does a local calculation.
+
+Let's now turn to the archimedean places. Here, we needa Harminoc Green function $G_T\colon T\to X\times X$ which is the logarithm of a potential. In other words, $G_T$ should be $-\log\left|f\right|^2$ plus some smooth function, where $T$ is locally cut out by the function $f$. When $T$ is a Hecke operator, one finds that the archimedean part of $h(\Delta,T)$ is
+\[\int_{\Delta(\CC)}G_T(z,z)\,\frac{dx\,dy}{y^2},\]
+which unfolds to
+\[\lim_{\nu\to1^+}\sum_g\op{Orb}_{\op U(1,1)}(g,Q_{\nu-1})\]
+multiplied by some nonarchimedean orbital integrals, where $Q_{\nu-1}$ is some Legendre function. In particular, $Q_{\nu-1}$ has a singularity at $1$, so we must be careful. Accordingly, one would hope that these archimedean orbital integral over $\op U(1,1)$ relates to the derivative of orbital integrals for $\op{GL}_2(\RR)$, which can be done by some more matching arguments. In particular, the derivative matches with an Eisenstein series, and the Eisenstein series has its singularities matching with $Q_{\nu-1}$, and the result goes through.
+
+\section{Higher Gross--Zagier Formulas and Relative Langlands Duality}
+This talk was given by Zeyu Wang.
+
+\subsection{The Examples}
+Today, we will talk about the function field analogues of the Gross--Zagier formulae. The Gross--Zagier formula connects intersection numbers with the derivatives of certain $L$-functions. For today, Langlands duality associates $G$ acting on a nice Hamiltonian space $M$ to the dual group $\check G$ acting on a dual nice Hamiltonian space $\check M$. Morally, period integrals for $M$ should be related to the $L$-function for $\check M$.
+
+The Gross--Zagier formula suggests an arithmetic relative Langlands duality, whereby intersection numbers of special cycles on $M$ should be related to the derivatives of $L$-functions given by vector fields $I\in\Gamma(\check M;T_{\check M})$.
+\begin{definition}[special cycle]
+	Given a map $p\colon(H,h_H)\to(G,h_G)$ of Shimura data, we define the \textit{special cycle} of $p$ to be $p_![\mathrm{Sh}_H]\in\op{CH}^*(\mathrm{Sh}_G)$. We will denote this special cycle by $Z_V$, where $V$ is the highest weight associated to $h_H$.
+\end{definition}
+For a cuspidal cohomological automorphic representation $\pi$ of $G$, a Gross--Zagier formula would look like
+\[\langle Z_{V,\pi},Z_{V,\pi}\rangle\sim L'(\pi,1/2),\]
+where $(-)_\pi$ denotes the isotypic part, and $\langle-,-\rangle$ is the Beillinson--Bloch height pairing.
+\begin{example}
+	For example, this includes the Gan--Gross--Prasad conjecture, where $U=\op U(n-2,1)$ and $G=\op U(n-1,1)\times\op U(n-2,1)$.
+\end{example}
+\begin{example}
+	Ryan Chen's talk yesterday proposed a Gross--Zagier-type formula for $H=\op U(n-1,1)$ and $G=H\times H$, where one notably requires intersecting with an additional line bundle to get a genuine $L$-function.
+\end{example}
+Over function fields, we work over a curve $C$, and the Shimura datum $(G,h_G)$ is replaced by $G$ along with a representation $V$ of $\check G$. Then a higher Gross--Zagier formula would look like
+\[\langle (Z^r_V)_\pi,(Z^r_V)'_{\pi^\lor}\rangle\sim\frac{d^r}{ds^r}\bigg|_{s=0}L(\pi,s).\]
+(The prime on the right-hand side means that a slightly different cycle might be required.)
+\begin{example}
+	Take $G=\mathrm{GL}_n\times\mathrm{GL}_{n-1}$ and $H=\mathrm{GL}_{n-1}$ embedded diagonally. Then take $V$ to be the standard representation plus its dual, and take $\pi=\pi_n\boxtimes\pi_{n-1}$ to be unramified everywhere. If the $L$-parameter $\rho_\pi$ is geometrically irreducible, one is able to prove a higher Gross--Zagier type formula.
+\end{example}
+One can also prove a higher Gross--Zagier formula for diagonal cycles.
+\begin{example}
+	Take $H=G$ to be a split simple reductive group, choose $V$ to be irreducible, and $\pi$ to be trivial. THen $Z^r_V$ is just the canonical class in top degree, and $(Z^r_V)'$ takes an intersection with many line bundles. One can attempt to take an intersection between these two, and one gets a derivative of some abelian $L$-function.
+\end{example}
+
+\subsection{Relative Langlands Duality}
+Let's say a bit more about relative Langlands duality.
+\begin{example}
+	Given a symmetric space $X=H\backslash G$, the cotangent bundle $M=T^*X$ has many nice properties; in particular, it is a graded $G$-Hamiltonian space.
+\end{example}
+In general, if $M$ is a hyperspherical variety, then one can associate to it a $\check G$-Hailtonian space $\check M$. For eample, it has a moment map and a symplectic form.
+\begin{conj}[Relative Langlands]
+	Let $\pi$ be a tempered cuspidal automorphic representation, and let $\rho_\pi\colon\op{Gal}(\overline F/F)\to\check G(\CC)$ be an $L$-parameter. Suppose that $\check M^{\rho_\pi(\mathrm{Gal}_F)}$ is a single point $x$, so we may linearize $M$ to by taking the cotangent space $T_x^*\check M$, which decomposes into a direct sum $\bigoplus_iS_i(d_i)$ as a representation of $\mathrm{Gal}_F\times\mathbb G_m$. For a normalized test vector $f$, one expects
+	\[\left|\int_{[H]}f\right|^2\sim\prod_iL(s,d_i/2).\]
+\end{conj}
+This can be viewed as a general conjecture of Waldspurger type. We would like to take derivatives. In the same set-up, given suitable special cycles $Z_V$ and $Z'_V$, we expect
+\[\langle(Z_V)_\pi,(Z'_V)_{\pi^\lor}\rangle\sim\frac d{ds}\bigg|_{s=0}\prod_iL(S_,\varepsilon_{V,i}s+d_i/2),\]
+where $\varepsilon_{V,i}$ is an eigenweight determined by the intersection vector field $I\in\Gamma(\check M;T_{\check M})$ constructed from the special cycles.
+
+Let's explain this.
+\begin{enumerate}
+	\item This vector field $I$ is invariant under $\check G\times\mathbb G_m$, so it should vanish at $x$, so there is a Hessian $T_x^*\check M\to T_x^*\check M$ given by viewing $I$ as a derivation on the associated graded. It turns out that the eigen-weigts arise from the action of the Hessian on the pieces $S_i(d_i)$. In particular, the Hessian map is invariant under the group action by construction.
+	\item It remains to explain the source of $I$. In all examples, $Z_V$ arises from some map $c_V\colon\check M\to V$, and $Z'_V$ arises from $c'_V\colon\check M\to V^*$. Taking the sum, we get a map $f_V\colon\check M\to T^*V$. Then $T_V^*$ has a canonical one-form $\theta_V$, and it turns out that $I\coloneqq f_V^*\theta_V$. For technical reasons, we want $f_V$ to factor through the isotropic locus of $T^*V$.
+\end{enumerate}
+We will not define $c_V$ and $c'_V$, but we will explain what they are in one of the examples.
+\begin{example}
+	In the Rankin--Selberg case with $H=\mathrm{GL}_{n-1}$ and $G=\mathrm{GL}_n\times\mathrm{GL}_{n-1}$, one has $c_V$ and $c'_V$ given by the identity map $\check M\to V$. This gives
+	\[I=\sum_ix_i\del_i,\]
+	and all the eigen-weights are trivial.
+\end{example}
+The talk also worked out $c_V$ and $c'_V$ in the last two examples.
+\begin{conj}
+	Assume $\mathrm H^*_c(\mathrm{Sht}^r_{G,V})_\pi\ne0$. Then
+	\[\langle(Z^r_V)_\pi,(Z^r_V)'_{\pi^\lor}\rangle=\frac{q^{(g-1)(-\dim G+\dim H)}}{\left|S_{\rho_\pi}\right|L(\mathrm{Ad}_{\rho_\pi},1)(\log q)^r}\frac{d^r}{ds^r}\bigg|_{s=0}q^{(2g-2)bs}\prod_iL(S_i,\varepsilon_{V,i}s+d_i/2),\]
+	where $b$ is some explicit constant.
+\end{conj}
+\begin{idea}
+	How does the proof strategy compare to the period conjecture in relative Langlands?
+\end{idea}
+
+\section{Nontrivial Ceresa Cycles Via Semistable Reduction}
+This talk was given by Naomi Sweeting. This is joint work with Ari Shnidman.
+
+\subsection{Ceresa Cycles}
+Fix a curve $C$ over a field $K$ of genus at least three. Embed $C$ into $\op{Jac}C$ by the choice of a divisor $e$ of degree $e$.
+\begin{definition}[Cersa cycle]
+	Fix an embedding of a curve $C$ in its Jacobian $J$. Then the \textit{Ceresa cycle} $\op{Cer}_e$ is the $1$-cycle $[C]-[-C]\in\op{CH}_1(J)$.
+\end{definition}
+\begin{remark}
+	The Ceresa cycle is cohomologically trivial because $[-1]^*$ acts by the identity on the top \'etale cohomology of $J$.
+\end{remark}
+These are interesting for the following reason.
+\begin{theorem}[Ceresa]
+	Fix an embedding of a curve $C$ (of genus at least three) in its Jacobian $J$. For general $C$ over $\CC$, the Ceresa cycle is nonzero in $\op{CH}_1(J)_\QQ$.
+\end{theorem}
+It will turn out to be convenient to view the Ceresa cycle as a modified diagonal.
+\begin{notation}
+	Fix a basepoint $e\in\op{Pic}^1C$. Then we define
+	\[\Delta_e\coloneqq\Delta_{123}-\Delta_{12}-\Delta_{13}-\Delta_{23}+\Delta_1+\Delta_2+\Delta_3.\]
+	Here, $\Delta_{12}=\{(x,x,e):x\in C\}$ and so on
+\end{notation}
+\begin{remark}
+	It turns out that $\Delta_e$ is cohomologically trivial.
+\end{remark}
+\begin{remark}
+	One can show that $\Delta_e$ is non-torsion if and only if $\op{Cer}_e$ is, and when they are torsion, their orders can be related.
+\end{remark}
+One could be interested in the exceptional locus when the Ceresa cycle vanishes or is torsion.
+\begin{example}
+	If $C$ is hyperelliptic and $e$ is the fixed point by the involution, then $\op{Cer}_e$ vanishes.
+\end{example}
+\begin{remark}
+	Zhang has shown that $\Delta_e$ is torsion implies that $e=K_C/(2g-2)$. In general, it is desirable to take $e$ to be a root of the canonical divisor.
+\end{remark}
+Thus, one could ask if $\Delta_e$ is always nonzero provided that $C$ is not hyperelliptic.
+\begin{example}
+	It is known that $\Delta_e$ is non-torsion for many Fermat curves and many modular curves, due to Harris, Eskandari--Murty, Lupaan--Rawson, and Kerr--Li--Qiu--Yang.
+\end{example}
+\begin{example}
+	There are many examples where $\Delta_e$ is torsion and $C$ is not hyperelliptic, discovered by Laga--Shnidman.
+\end{example}
+\begin{example}
+	Zhang--Gao has shown that a Zariski dense open subset $U\subseteq\mc M_g$ (for $g\ge3$) on which $h(\Delta_e)$ satisfies a Northcott property, thereby showing that $\Delta_e$ is generically non-torsion.
+\end{example}
+
+\subsection{Semistable Reduction}
+Today, we will provide a tool to determine if $\Delta_e\ne0$ using semistable reduction.
+\begin{definition}[strictly semistable]
+	FIx a discrete valuation ring $R$ of mixed characteristic $(0,p)$ with field of fractions $K$ and residue field $k$. Then a curve $C$ over $R$ is \textit{strictly semistable} if and only if
+	\begin{itemize}
+		\item $C_K$ is smooth,
+		\item every irreducible component of $C_k$ is smooth and geometrically irreducible, and
+		\item all singularities of the curve look \'etale-locally like the node $R[x,y]/(xy-\varpi)$.
+	\end{itemize}
+\end{definition}
+\begin{example}
+	The nodal cubic is not strictly semistable.
+\end{example}
+\begin{remark}
+	Semistable models exist after base-change.
+\end{remark}
+\begin{remark}
+	Each singularity must lie on exactly two irreducible components of $C_k$: indeed, this follows from our classification of the singularities. Thus, we can form a multigraph connecting irreducible components of $C_k$ by whether they share a singularity (and how many).
+\end{remark}
+Here is our theorem.
+\begin{theorem}
+	Fix a discrete valuation ring $R$ of mixed characteristic with finite residue field $k$. Fix a curve $C$ over $R$ of strictly semistable reduction, and let $\Gamma$ be the singularity graph. Choose a divisor $e\in\op{Div}^1C$ with smooth reduction. Then there is an explicit finite abelian group $A(\Gamma)$ and some elements $\Delta_{\overline e}^\Gamma\in A(\Gamma)$ for which
+	\[\op{ord}\left(\Delta_e^\Gamma\in A(\Gamma)[1/p]\right)\]
+	divides the torsion order of $\Delta_e$ in $\op{CH}_1\left(C^3\right)$.
+\end{theorem}
+\begin{example}
+	Suppose $\Gamma=K_4$. For any $\overline e$, it turns out that $\Delta_{\overline e}^\Gamma$ has order $16$. The group $A(\Gamma)$ is a $2$-group.
+\end{example}
+\begin{example}
+	If $\Gamma$ is a tree, then $A(\Gamma)=0$.
+\end{example}
+\begin{remark}
+	Prior work has constructed a Ceresa cycle and group $B(\Gamma)$ for tropical curves, which also have associated a singularity graph $\Gamma$. One can show that $A(\Gamma)$ surjects onto $B(\Gamma)$, so this theorem relates algebraic geometry to tropical geometry.
+\end{remark}
+Let's define $A(\Gamma)$. There is an Abel--Jacobi map
+\[\delta\colon\op{CH}_1\left(C^3\right)^\circ\to\mathrm H^1\left(K;\mathrm H^3-{\mathrm{\acute et}}(C^3_{\overline K};\ZZ_\ell(2))\right).\]
+We then define $A(\Gamma)$ to be some subquotient of the target.
+
+To be explicit, let $N$ be the monodromy map $\mathrm H_1(\Gamma;\ZZ)\to\mathrm H^1(\Gamma;\ZZ)$, defined by composing the embedding $\mathrm H_1(\Gamma;\ZZ)\into\ZZ[E]$ (sending a cycle to the corresponding function on edges) with the surjection $\ZZ[E]\onto\mathrm H^1(\Gamma;\ZZ)$. The cokernel of $N$ is $\op{Jac}\Gamma$.
+\begin{notation}
+	Fix notation as above. Then
+	\[A(\Gamma)\coloneqq\frac{\mathrm H^1(\Gamma\otimes\mathrm H^1(\Gamma)\otimes\mathrm H^1(\Gamma)}{\mathrm H_1(\Gamma)\otimes\mathrm H_1(\Gamma)\otimes\mathrm H^1(\Gamma)}\oplus\bigoplus_{v\in V}\coker N,\]
+	where the left quotient is given by taking $N$.
+\end{notation}
+\begin{remark}
+	Intuitively, $A(\Gamma)$ appears for us because there is a graded decomposition
+	\[\mathrm H^1_{\mathrm{\acute et}}(C_{\overline K};\ZZ_\ell)=\mathrm H^1(\Gamma;\ZZ_\ell)\oplus\bigoplus_{v\in V}\mathrm H^1(C_v;\ZZ_\ell)\oplus\mathrm H^1(\Gamma;\ZZ_\ell),\]
+	where $N$ defines the actino by inertia. We now find $A(\Gamma)$ because $\mathrm H^3$ includes three copies of $\mathrm H^1$ by the K\"unneth formula.
+\end{remark}
+We close the talk with a couple examples.
+\begin{example}
+	Laga--Shnidman constructed the curves $C_t\colon y^3=x^4-12x^2+tx-12$, which is a faily of non-hyperelliptic curves of genus at least three, and they showed that $\Delta_e$ is always torsion (where $e$ is the canonical basepoint). We are able to show that $\Delta_e\ne0$ for almost all $t\in\QQ$ (ordered by height), and it is nonzero for every $t\in\ZZ$ except when $t\in\{0,\pm16,\pm24\}$.
+
+	Let's explain this. The discriminant of $C_t$ is $27\left(t^3-512\right)$, so we choose a prime $p$ which divides the discriminant but has $p>3$ and only divides once. (The second condition can be relaxed.) Then $\Gamma$ is two points connected with three edges, and we can compute $B(\Gamma)=\ZZ/3\ZZ$, and we can check that $\Delta_{\overline e}^\Gamma$ is nonzero.
+\end{example}
+\begin{example}
+	It is possible to upgrade the criterion to show that $\Delta_e$ is non-torsion.
+\end{example}
+\begin{remark}
+	We expect to get some $L$-function vanishing by Bloch--Kato when we have this non-torsion Ceresa cycle. This is not for reasons related to the functional equation.
+\end{remark}
+\begin{idea}
+	I wonder if one can use the weird Hodge cycles of Mumford to investigate vanishing of $L$-functions.
+\end{idea}
+
+\end{document}
