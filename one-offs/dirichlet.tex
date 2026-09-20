@@ -1,0 +1,499 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+
+\newcommand{\nirpdftitle}{Dirichlet Characters}
+\usepackage{import}
+\inputfrom{../../notes}{nir}
+\usepackage[backend=biber,
+    style=alphabetic,
+    sorting=ynt
+]{biblatex}
+\setcounter{tocdepth}{2}
+
+\pagestyle{contentpage}
+
+\setlength{\headheight}{13.19003pt}
+% (fancyhdr)	You might also make \topmargin smaller to compensate:
+\addtolength{\topmargin}{-1.19003pt}
+
+\title{Dirichlet Characters}
+\author{Nir Elber}
+\date{Fall 2026}
+\usepackage{graphicx}
+\lhead{}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+	We give an exposition of Dirichlet characters with a view towards Langlands reciprocity. We assume the content of a graduate course in abstract algebra (groups, rings, fields, Galois theory, etc.). In an actual talk, it may be profitable to start by stating the main result \Cref{cor:cft-over-q} as quickly as possible, rearranging the exposition to cover \Cref{sec:galois} before \Cref{sec:automorphic}. \Cref{sec:quadratic-reciprocity} should only be covered if there is ample time at the end. This note is based on the blog posts \cite{elber-dirichlet-langlands,elber-dirichlet-quadratic}.
+\end{abstract}
+
+\tableofcontents
+
+\section{The Automorphic Side} \label{sec:automorphic}
+In this section, we relate Dirichlet characters to objects appearing on the automorphic side of the Langlands program.
+
+\subsection{Classical Constructions}
+Let's recall the classical definition of a Dirichlet character.
+\begin{definition}[Dirichlet character]
+	Fix a positive integer $N$. Then a \textit{Dirichlet charater$\pmod N$} is a group homomorhism $\chi\colon(\ZZ/N\ZZ)^\times\to\CC^\times$.
+\end{definition}
+\begin{example}
+	Here is a Dirichlet character $\chi\colon(\ZZ/5\ZZ)^\times\to\CC^\times$.
+	\[\begin{array}{c|cccc}
+		n & 1 & 2 & 3 & 4 \\\hline
+		\chi(n) & 1 & i & -i & -1
+	\end{array}\]
+\end{example}
+\begin{example}
+	Fix a prime $p$. It turns out that the group $(\ZZ/p\ZZ)^\times$ is cyclic of order $(p-1)$. Thus, for a choice of generator $g\in(\ZZ/p\ZZ)^\times$, we see that a Dirichlet character $\chi\colon(\ZZ/p\ZZ)^\times\to\CC^\times$ is uniquely determined by $\chi(g)$, which must be a $(p-1)$st root of unity.
+\end{example}
+\begin{example} \label{ex:quadratic-dirichlet-char}
+	Fix an odd prime $p$. Because $(\ZZ/p\ZZ)^\times$ is cyclic of even order, it admits a unique subgroup of index two, so there is a unique surjective homomorphism
+	\[\chi_p\colon(\ZZ/p\ZZ)^\times\to\{\pm1\}.\]
+	This is called the quadratic Dirichlet charater$\pmod p$.
+\end{example}
+Roughly speaking, we are interested in enumerating Dirichlet characters. To this end, this definition has a defect: from a given Dirichlet character $(\ZZ/N\ZZ)^\times\to\CC^\times$, one can lift it to a Dirichlet character
+\[(\ZZ/NM\ZZ)^\times\to(\ZZ/N\ZZ)^\times\to\CC^\times.\]
+This new Dirichlet character does not add any new information, so we would like to remove them from our discussion.
+\begin{definition}[conductor]
+	Fix a Dirichlet character $\chi\colon(\ZZ/N\ZZ)^\times\to\CC^\times$. Then the \textit{conductor} of $\chi$ is the least divisor $d$ of $N$ such that $\chi$ factors through $(\ZZ/d\ZZ)^\times$. The character $\chi$ is \textit{primitive} if and only if its conductor is $N$.
+\end{definition}
+\begin{remark} \label{rem:conductor-check}
+	Here is an annoying check: if $\chi$ factors through $(\ZZ/M\ZZ)^\times$, then $M$ is divisible by the conductor $d$. Indeed, $\chi$ factors through both $M$ and $d$ implies that
+	\[\{n\in(\ZZ/N\ZZ)^\times:n\equiv1\pmod M\text{ or }n\equiv1\pmod d\}\subseteq\ker\chi.\]
+	Expanding out everything into prime-powers via the Chinese remainder theorem reveals that any $n$ for which $n\equiv1\pmod{\gcd(M,d)}$ is also in $\ker\chi$, so $\chi$ factors through $\ZZ/\gcd(M,d)\ZZ$. Thus, $d=\gcd(M,d)$ by minimality of $d$, so $d\mid M$.
+\end{remark}
+
+\subsection{Working at Infinite Level}
+It will be convenient to gather together all Dirichlet characters together. In our current formulation, we have some difficulty with this because the domains of our Dirichlet characters vary. If we wanted to create a uniform domain, we could try using
+\[\prod_{N\ge1}(\ZZ/N\ZZ)^\times,\]
+but this turns out to be too big for applications. For example, this infinite product does not remember any of the ``arithmetic'' information about the groups $(\ZZ/N\ZZ)^\times$, which lies in divisibility. We are thus motivated to build the following object.
+\begin{notation}
+	Define
+	\[\widehat{\ZZ}^\times\coloneqq\Bigg\{(a_N)_N\in\prod_{N\ge1}(\ZZ/N\ZZ)^\times:a_{dN}\equiv a_N\pmod N\text{ for any }d,N\ge1\Bigg\}.\]
+	We give $\widehat{\ZZ}^\times$ the subspace topology from the infinite product $\prod_N(\ZZ/N\ZZ)^\times$, where each finite group $(\ZZ/N\ZZ)^\times$ is discrete.
+\end{notation}
+\begin{remark} \label{rem:profinite-completion-closed}
+	The subgroup $\widehat{\ZZ}^\times$ is a closed and hence compact subset of $\prod_N(\ZZ/N\ZZ)^\times$. In short, $\widehat{\ZZ}^\times$ is cut out by the continuous functions $f_{N',d'}\colon\prod_N(\ZZ/N\ZZ)^\times\to(\ZZ/N'\ZZ)^\times$ defined by
+	\[f_{N',d'}((a_N)_N)\coloneqq a_{N'd'}-a_{N'}.\]
+\end{remark}
+\begin{remark}
+	One can define $\widehat{\ZZ}$ as the ring
+	\[\widehat{\ZZ}\coloneqq\Bigg\{(a_N)_N\in\prod_{N\ge1}(\ZZ/N\ZZ):a_{dN}\equiv a_N\pmod N\text{ for any }d,N\ge1\Bigg\}.\]
+	It is not hard to check that $\widehat{\ZZ}^\times$ is the group of units of $\widehat{\ZZ}$. One approach by ``pure thought'' is to show the functor $(-)^\times\colon\mathrm{Ring}\to\mathrm{AbGrp}$ preserves limits because it is right adjoint to the functor $A\mapsto\ZZ[A]$.
+\end{remark}
+\begin{remark}
+	From the perspective of the Langlands program, $\widehat{\ZZ}^\times$ is still not the correct object. Instead, one should study $\QQ^\times\backslash\AA_{\QQ}^\times$, where $\AA_{\QQ}^\times$ is the group of ideles. However, defining the ideles is slightly beyond the scope of this note, so we will say nothing about them other than to say that $\QQ^\times\backslash\AA_\QQ^\times/\RR^+\cong\widehat\ZZ^\times$.
+\end{remark}
+Here is the main result of this section.
+\begin{proposition} \label{prop:get-automorphic-dirichlet-character}
+	The set of continuous homomorphisms $\widehat{\ZZ}^\times\to\CC^\times$ is in canonical bijection with the set of primitive Dirichlet characters.
+\end{proposition}
+Most of the work of the proof is carried out in the following claim.
+\begin{lemma} \label{lem:no-small-subgroups}
+	Any continuous homomorphism $\widehat{\ZZ}^\times\to\CC^\times$ factors through $(\ZZ/N\ZZ)^\times$ for some positive integer $N$.
+\end{lemma}
+\begin{proof}
+	This is an instance of the ``no small subgroups'' argument. Fix a continuous character $\chi\colon\widehat{\ZZ}^\times\to\CC^\times$.
+	\begin{enumerate}
+		\item We claim that it is enough to show that $\chi$ contains a nonempty open subset in its kernel. Then the kernel contains a basic open neighborhood of $1\in\widehat{\ZZ}^\times$, which we may shrink to look like
+		\[\widehat{\ZZ}^\times\cap\prod_{N\in S}\{1\}\times\prod_{N\notin S}(\ZZ/N\ZZ)^\times,\]
+		where $S$ is some finite set of positive integers. Thus, $\chi$ factors through the image of the projection of $\widehat{\ZZ}^\times$ to $\prod_{N\in S}(\ZZ/N\ZZ)^\times$, so $\chi$ factors through $\left(\ZZ/\prod_{N\in S}N\ZZ\right)^\times$.
+
+		\item Let $V\subseteq\CC^\times$ be the open disk of radius one around $1\in\CC^\times$. We claim that $V$ contains no nontrivial subgroup of $\CC^\times$. Indeed, choose $z\in V\setminus\{1\}$. On one hand, if $\left|z\right|\ne1$ implies that $\left|\langle z\rangle\right|$ is unbounded and not contained in $U$. On the other hand, if $\left|z\right|=1$, we may write $z=e^{i\theta}$ for some $\theta\in(0,\pi/3)\cup(-\pi/3,0)$, which implies that $z^2\notin U$.
+
+		\item We are now ready to show that $\ker\chi$ contains an open subset. Well, $\chi^{-1}(V)$ is open and contains $1$, so $\chi^{-1}(V)$ contains a basic open neighborhood of $1$, which we may shink to be of the form
+		\[U\coloneqq\widehat{\ZZ}^\times\cap\prod_{N\in S}\{1\}\times\prod_{N\notin S}(\ZZ/N\ZZ)^\times,\]
+		where $S$ is some finite set of positive integers. We claim that $U$ will suffice. Indeed, $U$ is a subgroup, so $\chi(U)\subseteq V$ is a subgroup, so $\chi(U)$ is trivial, so $U\subseteq\ker\chi$.
+		\qedhere
+	\end{enumerate}
+\end{proof}
+\begin{proof}[Proof of \Cref{prop:get-automorphic-dirichlet-character}]
+	In one direction, any primitive Dirichlet character $\chi\colon(\ZZ/N\ZZ)^\times\to\CC^\times$ induces a continuous character
+	\[\widehat{\ZZ}^\times\onto(\ZZ/N\ZZ)^\times\stackrel\chi\to(\ZZ/N\ZZ)^\times.\]
+	In the other direction, for any continuous homomorphism $\chi\colon\widehat{\ZZ}^\times\to\CC^\times$, \Cref{lem:no-small-subgroups} implies that $\chi$ factors through $(\ZZ/N\ZZ)^\times$ for some least positive $N$. It follows that the character $(\ZZ/N\ZZ)^\times\to\CC^\times$ is primitive by construction of $N$.
+
+	It remains to show that these constructions are inverse. Of course, one can start from a continuous character $\widehat{\ZZ}^\times\to\CC^\times$, project to the relevant $(\ZZ/N\ZZ)^\times$, and then lift back to $\widehat{\ZZ}^\times$ to get the same character. For the other check, if we start with a primitive Dirichlet charater $\chi\colon(\ZZ/N\ZZ)^\times\to\CC^\times$ and lift it to $\widehat{\ZZ}^\times$, we must show that $N$ equals the smallest positive integer $M$ for which $\widehat{\ZZ}^\times$ factors through $(\ZZ/M\ZZ)^\times$. Well, $M\le N$ by minimality of $M$, and $N\mid M$ by \Cref{rem:conductor-check}, so $M=N$ follows.
+\end{proof}
+
+\section{The Galois Side} \label{sec:galois}
+In this section, we relate Dirichlet characters to objects appearing on the Galois side of the Langlands program.
+
+\subsection{Galois Representations}
+There comes a time in life where one must ask difficult but fundamental questions. For example, what is the meaning of life? What are we doing here?
+
+Actually, this second question is easier to answer: we are in a talk about algebraic number theory. As for the meaning of algebraic number theory, it basically boils down to the following question.
+\begin{ques}
+	What is the structure of the group $\operatorname{Gal}(\overline\QQ/\QQ)$?
+\end{ques}
+\begin{remark} \label{rem:infinite-galois}
+	The Galois extension $\QQ\subseteq\overline\QQ$ is infinite, so we must equip the Galois group $\op{Gal}(\overline\QQ/\QQ)$ with the Krull topology: view $\op{Gal}(\overline\QQ/\QQ)$ as the subset
+	\[\op{Gal}(\overline\QQ/\QQ)=\Bigg\{(\sigma_K)_K\in\prod_{\text{finite Galois }K/\QQ}\op{Gal}(K/\QQ):\sigma_L|_K=\sigma_K\text{if }K\subseteq L\Bigg\}.\]
+	(Namely, send $\sigma\in\op{Gal}(\overline\QQ/\QQ)$ to the tuple of restrictions $(\sigma|_K)_K$. This map is then an isomorphism.) Thus, we may equip $\op{Gal}(\overline\QQ/\QQ)$ with the subspace topology from the infinite product $\prod_K\op{Gal}(K/\QQ)$. A similar argument to \Cref{rem:profinite-completion-closed} shows that $\op{Gal}(\overline\QQ/\QQ)$ is a closed and hence compact subset.
+\end{remark}
+It is difficult to study $\op{Gal}(\overline\QQ/\QQ)$ directly. For example, identifying a single element requires an automorphism for each finite Galois extension of $\QQ$. Instead, we will take a cue from representation theory and understand $\op{Gal}(\overline\QQ/\QQ)$ via its actions on finite-dimensional complex vector spaces. Even this is too difficult a task for the present note, so we will have to content ourselves with understanding actions on one-dimensional complex vector spaces. This amounts to defining a (continuous) homomorphism
+\[\rho\colon\op{Gal}(\overline\QQ/\QQ)\to\op{GL}_1(\mathbb C).\]
+The target is simply $\CC^\times$.
+\begin{example} \label{ex:quadratic-galois-rep}
+	An argument similar to \Cref{lem:no-small-subgroups} can show that any continuous map $\op{Gal}(\overline\QQ/\QQ)\to\CC^\times$ factors through $\op{Gal}(K/\QQ)$ for some finite Galois extension $K$ of $\QQ$. For example, if $K/\QQ$ is a quadratic extension, then we have the continuous homomorphism
+	\[\op{Gal}(\overline\QQ/\QQ)\onto\op{Gal}(K/\QQ)\cong\{\pm1\}\subseteq\CC^\times.\]
+\end{example}
+By the universal property of the abelianization, it is equivalent to construct a continuous homomorphism $\op{Gal}(\overline\QQ/\QQ)^{\mathrm{ab}}\to\CC^\times$. It now turns out that $\op{Gal}(\overline\QQ/\QQ)^{\mathrm{ab}}$ can be understood directly.
+\begin{definition}
+	A Galois extension $L/K$ of fields is \textit{abelian} if and only if its Galois group is abelian.
+\end{definition}
+\begin{notation}
+	Let $\QQ^{\mathrm{ab}}$ be the largest abelian extension of $\QQ$.
+\end{notation}
+\begin{remark} \label{rem:q-ab-is-defined}
+	To check that $\QQ^{\mathrm{ab}}$ is well-defined, we can show that the composite of any two abelian extensions $L$ and $K$ of $\QQ$ continues to be abelian. Indeed, because $LK$ is generated by $L$ and $K$, the product map
+	\[\op{Gal}(LK/\QQ)\to\op{Gal}(L/\QQ)\times\op{Gal}(K/\QQ)\]
+	is injective, so the left group is abelian because the right one is.
+\end{remark}
+\begin{remark}
+	The same discussion as in \Cref{rem:infinite-galois} applies to $\op{Gal}(\QQ^{\mathrm{ab}}/\QQ)$.
+\end{remark}
+\begin{lemma} \label{lem:gal-of-abelian-subextension}
+	Let $L$ be a finite Galois extension of $\QQ$, and let $K\subseteq L$ be the largest sub-extension such that $\op{Gal}(K/\QQ)$ is abelian. Then
+	\[\op{Gal}(K/\QQ)=\op{Gal}(L/\QQ)^{\mathrm{ab}}.\]
+\end{lemma}
+\begin{proof}
+	Note that $K$ is well-defined by the same argument as \Cref{rem:q-ab-is-defined}. Now, by construction, $\op{Gal}(L/\QQ)^{\mathrm{ab}}$ is the largest abelian quotient of $\op{Gal}(L/\QQ)$. Accordingly, let $H$ be the kernel of $\op{Gal}(L/\QQ)\to\op{Gal}(L/\QQ)^{\mathrm{ab}}$ (namely, $H$ is the commutator), and $H$ is the smallest subgroup for which $\op{Gal}(L/\QQ)/H$ is abelian. It follows that $L^H$ is the largest extension of $\QQ$ whose Galois group $\op{Gal}(L/\QQ)/H$ is abelian, so $K=L^H$. The result follows.
+\end{proof}
+\begin{proposition} \label{prop:abelianize-galois-group}
+	The restriction map $\op{Gal}(\overline\QQ/\QQ)\to\op{Gal}(\QQ^{\mathrm{ab}}/\QQ)$ induces an isomorphism $\op{Gal}(\overline\QQ/\QQ)^{\mathrm{ab}}\to\op{Gal}(\QQ^{\mathrm{ab}}/\QQ)$.
+\end{proposition}
+\begin{proof}
+	The idea is to glue together instances of \Cref{lem:gal-of-abelian-subextension}. %There is certainly a well-defined map $\op{Gal}(\overline\QQ/\QQ)^{\mathrm{ab}}\to\op{Gal}(\QQ^{\mathrm{ab}}/\QQ)$ given by the universal property of the abelianization. Because any Galois automorphism can be extended to a super-extension, this map is surjective, so the only question is injectivity.
+	To avoid annoying considerations of infinite products (though such an argument is certainly possible), we suggest a proof by pure thought: the functor $(-)^{\mathrm{ab}}:\mathrm{Grp}\to\mathrm{AbGrp}$ is right adjoint to the forgetful functor, so it preserves limits, so
+	\begin{align*}
+		\op{Gal}(\overline\QQ/\QQ)^{\mathrm{ab}} &= \left(\lim_{\text{finite Galois}K/\QQ}\op{Gal}(K/\QQ)\right)^{\mathrm{ab}} \\
+		&= \lim_{\text{finite Galois}K/\QQ}\op{Gal}(K/\QQ)^{\mathrm{ab}} \\
+		&= \lim_{\text{finite Galois}K/\QQ}\op{Gal}(K'/\QQ)
+	\end{align*}
+	where $K'\subseteq K$ is the largest sub-extension with abelian Galois group. (Here we have applied \Cref{lem:gal-of-abelian-subextension}.) This last limit is $\op{Gal}(\QQ^{\mathrm{ab}}/\QQ)$.
+\end{proof}
+Thus, we want to understand $\op{Gal}(\QQ^{\mathrm{ab}}/\QQ)$.
+
+\subsection{The Kronecker--Weber Theorem}
+It may appear no easier to understand $\op{Gal}(\QQ^{\mathrm{ab}}/\QQ)$, but $\QQ^{\mathrm{ab}}$ turns out to be fairly concrete. For example, it is actually relatively easy to exhibit abelian extensions of $\QQ$.
+\begin{example} \label{ex:cyclotomic-galois-group}
+	For any positive integer $N$, there is the Galois extension $\QQ(\zeta_N)$ of $\QQ$, where $\zeta_N$ is a primitive $N$th root of unity (for example, $\zeta_N\coloneqq\exp(2\pi i/N)$). There is a canonical map
+	\[\sigma_\bullet\colon(\ZZ/N\ZZ)^\times\to\op{Gal}(\QQ(\zeta_N)/\QQ)\]
+	given by sending $k$ to the automorphism $\sigma_k$ of $\QQ(\zeta_N)$ defined by $\zeta_N\mapsto\zeta_N^k$. One can compute that this map is a well-defined isomorphism.
+\end{example}
+\begin{remark} \label{rem:cyclotomic-galois-group-coherence}
+	In the sequel, we will need the following coherence result: if $N\mid N'$, then $\QQ(\zeta_N)\subseteq\QQ(\zeta_{N'})$ (indeed, $\zeta_N=\zeta_{N'}^{N'/N}$), and the diagram
+	% https://q.uiver.app/#q=WzAsOCxbMCwwLCIoXFxaWi9OJ1xcWlopXlxcdGltZXMiXSxbMCwxLCIoXFxaWi9OXFxaWileXFx0aW1lcyJdLFsxLDAsIlxcb3B7R2FsfShcXFFRKFxcemV0YV97Tid9KS9cXFFRKSJdLFsxLDEsIlxcb3B7R2FsfShcXFFRKFxcemV0YV97Tn0pL1xcUVEpIl0sWzIsMCwiayJdLFsyLDEsImsiXSxbMywwLCJcXGxlZnQoXFx6ZXRhX3tOJ31cXG1hcHN0b1xcemV0YV97Tid9XmtcXHJpZ2h0KSJdLFszLDEsIlxcbGVmdChcXHpldGFfe059XFxtYXBzdG9cXHpldGFfe059XmtcXHJpZ2h0KSJdLFswLDFdLFsyLDNdLFswLDJdLFsxLDNdLFs0LDYsIiIsMSx7InN0eWxlIjp7InRhaWwiOnsibmFtZSI6Im1hcHMgdG8ifX19XSxbNiw3LCIiLDEseyJzdHlsZSI6eyJ0YWlsIjp7Im5hbWUiOiJtYXBzIHRvIn19fV0sWzUsNywiIiwxLHsic3R5bGUiOnsidGFpbCI6eyJuYW1lIjoibWFwcyB0byJ9fX1dLFs0LDUsIiIsMSx7InN0eWxlIjp7InRhaWwiOnsibmFtZSI6Im1hcHMgdG8ifX19XV0=&macro_url=https%3A%2F%2Fraw.githubusercontent.com%2FdFoiler%2Fnotes%2Fmaster%2Fnir.tex
+	\[\begin{tikzcd}[cramped]
+		{(\ZZ/N'\ZZ)^\times} & {\op{Gal}(\QQ(\zeta_{N'})/\QQ)} & k & {\left(\zeta_{N'}\mapsto\zeta_{N'}^k\right)} \\
+		{(\ZZ/N\ZZ)^\times} & {\op{Gal}(\QQ(\zeta_{N})/\QQ)} & k & {\left(\zeta_{N}\mapsto\zeta_{N}^k\right)}
+		\arrow[from=1-1, to=1-2]
+		\arrow[from=1-1, to=2-1]
+		\arrow[from=1-2, to=2-2]
+		\arrow[maps to, from=1-3, to=1-4]
+		\arrow[maps to, from=1-3, to=2-3]
+		\arrow[maps to, from=1-4, to=2-4]
+		\arrow[from=2-1, to=2-2]
+		\arrow[maps to, from=2-3, to=2-4]
+	\end{tikzcd}\]
+	commutes.
+\end{remark}
+This turns out to exhaust all abelian extensions of $\QQ$.
+\begin{theorem}[Kronecker--Weber] \label{thm:kronecker-weber}
+	Let $K$ be an abelian extension of $\QQ$. Then $K$ is contained in $\QQ(\zeta_N)$ for some positive integer $N$.
+\end{theorem}
+\begin{proof}
+	We entirely omit this proof. It is a difficult result! On a personal note, I have never read through a direct proof of this theorem without getting overwhelmingly bored.
+\end{proof}
+\begin{corollary} \label{cor:use-kronecker-weber}
+	There is a canonical isomorphism $\widehat{\ZZ}^\times\to\op{Gal}(\QQ^{\mathrm{ab}}/\QQ)$.
+\end{corollary}
+\begin{proof}
+	As in \Cref{rem:infinite-galois}, we have that
+	\[\op{Gal}(\QQ^{\mathrm{ab}}/\QQ)=\Bigg\{(\sigma_K)_K\in\prod_{\text{finite abelian }K/\QQ}\op{Gal}(K/\QQ):\sigma_L|_K=\sigma_K\text{if }K\subseteq L\Bigg\}.\]
+	There is a canonical restriction of tuples map to
+	\[\Bigg\{(\sigma_N)_N\in\prod_{\text{even }N}\op{Gal}(\QQ(\zeta_N)/\QQ):\sigma_{N'}|_{\QQ(\zeta_N)}=\sigma_N\text{if }N\mid N'\Bigg\}.\]
+	Here, we may require $N$ even because $\QQ(\zeta_N)=\QQ(\zeta_{2N})$ when $N$ is odd. With $N$ even, $\QQ(\zeta_N)\subseteq\QQ(\zeta_{N'})$ implies that $N\mid N'$: upon passing to the group of roots of unity, we see $\langle \zeta_N\rangle\subseteq\langle\zeta_{N'}\rangle$, so $N\mid N'$. Anyway, the canonical restriction map is surjective: the fiber over $(\sigma_N)_N$ is given by extending the induced automorphism of $\bigcup_N\QQ(\zeta_N)$ to an automorphism of $\QQ^{\mathrm{ab}}$. Injectivity follows because this extension is unique because $\bigcup_N\QQ(\zeta_N)=\QQ^{\mathrm{ab}}$ by \Cref{thm:kronecker-weber}.
+
+	It remains to compute the latter group. Because $\QQ(\zeta_N)=\QQ(\zeta_{2N})$ when $N$ is odd, we may as well pass to
+	\[\Bigg\{(\sigma_N)_N\in\prod_{N\ge1}\op{Gal}(\QQ(\zeta_N)/\QQ):\sigma_{N'}|_{\QQ(\zeta_N)}=\sigma_N\text{if }N\mid N'\Bigg\}\]
+	because the odd terms add no new information. (Namely, the natural projection map back to even $N$ is an isomorphism.) We now use \Cref{ex:cyclotomic-galois-group} to compute these Galois groups as
+	\[\Bigg\{(a_N)_N\in\prod_{N\ge1}(\ZZ/N\ZZ)^\times:\sigma_{a_{N'}}|_{\QQ(\zeta_N)}=\sigma_{a_N}\text{if }N\mid N'\Bigg\}.\]
+	By \Cref{rem:cyclotomic-galois-group-coherence}, this is exactly $\widehat{\ZZ}^\times$.
+\end{proof}
+\begin{remark} \label{rem:avoid-kronecker-weber}
+	Define $\QQ^{\mathrm{cyc}}\coloneqq\bigcup_N\QQ(\zeta_N)$. Even without using \Cref{thm:kronecker-weber}, there is a map $\op{Gal}(\QQ^{\mathrm{ab}}/\QQ)\to\op{Gal}(\QQ^{\mathrm{cyc}}/\QQ)$, and there is a canonical isomorphism $\widehat{\ZZ}^\times\to\op{Gal}(\QQ^{\mathrm{cyc}}/\QQ)$. The content of \Cref{thm:kronecker-weber} lies in showing that the former restriction map is an isomorphism.
+\end{remark}
+We are now ready to return to Dirichlet characters.
+\begin{corollary}[Langlands reciprocity] \label{cor:cft-over-q}
+	The set of one-dimensional representations of $\op{Gal}(\overline\QQ/\QQ)$ are in canonical bijection with the set of primitive Dirichlet characters.
+\end{corollary}
+\begin{proof}
+	As discussed previously, a one-dimensional representation has equivalent data to a continuous homomorphism $\op{Gal}(\overline\QQ/\QQ)\to\CC^\times$, which has equivalent data to a continuous homomorphism $\op{Gal}(\overline\QQ/\QQ)^{\mathrm{ab}}\to\CC^\times$. By \Cref{prop:abelianize-galois-group}, this is the same as a continuous homomorphism $\op{Gal}(\QQ^{\mathrm{ab}}/\QQ)\to\CC^\times$. Lastly, this is the same as a continuous homomorphism $\widehat{\ZZ}^\times\to\CC^\times$ by \Cref{cor:use-kronecker-weber}. We are now done by \Cref{prop:get-automorphic-dirichlet-character}.
+\end{proof}
+\begin{remark}
+	One can attempt to generalize \Cref{cor:cft-over-q} to other number fields $F$. The correct statement turns out to be the existence of a continuous homomorphism
+	\[F^\times\backslash\AA_F^{\times}\to\op{Gal}(\overline F/F)^{\mathrm{ab}}\]
+	with dense image. (The kernel turns out to be $(F\otimes_\QQ\RR)^{\times,\circ}$.) Thus, we can parameterize one-dimensional Galois representations in terms of the ``automorphic data.''
+\end{remark}
+\begin{remark}
+	One can attempt to classify Galois representations of higher dimension. This is the goal of the Langlands program. In very rough terms, one expects to parameterize $n$-dimensional representations of $\op{Gal}(\overline\QQ/\QQ)$ in terms of certain representations of $\op{GL}_n(\QQ)\backslash\op{GL}_n(\AA_\QQ)$.
+\end{remark}
+
+\section{Quadratic Characters} \label{sec:quadratic-reciprocity}
+The goal of this subsection is to explicate \Cref{cor:cft-over-q} for the very particular Galois representation in \Cref{ex:quadratic-galois-rep}. At the end, we will stumble into quadratic reciprocity.
+
+\subsection{The Characters}
+In light of \Cref{cor:cft-over-q}, we are interested in computing the primitive Dirichlet character attached to the Galois representation
+\[\op{Gal}(\overline\QQ/\QQ)\onto\op{Gal}(K/\QQ)\cong\{\pm1\}\subseteq\CC^\times.\]
+By \Cref{cor:use-kronecker-weber} (and perhaps \Cref{rem:avoid-kronecker-weber}), it is equivalent to understand the composite
+\[\widehat\ZZ^\times\cong\op{Gal}(\QQ^{\mathrm{ab}}/\QQ)\onto\op{Gal}(K/\QQ)\cong\{\pm1\}\subseteq\CC^\times.\]
+Let's give this composite a name.
+\begin{notation}
+	Fix a quadratic extension $K$ of $\QQ$. Then define $\chi_K$ to be the continuous character
+	\[\widehat\ZZ^\times\cong\op{Gal}(\QQ^{\mathrm{ab}}/\QQ)\onto\op{Gal}(K/\QQ)\cong\{\pm1\}\subseteq\CC^\times.\]
+\end{notation}
+Let's compute a few examples by hand.
+\begin{example} \label{ex:q-i-char}
+	Note $\sqrt{-1}=\zeta_4$, so $\chi_{\QQ(\sqrt{-1})}$ is the character
+	\[\widehat\ZZ^\times\cong\op{Gal}(\QQ^{\mathrm{ab}}/\QQ)\onto\op{Gal}(\QQ(\zeta_4)/\QQ)\cong(\ZZ/4\ZZ)^\times\cong\{\pm1\}\subseteq\CC^\times.\]
+	Unwinding the proof of \Cref{cor:use-kronecker-weber} reveals that the composite isomorphism $\widehat\ZZ^\times\onto(\ZZ/4\ZZ)^\times$ is the canonical surjection. Thus, the primitive Dirichlet character attached to $\chi_{\QQ(\sqrt{-1})}$ is the Dirichlet character $(\ZZ/4\ZZ)^\times\cong\{\pm1\}$.
+\end{example}
+\begin{example}
+	Note $\QQ(\sqrt{-3})=\QQ(\zeta_3)$ because $\zeta_3=-\frac12+\frac12\sqrt{-3}$, so $\chi_{\QQ(\sqrt{-3})}$ is the character
+	\[\widehat\ZZ^\times\cong\op{Gal}(\QQ^{\mathrm{ab}}/\QQ)\onto\op{Gal}(\QQ(\zeta_3)/\QQ)\cong(\ZZ/3\ZZ)^\times\cong\{\pm1\}\subseteq\CC^\times.\]
+	As in \Cref{ex:q-i-char}, we see that the associated primitive Dirichlet character is $(\ZZ/3\ZZ)^\times\cong\{\pm1\}$.
+\end{example}
+To go beyond examples where $\QQ(\zeta_N)$ is quadratic, we will need to make \Cref{thm:kronecker-weber} explicit.
+\begin{lemma} \label{lem:get-conductor-char}
+	Fix a quadratic extension $K$ of $\QQ$. Then $\chi_K\colon\widehat\ZZ^\times\to\CC^\times$ factors through $(\ZZ/N\ZZ)^\times$ if and only if $K\subseteq\QQ(\zeta_N)$.
+\end{lemma}
+\begin{proof}
+	If $K\subseteq\QQ(\zeta_N)$, then $\op{Gal}(\QQ^{\mathrm{ab}}/\QQ)\onto\op{Gal}(K/\QQ)$ factors through $\op{Gal}(\QQ^{\mathrm{ab}}/\QQ)\onto\op{Gal}(\QQ(\zeta_N)/\QQ)$. We conclude that $\chi_K$ factors through the isomorphic map $\widehat\ZZ^\times\onto(\ZZ/N\ZZ)^\times$.
+
+	Conversely, if $\chi_K$ factors through $\widehat\ZZ^\times\onto(\ZZ/N\ZZ)^\times$, then $\op{Gal}(\QQ^{\mathrm{ab}}/\QQ)\to\op{Gal}(K/\QQ)$ factors through the isomorphic map $\op{Gal}(\QQ^{\mathrm{ab}}/\QQ)\to\op{Gal}(\QQ(\zeta_N)/\QQ)$. It follows that $\op{Gal}(\QQ^{\mathrm{ab}}/K)$ contains $\op{Gal}(\QQ^{\mathrm{ab}}/\QQ(\zeta_N))$, so $K\subseteq\QQ(\zeta_N)$ by Galois theory.
+\end{proof}
+\begin{example} \label{ex:q-2-char}
+	Note that $\sqrt2=\zeta_8+\zeta_8^{-1}$, so $\chi_{\QQ(\sqrt2)}$ factors through $(\ZZ/8\ZZ)^\times$. In fact, because $\sqrt2=\zeta_8+\zeta_8^{-1}$, we can see that $\sqrt2$ is fixed by $\sigma_1$ and $\sigma_7$, but $\sigma_3$ and $\sigma_5$ send $\sqrt2$ to $\zeta_8^3+\zeta_8^{-3}=-\sqrt2$. Thus, $\chi_{\QQ(\sqrt2)}$ is associated to the primitive Dirichlet character$\pmod8$ given as follows.
+	\[\begin{array}{c|cccc}
+		n & 1 & 3 & 5 & 7 \\\hline
+		\chi_{\QQ(\sqrt2)} & +1 & -1 & -1 & +1
+	\end{array}\]
+\end{example}
+\begin{example}
+	Note that $\sqrt{-2}=\zeta_8+\zeta_8^3$, so $\chi_{\QQ(\sqrt{-2})}$ factors through $(\ZZ/8\ZZ)^\times$. Arguing as in \Cref{ex:q-2-char}, $\chi_{\QQ(\sqrt{-2})}$ is associated to the primitive Dirichlet character$\pmod8$ given as follows.
+	\[\begin{array}{c|cccc}
+		n & 1 & 3 & 5 & 7 \\\hline
+		\chi_{\QQ(\sqrt{-2})} & +1 & +1 & -1 & -1
+	\end{array}\]
+\end{example}
+
+\subsection{Some Calculations}
+With some trickery, one can extend these ideas to compute some values of $\chi_K$.
+\begin{example} \label{ex:char-on-minus-1}
+	Fix a quadratic extension $K/\QQ$. Then $\chi_K(-1)\in\{\pm1\}$, and it equals $+1$ if and only if $\sigma_{-1}\in\op{Gal}(\QQ^{\mathrm{ab}}/\QQ)$ fixes $K$. Now, $\sigma_{-1}$ is the unique automorphism which sends $\zeta$ to $\overline\zeta$ for all roots of unity $\zeta$, but this must just be complex conjugation! We conclude that $\chi_K(-1)=+1$ if and only if $K$ is fixed by complex conjugation. Writing $K=\QQ(\sqrt d)$, we see that
+	\[\chi_{\QQ(\sqrt d)}(-1)=\begin{cases}
+		+1 & \text{if }d>0, \\
+		-1 & \text{if }d<0.
+	\end{cases}\]
+\end{example}
+\begin{proposition} \label{prop:chars-to-squares}
+	Fix a quadratic extension $K=\QQ(\sqrt d)$, and let $p$ be an odd prime not dividing $d$. Then
+	\[\chi_K(p)=\begin{cases}
+		+1 & \text{if }d\pmod p\text{ is square}, \\
+		-1 & \text{if }d\pmod p\text{ is non-square}.
+	\end{cases}\]
+\end{proposition}
+\begin{proof}
+	By \Cref{thm:kronecker-weber}, we may embed $K$ into $\QQ(\zeta_N)$. Now, $\chi_K(p)\in\{\pm1\}$, and $\chi_K(p)=+1$ if and only if $\sigma_p\in\op{Gal}(\QQ(\zeta_N)/\QQ)$ fixes $K$, which is equivalent to $\sigma_p(\sqrt d)=\sqrt d$. Using the embedding $K\subseteq\QQ(\zeta_N)$, we may write
+	\[\sqrt d=\sum_{\substack{1\le i\le N\\\gcd(i,N)=1}}a_i\zeta_N^i\]
+	for some integers $\{a_i\}$.\footnote{It is not obvious that the $\{a_i\}$ can be taken to be integers, but it is true. For example, one can see this by unwinding the proof of \Cref{prop:classify-quadratic-subextensions}, writing $\sqrt d$ as a product of Gauss sums.} Then
+	\[\sigma_p(\sqrt d)=\sum_{\substack{1\le i\le N\\\gcd(i,N)=1}}a_i\zeta_N^{pi}.\]
+	Now, because $p$ is odd, we may detect if $\sigma_p(\sqrt d)=\sqrt d$ by passing to$\pmod p$.
+	\begin{remark}
+		There is something sneaky happening here. We are trying to distinguish $+1$ and $-1$ in $\ZZ[\zeta_N]/(p)$, which is equivalent to having $2\not\equiv0\pmod p$, which is equivalent to having $2/p\notin\ZZ[\zeta_N]$. Some studying of algebraic integers is required to guarantee this! For example, $2/p\in\ZZ[\zeta_N]$ implies that the norm of $2/p$ should be integer, but this norm is $(2/p)^{[\QQ(\zeta_N):\QQ]}$.
+	\end{remark}
+	But taken$\pmod p$, we know $(a+b)^p\equiv a^p+b^p$ for any $a$ and $b$, so $\sigma_p(\sqrt d)\equiv(\sqrt d)^p$. Thus, $\chi_K(p)=+1$ if and only if $(\sqrt d)^p\equiv\sqrt d\pmod p$, which is equivalent to
+	\[d^{(p-1)/2}\stackrel?\equiv1\pmod p.\]
+	We now do casework on $d$.
+	\begin{itemize}
+		\item If $d$ is a square $d=e^2$, then the left-hand side is $e^{p-1}\pmod p$, which is $+1$ because $(\ZZ/p\ZZ)^\times$ has order $(p-1)$.
+		\item If $d$ is not a square, we claim that the left-hand side is not $1\pmod p$. Indeed, the polynomial $x^{(p-1)/2}-1$ has at most $(p-1)/2$ roots over $\FF_p$, and we have already exhibited $(p-1)/2$ roots (from the squares).
+		\qedhere
+	\end{itemize}
+\end{proof}
+\begin{example}
+	\Cref{prop:chars-to-squares} has interesting applications to squares$\pmod p$. For example, by \Cref{ex:q-2-char}, we see that $2\pmod p$ is a square if and only if $p\equiv\pm1\pmod8$. This is an instance of quadratic reciprocity!
+\end{example}
+\begin{remark}
+	For experts, we remark that there is a proof of \Cref{prop:chars-to-squares} along the lines of \Cref{ex:char-on-minus-1}. Note that $\chi_K(p)=+1$ if and only if $\sigma_p$ fixes $K$. Thus, we are interested in when the Frobenius $\mathrm{Frob}_p$ fixes $K$. Because $p$ is unramified in $K$, we may embed $K\subseteq\QQ_p^{\mathrm{unr}}$, and then $\mathrm{Frob}_p$ (topologically) generates the Galois group $\op{Gal}(\QQ_p^{\mathrm{unr}}/\QQ_p)$, so the Frobenius fixes $K$ if and only if $K\subseteq\QQ_p$. Writing $K=\QQ(\sqrt d)$, this is equivalent to having $\sqrt d\in\QQ_p$. Because $\sqrt d$ is integral, this is equivalent to having $\sqrt d\in\ZZ_p$, which is equivalent to having $d\in\FF_p^{\times2}$ by Hensel's lemma.
+\end{remark}
+
+\subsection{The Conductor}
+The previous subsection has allowed us to compute some specific values of $\chi_K$, but it is not at all obvious from this calculation what the conductor should be. By \Cref{lem:get-conductor-char}, this amounts to computing the minimal $N$ for which $K\subseteq\QQ(\zeta_N)$.
+
+It will turn out that the most interesting case is when $K$ is $\QQ(\sqrt{\pm p})$ for odd primes $p$. It turns out to be reasonable to expect that $K$ is contained in $\QQ(\zeta_p)$, but because $\op{Gal}(\QQ(\zeta_p)/\QQ)$ is cyclic, this Galois group  the field $\QQ(\zeta_p)$ admits a unique quadratic sub-extension. So which of $\QQ(\sqrt p)$ or $\QQ(\sqrt{-p})$ is in $\QQ(\zeta_p)$?
+\begin{notation}
+	Fix an odd prime $p$. Then define
+	\[p^*\coloneqq\begin{cases}
+		+p & \text{if }+p\equiv1\pmod4, \\
+		-p & \text{if }-p\equiv1\pmod4.
+	\end{cases}\]
+\end{notation}
+\begin{remark} \label{rem:p-star-is-1-mod-4}
+	By construction, $p^*\equiv1\pmod4$ for all odd primes $p$.
+\end{remark}
+\begin{lemma} \label{lem:gauss-sum}
+	Fix an odd prime $p$. The unique quadratic sub-extension of $\QQ(\zeta_p)/\QQ$ is $\QQ(\sqrt{p^*})$.
+\end{lemma}
+\begin{proof}
+	Let $K$ be a quadratic sub-extension of $\QQ(\zeta_p)$. Then $\op{Gal}(\QQ(\zeta_p)/K)\subseteq\op{Gal}(\QQ(\zeta_p)/\QQ)$ is a subgroup of index two, but $\op{Gal}(\QQ(\zeta_p)/\QQ)$ is isomorphic to the cyclic group $(\ZZ/p\ZZ)^\times$, so there is a unique such subgroup (generated by the square of a generator).
+	
+	Thus, there is in fact a unique quadratic sub-extension. To generate it, we should find some elements of $\QQ(\zeta_p)$ invariant under $\op{Gal}(\QQ(\zeta_p)/K)$. Under the identification $\op{Gal}(\QQ(\zeta_p)/\QQ)\cong(\ZZ/p\ZZ)^\times$, the previous paragraph tells us that $\op{Gal}(\QQ(\zeta_p)/K)$ is given by the squares. Thus,
+	\[h_p\coloneqq\sum_{i\in\FF_p^{\times2}}\zeta_p^{i^2}\]
+	is in $K$. (In fact, because $\{\sigma\zeta_p\}_\sigma$ is a normal basis of $\QQ(\zeta_p)$ over $\QQ$, we know a priori that $h_p$ should generate $K$.) It will turn out to be more convenient to compute the ``Gauss sum''
+	\[g_p\coloneqq\sum_{i\in\FF_p^\times}\chi_p(i)\zeta_p^i,\]
+	where $\chi_p\colon\FF_p^\times\to\CC^\times$ is the quadratic character of \Cref{ex:quadratic-dirichlet-char}. An elementary manipulation shows that $2h_p+1=g_p$ because $\sum_{i\in\FF_p^\times}\zeta_p^i=-1$, so $g_p\in K$ as well (and should generate it). We will calculate $g_p$ in three steps.
+	\begin{enumerate}
+		\item We claim that $\left|g_p\right|^2=p$. This is an instance of ``square root cancellation.'' By direct expansion, we see that
+		\[\left|g_p\right|^2=\sum_{i,j\in\FF_p^\times}\chi_p(i/j)\zeta_p^{i-j}.\]
+		We may re-index this sum as
+		\[\left|g_p\right|^2=\sum_{i,j\in\FF_p^\times}\chi_p(i)\zeta_p^{(i-1)j}\]
+		If $i\ne1$, then the sum over $j$ is $\sum_j\chi_p(i)\zeta_p^j$ after re-indexing, which is $-\chi_p(i)$. If $i=1$, then the sum over $j$ is $\sum_j1=(p-1)$. Thus, we are done after noticing that $\sum_{i\in\FF_p^\times}\chi_p(i)=0$.
+		\item We claim that $\overline g_p=\chi_p(-1)g_p$. Well,
+		\[\overline g_p=\sum_{i\in\FF_p^\times}\chi_p(i)\zeta_p^{-i},\]
+		so the claim follows from re-indexing.
+		\item We claim that $g_p$ equals $\sqrt{p^*}$, up to sign. By the previous two points, we see that $g_p^2=\chi_p(-1)p$, so it remains to show that $\chi_p(-1)p=p^*$. Well, $\chi_p(-1)\in\{\pm1\}$, and $\chi_p(-1)=+1$ if and only if $-1\pmod p$ is a square. By the proof of \Cref{prop:chars-to-squares}, this is equivalent to having $(-1)^{(p-1)/2}\equiv+1\pmod p$, which is equivalent to $(p-1)/2$ being even, which is equivalent to $p\equiv1\pmod4$.
+		\qedhere
+	\end{enumerate}
+\end{proof}
+\begin{remark}
+	One can use this to show quadratic reciprocity in the following form: let $p$ and $q$ be distinct odd primes. Then we claim that $p^*\pmod q$ is a square if and only if $q\pmod p$ is a square. Indeed, by \Cref{prop:chars-to-squares}, we see that $p^*$ is a square modulo $q$ if and only if $\chi_{\QQ(\sqrt{p^*})}(q)=+1$, which is equivalent to the $\sigma_q\in\op{Gal}(\QQ(\zeta_p)/\QQ)$ fixing $\QQ(\sqrt{p^*})$ (by \Cref{lem:gauss-sum}), which is equivalent to $\sigma_q$ living in the unique index-two subgroup of $\op{Gal}(\QQ(\zeta_p)/\QQ)$, which is equivalent to $q\in(\ZZ/p\ZZ)^\times$ being a square.
+\end{remark}
+We are now ready to explicate the quadratic sub-extensions of $\QQ(\zeta_N)$ for general $N$.
+\begin{proposition} \label{prop:classify-quadratic-subextensions}
+	Fix a positive integer $N$. Let $S(N)$ be the set of integers $p^*$ for each prime divisor $p$ of $N$, along with $-1$ if $4\mid N$ and $+2$ if $8\mid N$. Then for a squarefree integer $d$ has $\QQ(\sqrt d)\subseteq\QQ(\zeta_N)$ if and only if $d$ is a product of elements of $S(N)$.
+\end{proposition}
+\begin{proof}
+	The reverse direction is easier to show: by taking products, it is enough to show that $\sqrt d\in\QQ(\zeta_N)$ for each $d\in S(N)$. Thus, we simply note that $\sqrt{p^*}\in\QQ(\zeta_p)$ by \Cref{lem:gauss-sum}, $\sqrt{-1}\in\QQ(\zeta_4)$ because $\zeta_4=\sqrt{-1}$, and $\sqrt2\in\QQ(\zeta_8)$ because $\sqrt2=\zeta_8+\zeta_8^{-1}$.
+
+	For the forward direction, we note that $\QQ(\sqrt d)$ is distinct for each nontrivial squarefree product of elements in $S(N)$, so it is enough to show that there are exactly $2^{\#S(N)}-1$ quadratic sub-extensions of $\QQ(\zeta_N)$. (Thus, the previous paragraph will have exhausted all quadratic sub-extensions of $\QQ(\zeta_N)$.) Thus, we would like to show that there are exactly $2^{\#S(N)}-1$ subgroups of $\op{Gal}(\QQ(\zeta_N)/\QQ)$ of index two, for which it is equivalent to count subgroups of $(\ZZ/N\ZZ)^\times$ of index two. Adding in the trivial squarefree product, we would like to show that
+	\[\#\op{Hom}((\ZZ/N\ZZ)^\times,\{\pm1\})\stackrel?=2^{\#S(N)}.\]
+	By the Chinese remainder theorem, the left-hand side is multiplicative in $N$. The right-hand side is also multiplicative in $N$, so it is enough to check this equality on prime-powers.
+	\begin{itemize}
+		\item If $N$ is an odd prime-power, then $(\ZZ/N\ZZ)^\times$ is cyclic of even order, so there is exactly one nontrivial homomorphism $(\ZZ/N\ZZ)^\times\to\{\pm1\}$.
+		\item If $N$ is an even prime-power, then we must do some casework. For example, if $N=2$, then $(\ZZ/2\ZZ)^\times$ is trivial, so there is only the trivial homomorphism. Similarl, if $N=4$, then $(\ZZ/4\ZZ)^\times$ is cyclic of order two, so there is exactly one nontrivial homomorphism. Lastly, if $N$ is divisible by $8$, then $(\ZZ/N\ZZ)^\times\cong\{\pm1\}\times\ZZ/(N/4)\ZZ$,\footnote{In short, one can show that the elements of $(\ZZ/N\ZZ)^\times$ which are equivalent to $1\pmod4$ is a cyclic subgroup generated by $5\pmod N$.} so there are a total of four homomorphisms to $\{\pm1\}$.
+		\qedhere
+	\end{itemize}
+\end{proof}
+Reversing this argument allows us to compute the conductor $\chi_K$.
+\begin{corollary}[Quadratic reciprocity] \label{cor:quadratic-reciprocity}
+	Let $d$ be a squarefree integer, and set $K\coloneqq\QQ(\sqrt d)$. Then the conductor of $\chi_K$ is
+	\[\begin{cases}
+		\left|d\right| & \text{if }d\equiv1\pmod4, \\
+		4\left|d\right| & \text{otherwise}.
+	\end{cases}\]
+\end{corollary}
+\begin{proof}
+	By \Cref{lem:get-conductor-char}, the conductor $N$ of $\chi_K$ equals the smallest $N$ for which $K\subseteq\QQ(\zeta_N)$. We use \Cref{prop:classify-quadratic-subextensions} to compute this $N$. Let's start with some easier bounds.
+	\begin{itemize}
+		\item By \Cref{prop:classify-quadratic-subextensions}, $\sqrt d\in\QQ(\zeta_N)$ implies that each prime factor $p$ of $d$ must divide $N$. Because $d$ is squarefree, we see that $d\mid N$.
+		\item Note that $\QQ(\zeta_{4\left|d\right|})$ contains all needed prime factors of $d$ as well as $\sqrt{-1}$, so $d$ is certainly a product of elements of $S(4d)$, so $\sqrt d\in\QQ(\zeta_{4\left|d\right|})$. Thus, $N\mid4\left|d\right|$. 
+	\end{itemize}
+	To refine these bounds, we must do casework on $d\mid4$.
+	\begin{itemize}
+		\item Suppose $d\equiv2\pmod4$. Then by \Cref{prop:classify-quadratic-subextensions}, we must have $2\in S(N)$, so $8\mid N$, so comparing prime factors yields $N\ge4\left|d\right|$, and equality follows.
+		\item Suppose $d\equiv1\pmod4$. Then by \Cref{prop:classify-quadratic-subextensions}, we see that $d=\prod_{p\mid d}p^*$ (recall \Cref{rem:p-star-is-1-mod-4}), so $d\in\QQ(\zeta_{\left|d\right|})$, so $N\le\left|d\right|$, so equality follows.
+		\item Suppose $d\equiv3\pmod4$. The argument of the previous point yields $\sqrt{-d}\in\QQ(\zeta_{\left|d\right|})$. Thus, for $\sqrt d\in\QQ(\zeta_N)$, we see that $\sqrt{-1}\in\QQ(\zeta_N)$ as well, so $4\mid N$ by \Cref{prop:classify-quadratic-subextensions}. We conclude that $N\ge4\left|d\right|$, so equality follows.
+		\qedhere
+	\end{itemize}
+\end{proof}
+\begin{remark}
+	In light of \Cref{prop:chars-to-squares}, we see that one can determine if $d\pmod p$ is a square purely pased on the information of $p\pmod{4\left|d\right|}$. Thus, it is not surprising that quadratic reciprocity is closely related to these ideas! It is possible, though inconvenient, to use \Cref{cor:quadratic-reciprocity} to prove quadratic reciprocity (and some basic facts about quadratic residues) in its usual form. As a sketch, we note that it is more convenient to show quadratic reciprocity for the Kronecker symbol, for which one can induct. Details can be found in Appendix~\ref{app:quadratic-reciprocity}.
+\end{remark}
+
+
+\newpage
+\appendix
+
+\section{Quadratic Reciprocity} \label{app:quadratic-reciprocity}
+In this appendix, we explain how to derive the usual statement of quadratic reciprocity from \Cref{cor:quadratic-reciprocity}. For reasons relating to induction, it will be more convenient to pass to the Kronecker symbol.
+\begin{definition}[Kronecker symbol]
+	For any integer $d$, define the \textit{Kronecker symbol} $\left(\frac d{-}\right)$ to be the primitive Dirichlet character associated to $\chi_{\QQ(\sqrt d)}$.
+\end{definition}
+\begin{remark}
+	The supplements $\left(\frac{-1}n\right)=(-1)^{(n-1)/4}$ and $\left(\frac 2n\right)=(-1)^{\left(n^2-1\right)/8}$ (for odd $n$) follow from \Cref{ex:q-i-char,ex:q-2-char}, so we will not worry about them in the sequel.
+\end{remark}
+\begin{lemma} \label{lem:top-is-periodic}
+	Fix an odd positive integer $n$. Then $\left(\frac{-}n\right)$ is a homomorphism $(\ZZ/n\ZZ)^\times\to\CC^\times$.
+\end{lemma}
+\begin{proof}
+	For a given $d$ coprime to $n$, note that $\left(\frac d-\right)$ is multiplicative, so
+	\[\left(\frac dn\right)=\prod_p\left(\frac dp\right)^{v_p(n)}.\]
+	Thus, by the Chinese remainder theorem, it is enough to consider the case where $n$ is an odd prime $p$. In this case, unwinding the proof of \Cref{prop:chars-to-squares} shows that
+	\[\left(\frac dp\right)\stackrel?\equiv d^{(p-1)/2}\pmod p.\]
+	Indeed, the proof there shows that the left-hand side is $+1$ if and only if the right-hand side is $+1$, but both sides square to $+1$ and hence live in $\{\pm1\}$, so the equivalence follows. (Here, we are using that $p$ is odd to distinguish $+1$ and $-1$ after passing to$\pmod p$.) The lemma now follows from this equivalence.
+\end{proof}
+\begin{remark}
+	Even if $n$ is negative, $\left(\frac{-}n\right)$ continues to be multiplicative. One just needs to add a $\left(\frac{-}{-1}\right)$ term to the product.
+\end{remark}
+We are now ready to prove quadratic reciprocity.
+\begin{notation}
+	For any odd integer $m$, define $m^*\coloneqq\left(\frac{-1}m\right)m$.
+\end{notation}
+\begin{remark}
+	Note that $m^*\equiv1\pmod4$ for all odd integers $m$. This extends the definition from when $m$ was prime.
+\end{remark}
+\begin{theorem}[Quadratic reciprocity]
+	Let $p$ and $q$ be distinct odd primes. Then
+	\[\left(\frac pq\right)=\left(\frac{q^*}p\right).\]
+\end{theorem}
+\begin{proof}
+	We will show the following more general statement: for any coprime odd integers $m$ and $n$, we have
+	\[\left(\frac{m^*}n\right)\stackrel?=\left(\frac n{\left|m\right|}\right).\]
+	The key input will be that $\left(\frac d{-}\right)$ is periodic$\pmod d$ when $d\equiv1\pmod4$, which is essentially the content of \Cref{cor:quadratic-reciprocity}!
+
+	Let $Q(m,n)$ be the statement that $\big(\frac{m^*}n\big)=\big(\frac n{\left|m\right|}\big)$ is true for given $m$ and $n$. We will show $Q(m,n)$ by induction on $\left|m\right|+\left|n\right|$. Let's deal with signs first.
+	\begin{itemize}
+		\item Observe that neither side changes if we send $m\mapsto-m$, so $Q(m,n)$ and $Q(-m,n)$ are equivalent.
+		\item Similarly, $Q(m,n)$ and $Q(m,-n)$ are equivalent: we may as well assume $m>0$ by the previous sentence, and then
+		\[\left(\frac{m^*}{-n}\right)=\left(\frac{m^*}{-1}\right)\left(\frac{m^*}n\right)\]
+		while
+		\[\left(\frac{-n}m\right)=\left(\frac{-1}m\right)\left(\frac nm\right),\]
+		so it is enough to note that $\left(\frac{m^*}{-1}\right)$ and $\left(\frac{-1}m\right)$ both equal $+1$ if $m\equiv1\pmod4$ and equal $-1$ if $m\equiv3\pmod4$.
+	\end{itemize}
+	This allows us to quickly reduce the base case $\left|m\right|+\left|n\right|=2$ to the case $(m,n)=(1,1)$, for which the given equality reads $1=1$.
+
+	We now proceed with the induction. By rearranging signs, we may assume $m$ and $n$ are positive. We will have two cases: either $m<n$ or $m>n$.
+	\begin{itemize}
+		\item Suppose $m<n$. On one hand, \Cref{cor:quadratic-reciprocity} implies
+		\[\left(\frac{m^*}{n}\right)=\left(\frac{m^*}{n-2m}\right)\]
+		because $m^*\equiv1\pmod4$. On the other hand,
+		\[\left(\frac nm\right)=\left(\frac {n-2m}m\right)\]
+		by \Cref{lem:top-is-periodic}. Thus, $Q(m,n)$ is equivalent to $Q(m,n-2m)$, and the latter holds by induction.
+		\item Suppose $m>n$. On one hand, \Cref{lem:top-is-periodic} implies
+		\begin{align*}
+			\left(\frac{m^*}n\right) &= \left(\frac{\left(\frac{-1}m\right)}{n}\right)\left(\frac mn\right) \\
+			&= \left(\frac{\left(\frac{-1}m\right)}{n}\right)\left(\frac {m-2n}n\right) \\
+			&= \left(\frac{\left(\frac{-1}m\right)}{n}\right)\left(\frac{\left(\frac{-1}{m-2n}\right)}{n}\right)\left(\frac {(m-2n)^*}n\right).
+		\end{align*}
+		On the other hand, rearranging with\Cref{cor:quadratic-reciprocity} and \Cref{lem:top-is-periodic} yields
+		\begin{align*}
+			\left(\frac nm\right) &= \left(\frac{\left(\frac{-1}n\right)}m\right)\left(\frac{n^*}m\right) \\
+			&= \left(\frac{\left(\frac{-1}n\right)}m\right)\left(\frac{n^*}{m-2n}\right) \\
+			&= \left(\frac{\left(\frac{-1}n\right)}m\right)\left(\frac{n^*}{m-2n}\right) \\
+			&= \left(\frac{\left(\frac{-1}n\right)}m\right)\left(\frac{\left(\frac{-1}n\right)}{m-2n}\right)\left(\frac{n}{m-2n}\right) \\
+			&= \left(\frac{\left(\frac{-1}n\right)}m\right)\left(\frac{\left(\frac{-1}n\right)}{m-2n}\right)\left(\frac{n}{\left|m-2n\right|}\right).
+		\end{align*}
+		The last equality holds because $\left(\frac n{\pm1}\right)=1$ for $n>0$ by \Cref{ex:char-on-minus-1}. We conclude that $Q(m,n)$ is equivalent to $Q(m-2n,n)$ because $\left(\frac{(-1/a)}{b}\right)=(-1)^{(a-1)(b-1)/4}$ for any odd integers $a$ and $b$. But $Q(m-2n,n)$ holds by induction.
+		\qedhere
+	\end{itemize}
+\end{proof}
+
+\nirprintbib
+
+\end{document}
