@@ -315,7 +315,11 @@ With some trickery, one can extend these ideas to compute some values of $\chi_K
 	\[\sigma_p(\sqrt d)=\sum_{\substack{1\le i\le N\\\gcd(i,N)=1}}a_i\zeta_N^{pi}.\]
 	Now, because $p$ is odd, we may detect if $\sigma_p(\sqrt d)=\sqrt d$ by passing to$\pmod p$.
 	\begin{remark}
-		There is something sneaky happening here. We are trying to distinguish $+1$ and $-1$ in $\ZZ[\zeta_N]/(p)$, which is equivalent to having $2\not\equiv0\pmod p$, which is equivalent to having $2/p\notin\ZZ[\zeta_N]$. Some studying of algebraic integers is required to guarantee this! For example, $2/p\in\ZZ[\zeta_N]$ implies that the norm of $2/p$ should be integer, but this norm is $(2/p)^{[\QQ(\zeta_N):\QQ]}$.
+		There is something sneaky happening here. We are trying to distinguish $+1$ and $-1$ in $\ZZ[\zeta_N]/(p)$, which is equivalent to having $2\not\equiv0\pmod p$, which is equivalent to having $2/p\notin\ZZ[\zeta_N]$. This is not obvious! Here are two sketches.
+		\begin{itemize}
+			\item Note $\big\{1,\zeta_N,\ldots,\zeta_N^{\varphi(N)-1}\big\}$ is a basis of $\QQ(\zeta_N)$ and thus a basis of $\ZZ[\zeta_N]$, so $2/p\in\QQ(\zeta_N)\setminus\ZZ[\zeta_N]$.
+			\item Any element of $\ZZ[\zeta_N]$ is integral over $\ZZ$, so $2/p\in\ZZ[\zeta_N]$ means that $2/p$ is rational and integral over $\ZZ$ and hence an integer, which is a contradiction.
+		\end{itemize}
 	\end{remark}
 	But taken$\pmod p$, we know $(a+b)^p\equiv a^p+b^p$ for any $a$ and $b$, so $\sigma_p(\sqrt d)\equiv(\sqrt d)^p$. Thus, $\chi_K(p)=+1$ if and only if $(\sqrt d)^p\equiv\sqrt d\pmod p$, which is equivalent to
 	\[d^{(p-1)/2}\stackrel?\equiv1\pmod p.\]
@@ -336,7 +340,7 @@ With some trickery, one can extend these ideas to compute some values of $\chi_K
 \subsection{The Conductor}
 The previous subsection has allowed us to compute some specific values of $\chi_K$, but it is not at all obvious from this calculation what the conductor should be. By \Cref{lem:get-conductor-char}, this amounts to computing the minimal $N$ for which $K\subseteq\QQ(\zeta_N)$.
 
-It will turn out that the most interesting case is when $K$ is $\QQ(\sqrt{\pm p})$ for odd primes $p$. It turns out to be reasonable to expect that $K$ is contained in $\QQ(\zeta_p)$, but because $\op{Gal}(\QQ(\zeta_p)/\QQ)$ is cyclic, this Galois group  the field $\QQ(\zeta_p)$ admits a unique quadratic sub-extension. So which of $\QQ(\sqrt p)$ or $\QQ(\sqrt{-p})$ is in $\QQ(\zeta_p)$?
+It will turn out that the most interesting case is when $K$ is $\QQ(\sqrt{\pm p})$ for odd primes $p$. It is reasonable to expect that $K$ is contained in $\QQ(\zeta_p)$, but because $\op{Gal}(\QQ(\zeta_p)/\QQ)$ is cyclic, this Galois group admits a unique subgroup of index two, so the field $\QQ(\zeta_p)$ admits a unique quadratic sub-extension. So which of $\QQ(\sqrt p)$ or $\QQ(\sqrt{-p})$ is in $\QQ(\zeta_p)$?
 \begin{notation}
 	Fix an odd prime $p$. Then define
 	\[p^*\coloneqq\begin{cases}
@@ -404,7 +408,7 @@ Reversing this argument allows us to compute the conductor $\chi_K$.
 		\item By \Cref{prop:classify-quadratic-subextensions}, $\sqrt d\in\QQ(\zeta_N)$ implies that each prime factor $p$ of $d$ must divide $N$. Because $d$ is squarefree, we see that $d\mid N$.
 		\item Note that $\QQ(\zeta_{4\left|d\right|})$ contains all needed prime factors of $d$ as well as $\sqrt{-1}$, so $d$ is certainly a product of elements of $S(4d)$, so $\sqrt d\in\QQ(\zeta_{4\left|d\right|})$. Thus, $N\mid4\left|d\right|$. 
 	\end{itemize}
-	To refine these bounds, we must do casework on $d\mid4$.
+	To refine these bounds, we must do casework on $d\pmod4$.
 	\begin{itemize}
 		\item Suppose $d\equiv2\pmod4$. Then by \Cref{prop:classify-quadratic-subextensions}, we must have $2\in S(N)$, so $8\mid N$, so comparing prime factors yields $N\ge4\left|d\right|$, and equality follows.
 		\item Suppose $d\equiv1\pmod4$. Then by \Cref{prop:classify-quadratic-subextensions}, we see that $d=\prod_{p\mid d}p^*$ (recall \Cref{rem:p-star-is-1-mod-4}), so $d\in\QQ(\zeta_{\left|d\right|})$, so $N\le\left|d\right|$, so equality follows.
@@ -470,12 +474,12 @@ We are now ready to prove quadratic reciprocity.
 
 	We now proceed with the induction. By rearranging signs, we may assume $m$ and $n$ are positive. We will have two cases: either $m<n$ or $m>n$.
 	\begin{itemize}
-		\item Suppose $m<n$. On one hand, \Cref{cor:quadratic-reciprocity} implies
+		\item Suppose $m<n$. We claim that $Q(m,n)$ is equivalent to $Q(m,n-2m)$, which will complete the proof by the inductino. On one hand, \Cref{cor:quadratic-reciprocity} implies
 		\[\left(\frac{m^*}{n}\right)=\left(\frac{m^*}{n-2m}\right)\]
 		because $m^*\equiv1\pmod4$. On the other hand,
 		\[\left(\frac nm\right)=\left(\frac {n-2m}m\right)\]
-		by \Cref{lem:top-is-periodic}. Thus, $Q(m,n)$ is equivalent to $Q(m,n-2m)$, and the latter holds by induction.
-		\item Suppose $m>n$. On one hand, \Cref{lem:top-is-periodic} implies
+		by \Cref{lem:top-is-periodic}.
+		\item Suppose $m>n$. We claim that $Q(m,n)$ is equivalent to $Q(m-2n,n)$, which will complete the proof by induction. On one hand, \Cref{lem:top-is-periodic} implies
 		\begin{align*}
 			\left(\frac{m^*}n\right) &= \left(\frac{\left(\frac{-1}m\right)}{n}\right)\left(\frac mn\right) \\
 			&= \left(\frac{\left(\frac{-1}m\right)}{n}\right)\left(\frac {m-2n}n\right) \\
@@ -489,7 +493,7 @@ We are now ready to prove quadratic reciprocity.
 			&= \left(\frac{\left(\frac{-1}n\right)}m\right)\left(\frac{\left(\frac{-1}n\right)}{m-2n}\right)\left(\frac{n}{m-2n}\right) \\
 			&= \left(\frac{\left(\frac{-1}n\right)}m\right)\left(\frac{\left(\frac{-1}n\right)}{m-2n}\right)\left(\frac{n}{\left|m-2n\right|}\right).
 		\end{align*}
-		The last equality holds because $\left(\frac n{\pm1}\right)=1$ for $n>0$ by \Cref{ex:char-on-minus-1}. We conclude that $Q(m,n)$ is equivalent to $Q(m-2n,n)$ because $\left(\frac{(-1/a)}{b}\right)=(-1)^{(a-1)(b-1)/4}$ for any odd integers $a$ and $b$. But $Q(m-2n,n)$ holds by induction.
+		The last equality holds because $\left(\frac n{\pm1}\right)=1$ for $n>0$ by \Cref{ex:char-on-minus-1}.  The claim now follows because $\left(\frac{(-1/a)}{b}\right)=(-1)^{(a-1)(b-1)/4}$ for any odd integers $a$ and $b$.
 		\qedhere
 	\end{itemize}
 \end{proof}
