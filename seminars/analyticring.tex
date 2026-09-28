@@ -1,0 +1,294 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+
+\newcommand{\nirpdftitle}{Analytic Rings}
+\usepackage{import}
+\inputfrom{../../notes}{nir}
+\usepackage[backend=biber,
+    style=alphabetic,
+    sorting=ynt
+]{biblatex}
+\setcounter{tocdepth}{2}
+
+\pagestyle{contentpage}
+
+\setlength{\headheight}{13.19003pt}
+% (fancyhdr)	You might also make \topmargin smaller to compensate:
+\addtolength{\topmargin}{-1.19003pt}
+
+\title{Analytic Rings}
+\author{Nir Elber}
+\date{Fall 2026}
+\usepackage{graphicx}
+\lhead{}
+
+\begin{document}
+
+\maketitle
+
+\tableofcontents
+
+\section{September 21: Analytic Stacks}
+This talk was given by David Yang at MIT for the analytic stacks seminar.
+
+\subsection{Condensed Math}
+Let's start with a review of condensed mathematics. We would like to do topology and homological algebra simultaneously, but this is not possible classically. For example, the category of topological abelian groups does not form an abelian category: one can embed $\RR$ with the discrete topology into $\RR$ with the usual topology, and there is no reasonable cokernel for this map.
+
+The solution to this classical problem proposed by condensed mathematics is to embed topological abelian groups into a larger category.
+\begin{definition}[light]
+	A profinite set is \textit{light} if and only if it is separable.
+\end{definition}
+\begin{remark}
+	Due to compactness, separability is equivalent to being first countable. It also happens to be equivalent to metrizability, and it is equivalent to being an inverse limit of finite sets indexed by $\NN$.
+\end{remark}
+\begin{definition}
+	A \textit{covering} of a light profinite set is a finite collection of jointly surjective light profinite sets. A light \textit{condensed set} is a sheaf on the category of light condensed sets. We let $\mathrm{Cond}$ be the category of condensed sets, and we let $\mathrm{AbCond}$ be the category of abelian condensed sets.
+\end{definition}
+\begin{remark}
+	To give a condensed set is to give a presheaf $\mc F$ on light profinite sets for which $\mc F(S\sqcup T)=\mc F(S)\times\mc F(T)$, and any surjective covering $S\onto T$ induces
+	\[\mc F(T)=\op{eq}(\mc F(S)\to\mc F(S\times_TS)).\]
+\end{remark}
+\begin{example}
+	For any topological space $X$, there is a condensed set $\mathrm{Mor}_{\mathrm{Top}}(-,X)$. Similarly, an abelian topological group defines an abelian condensed set. The functor from topological spaces to condensed sets is fully faithful on a large subcategory (e.g., metrizable, compactly generated, Hausdorff spaces).
+\end{example}
+We now pass to solid condensed sets. The adjective ``solid'' is intended to force us to work with nonarchimedean geometry. For motivation, note that a sequence $\{x_i\}_i$ in $\RR$ (or any metric abelian group) which is summable is automatically a null sequence, but the converse need not hold. However, the converse does hold over $\QQ_p$. Thus, we will want to say something about convergence.
+\begin{notation}
+	Fix a condensed set $S$. Then define $\ZZ[S]$ as the sheafification of the presheaf
+	\[T\mapsto\ZZ[S(T)].\]
+\end{notation}
+\begin{notation}
+	We fix $P\coloneqq\ZZ[\NN\cup\{\infty\}]/\ZZ[\{\infty\}]$, where $\NN\cup\{\infty\}$ is the one-point compactification of $\NN$. The continuous map $(+1)\colon\NN\cup\{\infty\}\to\NN\cup\{\infty\}$ induces an automorphism $[1]\colon P\to P$.
+\end{notation}
+The moral is that $P$ represents null sequences.
+\begin{lemma}
+	Fix a topological abelian group $A$. Then $\op{Hom}(P,A)$ is equivalent to the group of null sequences in $A$.
+\end{lemma}
+\begin{proof}
+	Look at where each point goes. By construction, $P$ sends $\infty$ to $0\in A$.
+\end{proof}
+\begin{lemma}
+	The condensed abelian group $P$ is projective.
+\end{lemma}
+\begin{proof}
+	Expand out the definitions.
+\end{proof}
+\begin{definition}[solid]
+	A condensed abelian group $A$ is \textit{solid} if and only if the map
+	\[({\id}-1)\colon\op{Hom}(P,A)\to\op{Hom}(P,A)\]
+	is an isomorphism.
+\end{definition}
+\begin{remark}
+	Intuitively, ${\id}-1$ on null sequences is given by
+	\[(a_0,a_1,\ldots)\mapsto(a_0-a_1,a_1-a_2,\ldots).\]
+	This is inverted by some telescoping map, which is where summability enters the picture.
+\end{remark}
+\begin{example}
+	It turns out that $\ZZ$ is solid. The idea is that a null sequence in $\ZZ$ eventually vanishes and is thus summable. This shows that solid condensed abelian groups does not form a $\otimes$-ideal.
+\end{example}
+\begin{remark}
+	The full subcategory of solid condensed abelian groups is stable under limits, colimits, and extensions.
+\end{remark}
+\begin{example}
+	The forgetful functor from solid condensed abelian groups to abelian groups admits a right adjoint. For example, the solidification of $\RR$ vanishes.
+\end{example}
+\begin{remark}
+	The functor from the derived category of solid condensed abelian groups to condensed abelian groups is fully faithful, and the image is given by those complexes with solid cohomology groups. For example, if $C$ is solid, then for any condensed abelian group $A$, the complex $\mathrm{RHom}(A,C)$ is solid.
+\end{remark}
+
+\subsection{Analytic Rings}
+Here is our definition.
+\begin{definition}[analytic ring]
+	An \textit{analytic ring} is a pair $(A^\vartriangle,D(A))$, where $A^\vartriangleleft$ is a condensed ring and $D(A)\subseteq D(A^\vartriangleleft)$, for which
+	\begin{itemize}
+		\item $A^\vartriangleleft\in D(A)$,
+		\item $D(A)$ is stable under limits and colimits (and so $D(A)\subseteq D(A^\vartriangleleft)$ admits a left adjoint $F$),
+		\item for any $C\in D(\mathrm{CondAb})$ and $M\in D(A)$, one has $\mathrm{RHom}_{\mathrm{CondAb}}(C,M)\in D(A)$, and
+		\item $F$ sends connected objects to connected objects (namely, $D(A^\vartriangleleft)^{\le0}$ goes to $D(A^\vartriangleleft)$).
+	\end{itemize}
+	Without the first condition, we may refer to $(A^\vartriangleleft,D(A))$ as an \textit{uncompleted analytic ring}.
+\end{definition}
+\begin{example}
+	Our discussion of solidity shows that $(\ZZ,D(\mathrm{SolCondAb}))$ is an analytic ring.
+\end{example}
+\begin{example}
+	There is an analytic ring with $A^\vartriangleleft=\RR$ and $D(A)$ given by the ``liquid'' condensed abelian groups.
+\end{example}
+\begin{example}
+	For any condensed ring $A$, one can take $D(A)\coloneqq D(A^\vartriangleleft)$.
+\end{example}
+\begin{example}
+	There is an analytic ring attached to any Huber ring $(A,A^+)$.
+\end{example}
+\begin{remark}
+	The second condition implies that $D(A)$ is symmetric monoidal, and the functor $F$ is symmetric monoidal. The idea is to show that $\ker F$ is a $\otimes$-ideal. Well, for $B\in\ker F$ and $C\in D(A^\vartriangleleft)$, we must show that $F(B\otimes C)=0$. This is equivalent to checking $\op{Hom}_{D(A)}(F(B\otimes C),E)=0$ for any $E\in D(A)$, but
+	\[\op{Hom}_{D(A)}(F(B\otimes C),E)=\op{Hom}_{D(A^\vartriangleleft)}(B\otimes C,E)=\op{Hom}_{D(A^\vartriangleleft)}(B,\op{Hom}_{D(A^\vartriangleleft)}(C,E)).\]
+	We will thus be done by the free--forgetful adjunction if we can show that $\op{Hom}_{D(A^\vartriangleleft)}(C,E)$ lives in $D(A)$. Well, it suffices to show this where $C$ is a set of generators of $D(A^\vartriangleleft)$, for which we can take to be objects of the form $A^\vartriangleleft\otimes_\ZZ S$, and now we are done by the second condition.
+\end{remark}
+The last thing we will talk about today is colimits.
+\begin{theorem}
+	Colmits exist in the category of analytic rings.
+\end{theorem}
+\begin{proof}
+	First, one shows that colimits exist in the category of uncompleted analytic rings. The underlying condensed ring is given by taking the underlying colimits, and the underlying derived catgegory is the subcategory of objects which land in the derived category of each component.
+
+	Second, one shows that the forgetful functor from analytic rings to uncompleted analytic rings admits a left adjoint, so the right adjoint will give us our colimits. We will merely give the construction: for an uncompleted analytic ring $(A^\vartriangleleft,D(A))$, simply replace $A^\vartriangleleft$ to its image along the free functor $D(A^\vartriangleleft)\to D(A)$.
+\end{proof}
+\begin{example}
+	Fix an analytic ring $(A^\vartriangleleft,D(A))$, and let $B^\vartriangleleft$ be a condensed $A^\vartriangleleft$-algebra such that $B^\vartriangleleft\in D(A)$. Then $(B^\vartriangleleft,\mathrm{Mod}_{B^\vartriangleleft}D(A))$ is the colimit of the following diagram.
+	% https://q.uiver.app/#q=WzAsNCxbMCwwLCJcXGxlZnQoQV5cXHZhcnRyaWFuZ2xlbGVmdCxEKEEpXFxyaWdodCkiXSxbMSwwLCJcXGxlZnQoQl5cXHZhcnRyaWFuZ2xlbGVmdCxEKEJeXFx2YXJ0cmlhbmdsZWxlZnQpXFxyaWdodCkiXSxbMCwxLCIoQV5cXHZhcnRyaWFuZ2xlbGVmdCxEKEEpKSJdLFsxLDEsIihCXlxcdmFydHJpYW5nbGVsZWZ0LFxcbWF0aHJte01vZH1fe0JeXFx2YXJ0cmlhbmdsZWxlZnR9RChBKSkiXSxbMCwxXSxbMCwyXSxbMiwzXSxbMSwzXSxbMywwLCIiLDEseyJzdHlsZSI6eyJuYW1lIjoiY29ybmVyIn19XV0=&macro_url=https%3A%2F%2Fraw.githubusercontent.com%2FdFoiler%2Fnotes%2Fmaster%2Fnir.tex
+	\[\begin{tikzcd}[cramped]
+		{\left(A^\vartriangleleft,D(A)\right)} & {\left(B^\vartriangleleft,D(B^\vartriangleleft)\right)} \\
+		{(A^\vartriangleleft,D(A))} & {(B^\vartriangleleft,\mathrm{Mod}_{B^\vartriangleleft}D(A))}
+		\arrow[from=1-1, to=1-2]
+		\arrow[from=1-1, to=2-1]
+		\arrow[from=1-2, to=2-2]
+		\arrow[from=2-1, to=2-2]
+		\arrow["\lrcorner"{anchor=center, pos=0.125, rotate=180}, draw=none, from=2-2, to=1-1]
+	\end{tikzcd}\]
+	Here, one can directly define $\mathrm{Mod}_{B^\vartriangleleft}D(A)$ as the subcategory of $D(B^\vartriangleleft)$ which is the pre-image of $D(A)\subseteq D(A^\vartriangleleft)$.
+\end{example}
+
+\section{September 28: The Four Functors}
+This talk took place at MIT for the Rigid analytic rings seminar.
+
+\subsection{Six Functors on Analytic Rings}
+The first part of the talk was given by David.
+
+Last time, we defined an analytic ring as a pair $(A^\vartriangleleft,D(A))$ satisfying some properties. We start by remarking that $D(A)$ is more important than $A^\vartriangleleft$.
+\begin{example}[categorical K\"unneth]
+	Fix a diagram $A_\bullet$ from an index category $\mc I$ to the category of analytic rings, and let $(A^\vartriangleleft,D(A))$ be its colimit. Last time, we checked that
+	\[D(A)\cong\colim_iD(A_i),\]
+	where the colimit is taken in the category of presentable categories. However, the underlying $A^\vartriangleleft$ had to be modified rather significantly from $\colim_iA_i^\vartriangleleft$. 
+\end{example}
+\begin{remark}
+	Colimits can be turned into limits. In short, by the Adjoint functor theorem, the internal morphisms $(A^\vartriangleleft,D(A))\to(B^\vartriangleleft,D(B))$ have $D(B)\to D(A)$ with a left adjoint $D(A)\to D(B)$. (In short, the adjoint is given by completing $(-\otimes_{A^\vartriangleleft}B^\vartriangleleft)$.) Then reversing all arrows turns colimits into limits. For example, one finds that
+	\[D(A)=\lim_iD(A_i)\]
+	after enough abuse of notation.
+\end{remark}
+Our present goal is to produce a six-functor formalism on analytic rings. In light of our intuition that $D(A)$ is more important than $A^\vartriangleleft$, this will mostly be done categorically.
+\begin{definition}
+	For a morphism $f\colon\op{Sp}B\to\op{Sp}A$ of analytic rings, we define the $*$-pushforward as the underlying map $f_*\colon D(B)\to D(A)$, and its right adjoint is the $*$-pullback $f^*$.
+\end{definition}
+For the remaining functors, we need classes of maps $I$, $P$, and $E$. In short, $I$ should consist of open embeddings, $P$ should consist of proper maps, and $E$ should be $!$-able maps. Notably, following Nagata compactification, $E$ is the same as composites of a map in $I$ with a map in $P$.
+
+Let's start with $P$.
+\begin{definition}
+	A map $f\colon A\to B$ of analytic rings is \textit{proper} if and only if
+	% https://q.uiver.app/#q=WzAsNCxbMCwwLCJEKEIpIl0sWzAsMSwiRChBKSJdLFsxLDAsIkQoQl5cXHZhcnRyaWFuZ2xlbGVmdCkiXSxbMSwxLCJEKEFeXFx2YXJ0cmlhbmdsZWxlZnQpIl0sWzAsMV0sWzEsM10sWzAsMl0sWzIsM11d&macro_url=https%3A%2F%2Fraw.githubusercontent.com%2FdFoiler%2Fnotes%2Fmaster%2Fnir.tex
+	\[\begin{tikzcd}[cramped]
+		{D(B)} & {D(B^\vartriangleleft)} \\
+		{D(A)} & {D(A^\vartriangleleft)}
+		\arrow[from=1-1, to=1-2]
+		\arrow[from=1-1, to=2-1]
+		\arrow[from=1-2, to=2-2]
+		\arrow[from=2-1, to=2-2]
+	\end{tikzcd}\]
+	is a pullback square, where the horizontal arrows are the completion functors.
+\end{definition}
+\begin{remark}
+	It is equivalent to require that $D(B)\cong\op{Mod}_{B^\vartriangleleft}D(A)$.
+\end{remark}
+\begin{remark}
+	If $f\colon A\to B$ is proper, then the $*$-pullback map $D(A)\to D(B)$ is just $-\otimes_{A^\vartriangleleft}B^\vartriangleleft$.
+\end{remark}
+\begin{definition}
+	Fix a proper map $f\colon A\to B$ of analytic rings. Then the right adjoint of $f^*\colon D(A)\to D(B)$ is denoted $f_!\colon D(B)\to D(A)$.
+\end{definition}
+\begin{remark}
+	One can check that base-change and the projection formula both hold for $f_!$ in this setting.
+\end{remark}
+We now turn to $I$. Here is the analytic example.
+\begin{example}
+	Let $j\colon X\to Y$ be an open embedding. Then the functor $j^*$ on constructible sheaves admits a fully faithful left adjoint, and it satisfies the projection formula
+	\[j_!(j^*A\otimes B)=A\otimes j_!B.\]
+\end{example}
+\begin{remark}
+	If one works with quasicoherent sheaves instead of constructible sheaves, then everything appears backwards.
+\end{remark}
+\begin{remark}
+	There is a similar calculation that can be done for closed embeddings, which have fully faithful right adjoints.
+\end{remark}
+Let's turn this into a definition.
+\begin{definition}
+	A map $f\colon\mc C\to\mc D$ of stable categories is \textit{open} if and only if it admits a fully faithful left adjoint and satisfying some projection formula.
+\end{definition}
+\begin{example}
+	Let $A$ be an idempotent algebra in $\mc C$, meaning that $A\otimes A\cong A$. Then the forgetful functor $\mathrm{Mod}_A(\mc C)\to\mc C$ is fully faithful and admits the adjoint given by the tensor product. It turns out that the adjoint construction provides all the closed embeddings.
+\end{example}
+A similar example works for open embeddings.
+\begin{definition}
+	A map $j\colon A\to B$ of analytic rings is \textit{open} if and only if $j^*\colon D(A)\to D(B)$ is open. By definition, we are provided with a left adjoint $j_!\colon D(B)\to D(A)$.
+\end{definition}
+At long last, we have enough functors to state a theorem.
+\begin{theorem}
+	The functors $(\otimes,f_*,f_!)$ defines a three-functor formalism satisfying the projection formula and base-change.
+\end{theorem}
+This is not totally formal. For example, one needs some base-change property for proper and open maps. However, we will not explicate any of these checks.
+
+We close our discussion by defining an analytic stack.
+\begin{definition}
+	The $!$-topology on the opposite category of analytic rings contains the covers $\{B\to A_i\}_i$ of $!$-able maps where $D(B)$ is isomorphic to the $!$-limit of the simplicial object
+	\[D(B)\cong\lim D^!(A_i^{\bigsqcup_B n}),\]
+	where the right-hand side is the simplicial object. Here, we are taking $!$-pullbacks, which is the right adjoint of $!$-pushforward.
+\end{definition}
+\begin{remark}
+	One can check that the $!$-topology is finitary and subcanonical.
+\end{remark}
+\begin{definition}
+	A map $X\to Y$ in $\op{PSh}(\mathrm{AnRing}_!\opp)$ is a $!$-equivalence if and only if any map $M\to N$ in $\op{PSh}(\mathrm{AnRing}_!\opp)$ which is a pullback of an iterated diagonal of $X\to Y$, we have that
+	\[D(N)\cong\lim D^!(M^{\times_N n}),\]
+	where the right-hand side is the simplicial object.
+\end{definition}
+\begin{example}
+	If $X$ and $Y$ are already analytic rings, then being a $!$-equivalence is equivalent to $X\to Y$ being 
+\end{example}
+\begin{definition}[analytic stack]
+	A functor $\mc F\colon\mathrm{AnRing}\opp\to\mathrm{Sp}$ is an analytic stack if and only if any $!$-equivalence $X\to Y$ makes the map $\op{Hom}(Y,\mc F)\to\op{Hom}(X,\mc F)$ into an isomorphism.
+\end{definition}
+
+\subsection{The Analytic Ring \texorpdfstring{$\ZZ[T]_\blacksquare$}{ Z[T] box}}
+This second part of the talk was given by Tong. The goal of the second part of the talk is to get some intuition about the analytic ring $\ZZ[T]_\blacksquare$. Recall the following definition.
+\begin{definition}
+	A condensed abelian group $A$ is \textit{solid} if and only if the map ${\id}-1$ is an isomorphism on $\op{Hom}_\ZZ(P,M)$, where $P=\ZZ[\NN\cup\{\infty\}]/\ZZ[\{\infty\}]$.
+\end{definition}
+We now introduce $\ZZ_\blacksquare[T]$, which is almost $\ZZ[T]_\blacksquare$.
+\begin{notation}
+	Define the analytic ring $\ZZ_\blacksquare[T]$ to consist of the ring $\ZZ[T]$ along with the subcategory $D(\ZZ_\blacksquare[T])\subseteq D(\ZZ[T])$ consisting of the solid modules.
+\end{notation}
+Approximately speaking, $\ZZ_\blacksquare[T]$ should be like an affine line over $\ZZ_\blacksquare$. We would like to construct a unit disk over $\ZZ_\blacksquare$. In classical rigid analytic geometry, this is done over $\QQ_p$ via the Tate algebra $\QQ_p\langle T\rangle$ of series $\sum_na_nT^n$ whose coefficients tend to zero. Thus, we expect that
+\[\ZZ[T]_\blacksquare\otimes_{\ZZ_\blacksquare}\QQ_p\cong\QQ_p\langle T\rangle.\]
+For example, one would expect that $\ZZ[T]_\blacksquare$ still has underlying ring $\ZZ[T]$, and we will just change the underlying category. Also taking motivation from our remark about $\QQ_p\langle T\rangle$, we have the following definition.
+\begin{definition}
+	Define the pair $\ZZ[T]_\blacksquare$ to have underlying ring $\ZZ[T]$ and category $D(\ZZ[T]_\blacksquare)$ consisting of those solid $M\in D(\ZZ[T])$ for which any nilsequence $\{a_n\}$ in $M$ makes $\sum_na_nT^n$ convergent. This latter condition means that
+	\[({\id}-T)\colon\op{Hom}_{\ZZ_\blacksquare[T]}(P',M)\to\op{Hom}_{\ZZ_\blacksquare[T]}(P',M)\]
+	is an isomorphism, where $P'=P\otimes_\ZZ\ZZ_\blacksquare[T]$.
+\end{definition}
+\begin{remark}
+	One can check that $P'$ is isomorphic to $\ZZ[[q]][T]$ (equipped with the $q$-adic topology). Using the exactness of the functor from locally compact abelian groups to condensed abelian groups, one finds that the sequence
+	\[0\to\ZZ[[q]][T]\stackrel{1-qT}\to\ZZ[[q]][T]\to\ZZ((1/T))\to0\]
+	is exact. Thus, $M\in D(\ZZ_\blacksquare[T])$ lives in $D(\ZZ[T]_\blacksquare)$ if and only if $\op{Hom}_{\ZZ_\blacksquare[T]}(\ZZ((1/T)),M)=0$.
+\end{remark}
+\begin{remark}
+	One can compute that $\ZZ((1/T))$ is an idempotent $\ZZ_\blacksquare[T]$-algebra. Thus, there is an idempotent decomposition
+	\[D(\ZZ((1/T)))\to D(\ZZ_\blacksquare[T])\to D(\ZZ[T]_\blacksquare),\]
+	where the former map is given by $(-)_*$. For example, 
+\end{remark}
+Let's now check that $\ZZ[T]_\blacksquare$ is an analytic ring.
+\begin{theorem}
+	The pair $\ZZ[T]_\blacksquare$ is an analytic ring. Also, for any light profinite set $S=\lim S_n$, one has
+	\[\ZZ[T]_\blacksquare[S]=\lim_n\ZZ[T][S_n].\]
+\end{theorem}
+\begin{proof}
+	We only discuss the second statement. It turns out to reduce to $\prod_\NN\ZZ$, and the key calculation is that the cokernel of the map
+	\[\Bigg(\prod_\NN\ZZ\Bigg)[T]\subseteq\prod_\NN(\ZZ[T])\]
+	is a $\ZZ((1/T))$-module. In fact, it is
+	\[\Bigg(\prod_\NN\ZZ((1/T))\Bigg)/\Bigg(\prod_\NN(\ZZ\otimes_{\ZZ_\blacksquare}\ZZ((1/T))\Bigg).\]
+	(Here, recall $\otimes_{\ZZ_\blacksquare}$ is the solidification of the usual tensor product.) One sees this by doing some combinatorics on the support of these power series.
+\end{proof}
+\begin{example}
+	To close the talk, we sketch that the $\ZZ[T]_\blacksquare$-completion of $\QQ_p\otimes_{\ZZ_\blacksquare}\ZZ[T]_\blacksquare$ is $\QQ_p\langle T\rangle$ as $\ZZ_\blacksquare$-modules. Well, $\ZZ_p\otimes_{\ZZ_\blacksquare}\ZZ[T]_\blacksquare$ can be computed as $\ZZ_p=\lim_n\ZZ/p^n\ZZ$. It turns out that $\otimes_{\ZZ_\blacksquare}\ZZ[T]_\blacksquare$ commutes with limits, so
+	\[\ZZ_p\otimes_{\ZZ_\blacksquare}\ZZ[T]_\blacksquare\cong\lim_n(\ZZ/p^n\ZZ)\otimes_{\ZZ_\blacksquare}\ZZ[T]_\blacksquare\cong\lim\ZZ[T]/p^n\ZZ[T],\]
+	where the last isomorphism requires no solidification because $\ZZ[T]/p^n\ZZ[T]$ is already solid (indeed, it is discrete). This last limit is just $\ZZ_p\langle T\rangle$. To compute $\QQ_p\otimes_{\ZZ_\blacksquare}\ZZ[T]$, we now take the colimit as $\QQ_p=\colim p^n\ZZ_p$ and pass the colimit out of the tensor product.
+\end{example}
+
+\end{document}
