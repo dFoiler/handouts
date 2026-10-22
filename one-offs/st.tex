@@ -282,7 +282,7 @@ While we're here, let's give the Shimura--Taniyama formula.
 	Note $f(\varphi\mf p/p)=f(\mf p/p)$ for all $\mf p$, so we now see that all the summands are equal. We conclude by noting that $f(\mf p/p)e(\mf p/p)$ equals $[E_{\mf p}:\QQ_p]$, which equals $\left|H_{\mf p}\right|$.
 \end{proof}
 \begin{remark}
-	This is a ``formula'' because it involves numbers. It is also some
+	This is a ``formula'' because it involves numbers.
 \end{remark}
 
 \subsection{Passing to the Residue Field}
@@ -318,7 +318,7 @@ We are now in a good position because \Cref{thm:giraud} lives entirely over the 
 		\[[\op{Hom}_{\OO_E}(\OO_E/\mf q_i,\op{Lie}A)]\stackrel?=[\OO_E/\mf q_i].\]
 		\item In fact, both sides are multiples of $\OO_E/\mf p_i$ (indeed, the modules are annihilated by $\OO_E/\mf q_i$), so it is enough to compare cardinalities. Both $\op{Lie}A$ and $\OO_E/(\varpi_A)$ have cardinality $q^{\dim A}$; the latter holds because $[\OO_E:(\varpi_A)]=\deg\varpi_A=\deg\mathrm{Frob}$. Thus, it is enough to show the single inequality
 		\[\#\op{Hom}_{\OO_E}(\OO_E/\mf q_i,\op{Lie}A)\stackrel?\ge[\OO_E:\mf q_i].\]
-		\item Computing the left-hand side is a little tricky. Well, the functor $\op{Lie}$ commutes with $\op{Hom}_{\OO_E}(\OO_E/\mf q_i,-)$ because $G\mapsto\op{Lie}G$ can be realized as the kerrnel of $G\left(-[\varepsilon]/(\varepsilon^2)\right)\to G(-)$, and $\op{Hom}_{\OO_E}(\OO_E/\mf q_i,-)$ commutes with limits. Thus, we would like to compute the size of $\op{Lie}\op{Hom}_{\OO_E}(\OO_E/\mf q_i,A)$. This is easier: hitting the exact sequence
+		\item Computing the left-hand side is a little tricky because of the $\op{Lie}$, so let's peel it off. The functor $\op{Lie}$ commutes with $\op{Hom}_{\OO_E}(\OO_E/\mf q_i,-)$ because $\op{Lie}G$ can be realized as the kerrnel of $G\left(-[\varepsilon]/(\varepsilon^2)\right)\to G(-)$, and $\op{Hom}_{\OO_E}(\OO_E/\mf q_i,-)$ commutes with limits. Moving $\op{Lie}$ out, we see we would like to compute the size of $\op{Lie}\op{Hom}_{\OO_E}(\OO_E/\mf q_i,A)$. We can now use methods from abelian varieties: hitting
 		\[0\to\mf q_i\to\OO_E\to\OO_E/\mf q_i\to0\]
 		with $\op{Hom}_{\OO_E}(-,A)$ yields
 		\[0\to\op{Hom}_{\OO_E}(\OO_E/\mf q_i,A)\to A\stackrel\lambda\to\op{Hom}_{\OO_E}(\mf q_i,A).\]
