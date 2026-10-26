@@ -37,7 +37,10 @@
 \end{remark*}
 
 \section{The Main Theorem}
-For motivation, we state a special case of the Main theorem of complex multiplication.
+For motivation, we state a special case of the Main theorem of complex multiplication. The goal is to compute the Galois representation attached to an abelian variety with complex multiplication.
+\begin{idea}
+	Fix an abelian variety $A$ with complex multiplication by $(E,\Phi)$. Then the Galois representation of $A$ is computed by the reflex norm $\op N_\Phi$.
+\end{idea}
 
 \subsection{Abelian Image}
 The goal of this seminar is the construction of abelian extensions of some number field $K$. When $K$ was imaginary quadratic, we could hunt for elliptic curves $A$ with complex multiplication defined over $K$ and adjoin torsion to build abelian extensions. Roughly speaking, the reason that this worked was that the Galois representation
@@ -214,7 +217,7 @@ We are now ready to glue our Galois representations together.
 	In other words, if $\sigma\in\op{Gal}(\overline{E^*}/E^*)$ and $s\in\AA_{E^*}^{\infty,\times}/E^{*,\times}$ agree in $\op{Gal}(E^{*,\mathrm{ab}}/E^*)$, then they agree in $\AA_E^{\infty,\times}/E^\times$.
 \end{theorem}
 \begin{proof}
-	Come back next week! As a slogan, we may say that the Galois action is the reflex norm.
+	Come back next week!
 \end{proof}
 \begin{remark}
 	Let's explain how to derive \Cref{thm:main-field-of-def}. When $\sigma$ fixes the field of definition of $A$, we may take $\alpha=\id_A$ in \Cref{not:eta}, so $\eta_A(\sigma)\in\AA_E^{\infty,\times}$ is simply the image of $\sigma$ in $\AA_E^{\infty,\times}/E^\times\subseteq\op{GL}(\widehat VA)/E^\times$.
@@ -225,7 +228,9 @@ We will state and prove the Shimura--Taniyama formula. We will motivate the stat
 
 \subsection{Passing to Local Fields}
 As stated, \Cref{thm:main-field-of-def,thm:main-reflex} are global statements. The only way we will be able to access such a theorem is by moving it to a local statement (and eventually then to the residue field).
-
+\begin{idea}
+	The Shimura--Taniyama formula is the local version of the Main theorem.
+\end{idea}
 Fix an abelian variety $A$ with complex multiplication by $(E,\Phi)$ defined over $K$. Let's assume that $K$ contains all Galois conjugates of $E$ so that we can apply the following.
 \begin{proposition}
 	Fix a CM type $(E,\Phi)$ with reflex field $E^*$. For any number field $K$ containing all Galois conjugates of $E$, we have
