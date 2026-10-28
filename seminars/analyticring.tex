@@ -291,4 +291,279 @@ Let's now check that $\ZZ[T]_\blacksquare$ is an analytic ring.
 	where the last isomorphism requires no solidification because $\ZZ[T]/p^n\ZZ[T]$ is already solid (indeed, it is discrete). This last limit is just $\ZZ_p\langle T\rangle$. To compute $\QQ_p\otimes_{\ZZ_\blacksquare}\ZZ[T]$, we now take the colimit as $\QQ_p=\colim p^n\ZZ_p$ and pass the colimit out of the tensor product.
 \end{example}
 
+\section{October 19: Gelfand Rings}
+This talk was given by Daniel at MIT for the Analytic rings seminar.
+
+\subsection{Overconvergent Elements}
+Last time, we defined the idempotent algebra $\QQ_p\langle\NN[S]\rangle_{\le r}$.
+\begin{definition}
+	For each $A\in\op{Ring}_{\QQ_p}$, define the condensed subring $A^{\le r}\subseteq A$ for the subring given by sending profinite sets $T$ to
+	\[\op{Mor}_{\mathrm{Ring}_{\QQ_p}}(\QQ_p\langle\NN[S]\rangle_{\le r},A)\subseteq A(T).\]
+	We define the \textit{nilradical} to be $\op{Nil}^\dagger A\coloneqq A^{\le0}$. While we're here, we define $A^{<r}\coloneqq\bigcup_{r'<r}A^{\le r'}$.
+\end{definition}
+\begin{remark}
+	It turns out that $A^{\le r}$ as defined is a sheaf on $\mathrm{ProFin}$. (The prefix ``hyper'' is required because everything is derived.)
+\end{remark}
+\begin{remark}
+	Given a ring $R$, one can define $R^\times$ as $\op{Hom}(\ZZ[T,1/T],R)$. Thus, we may think of the ring $\ZZ[T,1/T]$ as testing units. Analogously, $\QQ_p\langle\NN[S]\rangle_{\le r}$ tests for size bounded by $r$.
+\end{remark}
+\begin{lemma}
+	Fix $A\in\op{Ring}_{\QQ_p}$. For any $r\ge0$, the condensed ring $A^{\le r}$ is solid.
+\end{lemma}
+\begin{proof}
+	Last time, we realized that $\QQ\langle\NN[S]\rangle$ as a Tate algebra with enough variables after extending $\QQ$. We can do a similar trick this time, but to keep track of the power-bounding, we need to do an integral variant. Namely, one has
+	\[\ZZ_p\left[p^{\QQ^+}\right]\otimes_{\ZZ_p}A^{\le r}=\bigcap_{\substack{a\in\QQ\\p^{-a}\le r}}p^{-a}\left(\ZZ_p\left[p^{\QQ^+}\right]\otimes_{\ZZ_p}A^\circ\right).\]
+	Now, $A^\circ$ is solid, so each disk is solid, so the entire intersection is solid, so the retract $A^{\le r}$ is solid.
+\end{proof}
+\begin{example}
+	Let $A$ be a Banach $\QQ_p$-algebra. Then $A^{\le1}=A^\circ$, which we recall is the collection of power-bounded elements.
+\end{example}
+\begin{example}
+	Take $A\coloneqq\AA_p\langle\NN[S]\rangle$, which is the Tate algebra with $S$ as variables. Then $A^{\le1}=\ZZ_p\langle\NN[S]\rangle$.
+\end{example}
+\begin{proposition} \label{prop:addition-multiplication-bounded}
+	For nonnegative $r$ and $s$, addition defines a map $A^{\le r}\times A^{\le s}\to A^{\le\max\{r,s\}}$, and multiplication defines a map $A^{\le rs}$.
+\end{proposition}
+\begin{proof}
+	Omitted.
+\end{proof}
+\begin{corollary}
+	Let $A\in\op{Ring}_{\QQ_p}$ be bounded. Then $\op{Nil}^\dagger A$ is an ideal of $A$.
+\end{corollary}
+\begin{proof}
+	Setting $r=s=0$ in \Cref{prop:addition-multiplication-bounded} quickly completes the proof. To be technical, we should check that $A=\bigcup_rA^{\le r}$. To show this, note that $A^\circ\subseteq A^{\le1}$ by definition of $A^{\le1}$. But $A^{\le1}\subseteq p^{-1}A^\circ$ because $A^{\le1}$ is an intersection of all disks of radius greater than one. It follows that $A$, which is $A^\circ[1/p]$ can be written as $\bigcup_rA^{\le r}$ by moving the powers of $p$ around.
+\end{proof}
+\begin{definition}
+	Fix a bounded $A\in\op{Ring}_{\QQ_p}$. Then $A$ is \textit{$\dagger$-reduced} if and only if $\op{Nil}^\dagger(A)=0$. In general, we define the \textit{$\dagger$-reduction} as $A^{\dagger\textrm{-red}}\coloneqq A/\op{Nil}^\dagger A$.
+\end{definition}
+\begin{remark} \label{rem:pushout-red}
+	It turns out that
+	% https://q.uiver.app/#q=WzAsNCxbMCwwLCJBXntcXGxlIHJ9Il0sWzAsMSwiQSJdLFsxLDAsIkFee1xcZGFnZ2VyXFx0ZXh0cm17LXJlZH0sXFxsZSByfSJdLFsxLDEsIkFee1xcZGFnZ2VyXFx0ZXh0cm17LXJlZH0sXFxsZSByfSJdLFsxLDNdLFswLDJdLFsyLDNdLFswLDFdXQ==&macro_url=https%3A%2F%2Fraw.githubusercontent.com%2FdFoiler%2Fnotes%2Fmaster%2Fnir.tex
+	\[\begin{tikzcd}[cramped]
+		{A^{\le r}} & {A^{\dagger\textrm{-red},\le r}} \\
+		A & {A^{\dagger\textrm{-red},\le r}}
+		\arrow[from=1-1, to=1-2]
+		\arrow[from=1-1, to=2-1]
+		\arrow[from=1-2, to=2-2]
+		\arrow[from=2-1, to=2-2]
+	\end{tikzcd}\]
+	is a pushout square, so $A^{\dagger\textrm{-red}}$ is bounded and $\dagger$-reduced. However, the corresponding statement of $A^\circ$ is false in general. (In particular, this is a feature of Banach $\QQ_p$-algebras.)
+\end{remark}
+
+\subsection{Uniform Rings}
+Intuitively, the uniform ring is analogous to taking a $p$-adic completion.
+\begin{definition}
+	Fix a bounded $A\in\op{Ring}_{\QQ_p}$. Then define the \textit{uniform ring} to be
+	\[A^u\coloneqq\left(\lim_{r>0}A^{\le1}/A^{\le r}\right)\left[\frac1p\right].\]
+	We say that $A$ is \textit{uniform} if and only if the natural map $A^{\le1}[1/p]\to A^u$ is an isomorphism.
+\end{definition}
+\begin{remark}
+	Intuitively, taking the inverse limit is a $p$-adic completion. Roughly speaking, it will turn out to be the completion of $A^{\dagger\textrm{-red}}$.
+\end{remark}
+\begin{example}
+	Fix a Banach $\QQ_p$-algebra $A$. Then $A^{\le1}=A^\circ$, so $A$ is uniform if and only if $A^\circ$ is $p$-adically complete. Here is a non-example: note $A\coloneqq\QQ_p[t]/\left(t^2\right)$ has $A^\circ=\ZZ_p\oplus\QQ_pt$, which is not $p$-adically complete because $\QQ_pt$ dies upon taking $p$-adic completion.
+\end{example}
+\begin{example}
+	Take $A\coloneqq\QQ_p\langle\NN[S]\rangle_{\le1}$. Note that there is an inclusion $A\subseteq\QQ_p\langle\NN[S]\rangle$: on a test algebra $B\in\op{Ring}_{\QQ_p}$, this is given by the inclusions $B^\circ\into B^{\le1}$. This yields an inclusion $A^{\le1}\into\ZZ_p\langle\NN[S]\rangle$, and it turns out that
+	\[A^{\le1}=A\cap\ZZ_p\langle\NN[S]\rangle.\]
+	Thus, $A^{\le1}/p^n=\ZZ/p^n[\NN[S]]$, so taking the uniform completion yields $A^u=\QQ_p\langle\NN[S]\rangle$.
+\end{example}
+Here are some basic properties.
+\begin{remark}
+	It turns out that $A^u\cong\left(A^{\dagger\textrm{-red}}\right)^u$. Basically, this should follow from the definition and \Cref{rem:pushout-red}, basically pulling out the reduction.
+\end{remark}
+\begin{proposition} \label{prop:uniform-properties}
+	Fix bounded $A\in\op{Ring}_{\QQ_p}$.
+	\begin{listalph}
+		\item The following is a pushout square in $D(\ZZ_p)$ for any $r\ge0$.
+		% https://q.uiver.app/#q=WzAsNCxbMCwwLCJBXntcXGxlIHJ9Il0sWzEsMCwiQV57dSxcXGxlIHJ9Il0sWzAsMSwiQSJdLFsxLDEsIkFedSJdLFsyLDNdLFswLDFdLFsxLDNdLFswLDJdXQ==&macro_url=https%3A%2F%2Fraw.githubusercontent.com%2FdFoiler%2Fnotes%2Fmaster%2Fnir.tex
+		\[\begin{tikzcd}[cramped]
+			{A^{\le r}} & {A^{u,\le r}} \\
+			A & {A^u}
+			\arrow[from=1-1, to=1-2]
+			\arrow[from=1-1, to=2-1]
+			\arrow[from=1-2, to=2-2]
+			\arrow[from=2-1, to=2-2]
+		\end{tikzcd}\]
+		\item One has $A^{u,\le1}=\lim_{r>0}A^{\le1}/A^{\le r}$, so $\left(A^u\right)^u=A^u$.
+		\item The ring $A^u$ is $\dagger$-reduced.
+		\item Choose $f\in A$. Then $f$ is invertible if and only if its image in $A^u$ is invertible.
+	\end{listalph}
+\end{proposition}
+\begin{remark}
+	By setting $r=0$ in (a), we see that $A^{\dagger\textrm{-red}}\to A^u$ is injection.
+\end{remark}
+\begin{remark}
+	The fact that $\left(A^u\right)^u=A^u$ means that $(-)^u$ is left adjoint to the inclusion $\mathrm{Ring}_{\QQ_p}^u\subseteq\mathrm{Ring}_{\QQ_p}^b$.
+\end{remark}
+
+\subsection{Gelfand Rings}
+We are now allowed to make a definition.
+\begin{definition}[Gelfand]
+	A bounded ring $A\in\op{Ring}_{\QQ_p}$ is \textit{Gelfand} if and only if $A/A^{\le1}$ is discrete. Let $\op{GelfRing}_{\QQ_p}$ be the subcategory of Gelfand rings.
+\end{definition}
+\begin{remark}
+	Being discrete is closed under filtered colimits, subquotients, and extensions. Thus, a ring $A$ is Gelfand if and only if any (equivalently, all) of $A/A^{\le r}$, $A/A^{<r}$, $A^{\le r}/A^{\le s}$ for $r>s$, etc. is discrete.
+\end{remark}
+\begin{example}
+	If $A$ is a Banach $\QQ_p$-algebra, then $A^{\le1}=A^\circ$, which is open, so $A/A^{\le1}$ is discrete, so $A$ is Gelfand.
+\end{example}
+\begin{example}
+	Consider $A\coloneqq\QQ_p\langle\NN[S]\rangle_{\le1}$. Then $A$ is Gelfand if and only if $A^{\le1}/p$ is discrete, which is $\FF_p[\NN[S]]$. But
+	\[\FF_p[\NN[S]]=\bigoplus_n\FF_p[S^n/\Sigma_n].\]
+	If $S$ is infinite, then the terms have infinite products of $\FF_p$s, which fails to be discrete, so $A$ fails to be Gelfand. But if $S$ is finite, then the terms are finite products of $\FF_p$, which is discrete.
+\end{example}
+Here is a better way to test to be a Gelfand ring.
+\begin{lemma}
+	Fix a bounded ring $A\in\op{Ring}_{\QQ_p}$. Then $A$ is Gelfand if and only if $A^u$ is a Banach $\QQ-p$-algebra.
+\end{lemma}
+\begin{proof}
+	By \Cref{prop:uniform-properties}, we see $A/A^{\le1}=A^u/A^{u,\le1}$. Thus, we may assume that $A$ is uniform. Now, $A$ is a Banach $\QQ_p$-algebra if and only if $A^{\le1}/p$ is discrete. For example, the reverse direction follows because one basically tries to reconstruct $A$ from $A^{\le1}/p$ by taking some inverse limits, which means that $A$ is a purely classical object and hence a Banach $\QQ_p$-algebra.
+\end{proof}
+\begin{example}
+	Recall $\left(\QQ_p\langle t\rangle_{\le1}\right)^u=\QQ_p\langle t\rangle$. Thus, $\QQ_p\langle t\rangle_{\le1}$ is Gelfand.
+\end{example}
+\begin{remark}
+	One can use this to check that $\op{GelfRing}_{\QQ_p}$ is closed under colimits. Because $(-)^u$ is left adjoint to the forgetful functor, we find that $(\colim A_i)^u$ is isomorphic to $(\colim A_i^u)^u$. The latter is now a colimit of Banach $\QQ_p$-algebras and hence a Banach $\QQ_p$-algebra.
+\end{remark}
+
+\subsection{The Berkovich Spectrum}
+Here is our construction.
+\begin{definition}[Berkovich spectrum]
+	Fix a Banach ring $(B,\left|\cdot\right|)$. Then the \textit{Berkovich spectrum} $\mc M(B)$ is the set of multiplicative seminorms $\norm\cdot\colon B\to\RR_{\ge0}$ dominated by $\left|\cdot\right|$. Then $\mc M(B)\subseteq\prod_{b\in B}[0,\left|b\right|]$, and we give $\mc M(B)$ the subspace topology. For a Gelfand ring $A$, we define $\mc M(A)\coloneqq\mc M(A^u)$.
+\end{definition}
+\begin{remark}
+	One can cut out $\mc M(B)$ from $\prod_{b\in B}[0,\left|b\right|]$ by some non-strict inequalities, so it is a compact Hausdorff space.
+\end{remark}
+\begin{example}
+	Take $A=\CC_p\langle t\rangle$. Then $\mc M(A)$ is a cofiltered limit of finite trees.
+	\begin{itemize}
+		\item Type I points: for each $x\in\OO_{\CC_p}$, there is a seminorm $f\mapsto\left|f(x)\right|$.
+		\item Type II points: given $x\in\OO_{\CC_p}$ and $r\in[0,1]\cap p^\QQ$, there is a seminorm $f\mapsto\sup\{\left|f(x')\right|:\left|x'-x\right|\le r\}$. Note that one gets the same seminorm if $x$ is moved to any other point in the disk $\overline{B(x,r)}$.
+		\item Type III points: given $x\in\OO_{\CC_p}$ and $r\in[0,1]\setminus p^\QQ$, one can write down the same formula. These points connect type II points (and type I points).
+		\item Type IV points: given a decreasing sequence of nonempty disks $\{D_n\}$ for which $\bigcap_nD_n=\emp$, one can define the seminorm $f\mapsto\inf_n\sup_{x\in D_n}\left|f(x)\right|$.
+	\end{itemize}
+	Type I and type IV points are ``leaves'' of the tree. Note that in type IV, the radii of the disks must tend to a positive number, so they are arguably not at the ``bottom.''
+\end{example}
+
+\section{October 26: Gelfand Rings and Gelfand Stacks}
+This talk was given by Daniel and then Jeremy at MIT for the Analytic ring stacks seminar.
+
+\subsection{Fredholm Rings}
+Fix a presentable symmetric monoidal stable $\infty$-category $\mc C$.
+\begin{definition}
+	Fix a symmetric monoidal stable category $\mc C$. Then the subcategory of \textit{perfect objects} is the stable subcategory generated by $1$, finite limits, shifts, and retracts.
+\end{definition}
+\begin{remark}
+	Note that this subcategory is also closed under finite colimits by stability.
+\end{remark}
+\begin{definition}
+	Fix a symmetric monoidal stable category $\mc C$. Then the subcategory of \textit{dualizable objects} consists of those $c\in\mc C$ admitting $c^\lor\in\mc C$ and evaluation $\op{ev}\colon c\otimes c^\lor\to1$ and co-evaluation maps $\op{coev}\colon c^\lor\otimes c\to1$ satisfying some conditions. Namely,
+	\[c=1\otimes c\to (c\otimes c^\lor)\otimes c=c\otimes (c^\lor\otimes c)\to c\otimes1=c\]
+	is the identity, and similarly for $c^\lor$.
+\end{definition}
+\begin{example}
+	The unit is self-dualizable.
+\end{example}
+\begin{remark}
+	It turns out that perfect objects are always dualizable. In $D(R)$ where $R$ is a classical ring, the converse holds.
+\end{remark}
+Today, we are working with some general analytic rings $A=\left(A^\vartriangleleft,D(A)\right)$.
+\begin{definition}
+	An analytic ring $A$ is \textit{Fredholm} if and only if dualizable objects are perfect in $D(A)$.
+\end{definition}
+\begin{remark}
+	Recall that $A^\vartriangleleft\in D(A)$, so the perfect objects in $D(A^\vartriangleleft)$ live in $D(A)$. Thus, being Fredholm is equivalent to saying that dualizable objects in $D(A)$ all come from the smaller algebraic category $D(A^\vartriangleleft(\mathrm{pt}))$.
+\end{remark}
+\begin{example}
+	If $A$ comes from a complete Huber pair, then $A$ is Fredholm.
+\end{example}
+\begin{example}
+	If $A$ is a Gelfand ring, then $A$ is Fredholm.
+\end{example}
+\begin{nex}
+	The condensed ring $A=\QQ_p[t]$ fails to be Fredholm. Roughly speaking, the problem is that $A$ is too big. Define $P\coloneqq\left(\prod_\NN\ZZ_p\right)[1/p]$, which lives in $D(\QQ_p)$. We now claim that
+	\[M\coloneqq\op{cofiber}\left(1-t\left(1,p,p^2,\ldots\right);P\otimes_{\QQ_p}\QQ_p[t]\right)\]
+	exhibits our counterexample. The moral is that the endomorphism $\left(1,p,p^2,\ldots\right)$ is trace class. One can use some functional analytic arguments to show that $M$ is dualizable. However, $M$ has nontrivial pullback to the fiber $t=p^{-n}$ for all $n\in\NN$, so it has fibers going off to infinity, so it fails to be perfect.
+\end{nex}
+
+\subsection{More on the Berkovich Spectrum}
+Last time, we introduced the Berkovish spectrum of a Gelfand ring $A$.
+\begin{definition}
+	Fix a Gelfand ring $A$. Given elements $f_1,\ldots,f_n,g\in A(\mathrm{pt})$ which generate $A(\mathrm{pt})$ as an ideal (in $\pi_0$). Then we define the associated closed rational subspace
+	\[\mc M\left(\frac{f_1,\ldots,f_n}g\right)\coloneqq\left\{\left|\cdot\right|\in\mc M(A^u):\left|f_i\right|\le\left|g\right|\ne0\text{ for each }i\right\}.\]
+\end{definition}
+\begin{proposition}
+	Fix a Gelfand ring $A$. Suppose $Z\subseteq\mc M(A)$ is rational closed. Then there is a Gelfand idempotent $A$-algebra $A_Z$ such that any map $A\to B$ of Gelfand rings extends to $A_Z\to B$ if and only if the associated topological map $\mc M(B)\to\mc M(A)$ land in $Z$.
+\end{proposition}
+\begin{proof}
+	Write $Z=\mc M(f_1,\ldots,f_n/g)$. Then define $A_Z\coloneqq A\langle t_1,\ldots,t_n\rangle_{\le1}/(gt_i-f_i)_i$.
+\end{proof}
+\begin{remark}
+	One can check that $\mc M(A_Z)=Z$.
+\end{remark}
+There is a more categorical way to work with such spaces.
+\begin{definition}[smashing spectrum]
+	Fix a stable category $\mc C$. Then the \textit{smashing spectrum} $\op{sm}\mc C$ is the collection of idempotent algebras in $\mc C$.
+\end{definition}
+\begin{remark}
+	This is a locale, which is some kind of weakening of a Grothendieck topology.
+\end{remark}
+\begin{example}
+	If $A$ is a Noetherian ring, then $\op{sm}D(R)$ is isomorphic to $\Spec(R)\opp$ as locales. However, this is rarely true outside the Noetherian setting.
+\end{example}
+\begin{remark}
+	Fix a Gelfand ring $A$. Then there is a unique natural map of locales $\op{Sm}D(A)\to\mc M(A)$ extending $Z\mapsto A_Z$. Here, being a map of locales means that closed subsets have pre-image given by closed sets.
+\end{remark}
+\begin{notation}
+	Fix a profinite set $S$. Then we define $S_{\mathrm{Betti}}$ to be the animated spectrum of $C_{\mathrm{cts}}(S,\ZZ)$.
+\end{notation}
+\begin{remark}
+	By taking colimits, this construction extends to a functor $(-)_{\mathrm{Betti}}$ from condensed animated modules to animated stacks.
+\end{remark}
+\begin{remark}
+	Fix a Gelfand ring $A$. When $\mc M(A)$ is metrizable and finite-dimensional, then there is a natural map
+	\[\op{AnSpec}A\to\mc M(A)_{\mathrm{Betti}}\times_{\op{AnSpec}\ZZ}\op{AnSpec}\QQ_{p\blacksquare}\]
+	which satisfies universal $!$-descent. The hypotheses on $\mc M(A)$ are needed to be able to map into it (as some kind of compact Hausdorff space).
+\end{remark}
+
+\subsection{Gelfand Stacks}
+We now switch to Jeremy.
+\begin{definition}[separable]
+	A Gelfand ring $R$ is \textit{separable} if and only if $R^u$ has a countable dense subset.
+\end{definition}
+\begin{remark}
+	This is equivalent to saying that $R^u$ is $\omega_1$-compact in Banach $\QQ_p$-algebras. Roughly speaking, separability is a finiteness property.
+\end{remark}
+\begin{definition}[Gelfand stack]
+	Define the category of \textit{Gelfand stacks} to be the category of analytic stacks on the opposite category of Gelfand rings.
+\end{definition}
+Notably, the finiteness condition lives on the uniform completion, which intuitively erases any (topologically) nilpotent fuzz.
+
+These Gelfand stacks are supposed to contrast with arc stacks.
+\begin{definition}[arc cover]
+	A map $A\to B$ of perfectoid Tate rings over $\QQ_p$ is an \textit{arc cover} if and only if $\mc M(B)\to\mc M(A)$ is surjective.
+\end{definition}
+\begin{definition}[separable]
+	A Tate ring $A$ is \textit{separable} if and only if $A^\circ/\varpi$ is countable, where $\varpi\in A$ is a uniformizer.
+\end{definition}
+\begin{remark}
+	Again, an affine perfectoid $\QQ_p$-algebra $A$ is separable if and only if it is $\omega_1$-compact.
+\end{remark}
+\begin{definition}
+	The category of \textit{arc stacks} is the category of hypersheaves on the arc site of the category of $\op{AffPerfd}\opp_{\omega_1}$.
+\end{definition}
+\begin{remark}
+	Each perfectoid Tate algebra $A$ admits an arc cover $A\to B$ where $B$ is totally disconnected (i.e., $\mc M(B)$ is profinite).
+\end{remark}
+Here is our main construction, which we will return to next week.
+\begin{proposition}
+	Fix a separable Gelfand ring $A$. Define the functor $\op{Mor}_{\mathrm{GelfRing}}(A,-)$, restricted to totally disconnected objects in affinoid perfectoid $\omega_1$-compact rings. Then this functor is an arc stack.
+\end{proposition}
+Taking descent produces the following.
+\begin{corollary}
+	There is a functor $(-)^\diamondsuit\colon\mathrm{GelfStk}_{\QQ_p}\to\mathrm{ArcStk}_{\QQ_p}$.
+\end{corollary}
+This functor is supposed to be destructive, getting rid of nilpotence in some sense. Next time, we will show that $(-)^\diamondsuit$ has a right adjoint $(-)^{\mathrm{DR}}$.
+
 \end{document}

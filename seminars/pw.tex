@@ -1,0 +1,590 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+
+\newcommand{\nirpdftitle}{P=W}
+\usepackage{import}
+\inputfrom{../../notes}{nir}
+\usepackage[backend=biber,
+    style=alphabetic,
+    sorting=ynt
+]{biblatex}
+\setcounter{tocdepth}{2}
+
+\pagestyle{contentpage}
+
+\setlength{\headheight}{13.19003pt}
+% (fancyhdr)	You might also make \topmargin smaller to compensate:
+\addtolength{\topmargin}{-1.19003pt}
+
+\title{\texorpdfstring{$P=W$}{P=W}}
+\author{Nir Elber}
+\date{Fall 2026}
+\usepackage{graphicx}
+\lhead{}
+
+\begin{document}
+
+\maketitle
+
+\tableofcontents
+
+\section{September 21: Overview of \texorpdfstring{$P=W$}{ P=W}}
+This talk was givenby Leonid at MIT for the $P=W$ seminar.
+
+\subsection{Hodge Theory}
+Our goal today is to state the $P=W$ conjecture. Our main task will be to say something about nonabelian Hodge theory. Let's start with usual Hodge theory.
+\begin{theorem}[de Rham]
+	Fix a smooth projective variety $X$ over $\CC$. Then there is a natural isomorphism
+	\[\mathrm H^\bullet_{\mathrm{dR}}(X/\CC)\to\mathrm H^\bullet_{\mathrm{B}}(X;\CC).\]
+\end{theorem}
+\begin{proof}[Sketch]
+	This is a long and difficult theorem. The map sends a differential $k$-form $[\alpha]\in\mathrm H^k_{\mathrm{dR}}(X/\CC)$ to the smooth singular cocycle
+	\[\gamma\mapsto\int_\gamma\alpha.\]
+	We will not run any of the checks.
+\end{proof}
+\begin{notation}[Dolbeault cohomology]
+	Fix a smooth projective variety $X$ over $\CC$. Then we define
+	\[\mathrm H^{p,q}(X)\coloneqq\mathrm H^q(X;\Omega^p_X).\]
+	This can be realized as the $\mathrm H^q$-cohomology of a certain fine resolution $\left\{\mc A^{p,\bullet}(X)\right\}$ of sheaves, where $\mc A^{p,q}(X)$ is the space of $(p,q)$-differential forms.
+\end{notation}
+\begin{theorem}
+	Fix a smooth projective variety $X$ over $\CC$. Then there is a canonical isomorphism
+	\[\mathrm H^\bullet_{\mathrm{dR}}(X/\CC)\cong\bigoplus_{p,q}\mathrm H^{p,q}(X).\]
+\end{theorem}
+\begin{proof}[Sketch]
+	Start by choosing a Hermitian metric on $X$, which gives rise to an elliptic differential Laplacian operator $\Delta$. Then define $\mc H^k(X)$ to be the kernrel of $\Delta$ on $\mc A^k(X)$, and define $\mc H^{p,q}(X)$ similarly. It turns out that $\mathrm H^k_{\mathrm{dR}}(X)$ is isomorphic to $\mc H^k(X)$, and $\mathrm H^{p,q}(X)$ is isomorphic to $\mc H^{p,q}(X)$, and the isomorphism follows by decomposing a differential form into holomorphic and anti-holomorphic parts.
+\end{proof}
+
+\subsection{The Riemann--Hilbert Correspondence}
+We now pass to nonabelian Hodge theory. The goal is to retell the story with non-constant coefficients. Let's start with the Betti side.
+\begin{definition}
+	Fix a smooth projective curve $C$ of genus $g\ge1$. Then we define the \textit{Betti moduli space} $\mc M_{n,\mathrm B}$ to be the space of semisimple representations of $\pi_1(C(\CC))$ of dimension $n$.
+\end{definition}
+\begin{remark}
+	One can present $\pi_1(C(\CC))$ as $\left\langle\alpha_1,\ldots,\alpha_g,\beta_1,\ldots,\beta_g:[\alpha_1,\beta_1]\cdots[\alpha_g,\beta_g]=1\right\rangle$. Thus, $\mc M_{n,\mathrm B}$ can be realized as
+	\[\left\{(A_1,\ldots,A_g,B_1,\ldots,B_g)\in\operatorname{GL}_n(\CC):\prod_{i=1}^g[A_i,B_i]=1\right\}/\op{GL}_n(\CC).\]
+	(This quotient is a GIT quotient.) Thus, $\mc M_{n,\mathrm B}$ is an affine algebraic variety.
+\end{remark}
+\begin{example}
+	If $n=1$, then $\mc M_{1,\mathrm B}$ is $\left(\CC^\times\right)^{2g}$.
+\end{example}
+Here is the de Rham moduli space.
+\begin{definition}
+	Fix a smooth projective curve $C$ of genus $g\ge1$. Then we define $\mc M_{n,\mathrm{dR}}$ to parameterize (isomorphism classes of) pairs $(\mc E,D)$, where $\mc E$ is a smooth vector bundle on $C(\CC)$ and $D$ is a flat connection on $\mc E$, and we require $(\mc E,D)$ is suitably semisimple.
+\end{definition}
+\begin{remark}
+	The ``isomorphsim classes'' phrase means that we are considering the pairs up to gauge transformations.
+\end{remark}
+One can get the same space $\mc M_{n,\mathrm{dR}}$ if we require that $\mc E$ be holomorphic and $D$ to be flat holomorphic.
+\begin{theorem}
+	Fix a smooth projective curve $C$ of genus $g\ge1$. Then a holomorphic vector bundle $\mc E$ on $C(\CC)$ has equivalent data to a smooth vector bundle $\mc E$ along with the data of a ``holomorphic structure''
+	\[\overline\del_{\mc E}\colon\mc A^0(\mc E)\to\mc A^{0,1}(\mc E).\]
+\end{theorem}
+\begin{proof}[Sketch]
+	We need to explain what a holomorphic section of $\mc E$ is, for which we will take just to be the smooth sections which vanish under $\overline\del_{\mc E}$. Now, given $D$, one can decompose $\mc A^1(X)$, so one can decompose $D=D^{0,1}+D^{1,0}$, which we label as $\overline\del_{\mc E}$ and $\nabla$. Then $D^2=0$ under the decomposition is equivalent to having $\overline\del_{\mc E}^2=0$ (which gives the holomorphic structure on $\mc E$) and $\overline\del_{\mc E}\nabla+\nabla\overline\del_{\mc E}=0$ (which means $\nabla$ is holomorphic) and $\nabla^2=0$ (which means $\nabla$ is flat).
+\end{proof}
+We can now relate these two moduli spaces.
+\begin{theorem}[Riemann--Hilbert]
+	Fix a smooth projective curve $C$ of genus $g\ge1$. Then $\mc M_{n,\mathrm B}$ and $\mc M_{n,\mathrm{dR}}$ are isomorphic as manifolds.
+\end{theorem}
+\begin{proof}
+	The forward map sends a representation $V$ to the pair $(V\otimes_\CC\OO_C,\nabla)$, where $\nabla$ is some induced connection. The inverse map is given by holonomy theory.
+\end{proof}
+
+\subsection{Nonabelian Hodge Theory}
+Lastly, we need to tell a Dolbeault story. We will build a moduli space of Higgs bundles.
+\begin{definition}[Higgs bundle]
+	Fix a smooth projective curve $C$ of genus $g\ge1$. Then a \textit{Higgs bundle} is a pair $(\mc E,\varphi)$, where $\mc E$ is a holomorphic vector bundle on $C$ and $\varphi\colon\mc E\to\mc E\otimes K(C)$ is a Higgs field (meaning that it is $\OO_C$-linear).
+\end{definition}
+\begin{remark}
+	In general, one asks for $\varphi\land\varphi=0$, but we do not need it here because we are over a cuve.
+\end{remark}
+In order to get a moduli space, we need an adjective.
+\begin{definition}[semistable]
+	Fix a smooth projective curve $C$ of genus $g\ge1$. Then a Higgs bundle $(\mc E,\varphi)$ is \textit{semistable} if and only if any nonzero proper $\varphi$-invariant sub-bundle $\mc E^1\subseteq\mc E$ has $\mu\left(\mc E^1\right)\le\mu(\mc E)$. Here, $\mu(\mc E)\coloneqq\deg\mc E/\op{rank}\mc E$.
+\end{definition}
+\begin{definition}
+	Fix a smooth projective curve $C$ of genus $g\ge1$. Then we define $\mc M_{n,\mathrm{Dol}}$ to parameterize pairs $(\mc E,\varphi)$ of semistable Higgs bundles on $C$ which satisfy $\deg\mc E=0$.
+\end{definition}
+\begin{remark}
+	If we want to replace $C$ by a higher-dimensional variety, one should instead require that $c_i(\mc E)_\QQ=0$ for all $i$ instead of $\deg\mc E=0$. (The former condition is stronger.)
+\end{remark}
+\begin{remark}
+	Let's explain where such Higgs fields come from. Let $\mathrm{Bun}_n^0(C)$ be the moduli space of bundles on $C$ of rank $n$ and degree zero. For $[\mc E]\in\mathrm{Bun}_n^0(C)$, the tangent space at $[\mc E]$ should be given by deformations of $\mc E$, which should be given by $\op{Ext}^1(\mc E,\mc E)$, which by some duality is the same as $\op{Hom}(\mc E,\mc E\otimes K(C))^\lor$. Thus, intuitively, $\mc M_{n,\mathrm{Dol}}$ should be the cotangent bundle of $\mathrm{Bun}_n^0(C)$.
+\end{remark}
+\begin{example}
+	If $n=1$, then $\mc E$ is a line bundle. A Higgs field $\varphi\colon\mc L\to\mc L\otimes K(C)$ has equivalent data to a global section of $K(C)$. Thus,
+	\[\mc M_{1,\mathrm{Dol}}\cong\op{Pic}^0(C)\times\mathrm H^0(C;K(C))\cong\CC^g/\Lambda\otimes\CC^g.\]
+\end{example}
+Thus, we see that $\mc M_{1,\mathrm{Dol}}$ and $\mc M_{1,\mathrm B}$ are isomorphic as manifolds but not as complex manifolds.
+\begin{theorem}[Nonabelian Hodge]
+	Fix a smooth projective curve $C$ of genus $g\ge1$. Then $\mc M_{n,\mathrm{dR}}$ and $\mc M_{n,\mathrm{Dol}}$ are isomorphic as manifolds.
+\end{theorem}
+\begin{proof}
+	The idea is to pass through some harmonic bundles.
+\end{proof}
+This is only a degree-zero story, so let's do some twisting to get higher degrees.
+\begin{definition}
+	Fix a smooth projective curve $C$ of genus $g\ge1$, and choose an integer $d$ coprime to $n$. Then we define the \textit{twisted Betti moduli space} $\mc M_{n,\mathrm B}^d$ to be
+	\[\left\{(A_1,\ldots,A_g,B_1,\ldots,B_g)\in\operatorname{GL}_n(\CC):\prod_{i=1}^g[A_i,B_i]=e^{2\pi id/n}\right\}/\op{GL}_n(\CC).\]
+\end{definition}
+\begin{remark}
+	This admits a moduli description as local systems on the punctured curve with a specific monodromy at the puncture.
+\end{remark}
+\begin{definition}
+	Fix a smooth projective curve $C$ of genus $g\ge1$, and choose an integer $d$ coprime to $n$. Then we define $\mc M_{n,\mathrm{Dol}}^d$ to parameterize pairs $(\mc E,\varphi)$ of semistable Higgs bundles on $C$ which satisfy $\deg\mc E=d$.
+\end{definition}
+\begin{theorem}[Twisted nonabelian Hodge]
+	Fix a smooth projective curve $C$ of genus $g\ge1$, and choose an integer $d$ coprime to $n$. Then $\mc M_{n,\mathrm{dR}}$ and $\mc M_{n,\mathrm{Dol}}$ are isomorphic as manifolds.
+\end{theorem}
+\begin{remark}
+	The condition $\gcd(d,n)=1$ is only needed to ensure smoothness everywhere.
+\end{remark}
+
+\subsection{The Statement}
+We are now in a position to define $P$ and $W$. Let's start with $W$.
+\begin{definition}[Hodge structure]
+	A pure Hodge structure of weight $k\in\ZZ$ is a rational vector space $H$ along with a decomposition
+	\[H_\CC\cong\bigoplus_{p+q=k}H^{p,q}\]
+	for which $H^{p,q}=\overline{H^{q,p}}$.
+\end{definition}
+\begin{example}
+	If $X$ is a smooth projective complex variety, then $\mathrm H^k(X;\CC)$ is a pure Hodge structure of weight $k$. The Hodge structure is concentrated in pairs $(p,q)$ where $p$ and $q$ are nonnegative.
+\end{example}
+One would like to port over this decomposition to the nonabelian setting.
+\begin{theorem}[Deligne]
+	Fix an algebraic variety $X$ over $\CC$. Then there is a canonical ascending weight filtration on $\left\{W_i\mathrm H^k(X;\QQ)\right\}_{0\le i\le2k}$ such that
+	\[\frac{W_j\mathrm H^k(X;\QQ)}{W_{j-1}\mathrm H^k(X;\QQ)}\]
+	is a pure Hodge structure of weight $j$.
+\end{theorem}
+Applied to the affine algebraic variety $\mc M_{n,\mathrm B}^d$ gives rise to a weight filtration on its cohomology.
+
+We now move on to $P$.
+\begin{definition}[Hitchin fibration]
+	Fix a Higgs bundle $(\mc E,\varphi)$ by embedding $\OO_C\subseteq K(C)$, we have a characteristic polynomial $\op{charpoly}(\varphi)\coloneqq\det(T-\varphi)$. Then the \textit{Hitchin map} is the associated map
+	\[h\colon\mc M_{n,\mathrm{Dol}}^d\to\bigoplus_{i=1}^n\mathrm H^0\left(C;K(C)^{\otimes i}\right)\]
+	sending $(\mc E,\varphi)$ to the coefficients of the characteristic polynomial.
+\end{definition}
+\begin{theorem}
+	The Hitchin map is proper, and the general fiber of $h$ is an abelian variety and Lagrangian.
+\end{theorem}
+\begin{remark}
+	The symplectic structure on $\mc M_{n,\mathrm{Dol}}^d$ arises by viewing it as a cotangent bundle.
+\end{remark}
+\begin{example}
+	If $n=1$, then the Hitchin map is the projection $\op{Pic}^d(C)\times\CC^g\to\CC^g$.
+\end{example}
+One would like to realize the Hodge decomposition on the cohomology of $\mc M_{n,\mathrm{Dol}}$ as living over the Hitchin base. Well, set $K\coloneqq Rh_*\QQ[2d]$, where $d$ is the dimension of the base, and then a large theorem decomposes $K$ into a perverse filtration.
+
+The main goal of these talks is to prove the following theorem.
+\begin{theorem}
+	The perverse and weight filtrations on the cohomology of $\mc M_{n,\mathrm{Dol}}^d$ and $\mc M_{n,\mathrm B}^d$ agree.
+\end{theorem}
+The idea will be to separately show that $P$ and $W$ both agree with a third filtration named $C$.
+
+\section{September 28: Hitchin Fibrations and Spectral Curves}
+This talk was given by Kaiyi at MIT for the $P=W$ seminar.
+
+\subsection{The Hitchin Fibration}
+Throughout, $X$ is a smooth projective complex curve off genus $g$, where $g\ge2$; set $\mc K_X$ to be the canonical bundle. Recall the following definition from last time.
+\begin{definition}[Higgs bundle]
+	A \textit{Higgs bundle} is a pair $(\mc E,\varphi)$ of a vector bundle $\mc E$ on $X$ and a morphism $\varphi\in\op{Hom}_{\OO_X}(\mc E,\mc E\otimes\mc K_X)$.
+\end{definition}
+Roughly speaking, $(\mc E,\varphi)$ is a cotangent vector of the moduli space of vector bundles on $X$. For this talk, we are living in the Dolbeault setting, so we simply define $\mc M$ to be the moduli space of semistable Higgs bundles on rank $n$ and degree zero.
+
+We also constructed the Hitchin fibration.
+\begin{definition}[Hitchin fibration]
+	The \textit{Hitchin base} $\mc A$ is
+	\[\mc A\coloneqq\bigoplus_{i=1}^n\mathrm H^0(X;\mc K_X^{\otimes i}).\]
+	We now define the Hitchin map $f\colon\mc M\to\mc A$ to send $(\mc E,\varphi)$ to the characteristic polynomial.
+\end{definition}
+\begin{remark}
+	On fibers, we are basically realizing $\varphi$ as a matrix (upon choosing a trivialization of $\mc K_X$) and taking traces of its exterior powers. In a more coordinate-free way, one may think about the trace of $\varphi$ as the composite
+	\[\OO_X\to\mc E\otimes\mc E^\lor\stackrel\varphi\to\mc E\otimes\mc K_X\otimes\mc E^\lor\to\mc K_X.\]
+\end{remark}
+\begin{remark}
+	Note $\dim\mc M=2\dim\mc A$. Indeed, $\dim\mc M=2(\dim\op{Bun}_G(X)+1)$, where the $+1$ arises for stacky reasons, and $\dim\op{Bun}_G(X)=n^2(g-1)$ by a tangent complex calculation. On the other hand, one can compute $\dim\mc A$ as some Riemann--Roch calculation.
+\end{remark}
+Here is our main result for today.
+\begin{theorem} \label{thm:hitchin}
+	The map $f\colon\mc M\to\mc A$ is proper, and its general fibers are abelian varieties.
+\end{theorem}
+\begin{remark}
+	Roughly speaking, this amounts to showing that $f$ is a complete integrable system. Notably, all fibers are Lagrangians.
+\end{remark}
+
+\subsection{Spectral Curves}
+Let's restate the data of a Higgs bundle more geometrically.
+\begin{definition}[cotangent bundle]
+	Define $\mc S$ to be the cotangent bundle of $X$, which is the vector bundle $\op{Spec}\op{Sym}_{\OO_X}\mc K_X^\lor$. Let $\pi\colon\mc S\to X$ be the natural map.
+\end{definition}
+\begin{remark}
+	A Higgs bundlehas equivalent data to a vector bundle $\mc E$ with a map $\mc E\otimes\mc K_X^\lor\to\mc E$, which is equivalent to the data of an action of $\op{Sym}_{\OO_X}\mc K_X^\lor$ on $\mc E$. (This is an enhancement of the fact that a vector bundle equipped with an endomorphism is equivalent to a $\CC[T]$-module.)  This turns out to be equivalent to the data of a quasicoherent sheaf $\mc F$ on $\mc S$ for which $\pi_*\mc F$ is actually a vector bundle on $X$.
+\end{remark}
+This remark roughly proves the following proposition.
+\begin{proposition}
+	The category of Higgs bundles of rank $n$ is equivalent to the category of coherent sheaves $\mc F$ on $\mc S$ such that $\op{supp}\mc F\to X$ is finite, and $\pi_*\mc F$ is torsion-free of rank $n$.
+\end{proposition}
+\begin{proof}
+	Note that torsion-free is equivalent to being a vector bundle. Finiteness of the support map should be formal.
+\end{proof}
+The support of the relevant $\mc F$ is our spectral curve.
+\begin{definition}
+	Fix $(a_1,\ldots,a_n)\in\mc A$. Then the \textit{spectral curve} $Y_a$ is the curve in $\mc S$ cut out by
+	\[T^n-\pi^*a_1T^{n-1}+\cdots+(-1)^n\pi^*a_n.\]
+\end{definition}
+\begin{remark}
+	By definition, the canonical map $\pi_a\colon Y_a\to X$ is finite of degree $n$.
+\end{remark}
+\begin{example}
+	If $f(\mc E,\varphi)=a$, then the support of the relevant coherent sheaf $\mc F$ is set-theoretically the same as $Y_a$. (Due to reducedness issues, one has $\op{supp}\mc F\subseteq Y_a$ in general.) One sees this by the construction of $\mc F$ via the induced action of $\op{Sym}_{\OO_X}\mc K_X^\lor$.
+\end{example}
+Let's check smoothness.
+\begin{proposition}
+	For a general point $a\in\mc A$, the curve $Y_a$ is smooth and connected.
+\end{proposition}
+\begin{proof}
+	Let's start with smoothness. One approach is to check this for a single $a$ because this is an open condition. Alternatively, note that $\{Y_a\}_a$ is a linear system on $\mc S$, and the linear system has no basepoint: away from the zero section, one can always do some scaling to move points arounds, and on the zero section, we are basically asserting that $\mc K_X^{\otimes n}$ is base-point free. Bertini's theorem now gives the general smoothness.
+
+	We now move on to connectivity. Because $Y_a$ is cut out by a monic polynomial of degree $n$, one finds that
+	\[\pi_*\OO_{Y_a}=\OO_X\oplus\mc K_X^{-1}\oplus\mc K_X^{-2}\oplus\cdots\oplus\mc K_X^{1-n}.\]
+	This implies that $\mathrm H^0(Y_a;\OO_{Y_a})$ is one-dimensional. (Here we are using that $g\ge2$.)
+\end{proof}
+It will turn out that the Jacobians of the spectral curves are the fibers of the Hitchin map.
+\begin{proposition}
+	Suppose $a\in\mc A$ is chosen so that $Y_a$ is smooth and reduced. Then $f^{-1}(\{a\})$ is a torsor for $\op{Jac}Y_a$.
+\end{proposition}
+\begin{proof}
+	Suppose $Y_a$ is reduced. Then $f^{-1}(a)$ consists of those Higgs bundles $(\mc E,\varphi)$ with spectral curve $Y_a$, which is in bijecetion with those coherent sheaves $\mc F$ on $Y_a$ for which $\pi_*\mc F$ is a rank-$n$ vector bundle. Because $Y_a$ is reduced, this turns out to be the same as requiring that $\mc F$ is a coherent sheaf which is torsion-free and generically rank one, which is in almost parameterized by the compactified Jacobian. It turns out that $\deg_{Y_a}\mc F=\deg\mc E+n(n-1)(g-1)$ by some exercise in algebraic geometry, so we are actually looking at a torsor for $\op{Jac}Y_a$.
+\end{proof}
+\begin{remark}
+	Even if not smooth, one can replace Jacobians with compatified Jacobians, at least for nodal curves.
+\end{remark}
+This shows that the general fibers of $f$ are abelian varieties.
+
+\subsection{Properness}
+It remains to discuss the properness of $f\colon\mc M\to\mc A$. It will be helpful to compactify everything in sight. Let $\mc P$ be the projectivization of $\mc S$, which is $\PP(\mc K\oplus\OO_X)$; the complement of $S$ is $D$, and it is isomorphic to $X$ (as the zero section). On the other side, let $\mc M_{\mc P}$ be the moduli space of coherent semistable sheaves on $\mc P$, which turns out to be projective.
+
+Now, for $\mc F\in\mc M_{\mc P}$, note that $\mc F\in\mc M$ if and only if $\pi_*\mc F$ is a vector bundle of rank $n$, which is equivalent to its support avoiding $D$ and $\pi_*\mc F$ being torsion-free of rank $n$. The condition of being torsion-free of rank $n$ can be seen on the level of the Hilbert polynomial, so it is seen on the connected components of $\mc M_{\mc P}$ already. Thus, we will ignore this latter condition.
+\begin{remark}
+	Observe that having support avoiding $D$ is an open condition, so $\mc M$ itself is found as an open subset of $\mc M_{\mc P}$.
+\end{remark}
+We will check the properness of $f$ via the valuative criterion. Thus, we choose a diagram as follows, where $R$ is a discrete valuation ring, and $K$ is its fraction field.
+% https://q.uiver.app/#q=WzAsNCxbMCwwLCJcXFNwZWMgSyJdLFswLDEsIlxcU3BlYyBSIl0sWzEsMSwiXFxtYyBBIl0sWzEsMCwiXFxtYyBNIl0sWzAsM10sWzEsMl0sWzMsMl0sWzAsMV1d&macro_url=https%3A%2F%2Fraw.githubusercontent.com%2FdFoiler%2Fnotes%2Fmaster%2Fnir.tex
+\[\begin{tikzcd}[cramped]
+	{\Spec K} & {\mc M} \\
+	{\Spec R} & {\mc A}
+	\arrow[from=1-1, to=1-2]
+	\arrow[from=1-1, to=2-1]
+	\arrow[from=1-2, to=2-2]
+	\arrow[from=2-1, to=2-2]
+\end{tikzcd}\]
+We need to produce a lift from $\Spec R$ to $\mc M$. Because $\mc M_{\mc P}$ is already proper, we may lift our map to $\Spec R\to\mc M_{\mc P}$ (on a suitable compactification). Thus, we basically have a family of coherent sheaves $\mc F$ on $\mc P_R$, and we are given that their support on the fiber $\mc P_K$ lives over $Y_a\times\Spec K$. But taking the limit forces our support of $\mc F$ to continue to live over $Y_a$, which gives the correct lift.
+
+We conclude the talk by saying something about Jacobians of nodal curves.
+\begin{proposition}
+	Fix a nodal curve $C$ with node $c$, and let $\nu\colon\widetilde C\to C$ be the normalization. Then $\overline{\op{Pic}C}=\op{Pic}C\sqcup\op{Pic}\widetilde C$.
+\end{proposition}
+\begin{proof}
+	Recall that a nodal curve looks locally (at the node) like the covering $\CC[[x,y]]/(xy)\subseteq\CC[[x]]\times\CC[[y]]$. Then this basically follows from the following piece of commutative algebra: there are exactly two torsion-free finitely generated generically rank-one modules over $\CC[[x,y]]/(xy)$. Namely, one has the trivial bundle and the pushforward of $\CC[[x]]\times\CC[[y]]$.
+\end{proof}
+\begin{remark}
+	The natural map $\op{Pic}\widetilde C\to\overline{\op{Pic}C}$ increases the degree by one.
+\end{remark}
+\begin{remark}
+	Recall that $\op{Pic}^0C$ lives in the short exact sequence
+	\[0\to\mathbb G_m\to\op{Pic}^0C\to\op{Pic}^0\widetilde C\to0,\]
+	where $\mathbb G_m$ is the data of identifying two of the fibers. Thus, $\op{Pic}^0C$ is a semi-abelian variety.
+\end{remark}
+\begin{remark}
+	Let's describe the scheme structure on $\overline{\op{Pic}}^0(C)$. Fix two line bundles $\mc L_+$ and $\mc L_-$ on $\widetilde C$ which restrict to the same line $L$ over the two points in $c^+$ and $c^-$ in $\nu^{-1}(\{c\})$. Then set $Q\coloneqq\PP^1(\mc L_+\oplus\mc L_-)$, which admits a natural map to $\overline{\op{Pic}}^0(C)$ by sending the quotient $\mc L_+\oplus\mc L_-\to\mc Q$ to the kernel of $\nu_*L\to L|_{c^+}\oplus L|_{c^-}$. This turns out to normalize $\overline{\op{Pic}}^0(C)$.
+\end{remark}
+
+\section{October 19: Mixed Hodge Structures}
+This talk was given by Merrick at MIT for the $P=W$ seminar.
+
+\subsection{Pure Hodge Structures}
+Let's start with pure Hodge structures.
+\begin{definition}
+	A \textit{pure Hodge structure} of weight $n\in\ZZ$ is a finite-dimensional $\QQ$-vector space $V_\QQ$ equipped with a decreasing filtration $\{F^pV_\CC\}_p$ such that
+	\[V_\CC=F^pV_\CC+\overline{F^{n-p+1}V_\CC}\]
+	for each $p$.
+\end{definition}
+\begin{remark}
+	Given this filtration, one can set $V^{p,q}_\CC\coloneqq F^pV\cap\overline{F^qV}$ to recover the usual Hodge decomposition.
+\end{remark}
+\begin{example}
+	Fix a smooth projective variety $X$. Then the cohomology group $\mathrm H^n(X;\QQ)$ admits a natural structure of a pure Hodge structure of weight $n$.
+\end{example}
+\begin{example}[Tate twist]
+	Fix an integer $i\in\ZZ$. Then we define the \textit{Tate twist} $\QQ(i)$ to be the pure Hodge structure of weight $-2i$ which is given by the $\QQ$-vector space $V_\QQ=\QQ$ and Hodge decomposition supported at $V^{-i,-i}_\CC$. The Hodge filtration is given by $F^{-i}V_\CC=\CC$ and $F^{-i+1}V_\CC=0$.
+\end{example}
+Now that we have objects, we want some morphisms.
+\begin{definition}
+	A \textit{morphism} of pure Hodge structures is a linear map $f_\QQ\colon V_\QQ\to V'_\QQ$ of the underlying $\QQ$-vector spaces which preserves the filtrations. A \textit{strict morphism} is one for which $\im f_\CC\cap F^pV'_\CC=f_\CC(F^pV_\CC)$ for all $p$.
+\end{definition}
+\begin{remark}
+	If $V_\QQ$ and $V'_\QQ$ have the same weight, then any morphism is strict.
+\end{remark}
+\begin{remark}
+	The category of pure Hodge structures of fixed weight is abelian.
+\end{remark}
+\begin{example}
+	It turns out that $\mathrm H^0(\mathrm{pt};\QQ)\cong\QQ(0)$. More generally, $\mathrm H^{2r}(\PP^r;\QQ)\cong\QQ(-r)$.
+\end{example}
+\begin{example}
+	It turns out that $\mathrm H^1(\mathbb G_m;\QQ)\cong\QQ(-1)$.
+\end{example}
+\begin{example}
+	Let $C$ be a smooth projective curve of genus $g$, and consider the pure Hodge structure $\mathrm H^1(C;\QQ)$. Then the Hodge filtration is given by $\mathrm H^{1,0}=\mathrm H^0\left(C;\Omega^1\right)$, which is $F^1\mathrm H^1(C;\CC)$.
+\end{example}
+
+\subsection{Mixed Hodge Structures}
+We now pass to mixed Hodge structures.
+\begin{definition}[mixed Hodge structure]
+	A \textit{mixed Hodge structure} $V$ is a finite-dimensional $\QQ$-vector space $V_\QQ$ along with an increasing \textit{weight filtration} $\{W_\ell V_\QQ\}_\ell$ and a decreasing \textit{Hodge filtration} $\{F^pV_\CC\}_p$ such that the $\ell$th subquotient $\op{Gr}_\ell V_\QQ$ is a pure Hodge structure of weight $\ell$. There is a natural notion of morphism.
+\end{definition}
+\begin{example}
+	Any pure Hodge structure is a mixed Hodge structure.
+\end{example}
+\begin{remark}
+	Any morphism of mixed Hodge structure is suitably strict automatically, with respect to both filtrations. For example, this implies that there are no morphisms $V\to W$ between two Hodge structures $V$ and $W$ if the weights of $V$ are supported above $w+1$ and the weights of $W$ are below $w$.
+\end{remark}
+\begin{remark}
+	From a mixed Hodge structure $V$, one can (as with pure Hodge structures), define $I^{p,q}\subseteq V_\CC$ to satisfy $W_\ell V=\bigoplus_{p+q\le\ell}I^{p,q}$ and $F^pV=\bigoplus_{r\ge p}\bigoplus_qI^{r,q}$.
+\end{remark}
+\begin{remark}
+	A map of mixed Hodge structures which is an isomorphism on the underlying $\QQ$-vector spaces is an isomorphism of the mixed Hodge structures.
+\end{remark}
+\begin{remark}
+	The category of mixed Hodge structures is abelian. It is also symmetric monoidal, where the product is given by the usual tensor product.
+\end{remark}
+\begin{example}
+	Define $V_\QQ\coloneqq\QQ\{a,b\}$. We give $V_\QQ$ a weight filtration by $W_0V=W_1V=\QQ\{a\}$ and $W_2V=V_\QQ$, and we give $V_\CC$ a Hodge filtration by $F^0V=V_\CC$ and $F^1V_\CC=\CC\{b+ai\}$ and $F^2V_\CC=0$. This forms a mixed Hodge structure. For example, $\op{Gr}_0^WV=\QQ\{a\}$, which is a pure Hodge structure of type $(0,0)$. Also, $\op{Gr}_1^WV=0$ and $\op{Gr}_2^WV=\QQ\{a,b\}/\QQ\{a\}$, which is then concentrated in $F^1V$ so that it is a pure Hodge structure of type $(1,1)$. It turns out that $V$ is not a direct sum of pure Hodge structures: it gives a non-split extension
+	\[0\to\QQ(0)\to V\to\QQ(-1)\to0.\]
+	In short, a splitting would mean that $V$ is isomorphic to $\QQ(0)\oplus\QQ(-1)$, but $\QQ(-1)$ would then need to arise as $\QQ\{b+qa\}$ for some rational $q$.
+\end{example}
+
+\subsection{Mixed Hodge Complexes}
+We would now like to do something derived.
+\begin{definition}
+	A \textit{mixed Hodge complex} $A^\bullet$ is a pair of cochain complexes $A^\bullet_\QQ\in\op{CoCh}(\mathrm{Vec}_\QQ)$ and $A^\bullet_\CC\in\op{CoCh}(\mathrm{Vec}_\CC)$, a weight filtration $\widetilde W_\ell A^\bullet_\QQ$ on the complex, a Hodge filtration $\widetilde F^pA^\bullet_\CC$, and a filtred quasi-isomorphism $A^\bullet_\QQ\otimes\CC\to A^\bullet_\CC$. This data is required to satisfy the following.
+	\begin{itemize}
+		\item The graded differential $\op{Gr}_\ell^{\widetilde W}A_\CC^\bullet\to\op{Gr}_\ell^{\widetilde W}A_\CC^{\bullet+1}$ is strictly compatible with respect to the Hodge filtration $\widetilde F^p$.
+		\item For all $n$, the cohomology $\mathrm H^n(\op{Gr}_\ell^{\widetilde W}A^\bullet_\QQ)$ with the induced Hodge filtration is a pure Hodge structure of weight $n+\ell$.
+	\end{itemize}
+\end{definition}
+\begin{remark}
+	The first point implies that cohomology commutes with $\op{Gr}_\ell^{\widetilde W}$.
+\end{remark}
+\begin{remark}
+	Importantly, $A^\bullet_\CC$ is not $A^\bullet_\QQ\otimes\CC$ by definition. The following example explains why.
+\end{remark}
+\begin{example}
+	Fix a smooth projective variety $X$. Then the singular cochain complex of $X$ (with its weight filtration) together with the de Rham cochain complex of $X$ (with its Hodge filtration) forms a mixed Hodge complex. Notably, $A^\bullet_\CC$ and $A^\bullet_\QQ\otimes\CC$ are not obviously isomorphic, but the comparison theorem provides a filtered quasi-isomorphism.
+\end{example}
+\begin{theorem}
+	Fix a mixed Hodge complex $A^\bullet$.
+	\begin{listalph}
+		\item The spectral sequence induced by the weight filtration degenerates at $E_2$.
+		\item The spectral sequence induced by the Hodge filtration degenerates at $E_1$.
+		\item Taking cohomology induces a mixed Hodge structure: for each $n$, define
+		\[\begin{cases}
+			W_\ell\mathrm H^n\coloneqq\im\left(\mathrm H^n(\widetilde W_{\ell-n}A^\bullet_\QQ)\to\mathrm H^n(A^\bullet_\QQ)\right), \\
+			F^p\mathrm H^n\coloneqq\im\left(\mathrm H^n(\widetilde F^pA^\bullet_\CC)\to\mathrm H^n(A^\bullet_\CC)\right).
+		\end{cases}\]
+	\end{listalph}
+\end{theorem}
+% \subsection{The Cohomology of Smooth Varieties}
+Let's now begin a geometric example. Throughout, fix a smooth quasi-projective complex variety $X$, and suppose we have a smooth projective compactification $j\colon X\to\overline X$, where $D\coloneqq\overline X\setminus X$ is a normal crossings divisor.
+\begin{definition}
+	Fix $j\colon X\to\overline X$ as above. Then we define $\Omega^1_{\overline X}(\log D)$ is freely generated over $\OO_X$ near a point $p\in D$ where $D$ is cut out as $z_1\cdots z_r=0$ by the differentials
+	\[\{dz_1/z_1,\ldots,dz_r/z_r,dz_{r+1},\ldots,dz_{\dim X}\}.\]
+	We then define $\Omega^k_{\overline X}(\log D)\coloneqq\land^k\Omega^1_{\overline X}(\log D)$. Intuitively, we are permitting logarithmic singularities.
+\end{definition}
+\begin{remark}
+	These constructions turn out to not depend on the choice of local coordinates $\{z_\bullet\}$ 
+\end{remark}
+\begin{example}
+	It turns out that $\Omega^\bullet_{\overline X}(\log D)\simeq\mathrm R^\bullet j_*\CC_X$. This gives a mixed Hodge complex (of sheaves).
+	\begin{itemize}
+		\item One gets a weight filtration on $A^\bullet_\QQ\coloneqq\mathrm R^\bullet j_*\QQ_X$ by truncation as $\widetilde W_mA^\bullet_\QQ\coloneqq\tau_{\le m}\mathrm R^\bullet j_*\QQ_X$.
+		\item One gets a Hodge filtration on $A^\bullet_\CC\coloneqq\Omega^\bullet_{\overline X}(\log D)$ by $\widetilde F^p\coloneqq\Omega^{\ge p}_{\overline X}(\log D)$.
+	\end{itemize}
+	There is also a weight filtration concentrated in nonnegative degrees with $\widetilde W_mA^\bullet A^k=A^k$ when $k\ge m$ and $\widetilde W_mA^k=\Omega_{\overline X}^{k-m}\land\Omega_{\overline X}^m(\log D)$ when $m\le k$. It turns out that this weight filtration recovers the original weight filtration via the quasi-isomorphism.
+\end{example}
+\begin{example}
+	It turns out that the moduli space of Higgs bundles has cohomology of pure weight.
+\end{example}
+\begin{example}
+	Consider the cohomology of $\mathbb G_m$. It turns out that the weight filtration is concentrated in degree two. Indeed, there is a short exact sequence
+	\[0\to i^!\QQ_{\PP^1}\to\QQ_{\PP^1}\to j_*\QQ_{\mathbb G_m}\to0.\]
+	It turns out that $i^!=i^*[2](1)$, and taking cohomology allows one to compute some weights by truncating.
+\end{example}
+
+\subsection{Simplicial Varieties}
+We close our talk by saying something about simplicial varieties. Fix a simplicial variety $X_\bullet$, which is basically a functor $\Delta\opp\to\mathrm{Var}_\CC$. Such a simplicial variety $X_\bullet$ has a topological realization $\left|X_\bullet\right|$ (constructed after taking complex points).
+\begin{definition}
+	Fix a simplicial variety $X_\bullet$. Then an \textit{augmentation} is a map $\varepsilon\colon X_0\to Y$ for which $\varepsilon\circ d_0=\varepsilon\circ d_1$, where $d_0,d_1\colon X_1\to X_0$ are the projections. We may call $\varepsilon$ an \textit{augmented} simplicial variety, denoted $\varepsilon\colon X_\bullet\to Y$.
+\end{definition}
+\begin{remark}
+	An augmentation induces a map on the topological realizations.
+\end{remark}
+\begin{definition}[hypercover]
+	An augmented simplicial variety $\varepsilon\colon X_\bullet\to X$ is a \textit{hypercovering} if and only if $\left|\varepsilon\right|\colon\left|X_\bullet\right|\to X$ has contractible fibers.
+\end{definition}
+\begin{example}
+	Our key example comes from a compactification $j\colon X\to\overline X$. One takes $X_0$ to be the compactification $\overline X$, we take $X_1$ to be the divisors present in $D\coloneqq\overline X\setminus X$, we take to be $X_2$ to be the intersections of the divisors in $D$, and so on.
+\end{example}
+\begin{remark}
+	If $X$ is singular, then some process of resolution of singularities allows one to construct a simplicial smooth hypercovering $X_\bullet\to X$. If $X$ is proper, then one may make the simplicial hypercovering compact.
+\end{remark}
+Simplicial varieties provide examples of mixed Hodge complexes.
+\begin{notation}
+	Fix a simplicial variety $X_\bullet$. Then we define
+	\[K^n_\QQ\coloneqq\bigoplus_{p+q=n}C^q_{\mathrm{sm}}(X_p;\QQ)\qquad\text{and}\qquad K^n_\CC\coloneqq\bigoplus_{p+q=n}A^q(X_p).\]
+	Here, the differential is induced by taking the total complex of the associated bi-complexes. Note that these are quasi-isomorphic after base-changing to $\CC$.
+\end{notation}
+\begin{remark}
+	There is a Hodge filtration $\widetilde F$ by defining $\widetilde F^aK^n_\CC$ as usual by $\bigoplus_{p+r+s=n,r\ge a}A^{r,s}(X_p)$. There is a weight filtration $\widetilde W$ by truncating to $\widetilde W_mK^n_\QQ\coloneqq\bigoplus_{p+q=n,p\ge-m}C^q_{\mathrm{sm}}(X_p;\QQ)$.
+\end{remark}
+The moral is that we can get a mixed Hodge structure on the cohomology of $X$, even when $X$ fails to be smooth or proper.
+
+\section{October 26: Perverse Sheaves and Perverse Filtrations}
+This talk was given by Yutong at MIT for the $P=W$ seminar.
+
+\subsection{Constructible Sheaves}
+Today, $X$ is a complex variety, and our sheaves are valued in vector spaces over $\QQ$. Throughout, $\op{Sh}(X)$ is the category of sheaves, and $D^b(X)\coloneqq D^b(\op{Sh}(X))$.
+\begin{definition}[local system]
+	A \textit{local system} is a locally constant sheaf of rational vector spaces.
+\end{definition}
+\begin{definition}[stratification]
+	Fix a complex variety $X$. Then a \textit{stratification} is a collection of ``smooth strata'' $\{X_s\}_{s\in S}$ covering $X$ such that each $X_s$ is locally closed, and each $\overline X_s$ is a union of strata. We will usually assume that $S$ is finite. We may say that $X$ is \textit{stratified}.
+\end{definition}
+\begin{definition}[constructible]
+	Fix a stratified complex variety $X$. Then a sheaf $\mc F$ is \textit{constructible} with respect to the stratification if and only if $\mc F|_{X_s}$ is a local system for each stratum $X_s$. If $\mc F$ is constructible with respect to some stratification, then we simply call $\mc F$ \textit{constructible}. A complex is \textit{constructible} if and only if its cohomology sheaves are constructible; we denote this category by $D^b_c(X)$ and $D^b_S(X)$, where the latter requires stratification by $S$.
+\end{definition}
+This category has six functors.
+\begin{remark}
+	The usual pullback functor is exact, and it restricts to complexes of constructible sheaves.
+\end{remark}
+\begin{remark}
+	Fix $f\colon X\to Y$. The functor $f_*\colon\op{Sh}X\to\op{Sh}Y$ is left-exact, so it produces $\mathrm Rf_*\colon D^b(X)\to D^b(Y)$, which restricts to constructible sheaves. We may abbreviate $\mathrm Rf_*$ to $f_*$. Note that $\mathrm Rf_*$ is right adjoint to $f_*$.
+\end{remark}
+\begin{remark}
+	Fix $f\colon X\to Y$. There is a functor $f_!\colon\op{Sh}X\to\op{Sh}Y$ given by
+	\[f_!\mc F(U)\coloneqq\{s\in f_*\mc F(U):f|_{\op{supp}s}\colon\op{supp}s\to U\text{ is proper}\}.\]
+	This functor continues to be left exact and induces $\mathrm Rf_!\colon D_c^b(X)\to D^b_c(Y)$. We may abbreviate $\mathrm Rf_!$ to $f_!$.
+\end{remark}
+\begin{remark}
+	Fix $f\colon X\to Y$. The functor $f_!$ has a right adjoint $f^!\colon D_c^b(Y)\to D_c^b(X)$. Here, $f^!$ can be constructed via some adjoint functor theorems; alternatively, here are two special cases.
+	\begin{itemize}
+		\item If $f$ is smooth of relative dimension $d$, then $f^!\cong f^*[2d](d)$. Here, the Tate twist is given by $\QQ(-1)\coloneqq\mathrm H^2_c\left(\AA^1\right)$.
+		\item If $f$ is a locally closed embedding, there is another 
+	\end{itemize}
+\end{remark}
+\begin{remark}
+	There is an internal hom $\mc Hom\colon\op{Sh}(X)\opp\times\op{Sh}(X)\to\op{Sh}X$. It is left-exact in both variables, so we get $\mathrm{RHom}\colon D_c^b(X)\opp\times D_c^b(X)\to D_c^b(X)$.
+\end{remark}
+\begin{remark}
+	Let $\pi\colon X\to\mathrm{pt}$ be the projection. Then there is a dualizing sheaf $\omega_X\coloneqq\pi^!\CC$. For exapmple, if $X$ is smooth, then $\omega_X=\CC[2\dim X](\dim X)$. We may define the Verdier duality functor $\mathbb D\coloneqq\op{Hom}(-,\omega_X)$, which is an involution $D_c^b(X)\opp\to D_c^b(X)$. It turns out that 
+\end{remark}
+\begin{remark}
+	The category $D^b_{\mathrm{con}}(X)$ is triangulated. The most basic example of a distinguished triangle is $U\subseteq X\supseteq Z$ where $i\colon U\to X$ is open and $j\colon Z\to X$ is its complement. Then any complex $\mc F$ admits the distinguished triangles
+	\[j_!j^*\mc F\to\mc F\to i_*i^*\mc F\stackrel{[1]}\to\qquad\text{and}\qquad i_*i^!\mc F\to\mc F\to j_*j^*\mc F\stackrel{[1]}\to.\]
+\end{remark}
+
+\subsection{Perverse Sheaves}
+There is a general machine which takes a $t$-structure on a triangulated category and outputs an abelian category.
+\begin{definition}[$t$-structure]
+	Fix a triangulated category $\mc C$. Then a \textit{$t$-structure} is a triple $(\mc T^{\le0},\mc T^{\ge0},[1])$ satisfying
+	\begin{itemize}
+		\item $\mc T^{\le0}$ and $\mc T^{\ge0}$ are subcategories of $\mc C$,
+		\item $[1]\colon\mc C\to\mc C$ is an auto-equivalence,
+		\item the inclusion $\mc T^{\le n}\coloneqq\tau^{\le0}[-n]\into\mc C$ admits a right adjoint $\tau^{\le n}$, and
+		\item the inclusion $\mc T^{\ge n}\coloneqq\mc T^{\ge0}[-n]\into\mc C$ admits a left adjoint $\tau^{\ge n}$.
+	\end{itemize}
+	In this situation, the \textit{heart} is the abelian catgeory $\mc T^{\ge0}\cap\mc T^{\le0}$.
+\end{definition}
+\begin{definition}
+	Define the \textit{perverse $t$-structure} on $D^b_c(X)$ so that $[1]$ is the usual shift, $D^b_c(X)^{\le0}$ consists of those sheaves $\mc F$ for which $\dim\op{supp}\mathrm H^i(\mc F)\le-i$, and dually $D_c^b(X)^{\ge0}$ is the image of the Verdier dual of $D_c^b(X)^{\le0}$. The category $\op{Perv}X$ of \textit{perverse sheaves} is the heart of the perverse $t$-structure.
+\end{definition}
+\begin{remark}
+	If we fix a stratification $\{X_s\}_{s\in S}$, then pulling back our complex to each stratum reveals
+	\[D^b_S(X)^{\le0}=\{\mc F:i_s^*\mc F\text{ is concentrated in degrees}\le-\dim X_s\text{ for all }s\},\]
+	and
+	\[D^b_S(X)^{\le0}=\{\mc F:i_s^*\mc F\text{ is concentrated in degrees}\ge-\dim X_s\text{ for all }s\}.\]
+\end{remark}
+\begin{example}
+	Suppose $X$ is smooth of dimension $d$. If $\mc L$ is a local system on $X$, then $\mc L[d]$ is a perverse sheaf.
+\end{example}
+\begin{remark}
+	Here is one source of the perverse $t$-structure: the Riemann--Hilbert correspondence implies that the (bounded) derived catgeory of holonomic $D$-modules on $X$ with regular singularities is equivalent to $D^b_c(X)$. It turns out that the natural $t$-structure on $D^b(\op{Hol}_{\mathrm{rs}}(X))$ corresponds to the perverse $t$-structure on $D^b_c(X)$.
+\end{remark}
+
+\subsection{Simple Perverse Sheaves}
+Here is an important source of such sheaves.
+\begin{definition}[intermediate extension]
+	Fix a locally closed embedding $h\colon Y\to X$. Then the \textit{intermediate extension} is a functor $h_{!*}\colon\op{Perv}Y\to\op{Perv}X$ given by
+	\[h_{!*}\mc F\coloneqq\im\left({^p\mathrm H^0}(h_!\mc F)\to{^p\mathrm H^0}(h_*\mc F)\right).\]
+	It turns out that this functor is fully faithful.
+\end{definition}
+\begin{example}
+	If $\mc L$ is a local system on $Y$, then we define $\op{IC}(\mc L)=h_{!*}(\mc L[\dim Y])$. We may also abbreviate $\mathrm{IC}_X\coloneqq\op{IC}(\QQ_X)$.
+\end{example}
+\begin{proposition}
+	Fix a locally closed embedding $h\colon Y\to X$. Then $h_{!*}$ is characterized by the following properties.
+	\begin{listalph}
+		\item For each $\mc F$, the complex $h_{!*}\mc F$ is supported on $\overline Y$.
+		\item One has $h_{!*}\mc F|_Y\cong\mc F$.
+		\item The complex $h_{!*}\mc F$ has no subobjects or quotients which are supported on $\overline Y\setminus Y$.
+	\end{listalph}
+\end{proposition}
+\begin{proof}
+	Here, (a) follows because $h_!\mc F$ and $h_*\mc F$ are both supported on $\overline Y$. We say nothing about the other two.
+\end{proof}
+The use of this construction is the following.
+\begin{proposition}
+	The irreducible objects in $\op{Perv}_SX$ are precisely those of the form $\op{IC}(X_s,\mc L)$, where $\mc L$ is a local system on $X_s$.
+\end{proposition}
+\begin{proof}
+	Omitted.
+\end{proof}
+\begin{remark}
+	The category $\op{Perv}_SX$ is usually not semisimple.
+\end{remark}
+\begin{remark}
+	It turns out that $\mathbb D(\op{IC}(X_s,\mc L))=\op{IC}(X_s,\mc L^\lor)$ for any line bundle $\mc L$ on a stratum $X_s$.
+\end{remark}
+Let's focus on semisimple objects.
+\begin{definition}[semisimple]
+	A complex $\mc F\in D_b^c(X)$ is \textit{semisimple} if and only if it is a direct sum of shifted simple perverse sheaves.
+\end{definition}
+\begin{remark}
+	By splitting everything into shifted simple perverse sheaves, which are then $\op{IC}$-sheaves, we find that
+	\[\mc F\cong\bigoplus_n{^p\mathrm H^n}(\mc F)[-n].\]
+\end{remark}
+In particular, local systems are semisimple.
+\begin{theorem}[Decomposition] \label{thm:decomp}
+	Suppose $f\colon X\to Y$. Then $f_*$ preserves semisimple objects.
+\end{theorem}
+\begin{remark}
+	If $X$ and $Y$ are both irreducible, then $f_*\op{IC}_X$ contains $\op{IC}_Y[\dim X-\dim Y]$.
+\end{remark}
+
+\subsection{The Perverse Filtration}
+Before being done for today, we should probably define the perverse filtration. Given a proper morphism $f\colon X\to Y$, we would like to undetstand $\mathrm H^*(X;\QQ)=\mathrm H^*(Y;f_*\QQ)$.
+
+Now, for any $t$-structure on $D_c^b(Y)$, there is a truncation $\tau^{\le n}\colon D_c^b(Y)\to D_c^b(Y)$, and we may define a filtration
+\[\mc F_n\mathrm H^*(Y;f_*\QQ)\coloneqq\im\left(\mathrm H^*(Y;\tau^{\le n}f_*\QQ)\to\mathrm H^*(Y;f_*\QQ)\right).\]
+For example, using the classical $t$-structure produces the Leray filtration (found in the Leray spectral sequence). If we use the perverse $t$-structure, then we get a perverse filtration.
+\begin{remark}
+	To compute the associated graded of this filtration, one can use the spectral sequence attached to this filtered complex. Using \Cref{thm:decomp}, one can show that this spectral sequence degenerates on $E_2$ (meaning that the perverse filtration has non-canonical splitting).
+\end{remark}
+Let's give one more theorem.
+\begin{theorem}
+	Suppose $f\colon X\to Y$ is proper with $Y$ affine. Then there is an increasing filtration $\{Y_i\}_i$ of $Y$ (and an inverse image flag in $X$) such that the perverse filtration on $\mathrm H^*(X;\mc F)$ arises as a kernel from this filtration.
+\end{theorem}
+The moral is that the pieces (and associated graded) of the perverse filtration admits a mixed Hodge structure.
+
+\end{document}
